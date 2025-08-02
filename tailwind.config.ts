@@ -109,8 +109,8 @@ export default {
 					}
 				},
 				fadeIn: {
-					from: { opacity: '0' },
-					to: { opacity: '1' }
+					from: { opacity: '0', transform: 'scale(0.95)' },
+					to: { opacity: '1', transform: 'scale(1)' }
 				},
 				slideUp: {
 					from: { opacity: '0', transform: 'translateY(20px)' },
@@ -120,7 +120,7 @@ export default {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'fade-in': 'fadeIn 0.5s ease-out',
+				'fade-in': 'fadeIn 0.4s ease-out',
 				'slide-up': 'slideUp 0.3s ease-out',
 			},
 			backgroundImage: {

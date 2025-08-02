@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useSession } from '@/hooks/useSession';
 import { cn } from '@/lib/utils';
+import { useEffect, useState } from 'react';
 
 interface VideoGridProps {
   className?: string;
@@ -11,6 +12,12 @@ export const VideoGrid = ({ className }: VideoGridProps) => {
   const navigate = useNavigate();
   const { language } = useLanguage();
   const { profile } = useSession();
+  const [animationKey, setAnimationKey] = useState(0);
+
+  // Force re-render with animation when profile changes
+  useEffect(() => {
+    setAnimationKey(prev => prev + 1);
+  }, [profile.geslacht, profile.haarkleur, profile.haartype]);
 
   const handleHaartransplantatieClick = () => {
     const path = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
@@ -112,9 +119,11 @@ export const VideoGrid = ({ className }: VideoGridProps) => {
     const dynamicPreview = previewTypes[(contentVariation - 1) % previewTypes.length];
     return (
       <div 
+        key={`${gridIndex}-${animationKey}`} // Force re-render with animation
         className={cn(
-          "aspect-[3/4] relative overflow-hidden rounded-lg border transition-all duration-500",
-          isActive ? "cursor-pointer hover:scale-[1.01] group" : "cursor-not-allowed opacity-60"
+          "aspect-[3/4] relative overflow-hidden rounded-lg border transition-all duration-500 ease-out",
+          isActive ? "cursor-pointer hover:scale-[1.01] group" : "cursor-not-allowed opacity-60",
+          "animate-fade-in" // Add entrance animation
         )}
         style={{ 
           backgroundColor: bgColor,
@@ -201,7 +210,10 @@ export const VideoGrid = ({ className }: VideoGridProps) => {
   };
 
   return (
-    <div className={cn("grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 relative w-full max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-3xl px-2 sm:px-0", className)}>
+    <div 
+      key={`grid-${animationKey}`} // Force re-render entire grid
+      className={cn("grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 relative w-full max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-3xl px-2 sm:px-0", className)}
+    >
       {/* Haartransplantatie - Top Left */}
       <div onClick={handleHaartransplantatieClick}>
         {renderPlaceholderItem("HAAR\nTRANSPLANTATIE", 0, true)}

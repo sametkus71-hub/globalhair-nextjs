@@ -19,26 +19,52 @@ const defaultProfile: UserProfile = {
 export const useSession = () => {
   const [profile, setProfile] = useState<UserProfile>(defaultProfile);
 
-  // Initialize from sessionStorage
+  // Initialize from sessionStorage and set up listeners
   useEffect(() => {
-    const savedGeslacht = sessionStorage.getItem('gh_geslacht') as Gender;
-    const savedHaartype = sessionStorage.getItem('gh_haartype') as HairType;
-    const savedHaarkleur = sessionStorage.getItem('gh_haarkleur') as HairColor;
+    const loadProfile = () => {
+      const savedGeslacht = sessionStorage.getItem('gh_geslacht') as Gender;
+      const savedHaartype = sessionStorage.getItem('gh_haartype') as HairType;
+      const savedHaarkleur = sessionStorage.getItem('gh_haarkleur') as HairColor;
 
-    const currentProfile = {
-      geslacht: savedGeslacht || defaultProfile.geslacht,
-      haartype: savedHaartype || defaultProfile.haartype,
-      haarkleur: savedHaarkleur || defaultProfile.haarkleur
+      const currentProfile = {
+        geslacht: savedGeslacht || defaultProfile.geslacht,
+        haartype: savedHaartype || defaultProfile.haartype,
+        haarkleur: savedHaarkleur || defaultProfile.haarkleur
+      };
+
+      setProfile(currentProfile);
+      
+      // Set defaults if not exists
+      if (!savedGeslacht) sessionStorage.setItem('gh_geslacht', currentProfile.geslacht);
+      if (!savedHaartype) sessionStorage.setItem('gh_haartype', currentProfile.haartype);
+      if (!savedHaarkleur) sessionStorage.setItem('gh_haarkleur', currentProfile.haarkleur);
+
+      updateBodyClasses(currentProfile);
+      return currentProfile;
     };
 
-    setProfile(currentProfile);
-    
-    // Set defaults if not exists
-    if (!savedGeslacht) sessionStorage.setItem('gh_geslacht', currentProfile.geslacht);
-    if (!savedHaartype) sessionStorage.setItem('gh_haartype', currentProfile.haartype);
-    if (!savedHaarkleur) sessionStorage.setItem('gh_haarkleur', currentProfile.haarkleur);
+    // Load initial profile
+    loadProfile();
 
-    updateBodyClasses(currentProfile);
+    // Listen for storage changes from other components
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key?.startsWith('gh_')) {
+        loadProfile();
+      }
+    };
+
+    // Listen for custom profile update events
+    const handleProfileUpdate = () => {
+      loadProfile();
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('profileUpdate', handleProfileUpdate);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('profileUpdate', handleProfileUpdate);
+    };
   }, []);
 
   // Update body classes for CSS targeting
@@ -66,6 +92,13 @@ export const useSession = () => {
     
     // Update body classes
     updateBodyClasses(newProfile);
+    
+    // Trigger custom event to notify other components
+    window.dispatchEvent(new CustomEvent('profileUpdate', { 
+      detail: { field, value, profile: newProfile } 
+    }));
+    
+    console.info('Profile updated:', newProfile);
   };
 
   // Check if profile matches video criteria
