@@ -16,9 +16,7 @@ export const CentralLogo = ({ className }: CentralLogoProps) => {
     style={{ 
       borderRadius: '16px',
       background: 'linear-gradient(145deg, #1E3340, #16232B, #0F1A21)',
-      border: '2px solid',
-      borderImage: 'linear-gradient(145deg, rgba(255,255,255,0.9), rgba(255,255,255,0.6), rgba(255,255,255,0.8)) 1',
-      boxShadow: '0 4px 16px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.15) inset, 0 2px 4px rgba(255,255,255,0.1) inset'
+      boxShadow: '0 4px 16px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1) inset'
     }}
     >
       <img 
