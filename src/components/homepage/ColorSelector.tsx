@@ -22,12 +22,15 @@ export const ColorSelector = () => {
           key={value}
           onClick={() => handleColorChange(value)}
           className={cn(
-            "w-8 h-8 rounded-full border transition-all duration-300 overflow-hidden",
-            "hover:scale-110 active:scale-95 shadow-md",
+            "w-8 h-8 overflow-hidden border transition-all duration-300",
+            "hover:scale-110 active:scale-95 shadow-lg",
             profile.haarkleur === value
               ? "border-white shadow-white/20 ring-1 ring-white/15 scale-110"
               : "border-white/25 hover:border-white/40"
           )}
+          style={{ 
+            borderRadius: '50%'
+          }}
         >
           <img 
             src={image} 

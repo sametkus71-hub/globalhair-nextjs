@@ -96,81 +96,43 @@ export const VideoGrid = ({ className }: VideoGridProps) => {
   };
 
   const renderPlaceholderItem = (title: string, gridIndex: number, isActive: boolean) => {
-    const { baseDarkness, patternType, contentVariation, previewCode } = getItemVariation(gridIndex);
+    const { baseDarkness, previewCode } = getItemVariation(gridIndex);
     const bgColor = `rgb(${100 - baseDarkness}%, ${100 - baseDarkness}%, ${100 - baseDarkness}%)`;
-    const borderColor = `rgb(${95 - baseDarkness}%, ${95 - baseDarkness}%, ${95 - baseDarkness}%)`;
-    const textColor = `rgb(${60 - baseDarkness}%, ${60 - baseDarkness}%, ${60 - baseDarkness}%)`;
-    const wireColor = `rgb(${85 - baseDarkness}%, ${85 - baseDarkness}%, ${85 - baseDarkness}%)`;
+    const borderColor = `rgb(${90 - baseDarkness}%, ${90 - baseDarkness}%, ${90 - baseDarkness}%)`;
+    const textColor = `rgb(${50 - baseDarkness}%, ${50 - baseDarkness}%, ${50 - baseDarkness}%)`;
+    const wireColor = `rgb(${80 - baseDarkness}%, ${80 - baseDarkness}%, ${80 - baseDarkness}%)`;
     
     const selectionInfo = `${profile.geslacht} • ${profile.haarkleur} • ${profile.haartype}`;
-    
-    // Dynamic content based on combination
-    const previewTypes = [
-      "Resultaat A", "Resultaat B", "Resultaat C", "Resultaat D", 
-      "Voorbeeld A", "Voorbeeld B", "Voorbeeld C", "Voorbeeld D",
-      "Variant A", "Variant B", "Variant C", "Variant D",
-      "Opties A", "Opties B", "Opties C", "Opties D",
-      "Type A", "Type B", "Type C", "Type D",
-      "Model A", "Model B", "Model C", "Model D",
-      "Serie A", "Serie B", "Serie C", "Serie D",
-      "Stijl A", "Stijl B", "Stijl C", "Stijl D"
-    ];
-    
-    const dynamicPreview = previewTypes[(contentVariation - 1) % previewTypes.length];
     return (
       <div 
-        key={`${gridIndex}-${animationKey}`} // Force re-render with animation
+        key={`${gridIndex}-${animationKey}`}
         className={cn(
-          "aspect-[3/4] relative overflow-hidden rounded-lg border transition-all duration-500 ease-out",
+          "aspect-[3/4] relative overflow-hidden border transition-all duration-500 ease-out",
           isActive ? "cursor-pointer hover:scale-[1.01] group" : "cursor-not-allowed opacity-60",
-          "animate-fade-in" // Add entrance animation
+          "animate-fade-in"
         )}
         style={{ 
           backgroundColor: bgColor,
           borderColor: borderColor,
           borderWidth: '1px',
-          borderStyle: 'solid'
+          borderStyle: 'solid',
+          borderRadius: '2px'
         }}
       >
-        {/* Dynamic wireframe pattern overlay */}
-        <div className="absolute inset-0 opacity-40">
+        {/* Simple, consistent wireframe pattern */}
+        <div className="absolute inset-0 opacity-25">
           <svg className="w-full h-full" viewBox="0 0 100 80" preserveAspectRatio="none">
             <defs>
-              <pattern id={`wireframe-${gridIndex}-${contentVariation}`} x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
-                {patternType === 0 && (
-                  <path d="M 8,0 L 0,0 0,8" fill="none" stroke={wireColor} strokeWidth="0.3"/>
-                )}
-                {patternType === 1 && (
-                  <>
-                    <circle cx="4" cy="4" r="1" fill={wireColor} opacity="0.3"/>
-                    <path d="M 8,0 L 0,0 0,8" fill="none" stroke={wireColor} strokeWidth="0.2"/>
-                  </>
-                )}
-                {patternType === 2 && (
-                  <path d="M 0,0 L 8,8 M 0,8 L 8,0" fill="none" stroke={wireColor} strokeWidth="0.2"/>
-                )}
+              <pattern id={`simple-grid-${gridIndex}-${previewCode}`} x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                <path d="M 10,0 L 0,0 0,10" fill="none" stroke={wireColor} strokeWidth="0.3" opacity="0.6"/>
               </pattern>
             </defs>
-            <rect width="100" height="80" fill={`url(#wireframe-${gridIndex}-${contentVariation})`}/>
+            <rect width="100" height="80" fill={`url(#simple-grid-${gridIndex}-${previewCode})`}/>
             
-            {/* Dynamic central elements */}
-            <rect x="30" y="25" width="40" height="30" fill="none" stroke={wireColor} strokeWidth="0.8" opacity="0.6"/>
-            <circle cx="50" cy="40" r="6" fill="none" stroke={wireColor} strokeWidth="0.8"/>
-            <polygon points="47,37 47,43 53,40" fill={wireColor} opacity="0.7"/>
-            
-            {/* Variation elements */}
-            {contentVariation === 1 && (
-              <rect x="20" y="15" width="60" height="50" fill="none" stroke={wireColor} strokeWidth="0.5" opacity="0.4"/>
-            )}
-            {contentVariation === 2 && (
-              <>
-                <circle cx="25" cy="20" r="3" fill="none" stroke={wireColor} strokeWidth="0.5"/>
-                <circle cx="75" cy="60" r="3" fill="none" stroke={wireColor} strokeWidth="0.5"/>
-              </>
-            )}
-            {contentVariation === 3 && (
-              <path d="M 20,20 Q 50,10 80,20 Q 70,50 50,60 Q 30,50 20,20" fill="none" stroke={wireColor} strokeWidth="0.5" opacity="0.5"/>
-            )}
+            {/* Simple centered elements */}
+            <rect x="35" y="30" width="30" height="20" fill="none" stroke={wireColor} strokeWidth="0.6" opacity="0.8"/>
+            <circle cx="50" cy="40" r="4" fill="none" stroke={wireColor} strokeWidth="0.8" opacity="0.9"/>
+            <polygon points="48,38 48,42 52,40" fill={wireColor} opacity="0.8"/>
           </svg>
         </div>
         
@@ -180,23 +142,18 @@ export const VideoGrid = ({ className }: VideoGridProps) => {
             <div className="text-sm font-header font-bold tracking-wide leading-tight" style={{ color: textColor }}>
               {title}
             </div>
-            <div className="text-xs opacity-60 mt-1" style={{ color: textColor }}>
-              {dynamicPreview}
-            </div>
-            <div className="text-[10px] opacity-40 mt-0.5 font-mono" style={{ color: textColor }}>
-              {previewCode}
-            </div>
           </div>
         </div>
         
         {/* Selection info label */}
         <div 
-          className="absolute bottom-1.5 left-1.5 right-1.5 text-center text-[9px] font-mono px-1.5 py-0.5 rounded border"
+          className="absolute bottom-1.5 left-1.5 right-1.5 text-center text-[9px] font-mono px-1.5 py-0.5 border"
           style={{ 
             color: textColor,
             backgroundColor: `rgb(${102 - baseDarkness}%, ${102 - baseDarkness}%, ${102 - baseDarkness}%)`,
             borderColor: borderColor,
-            opacity: 0.8
+            opacity: 0.8,
+            borderRadius: '1px'
           }}
         >
           {selectionInfo}
