@@ -10,51 +10,31 @@ export const GenderToggle = () => {
 
   return (
     <div 
-      className="relative inline-flex backdrop-blur-2xl p-0.5 rounded-full"
+      className="relative inline-flex p-1 rounded-full"
       style={{
-        background: 'linear-gradient(145deg, rgba(30,40,50,0.8), rgba(20,30,40,0.9))',
-        border: '1px solid',
-        borderImage: 'linear-gradient(145deg, rgba(255,255,255,0.6), rgba(255,255,255,0.1), rgba(255,255,255,0.4)) 1',
-        boxShadow: '0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1)'
+        background: 'rgba(0,0,0,0.6)',
+        backdropFilter: 'blur(20px)'
       }}
     >
       <button
         onClick={() => handleGenderChange('Vrouw')}
         className={cn(
-          "relative px-4 py-1.5 rounded-full font-header text-xs font-medium transition-all duration-300 ease-out backdrop-blur-xl",
+          "relative px-5 py-2 rounded-full font-header text-xs font-medium transition-all duration-300 ease-out",
           profile.geslacht === 'Vrouw'
-            ? "text-gray-900 shadow-md"
+            ? "bg-white text-gray-900"
             : "text-white/80 hover:text-white"
         )}
-        style={{
-          background: profile.geslacht === 'Vrouw' 
-            ? 'linear-gradient(145deg, rgba(255,255,255,0.95), rgba(240,240,240,0.9))'
-            : 'linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02))',
-          border: profile.geslacht === 'Vrouw' ? 'none' : '1px solid rgba(255,255,255,0.1)',
-          boxShadow: profile.geslacht === 'Vrouw' 
-            ? '0 2px 8px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.2)'
-            : 'inset 0 1px 0 rgba(255,255,255,0.05)'
-        }}
       >
         VROUW
       </button>
       <button
         onClick={() => handleGenderChange('Man')}
         className={cn(
-          "relative px-4 py-1.5 rounded-full font-header text-xs font-medium transition-all duration-300 ease-out backdrop-blur-xl",
+          "relative px-5 py-2 rounded-full font-header text-xs font-medium transition-all duration-300 ease-out",
           profile.geslacht === 'Man'
-            ? "text-gray-900 shadow-md"
+            ? "bg-white text-gray-900"
             : "text-white/80 hover:text-white"
         )}
-        style={{
-          background: profile.geslacht === 'Man' 
-            ? 'linear-gradient(145deg, rgba(255,255,255,0.95), rgba(240,240,240,0.9))'
-            : 'linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02))',
-          border: profile.geslacht === 'Man' ? 'none' : '1px solid rgba(255,255,255,0.1)',
-          boxShadow: profile.geslacht === 'Man' 
-            ? '0 2px 8px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.2)'
-            : 'inset 0 1px 0 rgba(255,255,255,0.05)'
-        }}
       >
         MAN
       </button>
