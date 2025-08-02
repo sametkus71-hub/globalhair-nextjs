@@ -19,8 +19,9 @@ export const HairTypeSelector = () => {
     <div 
       className="inline-flex p-1 rounded-full"
       style={{
-        background: 'rgba(0,0,0,0.6)',
-        backdropFilter: 'blur(20px)'
+        background: 'linear-gradient(145deg, rgba(40,40,40,0.15), rgba(20,20,20,0.25))',
+        backdropFilter: 'blur(20px)',
+        border: '1px solid rgba(255,255,255,0.1)'
       }}
     >
       {hairTypes.map(({ value, label }) => (
@@ -30,9 +31,14 @@ export const HairTypeSelector = () => {
           className={cn(
             "px-4 py-2 rounded-full font-header text-xs font-medium transition-all duration-300",
             profile.haartype === value
-              ? "bg-white text-gray-900"
+              ? "text-gray-900"
               : "text-white/80 hover:text-white"
           )}
+          style={profile.haartype === value ? {
+            background: 'linear-gradient(145deg, rgba(255,255,255,0.9), rgba(240,240,240,0.8))',
+            border: '1px solid',
+            borderImage: 'linear-gradient(145deg, rgba(255,255,255,0.8), rgba(255,255,255,0.4)) 1'
+          } : {}}
         >
           {label}
         </button>
