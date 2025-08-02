@@ -153,43 +153,47 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
   }
 }
 
-/* Animated background blob colors */
+/* Animated background blob colors - more vibrant and hair color based */
 :root {
-  --blob-color-1: #9FBFD6;
-  --blob-color-2: #E7BC57;
-  --blob-color-3: #9FBFD6;
+  --blob-color-primary: hsl(210, 40%, 60%);
+  --blob-color-secondary: hsl(220, 35%, 50%);
+  --blob-color-accent: hsl(215, 45%, 65%);
 }
 
 /* Hair color theme variations with smooth transitions */
 body {
   transition: 
-    --blob-color-1 3s ease-in-out,
-    --blob-color-2 3s ease-in-out,
-    --blob-color-3 3s ease-in-out;
+    --blob-color-primary 3s ease-in-out,
+    --blob-color-secondary 3s ease-in-out,
+    --blob-color-accent 3s ease-in-out;
 }
 
+/* Black hair - cool blue/gray tones */
 body.s-zwart {
-  --blob-color-1: hsl(210, 35%, 65%);
-  --blob-color-2: hsl(220, 45%, 25%);
-  --blob-color-3: hsl(215, 40%, 60%);
+  --blob-color-primary: hsl(210, 50%, 50%);
+  --blob-color-secondary: hsl(220, 60%, 40%);
+  --blob-color-accent: hsl(215, 45%, 60%);
 }
 
+/* Brown hair - warm earth tones */
 body.s-bruin {
-  --blob-color-1: hsl(35, 45%, 65%);
-  --blob-color-2: hsl(45, 65%, 55%);
-  --blob-color-3: hsl(30, 50%, 60%);
+  --blob-color-primary: hsl(35, 60%, 50%);
+  --blob-color-secondary: hsl(25, 70%, 45%);
+  --blob-color-accent: hsl(45, 50%, 55%);
 }
 
+/* Blonde hair - golden/champagne tones */
 body.s-blond {
-  --blob-color-1: hsl(50, 60%, 75%);
-  --blob-color-2: hsl(45, 70%, 65%);
-  --blob-color-3: hsl(55, 55%, 70%);
+  --blob-color-primary: hsl(50, 70%, 60%);
+  --blob-color-secondary: hsl(45, 80%, 55%);
+  --blob-color-accent: hsl(55, 60%, 65%);
 }
 
+/* Red hair - warm red/orange tones */
 body.s-rood {
-  --blob-color-1: hsl(15, 55%, 65%);
-  --blob-color-2: hsl(25, 65%, 60%);
-  --blob-color-3: hsl(20, 60%, 65%);
+  --blob-color-primary: hsl(15, 70%, 55%);
+  --blob-color-secondary: hsl(25, 80%, 50%);
+  --blob-color-accent: hsl(10, 60%, 60%);
 }
 
 @layer components {
