@@ -29,15 +29,13 @@ export const HairTypeSelector = () => {
           key={value}
           onClick={() => handleHairTypeChange(value)}
           className={cn(
-            "px-4 py-2 rounded-full font-header text-xs font-medium transition-all duration-300",
+            "px-4 py-1.5 rounded-full font-header text-xs font-medium transition-all duration-300",
             profile.haartype === value
               ? "text-gray-900"
               : "text-white/80 hover:text-white"
           )}
           style={profile.haartype === value ? {
-            background: 'linear-gradient(145deg, rgba(255,255,255,0.9), rgba(240,240,240,0.8))',
-            border: '1px solid',
-            borderImage: 'linear-gradient(145deg, rgba(255,255,255,0.8), rgba(255,255,255,0.4)) 1'
+            background: 'linear-gradient(145deg, rgba(255,255,255,0.9), rgba(240,240,240,0.8))'
           } : {}}
         >
           {label}
