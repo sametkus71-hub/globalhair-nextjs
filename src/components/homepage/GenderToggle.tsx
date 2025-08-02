@@ -10,7 +10,7 @@ export const GenderToggle = () => {
 
   return (
     <div 
-      className="relative inline-flex backdrop-blur-xl p-1 border border-white/20 rounded-full"
+      className="relative inline-flex backdrop-blur-xl p-0.5 border border-white/20 rounded-full"
       style={{
         background: 'linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))',
         boxShadow: '0 8px 32px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.1)'
@@ -19,7 +19,7 @@ export const GenderToggle = () => {
       <button
         onClick={() => handleGenderChange('Vrouw')}
         className={cn(
-          "relative px-5 py-2.5 rounded-full font-header text-xs font-medium transition-all duration-300 ease-out",
+          "relative px-4 py-1.5 rounded-full font-header text-xs font-medium transition-all duration-300 ease-out",
           profile.geslacht === 'Vrouw'
             ? "text-gray-900 shadow-md"
             : "text-white/70 hover:text-white"
@@ -38,7 +38,7 @@ export const GenderToggle = () => {
       <button
         onClick={() => handleGenderChange('Man')}
         className={cn(
-          "relative px-5 py-2.5 rounded-full font-header text-xs font-medium transition-all duration-300 ease-out",
+          "relative px-4 py-1.5 rounded-full font-header text-xs font-medium transition-all duration-300 ease-out",
           profile.geslacht === 'Man'
             ? "text-gray-900 shadow-md"
             : "text-white/70 hover:text-white"

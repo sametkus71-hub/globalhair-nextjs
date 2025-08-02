@@ -11,33 +11,34 @@ export const CentralLogo = ({ className }: CentralLogoProps) => {
       "w-24 h-24 group",
       "flex items-center justify-center",
       "transition-all duration-500 hover:scale-105",
-      "animate-pulse-subtle",
+      "animate-glance",
       className
     )}
     style={{ 
-      borderRadius: '19px',
+      borderRadius: '12px',
       background: 'linear-gradient(145deg, #1E3340, #16232B)',
-      border: '0.79px solid rgba(255, 255, 255, 0.8)',
+      border: '1px solid rgba(255, 255, 255, 0.6)',
       boxShadow: `
         0 8px 32px rgba(0,0,0,0.4),
-        0 0 0 1px rgba(255,255,255,0.1) inset,
-        0 2px 4px rgba(255,255,255,0.2) inset
+        0 0 0 1px rgba(255,255,255,0.05) inset
       `
     }}
     >
-      {/* Subtle glare effect */}
+      {/* Subtle moving glare effect */}
       <div 
-        className="absolute inset-0 opacity-30 group-hover:opacity-50 transition-opacity duration-500"
+        className="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-700"
         style={{
-          borderRadius: '19px',
-          background: 'linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 30%, transparent 70%, rgba(255,255,255,0.1) 100%)'
+          borderRadius: '12px',
+          background: 'linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.3) 45%, rgba(255,255,255,0.4) 55%, transparent 100%)',
+          transform: 'translateX(-100%)',
+          animation: 'glance-sweep 8s ease-in-out infinite'
         }}
       />
       
       <img 
         src="/lovable-uploads/d8eb3cb6-12d3-4e19-8d1a-70fc0bbbecb2.png" 
         alt="GlobalHair Logo" 
-        className="w-14 h-14 object-contain drop-shadow-lg relative z-10 group-hover:drop-shadow-xl transition-all duration-500"
+        className="w-16 h-16 object-contain drop-shadow-lg relative z-10 group-hover:drop-shadow-xl transition-all duration-500"
       />
     </div>
   );
