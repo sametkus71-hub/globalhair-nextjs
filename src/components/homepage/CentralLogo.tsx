@@ -16,14 +16,15 @@ export const CentralLogo = ({ className }: CentralLogoProps) => {
     style={{ 
       borderRadius: '10px',
       background: 'linear-gradient(145deg, #1E3340, #16232B)',
-      border: '1px solid rgba(255, 255, 255, 0.3)',
-      boxShadow: '0 4px 16px rgba(0,0,0,0.3)'
+      border: '1.5px solid',
+      borderImage: 'linear-gradient(145deg, rgba(255,255,255,0.8), rgba(255,255,255,0.3), rgba(255,255,255,0.6)) 1',
+      boxShadow: '0 4px 16px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1) inset'
     }}
     >
       <img 
         src="/lovable-uploads/d8eb3cb6-12d3-4e19-8d1a-70fc0bbbecb2.png" 
         alt="GlobalHair Logo" 
-        className="w-12 h-12 object-contain"
+        className="w-16 h-16 object-contain"
       />
     </div>
   );
