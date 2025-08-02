@@ -17,10 +17,9 @@ export const HairTypeSelector = () => {
 
   return (
     <div 
-      className="inline-flex backdrop-blur-xl p-0.5 border border-white/20"
+      className="inline-flex backdrop-blur-xl p-1 border border-white/20 rounded-full"
       style={{
         background: 'linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))',
-        borderRadius: '2px',
         boxShadow: '0 8px 32px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.1)'
       }}
     >
@@ -29,16 +28,18 @@ export const HairTypeSelector = () => {
           key={value}
           onClick={() => handleHairTypeChange(value)}
           className={cn(
-            "px-3 py-2 font-header text-xs font-medium transition-all duration-300",
+            "px-4 py-2.5 rounded-full font-header text-xs font-medium transition-all duration-300",
             profile.haartype === value
               ? "text-gray-900 shadow-md"
               : "text-white/70 hover:text-white"
           )}
           style={{
-            borderRadius: '1px',
             background: profile.haartype === value 
               ? 'linear-gradient(145deg, rgba(255,255,255,0.95), rgba(240,240,240,0.9))'
-              : 'transparent'
+              : 'transparent',
+            boxShadow: profile.haartype === value 
+              ? '0 2px 8px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.2)'
+              : 'none'
           }}
         >
           {label}
