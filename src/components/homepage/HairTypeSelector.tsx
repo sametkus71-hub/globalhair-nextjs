@@ -16,16 +16,16 @@ export const HairTypeSelector = () => {
   };
 
   return (
-    <div className="inline-flex bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20">
+    <div className="inline-flex bg-white/8 backdrop-blur-md rounded-lg p-0.5 border border-white/15">
       {hairTypes.map(({ value, label }) => (
         <button
           key={value}
           onClick={() => handleHairTypeChange(value)}
           className={cn(
-            "px-6 py-3 rounded-full font-header text-sm font-medium transition-all duration-300",
+            "px-3 py-2 rounded-md font-header text-xs font-medium transition-all duration-300",
             profile.haartype === value
-              ? "bg-white text-gray-900 shadow-lg"
-              : "text-white/80 hover:text-white"
+              ? "bg-white text-gray-900 shadow-md"
+              : "text-white/70 hover:text-white"
           )}
         >
           {label}

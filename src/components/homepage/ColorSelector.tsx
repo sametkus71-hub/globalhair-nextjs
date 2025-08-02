@@ -16,17 +16,17 @@ export const ColorSelector = () => {
   };
 
   return (
-    <div className="flex items-center justify-center space-x-4">
+    <div className="flex items-center justify-center space-x-3">
       {colors.map(({ value, image }) => (
         <button
           key={value}
           onClick={() => handleColorChange(value)}
           className={cn(
-            "w-12 h-12 rounded-full border-2 transition-all duration-300 overflow-hidden",
-            "hover:scale-110 active:scale-95 shadow-lg",
+            "w-8 h-8 rounded-full border transition-all duration-300 overflow-hidden",
+            "hover:scale-110 active:scale-95 shadow-md",
             profile.haarkleur === value
-              ? "border-white shadow-white/30 ring-2 ring-white/20 scale-110"
-              : "border-white/30 hover:border-white/50"
+              ? "border-white shadow-white/20 ring-1 ring-white/15 scale-110"
+              : "border-white/25 hover:border-white/40"
           )}
         >
           <img 

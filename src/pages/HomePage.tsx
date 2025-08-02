@@ -29,15 +29,15 @@ const HomePage = () => {
       <MetaHead language={language} page="home" />
       <div className="min-h-screen bg-gray-900 flex flex-col relative overflow-hidden">
         {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-800/50 to-gray-900" />
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-800/40 to-gray-900" />
         
         {/* Top section with gender toggle */}
-        <div className="relative z-10 flex flex-col items-center pt-16 pb-12">
+        <div className="relative z-10 flex flex-col items-center pt-12 pb-8">
           <GenderToggle />
         </div>
 
         {/* Main content area with video grid */}
-        <div className="flex-1 flex items-center justify-center px-6">
+        <div className="flex-1 flex items-center justify-center px-4">
           <div className="w-full relative">
             <VideoGrid className="mx-auto" />
             <CentralLogo />
@@ -45,7 +45,7 @@ const HomePage = () => {
         </div>
 
         {/* Bottom section with selectors */}
-        <div className="relative z-10 flex flex-col items-center pb-16 pt-12 space-y-8">
+        <div className="relative z-10 flex flex-col items-center pb-12 pt-8 space-y-6">
           {/* Hair Color Selector */}
           <ColorSelector />
           
