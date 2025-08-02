@@ -115,19 +115,6 @@ export default {
 				slideUp: {
 					from: { opacity: '0', transform: 'translateY(20px)' },
 					to: { opacity: '1', transform: 'translateY(0)' }
-				},
-				'glance-sweep': {
-					'0%': { 
-						transform: 'translateX(-100%)',
-						opacity: '0'
-					},
-					'50%': {
-						opacity: '0.3'
-					},
-					'100%': { 
-						transform: 'translateX(100%)',
-						opacity: '0'
-					}
 				}
 			},
 			animation: {
@@ -135,7 +122,6 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fadeIn 0.4s ease-out',
 				'slide-up': 'slideUp 0.3s ease-out',
-				'glance': 'glance-sweep 8s ease-in-out infinite 2s',
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
