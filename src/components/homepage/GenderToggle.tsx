@@ -12,7 +12,7 @@ export const GenderToggle = () => {
     <div 
       className="relative inline-flex p-1 rounded-full"
       style={{
-        background: 'linear-gradient(145deg, rgba(40,40,40,0.15), rgba(20,20,20,0.25))',
+        background: 'linear-gradient(145deg, rgba(80,80,80,0.15), rgba(50,50,50,0.25))',
         backdropFilter: 'blur(20px)',
         border: '1px solid rgba(255,255,255,0.1)'
       }}
