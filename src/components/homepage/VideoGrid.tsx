@@ -1,6 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
 import { cn } from '@/lib/utils';
+import hairBlonde from '@/assets/hair-blonde.jpg';
+import hairDark from '@/assets/hair-dark.jpg';
+import hairBrown from '@/assets/hair-brown.jpg';
+import hairGray from '@/assets/hair-gray.jpg';
 
 interface VideoGridProps {
   className?: string;
@@ -21,67 +25,87 @@ export const VideoGrid = ({ className }: VideoGridProps) => {
   };
 
   return (
-    <div className={cn("grid grid-cols-2 gap-4 relative", className)}>
+    <div className={cn("grid grid-cols-2 gap-3 relative w-full max-w-2xl", className)}>
       {/* Haartransplantatie - Top Left */}
       <div
         onClick={handleHaartransplantatieClick}
         className={cn(
-          "aspect-video bg-gray-900/90 backdrop-blur-sm rounded-xl overflow-hidden",
-          "cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-strong",
-          "border border-white/10 relative group"
+          "aspect-[4/3] relative overflow-hidden rounded-2xl cursor-pointer",
+          "transition-all duration-300 hover:scale-[1.02] group"
         )}
+        style={{
+          backgroundImage: `url(${hairBlonde})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />
+        <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-all duration-300" />
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center text-white p-4">
-            <div className="text-lg font-header font-semibold mb-2">HAAR</div>
-            <div className="text-lg font-header font-semibold">TRANSPLANTATIE</div>
+          <div className="text-center text-white px-4">
+            <div className="text-lg font-header font-bold tracking-wide">HAAR</div>
+            <div className="text-lg font-header font-bold tracking-wide">TRANSPLANTATIE</div>
           </div>
         </div>
-        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
 
       {/* V6 Hairboost - Top Right */}
       <div
         onClick={handleV6HairboostClick}
         className={cn(
-          "aspect-video bg-gray-900/90 backdrop-blur-sm rounded-xl overflow-hidden",
-          "cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-strong",
-          "border border-white/10 relative group"
+          "aspect-[4/3] relative overflow-hidden rounded-2xl cursor-pointer",
+          "transition-all duration-300 hover:scale-[1.02] group"
         )}
+        style={{
+          backgroundImage: `url(${hairDark})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-transparent" />
+        <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-all duration-300" />
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center text-white p-4">
-            <div className="text-lg font-header font-semibold mb-2">V6</div>
-            <div className="text-lg font-header font-semibold">HAIRBOOST</div>
+          <div className="text-center text-white px-4">
+            <div className="text-lg font-header font-bold tracking-wide">V6</div>
+            <div className="text-lg font-header font-bold tracking-wide">HAIRBOOST</div>
           </div>
         </div>
-        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
 
       {/* Coming Soon - Bottom Left */}
-      <div className={cn(
-        "aspect-video bg-gray-800/40 backdrop-blur-md rounded-xl",
-        "border border-white/5 relative opacity-40",
-        "cursor-not-allowed select-none pointer-events-none"
-      )}>
+      <div 
+        className={cn(
+          "aspect-[4/3] relative overflow-hidden rounded-2xl opacity-60",
+          "cursor-not-allowed select-none"
+        )}
+        style={{
+          backgroundImage: `url(${hairBrown})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+      >
+        <div className="absolute inset-0 bg-black/50" />
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center text-white/60 p-4">
-            <div className="text-sm font-header font-medium">COMING SOON</div>
+          <div className="text-center text-white/80 px-4">
+            <div className="text-lg font-header font-bold tracking-wide">COMING SOON</div>
           </div>
         </div>
       </div>
 
       {/* Coming Soon - Bottom Right */}
-      <div className={cn(
-        "aspect-video bg-gray-800/40 backdrop-blur-md rounded-xl",
-        "border border-white/5 relative opacity-40",
-        "cursor-not-allowed select-none pointer-events-none"
-      )}>
+      <div 
+        className={cn(
+          "aspect-[4/3] relative overflow-hidden rounded-2xl opacity-60",
+          "cursor-not-allowed select-none"
+        )}
+        style={{
+          backgroundImage: `url(${hairGray})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+      >
+        <div className="absolute inset-0 bg-black/50" />
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center text-white/60 p-4">
-            <div className="text-sm font-header font-medium">COMING SOON</div>
+          <div className="text-center text-white/80 px-4">
+            <div className="text-lg font-header font-bold tracking-wide">COMING SOON</div>
           </div>
         </div>
       </div>

@@ -28,30 +28,24 @@ const HomePage = () => {
     <>
       <MetaHead language={language} page="home" />
       <div className="min-h-screen bg-gray-900 flex flex-col relative overflow-hidden">
-        {/* Background gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900" />
+        {/* Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-800/50 to-gray-900" />
         
-        {/* Top section with logo and gender toggle */}
-        <div className="relative z-10 flex flex-col items-center pt-12 pb-8 space-y-8">
-          {/* Logo */}
-          <div className="font-header text-4xl font-bold text-white">
-            GlobalHair
-          </div>
-          
-          {/* Gender Toggle */}
+        {/* Top section with gender toggle */}
+        <div className="relative z-10 flex flex-col items-center pt-16 pb-12">
           <GenderToggle />
         </div>
 
         {/* Main content area with video grid */}
-        <div className="flex-1 flex items-center justify-center px-8">
-          <div className="w-full max-w-2xl relative">
-            <VideoGrid />
+        <div className="flex-1 flex items-center justify-center px-6">
+          <div className="w-full relative">
+            <VideoGrid className="mx-auto" />
             <CentralLogo />
           </div>
         </div>
 
         {/* Bottom section with selectors */}
-        <div className="relative z-10 flex flex-col items-center pb-12 pt-8 space-y-8">
+        <div className="relative z-10 flex flex-col items-center pb-16 pt-12 space-y-8">
           {/* Hair Color Selector */}
           <ColorSelector />
           

@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import logoShield from '@/assets/logo-shield.png';
 
 interface CentralLogoProps {
   className?: string;
@@ -8,16 +9,18 @@ export const CentralLogo = ({ className }: CentralLogoProps) => {
   return (
     <div className={cn(
       "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10",
-      "w-20 h-20 rounded-2xl",
-      "bg-gradient-secondary backdrop-blur-sm",
-      "border border-white/20 shadow-strong",
+      "w-24 h-24 rounded-2xl",
+      "bg-gradient-to-br from-gray-800 to-gray-900 backdrop-blur-sm",
+      "border border-white/20 shadow-2xl",
       "flex items-center justify-center",
       "transition-all duration-300 hover:scale-105",
       className
     )}>
-      <div className="text-2xl font-header font-bold text-primary">
-        GH
-      </div>
+      <img 
+        src={logoShield} 
+        alt="GlobalHair Logo" 
+        className="w-16 h-16 object-contain"
+      />
     </div>
   );
 };
