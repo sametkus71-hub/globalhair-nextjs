@@ -37,15 +37,15 @@ const HomePage = () => {
         </div>
 
         {/* Main content area with video grid */}
-        <div className="flex-1 flex items-center justify-center px-4">
-          <div className="w-full relative">
+        <div className="flex-1 flex items-center justify-center px-2 sm:px-4">
+          <div className="w-full relative flex justify-center">
             <VideoGrid className="mx-auto" />
             <CentralLogo />
           </div>
         </div>
 
         {/* Bottom section with selectors */}
-        <div className="relative z-10 flex flex-col items-center pb-12 pt-8 space-y-6">
+        <div className="relative z-10 flex flex-col items-center pb-8 sm:pb-12 pt-6 sm:pt-8 space-y-4 sm:space-y-6">
           {/* Hair Color Selector */}
           <ColorSelector />
           
