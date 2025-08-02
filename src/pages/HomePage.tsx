@@ -8,6 +8,7 @@ import { VideoGrid } from '@/components/homepage/VideoGrid';
 import { ColorSelector } from '@/components/homepage/ColorSelector';
 import { HairTypeSelector } from '@/components/homepage/HairTypeSelector';
 import { CentralLogo } from '@/components/homepage/CentralLogo';
+import { AnimatedBackground } from '@/components/homepage/AnimatedBackground';
 
 const HomePage = () => {
   const { language } = useLanguage();
@@ -27,9 +28,12 @@ const HomePage = () => {
   return (
     <>
       <MetaHead language={language} page="home" />
-      <div className="min-h-screen bg-gray-900 flex flex-col relative overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-800/40 to-gray-900" />
+      <div className="min-h-screen flex flex-col relative overflow-hidden" style={{ background: '#111111' }}>
+        {/* Animated Background */}
+        <AnimatedBackground />
+        
+        {/* Background Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900/20 to-gray-900/40" />
         
         {/* Top section with gender toggle */}
         <div className="relative z-10 flex flex-col items-center pt-12 pb-8">

@@ -153,6 +153,45 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
   }
 }
 
+/* Animated background blob colors */
+:root {
+  --blob-color-1: #9FBFD6;
+  --blob-color-2: #E7BC57;
+  --blob-color-3: #9FBFD6;
+}
+
+/* Hair color theme variations with smooth transitions */
+body {
+  transition: 
+    --blob-color-1 3s ease-in-out,
+    --blob-color-2 3s ease-in-out,
+    --blob-color-3 3s ease-in-out;
+}
+
+body.s-zwart {
+  --blob-color-1: hsl(210, 35%, 65%);
+  --blob-color-2: hsl(220, 45%, 25%);
+  --blob-color-3: hsl(215, 40%, 60%);
+}
+
+body.s-bruin {
+  --blob-color-1: hsl(35, 45%, 65%);
+  --blob-color-2: hsl(45, 65%, 55%);
+  --blob-color-3: hsl(30, 50%, 60%);
+}
+
+body.s-blond {
+  --blob-color-1: hsl(50, 60%, 75%);
+  --blob-color-2: hsl(45, 70%, 65%);
+  --blob-color-3: hsl(55, 55%, 70%);
+}
+
+body.s-rood {
+  --blob-color-1: hsl(15, 55%, 65%);
+  --blob-color-2: hsl(25, 65%, 60%);
+  --blob-color-3: hsl(20, 60%, 65%);
+}
+
 @layer components {
   /* Hero grid tile base styles */
   .hero-tile {
@@ -191,4 +230,38 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
     transform: translateY(-20px);
     transition: opacity 300ms, transform 300ms;
   }
+  
+  /* Animated background animations */
+  .animate-float-slow {
+    animation: float-slow 45s ease-in-out infinite;
+  }
+  
+  .animate-float-medium {
+    animation: float-medium 60s ease-in-out infinite reverse;
+  }
+  
+  .animate-float-gentle {
+    animation: float-gentle 50s ease-in-out infinite;
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(20px, -30px) scale(1.05); }
+  50% { transform: translate(-15px, -20px) scale(0.95); }
+  75% { transform: translate(25px, 15px) scale(1.02); }
+}
+
+@keyframes float-medium {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-25px, 20px) scale(1.03); }
+  66% { transform: translate(30px, -25px) scale(0.97); }
+}
+
+@keyframes float-gentle {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  20% { transform: translate(-20px, 25px) scale(1.01); }
+  40% { transform: translate(15px, -15px) scale(0.99); }
+  60% { transform: translate(-10px, -30px) scale(1.02); }
+  80% { transform: translate(20px, 10px) scale(0.98); }
 }
