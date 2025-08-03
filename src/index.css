@@ -186,12 +186,12 @@ body.s-bruin {
   --texture-filter: hue-rotate(30deg) saturate(0.6) brightness(0.5);
 }
 
-/* Blonde hair - natural blonde hair color */
+/* Blonde hair - specific blonde color #FBE7A1 */
 body.s-blond {
-  --blob-color-primary: hsl(50, 45%, 40%);
-  --blob-color-secondary: hsl(55, 40%, 32%);
-  --blob-color-accent: hsl(45, 50%, 45%);
-  --texture-filter: hue-rotate(50deg) saturate(0.6) brightness(0.9);
+  --blob-color-primary: hsl(48, 50%, 25%);
+  --blob-color-secondary: hsl(48, 45%, 20%);
+  --blob-color-accent: hsl(48, 55%, 30%);
+  --texture-filter: hue-rotate(48deg) saturate(0.5) brightness(0.8);
 }
 
 /* Grey hair - sophisticated grey */
