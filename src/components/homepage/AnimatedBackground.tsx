@@ -11,11 +11,11 @@ export const AnimatedBackground = () => {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Gradient background instead of solid black */}
+      {/* Dark gradient background */}
       <div 
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--gray-100)) 50%, hsl(var(--gray-50)) 100%)'
+          background: 'linear-gradient(135deg, hsl(var(--gray-900)) 0%, hsl(var(--gray-800)) 40%, hsl(var(--gray-700)) 100%)'
         }}
       />
       
