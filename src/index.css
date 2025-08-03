@@ -364,54 +364,75 @@ body.s-rood {
 
 @keyframes ultra-slow {
   0%, 100% { 
-    transform: translate(0px, 0px) scale(1);
+    transform: translateX(-15px) translateY(-10px) scale(1);
+    opacity: 0.02;
+  }
+  25% { 
+    transform: translateX(-45px) translateY(-25px) scale(0.85);
+    opacity: 0.015;
   }
   50% { 
-    transform: translate(5px, -3px) scale(1.002);
+    transform: translateX(-25px) translateY(-35px) scale(1.1);
+    opacity: 0.025;
+  }
+  75% { 
+    transform: translateX(-55px) translateY(-15px) scale(0.9);
+    opacity: 0.018;
   }
 }
 
 @keyframes ultra-drift {
   0%, 100% { 
-    transform: translate(0px, 0px) scale(1);
+    transform: translateX(-10px) translateY(20px) scale(1);
+    opacity: 0.02;
   }
-  33% { 
-    transform: translate(-4px, 2px) scale(0.998);
+  30% { 
+    transform: translateX(-50px) translateY(60px) scale(0.75);
+    opacity: 0.015;
   }
-  66% { 
-    transform: translate(3px, 4px) scale(1.001);
+  70% { 
+    transform: translateX(-25px) translateY(35px) scale(1.2);
+    opacity: 0.025;
   }
 }
 
 @keyframes ultra-gentle {
   0%, 100% { 
-    transform: translate(0px, 0px) scale(1);
+    transform: translateX(20px) translateY(15px) scale(1);
+    opacity: 0.03;
   }
-  25% { 
-    transform: translate(2px, -2px) scale(1.001);
+  33% { 
+    transform: translateX(60px) translateY(45px) scale(0.8);
+    opacity: 0.02;
   }
-  75% { 
-    transform: translate(-3px, 1px) scale(0.999);
+  66% { 
+    transform: translateX(35px) translateY(25px) scale(1.15);
+    opacity: 0.035;
   }
 }
 
 @keyframes ultra-float {
   0%, 100% { 
-    transform: translate(0px, 0px) scale(1);
+    transform: translateX(-25px) translateY(10px) scale(1);
+    opacity: 0.015;
   }
-  40% { 
-    transform: translate(4px, -1px) scale(1.001);
-  }
-  80% { 
-    transform: translate(-2px, 3px) scale(0.999);
+  50% { 
+    transform: translateX(-65px) translateY(-30px) scale(0.9);
+    opacity: 0.01;
   }
 }
 
 @keyframes ultra-sway {
   0%, 100% { 
-    transform: translate(0px, 0px) scale(1);
+    transform: translateX(15px) translateY(-5px) scale(1);
+    opacity: 0.025;
   }
-  50% { 
-    transform: translate(-3px, -4px) scale(1.001);
+  40% { 
+    transform: translateX(55px) translateY(-40px) scale(0.85);
+    opacity: 0.018;
+  }
+  80% { 
+    transform: translateX(30px) translateY(-20px) scale(1.1);
+    opacity: 0.028;
   }
 }

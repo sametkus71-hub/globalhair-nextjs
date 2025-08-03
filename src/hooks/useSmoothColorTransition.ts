@@ -103,13 +103,23 @@ export const useSmoothColorTransition = () => {
       if (progress < 1) {
         animationRef.current = requestAnimationFrame(animate);
       } else {
-        // Transition complete - update current theme and body class
+        // Transition complete - update current theme, body class, and session
         currentThemeRef.current = targetTheme;
         document.body.className = document.body.className.replace(
           /\b(blond|bruin|zwart|rood)-hair\b/g, 
           ''
         );
         document.body.classList.add(`${targetColor.toLowerCase()}-hair`);
+        
+        // Update session storage
+        const currentProfile = JSON.parse(sessionStorage.getItem('userProfile') || '{}');
+        const updatedProfile = { ...currentProfile, haarkleur: targetColor };
+        sessionStorage.setItem('userProfile', JSON.stringify(updatedProfile));
+        
+        // Dispatch custom event to sync with useSession
+        window.dispatchEvent(new CustomEvent('profileUpdate', { 
+          detail: { field: 'haarkleur', value: targetColor } 
+        }));
       }
     };
 
