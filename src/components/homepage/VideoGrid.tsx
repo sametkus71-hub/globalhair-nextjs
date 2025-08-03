@@ -95,25 +95,39 @@ export const VideoGrid = ({ className }: VideoGridProps) => {
     };
   };
 
-  const renderPlaceholderItem = (title: string, gridIndex: number, isActive: boolean) => {
-    const { baseDarkness, previewCode } = getItemVariation(gridIndex);
-    const bgColor = `rgb(${100 - baseDarkness}%, ${100 - baseDarkness}%, ${100 - baseDarkness}%)`;
-    const borderColor = `rgb(${90 - baseDarkness}%, ${90 - baseDarkness}%, ${90 - baseDarkness}%)`;
-    const textColor = `rgb(${50 - baseDarkness}%, ${50 - baseDarkness}%, ${50 - baseDarkness}%)`;
-    const wireColor = `rgb(${80 - baseDarkness}%, ${80 - baseDarkness}%, ${80 - baseDarkness}%)`;
+  const renderPlaceholderItem = (title: string, gridIndex: number, isActive: boolean, isStatic = false) => {
+    // For static items, use fixed colors that don't change with profile
+    const staticColors = {
+      baseDarkness: 25,
+      bgColor: 'rgb(75%, 75%, 75%)',
+      borderColor: 'rgb(65%, 65%, 65%)',
+      textColor: 'rgb(25%, 25%, 25%)',
+      wireColor: 'rgb(55%, 55%, 55%)'
+    };
     
-    const selectionInfo = `${profile.geslacht} • ${profile.haarkleur} • ${profile.haartype}`;
+    const dynamicVariation = getItemVariation(gridIndex);
+    const colors = isStatic ? staticColors : {
+      baseDarkness: dynamicVariation.baseDarkness,
+      bgColor: `rgb(${100 - dynamicVariation.baseDarkness}%, ${100 - dynamicVariation.baseDarkness}%, ${100 - dynamicVariation.baseDarkness}%)`,
+      borderColor: `rgb(${90 - dynamicVariation.baseDarkness}%, ${90 - dynamicVariation.baseDarkness}%, ${90 - dynamicVariation.baseDarkness}%)`,
+      textColor: `rgb(${50 - dynamicVariation.baseDarkness}%, ${50 - dynamicVariation.baseDarkness}%, ${50 - dynamicVariation.baseDarkness}%)`,
+      wireColor: `rgb(${80 - dynamicVariation.baseDarkness}%, ${80 - dynamicVariation.baseDarkness}%, ${80 - dynamicVariation.baseDarkness}%)`
+    };
+    
+    const previewCode = isStatic ? `STATIC-${gridIndex}` : dynamicVariation.previewCode;
+    const selectionInfo = isStatic ? "COMING SOON" : `${profile.geslacht} • ${profile.haarkleur} • ${profile.haartype}`;
+    
     return (
       <div 
-        key={`${gridIndex}-${animationKey}`}
+        key={isStatic ? `static-${gridIndex}` : `${gridIndex}-${animationKey}`}
         className={cn(
           "aspect-[3/4] relative overflow-hidden border transition-all duration-500 ease-out",
           isActive ? "cursor-pointer hover:scale-[1.01] group" : "cursor-not-allowed opacity-60",
           "animate-fade-in"
         )}
         style={{ 
-          backgroundColor: bgColor,
-          borderColor: borderColor,
+          backgroundColor: colors.bgColor,
+          borderColor: colors.borderColor,
           borderWidth: '1px',
           borderStyle: 'solid',
           borderRadius: '2px'
@@ -124,22 +138,22 @@ export const VideoGrid = ({ className }: VideoGridProps) => {
           <svg className="w-full h-full" viewBox="0 0 100 80" preserveAspectRatio="none">
             <defs>
               <pattern id={`simple-grid-${gridIndex}-${previewCode}`} x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
-                <path d="M 10,0 L 0,0 0,10" fill="none" stroke={wireColor} strokeWidth="0.3" opacity="0.6"/>
+                <path d="M 10,0 L 0,0 0,10" fill="none" stroke={colors.wireColor} strokeWidth="0.3" opacity="0.6"/>
               </pattern>
             </defs>
             <rect width="100" height="80" fill={`url(#simple-grid-${gridIndex}-${previewCode})`}/>
             
             {/* Simple centered elements */}
-            <rect x="35" y="30" width="30" height="20" fill="none" stroke={wireColor} strokeWidth="0.6" opacity="0.8"/>
-            <circle cx="50" cy="40" r="4" fill="none" stroke={wireColor} strokeWidth="0.8" opacity="0.9"/>
-            <polygon points="48,38 48,42 52,40" fill={wireColor} opacity="0.8"/>
+            <rect x="35" y="30" width="30" height="20" fill="none" stroke={colors.wireColor} strokeWidth="0.6" opacity="0.8"/>
+            <circle cx="50" cy="40" r="4" fill="none" stroke={colors.wireColor} strokeWidth="0.8" opacity="0.9"/>
+            <polygon points="48,38 48,42 52,40" fill={colors.wireColor} opacity="0.8"/>
           </svg>
         </div>
         
         {/* Content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center p-3">
           <div className="text-center mb-2">
-            <div className="text-sm font-header font-bold tracking-wide leading-tight" style={{ color: textColor }}>
+            <div className="text-sm font-header font-bold tracking-wide leading-tight" style={{ color: colors.textColor }}>
               {title}
             </div>
           </div>
@@ -149,9 +163,9 @@ export const VideoGrid = ({ className }: VideoGridProps) => {
         <div 
           className="absolute bottom-1.5 left-1.5 right-1.5 text-center text-[9px] font-mono px-1.5 py-0.5 border"
           style={{ 
-            color: textColor,
-            backgroundColor: `rgb(${102 - baseDarkness}%, ${102 - baseDarkness}%, ${102 - baseDarkness}%)`,
-            borderColor: borderColor,
+            color: colors.textColor,
+            backgroundColor: `rgb(${102 - colors.baseDarkness}%, ${102 - colors.baseDarkness}%, ${102 - colors.baseDarkness}%)`,
+            borderColor: colors.borderColor,
             opacity: 0.8,
             borderRadius: '1px'
           }}
@@ -182,10 +196,10 @@ export const VideoGrid = ({ className }: VideoGridProps) => {
       </div>
 
       {/* Coming Soon - Bottom Left */}
-      {renderPlaceholderItem("COMING SOON", 2, false)}
+      {renderPlaceholderItem("COMING SOON", 2, false, true)}
 
       {/* Coming Soon - Bottom Right */}
-      {renderPlaceholderItem("COMING SOON", 3, false)}
+      {renderPlaceholderItem("COMING SOON", 3, false, true)}
     </div>
   );
 };
