@@ -11,11 +11,11 @@ export const AnimatedBackground = () => {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Custom dark gradient background */}
+      {/* Darker gradient background */}
       <div 
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(135deg, #2f3f4f 0%, #1a222b 60%, #0f151d 100%)'
+          background: 'linear-gradient(135deg, #1f2f3f 0%, #0a121b 60%, #050a0d 100%)'
         }}
       />
       
@@ -28,9 +28,9 @@ export const AnimatedBackground = () => {
           top: '5%',
           left: '5%',
           backgroundColor: 'var(--blob-color-primary)',
-          filter: 'blur(50px)',
+          filter: 'blur(35px)',
           animation: 'blob-float-subtle 15s ease-in-out infinite',
-          opacity: 0.6
+          opacity: 0.8
         }}
       />
       
@@ -43,9 +43,9 @@ export const AnimatedBackground = () => {
           bottom: '10%',
           left: '8%',
           backgroundColor: 'var(--blob-color-secondary)',
-          filter: 'blur(40px)',
+          filter: 'blur(30px)',
           animation: 'blob-float-subtle 18s ease-in-out infinite reverse',
-          opacity: 0.5
+          opacity: 0.7
         }}
       />
       
@@ -59,9 +59,24 @@ export const AnimatedBackground = () => {
           left: '50%',
           transform: 'translate(-50%, -50%)',
           backgroundColor: 'var(--blob-color-accent)',
-          filter: 'blur(45px)',
+          filter: 'blur(32px)',
           animation: 'blob-float-subtle 20s ease-in-out infinite',
-          opacity: 0.4
+          opacity: 0.6
+        }}
+      />
+      
+      {/* Blob 4 - High blur atmospheric blob */}
+      <div 
+        className="absolute rounded-full"
+        style={{
+          width: '500px',
+          height: '500px',
+          top: '30%',
+          right: '10%',
+          backgroundColor: 'var(--blob-color-primary)',
+          filter: 'blur(80px)',
+          animation: 'blob-float-subtle 25s ease-in-out infinite',
+          opacity: 0.3
         }}
       />
     </div>

@@ -166,11 +166,11 @@ body {
   /* Remove CSS transitions - handled by JavaScript for perfect control */
 }
 
-/* Black hair - pure black blobs */
+/* Black hair - brighter black blobs for visibility */
 body.zwart-hair {
-  --blob-color-primary: #000000;
-  --blob-color-secondary: #1a1a1a;
-  --blob-color-accent: #0d0d0d;
+  --blob-color-primary: #333333;
+  --blob-color-secondary: #4a4a4a;
+  --blob-color-accent: #2a2a2a;
   --texture-filter: hue-rotate(0deg) saturate(0.3) brightness(0.4);
 }
 
@@ -182,11 +182,11 @@ body.blond-hair {
   --texture-filter: hue-rotate(40deg) saturate(0.6) brightness(0.75);
 }
 
-/* Brown hair - dark brown blobs */
+/* Brown hair - brighter brown blobs for visibility */
 body.bruin-hair {
-  --blob-color-primary: #3e2723;
-  --blob-color-secondary: #2e1a16;
-  --blob-color-accent: #4a2c2a;
+  --blob-color-primary: #8b4513;
+  --blob-color-secondary: #a0522d;
+  --blob-color-accent: #654321;
   --texture-filter: hue-rotate(10deg) saturate(0.4) brightness(0.5);
 }
 
@@ -198,11 +198,11 @@ body.s-blond {
   --texture-filter: hue-rotate(48deg) saturate(0.5) brightness(0.8);
 }
 
-/* White hair - changed from rood to white with dark grey blobs */
+/* White hair - brighter grey blobs for visibility */
 body.s-rood {
-  --blob-color-primary: #4a4a4a;
-  --blob-color-secondary: #3a3a3a;
-  --blob-color-accent: #5a5a5a;
+  --blob-color-primary: #808080;
+  --blob-color-secondary: #999999;
+  --blob-color-accent: #707070;
   --texture-filter: hue-rotate(0deg) saturate(0.1) brightness(0.7);
 }
 
