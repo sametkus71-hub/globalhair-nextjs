@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import Threads from './Threads';
 
 export const AnimatedBackground = () => {
   const [mounted, setMounted] = useState(false);
@@ -12,16 +11,6 @@ export const AnimatedBackground = () => {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* OGL Threads Layer - positioned behind blobs but above texture */}
-      <div className="absolute inset-0 opacity-20 mix-blend-screen">
-        <Threads
-          color={[0.8, 0.9, 1.0]}
-          amplitude={0.8}
-          distance={0.2}
-          enableMouseInteraction={true}
-        />
-      </div>
-
       {/* Far background hair texture - very dark and subtle */}
       <div 
         className="absolute inset-0 opacity-[0.03] mix-blend-soft-light animate-bg-wave"
