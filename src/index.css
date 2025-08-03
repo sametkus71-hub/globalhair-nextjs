@@ -166,44 +166,33 @@ body {
   /* Remove CSS transitions - handled by JavaScript for perfect control */
 }
 
-/* Black hair - brighter black blobs for visibility */
-body.zwart-hair {
-  --blob-color-primary: #333333;
-  --blob-color-secondary: #4a4a4a;
-  --blob-color-accent: #2a2a2a;
-  --texture-filter: hue-rotate(0deg) saturate(0.3) brightness(0.4);
-}
-
-/* Blonde hair - bright blonde color (less lime-green) */
-body.blond-hair {
-  --blob-color-primary: #F5E6A3;
-  --blob-color-secondary: #F0D878;
-  --blob-color-accent: #EBD065;
+/* Hair color specific styles - standardized to match session hook classes */
+body.s-blond {
+  --blob-color-primary: #FBE7A1;
+  --blob-color-secondary: #F5D982;
+  --blob-color-accent: #E8CC75;
   --texture-filter: hue-rotate(40deg) saturate(0.6) brightness(0.75);
 }
 
-/* Brown hair - brighter brown blobs for visibility */
-body.bruin-hair {
-  --blob-color-primary: #8b4513;
-  --blob-color-secondary: #a0522d;
-  --blob-color-accent: #654321;
-  --texture-filter: hue-rotate(10deg) saturate(0.4) brightness(0.5);
+body.s-bruin {
+  --blob-color-primary: #8B4513;
+  --blob-color-secondary: #654321;
+  --blob-color-accent: #4A2C2A;
+  --texture-filter: hue-rotate(20deg) saturate(0.7) brightness(0.6);
 }
 
-/* Blonde hair - specific blonde color #FBE7A1 */
-body.s-blond {
-  --blob-color-primary: hsl(48, 50%, 25%);
-  --blob-color-secondary: hsl(48, 45%, 20%);
-  --blob-color-accent: hsl(48, 55%, 30%);
-  --texture-filter: hue-rotate(48deg) saturate(0.5) brightness(0.8);
+body.s-zwart {
+  --blob-color-primary: #000000;
+  --blob-color-secondary: #1a1a1a;
+  --blob-color-accent: #000000;
+  --texture-filter: hue-rotate(0deg) saturate(0.3) brightness(0.4);
 }
 
-/* White hair - brighter grey blobs for visibility */
 body.s-rood {
-  --blob-color-primary: #808080;
-  --blob-color-secondary: #999999;
-  --blob-color-accent: #707070;
-  --texture-filter: hue-rotate(0deg) saturate(0.1) brightness(0.7);
+  --blob-color-primary: #666666;
+  --blob-color-secondary: #555555;
+  --blob-color-accent: #444444;
+  --texture-filter: hue-rotate(0deg) saturate(0.2) brightness(0.5);
 }
 
 @layer components {

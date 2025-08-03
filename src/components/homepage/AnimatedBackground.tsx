@@ -58,7 +58,7 @@ export const AnimatedBackground = () => {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          backgroundColor: '#333333',
+          backgroundColor: 'var(--blob-color-accent)',
           filter: 'blur(32px)',
           animation: 'blob-float-subtle 20s ease-in-out infinite',
           opacity: 0.6
