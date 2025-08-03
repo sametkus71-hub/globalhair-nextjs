@@ -166,20 +166,28 @@ body {
   /* Remove CSS transitions - handled by JavaScript for perfect control */
 }
 
-/* Black hair - very dark with minimal blue */
+/* Black hair - pure black blobs */
 body.zwart-hair {
-  --blob-color-primary: hsl(220, 15%, 8%);
-  --blob-color-secondary: hsl(210, 10%, 12%);
-  --blob-color-accent: hsl(230, 20%, 6%);
+  --blob-color-primary: #000000;
+  --blob-color-secondary: #1a1a1a;
+  --blob-color-accent: #0d0d0d;
   --texture-filter: hue-rotate(0deg) saturate(0.3) brightness(0.4);
 }
 
-/* Blonde hair - natural creamy blonde */
+/* Blonde hair - specific blonde color #FBE7A1 */
 body.blond-hair {
-  --blob-color-primary: hsl(47, 82%, 81%);
-  --blob-color-secondary: hsl(45, 75%, 75%);
-  --blob-color-accent: hsl(50, 85%, 85%);
+  --blob-color-primary: #FBE7A1;
+  --blob-color-secondary: #F5D982;
+  --blob-color-accent: #E8CC75;
   --texture-filter: hue-rotate(40deg) saturate(0.6) brightness(0.75);
+}
+
+/* Brown hair - dark brown blobs */
+body.bruin-hair {
+  --blob-color-primary: #3e2723;
+  --blob-color-secondary: #2e1a16;
+  --blob-color-accent: #4a2c2a;
+  --texture-filter: hue-rotate(10deg) saturate(0.4) brightness(0.5);
 }
 
 /* Blonde hair - specific blonde color #FBE7A1 */
@@ -190,12 +198,12 @@ body.s-blond {
   --texture-filter: hue-rotate(48deg) saturate(0.5) brightness(0.8);
 }
 
-/* Grey hair - sophisticated grey */
+/* White hair - changed from rood to white with dark grey blobs */
 body.s-rood {
-  --blob-color-primary: hsl(0, 5%, 22%);
-  --blob-color-secondary: hsl(0, 3%, 18%);
-  --blob-color-accent: hsl(0, 8%, 26%);
-  --texture-filter: hue-rotate(0deg) saturate(0.2) brightness(0.6);
+  --blob-color-primary: #4a4a4a;
+  --blob-color-secondary: #3a3a3a;
+  --blob-color-accent: #5a5a5a;
+  --texture-filter: hue-rotate(0deg) saturate(0.1) brightness(0.7);
 }
 
 @layer components {
