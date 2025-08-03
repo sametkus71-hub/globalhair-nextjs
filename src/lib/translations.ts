@@ -31,7 +31,7 @@ export const translations = {
     'haircolor.zwart': 'Zwart',
     'haircolor.bruin': 'Bruin',
     'haircolor.blond': 'Blond',
-    'haircolor.rood': 'Rood',
+    'haircolor.wit': 'Wit',
     
     // Meta descriptions
     'meta.home.description': 'Ontdek de meest geavanceerde haartransplantatie technieken en V6 Hairboost behandelingen bij GlobalHair.',
@@ -73,7 +73,7 @@ export const translations = {
     'haircolor.zwart': 'Black',
     'haircolor.bruin': 'Brown',
     'haircolor.blond': 'Blonde',
-    'haircolor.rood': 'Red',
+    'haircolor.wit': 'White',
     
     // Meta descriptions
     'meta.home.description': 'Discover the most advanced hair transplant techniques and V6 Hairboost treatments at GlobalHair.',

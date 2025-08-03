@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 export type Gender = 'Man' | 'Vrouw';
 export type HairType = 'Fijn' | 'Stijl' | 'Krul' | 'Kroes';
-export type HairColor = 'Zwart' | 'Bruin' | 'Blond' | 'Rood';
+export type HairColor = 'Zwart' | 'Bruin' | 'Blond' | 'Wit';
 
 export interface UserProfile {
   geslacht: Gender;
@@ -72,7 +72,7 @@ export const useSession = () => {
     const body = document.body;
     
     // Remove existing classes
-    body.className = body.className.replace(/s-(man|vrouw|fijn|stijl|krul|kroes|zwart|bruin|blond|rood)/g, '').trim();
+    body.className = body.className.replace(/s-(man|vrouw|fijn|stijl|krul|kroes|zwart|bruin|blond|wit)/g, '').trim();
     
     // Add new classes
     const geslachtClass = `s-${newProfile.geslacht.toLowerCase()}`;

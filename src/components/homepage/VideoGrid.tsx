@@ -44,10 +44,10 @@ export const VideoGrid = ({ className }: VideoGridProps) => {
     "Man-Zwart-Stijl": { preview: "MA-ZW-ST", pattern: 0, content: 10, darkness: 42 },
     "Man-Zwart-Krul": { preview: "MA-ZW-KR", pattern: 1, content: 11, darkness: 45 },
     "Man-Zwart-Kroes": { preview: "MA-ZW-KS", pattern: 2, content: 12, darkness: 48 },
-    "Man-Rood-Fijn": { preview: "MA-RO-FI", pattern: 0, content: 13, darkness: 20 },
-    "Man-Rood-Stijl": { preview: "MA-RO-ST", pattern: 1, content: 14, darkness: 23 },
-    "Man-Rood-Krul": { preview: "MA-RO-KR", pattern: 2, content: 15, darkness: 26 },
-    "Man-Rood-Kroes": { preview: "MA-RO-KS", pattern: 0, content: 16, darkness: 29 },
+    "Man-Wit-Fijn": { preview: "MA-WI-FI", pattern: 0, content: 13, darkness: 20 },
+    "Man-Wit-Stijl": { preview: "MA-WI-ST", pattern: 1, content: 14, darkness: 23 },
+    "Man-Wit-Krul": { preview: "MA-WI-KR", pattern: 2, content: 15, darkness: 26 },
+    "Man-Wit-Kroes": { preview: "MA-WI-KS", pattern: 0, content: 16, darkness: 29 },
     
     // Vrouw combinations
     "Vrouw-Blond-Fijn": { preview: "VR-BL-FI", pattern: 1, content: 17, darkness: 32 },
@@ -62,10 +62,10 @@ export const VideoGrid = ({ className }: VideoGridProps) => {
     "Vrouw-Zwart-Stijl": { preview: "VR-ZW-ST", pattern: 1, content: 26, darkness: 34 },
     "Vrouw-Zwart-Krul": { preview: "VR-ZW-KR", pattern: 2, content: 27, darkness: 37 },
     "Vrouw-Zwart-Kroes": { preview: "VR-ZW-KS", pattern: 0, content: 28, darkness: 40 },
-    "Vrouw-Rood-Fijn": { preview: "VR-RO-FI", pattern: 1, content: 29, darkness: 43 },
-    "Vrouw-Rood-Stijl": { preview: "VR-RO-ST", pattern: 2, content: 30, darkness: 46 },
-    "Vrouw-Rood-Krul": { preview: "VR-RO-KR", pattern: 0, content: 31, darkness: 22 },
-    "Vrouw-Rood-Kroes": { preview: "VR-RO-KS", pattern: 1, content: 32, darkness: 19 },
+    "Vrouw-Wit-Fijn": { preview: "VR-WI-FI", pattern: 1, content: 29, darkness: 43 },
+    "Vrouw-Wit-Stijl": { preview: "VR-WI-ST", pattern: 2, content: 30, darkness: 46 },
+    "Vrouw-Wit-Krul": { preview: "VR-WI-KR", pattern: 0, content: 31, darkness: 22 },
+    "Vrouw-Wit-Kroes": { preview: "VR-WI-KS", pattern: 1, content: 32, darkness: 19 },
   };
 
   // Get specific variation based on current profile
