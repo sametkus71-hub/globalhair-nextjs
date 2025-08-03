@@ -11,50 +11,59 @@ export const AnimatedBackground = () => {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Simple, visible blobs that actually work */}
+      {/* Gradient background instead of solid black */}
+      <div 
+        className="absolute inset-0"
+        style={{
+          background: 'linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--gray-100)) 50%, hsl(var(--gray-50)) 100%)'
+        }}
+      />
       
-      {/* Blob 1 */}
+      {/* Blob 1 - Top Left (bigger) */}
       <div 
         className="absolute rounded-full"
         style={{
-          width: '300px',
-          height: '300px',
-          top: '20%',
-          left: '10%',
+          width: '400px',
+          height: '400px',
+          top: '5%',
+          left: '5%',
           backgroundColor: 'var(--blob-color-primary)',
-          filter: 'blur(40px)',
-          animation: 'blob-float 8s ease-in-out infinite'
+          filter: 'blur(50px)',
+          animation: 'blob-float-subtle 15s ease-in-out infinite',
+          opacity: 0.6
         }}
       />
       
-      {/* Blob 2 */}
+      {/* Blob 2 - Bottom Left */}
       <div 
         className="absolute rounded-full"
         style={{
-          width: '250px',
-          height: '250px',
-          bottom: '25%',
-          right: '15%',
+          width: '280px',
+          height: '280px',
+          bottom: '10%',
+          left: '8%',
           backgroundColor: 'var(--blob-color-secondary)',
-          filter: 'blur(35px)',
-          animation: 'blob-float 10s ease-in-out infinite reverse'
+          filter: 'blur(40px)',
+          animation: 'blob-float-subtle 18s ease-in-out infinite reverse',
+          opacity: 0.5
         }}
       />
       
-      {/* Blob 3 */}
+      {/* Blob 3 - Center */}
       <div 
         className="absolute rounded-full"
         style={{
-          width: '200px',
-          height: '200px',
-          top: '60%',
-          left: '60%',
+          width: '320px',
+          height: '320px',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
           backgroundColor: 'var(--blob-color-accent)',
-          filter: 'blur(30px)',
-          animation: 'blob-float 12s ease-in-out infinite'
+          filter: 'blur(45px)',
+          animation: 'blob-float-subtle 20s ease-in-out infinite',
+          opacity: 0.4
         }}
       />
-      
     </div>
   );
 };

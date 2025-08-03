@@ -479,3 +479,18 @@ body.s-rood {
     transform: translateY(10px) translateX(-15px); 
   }
 }
+
+@keyframes blob-float-subtle {
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px) scale(1); 
+  }
+  25% { 
+    transform: translateY(-8px) translateX(5px) scale(1.05); 
+  }
+  50% { 
+    transform: translateY(3px) translateX(-7px) scale(0.95); 
+  }
+  75% { 
+    transform: translateY(5px) translateX(3px) scale(1.02); 
+  }
+}
