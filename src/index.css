@@ -170,12 +170,12 @@ body {
     --texture-filter 3s ease-in-out;
 }
 
-/* Black hair - very dark blue/black */
+/* Black hair - very dark with minimal blue */
 body.s-zwart {
-  --blob-color-primary: hsl(220, 30%, 12%);
-  --blob-color-secondary: hsl(210, 25%, 8%);
-  --blob-color-accent: hsl(230, 35%, 15%);
-  --texture-filter: hue-rotate(200deg) saturate(0.4) brightness(0.3);
+  --blob-color-primary: hsl(210, 8%, 10%);
+  --blob-color-secondary: hsl(220, 5%, 8%);
+  --blob-color-accent: hsl(200, 10%, 12%);
+  --texture-filter: hue-rotate(200deg) saturate(0.2) brightness(0.3);
 }
 
 /* Brown hair - rich dark brown */
@@ -186,12 +186,12 @@ body.s-bruin {
   --texture-filter: hue-rotate(30deg) saturate(0.6) brightness(0.5);
 }
 
-/* Blonde hair - warm golden blonde */
+/* Blonde hair - natural blonde hair color */
 body.s-blond {
-  --blob-color-primary: hsl(45, 60%, 35%);
-  --blob-color-secondary: hsl(50, 55%, 28%);
-  --blob-color-accent: hsl(40, 65%, 40%);
-  --texture-filter: hue-rotate(45deg) saturate(0.7) brightness(0.8);
+  --blob-color-primary: hsl(50, 45%, 40%);
+  --blob-color-secondary: hsl(55, 40%, 32%);
+  --blob-color-accent: hsl(45, 50%, 45%);
+  --texture-filter: hue-rotate(50deg) saturate(0.6) brightness(0.9);
 }
 
 /* Grey hair - sophisticated grey */

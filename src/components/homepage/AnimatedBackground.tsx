@@ -83,7 +83,7 @@ export const AnimatedBackground = () => {
       {/* Elegant organized background blobs - positioned out of screen */}
       {/* Top area blobs */}
       <div 
-        className="absolute w-[500px] h-[500px] rounded-full blur-[70px] opacity-12 animate-ultra-slow"
+        className="absolute w-[500px] h-[500px] rounded-full blur-[70px] opacity-6 animate-ultra-slow"
         style={{
           top: '-40%',
           left: '-30%',
@@ -93,7 +93,7 @@ export const AnimatedBackground = () => {
       />
 
       <div 
-        className="absolute w-[400px] h-[400px] rounded-full blur-[60px] opacity-15 animate-ultra-gentle"
+        className="absolute w-[400px] h-[400px] rounded-full blur-[60px] opacity-7 animate-ultra-gentle"
         style={{
           top: '-35%',
           right: '-25%',
@@ -104,7 +104,7 @@ export const AnimatedBackground = () => {
 
       {/* Bottom area blobs */}
       <div 
-        className="absolute w-[450px] h-[450px] rounded-full blur-[65px] opacity-10 animate-ultra-drift"
+        className="absolute w-[450px] h-[450px] rounded-full blur-[65px] opacity-5 animate-ultra-drift"
         style={{
           bottom: '-35%',
           left: '-25%',
@@ -114,7 +114,7 @@ export const AnimatedBackground = () => {
       />
 
       <div 
-        className="absolute w-[380px] h-[380px] rounded-full blur-[75px] opacity-13 animate-ultra-sway"
+        className="absolute w-[380px] h-[380px] rounded-full blur-[75px] opacity-6 animate-ultra-sway"
         style={{
           bottom: '-30%',
           right: '-30%',
@@ -125,7 +125,7 @@ export const AnimatedBackground = () => {
 
       {/* Side area blobs */}
       <div 
-        className="absolute w-[350px] h-[350px] rounded-full blur-[65px] opacity-8 animate-ultra-float"
+        className="absolute w-[350px] h-[350px] rounded-full blur-[65px] opacity-4 animate-ultra-float"
         style={{
           top: '20%',
           left: '-35%',
@@ -135,7 +135,7 @@ export const AnimatedBackground = () => {
       />
 
       <div 
-        className="absolute w-[420px] h-[420px] rounded-full blur-[70px] opacity-11 animate-ultra-slow"
+        className="absolute w-[420px] h-[420px] rounded-full blur-[70px] opacity-5 animate-ultra-slow"
         style={{
           top: '60%',
           right: '-40%',
