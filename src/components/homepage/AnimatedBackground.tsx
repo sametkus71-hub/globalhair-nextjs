@@ -21,7 +21,7 @@ export const AnimatedBackground = () => {
           height: '300px',
           top: '20%',
           left: '10%',
-          backgroundColor: 'rgba(100, 150, 255, 0.6)',
+          backgroundColor: 'var(--blob-color-primary)',
           filter: 'blur(40px)',
           animation: 'blob-float 8s ease-in-out infinite'
         }}
@@ -35,7 +35,7 @@ export const AnimatedBackground = () => {
           height: '250px',
           bottom: '25%',
           right: '15%',
-          backgroundColor: 'rgba(255, 150, 100, 0.5)',
+          backgroundColor: 'var(--blob-color-secondary)',
           filter: 'blur(35px)',
           animation: 'blob-float 10s ease-in-out infinite reverse'
         }}
@@ -49,7 +49,7 @@ export const AnimatedBackground = () => {
           height: '200px',
           top: '60%',
           left: '60%',
-          backgroundColor: 'rgba(150, 255, 150, 0.4)',
+          backgroundColor: 'var(--blob-color-accent)',
           filter: 'blur(30px)',
           animation: 'blob-float 12s ease-in-out infinite'
         }}
