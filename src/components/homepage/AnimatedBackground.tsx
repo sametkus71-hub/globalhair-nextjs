@@ -11,7 +11,19 @@ export const AnimatedBackground = () => {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Hair texture overlay */}
+      {/* Depth of field hair texture - very subtle movement */}
+      <div 
+        className="absolute inset-0 opacity-[0.02] mix-blend-multiply animate-depth-shift"
+        style={{
+          backgroundImage: `url(/lovable-uploads/c116d5dd-12bd-4f88-ba77-a5affdd4cdfa.png)`,
+          backgroundSize: '120% 120%',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          filter: 'var(--texture-filter) blur(1px)',
+        }}
+      />
+
+      {/* Main hair texture overlay */}
       <div 
         className="absolute inset-0 opacity-[0.04] mix-blend-soft-light"
         style={{
@@ -23,39 +35,39 @@ export const AnimatedBackground = () => {
         }}
       />
 
-      {/* Wavy hair-like elements */}
+      {/* Flowing hair strands - more realistic */}
       <div 
-        className="absolute w-[400px] h-[200px] blur-[60px] opacity-25 animate-hair-wave"
+        className="absolute w-[500px] h-[120px] blur-[50px] opacity-25 animate-hair-flow"
         style={{
-          top: '10%',
-          left: '-5%',
-          background: 'var(--blob-color-primary)',
-          clipPath: 'ellipse(80% 40% at 50% 50%)',
-          transform: 'rotate(-15deg)',
+          top: '15%',
+          left: '-8%',
+          background: 'linear-gradient(45deg, var(--blob-color-primary), transparent 70%)',
+          clipPath: 'ellipse(90% 30% at 50% 50%)',
+          transform: 'rotate(-10deg)',
         }}
       />
 
       <div 
-        className="absolute w-[350px] h-[180px] blur-[70px] opacity-20 animate-hair-sway"
+        className="absolute w-[400px] h-[100px] blur-[60px] opacity-20 animate-hair-undulate"
         style={{
-          bottom: '20%',
-          right: '-8%',
-          background: 'var(--blob-color-secondary)',
-          clipPath: 'ellipse(85% 35% at 50% 50%)',
-          transform: 'rotate(25deg)',
-          animationDelay: '-20s'
+          bottom: '25%',
+          right: '-10%',
+          background: 'linear-gradient(-45deg, var(--blob-color-secondary), transparent 60%)',
+          clipPath: 'ellipse(85% 25% at 50% 50%)',
+          transform: 'rotate(20deg)',
+          animationDelay: '-15s'
         }}
       />
 
       <div 
-        className="absolute w-[300px] h-[150px] blur-[80px] opacity-30 animate-follicle-pulse"
+        className="absolute w-[350px] h-[80px] blur-[70px] opacity-30 animate-hair-drift"
         style={{
-          top: '50%',
-          left: '20%',
-          background: 'var(--blob-color-accent)',
-          clipPath: 'ellipse(75% 45% at 50% 50%)',
-          transform: 'rotate(45deg)',
-          animationDelay: '-10s'
+          top: '60%',
+          left: '10%',
+          background: 'linear-gradient(60deg, var(--blob-color-accent), transparent 80%)',
+          clipPath: 'ellipse(80% 20% at 50% 50%)',
+          transform: 'rotate(35deg)',
+          animationDelay: '-8s'
         }}
       />
 

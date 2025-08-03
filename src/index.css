@@ -254,16 +254,20 @@ body.s-rood {
     animation: float-gentle 50s ease-in-out infinite;
   }
   
-  .animate-hair-wave {
-    animation: hair-wave 18s ease-in-out infinite;
+  .animate-depth-shift {
+    animation: depth-shift 80s ease-in-out infinite;
   }
   
-  .animate-hair-sway {
-    animation: hair-sway 22s ease-in-out infinite;
+  .animate-hair-flow {
+    animation: hair-flow 25s ease-in-out infinite;
   }
   
-  .animate-follicle-pulse {
-    animation: follicle-pulse 12s ease-in-out infinite;
+  .animate-hair-undulate {
+    animation: hair-undulate 30s ease-in-out infinite;
+  }
+  
+  .animate-hair-drift {
+    animation: hair-drift 35s ease-in-out infinite;
   }
 }
 
@@ -288,38 +292,69 @@ body.s-rood {
   80% { transform: translate(20px, 10px) scale(0.98); }
 }
 
-@keyframes hair-wave {
+@keyframes depth-shift {
   0%, 100% { 
-    transform: translateX(0px) translateY(0px) rotate(-15deg) scaleX(1);
+    transform: translate(0px, 0px) scale(1);
+    backgroundPosition: 'center';
   }
   25% { 
-    transform: translateX(15px) translateY(-10px) rotate(-10deg) scaleX(1.1);
+    transform: translate(1px, -1px) scale(1.001);
+    backgroundPosition: '50.1% 49.9%';
   }
   50% { 
-    transform: translateX(25px) translateY(-20px) rotate(-20deg) scaleX(0.9);
+    transform: translate(-1px, 1px) scale(0.999);
+    backgroundPosition: '49.9% 50.1%';
   }
   75% { 
-    transform: translateX(10px) translateY(-5px) rotate(-12deg) scaleX(1.05);
+    transform: translate(1px, 1px) scale(1.001);
+    backgroundPosition: '50.1% 50.1%';
   }
 }
 
-@keyframes hair-sway {
+@keyframes hair-flow {
   0%, 100% { 
-    transform: translateX(0px) translateY(0px) rotate(25deg) scaleY(1);
+    transform: translateX(0px) translateY(0px) rotate(-10deg) scaleX(1) scaleY(1);
   }
-  33% { 
-    transform: translateX(-20px) translateY(15px) rotate(30deg) scaleY(1.1);
+  20% { 
+    transform: translateX(15px) translateY(-8px) rotate(-5deg) scaleX(1.1) scaleY(0.9);
   }
-  66% { 
-    transform: translateX(10px) translateY(-10px) rotate(20deg) scaleY(0.95);
+  40% { 
+    transform: translateX(25px) translateY(-15px) rotate(-15deg) scaleX(0.9) scaleY(1.1);
+  }
+  60% { 
+    transform: translateX(20px) translateY(-5px) rotate(-8deg) scaleX(1.05) scaleY(0.95);
+  }
+  80% { 
+    transform: translateX(10px) translateY(5px) rotate(-12deg) scaleX(0.95) scaleY(1.05);
   }
 }
 
-@keyframes follicle-pulse {
+@keyframes hair-undulate {
   0%, 100% { 
-    transform: rotate(45deg) scale(1);
+    transform: translateX(0px) translateY(0px) rotate(20deg) scaleX(1) scaleY(1);
+  }
+  25% { 
+    transform: translateX(-18px) translateY(12px) rotate(25deg) scaleX(1.15) scaleY(0.85);
   }
   50% { 
-    transform: rotate(48deg) scale(1.15);
+    transform: translateX(-30px) translateY(20px) rotate(15deg) scaleX(0.85) scaleY(1.15);
+  }
+  75% { 
+    transform: translateX(-15px) translateY(8px) rotate(22deg) scaleX(1.08) scaleY(0.92);
+  }
+}
+
+@keyframes hair-drift {
+  0%, 100% { 
+    transform: translateX(0px) translateY(0px) rotate(35deg) scaleX(1) scaleY(1);
+  }
+  30% { 
+    transform: translateX(20px) translateY(-10px) rotate(40deg) scaleX(1.2) scaleY(0.8);
+  }
+  60% { 
+    transform: translateX(35px) translateY(-20px) rotate(30deg) scaleX(0.8) scaleY(1.2);
+  }
+  90% { 
+    transform: translateX(15px) translateY(-5px) rotate(37deg) scaleX(1.1) scaleY(0.9);
   }
 }
