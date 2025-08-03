@@ -259,19 +259,19 @@ body.s-rood {
   }
   
   .animate-bg-wave {
-    animation: bg-wave 60s ease-in-out infinite;
+    animation: bg-wave 120s ease-in-out infinite;
   }
   
-  .animate-hair-strand-1 {
-    animation: hair-strand-1 28s ease-in-out infinite;
+  .animate-hair-wave-subtle {
+    animation: hair-wave-subtle 40s ease-in-out infinite;
   }
   
-  .animate-hair-strand-2 {
-    animation: hair-strand-2 32s ease-in-out infinite;
+  .animate-hair-sway-gentle {
+    animation: hair-sway-gentle 45s ease-in-out infinite;
   }
   
-  .animate-hair-strand-3 {
-    animation: hair-strand-3 25s ease-in-out infinite;
+  .animate-hair-flow-soft {
+    animation: hair-flow-soft 35s ease-in-out infinite;
   }
 }
 
@@ -298,89 +298,50 @@ body.s-rood {
 
 @keyframes bg-wave {
   0%, 100% { 
-    transform: translate(0px, 0px) scale(1) rotate(0deg);
-    backgroundPosition: 'center';
-  }
-  25% { 
-    transform: translate(3px, -2px) scale(1.002) rotate(0.2deg);
-    backgroundPosition: '52% 48%';
-  }
-  50% { 
-    transform: translate(-2px, 3px) scale(0.998) rotate(-0.1deg);
-    backgroundPosition: '48% 52%';
-  }
-  75% { 
-    transform: translate(2px, 2px) scale(1.001) rotate(0.15deg);
-    backgroundPosition: '51% 51%';
-  }
-}
-
-@keyframes depth-shift {
-  0%, 100% { 
     transform: translate(0px, 0px) scale(1);
     backgroundPosition: 'center';
   }
-  25% { 
+  50% { 
     transform: translate(1px, -1px) scale(1.001);
-    backgroundPosition: '50.1% 49.9%';
+    backgroundPosition: '50.2% 49.8%';
+  }
+}
+
+@keyframes hair-wave-subtle {
+  0%, 100% { 
+    transform: translateX(0px) translateY(0px) rotate(-12deg) scaleX(1) scaleY(1);
+  }
+  25% { 
+    transform: translateX(8px) translateY(-4px) rotate(-10deg) scaleX(1.02) scaleY(0.98);
   }
   50% { 
-    transform: translate(-1px, 1px) scale(0.999);
-    backgroundPosition: '49.9% 50.1%';
+    transform: translateX(15px) translateY(-8px) rotate(-14deg) scaleX(0.98) scaleY(1.02);
   }
   75% { 
-    transform: translate(1px, 1px) scale(1.001);
-    backgroundPosition: '50.1% 50.1%';
+    transform: translateX(6px) translateY(-2px) rotate(-11deg) scaleX(1.01) scaleY(0.99);
   }
 }
 
-@keyframes hair-strand-1 {
+@keyframes hair-sway-gentle {
   0%, 100% { 
-    transform: translateX(0px) translateY(0px) rotate(-8deg) scaleX(1) scaleY(1);
+    transform: translateX(0px) translateY(0px) rotate(18deg) scaleX(1) scaleY(1);
   }
-  15% { 
-    transform: translateX(8px) translateY(-3px) rotate(-6deg) scaleX(1.05) scaleY(0.98);
+  33% { 
+    transform: translateX(-10px) translateY(5px) rotate(20deg) scaleX(1.03) scaleY(0.97);
   }
-  35% { 
-    transform: translateX(18px) translateY(-8px) rotate(-10deg) scaleX(0.96) scaleY(1.02);
-  }
-  55% { 
-    transform: translateX(12px) translateY(-5px) rotate(-7deg) scaleX(1.02) scaleY(0.99);
-  }
-  75% { 
-    transform: translateX(5px) translateY(2px) rotate(-9deg) scaleX(0.98) scaleY(1.01);
+  66% { 
+    transform: translateX(-18px) translateY(8px) rotate(16deg) scaleX(0.97) scaleY(1.03);
   }
 }
 
-@keyframes hair-strand-2 {
-  0%, 100% { 
-    transform: translateX(0px) translateY(0px) rotate(15deg) scaleX(1) scaleY(1);
-  }
-  20% { 
-    transform: translateX(-12px) translateY(6px) rotate(18deg) scaleX(1.08) scaleY(0.95);
-  }
-  45% { 
-    transform: translateX(-22px) translateY(12px) rotate(12deg) scaleX(0.93) scaleY(1.06);
-  }
-  70% { 
-    transform: translateX(-8px) translateY(4px) rotate(16deg) scaleX(1.03) scaleY(0.97);
-  }
-  90% { 
-    transform: translateX(-15px) translateY(8px) rotate(14deg) scaleX(0.97) scaleY(1.02);
-  }
-}
-
-@keyframes hair-strand-3 {
+@keyframes hair-flow-soft {
   0%, 100% { 
     transform: translateX(0px) translateY(0px) rotate(-25deg) scaleX(1) scaleY(1);
   }
-  25% { 
-    transform: translateX(15px) translateY(-8px) rotate(-22deg) scaleX(1.12) scaleY(0.92);
-  }
-  50% { 
-    transform: translateX(28px) translateY(-15px) rotate(-28deg) scaleX(0.88) scaleY(1.08);
+  40% { 
+    transform: translateX(12px) translateY(-6px) rotate(-22deg) scaleX(1.04) scaleY(0.96);
   }
   80% { 
-    transform: translateX(10px) translateY(-3px) rotate(-24deg) scaleX(1.05) scaleY(0.96);
+    transform: translateX(20px) translateY(-10px) rotate(-27deg) scaleX(0.96) scaleY(1.04);
   }
 }
