@@ -11,54 +11,47 @@ export const AnimatedBackground = () => {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Visible animated blobs - simple and clear */}
+      {/* Simple, visible blobs that actually work */}
       
-      {/* Blob 1 - Top Left */}
+      {/* Blob 1 */}
       <div 
-        className="absolute w-96 h-96 rounded-full blur-3xl animate-ultra-massive-drift"
+        className="absolute rounded-full"
         style={{
-          top: '10%',
-          left: '15%',
-          background: 'var(--blob-color-primary)',
-          opacity: 0.4,
-          animationDelay: '0s'
-        }}
-      />
-      
-      {/* Blob 2 - Bottom Right */}
-      <div 
-        className="absolute w-80 h-80 rounded-full blur-3xl animate-ultra-massive-breathe"
-        style={{
-          bottom: '15%',
-          right: '20%',
-          background: 'var(--blob-color-secondary)',
-          opacity: 0.35,
-          animationDelay: '-20s'
-        }}
-      />
-      
-      {/* Blob 3 - Center Left */}
-      <div 
-        className="absolute w-72 h-72 rounded-full blur-3xl animate-ultra-massive-float"
-        style={{
-          top: '50%',
-          left: '5%',
-          transform: 'translateY(-50%)',
-          background: 'var(--blob-color-accent)',
-          opacity: 0.3,
-          animationDelay: '-40s'
-        }}
-      />
-      
-      {/* Blob 4 - Top Right */}
-      <div 
-        className="absolute w-64 h-64 rounded-full blur-3xl animate-ultra-massive-sway"
-        style={{
+          width: '300px',
+          height: '300px',
           top: '20%',
-          right: '10%',
-          background: 'var(--blob-color-primary)',
-          opacity: 0.25,
-          animationDelay: '-60s'
+          left: '10%',
+          backgroundColor: 'rgba(100, 150, 255, 0.6)',
+          filter: 'blur(40px)',
+          animation: 'blob-float 8s ease-in-out infinite'
+        }}
+      />
+      
+      {/* Blob 2 */}
+      <div 
+        className="absolute rounded-full"
+        style={{
+          width: '250px',
+          height: '250px',
+          bottom: '25%',
+          right: '15%',
+          backgroundColor: 'rgba(255, 150, 100, 0.5)',
+          filter: 'blur(35px)',
+          animation: 'blob-float 10s ease-in-out infinite reverse'
+        }}
+      />
+      
+      {/* Blob 3 */}
+      <div 
+        className="absolute rounded-full"
+        style={{
+          width: '200px',
+          height: '200px',
+          top: '60%',
+          left: '60%',
+          backgroundColor: 'rgba(150, 255, 150, 0.4)',
+          filter: 'blur(30px)',
+          animation: 'blob-float 12s ease-in-out infinite'
         }}
       />
       
