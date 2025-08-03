@@ -161,13 +161,9 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
   --texture-filter: hue-rotate(0deg) saturate(0.3) brightness(0.4);
 }
 
-/* Hair color theme variations with ultra-smooth imperceptible transitions */
+/* Hair color theme variations - transitions handled by JavaScript for ultra-smooth imperceptible changes */
 body {
-  transition: 
-    --blob-color-primary 10s cubic-bezier(0.15, 0.2, 0.15, 1),
-    --blob-color-secondary 12s cubic-bezier(0.15, 0.2, 0.15, 1),
-    --blob-color-accent 8.5s cubic-bezier(0.15, 0.2, 0.15, 1),
-    --texture-filter 11s cubic-bezier(0.15, 0.2, 0.15, 1);
+  /* Remove CSS transitions - handled by JavaScript for perfect control */
 }
 
 /* Black hair - very dark with minimal blue */

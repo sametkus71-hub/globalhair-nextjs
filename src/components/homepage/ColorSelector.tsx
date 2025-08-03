@@ -1,8 +1,10 @@
 import { useSession, HairColor } from '@/hooks/useSession';
+import { useSmoothColorTransition } from '@/hooks/useSmoothColorTransition';
 import { cn } from '@/lib/utils';
 
 export const ColorSelector = () => {
   const { profile, updateProfile } = useSession();
+  const { transitionToColor } = useSmoothColorTransition();
 
   const colors: { value: HairColor; image: string }[] = [
     { value: 'Blond', image: '/lovable-uploads/36464574-ba4b-4399-a478-a585122a2ec8.png' },
@@ -12,6 +14,9 @@ export const ColorSelector = () => {
   ];
 
   const handleColorChange = (color: HairColor) => {
+    // Start smooth color transition
+    transitionToColor(color);
+    // Update profile immediately for UI state
     updateProfile('haarkleur', color);
   };
 
