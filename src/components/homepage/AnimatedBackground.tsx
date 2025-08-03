@@ -19,64 +19,64 @@ export const AnimatedBackground = () => {
         }}
       />
       
-      {/* Blob 1 - Top Left (bigger) */}
+      {/* Blob 1 - Top Left (partially off-screen) */}
       <div 
         className="absolute rounded-full"
         style={{
-          width: '400px',
-          height: '400px',
-          top: '5%',
-          left: '5%',
+          width: '350px',
+          height: '350px',
+          top: '-10%',
+          left: '-8%',
           backgroundColor: 'var(--blob-color-primary)',
-          filter: 'blur(35px)',
-          animation: 'blob-float-subtle 15s ease-in-out infinite',
-          opacity: 0.8
+          filter: 'blur(40px)',
+          animation: 'blob-float-subtle 45s ease-in-out infinite',
+          opacity: 0.3
         }}
       />
       
-      {/* Blob 2 - Bottom Left */}
+      {/* Blob 2 - Bottom Right (partially off-screen) */}
       <div 
         className="absolute rounded-full"
         style={{
           width: '280px',
           height: '280px',
-          bottom: '10%',
-          left: '8%',
+          bottom: '-5%',
+          right: '-10%',
           backgroundColor: 'var(--blob-color-secondary)',
-          filter: 'blur(30px)',
-          animation: 'blob-float-subtle 18s ease-in-out infinite reverse',
-          opacity: 0.7
+          filter: 'blur(35px)',
+          animation: 'blob-float-subtle 55s ease-in-out infinite reverse',
+          opacity: 0.25
         }}
       />
       
-      {/* Blob 3 - Center (Black) */}
+      {/* Blob 3 - Center (subtle) */}
       <div 
         className="absolute rounded-full"
         style={{
-          width: '320px',
-          height: '320px',
-          top: '50%',
-          left: '50%',
+          width: '250px',
+          height: '250px',
+          top: '60%',
+          left: '70%',
           transform: 'translate(-50%, -50%)',
           backgroundColor: 'var(--blob-color-accent)',
-          filter: 'blur(32px)',
-          animation: 'blob-float-subtle 20s ease-in-out infinite',
-          opacity: 0.6
+          filter: 'blur(45px)',
+          animation: 'blob-float-subtle 65s ease-in-out infinite',
+          opacity: 0.2
         }}
       />
       
-      {/* Blob 4 - High blur atmospheric blob */}
+      {/* Blob 4 - Large atmospheric blob (very subtle, off-screen) */}
       <div 
         className="absolute rounded-full"
         style={{
-          width: '500px',
-          height: '500px',
-          top: '30%',
-          right: '10%',
+          width: '600px',
+          height: '600px',
+          top: '20%',
+          right: '-20%',
           backgroundColor: 'var(--blob-color-primary)',
-          filter: 'blur(80px)',
-          animation: 'blob-float-subtle 25s ease-in-out infinite',
-          opacity: 0.3
+          filter: 'blur(100px)',
+          animation: 'blob-float-subtle 80s ease-in-out infinite',
+          opacity: 0.15
         }}
       />
     </div>

@@ -481,17 +481,14 @@ body.s-rood {
   0% { 
     transform: translateY(0px) translateX(0px) scale(1); 
   }
-  20% { 
-    transform: translateY(-30px) translateX(25px) scale(1.1); 
+  25% { 
+    transform: translateY(-15px) translateX(10px) scale(1.02); 
   }
-  40% { 
-    transform: translateY(15px) translateX(-20px) scale(0.9); 
+  50% { 
+    transform: translateY(8px) translateX(-12px) scale(0.98); 
   }
-  60% { 
-    transform: translateY(-10px) translateX(35px) scale(1.05); 
-  }
-  80% { 
-    transform: translateY(25px) translateX(-15px) scale(0.95); 
+  75% { 
+    transform: translateY(-5px) translateX(15px) scale(1.01); 
   }
   100% { 
     transform: translateY(0px) translateX(0px) scale(1); 
