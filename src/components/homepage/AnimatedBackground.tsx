@@ -80,80 +80,71 @@ export const AnimatedBackground = () => {
         }}
       />
       
-      {/* Strategic blob positioning for optimal visual impact */}
+      {/* Massive reflective blobs - positioned way off screen but casting visible reflections */}
       
-      {/* Top Left Area - moves far out and back */}
+      {/* Top Left Massive Reflector */}
       <div 
-        className="absolute w-[400px] h-[400px] rounded-full blur-[80px] opacity-2 animate-ultra-breathe-out"
+        className="absolute w-[800px] h-[800px] rounded-full blur-[200px] opacity-8 animate-ultra-massive-drift"
         style={{
-          top: '-60%',
-          left: '-60%',
+          top: '-85%',
+          left: '-85%',
           background: 'var(--blob-color-primary)',
           animationDelay: '0s'
         }}
       />
 
+      {/* Bottom Left Massive Reflector */}
       <div 
-        className="absolute w-[350px] h-[350px] rounded-full blur-[70px] opacity-2.5 animate-ultra-breathe-in"
+        className="absolute w-[900px] h-[900px] rounded-full blur-[250px] opacity-6 animate-ultra-massive-breathe"
         style={{
-          top: '-45%',
-          left: '-45%',
-          background: 'var(--blob-color-accent)',
-          animationDelay: '-40s'
-        }}
-      />
-
-      {/* Bottom Left Area - deeper movement */}
-      <div 
-        className="absolute w-[450px] h-[450px] rounded-full blur-[90px] opacity-1.8 animate-ultra-deep-out"
-        style={{
-          bottom: '-70%',
-          left: '-65%',
+          bottom: '-90%',
+          left: '-90%',
           background: 'var(--blob-color-secondary)',
-          animationDelay: '-20s'
-        }}
-      />
-
-      <div 
-        className="absolute w-[320px] h-[320px] rounded-full blur-[75px] opacity-2.2 animate-ultra-deep-in"
-        style={{
-          bottom: '-50%',
-          left: '-50%',
-          background: 'var(--blob-color-primary)',
           animationDelay: '-60s'
         }}
       />
 
-      {/* Middle Right Area - flowing movement */}
+      {/* Top Right Massive Reflector */}
       <div 
-        className="absolute w-[380px] h-[380px] rounded-full blur-[85px] opacity-2 animate-ultra-flow-side"
+        className="absolute w-[750px] h-[750px] rounded-full blur-[180px] opacity-9 animate-ultra-massive-float"
         style={{
-          top: '40%',
-          right: '-55%',
+          top: '-80%',
+          right: '-80%',
           background: 'var(--blob-color-accent)',
           animationDelay: '-30s'
         }}
       />
 
-      {/* Top Right Area - gentle breathing */}
+      {/* Bottom Right Massive Reflector */}
       <div 
-        className="absolute w-[360px] h-[360px] rounded-full blur-[80px] opacity-1.5 animate-ultra-gentle-drift"
+        className="absolute w-[850px] h-[850px] rounded-full blur-[220px] opacity-7 animate-ultra-massive-sway"
         style={{
-          top: '-50%',
-          right: '-50%',
-          background: 'var(--blob-color-secondary)',
-          animationDelay: '-80s'
+          bottom: '-85%',
+          right: '-85%',
+          background: 'var(--blob-color-primary)',
+          animationDelay: '-90s'
         }}
       />
 
-      {/* Bottom Right Area - slow emergence */}
+      {/* Center Left Deep Reflector */}
       <div 
-        className="absolute w-[420px] h-[420px] rounded-full blur-[95px] opacity-1.8 animate-ultra-emerge"
+        className="absolute w-[700px] h-[700px] rounded-full blur-[160px] opacity-10 animate-ultra-massive-center"
         style={{
-          bottom: '-65%',
-          right: '-60%',
-          background: 'var(--blob-color-primary)',
-          animationDelay: '-100s'
+          top: '30%',
+          left: '-95%',
+          background: 'var(--blob-color-secondary)',
+          animationDelay: '-45s'
+        }}
+      />
+
+      {/* Center Right Deep Reflector */}
+      <div 
+        className="absolute w-[650px] h-[650px] rounded-full blur-[170px] opacity-11 animate-ultra-massive-pulse"
+        style={{
+          top: '50%',
+          right: '-95%',
+          background: 'var(--blob-color-accent)',
+          animationDelay: '-75s'
         }}
       />
       

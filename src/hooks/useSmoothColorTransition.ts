@@ -10,10 +10,10 @@ interface ColorTheme {
 
 const colorThemes: Record<HairColor, ColorTheme> = {
   'Blond': {
-    primary: 'hsl(45, 65%, 85%)',
-    secondary: 'hsl(40, 45%, 75%)', 
-    accent: 'hsl(50, 55%, 80%)',
-    textureFilter: 'hue-rotate(30deg) saturate(0.4) brightness(0.6)'
+    primary: 'hsl(47, 82%, 81%)', // Natural creamy blonde like #fbe7a1
+    secondary: 'hsl(45, 75%, 75%)', // Warm blonde shadow
+    accent: 'hsl(50, 85%, 85%)', // Light blonde highlight
+    textureFilter: 'hue-rotate(40deg) saturate(0.6) brightness(0.75)'
   },
   'Bruin': {
     primary: 'hsl(25, 45%, 35%)',
