@@ -80,54 +80,85 @@ export const AnimatedBackground = () => {
         }}
       />
       
-      {/* Far background blobs with heavy blur - subtle but visible */}
+      {/* Multiple luxurious background blobs with lower blur */}
       <div 
-        className="absolute w-[800px] h-[800px] rounded-full blur-[250px] opacity-8 animate-ultra-slow"
+        className="absolute w-[400px] h-[400px] rounded-full blur-[90px] opacity-15 animate-ultra-slow"
         style={{
-          top: '-20%',
-          left: '-20%',
+          top: '-10%',
+          left: '-10%',
           background: 'var(--blob-color-primary)',
           animationDelay: '0s'
         }}
       />
 
       <div 
-        className="absolute w-[600px] h-[600px] rounded-full blur-[280px] opacity-6 animate-ultra-drift"
+        className="absolute w-[350px] h-[350px] rounded-full blur-[100px] opacity-12 animate-ultra-drift"
         style={{
-          bottom: '-15%',
-          right: '-15%',
+          bottom: '-8%',
+          right: '-8%',
           background: 'var(--blob-color-secondary)',
           animationDelay: '-40s'
         }}
       />
 
       <div 
-        className="absolute w-[700px] h-[700px] rounded-full blur-[260px] opacity-10 animate-ultra-gentle"
+        className="absolute w-[450px] h-[450px] rounded-full blur-[80px] opacity-18 animate-ultra-gentle"
         style={{
-          top: '30%',
-          right: '-25%',
+          top: '20%',
+          right: '-15%',
           background: 'var(--blob-color-accent)',
           animationDelay: '-20s'
         }}
       />
 
       <div 
-        className="absolute w-[500px] h-[500px] rounded-full blur-[300px] opacity-5 animate-ultra-float"
+        className="absolute w-[300px] h-[300px] rounded-full blur-[95px] opacity-10 animate-ultra-float"
         style={{
-          bottom: '40%',
-          left: '-10%',
+          bottom: '30%',
+          left: '-5%',
           background: 'var(--blob-color-primary)',
           animationDelay: '-60s'
         }}
       />
 
       <div 
-        className="absolute w-[550px] h-[550px] rounded-full blur-[270px] opacity-7 animate-ultra-sway"
+        className="absolute w-[380px] h-[380px] rounded-full blur-[85px] opacity-14 animate-ultra-sway"
         style={{
-          top: '60%',
-          left: '70%',
+          top: '50%',
+          left: '60%',
           background: 'var(--blob-color-secondary)',
           animationDelay: '-80s'
+        }}
+      />
+
+      {/* Additional smaller luxurious blobs */}
+      <div 
+        className="absolute w-[250px] h-[250px] rounded-full blur-[100px] opacity-8 animate-ultra-slow"
+        style={{
+          top: '10%',
+          left: '20%',
+          background: 'var(--blob-color-accent)',
+          animationDelay: '-30s'
+        }}
+      />
+
+      <div 
+        className="absolute w-[320px] h-[320px] rounded-full blur-[90px] opacity-11 animate-ultra-drift"
+        style={{
+          bottom: '60%',
+          right: '30%',
+          background: 'var(--blob-color-primary)',
+          animationDelay: '-100s'
+        }}
+      />
+
+      <div 
+        className="absolute w-[280px] h-[280px] rounded-full blur-[95px] opacity-9 animate-ultra-gentle"
+        style={{
+          top: '70%',
+          left: '15%',
+          background: 'var(--blob-color-secondary)',
+          animationDelay: '-50s'
         }}
       />
       

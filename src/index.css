@@ -153,15 +153,15 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
   }
 }
 
-/* Animated background blob colors - dark with subtle color hints */
+/* Animated background blob colors - luxurious with visible color hints */
 :root {
-  --blob-color-primary: hsl(0, 0%, 15%);
-  --blob-color-secondary: hsl(0, 0%, 12%);
-  --blob-color-accent: hsl(0, 0%, 18%);
+  --blob-color-primary: hsl(0, 0%, 25%);
+  --blob-color-secondary: hsl(0, 0%, 20%);
+  --blob-color-accent: hsl(0, 0%, 30%);
   --texture-filter: hue-rotate(0deg) saturate(0.3) brightness(0.4);
 }
 
-/* Hair color theme variations with subtle color hints */
+/* Hair color theme variations with luxurious visible hints */
 body {
   transition: 
     --blob-color-primary 3s ease-in-out,
@@ -170,36 +170,36 @@ body {
     --texture-filter 3s ease-in-out;
 }
 
-/* Black hair - dark with cool hint */
+/* Black hair - very dark blue/black */
 body.s-zwart {
-  --blob-color-primary: hsl(210, 25%, 15%);
-  --blob-color-secondary: hsl(220, 20%, 12%);
-  --blob-color-accent: hsl(215, 30%, 18%);
-  --texture-filter: hue-rotate(200deg) saturate(0.4) brightness(0.4);
+  --blob-color-primary: hsl(220, 30%, 12%);
+  --blob-color-secondary: hsl(210, 25%, 8%);
+  --blob-color-accent: hsl(230, 35%, 15%);
+  --texture-filter: hue-rotate(200deg) saturate(0.4) brightness(0.3);
 }
 
-/* Brown hair - dark with warm hint */
+/* Brown hair - rich dark brown */
 body.s-bruin {
-  --blob-color-primary: hsl(35, 30%, 15%);
-  --blob-color-secondary: hsl(25, 25%, 12%);
-  --blob-color-accent: hsl(45, 35%, 18%);
-  --texture-filter: hue-rotate(30deg) saturate(0.5) brightness(0.5);
+  --blob-color-primary: hsl(25, 40%, 18%);
+  --blob-color-secondary: hsl(30, 35%, 15%);
+  --blob-color-accent: hsl(20, 45%, 22%);
+  --texture-filter: hue-rotate(30deg) saturate(0.6) brightness(0.5);
 }
 
-/* Blonde hair - dark with golden hint */
+/* Blonde hair - warm golden blonde */
 body.s-blond {
-  --blob-color-primary: hsl(50, 35%, 15%);
-  --blob-color-secondary: hsl(45, 30%, 12%);
-  --blob-color-accent: hsl(55, 40%, 18%);
-  --texture-filter: hue-rotate(45deg) saturate(0.4) brightness(0.6);
+  --blob-color-primary: hsl(45, 50%, 25%);
+  --blob-color-secondary: hsl(50, 45%, 20%);
+  --blob-color-accent: hsl(40, 55%, 30%);
+  --texture-filter: hue-rotate(45deg) saturate(0.5) brightness(0.7);
 }
 
-/* Red hair - dark with warm red hint */
+/* Grey hair - sophisticated grey */
 body.s-rood {
-  --blob-color-primary: hsl(15, 40%, 15%);
-  --blob-color-secondary: hsl(25, 35%, 12%);
-  --blob-color-accent: hsl(10, 30%, 18%);
-  --texture-filter: hue-rotate(15deg) saturate(0.6) brightness(0.5);
+  --blob-color-primary: hsl(0, 5%, 22%);
+  --blob-color-secondary: hsl(0, 3%, 18%);
+  --blob-color-accent: hsl(0, 8%, 26%);
+  --texture-filter: hue-rotate(0deg) saturate(0.2) brightness(0.6);
 }
 
 @layer components {
