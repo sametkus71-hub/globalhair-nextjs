@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Component as EtheralShadow } from '@/components/ui/etheral-shadow';
 
 export const AnimatedBackground = () => {
   const [mounted, setMounted] = useState(false);
@@ -11,6 +12,15 @@ export const AnimatedBackground = () => {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Etheral Shadow Effect */}
+      <div className="absolute inset-0 opacity-10">
+        <EtheralShadow
+          color="hsl(var(--primary))"
+          animation={{ scale: 60, speed: 70 }}
+          noise={{ opacity: 0.3, scale: 1.5 }}
+          sizing="fill"
+        />
+      </div>
       {/* Far background hair texture - very dark and subtle */}
       <div 
         className="absolute inset-0 opacity-[0.03] mix-blend-soft-light animate-bg-wave"
