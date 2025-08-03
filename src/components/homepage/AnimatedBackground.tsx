@@ -11,140 +11,72 @@ export const AnimatedBackground = () => {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Far background hair texture - very dark and subtle */}
-      <div 
-        className="absolute inset-0 opacity-[0.03] mix-blend-soft-light animate-bg-wave"
-        style={{
-          backgroundImage: `url(/lovable-uploads/36b7add7-c0c6-4b53-a0bd-41854d1270e7.png)`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          filter: 'var(--texture-filter) blur(2px)',
-        }}
-      />
-
-      {/* Subtle hair wave elements - much darker */}
-      <div 
-        className="absolute w-[400px] h-[150px] blur-[60px] opacity-6 animate-hair-wave-subtle"
-        style={{
-          top: '20%',
-          left: '-5%',
-          background: 'linear-gradient(45deg, var(--blob-color-primary), transparent)',
-          clipPath: 'ellipse(90% 40% at 50% 50%)',
-          transform: 'rotate(-12deg)',
-        }}
-      />
-
-      <div 
-        className="absolute w-[350px] h-[120px] blur-[70px] opacity-5 animate-hair-sway-gentle"
-        style={{
-          bottom: '25%',
-          right: '-8%',
-          background: 'linear-gradient(-60deg, var(--blob-color-secondary), transparent)',
-          clipPath: 'ellipse(85% 35% at 50% 50%)',
-          transform: 'rotate(18deg)',
-          animationDelay: '-20s'
-        }}
-      />
-
-      <div 
-        className="absolute w-[300px] h-[100px] blur-[80px] opacity-7 animate-hair-flow-soft"
-        style={{
-          top: '60%',
-          left: '15%',
-          background: 'linear-gradient(30deg, var(--blob-color-accent), transparent)',
-          clipPath: 'ellipse(80% 30% at 50% 50%)',
-          transform: 'rotate(-25deg)',
-          animationDelay: '-10s'
-        }}
-      />
-
-      {/* Very subtle circular elements for depth */}
-      <div 
-        className="absolute w-60 h-60 rounded-full blur-[100px] opacity-4 animate-float-slow"
-        style={{
-          top: '10%',
-          right: '20%',
-          background: 'var(--blob-color-primary)',
-          animationDelay: '-15s'
-        }}
-      />
-
-      <div 
-        className="absolute w-48 h-48 rounded-full blur-[120px] opacity-3 animate-float-gentle"
-        style={{
-          bottom: '15%',
-          left: '25%',
-          background: 'var(--blob-color-accent)',
-          animationDelay: '-30s'
-        }}
-      />
+      {/* Large atmospheric blobs - barely visible but mood-setting */}
       
-      {/* Massive reflective blobs - positioned way off screen but casting visible reflections */}
-      
-      {/* Top Left Massive Reflector */}
+      {/* Primary mood blob - top left */}
       <div 
-        className="absolute w-[800px] h-[800px] rounded-full blur-[200px] opacity-8 animate-ultra-massive-drift"
+        className="absolute w-[600px] h-[600px] rounded-full blur-[120px] opacity-[0.08] animate-ultra-massive-drift"
         style={{
-          top: '-85%',
-          left: '-85%',
-          background: 'var(--blob-color-primary)',
+          top: '-20%',
+          left: '-15%',
+          background: 'radial-gradient(circle, var(--blob-color-primary) 0%, transparent 70%)',
           animationDelay: '0s'
         }}
       />
-
-      {/* Bottom Left Massive Reflector */}
+      
+      {/* Secondary mood blob - bottom right */}
       <div 
-        className="absolute w-[900px] h-[900px] rounded-full blur-[250px] opacity-6 animate-ultra-massive-breathe"
+        className="absolute w-[700px] h-[700px] rounded-full blur-[150px] opacity-[0.06] animate-ultra-massive-breathe"
         style={{
-          bottom: '-90%',
-          left: '-90%',
-          background: 'var(--blob-color-secondary)',
+          bottom: '-25%',
+          right: '-20%',
+          background: 'radial-gradient(circle, var(--blob-color-secondary) 0%, transparent 70%)',
+          animationDelay: '-40s'
+        }}
+      />
+      
+      {/* Accent mood blob - center left */}
+      <div 
+        className="absolute w-[500px] h-[500px] rounded-full blur-[100px] opacity-[0.09] animate-ultra-massive-float"
+        style={{
+          top: '40%',
+          left: '-10%',
+          background: 'radial-gradient(circle, var(--blob-color-accent) 0%, transparent 70%)',
+          animationDelay: '-20s'
+        }}
+      />
+      
+      {/* Large ambient blob - top right */}
+      <div 
+        className="absolute w-[650px] h-[650px] rounded-full blur-[130px] opacity-[0.07] animate-ultra-massive-sway"
+        style={{
+          top: '-10%',
+          right: '-15%',
+          background: 'radial-gradient(circle, var(--blob-color-primary) 0%, transparent 70%)',
           animationDelay: '-60s'
         }}
       />
-
-      {/* Top Right Massive Reflector */}
+      
+      {/* Deep background blob - center */}
       <div 
-        className="absolute w-[750px] h-[750px] rounded-full blur-[180px] opacity-9 animate-ultra-massive-float"
-        style={{
-          top: '-80%',
-          right: '-80%',
-          background: 'var(--blob-color-accent)',
-          animationDelay: '-30s'
-        }}
-      />
-
-      {/* Bottom Right Massive Reflector */}
-      <div 
-        className="absolute w-[850px] h-[850px] rounded-full blur-[220px] opacity-7 animate-ultra-massive-sway"
-        style={{
-          bottom: '-85%',
-          right: '-85%',
-          background: 'var(--blob-color-primary)',
-          animationDelay: '-90s'
-        }}
-      />
-
-      {/* Center Left Deep Reflector */}
-      <div 
-        className="absolute w-[700px] h-[700px] rounded-full blur-[160px] opacity-10 animate-ultra-massive-center"
-        style={{
-          top: '30%',
-          left: '-95%',
-          background: 'var(--blob-color-secondary)',
-          animationDelay: '-45s'
-        }}
-      />
-
-      {/* Center Right Deep Reflector */}
-      <div 
-        className="absolute w-[650px] h-[650px] rounded-full blur-[170px] opacity-11 animate-ultra-massive-pulse"
+        className="absolute w-[800px] h-[800px] rounded-full blur-[200px] opacity-[0.04] animate-ultra-massive-pulse"
         style={{
           top: '50%',
-          right: '-95%',
-          background: 'var(--blob-color-accent)',
-          animationDelay: '-75s'
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          background: 'radial-gradient(circle, var(--blob-color-secondary) 0%, transparent 60%)',
+          animationDelay: '-80s'
+        }}
+      />
+      
+      {/* Subtle overlay blob - bottom left */}
+      <div 
+        className="absolute w-[550px] h-[550px] rounded-full blur-[110px] opacity-[0.08] animate-ultra-massive-center"
+        style={{
+          bottom: '-5%',
+          left: '-8%',
+          background: 'radial-gradient(circle, var(--blob-color-accent) 0%, transparent 70%)',
+          animationDelay: '-100s'
         }}
       />
       
