@@ -273,6 +273,26 @@ body.s-rood {
   .animate-hair-flow-soft {
     animation: hair-flow-soft 35s ease-in-out infinite;
   }
+  
+  .animate-ultra-slow {
+    animation: ultra-slow 150s ease-in-out infinite;
+  }
+  
+  .animate-ultra-drift {
+    animation: ultra-drift 180s ease-in-out infinite;
+  }
+  
+  .animate-ultra-gentle {
+    animation: ultra-gentle 200s ease-in-out infinite;
+  }
+  
+  .animate-ultra-float {
+    animation: ultra-float 160s ease-in-out infinite;
+  }
+  
+  .animate-ultra-sway {
+    animation: ultra-sway 170s ease-in-out infinite;
+  }
 }
 
 @keyframes float-slow {
@@ -343,5 +363,59 @@ body.s-rood {
   }
   80% { 
     transform: translateX(20px) translateY(-10px) rotate(-27deg) scaleX(0.96) scaleY(1.04);
+  }
+}
+
+@keyframes ultra-slow {
+  0%, 100% { 
+    transform: translate(0px, 0px) scale(1);
+  }
+  50% { 
+    transform: translate(5px, -3px) scale(1.002);
+  }
+}
+
+@keyframes ultra-drift {
+  0%, 100% { 
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% { 
+    transform: translate(-4px, 2px) scale(0.998);
+  }
+  66% { 
+    transform: translate(3px, 4px) scale(1.001);
+  }
+}
+
+@keyframes ultra-gentle {
+  0%, 100% { 
+    transform: translate(0px, 0px) scale(1);
+  }
+  25% { 
+    transform: translate(2px, -2px) scale(1.001);
+  }
+  75% { 
+    transform: translate(-3px, 1px) scale(0.999);
+  }
+}
+
+@keyframes ultra-float {
+  0%, 100% { 
+    transform: translate(0px, 0px) scale(1);
+  }
+  40% { 
+    transform: translate(4px, -1px) scale(1.001);
+  }
+  80% { 
+    transform: translate(-2px, 3px) scale(0.999);
+  }
+}
+
+@keyframes ultra-sway {
+  0%, 100% { 
+    transform: translate(0px, 0px) scale(1);
+  }
+  50% { 
+    transform: translate(-3px, -4px) scale(1.001);
   }
 }

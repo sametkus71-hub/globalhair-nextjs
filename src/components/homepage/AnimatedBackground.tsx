@@ -80,6 +80,57 @@ export const AnimatedBackground = () => {
         }}
       />
       
+      {/* Far background blobs with heavy blur - ultra subtle */}
+      <div 
+        className="absolute w-[800px] h-[800px] rounded-full blur-[200px] opacity-5 animate-ultra-slow"
+        style={{
+          top: '-20%',
+          left: '-20%',
+          background: 'var(--blob-color-primary)',
+          animationDelay: '0s'
+        }}
+      />
+
+      <div 
+        className="absolute w-[600px] h-[600px] rounded-full blur-[200px] opacity-4 animate-ultra-drift"
+        style={{
+          bottom: '-15%',
+          right: '-15%',
+          background: 'var(--blob-color-secondary)',
+          animationDelay: '-40s'
+        }}
+      />
+
+      <div 
+        className="absolute w-[700px] h-[700px] rounded-full blur-[200px] opacity-6 animate-ultra-gentle"
+        style={{
+          top: '30%',
+          right: '-25%',
+          background: 'var(--blob-color-accent)',
+          animationDelay: '-20s'
+        }}
+      />
+
+      <div 
+        className="absolute w-[500px] h-[500px] rounded-full blur-[200px] opacity-3 animate-ultra-float"
+        style={{
+          bottom: '40%',
+          left: '-10%',
+          background: 'var(--blob-color-primary)',
+          animationDelay: '-60s'
+        }}
+      />
+
+      <div 
+        className="absolute w-[550px] h-[550px] rounded-full blur-[200px] opacity-4 animate-ultra-sway"
+        style={{
+          top: '60%',
+          left: '70%',
+          background: 'var(--blob-color-secondary)',
+          animationDelay: '-80s'
+        }}
+      />
+      
     </div>
   );
 };
