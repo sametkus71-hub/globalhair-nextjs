@@ -11,9 +11,9 @@ export const AnimatedBackground = () => {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Far background hair texture - more visible but subtle */}
+      {/* Far background hair texture - very dark and subtle */}
       <div 
-        className="absolute inset-0 opacity-[0.15] mix-blend-soft-light animate-bg-wave"
+        className="absolute inset-0 opacity-[0.03] mix-blend-soft-light animate-bg-wave"
         style={{
           backgroundImage: `url(/lovable-uploads/36b7add7-c0c6-4b53-a0bd-41854d1270e7.png)`,
           backgroundSize: 'cover',
@@ -23,9 +23,9 @@ export const AnimatedBackground = () => {
         }}
       />
 
-      {/* Subtle hair wave elements */}
+      {/* Subtle hair wave elements - much darker */}
       <div 
-        className="absolute w-[400px] h-[150px] blur-[60px] opacity-12 animate-hair-wave-subtle"
+        className="absolute w-[400px] h-[150px] blur-[60px] opacity-6 animate-hair-wave-subtle"
         style={{
           top: '20%',
           left: '-5%',
@@ -36,7 +36,7 @@ export const AnimatedBackground = () => {
       />
 
       <div 
-        className="absolute w-[350px] h-[120px] blur-[70px] opacity-10 animate-hair-sway-gentle"
+        className="absolute w-[350px] h-[120px] blur-[70px] opacity-5 animate-hair-sway-gentle"
         style={{
           bottom: '25%',
           right: '-8%',
@@ -48,7 +48,7 @@ export const AnimatedBackground = () => {
       />
 
       <div 
-        className="absolute w-[300px] h-[100px] blur-[80px] opacity-15 animate-hair-flow-soft"
+        className="absolute w-[300px] h-[100px] blur-[80px] opacity-7 animate-hair-flow-soft"
         style={{
           top: '60%',
           left: '15%',
@@ -61,7 +61,7 @@ export const AnimatedBackground = () => {
 
       {/* Very subtle circular elements for depth */}
       <div 
-        className="absolute w-60 h-60 rounded-full blur-[100px] opacity-8 animate-float-slow"
+        className="absolute w-60 h-60 rounded-full blur-[100px] opacity-4 animate-float-slow"
         style={{
           top: '10%',
           right: '20%',
@@ -71,7 +71,7 @@ export const AnimatedBackground = () => {
       />
 
       <div 
-        className="absolute w-48 h-48 rounded-full blur-[120px] opacity-6 animate-float-gentle"
+        className="absolute w-48 h-48 rounded-full blur-[120px] opacity-3 animate-float-gentle"
         style={{
           bottom: '15%',
           left: '25%',
@@ -80,9 +80,9 @@ export const AnimatedBackground = () => {
         }}
       />
       
-      {/* Far background blobs with heavy blur - ultra subtle */}
+      {/* Far background blobs with heavy blur - ultra subtle and dark */}
       <div 
-        className="absolute w-[800px] h-[800px] rounded-full blur-[200px] opacity-5 animate-ultra-slow"
+        className="absolute w-[800px] h-[800px] rounded-full blur-[200px] opacity-2 animate-ultra-slow"
         style={{
           top: '-20%',
           left: '-20%',
@@ -92,7 +92,7 @@ export const AnimatedBackground = () => {
       />
 
       <div 
-        className="absolute w-[600px] h-[600px] rounded-full blur-[200px] opacity-4 animate-ultra-drift"
+        className="absolute w-[600px] h-[600px] rounded-full blur-[200px] opacity-1.5 animate-ultra-drift"
         style={{
           bottom: '-15%',
           right: '-15%',
@@ -102,7 +102,7 @@ export const AnimatedBackground = () => {
       />
 
       <div 
-        className="absolute w-[700px] h-[700px] rounded-full blur-[200px] opacity-6 animate-ultra-gentle"
+        className="absolute w-[700px] h-[700px] rounded-full blur-[200px] opacity-2.5 animate-ultra-gentle"
         style={{
           top: '30%',
           right: '-25%',
@@ -112,7 +112,7 @@ export const AnimatedBackground = () => {
       />
 
       <div 
-        className="absolute w-[500px] h-[500px] rounded-full blur-[200px] opacity-3 animate-ultra-float"
+        className="absolute w-[500px] h-[500px] rounded-full blur-[200px] opacity-1 animate-ultra-float"
         style={{
           bottom: '40%',
           left: '-10%',
@@ -122,7 +122,7 @@ export const AnimatedBackground = () => {
       />
 
       <div 
-        className="absolute w-[550px] h-[550px] rounded-full blur-[200px] opacity-4 animate-ultra-sway"
+        className="absolute w-[550px] h-[550px] rounded-full blur-[200px] opacity-1.5 animate-ultra-sway"
         style={{
           top: '60%',
           left: '70%',
