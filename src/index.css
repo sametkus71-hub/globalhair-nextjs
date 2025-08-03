@@ -188,10 +188,10 @@ body.s-bruin {
 
 /* Blonde hair - warm golden blonde */
 body.s-blond {
-  --blob-color-primary: hsl(45, 50%, 25%);
-  --blob-color-secondary: hsl(50, 45%, 20%);
-  --blob-color-accent: hsl(40, 55%, 30%);
-  --texture-filter: hue-rotate(45deg) saturate(0.5) brightness(0.7);
+  --blob-color-primary: hsl(45, 60%, 35%);
+  --blob-color-secondary: hsl(50, 55%, 28%);
+  --blob-color-accent: hsl(40, 65%, 40%);
+  --texture-filter: hue-rotate(45deg) saturate(0.7) brightness(0.8);
 }
 
 /* Grey hair - sophisticated grey */
