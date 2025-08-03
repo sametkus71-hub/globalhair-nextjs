@@ -174,11 +174,11 @@ body.zwart-hair {
   --texture-filter: hue-rotate(0deg) saturate(0.3) brightness(0.4);
 }
 
-/* Blonde hair - specific blonde color #FBE7A1 */
+/* Blonde hair - bright blonde color (less lime-green) */
 body.blond-hair {
-  --blob-color-primary: #FBE7A1;
-  --blob-color-secondary: #F5D982;
-  --blob-color-accent: #E8CC75;
+  --blob-color-primary: #F5E6A3;
+  --blob-color-secondary: #F0D878;
+  --blob-color-accent: #EBD065;
   --texture-filter: hue-rotate(40deg) saturate(0.6) brightness(0.75);
 }
 
