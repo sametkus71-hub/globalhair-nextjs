@@ -80,66 +80,79 @@ export const AnimatedBackground = () => {
         }}
       />
       
-      {/* Elegant organized background blobs - positioned out of screen */}
-      {/* Top area blobs */}
+      {/* Strategic blob positioning for optimal visual impact */}
+      
+      {/* Top Left Area - moves far out and back */}
       <div 
-        className="absolute w-[350px] h-[350px] rounded-full blur-[70px] opacity-2 animate-ultra-slow"
+        className="absolute w-[400px] h-[400px] rounded-full blur-[80px] opacity-2 animate-ultra-breathe-out"
         style={{
-          top: '-40%',
-          left: '-30%',
+          top: '-60%',
+          left: '-60%',
           background: 'var(--blob-color-primary)',
           animationDelay: '0s'
         }}
       />
 
       <div 
-        className="absolute w-[300px] h-[300px] rounded-full blur-[60px] opacity-3 animate-ultra-gentle"
+        className="absolute w-[350px] h-[350px] rounded-full blur-[70px] opacity-2.5 animate-ultra-breathe-in"
         style={{
-          top: '-35%',
-          right: '-25%',
+          top: '-45%',
+          left: '-45%',
           background: 'var(--blob-color-accent)',
-          animationDelay: '-20s'
-        }}
-      />
-
-      {/* Bottom area blobs */}
-      <div 
-        className="absolute w-[320px] h-[320px] rounded-full blur-[65px] opacity-2 animate-ultra-drift"
-        style={{
-          bottom: '-35%',
-          left: '-25%',
-          background: 'var(--blob-color-secondary)',
           animationDelay: '-40s'
         }}
       />
 
+      {/* Bottom Left Area - deeper movement */}
       <div 
-        className="absolute w-[280px] h-[280px] rounded-full blur-[75px] opacity-2.5 animate-ultra-sway"
+        className="absolute w-[450px] h-[450px] rounded-full blur-[90px] opacity-1.8 animate-ultra-deep-out"
         style={{
-          bottom: '-30%',
-          right: '-30%',
-          background: 'var(--blob-color-primary)',
-          animationDelay: '-80s'
+          bottom: '-70%',
+          left: '-65%',
+          background: 'var(--blob-color-secondary)',
+          animationDelay: '-20s'
         }}
       />
 
-      {/* Side area blobs */}
       <div 
-        className="absolute w-[250px] h-[250px] rounded-full blur-[65px] opacity-1.5 animate-ultra-float"
+        className="absolute w-[320px] h-[320px] rounded-full blur-[75px] opacity-2.2 animate-ultra-deep-in"
         style={{
-          top: '20%',
-          left: '-35%',
-          background: 'var(--blob-color-accent)',
+          bottom: '-50%',
+          left: '-50%',
+          background: 'var(--blob-color-primary)',
           animationDelay: '-60s'
         }}
       />
 
+      {/* Middle Right Area - flowing movement */}
       <div 
-        className="absolute w-[300px] h-[300px] rounded-full blur-[70px] opacity-2 animate-ultra-slow"
+        className="absolute w-[380px] h-[380px] rounded-full blur-[85px] opacity-2 animate-ultra-flow-side"
         style={{
-          top: '60%',
-          right: '-40%',
+          top: '40%',
+          right: '-55%',
+          background: 'var(--blob-color-accent)',
+          animationDelay: '-30s'
+        }}
+      />
+
+      {/* Top Right Area - gentle breathing */}
+      <div 
+        className="absolute w-[360px] h-[360px] rounded-full blur-[80px] opacity-1.5 animate-ultra-gentle-drift"
+        style={{
+          top: '-50%',
+          right: '-50%',
           background: 'var(--blob-color-secondary)',
+          animationDelay: '-80s'
+        }}
+      />
+
+      {/* Bottom Right Area - slow emergence */}
+      <div 
+        className="absolute w-[420px] h-[420px] rounded-full blur-[95px] opacity-1.8 animate-ultra-emerge"
+        style={{
+          bottom: '-65%',
+          right: '-60%',
+          background: 'var(--blob-color-primary)',
           animationDelay: '-100s'
         }}
       />

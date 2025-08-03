@@ -14,7 +14,9 @@ export const ColorSelector = () => {
   ];
 
   const handleColorChange = (color: HairColor) => {
-    // Only start smooth color transition - don't update profile/body class immediately
+    // Update UI state immediately for selection feedback
+    updateProfile('haarkleur', color);
+    // Start smooth color transition
     transitionToColor(color);
   };
 
