@@ -29,8 +29,9 @@ export const AnimatedBackground = () => {
           left: '-8%',
           backgroundColor: 'var(--blob-color-primary)',
           filter: 'blur(40px)',
-          animation: 'blob-float-subtle 45s ease-in-out infinite',
-          opacity: 0.3
+          animation: 'blob-float-with-blur 45s ease-in-out infinite',
+          opacity: 0.3,
+          transition: 'background-color 2s ease-in-out'
         }}
       />
       
@@ -44,8 +45,9 @@ export const AnimatedBackground = () => {
           right: '-10%',
           backgroundColor: 'var(--blob-color-secondary)',
           filter: 'blur(35px)',
-          animation: 'blob-float-subtle 55s ease-in-out infinite reverse',
-          opacity: 0.25
+          animation: 'blob-float-with-blur 55s ease-in-out infinite reverse',
+          opacity: 0.25,
+          transition: 'background-color 2s ease-in-out'
         }}
       />
       
@@ -60,8 +62,9 @@ export const AnimatedBackground = () => {
           transform: 'translate(-50%, -50%)',
           backgroundColor: 'var(--blob-color-accent)',
           filter: 'blur(45px)',
-          animation: 'blob-float-subtle 65s ease-in-out infinite',
-          opacity: 0.2
+          animation: 'blob-float-with-blur 65s ease-in-out infinite 10s',
+          opacity: 0.2,
+          transition: 'background-color 2s ease-in-out'
         }}
       />
       
@@ -75,8 +78,9 @@ export const AnimatedBackground = () => {
           right: '-20%',
           backgroundColor: 'var(--blob-color-primary)',
           filter: 'blur(100px)',
-          animation: 'blob-float-subtle 80s ease-in-out infinite',
-          opacity: 0.15
+          animation: 'blob-float-with-blur 80s ease-in-out infinite 20s',
+          opacity: 0.15,
+          transition: 'background-color 2s ease-in-out'
         }}
       />
     </div>
