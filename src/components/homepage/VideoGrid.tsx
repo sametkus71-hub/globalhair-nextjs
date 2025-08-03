@@ -123,7 +123,7 @@ export const VideoGrid = ({ className }: VideoGridProps) => {
         className={cn(
           "aspect-[3/4] relative overflow-hidden border transition-all duration-500 ease-out",
           isActive ? "cursor-pointer hover:scale-[1.01] group" : "cursor-not-allowed opacity-60",
-          "animate-fade-in"
+          !isStatic && "animate-fade-in"
         )}
         style={{ 
           backgroundColor: colors.bgColor,
@@ -182,7 +182,6 @@ export const VideoGrid = ({ className }: VideoGridProps) => {
 
   return (
     <div 
-      key={`grid-${animationKey}`} // Force re-render entire grid
       className={cn("grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 relative w-full max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-3xl px-2 sm:px-0", className)}
     >
       {/* Haartransplantatie - Top Left */}
