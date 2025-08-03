@@ -115,6 +115,15 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
   body {
     @apply bg-background text-foreground font-body;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    
+    /* Prevent zoom on mobile */
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -147,9 +156,15 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
     left: 0;
   }
   
-  /* Prevent zoom on iOS */
+  /* Prevent zoom on iOS and globally */
   input, select, textarea {
     font-size: 16px;
+    touch-action: manipulation;
+  }
+  
+  /* Prevent double-tap zoom globally */
+  * {
+    touch-action: manipulation;
   }
 }
 
