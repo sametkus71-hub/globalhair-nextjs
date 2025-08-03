@@ -3,9 +3,37 @@ import { Component as EtheralShadow } from '@/components/ui/etheral-shadow';
 
 export const AnimatedBackground = () => {
   const [mounted, setMounted] = useState(false);
+  const [currentColor, setCurrentColor] = useState('hsl(220, 15%, 8%)');
 
   useEffect(() => {
     setMounted(true);
+    
+    // Listen for color changes from CSS variables
+    const updateColor = () => {
+      const style = getComputedStyle(document.documentElement);
+      const primary = style.getPropertyValue('--blob-color-primary').trim();
+      if (primary) {
+        setCurrentColor(primary);
+      }
+    };
+
+    // Initial color update
+    updateColor();
+
+    // Listen for profile updates
+    const handleProfileUpdate = () => {
+      setTimeout(updateColor, 100); // Small delay to ensure CSS is updated
+    };
+
+    window.addEventListener('profileUpdate', handleProfileUpdate);
+    
+    // Also update periodically during transitions
+    const interval = setInterval(updateColor, 500);
+    
+    return () => {
+      window.removeEventListener('profileUpdate', handleProfileUpdate);
+      clearInterval(interval);
+    };
   }, []);
 
   if (!mounted) return null;
@@ -13,11 +41,11 @@ export const AnimatedBackground = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {/* Etheral Shadow Effect */}
-      <div className="absolute inset-0 opacity-10">
+      <div className="absolute inset-0 opacity-20 mix-blend-soft-light">
         <EtheralShadow
-          color="hsl(var(--primary))"
-          animation={{ scale: 60, speed: 70 }}
-          noise={{ opacity: 0.3, scale: 1.5 }}
+          color={currentColor}
+          animation={{ scale: 80, speed: 50 }}
+          noise={{ opacity: 0.4, scale: 1.2 }}
           sizing="fill"
         />
       </div>
