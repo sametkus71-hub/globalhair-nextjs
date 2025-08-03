@@ -11,9 +11,21 @@ export const AnimatedBackground = () => {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Far background hair texture with wavy effect - more visible */}
+      <div 
+        className="absolute inset-0 opacity-[0.08] mix-blend-multiply animate-bg-wave"
+        style={{
+          backgroundImage: `url(/lovable-uploads/36b7add7-c0c6-4b53-a0bd-41854d1270e7.png)`,
+          backgroundSize: '150% 150%',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          filter: 'var(--texture-filter) blur(3px)',
+        }}
+      />
+
       {/* Depth of field hair texture - very subtle movement */}
       <div 
-        className="absolute inset-0 opacity-[0.02] mix-blend-multiply animate-depth-shift"
+        className="absolute inset-0 opacity-[0.03] mix-blend-soft-light animate-depth-shift"
         style={{
           backgroundImage: `url(/lovable-uploads/c116d5dd-12bd-4f88-ba77-a5affdd4cdfa.png)`,
           backgroundSize: '120% 120%',
@@ -23,50 +35,38 @@ export const AnimatedBackground = () => {
         }}
       />
 
-      {/* Main hair texture overlay */}
+      {/* Individual hair strands - more realistic */}
       <div 
-        className="absolute inset-0 opacity-[0.04] mix-blend-soft-light"
+        className="absolute w-[600px] h-[60px] blur-[40px] opacity-30 animate-hair-strand-1"
         style={{
-          backgroundImage: `url(/lovable-uploads/ff5f693a-90e4-420c-bb79-6c65c660b92c.png)`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          filter: 'var(--texture-filter)',
-        }}
-      />
-
-      {/* Flowing hair strands - more realistic */}
-      <div 
-        className="absolute w-[500px] h-[120px] blur-[50px] opacity-25 animate-hair-flow"
-        style={{
-          top: '15%',
-          left: '-8%',
-          background: 'linear-gradient(45deg, var(--blob-color-primary), transparent 70%)',
-          clipPath: 'ellipse(90% 30% at 50% 50%)',
-          transform: 'rotate(-10deg)',
+          top: '12%',
+          left: '-10%',
+          background: 'linear-gradient(90deg, var(--blob-color-primary) 0%, var(--blob-color-primary) 40%, transparent 100%)',
+          clipPath: 'polygon(0% 40%, 5% 20%, 15% 45%, 25% 15%, 35% 50%, 45% 25%, 55% 45%, 65% 20%, 75% 55%, 85% 30%, 95% 50%, 100% 35%, 100% 65%, 0% 60%)',
+          transform: 'rotate(-8deg)',
         }}
       />
 
       <div 
-        className="absolute w-[400px] h-[100px] blur-[60px] opacity-20 animate-hair-undulate"
+        className="absolute w-[550px] h-[45px] blur-[45px] opacity-25 animate-hair-strand-2"
         style={{
-          bottom: '25%',
-          right: '-10%',
-          background: 'linear-gradient(-45deg, var(--blob-color-secondary), transparent 60%)',
-          clipPath: 'ellipse(85% 25% at 50% 50%)',
-          transform: 'rotate(20deg)',
-          animationDelay: '-15s'
+          top: '35%',
+          right: '-12%',
+          background: 'linear-gradient(-90deg, var(--blob-color-secondary) 0%, var(--blob-color-secondary) 35%, transparent 100%)',
+          clipPath: 'polygon(0% 30%, 10% 55%, 20% 25%, 30% 60%, 40% 20%, 50% 50%, 60% 15%, 70% 55%, 80% 25%, 90% 45%, 100% 35%, 100% 65%, 0% 70%)',
+          transform: 'rotate(15deg)',
+          animationDelay: '-12s'
         }}
       />
 
       <div 
-        className="absolute w-[350px] h-[80px] blur-[70px] opacity-30 animate-hair-drift"
+        className="absolute w-[480px] h-[35px] blur-[50px] opacity-35 animate-hair-strand-3"
         style={{
-          top: '60%',
-          left: '10%',
-          background: 'linear-gradient(60deg, var(--blob-color-accent), transparent 80%)',
-          clipPath: 'ellipse(80% 20% at 50% 50%)',
-          transform: 'rotate(35deg)',
+          bottom: '20%',
+          left: '5%',
+          background: 'linear-gradient(45deg, var(--blob-color-accent) 0%, var(--blob-color-accent) 50%, transparent 100%)',
+          clipPath: 'polygon(0% 45%, 8% 20%, 18% 55%, 28% 15%, 38% 60%, 48% 25%, 58% 50%, 68% 20%, 78% 55%, 88% 30%, 98% 45%, 100% 40%, 100% 60%, 0% 55%)',
+          transform: 'rotate(-25deg)',
           animationDelay: '-8s'
         }}
       />
