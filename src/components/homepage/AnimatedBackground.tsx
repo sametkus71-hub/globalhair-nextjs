@@ -80,9 +80,9 @@ export const AnimatedBackground = () => {
         }}
       />
       
-      {/* Far background blobs with heavy blur - ultra subtle and dark */}
+      {/* Far background blobs with heavy blur - subtle but visible */}
       <div 
-        className="absolute w-[800px] h-[800px] rounded-full blur-[200px] opacity-2 animate-ultra-slow"
+        className="absolute w-[800px] h-[800px] rounded-full blur-[250px] opacity-8 animate-ultra-slow"
         style={{
           top: '-20%',
           left: '-20%',
@@ -92,7 +92,7 @@ export const AnimatedBackground = () => {
       />
 
       <div 
-        className="absolute w-[600px] h-[600px] rounded-full blur-[200px] opacity-1.5 animate-ultra-drift"
+        className="absolute w-[600px] h-[600px] rounded-full blur-[280px] opacity-6 animate-ultra-drift"
         style={{
           bottom: '-15%',
           right: '-15%',
@@ -102,7 +102,7 @@ export const AnimatedBackground = () => {
       />
 
       <div 
-        className="absolute w-[700px] h-[700px] rounded-full blur-[200px] opacity-2.5 animate-ultra-gentle"
+        className="absolute w-[700px] h-[700px] rounded-full blur-[260px] opacity-10 animate-ultra-gentle"
         style={{
           top: '30%',
           right: '-25%',
@@ -112,7 +112,7 @@ export const AnimatedBackground = () => {
       />
 
       <div 
-        className="absolute w-[500px] h-[500px] rounded-full blur-[200px] opacity-1 animate-ultra-float"
+        className="absolute w-[500px] h-[500px] rounded-full blur-[300px] opacity-5 animate-ultra-float"
         style={{
           bottom: '40%',
           left: '-10%',
@@ -122,7 +122,7 @@ export const AnimatedBackground = () => {
       />
 
       <div 
-        className="absolute w-[550px] h-[550px] rounded-full blur-[200px] opacity-1.5 animate-ultra-sway"
+        className="absolute w-[550px] h-[550px] rounded-full blur-[270px] opacity-7 animate-ultra-sway"
         style={{
           top: '60%',
           left: '70%',
