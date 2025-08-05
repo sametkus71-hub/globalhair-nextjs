@@ -5,7 +5,6 @@ import { useTranslation } from '@/lib/translations';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { useImagePreloader } from '@/hooks/useImagePreloader';
 import { MetaHead } from '@/components/MetaHead';
-import { LoadingPreloader } from '@/components/homepage/LoadingPreloader';
 import { GenderToggle } from '@/components/homepage/GenderToggle';
 import { VideoGrid } from '@/components/homepage/VideoGrid';
 import { ColorSelector } from '@/components/homepage/ColorSelector';
@@ -20,7 +19,6 @@ const HomePage = () => {
   const { heightBreakpoint } = useViewportHeight();
   
   // Loading states for staged animation
-  const [showContent, setShowContent] = useState(false);
   const [showTopSection, setShowTopSection] = useState(false);
   const [showGrid, setShowGrid] = useState(false);
   const [showBottomSection, setShowBottomSection] = useState(false);
@@ -48,76 +46,72 @@ const HomePage = () => {
   }, []);
 
   // Handle staged loading sequence
-  const handlePreloaderComplete = () => {
-    setShowContent(true);
-    
-    // Staged animation sequence
-    setTimeout(() => setShowTopSection(true), 100);
-    setTimeout(() => setShowGrid(true), 300);
-    setTimeout(() => setShowBottomSection(true), 500);
-  };
-
+  useEffect(() => {
+    if (allImagesLoaded) {
+      // Staged animation sequence after images are loaded
+      setTimeout(() => setShowTopSection(true), 200);
+      setTimeout(() => setShowGrid(true), 400);
+      setTimeout(() => setShowBottomSection(true), 600);
+    }
+  }, [allImagesLoaded]);
 
   return (
     <>
       <MetaHead language={language} page="home" />
       
-      {/* Loading Preloader */}
-      <LoadingPreloader 
-        isLoading={!allImagesLoaded}
-        progress={loadingProgress}
-        onComplete={handlePreloaderComplete}
-      />
-      
-      {showContent && (
       <div className="min-h-screen flex flex-col relative overflow-hidden" style={{ 
         background: '#111111',
-        height: '100dvh' // Use dynamic viewport height for better mobile support
+        height: '100dvh'
       }}>
-        {/* Animated Background */}
+        {/* Animated Background - Always visible */}
         <AnimatedBackground />
         
-        {/* Background Overlay */}
+        {/* Background Overlay - Always visible */}
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900/20 to-gray-900/40" />
         
         {/* Top section with gender toggle */}
-        <div className={`relative z-10 flex flex-col items-center transition-all duration-700 ease-out ${
+        <div className={`relative z-10 flex flex-col items-center transition-all duration-800 ease-out ${
           heightBreakpoint === 'small' ? 'pt-4 pb-4' :
           heightBreakpoint === 'medium' ? 'pt-6 pb-6' :
           'pt-12 pb-8'
         } ${
           showTopSection 
             ? 'opacity-100 translate-y-0' 
-            : 'opacity-0 -translate-y-8'
+            : 'opacity-0 -translate-y-12'
         }`}>
           <GenderToggle />
         </div>
 
         {/* Main content area with video grid */}
         <div className="flex-1 flex items-center justify-center px-2 sm:px-4">
-          <div className={`w-full relative flex justify-center transition-all duration-800 ease-out delay-200 ${
+          <div className={`w-full relative flex justify-center ${
             heightBreakpoint === 'small' ? 'max-h-[calc(100dvh-180px)]' :
             heightBreakpoint === 'medium' ? 'max-h-[calc(100dvh-200px)]' :
             ''
-          } ${
-            showGrid 
-              ? 'opacity-100 scale-100' 
-              : 'opacity-0 scale-95'
           }`}>
-            <VideoGrid className="mx-auto" heightBreakpoint={heightBreakpoint} />
+            {/* Central Logo - Always visible */}
             <CentralLogo />
+            
+            {/* Video Grid - Animated entrance */}
+            <div className={`absolute inset-0 transition-all duration-1000 ease-out delay-100 ${
+              showGrid 
+                ? 'opacity-100 scale-100' 
+                : 'opacity-0 scale-90'
+            }`}>
+              <VideoGrid className="mx-auto" heightBreakpoint={heightBreakpoint} />
+            </div>
           </div>
         </div>
 
         {/* Bottom section with selectors */}
-        <div className={`relative z-10 flex flex-col items-center transition-all duration-700 ease-out delay-300 ${
+        <div className={`relative z-10 flex flex-col items-center transition-all duration-800 ease-out delay-200 ${
           heightBreakpoint === 'small' ? 'pb-4 pt-3 space-y-2' :
           heightBreakpoint === 'medium' ? 'pb-6 pt-4 space-y-3' :
           'pb-8 sm:pb-12 pt-6 sm:pt-8 space-y-4 sm:space-y-6'
         } ${
           showBottomSection 
             ? 'opacity-100 translate-y-0' 
-            : 'opacity-0 translate-y-8'
+            : 'opacity-0 translate-y-12'
         }`} style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}>
           {/* Hair Color Selector */}
           <ColorSelector heightBreakpoint={heightBreakpoint} />
@@ -125,8 +119,24 @@ const HomePage = () => {
           {/* Hair Type Selector */}
           <HairTypeSelector heightBreakpoint={heightBreakpoint} />
         </div>
+        
+        {/* Loading indicator overlay - only shows during image loading */}
+        {!allImagesLoaded && (
+          <div className="absolute inset-0 bg-black/20 backdrop-blur-sm z-40 flex items-center justify-center">
+            <div className="bg-white/5 backdrop-blur-md rounded-lg p-6 border border-white/10">
+              <div className="w-48 h-1 bg-white/20 rounded-full overflow-hidden mb-2">
+                <div 
+                  className="h-full bg-gradient-to-r from-white/60 to-white/80 rounded-full transition-all duration-300 ease-out"
+                  style={{ width: `${loadingProgress}%` }}
+                />
+              </div>
+              <div className="text-center text-white/80 text-xs font-mono">
+                Loading assets... {Math.round(loadingProgress)}%
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-      )}
     </>
   );
 };
