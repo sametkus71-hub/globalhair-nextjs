@@ -69,8 +69,8 @@ const HomePage = () => {
         <div 
           className={cn(
             "relative z-10 flex justify-center flex-shrink-0",
-            heightBreakpoint === 'small' ? 'pt-2 pb-2' :
-            heightBreakpoint === 'medium' ? 'pt-4 pb-3' :
+            heightBreakpoint === 'small' ? 'pt-4 pb-2' :
+            heightBreakpoint === 'medium' ? 'pt-6 pb-3' :
             'pt-8 pb-6',
             // Animation classes
             isLoading ? 'entrance-hidden' : (isFirstLoad ? 'entrance-slide-down' : ''),
@@ -79,6 +79,7 @@ const HomePage = () => {
           )}
           data-debug-fadeout={transitionState.fadeOut ? 'true' : 'false'}
           style={{ 
+            paddingTop: heightBreakpoint === 'small' ? 'max(1rem, env(safe-area-inset-top))' : undefined,
             animationDelay: isFirstLoad && !isLoading ? '0.3s' : '0s'
           }}
         >
@@ -122,9 +123,9 @@ const HomePage = () => {
         <div 
           className={cn(
             "relative z-10 flex flex-col items-center flex-shrink-0",
-            heightBreakpoint === 'small' ? 'pb-2 pt-1 space-y-1' :
-            heightBreakpoint === 'medium' ? 'pb-4 pt-2 space-y-2' :
-            'pb-6 sm:pb-8 pt-4 sm:pt-6 space-y-3 sm:space-y-4',
+            heightBreakpoint === 'small' ? 'pb-4 pt-3 space-y-3' :
+            heightBreakpoint === 'medium' ? 'pb-6 pt-4 space-y-4' :
+            'pb-6 sm:pb-8 pt-4 sm:pt-6 space-y-5 sm:space-y-6',
             // Animation classes
             isLoading ? 'entrance-hidden-up' : (isFirstLoad ? 'entrance-slide-up' : ''),
             // Transition classes
@@ -132,7 +133,8 @@ const HomePage = () => {
           )}
           data-debug-bottom-fadeout={transitionState.fadeOut ? 'true' : 'false'}
           style={{ 
-            paddingBottom: 'max(1rem, env(safe-area-inset-bottom))',
+            paddingBottom: 'max(1.5rem, env(safe-area-inset-bottom))',
+            paddingTop: heightBreakpoint === 'small' ? 'max(0.75rem, env(safe-area-inset-top))' : undefined,
             animationDelay: isFirstLoad && !isLoading ? '0.5s' : '0s'
           }}
         >
