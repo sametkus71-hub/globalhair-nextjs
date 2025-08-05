@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface GridItem {
   id: number;
-  beforeImage: string;
-  afterImage: string;
   isAfter: boolean;
+  delay: number;
 }
 
 const GRID_ITEMS: Omit<GridItem, 'isAfter'>[] = [
-  { id: 1, beforeImage: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400&h=300&fit=crop', afterImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop' },
-  { id: 2, beforeImage: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=400&h=300&fit=crop', afterImage: 'https://images.unsplash.com/photo-1473091534298-04dcbce3278c?w=400&h=300&fit=crop' },
-  { id: 3, beforeImage: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400&h=300&fit=crop', afterImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop' },
-  { id: 4, beforeImage: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=400&h=300&fit=crop', afterImage: 'https://images.unsplash.com/photo-1473091534298-04dcbce3278c?w=400&h=300&fit=crop' },
-  { id: 5, beforeImage: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400&h=300&fit=crop', afterImage: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop' },
-  { id: 6, beforeImage: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=400&h=300&fit=crop', afterImage: 'https://images.unsplash.com/photo-1473091534298-04dcbce3278c?w=400&h=300&fit=crop' }
+  { id: 1, delay: 2500 },
+  { id: 2, delay: 1800 },
+  { id: 3, delay: 4200 },
+  { id: 4, delay: 3100 },
+  { id: 5, delay: 1400 },
+  { id: 6, delay: 3800 }
 ];
 
 export const BeforeAfterGrid = () => {
@@ -23,10 +23,8 @@ export const BeforeAfterGrid = () => {
   );
 
   useEffect(() => {
-    // Set up random timers for each item
-    const timers = items.map((item, index) => {
-      const randomDelay = Math.random() * 3000 + 2000; // 2-5 seconds
-      
+    // Set up staggered timers for masonry-like effect
+    const timers = items.map((item) => {
       return setTimeout(() => {
         setItems(prevItems => 
           prevItems.map(prevItem => 
@@ -35,7 +33,7 @@ export const BeforeAfterGrid = () => {
               : prevItem
           )
         );
-      }, randomDelay);
+      }, item.delay);
     });
 
     return () => {
@@ -44,32 +42,36 @@ export const BeforeAfterGrid = () => {
   }, []);
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4">
-      <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+    <div className="w-full h-full flex items-center justify-center px-4">
+      <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 w-full max-w-4xl">
         {items.map((item) => (
           <div
             key={item.id}
-            className="aspect-[4/3] bg-gray-800 rounded-lg overflow-hidden relative"
+            className="aspect-[4/3] relative overflow-hidden rounded-lg bg-gray-800/20 backdrop-blur-sm border border-white/10"
           >
-            {/* Before Image */}
-            <img
-              src={item.beforeImage}
-              alt={`Before ${item.id}`}
-              className={cn(
-                "absolute inset-0 w-full h-full object-cover transition-opacity duration-1000",
-                item.isAfter ? "opacity-0" : "opacity-100"
-              )}
-            />
+            {/* Before State */}
+            <div className={cn(
+              "absolute inset-0 flex flex-col items-center justify-center p-4 transition-opacity duration-1000",
+              item.isAfter ? "opacity-0" : "opacity-100"
+            )}>
+              <Skeleton className="w-full h-2/3 mb-3 bg-gray-600/30" />
+              <div className="text-center">
+                <p className="text-xs font-medium text-white/80 mb-1">BEFORE</p>
+                <p className="text-xs text-white/60">#{item.id}</p>
+              </div>
+            </div>
             
-            {/* After Image */}
-            <img
-              src={item.afterImage}
-              alt={`After ${item.id}`}
-              className={cn(
-                "absolute inset-0 w-full h-full object-cover transition-opacity duration-1000",
-                item.isAfter ? "opacity-100" : "opacity-0"
-              )}
-            />
+            {/* After State */}
+            <div className={cn(
+              "absolute inset-0 flex flex-col items-center justify-center p-4 transition-opacity duration-1000",
+              item.isAfter ? "opacity-100" : "opacity-0"
+            )}>
+              <Skeleton className="w-full h-2/3 mb-3 bg-primary/30" />
+              <div className="text-center">
+                <p className="text-xs font-medium text-primary mb-1">AFTER</p>
+                <p className="text-xs text-white/60">#{item.id}</p>
+              </div>
+            </div>
           </div>
         ))}
       </div>
