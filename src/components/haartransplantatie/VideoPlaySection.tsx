@@ -6,41 +6,25 @@ export const VideoPlaySection = () => {
   const { language } = useLanguage();
 
   return (
-    <div className="w-full h-full relative">
-      {/* Wireframe Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <svg 
-          className="w-full h-full" 
-          viewBox="0 0 400 300" 
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <pattern 
-              id="grid" 
-              width="20" 
-              height="20" 
-              patternUnits="userSpaceOnUse"
-            >
-              <path 
-                d="M 20 0 L 0 0 0 20" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="0.5"
-              />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" className="text-white" />
-          {/* Wireframe rectangles */}
-          <rect x="50" y="50" width="300" height="200" fill="none" stroke="currentColor" strokeWidth="1" className="text-white/30" />
-          <rect x="70" y="70" width="100" height="60" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-white/20" />
-          <rect x="230" y="70" width="100" height="60" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-white/20" />
-          <rect x="70" y="180" width="260" height="50" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-white/20" />
-        </svg>
+    <div className="w-full h-full relative bg-white">
+      {/* White placeholder background with subtle pattern */}
+      <div className="absolute inset-0">
+        <div className="w-full h-full bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+          <div className="text-gray-300 text-center">
+            <div className="w-32 h-20 mx-auto mb-4 border-2 border-dashed border-gray-300 rounded flex items-center justify-center">
+              <span className="text-sm font-medium">VIDEO</span>
+            </div>
+            <p className="text-xs text-gray-400">Placeholder</p>
+          </div>
+        </div>
       </div>
 
-      {/* Centered Play Button */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <button className="w-20 h-20 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full flex items-center justify-center hover:bg-white/30 transition-all duration-300 hover:scale-105 shadow-lg">
+      {/* Centered Play Button with footer compensation */}
+      <div 
+        className="absolute inset-0 flex items-center justify-center"
+        style={{ paddingBottom: '80px' }} // Compensate for footer height
+      >
+        <button className="w-20 h-20 bg-black/20 backdrop-blur-sm border border-black/30 rounded-full flex items-center justify-center hover:bg-black/30 transition-all duration-300 hover:scale-105 shadow-lg">
           <Play className="w-8 h-8 text-white ml-1" fill="currentColor" />
         </button>
       </div>
