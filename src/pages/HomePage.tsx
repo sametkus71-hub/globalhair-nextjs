@@ -21,8 +21,7 @@ const HomePage = () => {
   const { profile } = useSession();
   const { t } = useTranslation(language);
   const { heightBreakpoint } = useViewportHeight();
-  const { transitionState } = usePageTransition();
-  const [transitionTarget, setTransitionTarget] = useState<string | null>(null);
+  const { transitionState, startTransition } = usePageTransition();
   
   // Prevent zoom and unwanted interactions
   usePreventZoom();
@@ -104,7 +103,7 @@ const HomePage = () => {
             <VideoGrid 
               className="mx-auto" 
               heightBreakpoint={heightBreakpoint}
-              onTransitionStart={setTransitionTarget}
+              startTransition={startTransition}
             />
             
             {/* Central Logo - Positioned within the grid area, perfectly centered */}

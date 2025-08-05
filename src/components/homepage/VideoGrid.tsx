@@ -2,20 +2,18 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useSession } from '@/hooks/useSession';
 import { cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
-import { usePageTransition } from '@/hooks/usePageTransition';
 
 interface VideoGridProps {
   className?: string;
   heightBreakpoint?: 'small' | 'medium' | 'large';
-  onTransitionStart?: (targetPage: string) => void;
+  startTransition: (targetPath: string, delay?: number) => void;
 }
 
-export const VideoGrid = ({ className, heightBreakpoint = 'large', onTransitionStart }: VideoGridProps) => {
+export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransition }: VideoGridProps) => {
   const { language } = useLanguage();
   const { profile } = useSession();
   const [animationKey, setAnimationKey] = useState(0);
   const [navigatingItem, setNavigatingItem] = useState<number | null>(null);
-  const { startTransition } = usePageTransition();
 
   // Force re-render with animation when profile changes
   useEffect(() => {
@@ -25,14 +23,12 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', onTransitionS
   const handleHaartransplantatieClick = () => {
     setNavigatingItem(0);
     const path = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
-    onTransitionStart?.(path);
     startTransition(path, 50); // Small delay for button animation
   };
 
   const handleV6HairboostClick = () => {
     setNavigatingItem(1);
     const path = language === 'nl' ? '/nl/v6-hairboost' : '/en/v6-hairboost';
-    onTransitionStart?.(path);
     startTransition(path, 50); // Small delay for button animation
   };
 
