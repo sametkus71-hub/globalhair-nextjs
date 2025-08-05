@@ -12,7 +12,7 @@ import { VideoGrid } from '@/components/homepage/VideoGrid';
 import { ColorSelector } from '@/components/homepage/ColorSelector';
 import { HairTypeSelector } from '@/components/homepage/HairTypeSelector';
 
-import { AnimatedBackground } from '@/components/homepage/AnimatedBackground';
+
 import { cn } from '@/lib/utils';
 import { usePageTransition } from '@/hooks/usePageTransition';
 
@@ -56,14 +56,8 @@ const HomePage = () => {
       {/* Preload critical images immediately */}
       <ImagePreloader images={imagesToPreload} />
       <MetaHead language={language} page="home" />
-      <div className="fullscreen-safe flex flex-col relative overflow-hidden" style={{ 
-        background: '#111111'
-      }}>
-        {/* Animated Background - Always visible */}
-        <AnimatedBackground />
-        
-        {/* Background Overlay - Always visible */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900/20 to-gray-900/40" />
+      <div className="fullscreen-safe flex flex-col relative overflow-hidden">
+        {/* Content with relative positioning over the persistent background */}
         
         {/* Top section with gender toggle - hidden during loading */}
         <div 

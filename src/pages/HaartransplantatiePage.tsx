@@ -5,7 +5,7 @@ import { PageTransition } from '@/components/PageTransition';
 import { BeforeAfterGrid } from '@/components/haartransplantatie/BeforeAfterGrid';
 import { VideoPlaySection } from '@/components/haartransplantatie/VideoPlaySection';
 import { BottomNavigation } from '@/components/haartransplantatie/BottomNavigation';
-import { AnimatedBackground } from '@/components/homepage/AnimatedBackground';
+
 
 const HaartransplantatiePage = () => {
   const { language } = useLanguage();
@@ -23,14 +23,8 @@ const HaartransplantatiePage = () => {
     <>
       <MetaHead language={language} page="haartransplantatie" />
       <PageTransition isNewPage={true}>
-        <div className="fullscreen-safe flex flex-col relative overflow-hidden" style={{ 
-          background: '#111111'
-        }}>
-          {/* Animated Background - Same as homepage */}
-          <AnimatedBackground />
-          
-          {/* Background Overlay - Same as homepage */}
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900/20 to-gray-900/40" />
+        <div className="fullscreen-safe flex flex-col relative overflow-hidden">
+          {/* Content with relative positioning over the persistent background */}
           
           {/* Top Section - Before/After Grid (exactly half the viewport, no padding) */}
           <div className="h-[50vh] relative z-10">

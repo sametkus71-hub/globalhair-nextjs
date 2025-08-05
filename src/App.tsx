@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SessionManager } from "@/components/SessionManager";
 import { LanguageWrapper } from "@/components/LanguageWrapper";
 import { GlobalCentralLogo } from "@/components/GlobalCentralLogo";
+import { AnimatedBackground } from "@/components/homepage/AnimatedBackground";
 
 // Pages
 import HomePage from "./pages/HomePage";
@@ -27,6 +28,11 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <LanguageWrapper>
+            {/* Persistent background and logo across all pages */}
+            <div className="fixed inset-0" style={{ background: '#111111' }}>
+              <AnimatedBackground />
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-900/20 to-gray-900/40" />
+            </div>
             <GlobalCentralLogo />
             <Routes>
               {/* Root redirect handled by useLanguage hook */}

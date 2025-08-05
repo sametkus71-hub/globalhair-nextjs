@@ -32,15 +32,10 @@ export const PageTransition = ({ children, isNewPage = false }: PageTransitionPr
     <div 
       className={cn(
         "min-h-screen relative",
-        isNewPage && !isVisible && "opacity-0 scale-95",
+        isNewPage && !isVisible && "opacity-0 scale-98",
         isNewPage && isVisible && "page-transition-scale-in"
       )}
     >
-      {/* Backdrop blur overlay for new pages */}
-      {isNewPage && (
-        <div className="fixed inset-0 backdrop-blur-sm bg-black/10 z-[-1]" />
-      )}
-      
       {showContent && children}
     </div>
   );
