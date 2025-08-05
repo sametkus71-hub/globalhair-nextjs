@@ -83,7 +83,7 @@ const HomePage = () => {
         {/* Main content area with video grid - hidden during loading, with footer compensation */}
         <div 
           className="flex-1 flex items-center justify-center px-2 sm:px-4 relative min-h-0"
-          style={{ marginBottom: '-30px' }} // Footer compensation
+          style={{ marginBottom: '-50px' }} // Increased footer compensation
         >
           <div 
             className={cn(
@@ -120,7 +120,7 @@ const HomePage = () => {
           )}
           data-debug-bottom-fadeout={transitionState.fadeOut ? 'true' : 'false'}
           style={{ 
-            paddingBottom: 'max(1.5rem, env(safe-area-inset-bottom))',
+            paddingBottom: 'max(3rem, env(safe-area-inset-bottom))', // Increased bottom padding
             paddingTop: heightBreakpoint === 'small' ? 'max(0.75rem, env(safe-area-inset-top))' : undefined,
             animationDelay: isFirstLoad && !isLoading ? '0.5s' : '0s'
           }}
