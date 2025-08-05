@@ -19,10 +19,10 @@ export const OptionDropdown = ({ options, value, onChange, className }: OptionDr
       <PopoverTrigger asChild>
         <Button 
           variant="ghost"
-          className={`px-4 py-2 h-auto text-sm font-medium hover:bg-transparent focus:bg-transparent rounded-none border-0 shadow-none ${className}`}
+          className={`px-3 py-1.5 h-auto text-xs font-medium hover:bg-transparent focus:bg-transparent rounded-none border-0 shadow-none ${className}`}
         >
           {value}
-          <ChevronDown className="w-3 h-3 ml-1 opacity-40" />
+          <ChevronDown className="w-2.5 h-2.5 ml-1 opacity-40" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-1 bg-white border border-gray-200 shadow-lg rounded-lg" align="center">

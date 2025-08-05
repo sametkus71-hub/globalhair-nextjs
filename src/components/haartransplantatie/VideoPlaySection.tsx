@@ -32,8 +32,8 @@ export const VideoPlaySection = () => {
       </div>
 
       {/* Fixed Bottom Content */}
-      <div className="fixed bottom-16 left-0 right-0 z-30 px-4">
-        <div className="max-w-md mx-auto space-y-4">
+      <div className="fixed bottom-5 left-0 right-0 z-30 px-4">
+        <div className="max-w-sm mx-auto space-y-2">
           {/* Single Pill Container with 3 Inline Dropdowns */}
           <div className="flex justify-center">
             <div className="bg-white/95 backdrop-blur-sm rounded-full border border-gray-200/80 shadow-sm flex divide-x divide-gray-200/60">
@@ -60,7 +60,7 @@ export const VideoPlaySection = () => {
 
           {/* Cost Display */}
           <div className="text-center">
-            <p className="text-lg font-semibold text-gray-900">
+            <p className="text-sm font-medium text-gray-900">
               Geschatte kosten: {formatPrice(totalPrice)}
             </p>
           </div>
