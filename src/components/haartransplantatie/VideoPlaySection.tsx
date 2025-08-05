@@ -32,36 +32,70 @@ export const VideoPlaySection = () => {
       </div>
 
       {/* Fixed Bottom Content */}
-      <div className="fixed bottom-16 left-0 right-0 z-30 px-4"> {/* Adjusted for smaller footer */}
-        <div className="max-w-lg mx-auto space-y-6">
-          {/* Option Dropdowns - iOS Style */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-white/30">
-            <div className="flex flex-wrap gap-3 justify-center items-center">
-              <OptionDropdown
-                options={['Nederland', 'Turkije']}
-                value={profile.locatie}
-                onChange={(value) => updateProfile('locatie', value)}
-              />
-              <OptionDropdown
-                options={['Met scheren', 'Zonder scheren']}
-                value={profile.scheren}
-                onChange={(value) => updateProfile('scheren', value)}
-              />
-              <OptionDropdown
-                options={['Normaal', 'Stamcel']}
-                value={profile.behandeling}
-                onChange={(value) => updateProfile('behandeling', value)}
-              />
+      <div className="fixed bottom-16 left-0 right-0 z-30 px-4">
+        <div className="max-w-lg mx-auto space-y-4">
+          {/* Location Pills */}
+          <div className="flex justify-center">
+            <div className="bg-white/95 backdrop-blur-sm rounded-full border border-gray-200 p-1 flex gap-1 shadow-sm">
+              {(['Nederland', 'Turkije'] as const).map((option) => (
+                <button
+                  key={option}
+                  onClick={() => updateProfile('locatie', option)}
+                  className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${
+                    profile.locatie === option
+                      ? 'bg-gray-900 text-white'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  {option}
+                </button>
+              ))}
             </div>
           </div>
 
-          {/* Cost Display */}
-          <div className="text-center">
-            <div className="bg-black/80 backdrop-blur-sm rounded-xl px-6 py-3 inline-block">
-              <p className="text-xl font-semibold text-white">
-                {formatPrice(totalPrice)}
-              </p>
+          {/* Scheren Pills */}
+          <div className="flex justify-center">
+            <div className="bg-white/95 backdrop-blur-sm rounded-full border border-gray-200 p-1 flex gap-1 shadow-sm">
+              {(['Met scheren', 'Zonder scheren'] as const).map((option) => (
+                <button
+                  key={option}
+                  onClick={() => updateProfile('scheren', option)}
+                  className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${
+                    profile.scheren === option
+                      ? 'bg-gray-900 text-white'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  {option}
+                </button>
+              ))}
             </div>
+          </div>
+
+          {/* Behandeling Pills */}
+          <div className="flex justify-center">
+            <div className="bg-white/95 backdrop-blur-sm rounded-full border border-gray-200 p-1 flex gap-1 shadow-sm">
+              {(['Normaal', 'Stamcel'] as const).map((option) => (
+                <button
+                  key={option}
+                  onClick={() => updateProfile('behandeling', option)}
+                  className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${
+                    profile.behandeling === option
+                      ? 'bg-gray-900 text-white'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Cost Display - Simple flat text */}
+          <div className="text-center pt-2">
+            <p className="text-xl font-semibold text-gray-900">
+              Geschatte kosten: {formatPrice(totalPrice)}
+            </p>
           </div>
         </div>
       </div>
