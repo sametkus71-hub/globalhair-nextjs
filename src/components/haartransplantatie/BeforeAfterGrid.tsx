@@ -32,6 +32,17 @@ export const BeforeAfterGrid = () => {
     GRID_ITEMS.map((item, index) => ({ ...item, isAfter: INITIAL_STATE[index] }))
   );
 
+  // Handle manual click toggles
+  const handleItemClick = (clickedId: number) => {
+    setItems(prevItems => 
+      prevItems.map(item => 
+        item.id === clickedId 
+          ? { ...item, isAfter: !item.isAfter }
+          : item
+      )
+    );
+  };
+
   useEffect(() => {
     const intervals: NodeJS.Timeout[] = [];
 
@@ -78,13 +89,14 @@ export const BeforeAfterGrid = () => {
         {items.map((item) => (
           <div
             key={item.id}
+            onClick={() => handleItemClick(item.id)}
             className={cn(
-              "w-full h-full transition-colors duration-[5000ms] ease-in-out relative",
+              "w-full h-full transition-colors duration-[5000ms] ease-in-out relative cursor-pointer hover:opacity-90",
               item.isAfter ? item.afterColor : item.beforeColor
             )}
           >
             {/* Subtle label */}
-            <div className="absolute top-2 left-2 text-xs text-black/30 font-mono">
+            <div className="absolute top-2 left-2 text-xs text-black/30 font-mono pointer-events-none">
               {item.isAfter ? "AFTER" : "BEFORE"}
             </div>
           </div>
