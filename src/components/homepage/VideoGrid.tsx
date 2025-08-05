@@ -205,6 +205,10 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
         "gap-2 sm:gap-3 md:gap-4 max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-3xl",
         className
       )}
+      style={{ 
+        transform: 'translateY(-40px)', // Move grid up by 40px
+        marginBottom: '-40px' // Compensate for the space
+      }}
     >
       {/* Haartransplantatie - Top Left */}
       <div onClick={handleHaartransplantatieClick}>
