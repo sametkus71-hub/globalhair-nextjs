@@ -10,18 +10,19 @@ interface OptionDropdownProps {
   options: string[];
   value: string;
   onChange: (value: string) => void;
+  className?: string;
 }
 
-export const OptionDropdown = ({ options, value, onChange }: OptionDropdownProps) => {
+export const OptionDropdown = ({ options, value, onChange, className }: OptionDropdownProps) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button 
-          variant="outline" 
-          className="bg-white/95 backdrop-blur-sm border-gray-200 text-gray-800 hover:bg-white hover:text-gray-900 px-3 py-1.5 h-auto text-xs font-medium rounded-lg shadow-sm min-w-[80px] justify-between"
+          variant="ghost"
+          className={`px-4 py-2 h-auto text-sm font-medium hover:bg-transparent focus:bg-transparent rounded-none border-0 shadow-none ${className}`}
         >
           {value}
-          <ChevronDown className="w-3 h-3 ml-1 opacity-50" />
+          <ChevronDown className="w-3 h-3 ml-1 opacity-40" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-1 bg-white border border-gray-200 shadow-lg rounded-lg" align="center">
@@ -30,7 +31,7 @@ export const OptionDropdown = ({ options, value, onChange }: OptionDropdownProps
             <Button
               key={option}
               variant={option === value ? "default" : "ghost"}
-              className={`justify-start text-xs h-auto py-2 px-3 rounded-md font-medium ${
+              className={`justify-start text-sm h-auto py-2 px-3 rounded-md font-medium ${
                 option === value 
                   ? "bg-gray-900 text-white hover:bg-gray-800" 
                   : "text-gray-700 hover:bg-gray-100"

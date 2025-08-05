@@ -33,31 +33,34 @@ export const VideoPlaySection = () => {
 
       {/* Fixed Bottom Content */}
       <div className="fixed bottom-16 left-0 right-0 z-30 px-4">
-        <div className="max-w-md mx-auto space-y-3">
-          {/* Compact Inline Dropdowns */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-sm border border-gray-200/80">
-            <div className="flex flex-wrap gap-2 justify-center items-center">
+        <div className="max-w-md mx-auto space-y-4">
+          {/* Single Pill Container with 3 Inline Dropdowns */}
+          <div className="flex justify-center">
+            <div className="bg-white/95 backdrop-blur-sm rounded-full border border-gray-200/80 shadow-sm flex divide-x divide-gray-200/60">
               <OptionDropdown
                 options={['Nederland', 'Turkije']}
                 value={profile.locatie}
                 onChange={(value) => updateProfile('locatie', value)}
+                className="text-gray-800 first:rounded-l-full last:rounded-r-full"
               />
               <OptionDropdown
                 options={['Met scheren', 'Zonder scheren']}
                 value={profile.scheren}
                 onChange={(value) => updateProfile('scheren', value)}
+                className="text-gray-800 first:rounded-l-full last:rounded-r-full"
               />
               <OptionDropdown
                 options={['Normaal', 'Stamcel']}
                 value={profile.behandeling}
                 onChange={(value) => updateProfile('behandeling', value)}
+                className="text-gray-800 first:rounded-l-full last:rounded-r-full"
               />
             </div>
           </div>
 
-          {/* Compact Cost Display */}
+          {/* Cost Display */}
           <div className="text-center">
-            <p className="text-sm font-medium text-gray-900">
+            <p className="text-lg font-semibold text-gray-900">
               Geschatte kosten: {formatPrice(totalPrice)}
             </p>
           </div>
