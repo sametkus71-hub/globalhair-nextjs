@@ -39,24 +39,28 @@ export const VideoPlaySection = () => {
         <div className="max-w-sm mx-auto space-y-2">
           {/* Single Pill Container with 3 Inline Dropdowns */}
           <div className="flex justify-center">
-            <div className="bg-white/95 backdrop-blur-sm rounded-full border border-gray-200/80 shadow-sm flex divide-x divide-gray-200/60">
+            <div 
+              className="inline-flex p-1 rounded-full"
+              style={{
+                background: 'linear-gradient(145deg, rgba(80,80,80,0.15), rgba(50,50,50,0.25))',
+                backdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255,255,255,0.1)'
+              }}
+            >
               <OptionDropdown
                 options={['Nederland', 'Turkije']}
                 value={profile.locatie}
                 onChange={(value) => updateProfile('locatie', value)}
-                className="text-gray-800 first:rounded-l-full last:rounded-r-full"
               />
               <OptionDropdown
                 options={['Met scheren', 'Zonder scheren']}
                 value={profile.scheren}
                 onChange={(value) => updateProfile('scheren', value)}
-                className="text-gray-800 first:rounded-l-full last:rounded-r-full"
               />
               <OptionDropdown
                 options={['Normaal', 'Stamcel']}
                 value={profile.behandeling}
                 onChange={(value) => updateProfile('behandeling', value)}
-                className="text-gray-800 first:rounded-l-full last:rounded-r-full"
               />
             </div>
           </div>

@@ -6,15 +6,15 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { cn } from '@/lib/utils';
 
 interface OptionDropdownProps {
   options: string[];
   value: string;
   onChange: (value: string) => void;
-  className?: string;
 }
 
-export const OptionDropdown = ({ options, value, onChange, className }: OptionDropdownProps) => {
+export const OptionDropdown = ({ options, value, onChange }: OptionDropdownProps) => {
   const [open, setOpen] = useState(false);
 
   const handleSelect = (option: string) => {
@@ -25,29 +25,45 @@ export const OptionDropdown = ({ options, value, onChange, className }: OptionDr
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button 
-          variant="ghost"
-          className={`px-3 py-1.5 h-auto text-xs font-medium hover:bg-transparent focus:bg-transparent rounded-none border-0 shadow-none ${className}`}
+        <button
+          className={cn(
+            "rounded-full font-header text-xs font-medium transition-all duration-300 px-3 py-1.5",
+            value
+              ? "text-gray-900"
+              : "text-white/80 hover:text-white"
+          )}
+          style={value ? {
+            background: 'linear-gradient(145deg, rgba(255,255,255,0.9), rgba(240,240,240,0.8))'
+          } : {}}
         >
           {value}
-          <ChevronDown className="w-2.5 h-2.5 ml-0.5 opacity-40" />
-        </Button>
+          <ChevronDown className="w-2.5 h-2.5 ml-0.5 opacity-40 inline" />
+        </button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-1 bg-white border border-gray-300 shadow-xl rounded-md" align="center">
+      <PopoverContent 
+        className="w-auto p-1 border border-white/10 shadow-xl rounded-md backdrop-blur-sm" 
+        align="center"
+        style={{
+          background: 'linear-gradient(145deg, rgba(80,80,80,0.95), rgba(50,50,50,0.95))'
+        }}
+      >
         <div className="flex flex-col space-y-0.5">
           {options.map((option) => (
-            <Button
+            <button
               key={option}
-              variant={option === value ? "default" : "ghost"}
-              className={`justify-start text-xs h-auto py-1.5 px-2.5 rounded-sm font-medium ${
+              className={cn(
+                "text-left text-xs h-auto py-1.5 px-2.5 rounded-sm font-medium transition-all duration-300",
                 option === value 
-                  ? "bg-gray-900 text-white hover:bg-gray-800" 
-                  : "text-gray-700 hover:bg-gray-100"
-              }`}
+                  ? "text-gray-900" 
+                  : "text-white/80 hover:text-white"
+              )}
+              style={option === value ? {
+                background: 'linear-gradient(145deg, rgba(255,255,255,0.9), rgba(240,240,240,0.8))'
+              } : {}}
               onClick={() => handleSelect(option)}
             >
               {option}
-            </Button>
+            </button>
           ))}
         </div>
       </PopoverContent>
