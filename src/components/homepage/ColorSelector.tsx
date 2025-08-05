@@ -2,7 +2,11 @@ import { useSession, HairColor } from '@/hooks/useSession';
 import { useSmoothColorTransition } from '@/hooks/useSmoothColorTransition';
 import { cn } from '@/lib/utils';
 
-export const ColorSelector = () => {
+interface ColorSelectorProps {
+  heightBreakpoint?: 'small' | 'medium' | 'large';
+}
+
+export const ColorSelector = ({ heightBreakpoint = 'large' }: ColorSelectorProps) => {
   const { profile, updateProfile } = useSession();
   const { transitionToColor } = useSmoothColorTransition();
 
@@ -21,14 +25,22 @@ export const ColorSelector = () => {
   };
 
   return (
-    <div className="flex items-center justify-center space-x-3">
+    <div className={cn(
+      "flex items-center justify-center",
+      heightBreakpoint === 'small' ? "space-x-2" :
+      heightBreakpoint === 'medium' ? "space-x-2.5" :
+      "space-x-3"
+    )}>
       {colors.map(({ value, image }) => (
         <button
           key={value}
           onClick={() => handleColorChange(value)}
           className={cn(
-            "w-8 h-8 overflow-hidden border transition-all duration-300",
+            "overflow-hidden border transition-all duration-300",
             "hover:scale-110 active:scale-95 shadow-lg",
+            heightBreakpoint === 'small' ? "w-6 h-6" :
+            heightBreakpoint === 'medium' ? "w-7 h-7" :
+            "w-8 h-8",
             profile.haarkleur === value
               ? "border-white shadow-white/20 ring-1 ring-white/15 scale-110"
               : "border-white/25 hover:border-white/40"

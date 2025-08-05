@@ -6,9 +6,10 @@ import { useEffect, useState } from 'react';
 
 interface VideoGridProps {
   className?: string;
+  heightBreakpoint?: 'small' | 'medium' | 'large';
 }
 
-export const VideoGrid = ({ className }: VideoGridProps) => {
+export const VideoGrid = ({ className, heightBreakpoint = 'large' }: VideoGridProps) => {
   const navigate = useNavigate();
   const { language } = useLanguage();
   const { profile } = useSession();
@@ -121,7 +122,10 @@ export const VideoGrid = ({ className }: VideoGridProps) => {
       <div 
         key={isStatic ? `static-${gridIndex}` : `${gridIndex}-${animationKey}`}
         className={cn(
-          "aspect-[3/4] relative overflow-hidden border transition-all duration-500 ease-out",
+          "relative overflow-hidden border transition-all duration-500 ease-out",
+          heightBreakpoint === 'small' ? "aspect-[4/5]" :
+          heightBreakpoint === 'medium' ? "aspect-[3/4]" :
+          "aspect-[3/4]",
           isActive ? "cursor-pointer hover:scale-[1.01] group" : "cursor-not-allowed opacity-60",
           !isStatic && "animate-fade-in"
         )}
@@ -153,7 +157,12 @@ export const VideoGrid = ({ className }: VideoGridProps) => {
         {/* Content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center p-3">
           <div className="text-center mb-2">
-            <div className="text-sm font-header font-bold tracking-wide leading-tight" style={{ color: colors.textColor }}>
+            <div className={cn(
+              "font-header font-bold tracking-wide leading-tight",
+              heightBreakpoint === 'small' ? "text-xs" :
+              heightBreakpoint === 'medium' ? "text-sm" :
+              "text-sm"
+            )} style={{ color: colors.textColor }}>
               {title}
             </div>
           </div>
@@ -182,7 +191,13 @@ export const VideoGrid = ({ className }: VideoGridProps) => {
 
   return (
     <div 
-      className={cn("grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 relative w-full max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-3xl px-2 sm:px-0", className)}
+      className={cn(
+        "grid grid-cols-2 relative w-full px-2 sm:px-0",
+        heightBreakpoint === 'small' ? "gap-1.5 max-w-xs" :
+        heightBreakpoint === 'medium' ? "gap-2 max-w-sm sm:max-w-lg" :
+        "gap-2 sm:gap-3 md:gap-4 max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-3xl",
+        className
+      )}
     >
       {/* Haartransplantatie - Top Left */}
       <div onClick={handleHaartransplantatieClick}>

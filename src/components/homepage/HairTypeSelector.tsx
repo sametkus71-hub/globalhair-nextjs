@@ -1,7 +1,11 @@
 import { useSession, HairType } from '@/hooks/useSession';
 import { cn } from '@/lib/utils';
 
-export const HairTypeSelector = () => {
+interface HairTypeSelectorProps {
+  heightBreakpoint?: 'small' | 'medium' | 'large';
+}
+
+export const HairTypeSelector = ({ heightBreakpoint = 'large' }: HairTypeSelectorProps) => {
   const { profile, updateProfile } = useSession();
 
   const hairTypes: { value: HairType; label: string }[] = [
@@ -29,7 +33,10 @@ export const HairTypeSelector = () => {
           key={value}
           onClick={() => handleHairTypeChange(value)}
           className={cn(
-            "px-4 py-1.5 rounded-full font-header text-xs font-medium transition-all duration-300",
+            "rounded-full font-header font-medium transition-all duration-300",
+            heightBreakpoint === 'small' ? "px-2.5 py-1 text-[10px]" :
+            heightBreakpoint === 'medium' ? "px-3 py-1.5 text-xs" :
+            "px-4 py-1.5 text-xs",
             profile.haartype === value
               ? "text-gray-900"
               : "text-white/80 hover:text-white"
