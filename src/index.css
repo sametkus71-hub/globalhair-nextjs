@@ -232,22 +232,6 @@ body.s-wit {
     @apply bg-gradient-to-br from-primary/5 to-primary/10;
   }
 
-@layer components {
-  /* Hero grid tile base styles */
-  .hero-tile {
-    @apply relative overflow-hidden rounded-2xl cursor-pointer;
-    @apply transition-all duration-300 ease-out;
-    @apply bg-gradient-to-br from-white to-gray-50;
-    @apply border border-gray-200 shadow-soft;
-    @apply hover:shadow-medium hover:scale-105;
-    @apply active:scale-95;
-  }
-  
-  .hero-tile.selected {
-    @apply border-primary shadow-strong;
-    @apply bg-gradient-to-br from-primary/5 to-primary/10;
-  }
-
   /* Elegant page loading animations - slower and more delayed */
   .entrance-slide-down {
     animation: slide-down-fade 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
