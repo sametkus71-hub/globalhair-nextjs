@@ -56,7 +56,7 @@ const HaartransplantatiePage = () => {
           <div 
             className="relative z-10 overflow-hidden"
             style={{ 
-              height: `${height * 0.5 - 55}px` // Subtract footer height (55px)
+              height: `${height * 0.5}px`
             }}
           >
             <div 
@@ -67,8 +67,8 @@ const HaartransplantatiePage = () => {
             </div>
           </div>
 
-          {/* Bottom Navigation */}
-          <div className="relative z-40 h-[55px]">
+          {/* Bottom Navigation - positioned absolutely to overlay */}
+          <div className="absolute bottom-0 left-0 right-0 z-40">
             <BottomNavigation />
           </div>
         </div>
