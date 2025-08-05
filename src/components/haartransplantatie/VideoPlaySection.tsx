@@ -32,41 +32,36 @@ export const VideoPlaySection = () => {
       </div>
 
       {/* Fixed Bottom Content */}
-      <div className="fixed bottom-16 left-0 right-0 z-30 px-6"> {/* Adjusted for smaller footer */}
-        <div className="max-w-lg mx-auto space-y-4">
-          {/* Option Dropdowns */}
-          <div className="grid grid-cols-2 gap-4">
-            <OptionDropdown
-              label="Haartype"
-              options={['Fijn', 'Stijl', 'Krul', 'Kroes']}
-              value={profile.haartype}
-              onChange={(value) => updateProfile('haartype', value)}
-            />
-            <OptionDropdown
-              label="Locatie"
-              options={['Nederland', 'Turkije']}
-              value={profile.locatie}
-              onChange={(value) => updateProfile('locatie', value)}
-            />
-            <OptionDropdown
-              label="Scheren"
-              options={['Met scheren', 'Zonder scheren']}
-              value={profile.scheren}
-              onChange={(value) => updateProfile('scheren', value)}
-            />
-            <OptionDropdown
-              label="Behandeling"
-              options={['Normaal', 'Stamcel']}
-              value={profile.behandeling}
-              onChange={(value) => updateProfile('behandeling', value)}
-            />
+      <div className="fixed bottom-16 left-0 right-0 z-30 px-4"> {/* Adjusted for smaller footer */}
+        <div className="max-w-lg mx-auto space-y-6">
+          {/* Option Dropdowns - iOS Style */}
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-white/30">
+            <div className="flex flex-wrap gap-3 justify-center items-center">
+              <OptionDropdown
+                options={['Nederland', 'Turkije']}
+                value={profile.locatie}
+                onChange={(value) => updateProfile('locatie', value)}
+              />
+              <OptionDropdown
+                options={['Met scheren', 'Zonder scheren']}
+                value={profile.scheren}
+                onChange={(value) => updateProfile('scheren', value)}
+              />
+              <OptionDropdown
+                options={['Normaal', 'Stamcel']}
+                value={profile.behandeling}
+                onChange={(value) => updateProfile('behandeling', value)}
+              />
+            </div>
           </div>
 
           {/* Cost Display */}
           <div className="text-center">
-            <p className="text-lg font-semibold text-white">
-              Geschatte kosten: {formatPrice(totalPrice)}
-            </p>
+            <div className="bg-black/80 backdrop-blur-sm rounded-xl px-6 py-3 inline-block">
+              <p className="text-xl font-semibold text-white">
+                {formatPrice(totalPrice)}
+              </p>
+            </div>
           </div>
         </div>
       </div>
