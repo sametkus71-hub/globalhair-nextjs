@@ -32,8 +32,8 @@ const HaartransplantatiePage = () => {
           {/* Background Overlay - Same as homepage */}
           <div className="absolute inset-0 bg-gradient-to-br from-gray-900/20 to-gray-900/40" />
           
-          {/* Top Section - Before/After Grid (exactly half the viewport) */}
-          <div className="h-[50vh] relative z-10 flex items-center justify-center">
+          {/* Top Section - Before/After Grid (exactly half the viewport, no padding) */}
+          <div className="h-[50vh] relative z-10">
             <div 
               className="page-entry-item page-entry-delay-1 w-full h-full"
               data-page-entry="grid"

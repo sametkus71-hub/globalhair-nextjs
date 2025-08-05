@@ -5,15 +5,17 @@ interface GridItem {
   id: number;
   isAfter: boolean;
   delay: number;
+  beforeColor: string;
+  afterColor: string;
 }
 
 const GRID_ITEMS: Omit<GridItem, 'isAfter'>[] = [
-  { id: 1, delay: 2500 },
-  { id: 2, delay: 1800 },
-  { id: 3, delay: 4200 },
-  { id: 4, delay: 3100 },
-  { id: 5, delay: 1400 },
-  { id: 6, delay: 3800 }
+  { id: 1, delay: 2500, beforeColor: 'bg-gray-500', afterColor: 'bg-gray-300' },
+  { id: 2, delay: 1800, beforeColor: 'bg-gray-600', afterColor: 'bg-gray-400' },
+  { id: 3, delay: 4200, beforeColor: 'bg-gray-700', afterColor: 'bg-gray-200' },
+  { id: 4, delay: 3100, beforeColor: 'bg-gray-400', afterColor: 'bg-gray-300' },
+  { id: 5, delay: 1400, beforeColor: 'bg-gray-800', afterColor: 'bg-gray-100' },
+  { id: 6, delay: 3800, beforeColor: 'bg-gray-500', afterColor: 'bg-gray-300' }
 ];
 
 export const BeforeAfterGrid = () => {
@@ -41,25 +43,16 @@ export const BeforeAfterGrid = () => {
   }, []);
 
   return (
-    <div className="w-full h-full flex items-center justify-center px-8">
-      <div className="grid grid-cols-3 gap-4 w-full max-w-5xl">
+    <div className="w-full h-full">
+      <div className="grid grid-cols-3 grid-rows-2 w-full h-full">
         {items.map((item) => (
           <div
             key={item.id}
-            className="aspect-[3/4] relative"
-          >
-            {/* Before State - Darker Gray */}
-            <div className={cn(
-              "absolute inset-0 bg-gray-600 transition-opacity duration-1000",
-              item.isAfter ? "opacity-0" : "opacity-100"
-            )} />
-            
-            {/* After State - Lighter Gray */}
-            <div className={cn(
-              "absolute inset-0 bg-gray-400 transition-opacity duration-1000",
-              item.isAfter ? "opacity-100" : "opacity-0"
-            )} />
-          </div>
+            className={cn(
+              "w-full h-full transition-colors duration-1000",
+              item.isAfter ? item.afterColor : item.beforeColor
+            )}
+          />
         ))}
       </div>
     </div>
