@@ -76,7 +76,7 @@ const HomePage = () => {
             // Animation classes
             isLoading ? 'entrance-hidden' : (isFirstLoad ? 'entrance-slide-down' : ''),
             // Transition classes
-            transitionState.fadeOut ? 'page-transition-fade-out' : ''
+            transitionState.fadeOut && 'page-transition-fade-out'
           )}
           style={{ 
             animationDelay: isFirstLoad && !isLoading ? '0.3s' : '0s'
@@ -93,7 +93,7 @@ const HomePage = () => {
               // Animation classes
               isLoading ? 'entrance-hidden-scale' : (isFirstLoad ? 'entrance-scale-fade' : ''),
               // Transition classes for buttons
-              transitionState.fadeOut ? 'page-transition-buttons-fade' : ''
+              transitionState.fadeOut && 'page-transition-buttons-fade'
             )}
             style={{ 
               animationDelay: isFirstLoad && !isLoading ? '0.7s' : '0s'
@@ -127,7 +127,7 @@ const HomePage = () => {
             // Animation classes
             isLoading ? 'entrance-hidden-up' : (isFirstLoad ? 'entrance-slide-up' : ''),
             // Transition classes
-            transitionState.fadeOut ? 'page-transition-fade-out' : ''
+            transitionState.fadeOut && 'page-transition-fade-out'
           )}
           style={{ 
             paddingBottom: 'max(1rem, env(safe-area-inset-bottom))',

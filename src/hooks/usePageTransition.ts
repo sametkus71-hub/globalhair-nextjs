@@ -18,6 +18,8 @@ export const usePageTransition = () => {
   });
 
   const startTransition = useCallback((targetPath: string, delay = 0) => {
+    console.log('🚀 Starting transition to:', targetPath);
+    
     // Lock scroll during transition
     document.body.style.overflow = 'hidden';
     
@@ -29,12 +31,16 @@ export const usePageTransition = () => {
       targetPage: targetPath
     });
 
-    // Navigate after fade out completes
+    console.log('⏱️ Fade out started');
+
+    // Navigate after fade out completes (wait for CSS animation)
     setTimeout(() => {
+      console.log('🔄 Navigating to new page');
       navigate(targetPath);
       
       // Start scale in after navigation
       setTimeout(() => {
+        console.log('📈 Scale in started');
         setTransitionState(prev => ({
           ...prev,
           fadeOut: false,
@@ -43,6 +49,7 @@ export const usePageTransition = () => {
 
         // Complete transition
         setTimeout(() => {
+          console.log('✅ Transition complete');
           setTransitionState({
             isTransitioning: false,
             fadeOut: false,
@@ -52,9 +59,9 @@ export const usePageTransition = () => {
           
           // Restore scroll
           document.body.style.overflow = '';
-        }, 400); // Scale in duration
+        }, 300); // Scale in duration
       }, 50); // Small delay to ensure page is rendered
-    }, 350 + delay); // Fade out duration + any delay
+    }, 350 + delay); // Wait for content fade out (350ms) + any delay
   }, [navigate]);
 
   return {
