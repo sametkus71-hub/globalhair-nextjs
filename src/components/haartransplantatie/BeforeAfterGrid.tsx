@@ -4,20 +4,24 @@ import { cn } from '@/lib/utils';
 interface GridItem {
   id: number;
   isAfter: boolean;
-  initialDelay: number;
-  cycleDelay: number;
-  stayDuration: number;
   beforeColor: string;
   afterColor: string;
 }
 
 const GRID_ITEMS: Omit<GridItem, 'isAfter'>[] = [
-  { id: 1, initialDelay: 2500, cycleDelay: 15000, stayDuration: 8000, beforeColor: 'bg-gray-500', afterColor: 'bg-gray-300' },
-  { id: 2, initialDelay: 1800, cycleDelay: 18000, stayDuration: 12000, beforeColor: 'bg-gray-600', afterColor: 'bg-gray-400' },
-  { id: 3, initialDelay: 4200, cycleDelay: 22000, stayDuration: 9000, beforeColor: 'bg-gray-700', afterColor: 'bg-gray-200' },
-  { id: 4, initialDelay: 3100, cycleDelay: 16000, stayDuration: 11000, beforeColor: 'bg-gray-400', afterColor: 'bg-gray-300' },
-  { id: 5, initialDelay: 1400, cycleDelay: 20000, stayDuration: 7000, beforeColor: 'bg-gray-800', afterColor: 'bg-gray-100' },
-  { id: 6, initialDelay: 3800, cycleDelay: 19000, stayDuration: 10000, beforeColor: 'bg-gray-500', afterColor: 'bg-gray-300' }
+  { id: 1, beforeColor: 'bg-gray-500', afterColor: 'bg-gray-300' },
+  { id: 2, beforeColor: 'bg-gray-600', afterColor: 'bg-gray-400' },
+  { id: 3, beforeColor: 'bg-gray-700', afterColor: 'bg-gray-200' },
+  { id: 4, beforeColor: 'bg-gray-400', afterColor: 'bg-gray-300' },
+  { id: 5, beforeColor: 'bg-gray-800', afterColor: 'bg-gray-100' },
+  { id: 6, beforeColor: 'bg-gray-500', afterColor: 'bg-gray-300' }
+];
+
+// Random pairs with different timing
+const ANIMATION_GROUPS = [
+  { ids: [1, 5], initialDelay: 3000, stayDuration: 18000 }, // top left + bottom middle
+  { ids: [3, 2], initialDelay: 8000, stayDuration: 22000 }, // top right + top middle  
+  { ids: [4, 6], initialDelay: 15000, stayDuration: 16000 }, // bottom left + bottom right
 ];
 
 export const BeforeAfterGrid = () => {
@@ -28,32 +32,32 @@ export const BeforeAfterGrid = () => {
   useEffect(() => {
     const intervals: NodeJS.Timeout[] = [];
 
-    // Set up cycling behavior for each item
-    items.forEach((item) => {
+    // Set up animation groups
+    ANIMATION_GROUPS.forEach((group) => {
       // Initial delay before first change
       const initialTimer = setTimeout(() => {
-        // Toggle to after state
+        // Toggle the pair to after state
         setItems(prevItems => 
           prevItems.map(prevItem => 
-            prevItem.id === item.id 
+            group.ids.includes(prevItem.id)
               ? { ...prevItem, isAfter: true }
               : prevItem
           )
         );
 
-        // Set up continuous cycling
+        // Set up continuous cycling for this pair
         const cycleInterval = setInterval(() => {
           setItems(prevItems => 
             prevItems.map(prevItem => 
-              prevItem.id === item.id 
+              group.ids.includes(prevItem.id)
                 ? { ...prevItem, isAfter: !prevItem.isAfter }
                 : prevItem
             )
           );
-        }, item.stayDuration);
+        }, group.stayDuration);
 
         intervals.push(cycleInterval);
-      }, item.initialDelay);
+      }, group.initialDelay);
 
       intervals.push(initialTimer);
     });
@@ -70,7 +74,7 @@ export const BeforeAfterGrid = () => {
           <div
             key={item.id}
             className={cn(
-              "w-full h-full transition-colors duration-[4000ms] ease-in-out",
+              "w-full h-full transition-colors duration-[5000ms] ease-in-out",
               item.isAfter ? item.afterColor : item.beforeColor
             )}
           />
