@@ -155,6 +155,18 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
     top: 0;
     left: 0;
   }
+
+  /* CSS custom properties for dynamic viewport height */
+  :root {
+    --app-height: 100vh;
+    --safe-area-height: 100vh;
+  }
+
+  /* Fullscreen utility using CSS custom properties instead of dvh */
+  .fullscreen-safe {
+    height: var(--app-height);
+    min-height: var(--safe-area-height);
+  }
   
   /* Prevent zoom on iOS and globally */
   input, select, textarea {
