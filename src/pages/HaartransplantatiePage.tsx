@@ -29,8 +29,15 @@ const HaartransplantatiePage = () => {
         <div className="fullscreen-safe flex flex-col relative overflow-hidden">
           {/* Content with relative positioning over the persistent background */}
           
-          {/* Top Section - Before/After Grid with footer compensation */}
-          <div className="h-[50vh] relative z-10 overflow-hidden" style={{ marginBottom: '-20px' }}>
+          {/* Top Section - Before/After Grid with strict height control */}
+          <div 
+            className="relative z-10 overflow-hidden" 
+            style={{ 
+              height: '50vh',
+              maxHeight: '50vh',
+              minHeight: '50vh'
+            }}
+          >
             <div 
               className="page-entry-grid page-entry-delay-1 w-full h-full"
               data-page-entry="grid"
@@ -39,8 +46,15 @@ const HaartransplantatiePage = () => {
             </div>
           </div>
 
-          {/* Bottom Section - Video Play & Controls with footer compensation */}
-          <div className="h-[50vh] relative z-10 overflow-hidden" style={{ marginBottom: '-20px' }}>
+          {/* Bottom Section - Video Play & Controls with strict height control */}
+          <div 
+            className="relative z-10 overflow-hidden" 
+            style={{ 
+              height: '50vh',
+              maxHeight: '50vh',
+              minHeight: '50vh'
+            }}
+          >
             <div 
               className="page-entry-item page-entry-delay-2 w-full h-full"
               data-page-entry="video"

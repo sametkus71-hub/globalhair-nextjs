@@ -85,7 +85,13 @@ export const BeforeAfterGrid = () => {
 
   return (
     <div className="w-full h-full">
-      <div className="grid grid-cols-3 grid-rows-2 w-full h-full gap-0">
+      <div 
+        className="grid grid-cols-3 w-full h-full gap-0"
+        style={{ 
+          gridTemplateRows: '1fr 1fr', // Explicitly equal rows
+          height: '100%'
+        }}
+      >
         {items.map((item) => (
           <div
             key={item.id}
@@ -95,7 +101,6 @@ export const BeforeAfterGrid = () => {
               "min-h-0 flex-shrink-0", // Ensure consistent height
               item.isAfter ? item.afterColor : item.beforeColor
             )}
-            style={{ aspectRatio: 'auto' }} // Force equal heights
           >
             {/* Subtle label */}
             <div className="absolute top-2 left-2 text-xs text-black/30 font-mono pointer-events-none">
