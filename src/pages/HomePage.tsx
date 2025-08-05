@@ -11,7 +11,7 @@ import { GenderToggle } from '@/components/homepage/GenderToggle';
 import { VideoGrid } from '@/components/homepage/VideoGrid';
 import { ColorSelector } from '@/components/homepage/ColorSelector';
 import { HairTypeSelector } from '@/components/homepage/HairTypeSelector';
-import { CentralLogo } from '@/components/homepage/CentralLogo';
+
 import { AnimatedBackground } from '@/components/homepage/AnimatedBackground';
 import { cn } from '@/lib/utils';
 import { usePageTransition } from '@/hooks/usePageTransition';
@@ -106,16 +106,6 @@ const HomePage = () => {
               heightBreakpoint={heightBreakpoint}
               startTransition={startTransition}
             />
-            
-            {/* Central Logo - Positioned within the grid area, perfectly centered */}
-            <div className="absolute inset-0 flex items-center justify-center z-10 cursor-pointer pointer-events-none">
-              <div className={cn(
-                "pointer-events-auto",
-                isLoading ? 'logo-loading-pulse' : ''
-              )}>
-                <CentralLogo />
-              </div>
-            </div>
           </div>
         </div>
 

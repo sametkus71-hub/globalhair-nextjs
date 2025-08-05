@@ -1,7 +1,9 @@
 import { useLanguage } from '@/hooks/useLanguage';
 import { MetaHead } from '@/components/MetaHead';
-import { Button } from '@/components/ui/button';
 import { PageTransition } from '@/components/PageTransition';
+import { BeforeAfterGrid } from '@/components/haartransplantatie/BeforeAfterGrid';
+import { VideoPlaySection } from '@/components/haartransplantatie/VideoPlaySection';
+import { BottomNavigation } from '@/components/haartransplantatie/BottomNavigation';
 
 const HaartransplantatiePage = () => {
   const { language } = useLanguage();
@@ -10,61 +12,35 @@ const HaartransplantatiePage = () => {
     <>
       <MetaHead language={language} page="haartransplantatie" />
       <PageTransition isNewPage={true}>
-        <div className="min-h-screen bg-gradient-hero flex flex-col">
-          {/* Navigation */}
-          <nav 
-            className="p-6 border-b border-gray-200 page-entry-item page-entry-delay-1"
-            data-page-entry="nav"
-          >
-            <div className="max-w-6xl mx-auto flex items-center justify-between">
-              <div className="font-header text-2xl font-bold text-primary">
-                GlobalHair
-              </div>
-              <Button variant="outline" onClick={() => window.history.back()}>
-                ← {language === 'nl' ? 'Terug' : 'Back'}
-              </Button>
-            </div>
-          </nav>
-
-          {/* Main content - centered */}
-          <div className="flex-1 flex items-center justify-center p-6">
-            <div className="text-center space-y-6">
-              <div 
-                className="page-entry-item page-entry-delay-2"
-                data-page-entry="title"
-              >
-                <h1 className="text-4xl font-header font-bold text-gray-800 mb-4">
-                  {language === 'nl' ? 'Haartransplantatie' : 'Hair Transplant'}
-                </h1>
-              </div>
-              
-              <div 
-                className="page-entry-item page-entry-delay-3"
-                data-page-entry="subtitle"
-              >
-                <p className="text-xl text-gray-600 mb-8">
-                  {language === 'nl' 
-                    ? 'Binnenkort beschikbaar'
-                    : 'Coming soon'
-                  }
-                </p>
-              </div>
-              
-              <div 
-                className="page-entry-item page-entry-delay-4"
-                data-page-entry="button"
-              >
-                <Button 
-                  variant="default" 
-                  size="lg"
-                  onClick={() => window.history.back()}
-                  className="font-header transform hover:scale-105 transition-transform duration-200"
-                >
-                  {language === 'nl' ? 'Terug naar hoofdpagina' : 'Back to homepage'}
-                </Button>
-              </div>
+        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex flex-col relative overflow-hidden">
+          {/* Background overlay */}
+          <div className="absolute inset-0 bg-black/20" />
+          
+          {/* Top Section - Before/After Grid */}
+          <div className="flex-1 flex items-center justify-center px-4 py-8 relative z-10">
+            <div 
+              className="page-entry-item page-entry-delay-1"
+              data-page-entry="grid"
+            >
+              <BeforeAfterGrid />
             </div>
           </div>
+
+          {/* Middle Section - Space for Global Logo (handled by GlobalCentralLogo) */}
+          <div className="h-24" />
+
+          {/* Bottom Section - Video Play & Controls */}
+          <div className="flex-1 flex items-center justify-center px-4 py-8 relative z-10">
+            <div 
+              className="page-entry-item page-entry-delay-2"
+              data-page-entry="video"
+            >
+              <VideoPlaySection />
+            </div>
+          </div>
+
+          {/* Fixed Bottom Navigation */}
+          <BottomNavigation />
         </div>
       </PageTransition>
     </>

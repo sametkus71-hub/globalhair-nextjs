@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SessionManager } from "@/components/SessionManager";
 import { LanguageWrapper } from "@/components/LanguageWrapper";
+import { GlobalCentralLogo } from "@/components/GlobalCentralLogo";
 
 // Pages
 import HomePage from "./pages/HomePage";
@@ -26,6 +27,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <LanguageWrapper>
+            <GlobalCentralLogo />
             <Routes>
               {/* Root redirect handled by useLanguage hook */}
               <Route path="/" element={<HomePage />} />
