@@ -127,7 +127,7 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large' }: VideoGridPr
           heightBreakpoint === 'medium' ? "aspect-[3/4]" :
           "aspect-[3/4]",
           isActive ? "cursor-pointer hover:scale-[1.01] group" : "cursor-not-allowed opacity-60",
-          !isStatic
+          !isStatic && "animate-fade-in"
         )}
         style={{ 
           backgroundColor: colors.bgColor,

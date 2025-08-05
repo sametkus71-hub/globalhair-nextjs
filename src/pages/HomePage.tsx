@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useSession } from '@/hooks/useSession';
 import { useTranslation } from '@/lib/translations';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
-import { useImagePreloader } from '@/hooks/useImagePreloader';
 import { MetaHead } from '@/components/MetaHead';
 import { GenderToggle } from '@/components/homepage/GenderToggle';
 import { VideoGrid } from '@/components/homepage/VideoGrid';
@@ -17,26 +16,6 @@ const HomePage = () => {
   const { profile } = useSession();
   const { t } = useTranslation(language);
   const { heightBreakpoint } = useViewportHeight();
-  
-  // Loading states for staged animation
-  const [showTopSection, setShowTopSection] = useState(false);
-  const [showGrid, setShowGrid] = useState(false);
-  const [showBottomSection, setShowBottomSection] = useState(false);
-  
-  // Preload all images used on the homepage
-  const imagesToPreload = [
-    '/assets/hair-blonde.png',
-    '/assets/hair-brown.png',
-    '/assets/hair-dark.png',
-    '/assets/hair-gray.png',
-    '/assets/logo-shield.png'
-  ];
-  
-  const { allImagesLoaded, loadingProgress } = useImagePreloader({
-    images: imagesToPreload
-  });
-  
-  console.log('Current states:', { showTopSection, showGrid, showBottomSection, allImagesLoaded });
 
   useEffect(() => {
     // Add fullscreen class to body
@@ -47,50 +26,25 @@ const HomePage = () => {
     };
   }, []);
 
-  // Handle staged loading sequence
-  useEffect(() => {
-    console.log('allImagesLoaded:', allImagesLoaded);
-    if (allImagesLoaded) {
-      console.log('Starting staged animation sequence');
-      // Quick staged animation sequence - feels like launching
-      setTimeout(() => {
-        console.log('Setting showTopSection to true');
-        setShowTopSection(true);
-      }, 300);
-      setTimeout(() => {
-        console.log('Setting showGrid to true');
-        setShowGrid(true);
-      }, 500);
-      setTimeout(() => {
-        console.log('Setting showBottomSection to true');
-        setShowBottomSection(true);
-      }, 700);
-    }
-  }, [allImagesLoaded]);
 
   return (
     <>
       <MetaHead language={language} page="home" />
-      
       <div className="min-h-screen flex flex-col relative overflow-hidden" style={{ 
         background: '#111111',
-        height: '100dvh'
+        height: '100dvh' // Use dynamic viewport height for better mobile support
       }}>
-        {/* Animated Background - Always visible */}
+        {/* Animated Background */}
         <AnimatedBackground />
         
-        {/* Background Overlay - Always visible */}
+        {/* Background Overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900/20 to-gray-900/40" />
         
         {/* Top section with gender toggle */}
-        <div className={`relative z-10 flex flex-col items-center transition-all duration-800 ease-out ${
+        <div className={`relative z-10 flex flex-col items-center ${
           heightBreakpoint === 'small' ? 'pt-4 pb-4' :
           heightBreakpoint === 'medium' ? 'pt-6 pb-6' :
           'pt-12 pb-8'
-        } ${
-          showTopSection 
-            ? 'opacity-100 translate-y-0' 
-            : 'opacity-0 -translate-y-12'
         }`}>
           <GenderToggle />
         </div>
@@ -102,26 +56,16 @@ const HomePage = () => {
             heightBreakpoint === 'medium' ? 'max-h-[calc(100dvh-200px)]' :
             ''
           }`}>
-            <div className={`transition-all duration-800 ease-out ${
-              showGrid 
-                ? 'opacity-100 scale-100' 
-                : 'opacity-0 scale-95'
-            }`}>
-              <VideoGrid className="mx-auto" heightBreakpoint={heightBreakpoint} />
-            </div>
+            <VideoGrid className="mx-auto" heightBreakpoint={heightBreakpoint} />
             <CentralLogo />
           </div>
         </div>
 
         {/* Bottom section with selectors */}
-        <div className={`relative z-10 flex flex-col items-center transition-all duration-800 ease-out ${
+        <div className={`relative z-10 flex flex-col items-center ${
           heightBreakpoint === 'small' ? 'pb-4 pt-3 space-y-2' :
           heightBreakpoint === 'medium' ? 'pb-6 pt-4 space-y-3' :
           'pb-8 sm:pb-12 pt-6 sm:pt-8 space-y-4 sm:space-y-6'
-        } ${
-          showBottomSection 
-            ? 'opacity-100 translate-y-0' 
-            : 'opacity-0 translate-y-12'
         }`} style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}>
           {/* Hair Color Selector */}
           <ColorSelector heightBreakpoint={heightBreakpoint} />
