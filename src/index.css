@@ -247,11 +247,7 @@ body.s-wit {
 
   /* Grid item transition for page navigation */
   .grid-item-transition {
-    animation: grid-item-zoom-out 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    position: fixed !important;
-    top: 50% !important;
-    left: 50% !important;
-    z-index: 9999 !important;
+    animation: grid-item-navigate 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     transform-origin: center center;
   }
 
@@ -596,22 +592,22 @@ body.s-wit {
   }
 }
 
-/* Grid item zoom out transition for page navigation */
-@keyframes grid-item-zoom-out {
+/* Grid item navigation animation - subtle scale and fade */
+@keyframes grid-item-navigate {
   0% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-    z-index: 9999;
+    transform: scale(1);
+    z-index: 50;
   }
-  70% {
-    opacity: 0.3;
-    transform: translate(-50%, -50%) scale(50);
-    z-index: 9999;
+  40% {
+    opacity: 0.8;
+    transform: scale(1.1);
+    z-index: 50;
   }
   100% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(100);
-    z-index: 9999;
+    transform: scale(1.3);
+    z-index: 50;
   }
 }
 

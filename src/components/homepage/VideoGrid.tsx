@@ -26,7 +26,7 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large' }: VideoGridPr
     setTimeout(() => {
       const path = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
       navigate(path);
-    }, 600); // Wait for full animation to complete
+    }, 800); // Wait for full animation to complete
   };
 
   const handleV6HairboostClick = () => {
@@ -34,7 +34,7 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large' }: VideoGridPr
     setTimeout(() => {
       const path = language === 'nl' ? '/nl/v6-hairboost' : '/en/v6-hairboost';
       navigate(path);
-    }, 600); // Wait for full animation to complete
+    }, 800); // Wait for full animation to complete
   };
 
   // All 32 possible combinations (2 genders × 4 colors × 4 types)

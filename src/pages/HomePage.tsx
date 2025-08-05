@@ -80,7 +80,7 @@ const HomePage = () => {
         </div>
 
         {/* Main content area with video grid - hidden during loading */}
-        <div className="flex-1 flex items-center justify-center px-2 sm:px-4">
+        <div className="flex-1 flex items-center justify-center px-2 sm:px-4 relative">
           <div 
             className={cn(
               "w-full relative flex justify-center",
@@ -95,12 +95,15 @@ const HomePage = () => {
             }}
           >
             <VideoGrid className="mx-auto" heightBreakpoint={heightBreakpoint} />
-          </div>
-          
-          {/* Central Logo - Always visible, positioned in grid center */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 cursor-pointer">
-            <div className={isLoading ? 'logo-loading-pulse' : ''}>
-              <CentralLogo />
+            
+            {/* Central Logo - Positioned within the grid area, perfectly centered */}
+            <div className="absolute inset-0 flex items-center justify-center z-10 cursor-pointer pointer-events-none">
+              <div className={cn(
+                "pointer-events-auto",
+                isLoading ? 'logo-loading-pulse' : ''
+              )}>
+                <CentralLogo />
+              </div>
             </div>
           </div>
         </div>
