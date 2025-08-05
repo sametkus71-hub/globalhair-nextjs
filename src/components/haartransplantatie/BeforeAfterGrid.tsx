@@ -74,10 +74,15 @@ export const BeforeAfterGrid = () => {
           <div
             key={item.id}
             className={cn(
-              "w-full h-full transition-colors duration-[5000ms] ease-in-out",
+              "w-full h-full transition-colors duration-[5000ms] ease-in-out relative",
               item.isAfter ? item.afterColor : item.beforeColor
             )}
-          />
+          >
+            {/* Subtle label */}
+            <div className="absolute top-2 left-2 text-xs text-black/30 font-mono">
+              {item.isAfter ? "AFTER" : "BEFORE"}
+            </div>
+          </div>
         ))}
       </div>
     </div>
