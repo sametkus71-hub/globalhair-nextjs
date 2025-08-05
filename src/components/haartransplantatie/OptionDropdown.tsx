@@ -12,9 +12,10 @@ interface OptionDropdownProps {
   options: string[];
   value: string;
   onChange: (value: string) => void;
+  size?: 'small' | 'medium';
 }
 
-export const OptionDropdown = ({ options, value, onChange }: OptionDropdownProps) => {
+export const OptionDropdown = ({ options, value, onChange, size = 'medium' }: OptionDropdownProps) => {
   const [open, setOpen] = useState(false);
 
   const handleSelect = (option: string) => {
@@ -27,13 +28,17 @@ export const OptionDropdown = ({ options, value, onChange }: OptionDropdownProps
       <PopoverTrigger asChild>
         <button
           className={cn(
-            "px-3 py-1.5 rounded-none font-header text-xs font-medium transition-all duration-300",
+            "rounded-none font-header font-medium transition-all duration-300",
             "text-gray-800 hover:bg-gray-50 focus:outline-none focus:bg-gray-50",
-            "first:rounded-l-full last:rounded-r-full"
+            "first:rounded-l-full last:rounded-r-full",
+            size === 'small' ? "px-2 py-1 text-xs" : "px-3 py-1.5 text-xs"
           )}
         >
           {value}
-          <ChevronDown className="w-2.5 h-2.5 ml-0.5 opacity-40 inline" />
+          <ChevronDown className={cn(
+            "ml-0.5 opacity-40 inline",
+            size === 'small' ? "w-2 h-2" : "w-2.5 h-2.5"
+          )} />
         </button>
       </PopoverTrigger>
       <PopoverContent 
@@ -45,10 +50,11 @@ export const OptionDropdown = ({ options, value, onChange }: OptionDropdownProps
             <button
               key={option}
               className={cn(
-                "text-left text-xs h-auto py-1.5 px-2.5 rounded-sm font-medium transition-all duration-200",
+                "text-left h-auto rounded-sm font-medium transition-all duration-200",
                 option === value 
                   ? "bg-gray-100 text-gray-900" 
-                  : "text-gray-700 hover:bg-gray-50"
+                  : "text-gray-700 hover:bg-gray-50",
+                size === 'small' ? "text-xs py-1 px-2" : "text-xs py-1.5 px-2.5"
               )}
               onClick={() => handleSelect(option)}
             >

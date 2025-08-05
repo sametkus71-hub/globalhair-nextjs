@@ -48,6 +48,11 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
     --destructive-foreground: 0 0% 98%;
     --border: 210 15% 90%;
     --input: 210 15% 90%;
+    
+    /* Layout Variables for Mobile Viewport */
+    --bottom-nav-height: 60px;
+    --content-height: calc(100vh - 60px);
+    --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
     --ring: 156 45% 25%;
     --radius: 0.75rem;
     
