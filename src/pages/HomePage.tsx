@@ -35,6 +35,8 @@ const HomePage = () => {
   const { allImagesLoaded, loadingProgress } = useImagePreloader({
     images: imagesToPreload
   });
+  
+  console.log('Current states:', { showTopSection, showGrid, showBottomSection, allImagesLoaded });
 
   useEffect(() => {
     // Add fullscreen class to body
@@ -47,11 +49,22 @@ const HomePage = () => {
 
   // Handle staged loading sequence
   useEffect(() => {
+    console.log('allImagesLoaded:', allImagesLoaded);
     if (allImagesLoaded) {
+      console.log('Starting staged animation sequence');
       // Quick staged animation sequence - feels like launching
-      setTimeout(() => setShowTopSection(true), 300);
-      setTimeout(() => setShowGrid(true), 500);
-      setTimeout(() => setShowBottomSection(true), 700);
+      setTimeout(() => {
+        console.log('Setting showTopSection to true');
+        setShowTopSection(true);
+      }, 300);
+      setTimeout(() => {
+        console.log('Setting showGrid to true');
+        setShowGrid(true);
+      }, 500);
+      setTimeout(() => {
+        console.log('Setting showBottomSection to true');
+        setShowBottomSection(true);
+      }, 700);
     }
   }, [allImagesLoaded]);
 
