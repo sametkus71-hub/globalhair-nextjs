@@ -46,51 +46,33 @@ export const BottomNavigation = () => {
   ];
 
   return (
-    <>
-      {/* Portal-like approach to ensure visibility */}
+    <div className="fixed bottom-0 left-0 right-0 z-40">
       <div 
-        className="fixed inset-0 pointer-events-none"
+        className="bg-black/95 backdrop-blur-sm border-t border-gray-800/50"
         style={{ 
-          zIndex: 99999,
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0
+          paddingBottom: 'max(0.25rem, env(safe-area-inset-bottom))'
         }}
       >
-        <div 
-          className="absolute bottom-0 left-0 right-0 pointer-events-auto bg-black/95 backdrop-blur-sm border-t border-gray-800/50"
-          style={{ 
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            right: 0
-          }}
-        >
-          <div className="max-w-lg mx-auto px-2 py-1">
-            <div className="flex justify-around items-center">
-              {navItems.map((item, index) => {
-                const active = isActive(item.id);
-                return (
-                  <button
-                    key={index}
-                    onClick={item.onClick}
-                    className="flex flex-col items-center space-y-0.5 p-1.5 min-w-0 touch-manipulation"
-                  >
-                    <item.icon className={`w-4 h-4 ${active ? 'text-white' : 'text-gray-400'}`} />
-                    <span className={`text-[9px] leading-none ${active ? 'text-white font-bold' : 'text-gray-400 font-normal'}`}>
-                      {item.label}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
+        <div className="max-w-lg mx-auto px-2 pt-1.5 pb-0.5">
+          <div className="flex justify-around items-center">
+            {navItems.map((item, index) => {
+              const active = isActive(item.id);
+              return (
+                <button
+                  key={index}
+                  onClick={item.onClick}
+                  className="flex flex-col items-center space-y-0.5 p-1.5 min-w-0"
+                >
+                  <item.icon className={`w-5 h-5 ${active ? 'text-white' : 'text-gray-400'}`} />
+                  <span className={`text-[10px] leading-none ${active ? 'text-white font-bold' : 'text-gray-400 font-normal'}`}>
+                    {item.label}
+                  </span>
+                </button>
+              );
+            })}
           </div>
-          {/* Safe area for iPhone bottom */}
-          <div style={{ height: 'max(10px, env(safe-area-inset-bottom))' }} />
         </div>
       </div>
-    </>
+    </div>
   );
 };
