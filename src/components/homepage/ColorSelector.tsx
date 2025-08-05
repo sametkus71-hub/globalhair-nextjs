@@ -7,10 +7,10 @@ export const ColorSelector = () => {
   const { transitionToColor } = useSmoothColorTransition();
 
   const colors: { value: HairColor; image: string }[] = [
-    { value: 'Blond', image: '/lovable-uploads/36464574-ba4b-4399-a478-a585122a2ec8.png' },
-    { value: 'Bruin', image: '/lovable-uploads/ff5f693a-90e4-420c-bb79-6c65c660b92c.png' },
-    { value: 'Zwart', image: '/lovable-uploads/923d5968-0d58-4119-bff6-65737e6f5abd.png' },
-    { value: 'Wit', image: '/lovable-uploads/7783f073-22c8-4a48-86bf-433ea3f6d4da.png' },
+    { value: 'Blond', image: '/assets/hair-blonde.png' },
+    { value: 'Bruin', image: '/assets/hair-brown.png' },
+    { value: 'Zwart', image: '/assets/hair-dark.png' },
+    { value: 'Wit', image: '/assets/hair-gray.png' },
   ];
 
   const handleColorChange = (color: HairColor) => {

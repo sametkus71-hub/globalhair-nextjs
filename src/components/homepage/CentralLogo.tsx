@@ -20,7 +20,7 @@ export const CentralLogo = ({ className }: CentralLogoProps) => {
     }}
     >
       <img 
-        src="/lovable-uploads/3adf7589-3704-4c29-800c-e2566de7ae5f.png" 
+        src="/assets/logo-shield.png" 
         alt="GlobalHair Shield Logo" 
         className="w-20 h-20 object-contain"
       />

@@ -1,73 +1,101 @@
-# Welcome to your Lovable project
+# GlobalHair - Premium Haartransplantatie & V6 Hairboost
 
-## Project info
+Een moderne webapplicatie voor GlobalHair, gespecialiseerd in geavanceerde haartransplantatie technieken en V6 Hairboost behandelingen.
 
-**URL**: https://lovable.dev/projects/b2b07a8d-68e5-4c3a-aeb0-e03479afdb8f
+## Features
 
-## How can I edit this code?
+- Interactieve haartransplantatie informatie
+- V6 Hairboost behandeling details
+- Responsief design voor alle apparaten
+- Multi-taal ondersteuning (Nederlands/Engels)
+- Gebruikersprofiel personalisatie
+- Video content bibliotheek
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+- **Frontend**: React 18 + TypeScript
+- **Styling**: Tailwind CSS + shadcn/ui
+- **Build Tool**: Vite
+- **Routing**: React Router
+- **State Management**: React Hooks + Session Storage
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/b2b07a8d-68e5-4c3a-aeb0-e03479afdb8f) and start prompting.
+## Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
 
-**Use your preferred IDE**
+- Node.js 18+ 
+- npm or yarn
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Installation
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+```bash
+# Clone the repository
+git clone <your-repo-url>
 
-Follow these steps:
+# Navigate to project directory
+cd globalhair
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Install dependencies
+npm install
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The application will be available at `http://localhost:8080`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Build for Production
 
-**Use GitHub Codespaces**
+```bash
+# Create production build
+npm run build
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+# Preview production build locally
+npm run preview
+```
 
-## What technologies are used for this project?
+## Project Structure
 
-This project is built with:
+```
+src/
+├── components/          # Reusable UI components
+│   ├── homepage/       # Homepage specific components
+│   └── ui/            # shadcn/ui components
+├── hooks/             # Custom React hooks
+├── lib/               # Utility functions and translations
+├── pages/             # Page components
+└── assets/            # Static assets (images, etc.)
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Development
 
-## How can I deploy this project?
+### Code Style
 
-Simply open [Lovable](https://lovable.dev/projects/b2b07a8d-68e5-4c3a-aeb0-e03479afdb8f) and click on Share -> Publish.
+- ESLint configuration for code quality
+- TypeScript for type safety
+- Tailwind CSS for styling
+- Component-based architecture
 
-## Can I connect a custom domain to my Lovable project?
+### Key Components
 
-Yes, you can!
+- **HomePage**: Main landing page with interactive elements
+- **VideoGrid**: Dynamic video content display
+- **ColorSelector**: Hair color selection interface
+- **GenderToggle**: User gender selection
+- **HairTypeSelector**: Hair type customization
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Deployment
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+The application can be deployed to any static hosting service like Vercel, Netlify, or traditional web servers.
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+© 2024 GlobalHair. All rights reserved.
