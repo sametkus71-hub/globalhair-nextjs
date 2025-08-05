@@ -27,39 +27,29 @@ export const OptionDropdown = ({ options, value, onChange }: OptionDropdownProps
       <PopoverTrigger asChild>
         <button
           className={cn(
-            "rounded-full font-header text-xs font-medium transition-all duration-300 px-3 py-1.5",
-            value
-              ? "text-gray-900"
-              : "text-white/80 hover:text-white"
+            "px-3 py-1.5 rounded-none font-header text-xs font-medium transition-all duration-300",
+            "text-gray-800 hover:bg-gray-50 focus:outline-none focus:bg-gray-50",
+            "first:rounded-l-full last:rounded-r-full"
           )}
-          style={value ? {
-            background: 'linear-gradient(145deg, rgba(255,255,255,0.9), rgba(240,240,240,0.8))'
-          } : {}}
         >
           {value}
           <ChevronDown className="w-2.5 h-2.5 ml-0.5 opacity-40 inline" />
         </button>
       </PopoverTrigger>
       <PopoverContent 
-        className="w-auto p-1 border border-white/10 shadow-xl rounded-md backdrop-blur-sm" 
+        className="w-auto p-1 bg-white border border-gray-200 shadow-lg rounded-md" 
         align="center"
-        style={{
-          background: 'linear-gradient(145deg, rgba(80,80,80,0.95), rgba(50,50,50,0.95))'
-        }}
       >
         <div className="flex flex-col space-y-0.5">
           {options.map((option) => (
             <button
               key={option}
               className={cn(
-                "text-left text-xs h-auto py-1.5 px-2.5 rounded-sm font-medium transition-all duration-300",
+                "text-left text-xs h-auto py-1.5 px-2.5 rounded-sm font-medium transition-all duration-200",
                 option === value 
-                  ? "text-gray-900" 
-                  : "text-white/80 hover:text-white"
+                  ? "bg-gray-100 text-gray-900" 
+                  : "text-gray-700 hover:bg-gray-50"
               )}
-              style={option === value ? {
-                background: 'linear-gradient(145deg, rgba(255,255,255,0.9), rgba(240,240,240,0.8))'
-              } : {}}
               onClick={() => handleSelect(option)}
             >
               {option}
