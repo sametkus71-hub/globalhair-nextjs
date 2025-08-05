@@ -28,7 +28,7 @@ const HomePage = () => {
   ];
   
   const { isLoading, isFirstLoad } = usePageLoader({
-    preloadDuration: 1000, // Increased for better image loading
+    preloadDuration: 1200, // Increased for better loading experience
     images: imagesToPreload
   });
 
@@ -55,12 +55,12 @@ const HomePage = () => {
         {/* Background Overlay - Always visible */}
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900/20 to-gray-900/40" />
         
-        {/* Central Logo - Always visible, but only for loading state */}
-        {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center z-20">
+        {/* Central Logo - Always positioned, with loading animation during load */}
+        <div className="absolute inset-0 flex items-center justify-center z-20">
+          <div className={isLoading ? 'logo-loading-pulse' : ''}>
             <CentralLogo />
           </div>
-        )}
+        </div>
         
         {/* Top section with gender toggle */}
         <div 
@@ -88,7 +88,7 @@ const HomePage = () => {
           }}
           >
             <VideoGrid className="mx-auto" heightBreakpoint={heightBreakpoint} />
-            {!isLoading && <CentralLogo />}
+            {/* No second CentralLogo here - it's always positioned above */}
           </div>
         </div>
 

@@ -250,6 +250,11 @@ body.s-wit {
     animation: grid-item-zoom-out 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
 
+  /* Loading logo pulse animation */
+  .logo-loading-pulse {
+    animation: logo-loading-breathe 2s ease-in-out infinite;
+  }
+
   .entrance-hidden {
     opacity: 0;
     transform: translateY(-30px);
@@ -581,6 +586,18 @@ body.s-wit {
     opacity: 0;
     transform: scale(1.3);
     z-index: 50;
+  }
+}
+
+/* Elegant logo loading animation */
+@keyframes logo-loading-breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
   }
 }
 
