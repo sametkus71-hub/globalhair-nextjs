@@ -722,23 +722,47 @@ body.s-wit {
   }
 }
 
-/* Page transition animations */
+/* Page transition animations - App-like feel */
 .page-transition-fade-out {
   opacity: 0 !important;
   transform: translateY(-20px) !important;
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out !important;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
   pointer-events: none !important;
 }
 
-.page-transition-buttons-fade {
+/* Individual grid item animations */
+.grid-item-exit {
   opacity: 0 !important;
-  transform: scale(0.95) !important;
-  transition: opacity 0.4s ease-out, transform 0.4s ease-out !important;
+  transform: translateY(-30px) scale(0.9) !important;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
   pointer-events: none !important;
 }
 
+.grid-item-exit-delay-1 { transition-delay: 0.05s !important; }
+.grid-item-exit-delay-2 { transition-delay: 0.1s !important; }
+.grid-item-exit-delay-3 { transition-delay: 0.15s !important; }
+.grid-item-exit-delay-4 { transition-delay: 0.2s !important; }
+
+/* New page entry animations */
 .page-transition-scale-in {
   opacity: 1 !important;
   transform: scale(1) !important;
-  transition: opacity 0.4s ease-out, transform 0.4s ease-out !important;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
+
+/* Individual page element entry animations */
+.page-entry-item {
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-entry-item-visible {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+}
+
+.page-entry-delay-1 { transition-delay: 0.1s; }
+.page-entry-delay-2 { transition-delay: 0.2s; }
+.page-entry-delay-3 { transition-delay: 0.3s; }
+.page-entry-delay-4 { transition-delay: 0.4s; }

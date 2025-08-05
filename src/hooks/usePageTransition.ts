@@ -18,12 +18,12 @@ export const usePageTransition = () => {
   });
 
   const startTransition = useCallback((targetPath: string, delay = 0) => {
-    console.log('🚀 Starting transition to:', targetPath);
+    console.log('🚀 Starting app-like transition to:', targetPath);
     
     // Lock scroll during transition
     document.body.style.overflow = 'hidden';
     
-    // Start fade out
+    // Start fade out with staggered grid items
     setTransitionState({
       isTransitioning: true,
       fadeOut: true,
@@ -31,37 +31,46 @@ export const usePageTransition = () => {
       targetPage: targetPath
     });
 
-    console.log('⏱️ Fade out started - classes should be applied now');
+    console.log('⏱️ Staggered exit animations started');
     
-    // Log all elements with transition classes after a short delay
+    // Apply individual grid item exit classes
     setTimeout(() => {
-      const fadeOutElements = document.querySelectorAll('.page-transition-fade-out');
-      const buttonFadeElements = document.querySelectorAll('.page-transition-buttons-fade');
-      console.log('🔍 Elements with fade-out class:', fadeOutElements.length);
-      console.log('🔍 Elements with button-fade class:', buttonFadeElements.length);
+      const gridItems = document.querySelectorAll('[data-grid-item]');
+      gridItems.forEach((item, index) => {
+        const delayClass = `grid-item-exit-delay-${index + 1}`;
+        item.classList.add('grid-item-exit', delayClass);
+      });
       
-      if (fadeOutElements.length > 0) {
-        console.log('📊 First fade-out element styles:', window.getComputedStyle(fadeOutElements[0]));
-      }
-    }, 100);
+      console.log('🎯 Applied exit animations to', gridItems.length, 'grid items');
+    }, 50);
 
-    // Navigate after fade out completes (wait for CSS animation)
+    // Navigate after all exit animations complete
     setTimeout(() => {
       console.log('🔄 Navigating to new page');
       navigate(targetPath);
       
-      // Start scale in after navigation
+      // Start page entry animations
       setTimeout(() => {
-        console.log('📈 Scale in started');
+        console.log('📈 Page entry animations started');
         setTransitionState(prev => ({
           ...prev,
           fadeOut: false,
           scaleIn: true
         }));
 
+        // Trigger individual page element animations
+        setTimeout(() => {
+          const pageItems = document.querySelectorAll('[data-page-entry]');
+          pageItems.forEach((item) => {
+            item.classList.add('page-entry-item-visible');
+          });
+          
+          console.log('✨ Applied entry animations to', pageItems.length, 'page elements');
+        }, 100);
+
         // Complete transition
         setTimeout(() => {
-          console.log('✅ Transition complete');
+          console.log('✅ App-like transition complete');
           setTransitionState({
             isTransitioning: false,
             fadeOut: false,
@@ -71,9 +80,9 @@ export const usePageTransition = () => {
           
           // Restore scroll
           document.body.style.overflow = '';
-        }, 400); // Scale in duration
-      }, 50); // Small delay to ensure page is rendered
-    }, 600 + delay); // Wait for content fade out (600ms) + any delay
+        }, 800); // Allow time for all entry animations
+      }, 100); // Small delay to ensure page is rendered
+    }, 750 + delay); // Wait for staggered exit animations (750ms) + any delay
   }, [navigate]);
 
   return {

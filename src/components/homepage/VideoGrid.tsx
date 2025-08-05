@@ -123,12 +123,13 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
     return (
       <div 
         key={isStatic ? `static-${gridIndex}` : `${gridIndex}-${animationKey}`}
+        data-grid-item={gridIndex}
         className={cn(
           "relative overflow-hidden border transition-all duration-500 ease-out",
           heightBreakpoint === 'small' ? "aspect-[4/5]" :
           heightBreakpoint === 'medium' ? "aspect-[3/4]" :
           "aspect-[3/4]",
-          isActive ? "cursor-pointer hover:scale-[1.01] group" : "cursor-not-allowed opacity-60",
+          isActive ? "cursor-pointer hover:scale-[1.02] group" : "cursor-not-allowed opacity-60",
           !isStatic && "animate-fade-in"
         )}
         style={{ 
@@ -136,9 +137,11 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
           borderColor: colors.borderColor,
           borderWidth: '1px',
           borderStyle: 'solid',
-          borderRadius: '2px',
+          borderRadius: '4px',
           // Bring to front during navigation
-          ...(navigatingItem === gridIndex && { position: 'relative', zIndex: 50 })
+          ...(navigatingItem === gridIndex && { position: 'relative', zIndex: 50 }),
+          // Add subtle shadow for depth
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
         }}
       >
         {/* Simple, consistent wireframe pattern */}
