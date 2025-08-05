@@ -20,7 +20,7 @@ export const VideoPlaySection = () => {
       </div>
 
       {/* Centered Play Button */}
-      <div className="absolute inset-0 flex items-center justify-center pb-16">
+      <div className="absolute inset-0 flex items-center justify-center pb-28">
         <button className="w-12 h-12 bg-black/60 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors duration-200">
           <Play className="w-5 h-5 text-white ml-0.5" fill="currentColor" />
         </button>
