@@ -42,6 +42,13 @@ export const PageTransition = ({ children, isNewPage = false }: PageTransitionPr
       // For direct loads, ensure content is visible with minimal delay
       const timer = setTimeout(() => {
         setIsVisible(true);
+        
+        // Immediately show all page entry items on direct loads
+        const pageItems = document.querySelectorAll('[data-page-entry]');
+        pageItems.forEach((item) => {
+          item.classList.add('page-entry-item-visible');
+        });
+        console.log('🚀 Direct load: Applied visible class to', pageItems.length, 'page elements');
       }, 50);
       return () => clearTimeout(timer);
     }
