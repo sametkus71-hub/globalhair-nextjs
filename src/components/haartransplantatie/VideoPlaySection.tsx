@@ -12,22 +12,17 @@ export const VideoPlaySection = () => {
 
   return (
     <div className="w-full h-full relative bg-white">
-      {/* White placeholder background with subtle pattern */}
+      {/* White placeholder background */}
       <div className="absolute inset-0">
-        <div className="w-full h-full bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
-          <div className="text-gray-300 text-center">
-            <div className="w-32 h-20 mx-auto mb-4 border-2 border-dashed border-gray-300 rounded flex items-center justify-center">
-              <span className="text-sm font-medium">VIDEO</span>
-            </div>
-            <p className="text-xs text-gray-400">Placeholder</p>
-          </div>
+        <div className="w-full h-full bg-white flex items-center justify-center">
+          <p className="text-gray-400 text-sm">Placeholder</p>
         </div>
       </div>
 
-      {/* Centered Play Button - no additional footer compensation needed */}
+      {/* Centered Play Button */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <button className="w-20 h-20 bg-black/20 backdrop-blur-sm border border-black/30 rounded-full flex items-center justify-center hover:bg-black/30 transition-all duration-300 hover:scale-105 shadow-lg">
-          <Play className="w-8 h-8 text-white ml-1" fill="currentColor" />
+        <button className="w-12 h-12 bg-black/60 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors duration-200">
+          <Play className="w-5 h-5 text-white ml-0.5" fill="currentColor" />
         </button>
       </div>
 
