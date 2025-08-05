@@ -40,9 +40,9 @@ const HaartransplantatiePage = () => {
           </div>
 
           {/* Bottom Section - Video Play & Controls (exactly half the viewport) */}
-          <div className="h-[50vh] relative z-10 flex items-center justify-center">
+          <div className="h-[50vh] relative z-10">
             <div 
-              className="page-entry-item page-entry-delay-2"
+              className="page-entry-item page-entry-delay-2 w-full h-full"
               data-page-entry="video"
             >
               <VideoPlaySection />
