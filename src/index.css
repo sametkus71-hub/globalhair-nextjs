@@ -722,39 +722,39 @@ body.s-wit {
   }
 }
 
-/* Page transition animations - Fast app-like feel */
+/* Page transition animations - Refined app-like feel */
 .page-transition-fade-out {
   opacity: 0 !important;
-  transform: translateY(-15px) !important;
-  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transform: translateY(-15px) scale(0.95) !important;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
   pointer-events: none !important;
 }
 
-/* Individual grid item animations - Faster */
+/* Individual grid item animations - Slower with scale down */
 .grid-item-exit {
   opacity: 0 !important;
-  transform: translateY(-25px) scale(0.92) !important;
-  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transform: translateY(-20px) scale(0.85) !important;
+  transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1), transform 0.45s cubic-bezier(0.4, 0, 0.2, 1) !important;
   pointer-events: none !important;
 }
 
-.grid-item-exit-delay-1 { transition-delay: 0.02s !important; }
-.grid-item-exit-delay-2 { transition-delay: 0.04s !important; }
-.grid-item-exit-delay-3 { transition-delay: 0.06s !important; }
-.grid-item-exit-delay-4 { transition-delay: 0.08s !important; }
+.grid-item-exit-delay-1 { transition-delay: 0.03s !important; }
+.grid-item-exit-delay-2 { transition-delay: 0.06s !important; }
+.grid-item-exit-delay-3 { transition-delay: 0.09s !important; }
+.grid-item-exit-delay-4 { transition-delay: 0.12s !important; }
 
-/* New page entry animations - Faster */
+/* New page entry animations - Scale up effect */
 .page-transition-scale-in {
   opacity: 1 !important;
   transform: scale(1) !important;
   transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-/* Individual page element entry animations - Snappier */
+/* Individual page element entry animations - Scale up from smaller */
 .page-entry-item {
   opacity: 0;
-  transform: translateY(30px) scale(0.96);
-  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(25px) scale(0.9);
+  transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1), transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .page-entry-item-visible {
@@ -762,7 +762,7 @@ body.s-wit {
   transform: translateY(0) scale(1) !important;
 }
 
-.page-entry-delay-1 { transition-delay: 0.05s; }
-.page-entry-delay-2 { transition-delay: 0.1s; }
-.page-entry-delay-3 { transition-delay: 0.15s; }
-.page-entry-delay-4 { transition-delay: 0.2s; }
+.page-entry-delay-1 { transition-delay: 0.06s; }
+.page-entry-delay-2 { transition-delay: 0.12s; }
+.page-entry-delay-3 { transition-delay: 0.18s; }
+.page-entry-delay-4 { transition-delay: 0.24s; }
