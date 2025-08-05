@@ -56,57 +56,64 @@ const HomePage = () => {
         {/* Background Overlay - Always visible */}
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900/20 to-gray-900/40" />
         
-        {/* Remove the full-screen logo positioning - logo will be positioned relative to grid */}
+        {/* Background elements always visible */}
         
-        {/* Top section with gender toggle */}
+        {/* Top section with gender toggle - hidden during loading */}
         <div 
-          className={`relative z-10 flex flex-col items-center ${
+          className={cn(
+            "relative z-10 flex flex-col items-center",
             heightBreakpoint === 'small' ? 'pt-4 pb-4' :
             heightBreakpoint === 'medium' ? 'pt-6 pb-6' :
-            'pt-12 pb-8'
-          } ${isLoading ? 'entrance-hidden' : (isFirstLoad ? 'entrance-slide-down' : '')}`}
+            'pt-12 pb-8',
+            // Animation classes
+            isLoading ? 'entrance-hidden' : (isFirstLoad ? 'entrance-slide-down' : '')
+          )}
           style={{ 
-            animationDelay: isFirstLoad ? '0.3s' : '0s'  // Increased delay
+            animationDelay: isFirstLoad && !isLoading ? '0.3s' : '0s'
           }}
         >
           <GenderToggle />
         </div>
 
-        {/* Main content area with video grid */}
+        {/* Main content area with video grid - hidden during loading */}
         <div className="flex-1 flex items-center justify-center px-2 sm:px-4">
-          <div className={`w-full relative flex justify-center ${
-            heightBreakpoint === 'small' ? 'max-h-[calc(100dvh-180px)]' :
-            heightBreakpoint === 'medium' ? 'max-h-[calc(100dvh-200px)]' :
-            ''
-          } ${isLoading ? 'entrance-hidden-scale' : (isFirstLoad ? 'entrance-scale-fade' : '')}`}
-          style={{ 
-            animationDelay: isFirstLoad ? '0.7s' : '0s'  // Increased delay for grid
-          }}
+          <div 
+            className={cn(
+              "w-full relative flex justify-center",
+              heightBreakpoint === 'small' ? 'max-h-[calc(100dvh-180px)]' :
+              heightBreakpoint === 'medium' ? 'max-h-[calc(100dvh-200px)]' :
+              '',
+              // Animation classes
+              isLoading ? 'entrance-hidden-scale' : (isFirstLoad ? 'entrance-scale-fade' : '')
+            )}
+            style={{ 
+              animationDelay: isFirstLoad && !isLoading ? '0.7s' : '0s'
+            }}
           >
             <VideoGrid className="mx-auto" heightBreakpoint={heightBreakpoint} />
-            
-            {/* Logo positioned relative to grid center, not screen center */}
-            <div className={cn(
-              "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
-              isLoading ? "z-20" : "z-10 pointer-events-none" // Allow grid interactions when not loading
-            )}>
-              <div className={isLoading ? 'logo-loading-pulse' : ''}>
-                <CentralLogo />
-              </div>
+          </div>
+          
+          {/* Central Logo - Always visible, positioned in grid center */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 cursor-pointer">
+            <div className={isLoading ? 'logo-loading-pulse' : ''}>
+              <CentralLogo />
             </div>
           </div>
         </div>
 
-        {/* Bottom section with selectors */}
+        {/* Bottom section with selectors - hidden during loading */}
         <div 
-          className={`relative z-10 flex flex-col items-center ${
+          className={cn(
+            "relative z-10 flex flex-col items-center",
             heightBreakpoint === 'small' ? 'pb-4 pt-3 space-y-2' :
             heightBreakpoint === 'medium' ? 'pb-6 pt-4 space-y-3' :
-            'pb-8 sm:pb-12 pt-6 sm:pt-8 space-y-4 sm:space-y-6'
-          } ${isLoading ? 'entrance-hidden-up' : (isFirstLoad ? 'entrance-slide-up' : '')}`} 
+            'pb-8 sm:pb-12 pt-6 sm:pt-8 space-y-4 sm:space-y-6',
+            // Animation classes
+            isLoading ? 'entrance-hidden-up' : (isFirstLoad ? 'entrance-slide-up' : '')
+          )}
           style={{ 
             paddingBottom: 'max(1rem, env(safe-area-inset-bottom))',
-            animationDelay: isFirstLoad ? '0.5s' : '0s'  // Increased delay for bottom 
+            animationDelay: isFirstLoad && !isLoading ? '0.5s' : '0s'
           }}
         >
           {/* Hair Color Selector */}

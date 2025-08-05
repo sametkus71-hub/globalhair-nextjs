@@ -256,21 +256,21 @@ body.s-wit {
   }
 
   .entrance-hidden {
-    opacity: 0;
-    transform: translateY(-30px);
-    visibility: hidden;
+    opacity: 0 !important;
+    transform: translateY(-40px) !important;
+    visibility: hidden !important;
   }
 
   .entrance-hidden-up {
-    opacity: 0;
-    transform: translateY(30px);
-    visibility: hidden;
+    opacity: 0 !important;
+    transform: translateY(40px) !important;
+    visibility: hidden !important;
   }
 
   .entrance-hidden-scale {
-    opacity: 0;
-    transform: scale(0.9);
-    visibility: hidden;
+    opacity: 0 !important;
+    transform: scale(0.8) !important;
+    visibility: hidden !important;
   }
   
   /* Transition animations */
@@ -539,12 +539,16 @@ body.s-wit {
   }
 }
 
-/* Elegant entrance animations - slower with better easing and visibility */
+/* Elegant entrance animations - much smoother with proper easing */
 @keyframes slide-down-fade {
   0% {
     opacity: 0;
-    transform: translateY(-30px);
+    transform: translateY(-40px);
     visibility: visible;
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(-5px);
   }
   100% {
     opacity: 1;
@@ -556,8 +560,12 @@ body.s-wit {
 @keyframes slide-up-fade {
   0% {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px);
     visibility: visible;
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(5px);
   }
   100% {
     opacity: 1;
@@ -569,8 +577,12 @@ body.s-wit {
 @keyframes scale-fade-in {
   0% {
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.8);
     visibility: visible;
+  }
+  60% {
+    opacity: 0.8;
+    transform: scale(0.95);
   }
   100% {
     opacity: 1;
