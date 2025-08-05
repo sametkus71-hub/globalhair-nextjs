@@ -56,7 +56,7 @@ const HaartransplantatiePage = () => {
           <div 
             className="relative z-10 overflow-hidden"
             style={{ 
-              height: `${height * 0.5 - 80}px` // Subtract 80px for bottom navigation
+              height: `${height * 0.5 - 55}px` // Subtract 55px for bottom navigation (80px - 25px offset)
             }}
           >
             <div 

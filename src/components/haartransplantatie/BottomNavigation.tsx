@@ -46,7 +46,7 @@ export const BottomNavigation = () => {
   ];
 
   return (
-    <div className="absolute left-0 right-0 w-full h-full" style={{ bottom: '-50px' }}>
+    <div className="absolute left-0 right-0 w-full h-full" style={{ bottom: '-25px' }}>
       <div 
         className="bg-black/95 backdrop-blur-sm border-t border-gray-800/50"
         style={{ 
