@@ -48,10 +48,10 @@ const HomePage = () => {
   // Handle staged loading sequence
   useEffect(() => {
     if (allImagesLoaded) {
-      // Staged animation sequence after images are loaded
-      setTimeout(() => setShowTopSection(true), 200);
-      setTimeout(() => setShowGrid(true), 400);
-      setTimeout(() => setShowBottomSection(true), 600);
+      // Quick staged animation sequence - feels like launching
+      setTimeout(() => setShowTopSection(true), 300);
+      setTimeout(() => setShowGrid(true), 500);
+      setTimeout(() => setShowBottomSection(true), 700);
     }
   }, [allImagesLoaded]);
 
@@ -89,22 +89,19 @@ const HomePage = () => {
             heightBreakpoint === 'medium' ? 'max-h-[calc(100dvh-200px)]' :
             ''
           }`}>
-            {/* Central Logo - Always visible */}
-            <CentralLogo />
-            
-            {/* Video Grid - Animated entrance */}
-            <div className={`absolute inset-0 transition-all duration-1000 ease-out delay-100 ${
+            <div className={`transition-all duration-800 ease-out ${
               showGrid 
                 ? 'opacity-100 scale-100' 
-                : 'opacity-0 scale-90'
+                : 'opacity-0 scale-95'
             }`}>
               <VideoGrid className="mx-auto" heightBreakpoint={heightBreakpoint} />
             </div>
+            <CentralLogo />
           </div>
         </div>
 
         {/* Bottom section with selectors */}
-        <div className={`relative z-10 flex flex-col items-center transition-all duration-800 ease-out delay-200 ${
+        <div className={`relative z-10 flex flex-col items-center transition-all duration-800 ease-out ${
           heightBreakpoint === 'small' ? 'pb-4 pt-3 space-y-2' :
           heightBreakpoint === 'medium' ? 'pb-6 pt-4 space-y-3' :
           'pb-8 sm:pb-12 pt-6 sm:pt-8 space-y-4 sm:space-y-6'
@@ -119,23 +116,6 @@ const HomePage = () => {
           {/* Hair Type Selector */}
           <HairTypeSelector heightBreakpoint={heightBreakpoint} />
         </div>
-        
-        {/* Loading indicator overlay - only shows during image loading */}
-        {!allImagesLoaded && (
-          <div className="absolute inset-0 bg-black/20 backdrop-blur-sm z-40 flex items-center justify-center">
-            <div className="bg-white/5 backdrop-blur-md rounded-lg p-6 border border-white/10">
-              <div className="w-48 h-1 bg-white/20 rounded-full overflow-hidden mb-2">
-                <div 
-                  className="h-full bg-gradient-to-r from-white/60 to-white/80 rounded-full transition-all duration-300 ease-out"
-                  style={{ width: `${loadingProgress}%` }}
-                />
-              </div>
-              <div className="text-center text-white/80 text-xs font-mono">
-                Loading assets... {Math.round(loadingProgress)}%
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </>
   );
