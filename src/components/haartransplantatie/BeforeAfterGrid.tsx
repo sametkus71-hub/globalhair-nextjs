@@ -17,42 +17,47 @@ const GRID_ITEMS: Omit<GridItem, 'isAfter'>[] = [
   { id: 6, beforeColor: 'bg-gray-500', afterColor: 'bg-gray-300' }
 ];
 
-// Random pairs with different timing
+// Initial balanced state: 3 BEFORE, 3 AFTER
+const INITIAL_STATE = [false, true, false, true, false, true]; // alternating pattern
+
+// Animation groups that swap 1 BEFORE with 1 AFTER to maintain balance
 const ANIMATION_GROUPS = [
-  { ids: [1, 5], initialDelay: 3000, stayDuration: 18000 }, // top left + bottom middle
-  { ids: [3, 2], initialDelay: 8000, stayDuration: 22000 }, // top right + top middle  
-  { ids: [4, 6], initialDelay: 15000, stayDuration: 16000 }, // bottom left + bottom right
+  { beforeId: 1, afterId: 2, initialDelay: 3000, stayDuration: 18000 }, // swap top left (before) with top middle (after)
+  { beforeId: 3, afterId: 4, initialDelay: 8000, stayDuration: 22000 }, // swap top right (before) with bottom left (after)  
+  { beforeId: 5, afterId: 6, initialDelay: 15000, stayDuration: 16000 }, // swap bottom middle (before) with bottom right (after)
 ];
 
 export const BeforeAfterGrid = () => {
   const [items, setItems] = useState<GridItem[]>(
-    GRID_ITEMS.map(item => ({ ...item, isAfter: false }))
+    GRID_ITEMS.map((item, index) => ({ ...item, isAfter: INITIAL_STATE[index] }))
   );
 
   useEffect(() => {
     const intervals: NodeJS.Timeout[] = [];
 
-    // Set up animation groups
+    // Set up balanced swap animation groups
     ANIMATION_GROUPS.forEach((group) => {
-      // Initial delay before first change
+      // Initial delay before first swap
       const initialTimer = setTimeout(() => {
-        // Toggle the pair to after state
+        // Swap the before item to after and after item to before
         setItems(prevItems => 
-          prevItems.map(prevItem => 
-            group.ids.includes(prevItem.id)
-              ? { ...prevItem, isAfter: true }
-              : prevItem
-          )
+          prevItems.map(prevItem => {
+            if (prevItem.id === group.beforeId || prevItem.id === group.afterId) {
+              return { ...prevItem, isAfter: !prevItem.isAfter };
+            }
+            return prevItem;
+          })
         );
 
-        // Set up continuous cycling for this pair
+        // Set up continuous balanced swapping for this pair
         const cycleInterval = setInterval(() => {
           setItems(prevItems => 
-            prevItems.map(prevItem => 
-              group.ids.includes(prevItem.id)
-                ? { ...prevItem, isAfter: !prevItem.isAfter }
-                : prevItem
-            )
+            prevItems.map(prevItem => {
+              if (prevItem.id === group.beforeId || prevItem.id === group.afterId) {
+                return { ...prevItem, isAfter: !prevItem.isAfter };
+              }
+              return prevItem;
+            })
           );
         }, group.stayDuration);
 
