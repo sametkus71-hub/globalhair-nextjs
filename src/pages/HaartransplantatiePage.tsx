@@ -68,7 +68,7 @@ const HaartransplantatiePage = () => {
           </div>
 
           {/* Bottom Navigation */}
-          <div className="relative z-40">
+          <div className="relative z-40 h-20">
             <BottomNavigation />
           </div>
         </div>
