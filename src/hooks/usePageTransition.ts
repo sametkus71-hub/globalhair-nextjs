@@ -80,7 +80,7 @@ export const usePageTransition = () => {
           document.body.style.overflow = '';
         }, 600); // Reduced completion time
       }, 50); // Minimal delay to ensure page renders
-    }, 150 + delay); // Start navigation almost immediately (150ms allows click feedback)
+    }, 300 + delay); // Longer delay to accommodate slower animations
   }, [navigate]);
 
   return {
