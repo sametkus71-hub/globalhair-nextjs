@@ -4,6 +4,7 @@ import { useSession } from '@/hooks/useSession';
 import { useTranslation } from '@/lib/translations';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { usePageLoader } from '@/hooks/usePageLoader';
+import { usePreventZoom } from '@/hooks/usePreventZoom';
 import { ImagePreloader } from '@/components/ImagePreloader';
 import { MetaHead } from '@/components/MetaHead';
 import { GenderToggle } from '@/components/homepage/GenderToggle';
@@ -19,6 +20,9 @@ const HomePage = () => {
   const { profile } = useSession();
   const { t } = useTranslation(language);
   const { heightBreakpoint } = useViewportHeight();
+  
+  // Prevent zoom and unwanted interactions
+  usePreventZoom();
   
   // Preload images for smooth experience
   const imagesToPreload = [

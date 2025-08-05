@@ -166,6 +166,12 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
   .fullscreen-safe {
     height: var(--app-height);
     min-height: var(--safe-area-height);
+    overflow: hidden;
+    position: relative;
+    touch-action: none;
+    -webkit-touch-action: none;
+    overscroll-behavior: none;
+    -webkit-overscroll-behavior: none;
   }
   
   /* Prevent zoom on iOS and globally */
