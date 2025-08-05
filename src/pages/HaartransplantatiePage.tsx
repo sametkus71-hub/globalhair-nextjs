@@ -52,9 +52,12 @@ const HaartransplantatiePage = () => {
             </div>
           </div>
 
-          {/* Bottom Section - Video Play & Controls */}
+          {/* Bottom Section - Video Play & Controls with strict height control */}
           <div 
-            className="relative z-10 overflow-hidden flex-1"
+            className="relative z-10 overflow-hidden"
+            style={{ 
+              height: `${height * 0.5 - 80}px` // Subtract 80px for bottom navigation
+            }}
           >
             <div 
               className="page-entry-item page-entry-delay-2 w-full h-full"
@@ -65,7 +68,7 @@ const HaartransplantatiePage = () => {
           </div>
 
           {/* Bottom Navigation */}
-          <div className="relative z-40">
+          <div className="relative z-40 h-20">
             <BottomNavigation />
           </div>
         </div>

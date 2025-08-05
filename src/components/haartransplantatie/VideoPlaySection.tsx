@@ -29,8 +29,8 @@ export const VideoPlaySection = () => {
       {/* Subtle Bottom Gradient */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/10 to-transparent pointer-events-none z-20" />
 
-      {/* Bottom Content - positioned 25px above footer */}
-      <div className="absolute bottom-0 left-0 right-0 z-30 px-4" style={{ marginBottom: '100px' }}>
+      {/* Bottom Content - positioned higher to avoid navigation overlap */}
+      <div className="absolute bottom-24 left-0 right-0 z-30 px-4">
         <div className="max-w-sm mx-auto space-y-2">
           {/* Single Pill Container with 3 Inline Dropdowns */}
           <div className="flex justify-center">
