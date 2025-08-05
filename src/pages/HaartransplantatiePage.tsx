@@ -11,10 +11,13 @@ const HaartransplantatiePage = () => {
   const { language } = useLanguage();
 
   useEffect(() => {
+    console.log('🏥 HaartransplantatiePage mounted');
+    
     // Add fullscreen class to body for consistency with homepage
     document.body.classList.add('fullscreen-no-scroll');
     
     return () => {
+      console.log('🏥 HaartransplantatiePage unmounting');
       document.body.classList.remove('fullscreen-no-scroll');
     };
   }, []);

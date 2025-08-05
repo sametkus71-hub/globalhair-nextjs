@@ -10,8 +10,18 @@ export const PageTransition = ({ children, isNewPage = false }: PageTransitionPr
   // Check if this is a direct page load immediately
   const isDirectPageLoad = !document.referrer || !document.referrer.includes(window.location.origin);
   
+  console.log('🔍 PageTransition Debug:', {
+    isNewPage,
+    isDirectPageLoad,
+    referrer: document.referrer,
+    currentOrigin: window.location.origin,
+    pathname: window.location.pathname
+  });
+  
   const [isVisible, setIsVisible] = useState(!isNewPage || isDirectPageLoad);
   const [showContent, setShowContent] = useState(!isNewPage || isDirectPageLoad);
+  
+  console.log('🔍 PageTransition State:', { isVisible, showContent });
 
   useEffect(() => {
     if (isNewPage && !isDirectPageLoad) {
