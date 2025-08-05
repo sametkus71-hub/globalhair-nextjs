@@ -1,20 +1,21 @@
-import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useSession } from '@/hooks/useSession';
 import { cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
+import { usePageTransition } from '@/hooks/usePageTransition';
 
 interface VideoGridProps {
   className?: string;
   heightBreakpoint?: 'small' | 'medium' | 'large';
+  onTransitionStart?: (targetPage: string) => void;
 }
 
-export const VideoGrid = ({ className, heightBreakpoint = 'large' }: VideoGridProps) => {
-  const navigate = useNavigate();
+export const VideoGrid = ({ className, heightBreakpoint = 'large', onTransitionStart }: VideoGridProps) => {
   const { language } = useLanguage();
   const { profile } = useSession();
   const [animationKey, setAnimationKey] = useState(0);
   const [navigatingItem, setNavigatingItem] = useState<number | null>(null);
+  const { startTransition } = usePageTransition();
 
   // Force re-render with animation when profile changes
   useEffect(() => {
@@ -23,18 +24,16 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large' }: VideoGridPr
 
   const handleHaartransplantatieClick = () => {
     setNavigatingItem(0);
-    setTimeout(() => {
-      const path = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
-      navigate(path);
-    }, 800); // Wait for full animation to complete
+    const path = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
+    onTransitionStart?.(path);
+    startTransition(path, 50); // Small delay for button animation
   };
 
   const handleV6HairboostClick = () => {
     setNavigatingItem(1);
-    setTimeout(() => {
-      const path = language === 'nl' ? '/nl/v6-hairboost' : '/en/v6-hairboost';
-      navigate(path);
-    }, 800); // Wait for full animation to complete
+    const path = language === 'nl' ? '/nl/v6-hairboost' : '/en/v6-hairboost';
+    onTransitionStart?.(path);
+    startTransition(path, 50); // Small delay for button animation
   };
 
   // All 32 possible combinations (2 genders × 4 colors × 4 types)

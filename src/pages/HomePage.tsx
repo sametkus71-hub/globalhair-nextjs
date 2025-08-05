@@ -14,12 +14,16 @@ import { HairTypeSelector } from '@/components/homepage/HairTypeSelector';
 import { CentralLogo } from '@/components/homepage/CentralLogo';
 import { AnimatedBackground } from '@/components/homepage/AnimatedBackground';
 import { cn } from '@/lib/utils';
+import { usePageTransition } from '@/hooks/usePageTransition';
+import { useState } from 'react';
 
 const HomePage = () => {
   const { language } = useLanguage();
   const { profile } = useSession();
   const { t } = useTranslation(language);
   const { heightBreakpoint } = useViewportHeight();
+  const { transitionState } = usePageTransition();
+  const [transitionTarget, setTransitionTarget] = useState<string | null>(null);
   
   // Prevent zoom and unwanted interactions
   usePreventZoom();
@@ -71,7 +75,9 @@ const HomePage = () => {
             heightBreakpoint === 'medium' ? 'pt-4 pb-3' :
             'pt-8 pb-6',
             // Animation classes
-            isLoading ? 'entrance-hidden' : (isFirstLoad ? 'entrance-slide-down' : '')
+            isLoading ? 'entrance-hidden' : (isFirstLoad ? 'entrance-slide-down' : ''),
+            // Transition classes
+            transitionState.fadeOut ? 'page-transition-fade-out' : ''
           )}
           style={{ 
             animationDelay: isFirstLoad && !isLoading ? '0.3s' : '0s'
@@ -86,13 +92,19 @@ const HomePage = () => {
             className={cn(
               "relative flex items-center justify-center w-full h-full",
               // Animation classes
-              isLoading ? 'entrance-hidden-scale' : (isFirstLoad ? 'entrance-scale-fade' : '')
+              isLoading ? 'entrance-hidden-scale' : (isFirstLoad ? 'entrance-scale-fade' : ''),
+              // Transition classes for buttons
+              transitionState.fadeOut ? 'page-transition-buttons-fade' : ''
             )}
             style={{ 
               animationDelay: isFirstLoad && !isLoading ? '0.7s' : '0s'
             }}
           >
-            <VideoGrid className="mx-auto" heightBreakpoint={heightBreakpoint} />
+            <VideoGrid 
+              className="mx-auto" 
+              heightBreakpoint={heightBreakpoint}
+              onTransitionStart={setTransitionTarget}
+            />
             
             {/* Central Logo - Positioned within the grid area, perfectly centered */}
             <div className="absolute inset-0 flex items-center justify-center z-10 cursor-pointer pointer-events-none">
@@ -114,7 +126,9 @@ const HomePage = () => {
             heightBreakpoint === 'medium' ? 'pb-4 pt-2 space-y-2' :
             'pb-6 sm:pb-8 pt-4 sm:pt-6 space-y-3 sm:space-y-4',
             // Animation classes
-            isLoading ? 'entrance-hidden-up' : (isFirstLoad ? 'entrance-slide-up' : '')
+            isLoading ? 'entrance-hidden-up' : (isFirstLoad ? 'entrance-slide-up' : ''),
+            // Transition classes
+            transitionState.fadeOut ? 'page-transition-fade-out' : ''
           )}
           style={{ 
             paddingBottom: 'max(1rem, env(safe-area-inset-bottom))',

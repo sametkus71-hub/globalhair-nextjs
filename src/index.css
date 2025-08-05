@@ -675,3 +675,49 @@ body.s-wit {
     filter: blur(40px);
   }
 }
+
+/* Page Transition Animations */
+.page-transition-fade-out {
+  animation: pageContentFadeOut 350ms ease-in-out forwards;
+}
+
+.page-transition-buttons-fade {
+  animation: buttonsFadeOut 250ms ease-in-out forwards;
+}
+
+.page-transition-scale-in {
+  animation: pageScaleIn 400ms ease-out forwards;
+}
+
+@keyframes pageContentFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes buttonsFadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+@keyframes pageScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
