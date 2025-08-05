@@ -70,7 +70,7 @@ export const BeforeAfterGrid = () => {
           <div
             key={item.id}
             className={cn(
-              "w-full h-full transition-colors duration-2000 ease-in-out",
+              "w-full h-full transition-colors duration-[4000ms] ease-in-out",
               item.isAfter ? item.afterColor : item.beforeColor
             )}
           />
