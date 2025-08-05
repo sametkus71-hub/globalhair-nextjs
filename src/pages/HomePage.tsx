@@ -62,7 +62,7 @@ const HomePage = () => {
         {/* Top section with gender toggle - hidden during loading */}
         <div 
           className={cn(
-            "relative z-10 flex flex-col items-center flex-shrink-0",
+            "relative z-10 flex justify-center flex-shrink-0",
             heightBreakpoint === 'small' ? 'pt-2 pb-2' :
             heightBreakpoint === 'medium' ? 'pt-4 pb-3' :
             'pt-8 pb-6',
@@ -80,7 +80,7 @@ const HomePage = () => {
         <div className="flex-1 flex items-center justify-center px-2 sm:px-4 relative min-h-0">
           <div 
             className={cn(
-              "w-full relative flex justify-center h-full",
+              "relative flex items-center justify-center w-full h-full",
               // Animation classes
               isLoading ? 'entrance-hidden-scale' : (isFirstLoad ? 'entrance-scale-fade' : '')
             )}
