@@ -50,10 +50,10 @@ export const BottomNavigation = () => {
       <div 
         className="bg-black/95 backdrop-blur-sm border-t border-gray-800/50"
         style={{ 
-          paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom))'
+          paddingBottom: 'max(0.25rem, env(safe-area-inset-bottom))'
         }}
       >
-        <div className="max-w-lg mx-auto px-2 pt-2 pb-1">
+        <div className="max-w-lg mx-auto px-2 pt-1.5 pb-0.5">
           <div className="flex justify-around items-center">
             {navItems.map((item, index) => {
               const active = isActive(item.id);
@@ -61,10 +61,10 @@ export const BottomNavigation = () => {
                 <button
                   key={index}
                   onClick={item.onClick}
-                  className="flex flex-col items-center space-y-1 p-2 min-w-0"
+                  className="flex flex-col items-center space-y-0.5 p-1.5 min-w-0"
                 >
-                  <item.icon className={`w-6 h-6 ${active ? 'text-white' : 'text-gray-400'}`} />
-                  <span className={`text-[11px] leading-none ${active ? 'text-white font-bold' : 'text-gray-400 font-normal'}`}>
+                  <item.icon className={`w-5 h-5 ${active ? 'text-white' : 'text-gray-400'}`} />
+                  <span className={`text-[10px] leading-none ${active ? 'text-white font-bold' : 'text-gray-400 font-normal'}`}>
                     {item.label}
                   </span>
                 </button>
