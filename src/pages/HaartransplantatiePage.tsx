@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
+import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { MetaHead } from '@/components/MetaHead';
 import { PageTransition } from '@/components/PageTransition';
 import { BeforeAfterGrid } from '@/components/haartransplantatie/BeforeAfterGrid';
@@ -9,6 +10,7 @@ import { BottomNavigation } from '@/components/haartransplantatie/BottomNavigati
 
 const HaartransplantatiePage = () => {
   const { language } = useLanguage();
+  const { height } = useViewportHeight();
 
   useEffect(() => {
     console.log('🏥 HaartransplantatiePage mounted');
@@ -27,17 +29,19 @@ const HaartransplantatiePage = () => {
       <MetaHead language={language} page="haartransplantatie" />
       <PageTransition isNewPage={true}>
         <div 
-          className="fullscreen-safe flex flex-col relative overflow-hidden"
-          style={{ paddingBottom: '60px' }} // Footer compensation for overall layout
+          className="flex flex-col relative"
+          style={{ 
+            height: `${height}px`,
+            overflow: 'hidden'
+          }}
         >
           {/* Content with relative positioning over the persistent background */}
           
           {/* Top Section - Before/After Grid with strict height control */}
           <div 
-            className="relative z-10 overflow-hidden flex-1"
+            className="relative z-10 overflow-hidden"
             style={{ 
-              minHeight: 'calc(50vh - 30px)', // Account for footer compensation
-              maxHeight: 'calc(50vh - 30px)'
+              height: `${height * 0.5}px`
             }}
           >
             <div 
@@ -50,10 +54,9 @@ const HaartransplantatiePage = () => {
 
           {/* Bottom Section - Video Play & Controls with strict height control */}
           <div 
-            className="relative z-10 overflow-hidden flex-1"
+            className="relative z-10 overflow-hidden"
             style={{ 
-              minHeight: 'calc(50vh - 30px)', // Account for footer compensation
-              maxHeight: 'calc(50vh - 30px)'
+              height: `${height * 0.5 - 80}px` // Subtract 80px for bottom navigation
             }}
           >
             <div 
@@ -64,8 +67,10 @@ const HaartransplantatiePage = () => {
             </div>
           </div>
 
-          {/* Fixed Bottom Navigation */}
-          <BottomNavigation />
+          {/* Bottom Navigation */}
+          <div className="relative z-40 h-20">
+            <BottomNavigation />
+          </div>
         </div>
       </PageTransition>
     </>
