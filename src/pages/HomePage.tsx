@@ -3,6 +3,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useSession } from '@/hooks/useSession';
 import { useTranslation } from '@/lib/translations';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
+import { usePageLoader } from '@/hooks/usePageLoader';
 import { MetaHead } from '@/components/MetaHead';
 import { GenderToggle } from '@/components/homepage/GenderToggle';
 import { VideoGrid } from '@/components/homepage/VideoGrid';
@@ -16,6 +17,20 @@ const HomePage = () => {
   const { profile } = useSession();
   const { t } = useTranslation(language);
   const { heightBreakpoint } = useViewportHeight();
+  
+  // Preload images for smooth experience
+  const imagesToPreload = [
+    '/assets/hair-blonde.png',
+    '/assets/hair-brown.png',
+    '/assets/hair-dark.png',
+    '/assets/hair-gray.png',
+    '/assets/logo-shield.png'
+  ];
+  
+  const { isLoading, isFirstLoad } = usePageLoader({
+    preloadDuration: 600,
+    images: imagesToPreload
+  });
 
   useEffect(() => {
     // Add fullscreen class to body
@@ -34,18 +49,30 @@ const HomePage = () => {
         background: '#111111',
         height: '100dvh' // Use dynamic viewport height for better mobile support
       }}>
-        {/* Animated Background */}
+        {/* Animated Background - Always visible */}
         <AnimatedBackground />
         
-        {/* Background Overlay */}
+        {/* Background Overlay - Always visible */}
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900/20 to-gray-900/40" />
         
+        {/* Central Logo - Always visible, but only for loading state */}
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center z-20">
+            <CentralLogo />
+          </div>
+        )}
+        
         {/* Top section with gender toggle */}
-        <div className={`relative z-10 flex flex-col items-center ${
-          heightBreakpoint === 'small' ? 'pt-4 pb-4' :
-          heightBreakpoint === 'medium' ? 'pt-6 pb-6' :
-          'pt-12 pb-8'
-        }`}>
+        <div 
+          className={`relative z-10 flex flex-col items-center ${
+            heightBreakpoint === 'small' ? 'pt-4 pb-4' :
+            heightBreakpoint === 'medium' ? 'pt-6 pb-6' :
+            'pt-12 pb-8'
+          } ${isLoading ? 'entrance-hidden' : (isFirstLoad ? 'entrance-slide-down' : '')}`}
+          style={{ 
+            animationDelay: isFirstLoad ? '0.1s' : '0s' 
+          }}
+        >
           <GenderToggle />
         </div>
 
@@ -55,18 +82,28 @@ const HomePage = () => {
             heightBreakpoint === 'small' ? 'max-h-[calc(100dvh-180px)]' :
             heightBreakpoint === 'medium' ? 'max-h-[calc(100dvh-200px)]' :
             ''
-          }`}>
+          } ${isLoading ? 'entrance-hidden-scale' : (isFirstLoad ? 'entrance-scale-fade' : '')}`}
+          style={{ 
+            animationDelay: isFirstLoad ? '0.3s' : '0s' 
+          }}
+          >
             <VideoGrid className="mx-auto" heightBreakpoint={heightBreakpoint} />
-            <CentralLogo />
+            {!isLoading && <CentralLogo />}
           </div>
         </div>
 
         {/* Bottom section with selectors */}
-        <div className={`relative z-10 flex flex-col items-center ${
-          heightBreakpoint === 'small' ? 'pb-4 pt-3 space-y-2' :
-          heightBreakpoint === 'medium' ? 'pb-6 pt-4 space-y-3' :
-          'pb-8 sm:pb-12 pt-6 sm:pt-8 space-y-4 sm:space-y-6'
-        }`} style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}>
+        <div 
+          className={`relative z-10 flex flex-col items-center ${
+            heightBreakpoint === 'small' ? 'pb-4 pt-3 space-y-2' :
+            heightBreakpoint === 'medium' ? 'pb-6 pt-4 space-y-3' :
+            'pb-8 sm:pb-12 pt-6 sm:pt-8 space-y-4 sm:space-y-6'
+          } ${isLoading ? 'entrance-hidden-up' : (isFirstLoad ? 'entrance-slide-up' : '')}`} 
+          style={{ 
+            paddingBottom: 'max(1rem, env(safe-area-inset-bottom))',
+            animationDelay: isFirstLoad ? '0.2s' : '0s' 
+          }}
+        >
           {/* Hair Color Selector */}
           <ColorSelector heightBreakpoint={heightBreakpoint} />
           
