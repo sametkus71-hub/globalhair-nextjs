@@ -18,13 +18,30 @@ const HaartransplantatiePage = () => {
     // Add fullscreen class to body for consistency with homepage
     document.body.classList.add('fullscreen-no-scroll');
     
-    // Set CSS custom properties for dynamic height calculations
-    const bottomNavHeight = 60;
-    const availableHeight = height - bottomNavHeight;
-    const sectionHeight = availableHeight / 2;
+    // Measure actual bottom navigation height dynamically
+    const measureBottomNavHeight = () => {
+      const bottomNav = document.querySelector('[data-bottom-nav]');
+      if (bottomNav) {
+        const rect = bottomNav.getBoundingClientRect();
+        const actualHeight = rect.height;
+        document.documentElement.style.setProperty('--bottom-nav-height', `${actualHeight}px`);
+        
+        // Calculate content heights with the actual navigation height
+        const availableHeight = height - actualHeight;
+        const sectionHeight = availableHeight / 2;
+        
+        document.documentElement.style.setProperty('--content-height', `${availableHeight}px`);
+        document.documentElement.style.setProperty('--section-height', `${sectionHeight}px`);
+        
+        console.log(`📱 Bottom nav height: ${actualHeight}px, Available height: ${availableHeight}px`);
+      } else {
+        // Fallback if nav not found yet
+        setTimeout(measureBottomNavHeight, 100);
+      }
+    };
     
-    document.documentElement.style.setProperty('--content-height', `${availableHeight}px`);
-    document.documentElement.style.setProperty('--section-height', `${sectionHeight}px`);
+    // Initial measurement after a short delay to ensure DOM is ready
+    setTimeout(measureBottomNavHeight, 50);
     
     return () => {
       console.log('🏥 HaartransplantatiePage unmounting');
@@ -38,7 +55,6 @@ const HaartransplantatiePage = () => {
       <PageTransition isNewPage={true}>
         <div 
           className="fullscreen-safe flex flex-col relative overflow-hidden"
-          style={{ paddingBottom: '60px' }} // Footer compensation for overall layout
         >
           {/* Content with relative positioning over the persistent background */}
           
