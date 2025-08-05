@@ -32,7 +32,7 @@ const HaartransplantatiePage = () => {
           {/* Top Section - Before/After Grid (exactly half the viewport, no padding) */}
           <div className="h-[50vh] relative z-10">
             <div 
-              className="page-entry-item page-entry-delay-1 w-full h-full"
+              className="page-entry-grid page-entry-delay-1 w-full h-full"
               data-page-entry="grid"
             >
               <BeforeAfterGrid />

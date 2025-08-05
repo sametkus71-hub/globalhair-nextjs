@@ -60,7 +60,11 @@ export const usePageTransition = () => {
         setTimeout(() => {
           const pageItems = document.querySelectorAll('[data-page-entry]');
           pageItems.forEach((item) => {
-            item.classList.add('page-entry-item-visible');
+            if (item.classList.contains('page-entry-grid')) {
+              item.classList.add('page-entry-grid-visible');
+            } else {
+              item.classList.add('page-entry-item-visible');
+            }
           });
           
           console.log('✨ Applied instant entry animations to', pageItems.length, 'page elements');

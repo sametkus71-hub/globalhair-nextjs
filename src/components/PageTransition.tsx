@@ -46,7 +46,11 @@ export const PageTransition = ({ children, isNewPage = false }: PageTransitionPr
         // Immediately show all page entry items on direct loads
         const pageItems = document.querySelectorAll('[data-page-entry]');
         pageItems.forEach((item) => {
-          item.classList.add('page-entry-item-visible');
+          if (item.classList.contains('page-entry-grid')) {
+            item.classList.add('page-entry-grid-visible');
+          } else {
+            item.classList.add('page-entry-item-visible');
+          }
         });
         console.log('🚀 Direct load: Applied visible class to', pageItems.length, 'page elements');
       }, 50);
