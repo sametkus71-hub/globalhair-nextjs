@@ -1,5 +1,6 @@
 import { useSession, HairColor } from '@/hooks/useSession';
 import { useSmoothColorTransition } from '@/hooks/useSmoothColorTransition';
+import { CachedImage } from '@/components/ImagePreloader';
 import { cn } from '@/lib/utils';
 
 interface ColorSelectorProps {
@@ -49,7 +50,7 @@ export const ColorSelector = ({ heightBreakpoint = 'large' }: ColorSelectorProps
             borderRadius: '50%'
           }}
         >
-          <img 
+          <CachedImage 
             src={image} 
             alt={`${value} hair`}
             className="w-full h-full object-cover"

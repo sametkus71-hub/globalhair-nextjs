@@ -1,3 +1,4 @@
+import { CachedImage } from '@/components/ImagePreloader';
 import { cn } from '@/lib/utils';
 
 interface CentralLogoProps {
@@ -19,7 +20,7 @@ export const CentralLogo = ({ className }: CentralLogoProps) => {
       boxShadow: '0 4px 16px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1) inset'
     }}
     >
-      <img 
+      <CachedImage 
         src="/assets/logo-shield.png" 
         alt="GlobalHair Shield Logo" 
         className="w-20 h-20 object-contain"

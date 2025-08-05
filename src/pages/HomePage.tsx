@@ -4,7 +4,7 @@ import { useSession } from '@/hooks/useSession';
 import { useTranslation } from '@/lib/translations';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { usePageLoader } from '@/hooks/usePageLoader';
-import { useImageCache } from '@/hooks/useImageCache';
+import { ImagePreloader } from '@/components/ImagePreloader';
 import { MetaHead } from '@/components/MetaHead';
 import { GenderToggle } from '@/components/homepage/GenderToggle';
 import { VideoGrid } from '@/components/homepage/VideoGrid';
@@ -29,11 +29,9 @@ const HomePage = () => {
     '/assets/logo-shield.png'
   ];
   
-  // Cache images globally to prevent reloading
-  useImageCache(imagesToPreload);
   
   const { isLoading, isFirstLoad } = usePageLoader({
-    preloadDuration: 1200, // Increased for better loading experience
+    preloadDuration: 800, // Reduced since images are cached
     images: imagesToPreload
   });
 
@@ -49,6 +47,8 @@ const HomePage = () => {
 
   return (
     <>
+      {/* Preload critical images immediately */}
+      <ImagePreloader images={imagesToPreload} />
       <MetaHead language={language} page="home" />
       <div className="fullscreen-safe flex flex-col relative overflow-hidden" style={{ 
         background: '#111111'
