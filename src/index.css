@@ -160,6 +160,8 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
   :root {
     --app-height: 100vh;
     --safe-area-height: 100vh;
+    --content-height: calc(100vh - 60px);
+    --section-height: calc((100vh - 60px) / 2);
   }
 
   /* Fullscreen utility using CSS custom properties instead of dvh */
