@@ -1,9 +1,14 @@
 import { useLanguage } from '@/hooks/useLanguage';
-import { Button } from '@/components/ui/button';
+import { useSession } from '@/hooks/useSession';
 import { Play } from 'lucide-react';
+import { OptionDropdown } from './OptionDropdown';
+import { calculatePrice, formatPrice } from '@/lib/pricing';
 
 export const VideoPlaySection = () => {
   const { language } = useLanguage();
+  const { profile, updateProfile } = useSession();
+  
+  const totalPrice = calculatePrice(profile);
 
   return (
     <div className="w-full h-full relative bg-white">
@@ -28,26 +33,39 @@ export const VideoPlaySection = () => {
 
       {/* Fixed Bottom Content */}
       <div className="fixed bottom-16 left-0 right-0 z-30 px-6"> {/* Adjusted for smaller footer */}
-        <div className="max-w-md mx-auto space-y-4">
-          {/* Hair Type Selector Pills */}
-          <div className="flex justify-center">
-            <div className="bg-white/10 backdrop-blur-sm rounded-full border border-white/20 p-1 flex gap-1">
-              <button className="px-6 py-2 rounded-full bg-white/20 text-white text-sm font-medium">
-                Fijn
-              </button>
-              <button className="px-6 py-2 rounded-full text-white/70 text-sm font-medium hover:bg-white/10 transition-colors">
-                Stijl
-              </button>
-              <button className="px-6 py-2 rounded-full text-white/70 text-sm font-medium hover:bg-white/10 transition-colors">
-                Krul
-              </button>
-            </div>
+        <div className="max-w-lg mx-auto space-y-4">
+          {/* Option Dropdowns */}
+          <div className="grid grid-cols-2 gap-4">
+            <OptionDropdown
+              label="Haartype"
+              options={['Fijn', 'Stijl', 'Krul', 'Kroes']}
+              value={profile.haartype}
+              onChange={(value) => updateProfile('haartype', value)}
+            />
+            <OptionDropdown
+              label="Locatie"
+              options={['Nederland', 'Turkije']}
+              value={profile.locatie}
+              onChange={(value) => updateProfile('locatie', value)}
+            />
+            <OptionDropdown
+              label="Scheren"
+              options={['Met scheren', 'Zonder scheren']}
+              value={profile.scheren}
+              onChange={(value) => updateProfile('scheren', value)}
+            />
+            <OptionDropdown
+              label="Behandeling"
+              options={['Normaal', 'Stamcel']}
+              value={profile.behandeling}
+              onChange={(value) => updateProfile('behandeling', value)}
+            />
           </div>
 
           {/* Cost Display */}
           <div className="text-center">
             <p className="text-lg font-semibold text-white">
-              Geschatte kosten: EUR 12.000
+              Geschatte kosten: {formatPrice(totalPrice)}
             </p>
           </div>
         </div>
