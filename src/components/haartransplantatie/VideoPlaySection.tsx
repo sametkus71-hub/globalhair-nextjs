@@ -31,6 +31,9 @@ export const VideoPlaySection = () => {
         </button>
       </div>
 
+      {/* Subtle Bottom Gradient */}
+      <div className="fixed bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/10 to-transparent pointer-events-none z-20" />
+
       {/* Fixed Bottom Content */}
       <div className="fixed bottom-5 left-0 right-0 z-30 px-4">
         <div className="max-w-sm mx-auto space-y-2">
@@ -58,9 +61,12 @@ export const VideoPlaySection = () => {
             </div>
           </div>
 
-          {/* Cost Display */}
+          {/* Cost Display with Animation */}
           <div className="text-center">
-            <p className="text-sm font-medium text-gray-900">
+            <p 
+              key={totalPrice} 
+              className="text-sm font-medium text-gray-900 animate-fade-in"
+            >
               Geschatte kosten: {formatPrice(totalPrice)}
             </p>
           </div>
