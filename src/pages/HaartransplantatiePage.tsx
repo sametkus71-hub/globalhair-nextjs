@@ -56,7 +56,7 @@ const HaartransplantatiePage = () => {
           <div 
             className="relative z-10 overflow-hidden"
             style={{ 
-              height: `${height * 0.5 - 27.5}px` // Subtract half of footer space (55px / 2)
+              height: `${height * 0.5}px` // Full bottom half to meet footer
             }}
           >
             <div 
