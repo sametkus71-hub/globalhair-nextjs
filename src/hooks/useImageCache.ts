@@ -5,24 +5,25 @@ const imageCache = new Set<string>();
 const imagePromises = new Map<string, Promise<void>>();
 
 export const useImageCache = (images: string[]) => {
-  const [loadedImages, setLoadedImages] = useState<Set<string>>(new Set());
+  const [allImagesLoaded, setAllImagesLoaded] = useState(false);
 
   useEffect(() => {
     const loadImages = async () => {
-      const newLoadedImages = new Set(loadedImages);
-      
-      for (const src of images) {
-        // If already cached globally, mark as loaded immediately
+      // Check if all images are already cached
+      if (images.every(src => imageCache.has(src))) {
+        setAllImagesLoaded(true);
+        return;
+      }
+
+      const loadPromises = images.map(async (src) => {
+        // If already cached globally, skip
         if (imageCache.has(src)) {
-          newLoadedImages.add(src);
-          continue;
+          return;
         }
 
         // If already loading, wait for existing promise
         if (imagePromises.has(src)) {
-          await imagePromises.get(src);
-          newLoadedImages.add(src);
-          continue;
+          return imagePromises.get(src);
         }
 
         // Create new loading promise
@@ -30,7 +31,6 @@ export const useImageCache = (images: string[]) => {
           const img = new Image();
           img.onload = () => {
             imageCache.add(src);
-            newLoadedImages.add(src);
             imagePromises.delete(src);
             resolve();
           };
@@ -42,23 +42,24 @@ export const useImageCache = (images: string[]) => {
         });
 
         imagePromises.set(src, loadPromise);
-        
-        try {
-          await loadPromise;
-        } catch (error) {
-          console.warn('Failed to load image:', src, error);
-        }
-      }
+        return loadPromise;
+      });
 
-      setLoadedImages(newLoadedImages);
+      try {
+        await Promise.all(loadPromises);
+        setAllImagesLoaded(true);
+      } catch (error) {
+        console.warn('Some images failed to load:', error);
+        setAllImagesLoaded(true); // Continue even if some images fail
+      }
     };
 
     loadImages();
-  }, [images]);
+  }, []); // Only run once when component mounts
 
   return {
     isImageLoaded: (src: string) => imageCache.has(src),
-    allImagesLoaded: images.every(src => imageCache.has(src)),
+    allImagesLoaded,
     loadedCount: images.filter(src => imageCache.has(src)).length,
     totalCount: images.length
   };
