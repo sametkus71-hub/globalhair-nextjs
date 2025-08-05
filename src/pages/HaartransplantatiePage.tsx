@@ -26,16 +26,18 @@ const HaartransplantatiePage = () => {
     <>
       <MetaHead language={language} page="haartransplantatie" />
       <PageTransition isNewPage={true}>
-        <div className="fullscreen-safe flex flex-col relative overflow-hidden">
+        <div 
+          className="fullscreen-safe flex flex-col relative overflow-hidden"
+          style={{ paddingBottom: '60px' }} // Footer compensation for overall layout
+        >
           {/* Content with relative positioning over the persistent background */}
           
           {/* Top Section - Before/After Grid with strict height control */}
           <div 
-            className="relative z-10 overflow-hidden" 
+            className="relative z-10 overflow-hidden flex-1"
             style={{ 
-              height: '50vh',
-              maxHeight: '50vh',
-              minHeight: '50vh'
+              minHeight: 'calc(50vh - 30px)', // Account for footer compensation
+              maxHeight: 'calc(50vh - 30px)'
             }}
           >
             <div 
@@ -48,11 +50,10 @@ const HaartransplantatiePage = () => {
 
           {/* Bottom Section - Video Play & Controls with strict height control */}
           <div 
-            className="relative z-10 overflow-hidden" 
+            className="relative z-10 overflow-hidden flex-1"
             style={{ 
-              height: '50vh',
-              maxHeight: '50vh',
-              minHeight: '50vh'
+              minHeight: 'calc(50vh - 30px)', // Account for footer compensation
+              maxHeight: 'calc(50vh - 30px)'
             }}
           >
             <div 

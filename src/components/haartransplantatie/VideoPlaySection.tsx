@@ -19,11 +19,8 @@ export const VideoPlaySection = () => {
         </div>
       </div>
 
-      {/* Centered Play Button with footer compensation */}
-      <div 
-        className="absolute inset-0 flex items-center justify-center"
-        style={{ paddingBottom: '60px' }} // Adjusted for smaller footer
-      >
+      {/* Centered Play Button - no additional footer compensation needed */}
+      <div className="absolute inset-0 flex items-center justify-center">
         <button className="w-20 h-20 bg-black/20 backdrop-blur-sm border border-black/30 rounded-full flex items-center justify-center hover:bg-black/30 transition-all duration-300 hover:scale-105 shadow-lg">
           <Play className="w-8 h-8 text-white ml-1" fill="currentColor" />
         </button>
