@@ -4,6 +4,7 @@ import { useSession } from '@/hooks/useSession';
 import { useTranslation } from '@/lib/translations';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { usePageLoader } from '@/hooks/usePageLoader';
+import { useImageCache } from '@/hooks/useImageCache';
 import { MetaHead } from '@/components/MetaHead';
 import { GenderToggle } from '@/components/homepage/GenderToggle';
 import { VideoGrid } from '@/components/homepage/VideoGrid';
@@ -27,6 +28,9 @@ const HomePage = () => {
     '/assets/hair-gray.png',
     '/assets/logo-shield.png'
   ];
+  
+  // Cache images globally to prevent reloading
+  useImageCache(imagesToPreload);
   
   const { isLoading, isFirstLoad } = usePageLoader({
     preloadDuration: 1200, // Increased for better loading experience
