@@ -31,7 +31,19 @@ export const usePageTransition = () => {
       targetPage: targetPath
     });
 
-    console.log('⏱️ Fade out started');
+    console.log('⏱️ Fade out started - classes should be applied now');
+    
+    // Log all elements with transition classes after a short delay
+    setTimeout(() => {
+      const fadeOutElements = document.querySelectorAll('.page-transition-fade-out');
+      const buttonFadeElements = document.querySelectorAll('.page-transition-buttons-fade');
+      console.log('🔍 Elements with fade-out class:', fadeOutElements.length);
+      console.log('🔍 Elements with button-fade class:', buttonFadeElements.length);
+      
+      if (fadeOutElements.length > 0) {
+        console.log('📊 First fade-out element styles:', window.getComputedStyle(fadeOutElements[0]));
+      }
+    }, 100);
 
     // Navigate after fade out completes (wait for CSS animation)
     setTimeout(() => {
@@ -59,9 +71,9 @@ export const usePageTransition = () => {
           
           // Restore scroll
           document.body.style.overflow = '';
-        }, 300); // Scale in duration
+        }, 400); // Scale in duration
       }, 50); // Small delay to ensure page is rendered
-    }, 350 + delay); // Wait for content fade out (350ms) + any delay
+    }, 600 + delay); // Wait for content fade out (600ms) + any delay
   }, [navigate]);
 
   return {

@@ -725,18 +725,20 @@ body.s-wit {
 /* Page transition animations */
 .page-transition-fade-out {
   opacity: 0 !important;
-  transform: translateY(-10px) !important;
-  transition: opacity 0.35s ease-out, transform 0.35s ease-out !important;
+  transform: translateY(-20px) !important;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out !important;
+  pointer-events: none !important;
 }
 
 .page-transition-buttons-fade {
   opacity: 0 !important;
-  transform: scale(0.98) !important;
-  transition: opacity 0.25s ease-out, transform 0.25s ease-out !important;
+  transform: scale(0.95) !important;
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out !important;
+  pointer-events: none !important;
 }
 
 .page-transition-scale-in {
   opacity: 1 !important;
   transform: scale(1) !important;
-  transition: opacity 0.3s ease-out, transform 0.3s ease-out !important;
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out !important;
 }

@@ -78,6 +78,7 @@ const HomePage = () => {
             // Transition classes
             transitionState.fadeOut && 'page-transition-fade-out'
           )}
+          data-debug-fadeout={transitionState.fadeOut ? 'true' : 'false'}
           style={{ 
             animationDelay: isFirstLoad && !isLoading ? '0.3s' : '0s'
           }}
@@ -95,6 +96,7 @@ const HomePage = () => {
               // Transition classes for buttons
               transitionState.fadeOut && 'page-transition-buttons-fade'
             )}
+            data-debug-buttons-fadeout={transitionState.fadeOut ? 'true' : 'false'}
             style={{ 
               animationDelay: isFirstLoad && !isLoading ? '0.7s' : '0s'
             }}
@@ -129,6 +131,7 @@ const HomePage = () => {
             // Transition classes
             transitionState.fadeOut && 'page-transition-fade-out'
           )}
+          data-debug-bottom-fadeout={transitionState.fadeOut ? 'true' : 'false'}
           style={{ 
             paddingBottom: 'max(1rem, env(safe-area-inset-bottom))',
             animationDelay: isFirstLoad && !isLoading ? '0.5s' : '0s'
