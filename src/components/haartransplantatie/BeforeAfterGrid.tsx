@@ -4,18 +4,20 @@ import { cn } from '@/lib/utils';
 interface GridItem {
   id: number;
   isAfter: boolean;
-  delay: number;
+  initialDelay: number;
+  cycleDelay: number;
+  stayDuration: number;
   beforeColor: string;
   afterColor: string;
 }
 
 const GRID_ITEMS: Omit<GridItem, 'isAfter'>[] = [
-  { id: 1, delay: 2500, beforeColor: 'bg-gray-500', afterColor: 'bg-gray-300' },
-  { id: 2, delay: 1800, beforeColor: 'bg-gray-600', afterColor: 'bg-gray-400' },
-  { id: 3, delay: 4200, beforeColor: 'bg-gray-700', afterColor: 'bg-gray-200' },
-  { id: 4, delay: 3100, beforeColor: 'bg-gray-400', afterColor: 'bg-gray-300' },
-  { id: 5, delay: 1400, beforeColor: 'bg-gray-800', afterColor: 'bg-gray-100' },
-  { id: 6, delay: 3800, beforeColor: 'bg-gray-500', afterColor: 'bg-gray-300' }
+  { id: 1, initialDelay: 2500, cycleDelay: 15000, stayDuration: 8000, beforeColor: 'bg-gray-500', afterColor: 'bg-gray-300' },
+  { id: 2, initialDelay: 1800, cycleDelay: 18000, stayDuration: 12000, beforeColor: 'bg-gray-600', afterColor: 'bg-gray-400' },
+  { id: 3, initialDelay: 4200, cycleDelay: 22000, stayDuration: 9000, beforeColor: 'bg-gray-700', afterColor: 'bg-gray-200' },
+  { id: 4, initialDelay: 3100, cycleDelay: 16000, stayDuration: 11000, beforeColor: 'bg-gray-400', afterColor: 'bg-gray-300' },
+  { id: 5, initialDelay: 1400, cycleDelay: 20000, stayDuration: 7000, beforeColor: 'bg-gray-800', afterColor: 'bg-gray-100' },
+  { id: 6, initialDelay: 3800, cycleDelay: 19000, stayDuration: 10000, beforeColor: 'bg-gray-500', afterColor: 'bg-gray-300' }
 ];
 
 export const BeforeAfterGrid = () => {
@@ -24,9 +26,13 @@ export const BeforeAfterGrid = () => {
   );
 
   useEffect(() => {
-    // Set up staggered timers for masonry-like effect
-    const timers = items.map((item) => {
-      return setTimeout(() => {
+    const intervals: NodeJS.Timeout[] = [];
+
+    // Set up cycling behavior for each item
+    items.forEach((item) => {
+      // Initial delay before first change
+      const initialTimer = setTimeout(() => {
+        // Toggle to after state
         setItems(prevItems => 
           prevItems.map(prevItem => 
             prevItem.id === item.id 
@@ -34,11 +40,26 @@ export const BeforeAfterGrid = () => {
               : prevItem
           )
         );
-      }, item.delay);
+
+        // Set up continuous cycling
+        const cycleInterval = setInterval(() => {
+          setItems(prevItems => 
+            prevItems.map(prevItem => 
+              prevItem.id === item.id 
+                ? { ...prevItem, isAfter: !prevItem.isAfter }
+                : prevItem
+            )
+          );
+        }, item.stayDuration);
+
+        intervals.push(cycleInterval);
+      }, item.initialDelay);
+
+      intervals.push(initialTimer);
     });
 
     return () => {
-      timers.forEach(timer => clearTimeout(timer));
+      intervals.forEach(interval => clearTimeout(interval));
     };
   }, []);
 
@@ -49,7 +70,7 @@ export const BeforeAfterGrid = () => {
           <div
             key={item.id}
             className={cn(
-              "w-full h-full transition-colors duration-1000",
+              "w-full h-full transition-colors duration-2000 ease-in-out",
               item.isAfter ? item.afterColor : item.beforeColor
             )}
           />
