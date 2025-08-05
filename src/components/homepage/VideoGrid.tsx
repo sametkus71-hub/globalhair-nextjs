@@ -14,6 +14,7 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large' }: VideoGridPr
   const { language } = useLanguage();
   const { profile } = useSession();
   const [animationKey, setAnimationKey] = useState(0);
+  const [navigatingItem, setNavigatingItem] = useState<number | null>(null);
 
   // Force re-render with animation when profile changes
   useEffect(() => {
@@ -21,13 +22,19 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large' }: VideoGridPr
   }, [profile.geslacht, profile.haarkleur, profile.haartype]);
 
   const handleHaartransplantatieClick = () => {
-    const path = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
-    navigate(path);
+    setNavigatingItem(0);
+    setTimeout(() => {
+      const path = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
+      navigate(path);
+    }, 400); // Wait for animation to reach peak scale
   };
 
   const handleV6HairboostClick = () => {
-    const path = language === 'nl' ? '/nl/v6-hairboost' : '/en/v6-hairboost';
-    navigate(path);
+    setNavigatingItem(1);
+    setTimeout(() => {
+      const path = language === 'nl' ? '/nl/v6-hairboost' : '/en/v6-hairboost';
+      navigate(path);
+    }, 400); // Wait for animation to reach peak scale
   };
 
   // All 32 possible combinations (2 genders × 4 colors × 4 types)
@@ -127,14 +134,18 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large' }: VideoGridPr
           heightBreakpoint === 'medium' ? "aspect-[3/4]" :
           "aspect-[3/4]",
           isActive ? "cursor-pointer hover:scale-[1.01] group" : "cursor-not-allowed opacity-60",
-          !isStatic && "animate-fade-in"
+          !isStatic && "animate-fade-in",
+          // Add transition animation when navigating
+          navigatingItem === gridIndex && "grid-item-transition"
         )}
         style={{ 
           backgroundColor: colors.bgColor,
           borderColor: colors.borderColor,
           borderWidth: '1px',
           borderStyle: 'solid',
-          borderRadius: '2px'
+          borderRadius: '2px',
+          // Bring to front during navigation
+          ...(navigatingItem === gridIndex && { position: 'relative', zIndex: 50 })
         }}
       >
         {/* Simple, consistent wireframe pattern */}

@@ -6,7 +6,7 @@ interface UsePageLoaderOptions {
 }
 
 export const usePageLoader = ({ 
-  preloadDuration = 600, 
+  preloadDuration = 1000, // Increased from 600ms to 1000ms for better image loading
   images = []
 }: UsePageLoaderOptions = {}) => {
   const [isLoading, setIsLoading] = useState(true);

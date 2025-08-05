@@ -28,7 +28,7 @@ const HomePage = () => {
   ];
   
   const { isLoading, isFirstLoad } = usePageLoader({
-    preloadDuration: 600,
+    preloadDuration: 1000, // Increased for better image loading
     images: imagesToPreload
   });
 
@@ -70,7 +70,7 @@ const HomePage = () => {
             'pt-12 pb-8'
           } ${isLoading ? 'entrance-hidden' : (isFirstLoad ? 'entrance-slide-down' : '')}`}
           style={{ 
-            animationDelay: isFirstLoad ? '0.1s' : '0s' 
+            animationDelay: isFirstLoad ? '0.3s' : '0s'  // Increased delay
           }}
         >
           <GenderToggle />
@@ -84,7 +84,7 @@ const HomePage = () => {
             ''
           } ${isLoading ? 'entrance-hidden-scale' : (isFirstLoad ? 'entrance-scale-fade' : '')}`}
           style={{ 
-            animationDelay: isFirstLoad ? '0.3s' : '0s' 
+            animationDelay: isFirstLoad ? '0.7s' : '0s'  // Increased delay for grid
           }}
           >
             <VideoGrid className="mx-auto" heightBreakpoint={heightBreakpoint} />
@@ -101,7 +101,7 @@ const HomePage = () => {
           } ${isLoading ? 'entrance-hidden-up' : (isFirstLoad ? 'entrance-slide-up' : '')}`} 
           style={{ 
             paddingBottom: 'max(1rem, env(safe-area-inset-bottom))',
-            animationDelay: isFirstLoad ? '0.2s' : '0s' 
+            animationDelay: isFirstLoad ? '0.5s' : '0s'  // Increased delay for bottom 
           }}
         >
           {/* Hair Color Selector */}
