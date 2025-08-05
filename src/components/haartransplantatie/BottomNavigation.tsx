@@ -1,35 +1,47 @@
 import { useLanguage } from '@/hooks/useLanguage';
-import { Home, Target, BookOpen, Star } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Home, Target, Calendar, MessageSquareText } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export const BottomNavigation = () => {
   const { language } = useLanguage();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleHomeClick = () => {
     navigate(language === 'nl' ? '/nl' : '/en');
+  };
+
+  const isActive = (path: string) => {
+    if (path === 'home') {
+      return location.pathname === '/nl' || location.pathname === '/en' || location.pathname === '/';
+    }
+    return false; // Other pages not implemented yet
   };
 
   const navItems = [
     { 
       icon: Home, 
       label: 'Home', 
-      onClick: handleHomeClick 
+      onClick: handleHomeClick,
+      id: 'home'
     },
     { 
       icon: Target, 
       label: language === 'nl' ? 'Missie' : 'Mission', 
-      onClick: () => {} 
+      onClick: () => {},
+      id: 'mission'
     },
     { 
-      icon: BookOpen, 
+      icon: Calendar, 
       label: 'Book', 
-      onClick: () => {} 
+      onClick: () => {},
+      id: 'book'
     },
     { 
-      icon: Star, 
+      icon: MessageSquareText, 
       label: 'Reviews', 
-      onClick: () => {} 
+      onClick: () => {},
+      id: 'reviews'
     }
   ];
 
@@ -43,16 +55,21 @@ export const BottomNavigation = () => {
       >
         <div className="max-w-lg mx-auto px-2 pt-2 pb-1">
           <div className="flex justify-around items-center">
-            {navItems.map((item, index) => (
-              <button
-                key={index}
-                onClick={item.onClick}
-                className="flex flex-col items-center space-y-1 p-2 hover:bg-white/10 rounded-lg transition-colors duration-200 min-w-0"
-              >
-                <item.icon className="w-4 h-4 text-gray-300" />
-                <span className="text-[10px] text-gray-300 leading-none">{item.label}</span>
-              </button>
-            ))}
+            {navItems.map((item, index) => {
+              const active = isActive(item.id);
+              return (
+                <button
+                  key={index}
+                  onClick={item.onClick}
+                  className="flex flex-col items-center space-y-1 p-2 min-w-0"
+                >
+                  <item.icon className={`w-6 h-6 ${active ? 'text-white' : 'text-gray-400'}`} />
+                  <span className={`text-[11px] leading-none ${active ? 'text-white font-bold' : 'text-gray-400 font-normal'}`}>
+                    {item.label}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
