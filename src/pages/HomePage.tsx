@@ -11,6 +11,7 @@ import { ColorSelector } from '@/components/homepage/ColorSelector';
 import { HairTypeSelector } from '@/components/homepage/HairTypeSelector';
 import { CentralLogo } from '@/components/homepage/CentralLogo';
 import { AnimatedBackground } from '@/components/homepage/AnimatedBackground';
+import { cn } from '@/lib/utils';
 
 const HomePage = () => {
   const { language } = useLanguage();
@@ -55,12 +56,7 @@ const HomePage = () => {
         {/* Background Overlay - Always visible */}
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900/20 to-gray-900/40" />
         
-        {/* Central Logo - Always positioned, with loading animation during load */}
-        <div className="absolute inset-0 flex items-center justify-center z-20">
-          <div className={isLoading ? 'logo-loading-pulse' : ''}>
-            <CentralLogo />
-          </div>
-        </div>
+        {/* Remove the full-screen logo positioning - logo will be positioned relative to grid */}
         
         {/* Top section with gender toggle */}
         <div 
@@ -88,7 +84,16 @@ const HomePage = () => {
           }}
           >
             <VideoGrid className="mx-auto" heightBreakpoint={heightBreakpoint} />
-            {/* No second CentralLogo here - it's always positioned above */}
+            
+            {/* Logo positioned relative to grid center, not screen center */}
+            <div className={cn(
+              "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
+              isLoading ? "z-20" : "z-10 pointer-events-none" // Allow grid interactions when not loading
+            )}>
+              <div className={isLoading ? 'logo-loading-pulse' : ''}>
+                <CentralLogo />
+              </div>
+            </div>
           </div>
         </div>
 
