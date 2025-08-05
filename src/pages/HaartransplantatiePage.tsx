@@ -18,30 +18,14 @@ const HaartransplantatiePage = () => {
     // Add fullscreen class to body for consistency with homepage
     document.body.classList.add('fullscreen-no-scroll');
     
-    // Measure actual bottom navigation height dynamically
-    const measureBottomNavHeight = () => {
-      const bottomNav = document.querySelector('[data-bottom-nav]');
-      if (bottomNav) {
-        const rect = bottomNav.getBoundingClientRect();
-        const actualHeight = rect.height;
-        document.documentElement.style.setProperty('--bottom-nav-height', `${actualHeight}px`);
-        
-        // Calculate content heights with the actual navigation height
-        const availableHeight = height - actualHeight;
-        const sectionHeight = availableHeight / 2;
-        
-        document.documentElement.style.setProperty('--content-height', `${availableHeight}px`);
-        document.documentElement.style.setProperty('--section-height', `${sectionHeight}px`);
-        
-        console.log(`📱 Bottom nav height: ${actualHeight}px, Available height: ${availableHeight}px`);
-      } else {
-        // Fallback if nav not found yet
-        setTimeout(measureBottomNavHeight, 100);
-      }
-    };
+    // Simple fixed height calculation for mobile reliability
+    const bottomNavHeight = 80; // Increased for mobile safety
+    const availableHeight = height - bottomNavHeight;
+    const sectionHeight = availableHeight / 2;
     
-    // Initial measurement after a short delay to ensure DOM is ready
-    setTimeout(measureBottomNavHeight, 50);
+    document.documentElement.style.setProperty('--content-height', `${availableHeight}px`);
+    document.documentElement.style.setProperty('--section-height', `${sectionHeight}px`);
+    document.documentElement.style.setProperty('--bottom-nav-height', `${bottomNavHeight}px`);
     
     return () => {
       console.log('🏥 HaartransplantatiePage unmounting');
