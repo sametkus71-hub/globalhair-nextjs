@@ -29,8 +29,8 @@ const HaartransplantatiePage = () => {
         <div className="fullscreen-safe flex flex-col relative overflow-hidden">
           {/* Content with relative positioning over the persistent background */}
           
-          {/* Top Section - Before/After Grid (exactly half the viewport, no padding) */}
-          <div className="h-[50vh] relative z-10">
+          {/* Top Section - Before/After Grid with footer compensation */}
+          <div className="h-[50vh] relative z-10" style={{ marginBottom: '-30px' }}>
             <div 
               className="page-entry-grid page-entry-delay-1 w-full h-full"
               data-page-entry="grid"
@@ -39,8 +39,8 @@ const HaartransplantatiePage = () => {
             </div>
           </div>
 
-          {/* Bottom Section - Video Play & Controls (exactly half the viewport) */}
-          <div className="h-[50vh] relative z-10">
+          {/* Bottom Section - Video Play & Controls with footer compensation */}
+          <div className="h-[50vh] relative z-10" style={{ marginBottom: '-30px' }}>
             <div 
               className="page-entry-item page-entry-delay-2 w-full h-full"
               data-page-entry="video"

@@ -22,7 +22,7 @@ export const VideoPlaySection = () => {
       {/* Centered Play Button with footer compensation */}
       <div 
         className="absolute inset-0 flex items-center justify-center"
-        style={{ paddingBottom: '80px' }} // Compensate for footer height
+        style={{ paddingBottom: '60px' }} // Adjusted for smaller footer
       >
         <button className="w-20 h-20 bg-black/20 backdrop-blur-sm border border-black/30 rounded-full flex items-center justify-center hover:bg-black/30 transition-all duration-300 hover:scale-105 shadow-lg">
           <Play className="w-8 h-8 text-white ml-1" fill="currentColor" />
@@ -30,7 +30,7 @@ export const VideoPlaySection = () => {
       </div>
 
       {/* Fixed Bottom Content */}
-      <div className="fixed bottom-20 left-0 right-0 z-30 px-6">
+      <div className="fixed bottom-16 left-0 right-0 z-30 px-6"> {/* Adjusted for smaller footer */}
         <div className="max-w-md mx-auto space-y-4">
           {/* Hair Type Selector Pills */}
           <div className="flex justify-center">

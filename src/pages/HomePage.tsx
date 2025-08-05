@@ -80,8 +80,11 @@ const HomePage = () => {
           <GenderToggle />
         </div>
 
-        {/* Main content area with video grid - hidden during loading */}
-        <div className="flex-1 flex items-center justify-center px-2 sm:px-4 relative min-h-0">
+        {/* Main content area with video grid - hidden during loading, with footer compensation */}
+        <div 
+          className="flex-1 flex items-center justify-center px-2 sm:px-4 relative min-h-0"
+          style={{ marginBottom: '-30px' }} // Footer compensation
+        >
           <div 
             className={cn(
               "relative flex items-center justify-center w-full h-full",

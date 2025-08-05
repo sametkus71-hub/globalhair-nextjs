@@ -36,21 +36,21 @@ export const BottomNavigation = () => {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40">
       <div 
-        className="bg-gray-900/95 backdrop-blur-sm border-t border-gray-700/50"
+        className="bg-black/95 backdrop-blur-sm border-t border-gray-800/50"
         style={{ 
-          paddingBottom: 'max(1rem, env(safe-area-inset-bottom))'
+          paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom))'
         }}
       >
-        <div className="max-w-lg mx-auto px-4 pt-3 pb-2">
+        <div className="max-w-lg mx-auto px-2 pt-2 pb-1">
           <div className="flex justify-around items-center">
             {navItems.map((item, index) => (
               <button
                 key={index}
                 onClick={item.onClick}
-                className="flex flex-col items-center space-y-1 p-2 hover:bg-white/10 rounded-lg transition-colors duration-200"
+                className="flex flex-col items-center space-y-1 p-2 hover:bg-white/10 rounded-lg transition-colors duration-200 min-w-0"
               >
-                <item.icon className="w-5 h-5 text-gray-300" />
-                <span className="text-xs text-gray-300">{item.label}</span>
+                <item.icon className="w-4 h-4 text-gray-300" />
+                <span className="text-[10px] text-gray-300 leading-none">{item.label}</span>
               </button>
             ))}
           </div>
