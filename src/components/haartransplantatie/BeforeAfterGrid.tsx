@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { Skeleton } from '@/components/ui/skeleton';
 
 interface GridItem {
   id: number;
@@ -42,36 +41,24 @@ export const BeforeAfterGrid = () => {
   }, []);
 
   return (
-    <div className="w-full h-full flex items-center justify-center px-4">
-      <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 w-full max-w-4xl">
+    <div className="w-full h-full flex items-center justify-center px-8">
+      <div className="grid grid-cols-3 gap-4 w-full max-w-5xl">
         {items.map((item) => (
           <div
             key={item.id}
-            className="aspect-[4/3] relative overflow-hidden rounded-lg bg-gray-800/20 backdrop-blur-sm border border-white/10"
+            className="aspect-[3/4] relative"
           >
-            {/* Before State */}
+            {/* Before State - Darker Gray */}
             <div className={cn(
-              "absolute inset-0 flex flex-col items-center justify-center p-4 transition-opacity duration-1000",
+              "absolute inset-0 bg-gray-600 transition-opacity duration-1000",
               item.isAfter ? "opacity-0" : "opacity-100"
-            )}>
-              <Skeleton className="w-full h-2/3 mb-3 bg-gray-600/30" />
-              <div className="text-center">
-                <p className="text-xs font-medium text-white/80 mb-1">BEFORE</p>
-                <p className="text-xs text-white/60">#{item.id}</p>
-              </div>
-            </div>
+            )} />
             
-            {/* After State */}
+            {/* After State - Lighter Gray */}
             <div className={cn(
-              "absolute inset-0 flex flex-col items-center justify-center p-4 transition-opacity duration-1000",
+              "absolute inset-0 bg-gray-400 transition-opacity duration-1000",
               item.isAfter ? "opacity-100" : "opacity-0"
-            )}>
-              <Skeleton className="w-full h-2/3 mb-3 bg-primary/30" />
-              <div className="text-center">
-                <p className="text-xs font-medium text-primary mb-1">AFTER</p>
-                <p className="text-xs text-white/60">#{item.id}</p>
-              </div>
-            </div>
+            )} />
           </div>
         ))}
       </div>
