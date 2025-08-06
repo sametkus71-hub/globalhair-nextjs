@@ -16,8 +16,8 @@ export const FloatingActionZone: React.FC<FloatingActionZoneProps> = ({ classNam
   const { language } = useLanguage();
 
   useEffect(() => {
-    // Trigger animation after component mounts
-    const timer = setTimeout(() => setIsVisible(true), 100);
+    // Show buttons after a short delay
+    const timer = setTimeout(() => setIsVisible(true), 300);
     return () => clearTimeout(timer);
   }, []);
 
@@ -54,40 +54,42 @@ export const FloatingActionZone: React.FC<FloatingActionZoneProps> = ({ classNam
 
   return (
     <>
+      {/* Floating Action Buttons - Simple positioning */}
       <div 
         className={cn(
-          "fixed right-4 z-50 flex flex-col gap-3",
-          "bottom-20 sm:bottom-24",
-          "transition-all duration-300",
+          "fixed z-50 flex flex-col gap-4",
+          "right-4 bottom-24",
+          "sm:right-6 sm:bottom-28",
           className
         )}
-        style={{ 
-          pointerEvents: 'none',
-          paddingRight: 'env(safe-area-inset-right, 0px)',
-          paddingBottom: 'env(safe-area-inset-bottom, 0px)'
-        }}
       >
-        {buttons.map((button) => {
-          const Icon = button.icon;
+        {buttons.map((button, index) => {
+          const IconComponent = button.icon;
           return (
             <Button
               key={button.id}
               size="icon"
               className={cn(
-                "w-12 h-12 rounded-full backdrop-blur-sm",
-                "bg-background/95 hover:bg-background text-foreground",
-                "border border-border shadow-medium",
-                "transition-all duration-300 transform",
-                "pointer-events-auto",
-                "hover:scale-110 hover:shadow-strong active:scale-95",
-                // Animation classes
+                // Size and shape
+                "w-14 h-14 rounded-full",
+                "sm:w-16 sm:h-16",
+                
+                // Styling with design system colors
+                "bg-primary text-primary-foreground",
+                "hover:bg-primary/90 hover:scale-110",
+                "active:scale-95",
+                
+                // Shadow and effects
+                "shadow-strong backdrop-blur-sm",
+                "border-2 border-white/20",
+                
+                // Animation
+                "transition-all duration-300 ease-out",
+                
+                // Initial state and entrance animation
                 isVisible 
-                  ? "opacity-100 translate-x-0" 
-                  : "opacity-0 translate-x-8",
-                // Responsive sizing with proper touch targets
-                "max-[400px]:w-11 max-[400px]:h-11",
-                // Ensure minimum 44px touch target on mobile
-                "min-h-[44px] min-w-[44px] max-[400px]:min-h-[40px] max-[400px]:min-w-[40px]"
+                  ? "opacity-100 translate-x-0 scale-100" 
+                  : "opacity-0 translate-x-12 scale-90"
               )}
               style={{
                 transitionDelay: isVisible ? `${button.delay}ms` : '0ms',
@@ -95,7 +97,7 @@ export const FloatingActionZone: React.FC<FloatingActionZoneProps> = ({ classNam
               onClick={button.onClick}
               aria-label={button.label}
             >
-              <Icon className="w-5 h-5 max-[400px]:w-4 max-[400px]:h-4" />
+              <IconComponent className="w-6 h-6 sm:w-7 sm:h-7" />
             </Button>
           );
         })}
