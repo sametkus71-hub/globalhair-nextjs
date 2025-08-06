@@ -56,18 +56,16 @@ export const FloatingActionZone: React.FC<FloatingActionZoneProps> = ({ classNam
     <>
       <div 
         className={cn(
-          "fixed right-4 z-40 flex flex-col gap-3",
+          "fixed right-4 z-50 flex flex-col gap-3",
+          "bottom-20 sm:bottom-24",
           "transition-all duration-300",
-          // Position: Above bottom navigation with safe area
-          "bottom-[calc(70px+env(safe-area-inset-bottom,0px)+16px)]",
-          // Safe area padding for right side
-          "pr-[env(safe-area-inset-right,0px)]",
-          // Mobile responsive positioning
-          "max-[400px]:right-3 max-[400px]:gap-2",
-          "max-[400px]:bottom-[calc(65px+env(safe-area-inset-bottom,0px)+12px)]",
           className
         )}
-        style={{ pointerEvents: 'none' }}
+        style={{ 
+          pointerEvents: 'none',
+          paddingRight: 'env(safe-area-inset-right, 0px)',
+          paddingBottom: 'env(safe-area-inset-bottom, 0px)'
+        }}
       >
         {buttons.map((button) => {
           const Icon = button.icon;
