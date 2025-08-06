@@ -64,10 +64,6 @@ const HaartransplantatiePage = () => {
               </div>
             </div>
 
-            {/* Bottom Navigation - positioned absolutely to overlay */}
-            <div className="absolute bottom-0 left-0 right-0 z-40">
-              <BottomNavigation />
-            </div>
           </section>
 
           {/* Second Section - Treatment Info with Regular Scroll */}
@@ -77,6 +73,11 @@ const HaartransplantatiePage = () => {
 
           {/* Floating Action Buttons - rendered via portal */}
           <FloatingActionPortal />
+        </div>
+
+        {/* Fixed Bottom Navigation - outside scroll container */}
+        <div className="fixed bottom-0 left-0 right-0 z-40">
+          <BottomNavigation />
         </div>
       </PageTransition>
     </>
