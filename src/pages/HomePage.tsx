@@ -45,9 +45,8 @@ const HomePage = () => {
     onHighLoaded,
     onAllLoaded
   } = usePriorityPageLoader({
-    assets: priorityAssets,
-    criticalDelay: 300,
-    minLoadingTime: 800
+    criticalDelay: 200, // Reduced for faster experience
+    minLoadingTime: 500 // Reduced for better performance
   });
 
   useEffect(() => {
@@ -87,8 +86,9 @@ const HomePage = () => {
             heightBreakpoint === 'small' ? 'pt-4 pb-2' :
             heightBreakpoint === 'medium' ? 'pt-6 pb-3' :
             'pt-8 pb-6',
-            // Animation classes
-            !showContent ? 'opacity-0 translate-y-2' : (isFirstLoad ? 'animate-fade-in' : 'opacity-100'),
+            // Animation classes - ensure clickability
+            !showContent ? 'opacity-0 translate-y-2 pointer-events-none' : 
+            (isFirstLoad ? 'animate-fade-in pointer-events-auto' : 'opacity-100 pointer-events-auto'),
             // Transition classes
             transitionState.fadeOut && 'page-transition-fade-out'
           )}
@@ -96,7 +96,7 @@ const HomePage = () => {
           style={{ 
             paddingTop: heightBreakpoint === 'small' ? 'max(1rem, env(safe-area-inset-top))' : undefined,
             animationDelay: isFirstLoad && showContent ? '0.1s' : '0s',
-            transition: 'all 0.5s ease-out'
+            transition: 'all 0.3s ease-out' // Reduced for faster response
           }}
         >
           <GenderToggle />
@@ -110,15 +110,16 @@ const HomePage = () => {
           <div 
             className={cn(
               "relative flex items-center justify-center w-full h-full",
-              // Animation classes
-              !showContent ? 'opacity-0 scale-95' : (isFirstLoad ? 'animate-scale-in' : 'opacity-100'),
+              // Animation classes - ensure clickability
+              !showContent ? 'opacity-0 scale-95 pointer-events-none' : 
+              (isFirstLoad ? 'animate-scale-in pointer-events-auto' : 'opacity-100 pointer-events-auto'),
               // Transition classes for buttons
               transitionState.fadeOut && 'page-transition-buttons-fade'
             )}
             data-debug-buttons-fadeout={transitionState.fadeOut ? 'true' : 'false'}
             style={{ 
-              animationDelay: isFirstLoad && showContent ? '0.3s' : '0s',
-              transition: 'all 0.6s ease-out'
+              animationDelay: isFirstLoad && showContent ? '0.2s' : '0s', // Faster
+              transition: 'all 0.4s ease-out' // Reduced for better performance
             }}
           >
             <VideoGrid 
@@ -136,8 +137,9 @@ const HomePage = () => {
             heightBreakpoint === 'small' ? 'pb-4 pt-3 space-y-3' :
             heightBreakpoint === 'medium' ? 'pb-6 pt-4 space-y-4' :
             'pb-6 sm:pb-8 pt-4 sm:pt-6 space-y-5 sm:space-y-6',
-            // Animation classes
-            !showContent ? 'opacity-0 translate-y-4' : (isFirstLoad ? 'animate-fade-in' : 'opacity-100'),
+            // Animation classes - ensure clickability
+            !showContent ? 'opacity-0 translate-y-4 pointer-events-none' : 
+            (isFirstLoad ? 'animate-fade-in pointer-events-auto' : 'opacity-100 pointer-events-auto'),
             // Transition classes
             transitionState.fadeOut && 'page-transition-fade-out'
           )}
@@ -145,8 +147,8 @@ const HomePage = () => {
           style={{ 
             paddingBottom: 'max(3rem, env(safe-area-inset-bottom))', // Increased bottom padding
             paddingTop: heightBreakpoint === 'small' ? 'max(0.75rem, env(safe-area-inset-top))' : undefined,
-            animationDelay: isFirstLoad && showContent ? '0.2s' : '0s',
-            transition: 'all 0.5s ease-out'
+            animationDelay: isFirstLoad && showContent ? '0.15s' : '0s', // Faster
+            transition: 'all 0.3s ease-out' // Reduced for better performance
           }}
         >
           {/* Hair Color Selector */}

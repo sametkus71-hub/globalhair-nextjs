@@ -10,7 +10,7 @@ interface LogoPriorityProps {
 export const LogoPriority = ({ className, isLoading = false, showContent = false }: LogoPriorityProps) => {
   return (
     <div className={cn(
-      "absolute top-1/2 left-1/2 -translate-x-1/2 z-50",
+      "absolute top-1/2 left-1/2 -translate-x-1/2 z-40 pointer-events-none",
       "w-24 h-24",
       "flex items-center justify-center",
       "transition-all duration-500 ease-out",

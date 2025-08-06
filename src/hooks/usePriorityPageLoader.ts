@@ -1,15 +1,12 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { PriorityAsset } from '@/components/PriorityImageLoader';
+import { useState, useEffect, useCallback } from 'react';
 
 interface UsePriorityPageLoaderOptions {
-  assets?: PriorityAsset[];
-  criticalDelay?: number; // Minimum time to show logo before revealing content
-  minLoadingTime?: number; // Minimum total loading time
+  criticalDelay?: number;
+  minLoadingTime?: number;
 }
 
 export const usePriorityPageLoader = ({ 
-  assets = [],
-  criticalDelay = 300, // Logo shows for at least 300ms
+  criticalDelay = 300,
   minLoadingTime = 800 
 }: UsePriorityPageLoaderOptions = {}) => {
   const [loadingStates, setLoadingStates] = useState({
@@ -19,32 +16,11 @@ export const usePriorityPageLoader = ({
   });
   
   const [isFirstLoad, setIsFirstLoad] = useState(true);
-  const loadedPhases = useRef({
+  const [phases, setPhases] = useState({
     critical: false,
     high: false,
     all: false
   });
-
-  const timers = useRef<{
-    criticalTimer?: NodeJS.Timeout;
-    minLoadingTimer?: NodeJS.Timeout;
-  }>({});
-
-  const criticalDelayPassed = useRef(false);
-  const minTimePassed = useRef(false);
-
-  const checkShowContent = useCallback(() => {
-    if (loadedPhases.current.high && criticalDelayPassed.current && minTimePassed.current) {
-      setLoadingStates(prev => ({ ...prev, showContent: true }));
-      sessionStorage.setItem('homepage-visited', 'true');
-    }
-  }, []);
-
-  const checkAllLoaded = useCallback(() => {
-    if (loadedPhases.current.all) {
-      setLoadingStates(prev => ({ ...prev, allLoaded: true }));
-    }
-  }, []);
 
   useEffect(() => {
     // Check if this is the first load
@@ -62,47 +38,66 @@ export const usePriorityPageLoader = ({
       return;
     }
 
-    // Reset refs for first load
-    criticalDelayPassed.current = false;
-    minTimePassed.current = false;
-    loadedPhases.current = { critical: false, high: false, all: false };
+    // Reset for first load
+    let criticalDelayPassed = false;
+    let minTimePassed = false;
 
-    // Critical delay timer (minimum logo show time)
-    timers.current.criticalTimer = setTimeout(() => {
-      criticalDelayPassed.current = true;
+    const checkShowContent = () => {
+      if (phases.high && criticalDelayPassed && minTimePassed) {
+        setLoadingStates(prev => ({ ...prev, showContent: true }));
+        sessionStorage.setItem('homepage-visited', 'true');
+      }
+    };
+
+    // Critical delay timer
+    const criticalTimer = setTimeout(() => {
+      criticalDelayPassed = true;
       checkShowContent();
     }, criticalDelay);
 
     // Minimum loading time timer
-    timers.current.minLoadingTimer = setTimeout(() => {
-      minTimePassed.current = true;
+    const minLoadingTimer = setTimeout(() => {
+      minTimePassed = true;
       checkShowContent();
     }, minLoadingTime);
 
     return () => {
-      if (timers.current.criticalTimer) {
-        clearTimeout(timers.current.criticalTimer);
-      }
-      if (timers.current.minLoadingTimer) {
-        clearTimeout(timers.current.minLoadingTimer);
-      }
+      clearTimeout(criticalTimer);
+      clearTimeout(minLoadingTimer);
     };
-  }, []); // Only run once on mount
+  }, [criticalDelay, minLoadingTime]); // Removed phases dependency to prevent loops
+
+  // Separate effect for checking content when phases change
+  useEffect(() => {
+    if (!isFirstLoad) return;
+    
+    const hasVisited = sessionStorage.getItem('homepage-visited');
+    if (hasVisited) return;
+
+    // Simple timeout approach to avoid complexity
+    if (phases.high) {
+      const timer = setTimeout(() => {
+        setLoadingStates(prev => ({ ...prev, showContent: true }));
+        sessionStorage.setItem('homepage-visited', 'true');
+      }, Math.max(criticalDelay, 100));
+
+      return () => clearTimeout(timer);
+    }
+  }, [phases.high, isFirstLoad, criticalDelay]);
 
   const handleCriticalLoaded = useCallback(() => {
-    loadedPhases.current.critical = true;
+    setPhases(prev => ({ ...prev, critical: true }));
     setLoadingStates(prev => ({ ...prev, showLogo: true }));
   }, []);
 
   const handleHighLoaded = useCallback(() => {
-    loadedPhases.current.high = true;
-    checkShowContent();
-  }, [checkShowContent]);
+    setPhases(prev => ({ ...prev, high: true }));
+  }, []);
 
   const handleAllLoaded = useCallback(() => {
-    loadedPhases.current.all = true;
-    checkAllLoaded();
-  }, [checkAllLoaded]);
+    setPhases(prev => ({ ...prev, all: true }));
+    setLoadingStates(prev => ({ ...prev, allLoaded: true }));
+  }, []);
 
   return {
     isFirstLoad,
