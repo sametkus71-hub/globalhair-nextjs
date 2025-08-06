@@ -17,7 +17,7 @@ import { ScrollIndicator } from '@/components/ScrollIndicator';
 const HaartransplantatiePageContent = () => {
   const { language } = useLanguage();
   const { height } = useViewportHeight();
-  const { registerScrollCallback, setTotalPosts, scrollToPost } = useScrollContext();
+  const { registerScrollCallback, setTotalPosts } = useScrollContext();
   const { currentSection, scrollToSection } = usePageScroll();
   
   // Force scroll to top immediately on mount
@@ -36,7 +36,7 @@ const HaartransplantatiePageContent = () => {
     // Set total sections: 1 hero + 5 Instagram posts
     setTotalPosts(6);
     
-    // Register scroll callback for smooth scrolling
+    // Register scroll callback to use usePageScroll's scrollToSection
     registerScrollCallback((index: number) => {
       scrollToSection(index);
     });
@@ -45,11 +45,6 @@ const HaartransplantatiePageContent = () => {
       console.log('🏥 HaartransplantatiePage unmounting');
     };
   }, [registerScrollCallback, setTotalPosts, scrollToSection]);
-
-  // Sync usePageScroll currentSection with ScrollContext
-  useEffect(() => {
-    scrollToPost(currentSection);
-  }, [currentSection, scrollToPost]);
 
   return (
     <>

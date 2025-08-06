@@ -22,7 +22,6 @@ export const ScrollProvider = ({ children }: ScrollProviderProps) => {
   const scrollToPost = useCallback((index: number) => {
     if (index < 0 || index >= totalPosts) return;
     
-    // Only update state, don't trigger scroll to avoid loops
     setCurrentPostIndex(index);
     
     if (scrollCallback) {
