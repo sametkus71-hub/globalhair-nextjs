@@ -290,9 +290,10 @@ body.s-wit {
     transform-origin: center center;
   }
 
-  /* Instagram-like smooth scrolling - disabled for custom control */
+  /* Instagram-like smooth scrolling */
   html {
-    scroll-behavior: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
   }
 
   body {

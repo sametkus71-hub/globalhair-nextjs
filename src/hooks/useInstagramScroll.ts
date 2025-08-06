@@ -8,64 +8,32 @@ interface UseInstagramScrollProps {
 export const useInstagramScroll = ({ totalSections, onSectionChange }: UseInstagramScrollProps) => {
   const [currentSection, setCurrentSection] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const touchStartY = useRef(0);
-  const touchCurrentY = useRef(0);
-  const scrollStartPosition = useRef(0);
   const lastScrollTime = useRef(0);
-  const animationFrame = useRef<number | null>(null);
 
-  // Smooth scroll to section with progressive movement
-  const scrollToSection = useCallback((sectionIndex: number, smooth = true) => {
-    if (sectionIndex < 0 || sectionIndex >= totalSections) return;
+  // Simple scroll to section with immediate response
+  const scrollToSection = useCallback((sectionIndex: number) => {
+    if (sectionIndex < 0 || sectionIndex >= totalSections || isTransitioning) return;
     
-    const viewportHeight = window.innerHeight;
-    const targetScrollY = sectionIndex * viewportHeight;
+    const sections = document.querySelectorAll('.snap-section');
+    const targetSection = sections[sectionIndex] as HTMLElement;
     
-    setIsTransitioning(true);
-    setCurrentSection(sectionIndex);
-    onSectionChange?.(sectionIndex);
-    
-    if (smooth) {
-      // Smooth animated scroll
-      window.scrollTo({
-        top: targetScrollY,
-        behavior: 'smooth'
+    if (targetSection) {
+      setIsTransitioning(true);
+      setCurrentSection(sectionIndex);
+      onSectionChange?.(sectionIndex);
+      
+      // Use smooth scrollIntoView for Instagram-like behavior
+      targetSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
       });
-      setTimeout(() => setIsTransitioning(false), 500);
-    } else {
-      // Instant scroll for drag updates
-      window.scrollTo(0, targetScrollY);
-      setIsTransitioning(false);
+      
+      // Short transition lock
+      setTimeout(() => setIsTransitioning(false), 300);
     }
-  }, [totalSections, onSectionChange]);
-
-  // Update scroll position during drag with real-time preview
-  const updateScrollPosition = useCallback((deltaY: number) => {
-    if (animationFrame.current) {
-      cancelAnimationFrame(animationFrame.current);
-    }
-
-    animationFrame.current = requestAnimationFrame(() => {
-      const viewportHeight = window.innerHeight;
-      const currentScrollY = scrollStartPosition.current;
-      
-      // Apply drag with resistance at boundaries
-      let newScrollY = currentScrollY - deltaY;
-      
-      // Add rubber band effect at boundaries
-      const maxScroll = (totalSections - 1) * viewportHeight;
-      if (newScrollY < 0) {
-        newScrollY = newScrollY * 0.3; // Resistance at top
-      } else if (newScrollY > maxScroll) {
-        const excess = newScrollY - maxScroll;
-        newScrollY = maxScroll + (excess * 0.3); // Resistance at bottom
-      }
-      
-      window.scrollTo(0, newScrollY);
-    });
-  }, [totalSections]);
+  }, [totalSections, isTransitioning, onSectionChange]);
 
   const scrollToNext = useCallback(() => {
     const nextSection = Math.min(currentSection + 1, totalSections - 1);
@@ -77,56 +45,29 @@ export const useInstagramScroll = ({ totalSections, onSectionChange }: UseInstag
     scrollToSection(prevSection);
   }, [currentSection, scrollToSection]);
 
-  // Instagram-style touch handling with real-time preview
+  // Lightweight touch handling - lower threshold, no velocity calculations
   const handleTouchStart = useCallback((e: TouchEvent) => {
-    if (isTransitioning) return;
-    
     touchStartY.current = e.touches[0].clientY;
-    touchCurrentY.current = e.touches[0].clientY;
-    scrollStartPosition.current = window.pageYOffset;
-    setIsDragging(true);
-    
-    // Disable native scroll during drag
-    document.body.style.overflow = 'hidden';
-    e.preventDefault();
-  }, [isTransitioning]);
-
-  const handleTouchMove = useCallback((e: TouchEvent) => {
-    if (!isDragging || isTransitioning) return;
-    
-    touchCurrentY.current = e.touches[0].clientY;
-    const deltaY = touchStartY.current - touchCurrentY.current;
-    
-    // Real-time scroll update during drag
-    updateScrollPosition(deltaY);
-    e.preventDefault();
-  }, [isDragging, isTransitioning, updateScrollPosition]);
+  }, []);
 
   const handleTouchEnd = useCallback((e: TouchEvent) => {
-    if (!isDragging) return;
-    
-    setIsDragging(false);
-    document.body.style.overflow = '';
+    if (isTransitioning) return;
     
     const touchEndY = e.changedTouches[0].clientY;
     const deltaY = touchStartY.current - touchEndY;
-    const viewportHeight = window.innerHeight;
+    const now = Date.now();
     
-    // Determine target section based on drag distance and velocity
-    const dragThreshold = viewportHeight * 0.25; // 25% of screen height
-    let targetSection = currentSection;
-    
-    if (Math.abs(deltaY) > dragThreshold) {
-      if (deltaY > 0 && currentSection < totalSections - 1) {
-        targetSection = currentSection + 1;
-      } else if (deltaY < 0 && currentSection > 0) {
-        targetSection = currentSection - 1;
+    // Much lower threshold for instant response (20px instead of 50+)
+    if (Math.abs(deltaY) > 20 && now - lastScrollTime.current > 100) {
+      lastScrollTime.current = now;
+      
+      if (deltaY > 0) {
+        scrollToNext();
+      } else {
+        scrollToPrevious();
       }
     }
-    
-    // Smooth snap to target section
-    scrollToSection(targetSection, true);
-  }, [isDragging, currentSection, totalSections, scrollToSection]);
+  }, [isTransitioning, scrollToNext, scrollToPrevious]);
 
   // Simple wheel handling - no debouncing, instant response
   const handleWheel = useCallback((e: WheelEvent) => {
@@ -200,27 +141,19 @@ export const useInstagramScroll = ({ totalSections, onSectionChange }: UseInstag
   useEffect(() => {
     const container = containerRef.current || window;
     
-    // Add all touch and wheel events
+    // Optimize event listeners with passive settings
     container.addEventListener('wheel', handleWheel, { passive: false });
-    window.addEventListener('touchstart', handleTouchStart, { passive: false });
-    window.addEventListener('touchmove', handleTouchMove, { passive: false });
-    window.addEventListener('touchend', handleTouchEnd, { passive: false });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
       container.removeEventListener('wheel', handleWheel);
       window.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleTouchEnd);
       window.removeEventListener('keydown', handleKeyDown);
-      
-      // Cleanup on unmount
-      if (animationFrame.current) {
-        cancelAnimationFrame(animationFrame.current);
-      }
-      document.body.style.overflow = '';
     };
-  }, [handleWheel, handleTouchStart, handleTouchMove, handleTouchEnd, handleKeyDown]);
+  }, [handleWheel, handleTouchStart, handleTouchEnd, handleKeyDown]);
 
   return {
     currentSection,
