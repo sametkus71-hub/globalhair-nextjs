@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { MetaHead } from '@/components/MetaHead';
@@ -22,17 +22,31 @@ const HaartransplantatiePage = () => {
     };
   }, []);
 
-  // Ensure page loads at the top
-  useEffect(() => {
-    // Set scroll position to top immediately before page renders
+  // Ensure page loads at the top immediately
+  useLayoutEffect(() => {
+    // Reset scroll position before any rendering happens
+    window.scrollTo(0, 0);
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
-  });
+    
+    // Also reset any scroll-snap containers
+    const scrollSnapContainer = document.querySelector('.scroll-snap-container');
+    if (scrollSnapContainer) {
+      scrollSnapContainer.scrollTop = 0;
+    }
+  }, []);
 
   return (
     <>
       <MetaHead language={language} page="haartransplantatie" />
       <PageTransition isNewPage={true}>
+        {/* Logo for haartransplantatie page - positioned absolute so it scrolls with content */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none">
+          <div className="pointer-events-auto">
+            <CentralLogo />
+          </div>
+        </div>
+        
         <div className="scroll-snap-container">
           {/* First Section - Snap Point */}
           <section 

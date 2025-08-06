@@ -7,6 +7,7 @@ import { SessionManager } from "@/components/SessionManager";
 import { LanguageWrapper } from "@/components/LanguageWrapper";
 import { GlobalCentralLogo } from "@/components/GlobalCentralLogo";
 import { AnimatedBackground } from "@/components/homepage/AnimatedBackground";
+import { useLocation } from "react-router-dom";
 
 // Pages
 import HomePage from "./pages/HomePage";
@@ -20,21 +21,33 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <SessionManager>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <LanguageWrapper>
-            {/* Persistent background and logo across all pages */}
-            <div className="fixed inset-0" style={{ background: '#111111' }}>
-              <AnimatedBackground />
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-900/20 to-gray-900/40" />
-            </div>
-            
-            <GlobalCentralLogo />
+const App = () => {
+  const ConditionalLogo = () => {
+    const location = useLocation();
+    const isHaartransplantatiePage = location.pathname.includes('/haartransplantatie') || location.pathname.includes('/hair-transplant');
+    
+    // Only render fixed logo on non-haartransplantatie pages
+    if (!isHaartransplantatiePage) {
+      return <GlobalCentralLogo />;
+    }
+    return null;
+  };
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <SessionManager>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <LanguageWrapper>
+              {/* Persistent background across all pages */}
+              <div className="fixed inset-0" style={{ background: '#111111' }}>
+                <AnimatedBackground />
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-900/20 to-gray-900/40" />
+              </div>
+              
+              <ConditionalLogo />
             
             <Routes>
               {/* Root redirect handled by useLanguage hook */}
@@ -64,8 +77,9 @@ const App = () => (
           </LanguageWrapper>
         </BrowserRouter>
       </TooltipProvider>
-    </SessionManager>
-  </QueryClientProvider>
-);
+        </SessionManager>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
