@@ -1,7 +1,6 @@
 import React from 'react';
-import { X, MessageCircle, ExternalLink } from 'lucide-react';
+import { X, MessageCircle, Instagram, Camera, Scan } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
-import { Button } from '@/components/ui/button';
 
 interface ChatOverlayProps {
   open: boolean;
@@ -31,74 +30,103 @@ export const ChatOverlay: React.FC<ChatOverlayProps> = ({
     window.open(`https://wa.me/31612345678?text=${message}`, '_blank');
   };
 
+  const openInstagram = () => {
+    window.open('https://instagram.com/globalhair', '_blank');
+  };
+
+  const openTikTok = () => {
+    window.open('https://tiktok.com/@globalhair', '_blank');
+  };
+
+  const openHairScan = () => {
+    // Navigate to hair scan page or open modal
+    console.log('Open hair scan');
+  };
+
   return (
     <div 
       className="fixed inset-0 z-[10000] bg-black/50 backdrop-blur-sm flex items-end justify-center sm:items-center sm:justify-center p-4"
       onClick={handleBackdropClick}
     >
-      <div className="bg-background rounded-t-lg sm:rounded-lg shadow-2xl w-full max-w-sm">
+      <div 
+        className="bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl w-full max-w-sm max-h-[85vh] overflow-y-auto"
+        style={{
+          background: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          borderTop: '3px solid #182F3C'
+        }}
+      >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b">
-          <h3 className="text-lg font-semibold flex items-center gap-2">
+        <div className="flex items-center justify-between p-4 border-b border-gray-100">
+          <h3 className="text-lg font-semibold flex items-center gap-2 text-[#182F3C]">
             <MessageCircle className="w-5 h-5" />
-            {language === 'nl' ? 'Chat Support' : 'Chat Support'}
+            {language === 'nl' ? 'Contact' : 'Contact'}
           </h3>
           <button
             onClick={() => onOpenChange(false)}
-            className="w-8 h-8 rounded-full hover:bg-accent flex items-center justify-center transition-colors"
+            className="w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center transition-colors"
             aria-label="Close"
           >
-            <X className="w-5 h-5" />
+            <X className="w-5 h-5 text-gray-600" />
           </button>
         </div>
 
         {/* Content */}
-        <div className="p-4 space-y-4">
-          <p className="text-sm text-muted-foreground">
-            {language === 'nl' 
-              ? 'Kies hoe u contact met ons wilt opnemen voor directe ondersteuning.'
-              : 'Choose how you want to contact us for direct support.'
-            }
-          </p>
+        <div className="p-4 space-y-3">
+          {/* WhatsApp */}
+          <button
+            onClick={openWhatsApp}
+            className="w-full p-4 rounded-xl flex items-center gap-3 transition-all hover:scale-[1.02] active:scale-[0.98]"
+            style={{
+              background: '#25D366',
+              color: 'white'
+            }}
+          >
+            <MessageCircle className="w-5 h-5" />
+            <span className="font-medium">WhatsApp</span>
+          </button>
 
-          <div className="space-y-3">
-            <Button 
-              onClick={openWhatsApp}
-              className="w-full justify-between bg-green-600 hover:bg-green-700 text-white"
-              size="lg"
-            >
-              <span className="flex items-center gap-2">
-                <MessageCircle className="w-5 h-5" />
-                WhatsApp
-              </span>
-              <ExternalLink className="w-4 h-4" />
-            </Button>
+          {/* Instagram */}
+          <button
+            onClick={openInstagram}
+            className="w-full p-4 rounded-xl flex items-center gap-3 transition-all hover:scale-[1.02] active:scale-[0.98]"
+            style={{
+              background: 'linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)',
+              color: 'white'
+            }}
+          >
+            <Instagram className="w-5 h-5" />
+            <span className="font-medium">Instagram</span>
+          </button>
 
-            <Button 
-              variant="outline" 
-              className="w-full justify-between" 
-              size="lg"
-              onClick={() => {
-                // Here you would open your live chat widget
-                console.log('Open live chat');
-              }}
-            >
-              <span className="flex items-center gap-2">
-                <MessageCircle className="w-5 h-5" />
-                {language === 'nl' ? 'Live Chat' : 'Live Chat'}
-              </span>
-              <ExternalLink className="w-4 h-4" />
-            </Button>
-          </div>
+          {/* TikTok */}
+          <button
+            onClick={openTikTok}
+            className="w-full p-4 rounded-xl flex items-center gap-3 transition-all hover:scale-[1.02] active:scale-[0.98]"
+            style={{
+              background: '#000000',
+              color: 'white'
+            }}
+          >
+            <Camera className="w-5 h-5" />
+            <span className="font-medium">TikTok</span>
+          </button>
 
-          <div className="pt-2 border-t">
-            <p className="text-xs text-muted-foreground text-center">
-              {language === 'nl' 
-                ? 'Gemiddelde reactietijd: 2-5 minuten'
-                : 'Average response time: 2-5 minutes'
-              }
-            </p>
-          </div>
+          {/* Hair Scan */}
+          <button
+            onClick={openHairScan}
+            className="w-full p-4 rounded-xl flex items-center gap-3 border-2 transition-all hover:scale-[1.02] active:scale-[0.98]"
+            style={{
+              border: '2px solid #182F3C',
+              color: '#182F3C'
+            }}
+          >
+            <Scan className="w-5 h-5" />
+            <span className="font-medium">
+              {language === 'nl' ? 'Doe de haarscan' : 'Take hair scan'}
+            </span>
+          </button>
         </div>
       </div>
     </div>
