@@ -12,7 +12,7 @@ export const InstagramPostsSection = () => {
       title: language === 'nl' ? 'Precisie Techniek' : 'Precision Technique',
       subtitle: language === 'nl' ? 'Procedure' : 'Procedure',
       description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      image: '/lovable-uploads/ea501157-5b9d-400b-ad68-e4172e38bb56.png',
+      video: 'https://vz-104aba77-1e1.b-cdn.net/24128683-fbb8-4733-abbb-95aa6a23ab48/playlist.m3u8',
     },
     {
       id: 'results',
@@ -48,13 +48,24 @@ export const InstagramPostsSection = () => {
           id={`section-${index + 1}`} // section-1, section-2, etc.
           className="snap-section min-h-screen w-full relative flex flex-col"
         >
-          {/* Large Image - reduced height for better balance */}
+          {/* Large Media - reduced height for better balance */}
           <div className="h-[60vh] w-full overflow-hidden">
-            <img 
-              src={post.image} 
-              alt={post.title}
-              className="w-full h-full object-cover object-center"
-            />
+            {post.video ? (
+              <video 
+                src={post.video}
+                className="w-full h-full object-cover object-center"
+                autoPlay
+                loop
+                muted
+                playsInline
+              />
+            ) : (
+              <img 
+                src={post.image} 
+                alt={post.title}
+                className="w-full h-full object-cover object-center"
+              />
+            )}
           </div>
           
           {/* Content Section - increased height with proper bottom padding */}
