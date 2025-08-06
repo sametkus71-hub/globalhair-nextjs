@@ -112,27 +112,6 @@ export const FloatingActionPortal: React.FC = () => {
     window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
   }, [location.pathname]);
 
-  // Memoized calculation to avoid repeated DOM queries
-  const isOnLastSection = useMemo(() => {
-    if (!location.pathname.includes('/haartransplantatie')) return false;
-    
-    const sections = document.querySelectorAll('.snap-section');
-    const totalSections = sections.length;
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const windowHeight = window.innerHeight;
-    
-    let currentSectionIndex = 0;
-    sections.forEach((section, index) => {
-      const rect = section.getBoundingClientRect();
-      const sectionTop = rect.top + scrollTop;
-      
-      if (scrollTop >= sectionTop - windowHeight / 2) {
-        currentSectionIndex = index;
-      }
-    });
-    
-    return currentSectionIndex >= totalSections - 1;
-  }, [location.pathname]);
 
   if (!mounted) return null;
 
@@ -199,13 +178,9 @@ export const FloatingActionPortal: React.FC = () => {
               border: '1px solid rgba(255, 255, 255, 0.2)',
             }}
             onClick={scrollToNextSection}
-            aria-label={language === 'nl' ? (isOnLastSection ? 'Naar boven' : 'Volgende') : (isOnLastSection ? 'To top' : 'Next')}
+            aria-label={language === 'nl' ? 'Scroll naar beneden' : 'Scroll down'}
           >
-            {isOnLastSection ? (
-              <ChevronUp className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors" />
-            ) : (
-              <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors" />
-            )}
+            <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors" />
           </button>
         </div>
       </div>
