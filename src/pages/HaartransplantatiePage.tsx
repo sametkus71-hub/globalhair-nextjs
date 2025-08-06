@@ -1,7 +1,7 @@
 import { useLayoutEffect, useEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
-import { usePageScroll } from '@/hooks/usePageScroll';
+import { useInstagramScroll } from '@/hooks/useInstagramScroll';
 import { MetaHead } from '@/components/MetaHead';
 import { PageTransition } from '@/components/PageTransition';
 import { ScrollFadeLogo } from '@/components/ScrollFadeLogo';
@@ -17,8 +17,16 @@ import { ScrollIndicator } from '@/components/ScrollIndicator';
 const HaartransplantatiePageContent = () => {
   const { language } = useLanguage();
   const { height } = useViewportHeight();
-  const { registerScrollCallback, setTotalPosts } = useScrollContext();
-  const { currentSection, scrollToSection } = usePageScroll();
+  const { setCurrentPostIndex, setTotalPosts } = useScrollContext();
+  
+  const totalSections = 6; // 1 hero + 5 Instagram posts
+  
+  const { currentSection, scrollToSection } = useInstagramScroll({
+    totalSections,
+    onSectionChange: (section) => {
+      setCurrentPostIndex(section);
+    }
+  });
   
   // Force scroll to top immediately on mount
   useLayoutEffect(() => {
@@ -30,21 +38,15 @@ const HaartransplantatiePageContent = () => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
+  // Setup scroll context
   useEffect(() => {
-    console.log('🏥 HaartransplantatiePage mounted');
-    
-    // Set total sections: 1 hero + 5 Instagram posts
-    setTotalPosts(6);
-    
-    // Register scroll callback to use usePageScroll's scrollToSection
-    registerScrollCallback((index: number) => {
-      scrollToSection(index);
-    });
+    console.log('🏥 HaartransplantatiePage mounting');
+    setTotalPosts(totalSections);
     
     return () => {
       console.log('🏥 HaartransplantatiePage unmounting');
     };
-  }, [registerScrollCallback, setTotalPosts, scrollToSection]);
+  }, [setTotalPosts]);
 
   return (
     <>

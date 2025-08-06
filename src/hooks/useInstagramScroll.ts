@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 interface UseInstagramScrollProps {
   totalSections: number;
@@ -9,64 +9,79 @@ export const useInstagramScroll = ({ totalSections, onSectionChange }: UseInstag
   const [currentSection, setCurrentSection] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const touchStartY = useRef<number>(0);
-  const lastTouchTime = useRef<number>(0);
+  const touchStartY = useRef(0);
+  const lastScrollTime = useRef(0);
 
-  // Scroll to specific section
+  // Simple scroll to section with immediate response
   const scrollToSection = useCallback((sectionIndex: number) => {
-    if (isTransitioning || sectionIndex < 0 || sectionIndex >= totalSections) return;
+    if (sectionIndex < 0 || sectionIndex >= totalSections || isTransitioning) return;
     
-    setIsTransitioning(true);
-    setCurrentSection(sectionIndex);
-    onSectionChange?.(sectionIndex);
+    const sections = document.querySelectorAll('.snap-section');
+    const targetSection = sections[sectionIndex] as HTMLElement;
     
-    if (containerRef.current) {
-      const translateY = -sectionIndex * 100;
-      containerRef.current.style.transform = `translateY(${translateY}vh)`;
+    if (targetSection) {
+      setIsTransitioning(true);
+      setCurrentSection(sectionIndex);
+      onSectionChange?.(sectionIndex);
+      
+      // Use smooth scrollIntoView for Instagram-like behavior
+      targetSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+      
+      // Short transition lock
+      setTimeout(() => setIsTransitioning(false), 300);
     }
-    
-    // Reset transition state after animation
-    setTimeout(() => setIsTransitioning(false), 300);
-  }, [isTransitioning, totalSections, onSectionChange]);
+  }, [totalSections, isTransitioning, onSectionChange]);
 
-  // Navigate to next section
   const scrollToNext = useCallback(() => {
-    if (currentSection < totalSections - 1) {
-      scrollToSection(currentSection + 1);
-    }
+    const nextSection = Math.min(currentSection + 1, totalSections - 1);
+    scrollToSection(nextSection);
   }, [currentSection, totalSections, scrollToSection]);
 
-  // Navigate to previous section
   const scrollToPrevious = useCallback(() => {
-    if (currentSection > 0) {
-      scrollToSection(currentSection - 1);
-    }
+    const prevSection = Math.max(currentSection - 1, 0);
+    scrollToSection(prevSection);
   }, [currentSection, scrollToSection]);
 
-  // Touch event handlers
+  // Lightweight touch handling - lower threshold, no velocity calculations
   const handleTouchStart = useCallback((e: TouchEvent) => {
-    if (isTransitioning) return;
     touchStartY.current = e.touches[0].clientY;
-    lastTouchTime.current = Date.now();
-  }, [isTransitioning]);
+  }, []);
 
   const handleTouchEnd = useCallback((e: TouchEvent) => {
     if (isTransitioning) return;
     
     const touchEndY = e.changedTouches[0].clientY;
-    const touchDiff = touchStartY.current - touchEndY;
-    const timeDiff = Date.now() - lastTouchTime.current;
+    const deltaY = touchStartY.current - touchEndY;
+    const now = Date.now();
     
-    // Minimum swipe distance and maximum time for quick swipes
-    const minSwipeDistance = 50;
-    const maxSwipeTime = 300;
-    
-    if (Math.abs(touchDiff) >= minSwipeDistance && timeDiff <= maxSwipeTime) {
-      if (touchDiff > 0) {
-        // Swipe up - go to next section
+    // Much lower threshold for instant response (20px instead of 50+)
+    if (Math.abs(deltaY) > 20 && now - lastScrollTime.current > 100) {
+      lastScrollTime.current = now;
+      
+      if (deltaY > 0) {
         scrollToNext();
       } else {
-        // Swipe down - go to previous section
+        scrollToPrevious();
+      }
+    }
+  }, [isTransitioning, scrollToNext, scrollToPrevious]);
+
+  // Simple wheel handling - no debouncing, instant response
+  const handleWheel = useCallback((e: WheelEvent) => {
+    if (isTransitioning) return;
+    
+    const now = Date.now();
+    
+    // Lower threshold and no complex velocity calculations
+    if (Math.abs(e.deltaY) > 10 && now - lastScrollTime.current > 150) {
+      lastScrollTime.current = now;
+      
+      if (e.deltaY > 0) {
+        scrollToNext();
+      } else {
         scrollToPrevious();
       }
     }
@@ -79,7 +94,6 @@ export const useInstagramScroll = ({ totalSections, onSectionChange }: UseInstag
     switch (e.key) {
       case 'ArrowDown':
       case 'PageDown':
-      case ' ':
         e.preventDefault();
         scrollToNext();
         break;
@@ -99,54 +113,54 @@ export const useInstagramScroll = ({ totalSections, onSectionChange }: UseInstag
     }
   }, [isTransitioning, scrollToNext, scrollToPrevious, scrollToSection, totalSections]);
 
-  // Prevent native scrolling and set up event listeners
+  // Intersection observer for tracking current section
   useEffect(() => {
-    const preventScroll = (e: Event) => {
-      e.preventDefault();
-    };
-
-    const preventWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      if (isTransitioning) return;
-      
-      if (e.deltaY > 0) {
-        scrollToNext();
-      } else {
-        scrollToPrevious();
-      }
-    };
-
-    // Disable native scrolling
-    document.body.style.overflow = 'hidden';
-    document.documentElement.style.overflow = 'hidden';
+    const sections = document.querySelectorAll('.snap-section');
     
-    // Add event listeners
-    document.addEventListener('wheel', preventWheel, { passive: false });
-    document.addEventListener('touchmove', preventScroll, { passive: false });
-    document.addEventListener('touchstart', handleTouchStart, { passive: false });
-    document.addEventListener('touchend', handleTouchEnd, { passive: false });
-    document.addEventListener('keydown', handleKeyDown);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (isTransitioning) return;
+        
+        const visibleEntry = entries.find(entry => entry.isIntersecting && entry.intersectionRatio > 0.5);
+        if (visibleEntry) {
+          const index = Array.from(sections).indexOf(visibleEntry.target);
+          if (index !== -1 && index !== currentSection) {
+            setCurrentSection(index);
+            onSectionChange?.(index);
+          }
+        }
+      },
+      { threshold: [0.5], rootMargin: '0px' }
+    );
+
+    sections.forEach(section => observer.observe(section));
+    return () => observer.disconnect();
+  }, [currentSection, isTransitioning, onSectionChange]);
+
+  // Event listeners
+  useEffect(() => {
+    const container = containerRef.current || window;
     
+    // Optimize event listeners with passive settings
+    container.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
+    window.addEventListener('keydown', handleKeyDown);
+
     return () => {
-      // Re-enable native scrolling
-      document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
-      
-      // Remove event listeners
-      document.removeEventListener('wheel', preventWheel);
-      document.removeEventListener('touchmove', preventScroll);
-      document.removeEventListener('touchstart', handleTouchStart);
-      document.removeEventListener('touchend', handleTouchEnd);
-      document.removeEventListener('keydown', handleKeyDown);
+      container.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isTransitioning, scrollToNext, scrollToPrevious, handleTouchStart, handleTouchEnd, handleKeyDown]);
+  }, [handleWheel, handleTouchStart, handleTouchEnd, handleKeyDown]);
 
   return {
     currentSection,
     containerRef,
     scrollToSection,
-    scrollToNext: scrollToNext,
+    scrollToNext,
     scrollToPrevious,
-    isTransitioning,
+    isTransitioning
   };
 };
