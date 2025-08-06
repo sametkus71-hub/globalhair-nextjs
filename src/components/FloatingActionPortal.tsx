@@ -17,26 +17,38 @@ export const FloatingActionPortal: React.FC = () => {
   }, []);
 
   const scrollToNextSection = () => {
-    const mainSection = document.getElementById('main-section');
-    const treatmentSection = document.getElementById('treatment-section');
+    const heroSection = document.getElementById('hero-section');
+    const postsContainer = document.querySelector('.posts-container');
     
-    if (!mainSection || !treatmentSection) return;
+    if (!heroSection) return;
     
     const currentScrollTop = window.scrollY;
-    const mainSectionHeight = mainSection.offsetHeight;
+    const heroHeight = heroSection.offsetHeight;
     
-    // If we're in the first section, scroll to treatment section
-    if (currentScrollTop < mainSectionHeight / 2) {
-      treatmentSection.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
+    // If we're in hero section, scroll to first post
+    if (currentScrollTop < heroHeight * 0.8) {
+      const firstPost = document.getElementById('post-results');
+      if (firstPost) {
+        firstPost.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
     } else {
-      // If we're already in treatment section, scroll down by viewport height
-      window.scrollBy({
-        top: window.innerHeight,
-        behavior: 'smooth'
+      // If we're in posts section, scroll to next post
+      const posts = document.querySelectorAll('.snap-section');
+      const currentPost = Array.from(posts).findIndex(post => {
+        const rect = post.getBoundingClientRect();
+        return rect.top >= -100 && rect.top <= 100;
       });
+      
+      const nextPost = posts[Math.min(currentPost + 1, posts.length - 1)];
+      if (nextPost) {
+        nextPost.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
     }
   };
 
