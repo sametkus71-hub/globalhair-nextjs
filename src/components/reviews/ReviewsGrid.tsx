@@ -9,40 +9,22 @@ interface ReviewItem {
 }
 
 const REVIEW_ITEMS: Omit<ReviewItem, 'isAfter'>[] = [
-  { id: 1, beforeColor: 'bg-gray-300', afterColor: 'bg-gray-400' },
-  { id: 2, beforeColor: 'bg-gray-400', afterColor: 'bg-gray-300' },
-  { id: 3, beforeColor: 'bg-gray-500', afterColor: 'bg-gray-200' },
-  { id: 4, beforeColor: 'bg-gray-200', afterColor: 'bg-gray-500' },
-  { id: 5, beforeColor: 'bg-gray-600', afterColor: 'bg-gray-100' },
-  { id: 6, beforeColor: 'bg-gray-350', afterColor: 'bg-gray-450' },
-  { id: 7, beforeColor: 'bg-gray-450', afterColor: 'bg-gray-250' },
-  { id: 8, beforeColor: 'bg-gray-250', afterColor: 'bg-gray-550' },
-  { id: 9, beforeColor: 'bg-gray-550', afterColor: 'bg-gray-300' },
-  { id: 10, beforeColor: 'bg-gray-300', afterColor: 'bg-gray-400' },
-  { id: 11, beforeColor: 'bg-gray-400', afterColor: 'bg-gray-300' },
-  { id: 12, beforeColor: 'bg-gray-500', afterColor: 'bg-gray-200' },
-  { id: 13, beforeColor: 'bg-gray-200', afterColor: 'bg-gray-500' },
-  { id: 14, beforeColor: 'bg-gray-600', afterColor: 'bg-gray-100' },
-  { id: 15, beforeColor: 'bg-gray-350', afterColor: 'bg-gray-450' },
-  { id: 16, beforeColor: 'bg-gray-450', afterColor: 'bg-gray-250' },
-  { id: 17, beforeColor: 'bg-gray-250', afterColor: 'bg-gray-550' },
-  { id: 18, beforeColor: 'bg-gray-550', afterColor: 'bg-gray-300' }
+  { id: 1, beforeColor: 'bg-gray-500', afterColor: 'bg-gray-300' },
+  { id: 2, beforeColor: 'bg-gray-600', afterColor: 'bg-gray-400' },
+  { id: 3, beforeColor: 'bg-gray-700', afterColor: 'bg-gray-200' },
+  { id: 4, beforeColor: 'bg-gray-400', afterColor: 'bg-gray-300' },
+  { id: 5, beforeColor: 'bg-gray-800', afterColor: 'bg-gray-100' },
+  { id: 6, beforeColor: 'bg-gray-500', afterColor: 'bg-gray-300' }
 ];
 
-// Initial balanced state: 9 BEFORE, 9 AFTER
-const INITIAL_STATE = [false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true, false, true];
+// Initial balanced state: 3 BEFORE, 3 AFTER
+const INITIAL_STATE = [false, true, false, true, false, true]; // alternating pattern
 
-// Animation groups that swap pairs to maintain balance
+// Animation groups that swap 1 BEFORE with 1 AFTER to maintain balance
 const ANIMATION_GROUPS = [
-  { beforeId: 1, afterId: 2, initialDelay: 3000, stayDuration: 18000 },
-  { beforeId: 3, afterId: 4, initialDelay: 8000, stayDuration: 22000 },
-  { beforeId: 5, afterId: 6, initialDelay: 15000, stayDuration: 16000 },
-  { beforeId: 7, afterId: 8, initialDelay: 5000, stayDuration: 20000 },
-  { beforeId: 9, afterId: 10, initialDelay: 12000, stayDuration: 24000 },
-  { beforeId: 11, afterId: 12, initialDelay: 7000, stayDuration: 19000 },
-  { beforeId: 13, afterId: 14, initialDelay: 10000, stayDuration: 17000 },
-  { beforeId: 15, afterId: 16, initialDelay: 4000, stayDuration: 21000 },
-  { beforeId: 17, afterId: 18, initialDelay: 14000, stayDuration: 23000 }
+  { beforeId: 1, afterId: 2, initialDelay: 3000, stayDuration: 18000 }, // swap top left (before) with top middle (after)
+  { beforeId: 3, afterId: 4, initialDelay: 8000, stayDuration: 22000 }, // swap top right (before) with bottom left (after)  
+  { beforeId: 5, afterId: 6, initialDelay: 15000, stayDuration: 16000 }, // swap bottom middle (before) with bottom right (after)
 ];
 
 export const ReviewsGrid = () => {
@@ -104,9 +86,9 @@ export const ReviewsGrid = () => {
   return (
     <div className="w-full h-full p-4">
       <div 
-        className="grid grid-cols-3 w-full h-full gap-2"
+        className="grid grid-cols-3 w-full h-full gap-0"
         style={{ 
-          gridTemplateRows: 'repeat(6, 1fr)', // 6 rows instead of 2
+          gridTemplateRows: '1fr 1fr', // Explicitly equal rows - 3x2 grid
           height: '100%'
         }}
       >
@@ -115,13 +97,13 @@ export const ReviewsGrid = () => {
             key={item.id}
             onClick={() => handleItemClick(item.id)}
             className={cn(
-              "w-full h-full transition-colors duration-[5000ms] ease-in-out relative cursor-pointer hover:opacity-90 rounded-lg flex flex-col justify-end p-3 overflow-hidden",
+              "w-full h-full transition-colors duration-[5000ms] ease-in-out relative cursor-pointer hover:opacity-90",
               "min-h-0 flex-shrink-0", // Ensure consistent height
               item.isAfter ? item.afterColor : item.beforeColor
             )}
           >
             {/* Content at bottom */}
-            <div className="text-black">
+            <div className="absolute bottom-2 left-2 text-black">
               <div className="text-sm font-medium leading-tight mb-1">
                 Naam achternaam
               </div>
