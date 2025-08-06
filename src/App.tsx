@@ -28,13 +28,14 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <LanguageWrapper>
-            {/* Persistent background and logo across all pages */}
+            {/* Persistent background across all pages */}
             <div className="fixed inset-0" style={{ background: '#111111' }}>
               <AnimatedBackground />
               <div className="absolute inset-0 bg-gradient-to-br from-gray-900/20 to-gray-900/40" />
-              {/* Global logo - hidden on haartransplantatie pages since they have their own ScrollFadeLogo */}
-              <GlobalCentralLogo />
             </div>
+            
+            {/* Global logo - outside background container to avoid fading */}
+            <GlobalCentralLogo />
             
             <Routes>
               {/* Root redirect handled by useLanguage hook */}
