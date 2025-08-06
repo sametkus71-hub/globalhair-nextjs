@@ -15,6 +15,9 @@ export const BottomNavigation = () => {
     if (path === 'home') {
       return location.pathname === '/nl' || location.pathname === '/en' || location.pathname === '/';
     }
+    if (path === 'reviews') {
+      return location.pathname === '/nl/reviews' || location.pathname === '/en/reviews';
+    }
     return false; // Other pages not implemented yet
   };
 
@@ -40,7 +43,7 @@ export const BottomNavigation = () => {
     { 
       icon: MessageSquareText, 
       label: 'Reviews', 
-      onClick: () => {},
+      onClick: () => navigate(language === 'nl' ? '/nl/reviews' : '/en/reviews'),
       id: 'reviews'
     }
   ];

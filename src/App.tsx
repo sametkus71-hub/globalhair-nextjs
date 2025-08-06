@@ -16,6 +16,7 @@ import ComingSoon1Page from "./pages/ComingSoon1Page";
 import ComingSoon2Page from "./pages/ComingSoon2Page";
 import DashboardPage from "./pages/DashboardPage";
 import FormPage from "./pages/FormPage";
+import ReviewsPage from "./pages/ReviewsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -49,6 +50,7 @@ const App = () => (
               <Route path="/nl/coming-soon-2" element={<ComingSoon2Page />} />
               <Route path="/nl/dashboard" element={<DashboardPage />} />
               <Route path="/nl/form" element={<FormPage />} />
+              <Route path="/nl/reviews" element={<ReviewsPage />} />
               
               {/* English routes */}
               <Route path="/en" element={<HomePage />} />
@@ -58,6 +60,7 @@ const App = () => (
               <Route path="/en/coming-soon-2" element={<ComingSoon2Page />} />
               <Route path="/en/dashboard" element={<DashboardPage />} />
               <Route path="/en/form" element={<FormPage />} />
+              <Route path="/en/reviews" element={<ReviewsPage />} />
               
               {/* Catch-all 404 */}
               <Route path="*" element={<NotFound />} />

@@ -429,6 +429,22 @@ body.s-wit {
   .animate-ultra-massive-pulse {
     animation: ultra-massive-pulse 260s ease-in-out infinite;
   }
+  
+  /* Reviews popup animations */
+  .reviews-popup-overlay {
+    @apply fixed inset-0 z-50;
+    animation: reviews-popup-enter 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  
+  .reviews-popup-content {
+    @apply fixed inset-x-4 bottom-4 top-20 bg-black/90 backdrop-blur-sm rounded-2xl border border-white/10 z-50;
+    animation: reviews-popup-slide-up 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    transform: translateY(100%) scale(0.95);
+  }
+  
+  .reviews-popup-exit {
+    animation: reviews-popup-slide-down 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
 }
 
 @keyframes float-slow {
@@ -498,6 +514,39 @@ body.s-wit {
     transform: translateX(12px) translateY(-6px) rotate(-22deg) scaleX(1.04) scaleY(0.96);
   }
   80% { 
+    transform: translateX(8px) translateY(-3px) rotate(-24deg) scaleX(1.02) scaleY(0.98);
+  }
+}
+
+@keyframes reviews-popup-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes reviews-popup-slide-up {
+  from {
+    transform: translateY(100%) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes reviews-popup-slide-down {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100%) scale(0.95);
+    opacity: 0;
+  }
     transform: translateX(20px) translateY(-10px) rotate(-27deg) scaleX(0.96) scaleY(1.04);
   }
 }

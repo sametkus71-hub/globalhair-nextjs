@@ -42,6 +42,11 @@ export const translations = {
     'page.haartransplantatie.title': 'Haartransplantatie',
     'page.v6hairboost.title': 'V6 Hairboost',
     'page.coming-soon': 'Binnenkort beschikbaar',
+    
+    // Reviews
+    'reviews.title': 'Bekijk onze reviews',
+    'reviews.description': 'Ontdek wat onze klanten zeggen over hun ervaringen met onze behandelingen.',
+    'reviews.close': 'Sluiten',
   },
   en: {
     // Navigation
@@ -84,6 +89,11 @@ export const translations = {
     'page.haartransplantatie.title': 'Hair Transplant',
     'page.v6hairboost.title': 'V6 Hairboost',
     'page.coming-soon': 'Coming Soon',
+    
+    // Reviews
+    'reviews.title': 'Check our reviews',
+    'reviews.description': 'Discover what our customers say about their experiences with our treatments.',
+    'reviews.close': 'Close',
   }
 } as const;
 
