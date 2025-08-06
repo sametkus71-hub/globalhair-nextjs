@@ -199,11 +199,10 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
   position: relative;
 }
 
-/* Instagram-style snap sections */
+/* Instagram-style sections - removed snap for continuous scrolling */
 .snap-section {
   min-height: 100vh;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+  /* Removed scroll-snap properties for smooth drag behavior */
   position: relative;
 }
 
@@ -290,10 +289,10 @@ body.s-wit {
     transform-origin: center center;
   }
 
-  /* Instagram-like smooth scrolling */
+  /* Instagram-like smooth scrolling - removed snap for continuous drag */
   html {
     scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
+    /* Removed scroll-snap-type to allow continuous scrolling */
   }
 
   body {
@@ -306,7 +305,7 @@ body.s-wit {
     html {
       scroll-behavior: smooth;
       -webkit-text-size-adjust: 100%;
-      scroll-snap-type: y mandatory;
+      /* Removed scroll-snap-type for drag preview behavior */
     }
     
     body {
