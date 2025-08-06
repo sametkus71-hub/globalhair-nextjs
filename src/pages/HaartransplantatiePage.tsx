@@ -6,6 +6,8 @@ import { PageTransition } from '@/components/PageTransition';
 import { BeforeAfterGrid } from '@/components/haartransplantatie/BeforeAfterGrid';
 import { VideoPlaySection } from '@/components/haartransplantatie/VideoPlaySection';
 import { BottomNavigation } from '@/components/haartransplantatie/BottomNavigation';
+import { FloatingActionZone } from '@/components/FloatingActionZone';
+import { TreatmentInfoSection } from '@/components/haartransplantatie/TreatmentInfoSection';
 
 
 const HaartransplantatiePage = () => {
@@ -72,6 +74,12 @@ const HaartransplantatiePage = () => {
             <BottomNavigation />
           </div>
         </div>
+
+        {/* Treatment Info Section */}
+        <TreatmentInfoSection />
+
+        {/* Floating Action Zone */}
+        <FloatingActionZone />
       </PageTransition>
     </>
   );
