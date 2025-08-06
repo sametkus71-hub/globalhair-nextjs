@@ -54,45 +54,53 @@ export const InstagramPostsSection = () => {
         <section
           key={index}
           id={`section-${index + 1}`} // section-1, section-2, etc.
-          className="snap-section min-h-screen w-full relative flex items-center justify-center bg-background"
+          className="snap-section min-h-screen w-full relative flex flex-col bg-white"
         >
-          <div className="w-full h-full flex flex-col justify-center items-center px-4 sm:px-8 md:px-16">
-            <div className="max-w-4xl w-full flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
-              {/* Image */}
-              <div className="w-full lg:w-1/2 flex justify-center">
-                <div className="relative w-full max-w-md aspect-square rounded-2xl overflow-hidden shadow-2xl">
-                  <img 
-                    src={post.image} 
-                    alt={post.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+          {/* Large Image */}
+          <div className="flex-1 w-full bg-gray-100 flex items-center justify-center">
+            <div className="w-full h-full min-h-[60vh] bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+              {/* Wireframe placeholder with X */}
+              <div className="relative w-16 h-16">
+                <div className="absolute inset-0 border-2 border-gray-400 rounded"></div>
+                <div className="absolute inset-2 flex items-center justify-center">
+                  <div className="w-full h-0.5 bg-gray-400 rotate-45"></div>
+                  <div className="absolute w-full h-0.5 bg-gray-400 -rotate-45"></div>
                 </div>
               </div>
+            </div>
+          </div>
+          
+          {/* Content Section */}
+          <div className="w-full bg-white px-6 py-8">
+            <div className="max-w-2xl">
+              {/* Header */}
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+                {post.title}
+              </h2>
               
-              {/* Content */}
-              <div className="w-full lg:w-1/2 text-center lg:text-left">
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-                  {post.title}
-                </h2>
-                <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-8">
-                  {post.description}
-                </p>
-                
-                {/* Post indicator */}
-                <div className="flex justify-center lg:justify-start gap-2 mb-4">
-                  {posts.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => scrollToPost(i + 1)} // +1 because hero is section 0
-                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                        i === currentPostIndex - 1 // -1 because hero is section 0
-                          ? 'bg-primary w-8' 
-                          : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
-                      }`}
-                    />
-                  ))}
-                </div>
+              {/* Sub Header */}
+              <h3 className="text-lg sm:text-xl text-gray-600 mb-4 font-medium">
+                {language === 'nl' ? 'Behandeling' : 'Treatment'}
+              </h3>
+              
+              {/* Description */}
+              <p className="text-base text-gray-700 leading-relaxed mb-6">
+                {post.description}
+              </p>
+              
+              {/* Post indicator */}
+              <div className="flex gap-2">
+                {posts.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => scrollToPost(i + 1)} // +1 because hero is section 0
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      i === currentPostIndex - 1 // -1 because hero is section 0
+                        ? 'bg-gray-800 w-6' 
+                        : 'bg-gray-300 hover:bg-gray-400'
+                    }`}
+                  />
+                ))}
               </div>
             </div>
           </div>
