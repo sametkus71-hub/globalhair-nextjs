@@ -8,7 +8,7 @@ import { BeforeAfterGrid } from '@/components/haartransplantatie/BeforeAfterGrid
 import { VideoPlaySection } from '@/components/haartransplantatie/VideoPlaySection';
 import { BottomNavigation } from '@/components/haartransplantatie/BottomNavigation';
 import { FloatingActionPortal } from '@/components/FloatingActionPortal';
-import { NewContentSection } from '@/components/haartransplantatie/NewContentSection';
+import { InstagramPostsSection } from '@/components/haartransplantatie/InstagramPostsSection';
 
 
 const HaartransplantatiePage = () => {
@@ -88,8 +88,8 @@ const HaartransplantatiePage = () => {
             </div>
           </section>
 
-          {/* Content Sections - Image/Text Layouts */}
-          <NewContentSection />
+          {/* Instagram-style Content Posts */}
+          <InstagramPostsSection />
 
           {/* Floating Action Buttons - rendered via portal */}
           <FloatingActionPortal />
