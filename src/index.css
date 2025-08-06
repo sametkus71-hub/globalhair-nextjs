@@ -792,10 +792,16 @@ body.s-wit {
 .page-entry-delay-3 { transition-delay: 0.3s; }
 .page-entry-delay-4 { transition-delay: 0.4s; }
 
-/* Full page snap scrolling */
+/* Full page snap scrolling with mobile optimizations */
 html {
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
+  height: 100%;
+  overflow-y: scroll;
+  /* Mobile optimizations */
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  overscroll-behavior: none;
 }
 
 .snap-section {
