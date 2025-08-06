@@ -54,55 +54,36 @@ export const InstagramPostsSection = () => {
         <section
           key={index}
           id={`section-${index + 1}`} // section-1, section-2, etc.
-          className="snap-section min-h-screen w-full relative flex flex-col bg-white"
+          className="snap-section min-h-screen w-full relative flex flex-col"
         >
-          {/* Large Image */}
-          <div className="flex-1 w-full bg-gray-100 flex items-center justify-center">
-            <div className="w-full h-full min-h-[60vh] bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-              {/* Wireframe placeholder with X */}
-              <div className="relative w-16 h-16">
-                <div className="absolute inset-0 border-2 border-gray-400 rounded"></div>
-                <div className="absolute inset-2 flex items-center justify-center">
-                  <div className="w-full h-0.5 bg-gray-400 rotate-45"></div>
-                  <div className="absolute w-full h-0.5 bg-gray-400 -rotate-45"></div>
-                </div>
+          {/* Large Image - fills most of the screen */}
+          <div className="flex-1 w-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+            {/* Wireframe placeholder with X */}
+            <div className="relative w-16 h-16">
+              <div className="absolute inset-0 border-2 border-gray-400 rounded"></div>
+              <div className="absolute inset-2 flex items-center justify-center">
+                <div className="w-full h-0.5 bg-gray-400 rotate-45"></div>
+                <div className="absolute w-full h-0.5 bg-gray-400 -rotate-45"></div>
               </div>
             </div>
           </div>
           
-          {/* Content Section */}
-          <div className="w-full bg-white px-6 py-8">
-            <div className="max-w-2xl">
-              {/* Header */}
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-                {post.title}
-              </h2>
-              
-              {/* Sub Header */}
-              <h3 className="text-lg sm:text-xl text-gray-600 mb-4 font-medium">
-                {language === 'nl' ? 'Behandeling' : 'Treatment'}
-              </h3>
-              
-              {/* Description */}
-              <p className="text-base text-gray-700 leading-relaxed mb-6">
-                {post.description}
-              </p>
-              
-              {/* Post indicator */}
-              <div className="flex gap-2">
-                {posts.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => scrollToPost(i + 1)} // +1 because hero is section 0
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      i === currentPostIndex - 1 // -1 because hero is section 0
-                        ? 'bg-gray-800 w-6' 
-                        : 'bg-gray-300 hover:bg-gray-400'
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
+          {/* Content Section - clean white area */}
+          <div className="w-full bg-white px-6 py-8 pb-32">
+            {/* Header */}
+            <h1 className="text-2xl font-bold text-black mb-2">
+              {post.title}
+            </h1>
+            
+            {/* Sub Header */}
+            <h2 className="text-lg text-gray-600 mb-4">
+              {language === 'nl' ? 'Behandeling' : 'Treatment'}
+            </h2>
+            
+            {/* Description */}
+            <p className="text-base text-gray-800 leading-relaxed">
+              {post.description}
+            </p>
           </div>
         </section>
       ))}
