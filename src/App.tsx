@@ -34,6 +34,8 @@ const App = () => (
               <div className="absolute inset-0 bg-gradient-to-br from-gray-900/20 to-gray-900/40" />
             </div>
             
+            <GlobalCentralLogo />
+            
             <Routes>
               {/* Root redirect handled by useLanguage hook */}
               <Route path="/" element={<HomePage />} />
