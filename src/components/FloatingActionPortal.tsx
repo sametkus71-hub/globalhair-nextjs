@@ -11,8 +11,7 @@ export const FloatingActionPortal: React.FC = () => {
   const [mounted, setMounted] = useState(false);
   const [consultModalOpen, setConsultModalOpen] = useState(false);
   const [chatOverlayOpen, setChatOverlayOpen] = useState(false);
-  const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
-  const [isScrolling, setIsScrolling] = useState(false);
+  const [isAtTop, setIsAtTop] = useState(true);
   const { language } = useLanguage();
   const location = useLocation();
   
@@ -29,34 +28,16 @@ export const FloatingActionPortal: React.FC = () => {
     return () => setMounted(false);
   }, []);
 
-  // Track scroll position to update button state with debouncing
+  // Simple scroll position tracking
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
     
     const handleScroll = () => {
-      // Don't update during programmatic scrolling
-      if (isScrolling) return;
-      
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
-        if (location.pathname.includes('/haartransplantatie')) {
-          const sections = document.querySelectorAll('.snap-section');
-          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-          const windowHeight = window.innerHeight;
-          
-          let currentIndex = 0;
-          sections.forEach((section, index) => {
-            const rect = section.getBoundingClientRect();
-            const sectionTop = rect.top + scrollTop;
-            
-            if (scrollTop >= sectionTop - windowHeight / 2) {
-              currentIndex = index;
-            }
-          });
-          
-          setCurrentSectionIndex(currentIndex);
-        }
-      }, 100); // Debounce scroll events
+        const scrollY = window.scrollY || window.pageYOffset;
+        setIsAtTop(scrollY < 100); // Show "up" arrow when scrolled past 100px
+      }, 100);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -66,83 +47,33 @@ export const FloatingActionPortal: React.FC = () => {
       window.removeEventListener('scroll', handleScroll);
       clearTimeout(timeoutId);
     };
-  }, [location.pathname, isScrolling]);
+  }, []);
 
-  const scrollToTop = () => {
-    setIsScrolling(true);
-    
-    // Temporarily disable scroll snap
+  const forceScrollToTop = () => {
+    // Disable scroll behaviors temporarily
     document.documentElement.classList.add('disable-scroll-snap');
+    const originalScrollBehavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = 'auto';
     
-    // Multiple fallback methods for scrolling to top
-    const scrollMethods = [
-      () => window.scrollTo({ top: 0, behavior: 'smooth' }),
-      () => { document.documentElement.scrollTop = 0; },
-      () => { document.body.scrollTop = 0; },
-      () => { window.scrollTo(0, 0); }
-    ];
+    // Force immediate scroll to top
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
     
-    // Try each method
-    let methodIndex = 0;
-    const tryScroll = () => {
-      if (methodIndex < scrollMethods.length) {
-        try {
-          scrollMethods[methodIndex]();
-          methodIndex++;
-        } catch (error) {
-          methodIndex++;
-          if (methodIndex < scrollMethods.length) {
-            tryScroll();
-          }
-        }
-      }
-    };
-    
-    tryScroll();
-    
-    // Re-enable scroll snap and reset scrolling state after animation
+    // Restore behaviors after a short delay
     setTimeout(() => {
+      document.documentElement.style.scrollBehavior = originalScrollBehavior;
       document.documentElement.classList.remove('disable-scroll-snap');
-      setIsScrolling(false);
-    }, 800);
+    }, 100);
   };
 
-  const scrollToNextSection = () => {
-    // Check if we're on haartransplantatie page
-    if (location.pathname.includes('/haartransplantatie')) {
-      const sections = document.querySelectorAll('.snap-section');
-      const totalSections = sections.length;
-      
-      // If on last section, scroll to top
-      if (currentSectionIndex >= totalSections - 1) {
-        scrollToTop();
-        return;
-      }
-      
-      // Otherwise scroll to next section
-      const nextSection = sections[currentSectionIndex + 1] as HTMLElement;
-      if (nextSection) {
-        setIsScrolling(true);
-        nextSection.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-        setTimeout(() => setIsScrolling(false), 800);
-      }
-      return;
+  const handleScrollAction = () => {
+    if (!isAtTop) {
+      forceScrollToTop();
+    } else {
+      // Scroll down one viewport
+      window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
     }
-    
-    // Default behavior for other pages
-    window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
-  };
-
-  const isOnLastSection = () => {
-    if (location.pathname.includes('/haartransplantatie')) {
-      const sections = document.querySelectorAll('.snap-section');
-      const totalSections = sections.length;
-      return currentSectionIndex >= totalSections - 1;
-    }
-    return false;
   };
 
   if (!mounted) return null;
@@ -201,10 +132,10 @@ export const FloatingActionPortal: React.FC = () => {
               backdropFilter: 'blur(12px)',
               WebkitBackdropFilter: 'blur(12px)',
             }}
-            onClick={scrollToNextSection}
-            aria-label={language === 'nl' ? (isOnLastSection() ? 'Naar boven' : 'Volgende') : (isOnLastSection() ? 'To top' : 'Next')}
+            onClick={handleScrollAction}
+            aria-label={language === 'nl' ? (!isAtTop ? 'Naar boven' : 'Naar beneden') : (!isAtTop ? 'To top' : 'Scroll down')}
           >
-            {isOnLastSection() ? (
+            {!isAtTop ? (
               <ChevronUp className="w-4 h-4 sm:w-5 sm:h-5 text-white/90 group-hover:text-white group-hover:scale-110 transition-all duration-200" />
             ) : (
               <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-white/90 group-hover:text-white group-hover:scale-110 transition-all duration-200" />
