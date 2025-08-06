@@ -42,13 +42,22 @@ export const InstagramPostsSection = () => {
   ];
 
   return (
-    <div className="relative overflow-hidden">
+    <div 
+      className="fixed inset-0 overflow-hidden"
+      style={{ 
+        height: '100vh',
+        touchAction: 'none',
+        overscrollBehavior: 'none'
+      }}
+    >
       {/* Posts Container with Transform */}
       <div 
         ref={containerRef}
-        className="transition-transform duration-300 ease-out"
+        className="h-full w-full"
         style={{
-          transform: `translateY(-${currentPost * 100}vh)`
+          transform: `translateY(-${currentPost * 100}vh)`,
+          transition: 'none', // Transitions handled by the hook
+          willChange: 'transform'
         }}
       >
         {posts.map((post, index) => (

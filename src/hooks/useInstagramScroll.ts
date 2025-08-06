@@ -10,11 +10,13 @@ export const useInstagramScroll = ({ postCount, onPostChange }: UseInstagramScro
   const [isScrolling, setIsScrolling] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const startTouchY = useRef(0);
-  const scrollAccumulator = useRef(0);
+  const currentTouchY = useRef(0);
+  const isDragging = useRef(false);
   
   const goToPost = useCallback((postIndex: number) => {
-    if (postIndex < 0 || postIndex >= postCount || isScrolling) return;
+    if (postIndex < 0 || postIndex >= postCount) return;
     
+    console.log('🎯 Going to post:', postIndex);
     setIsScrolling(true);
     setCurrentPost(postIndex);
     onPostChange?.(postIndex);
@@ -24,70 +26,85 @@ export const useInstagramScroll = ({ postCount, onPostChange }: UseInstagramScro
     if (container) {
       const translateY = -postIndex * 100;
       container.style.transform = `translateY(${translateY}vh)`;
+      container.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
     }
     
     // Reset scrolling state after animation
     setTimeout(() => {
       setIsScrolling(false);
-    }, 350);
-  }, [postCount, isScrolling, onPostChange]);
+    }, 300);
+  }, [postCount, onPostChange]);
 
   const nextPost = useCallback(() => {
-    if (currentPost < postCount - 1) {
+    if (currentPost < postCount - 1 && !isScrolling) {
       goToPost(currentPost + 1);
     }
-  }, [currentPost, postCount, goToPost]);
+  }, [currentPost, postCount, goToPost, isScrolling]);
 
   const previousPost = useCallback(() => {
-    if (currentPost > 0) {
+    if (currentPost > 0 && !isScrolling) {
       goToPost(currentPost - 1);
     }
-  }, [currentPost, goToPost]);
+  }, [currentPost, goToPost, isScrolling]);
 
   useEffect(() => {
+    // Prevent all default scrolling on the page
+    const preventScroll = (e: Event) => {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    };
+
     // Wheel events for desktop
     const handleWheel = (e: WheelEvent) => {
-      if (isScrolling) {
-        e.preventDefault();
-        return;
-      }
-
-      // Accumulate scroll delta for sensitivity
-      scrollAccumulator.current += e.deltaY;
-
+      e.preventDefault();
+      e.stopPropagation();
+      
+      if (isScrolling) return;
+      
+      console.log('🖱️ Wheel event:', e.deltaY);
+      
       // Very sensitive threshold - like Instagram
-      if (Math.abs(scrollAccumulator.current) > 15) {
-        e.preventDefault();
-        
-        if (scrollAccumulator.current > 0 && currentPost < postCount - 1) {
+      if (Math.abs(e.deltaY) > 10) {
+        if (e.deltaY > 0 && currentPost < postCount - 1) {
           nextPost();
-        } else if (scrollAccumulator.current < 0 && currentPost > 0) {
+        } else if (e.deltaY < 0 && currentPost > 0) {
           previousPost();
         }
-        
-        scrollAccumulator.current = 0;
       }
     };
 
     // Touch events for mobile
     const handleTouchStart = (e: TouchEvent) => {
       if (isScrolling) return;
+      
       startTouchY.current = e.touches[0].clientY;
+      currentTouchY.current = e.touches[0].clientY;
+      isDragging.current = true;
+      
+      console.log('👆 Touch start:', startTouchY.current);
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      if (isScrolling) {
-        e.preventDefault();
-        return;
-      }
+      e.preventDefault();
+      e.stopPropagation();
       
-      const currentTouchY = e.touches[0].clientY;
-      const deltaY = startTouchY.current - currentTouchY;
+      if (!isDragging.current || isScrolling) return;
       
-      // Immediate response to small touch movements
+      currentTouchY.current = e.touches[0].clientY;
+      console.log('👆 Touch move:', currentTouchY.current);
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (!isDragging.current || isScrolling) return;
+      
+      const deltaY = startTouchY.current - currentTouchY.current;
+      console.log('👆 Touch end, deltaY:', deltaY);
+      
+      isDragging.current = false;
+      
+      // Very sensitive threshold for mobile
       if (Math.abs(deltaY) > 20) {
-        e.preventDefault();
-        
         if (deltaY > 0 && currentPost < postCount - 1) {
           // Swiped up - go to next post
           nextPost();
@@ -122,17 +139,21 @@ export const useInstagramScroll = ({ postCount, onPostChange }: UseInstagramScro
       }
     };
 
-    // Add event listeners
-    window.addEventListener('wheel', handleWheel, { passive: false });
-    window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    // Add event listeners with passive: false to prevent default scrolling
+    document.addEventListener('wheel', handleWheel, { passive: false });
+    document.addEventListener('touchstart', handleTouchStart, { passive: false });
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    document.addEventListener('touchend', handleTouchEnd, { passive: false });
+    document.addEventListener('scroll', preventScroll, { passive: false });
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('instagram-scroll-next', handleCustomScrollNext);
     
     return () => {
-      window.removeEventListener('wheel', handleWheel);
-      window.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('wheel', handleWheel);
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchend', handleTouchEnd);
+      document.removeEventListener('scroll', preventScroll);
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('instagram-scroll-next', handleCustomScrollNext);
     };
