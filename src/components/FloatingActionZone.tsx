@@ -56,8 +56,15 @@ export const FloatingActionZone: React.FC<FloatingActionZoneProps> = ({ classNam
     <>
       <div 
         className={cn(
-          "fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4",
+          "fixed right-4 z-40 flex flex-col gap-3",
+          "transition-all duration-300",
+          // Position: Above bottom navigation with safe area
+          "bottom-[calc(70px+env(safe-area-inset-bottom,0px)+16px)]",
+          // Safe area padding for right side
           "pr-[env(safe-area-inset-right,0px)]",
+          // Mobile responsive positioning
+          "max-[400px]:right-3 max-[400px]:gap-2",
+          "max-[400px]:bottom-[calc(65px+env(safe-area-inset-bottom,0px)+12px)]",
           className
         )}
         style={{ pointerEvents: 'none' }}
@@ -69,17 +76,20 @@ export const FloatingActionZone: React.FC<FloatingActionZoneProps> = ({ classNam
               key={button.id}
               size="icon"
               className={cn(
-                "w-12 h-12 rounded-full shadow-lg backdrop-blur-sm",
-                "bg-white/80 hover:bg-white/90 text-gray-700 hover:text-gray-900",
+                "w-12 h-12 rounded-full backdrop-blur-sm",
+                "bg-background/95 hover:bg-background text-foreground",
+                "border border-border shadow-medium",
                 "transition-all duration-300 transform",
-                "border border-white/20",
                 "pointer-events-auto",
+                "hover:scale-110 hover:shadow-strong active:scale-95",
                 // Animation classes
                 isVisible 
-                  ? "opacity-100 translate-y-0" 
-                  : "opacity-0 translate-y-4",
-                // Responsive sizing
-                "max-[400px]:w-10 max-[400px]:h-10"
+                  ? "opacity-100 translate-x-0" 
+                  : "opacity-0 translate-x-8",
+                // Responsive sizing with proper touch targets
+                "max-[400px]:w-11 max-[400px]:h-11",
+                // Ensure minimum 44px touch target on mobile
+                "min-h-[44px] min-w-[44px] max-[400px]:min-h-[40px] max-[400px]:min-w-[40px]"
               )}
               style={{
                 transitionDelay: isVisible ? `${button.delay}ms` : '0ms',
