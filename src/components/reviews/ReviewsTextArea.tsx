@@ -8,10 +8,10 @@ export const ReviewsTextArea = () => {
   return (
     <div className="w-full h-full flex items-center justify-center p-6">
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-white mb-4">
+        <h2 className="text-2xl font-bold text-black mb-4">
           {t('reviews.title')}
         </h2>
-        <p className="text-white/80 text-sm leading-relaxed max-w-md">
+        <p className="text-gray-600 text-sm leading-relaxed max-w-md">
           {t('reviews.description')}
         </p>
       </div>
