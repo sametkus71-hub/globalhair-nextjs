@@ -11,6 +11,7 @@ export const FloatingActionPortal: React.FC = () => {
   const [mounted, setMounted] = useState(false);
   const [consultModalOpen, setConsultModalOpen] = useState(false);
   const [chatOverlayOpen, setChatOverlayOpen] = useState(false);
+  const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const { language } = useLanguage();
   const location = useLocation();
   
@@ -27,30 +28,43 @@ export const FloatingActionPortal: React.FC = () => {
     return () => setMounted(false);
   }, []);
 
+  // Track scroll position to update button state
+  useEffect(() => {
+    const handleScroll = () => {
+      if (location.pathname.includes('/haartransplantatie')) {
+        const sections = document.querySelectorAll('.snap-section');
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const windowHeight = window.innerHeight;
+        
+        let currentIndex = 0;
+        sections.forEach((section, index) => {
+          const rect = section.getBoundingClientRect();
+          const sectionTop = rect.top + scrollTop;
+          
+          if (scrollTop >= sectionTop - windowHeight / 2) {
+            currentIndex = index;
+          }
+        });
+        
+        setCurrentSectionIndex(currentIndex);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial call
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [location.pathname]);
+
   const scrollToNextSection = () => {
     // Check if we're on haartransplantatie page
     if (location.pathname.includes('/haartransplantatie')) {
       const sections = document.querySelectorAll('.snap-section');
       const totalSections = sections.length;
       
-      // Find current section by checking which one is most visible
-      let currentSectionIndex = 0;
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const windowHeight = window.innerHeight;
-      
-      sections.forEach((section, index) => {
-        const rect = section.getBoundingClientRect();
-        const sectionTop = rect.top + scrollTop;
-        
-        if (scrollTop >= sectionTop - windowHeight / 2) {
-          currentSectionIndex = index;
-        }
-      });
-      
       console.log('🔄 Scroll Debug:', {
         currentSectionIndex,
         totalSections,
-        scrollTop,
         isOnLast: currentSectionIndex >= totalSections - 1
       });
       
@@ -81,28 +95,7 @@ export const FloatingActionPortal: React.FC = () => {
     if (location.pathname.includes('/haartransplantatie')) {
       const sections = document.querySelectorAll('.snap-section');
       const totalSections = sections.length;
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const windowHeight = window.innerHeight;
-      
-      let currentSectionIndex = 0;
-      sections.forEach((section, index) => {
-        const rect = section.getBoundingClientRect();
-        const sectionTop = rect.top + scrollTop;
-        
-        if (scrollTop >= sectionTop - windowHeight / 2) {
-          currentSectionIndex = index;
-        }
-      });
-      
-      const isLast = currentSectionIndex >= totalSections - 1;
-      console.log('🔍 Button State Check:', {
-        currentSectionIndex,
-        totalSections,
-        isLast,
-        scrollTop
-      });
-      
-      return isLast;
+      return currentSectionIndex >= totalSections - 1;
     }
     return false;
   };
