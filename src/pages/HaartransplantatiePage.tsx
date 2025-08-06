@@ -7,7 +7,7 @@ import { PageTransition } from '@/components/PageTransition';
 import { ScrollFadeLogo } from '@/components/ScrollFadeLogo';
 import { BeforeAfterGrid } from '@/components/haartransplantatie/BeforeAfterGrid';
 import { VideoPlaySection } from '@/components/haartransplantatie/VideoPlaySection';
-import { BottomNavigation } from '@/components/haartransplantatie/BottomNavigation';
+import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 import { FloatingActionPortal } from '@/components/FloatingActionPortal';
 import { InstagramPostsSection } from '@/components/haartransplantatie/InstagramPostsSection';
 import { ScrollProvider, useScrollContext } from '@/contexts/ScrollContext';
@@ -103,10 +103,8 @@ const HaartransplantatiePageContent = () => {
         {/* Floating Action Buttons - rendered via portal */}
         <FloatingActionPortal />
 
-        {/* Fixed Bottom Navigation - outside scroll container */}
-        <div className="fixed bottom-0 left-0 right-0 z-40">
-          <BottomNavigation />
-        </div>
+        {/* Bottom Navigation - rendered via portal */}
+        <BottomNavigationPortal />
       </PageTransition>
     </>
   );
