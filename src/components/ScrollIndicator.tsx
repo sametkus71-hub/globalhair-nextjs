@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
+import { useScrollContext } from '@/contexts/ScrollContext';
 
 export const ScrollIndicator = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [animationPhase, setAnimationPhase] = useState<'top' | 'scrolling'>('top');
+  const { currentPostIndex, totalPosts } = useScrollContext();
 
   useEffect(() => {
     // Show indicator after 3 seconds to let user settle in
@@ -32,6 +34,10 @@ export const ScrollIndicator = () => {
       window.removeEventListener('wheel', handleInteraction);
     };
   }, []);
+
+  // Check if we're on the last post
+  const isLastPost = currentPostIndex === totalPosts - 1;
+  const ArrowIcon = isLastPost ? ChevronUp : ChevronDown;
 
   if (!isVisible) return null;
 
@@ -72,8 +78,8 @@ export const ScrollIndicator = () => {
           animationPhase === 'scrolling' ? 'mobile-scrolling' : 'mobile-entrance'
         }`}>
           <div className="flex flex-col">
-            <ChevronDown size={20} className="text-white/70" />
-            <ChevronDown size={20} className="text-white/70 -mt-3" />
+            <ArrowIcon size={20} className="text-white/70" />
+            <ArrowIcon size={20} className="text-white/70 -mt-3" />
           </div>
         </div>
       </div>

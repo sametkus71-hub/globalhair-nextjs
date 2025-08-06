@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, MessageCircle, ChevronDown } from 'lucide-react';
+import { Calendar, MessageCircle, ChevronDown, Instagram, Send, Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -105,11 +105,12 @@ export const FloatingActionZone: React.FC<FloatingActionZoneProps> = ({ classNam
 
       {/* Consultation Modal */}
       <Dialog open={consultModalOpen} onOpenChange={setConsultModalOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>
+        <DialogContent className="sm:max-w-md bg-card border-border shadow-strong">
+          <DialogHeader className="bg-gradient-to-r from-primary/5 to-secondary/5 -m-6 mb-4 p-6 rounded-t-lg">
+            <DialogTitle className="text-foreground">
               {language === 'nl' ? 'Plan uw consultatie' : 'Plan your consultation'}
             </DialogTitle>
+            <p className="text-sm text-muted-foreground">GlobalHair</p>
           </DialogHeader>
           <div className="space-y-4 p-4">
             <p className="text-sm text-muted-foreground">
@@ -119,10 +120,10 @@ export const FloatingActionZone: React.FC<FloatingActionZoneProps> = ({ classNam
               }
             </p>
             <div className="flex flex-col gap-2">
-              <Button className="w-full">
+              <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-medium">
                 {language === 'nl' ? 'Bel ons nu' : 'Call us now'}
               </Button>
-              <Button variant="outline" className="w-full">
+              <Button variant="outline" className="w-full border-primary/20 hover:bg-primary/5 hover:border-primary/40">
                 {language === 'nl' ? 'Plan online afspraak' : 'Schedule online appointment'}
               </Button>
             </div>
@@ -132,25 +133,36 @@ export const FloatingActionZone: React.FC<FloatingActionZoneProps> = ({ classNam
 
       {/* Chat Support Modal */}
       <Dialog open={chatModalOpen} onOpenChange={setChatModalOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>
-              {language === 'nl' ? 'Chat ondersteuning' : 'Chat support'}
+        <DialogContent className="sm:max-w-md bg-card border-border shadow-strong">
+          <DialogHeader className="bg-gradient-to-r from-primary/5 to-secondary/5 -m-6 mb-4 p-6 rounded-t-lg">
+            <DialogTitle className="text-foreground">
+              {language === 'nl' ? 'Contact & Support' : 'Contact & Support'}
             </DialogTitle>
+            <p className="text-sm text-muted-foreground">GlobalHair</p>
           </DialogHeader>
           <div className="space-y-4 p-4">
             <p className="text-sm text-muted-foreground">
               {language === 'nl' 
-                ? 'Krijg direct antwoord op uw vragen via onze chat.'
-                : 'Get instant answers to your questions via our chat.'
+                ? 'Kies uw voorkeur om contact met ons op te nemen.'
+                : 'Choose your preferred way to contact us.'
               }
             </p>
-            <div className="flex flex-col gap-2">
-              <Button className="w-full">
-                {language === 'nl' ? 'Start WhatsApp chat' : 'Start WhatsApp chat'}
+            <div className="flex flex-col gap-3">
+              <Button className="w-full bg-green-600 hover:bg-green-700 text-white shadow-medium gap-2">
+                <MessageCircle className="w-4 h-4" />
+                {language === 'nl' ? 'WhatsApp Chat' : 'WhatsApp Chat'}
               </Button>
-              <Button variant="outline" className="w-full">
-                {language === 'nl' ? 'Live chat' : 'Live chat'}
+              <Button className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-medium gap-2">
+                <Instagram className="w-4 h-4" />
+                {language === 'nl' ? 'Instagram DM' : 'Instagram DM'}
+              </Button>
+              <Button className="w-full bg-black hover:bg-gray-900 text-white shadow-medium gap-2">
+                <Send className="w-4 h-4" />
+                {language === 'nl' ? 'TikTok Bericht' : 'TikTok Message'}
+              </Button>
+              <Button variant="outline" className="w-full border-secondary hover:bg-secondary/10 hover:border-secondary/60 gap-2">
+                <Zap className="w-4 h-4" />
+                {language === 'nl' ? 'Doe de haarscan' : 'Take hair scan'}
               </Button>
             </div>
           </div>
