@@ -198,8 +198,12 @@ export const useInstagramScroll = ({ totalSections, onSectionChange }: UseInstag
     return () => observer.disconnect();
   }, [currentSection, isTransitioning, onSectionChange]);
 
-  // Event listeners
+  // Event listeners - temporarily disabled to restore normal scroll
   useEffect(() => {
+    console.log('🔧 Instagram scroll hook initialized but events disabled for debugging');
+    
+    // Temporarily comment out event listeners to restore normal scroll
+    /*
     const container = containerRef.current || window;
     
     // Optimize event listeners with passive settings
@@ -221,6 +225,7 @@ export const useInstagramScroll = ({ totalSections, onSectionChange }: UseInstag
         cancelAnimationFrame(animationFrame.current);
       }
     };
+    */
   }, [handleWheel, handleTouchStart, handleTouchMove, handleTouchEnd, handleKeyDown]);
 
   return {
