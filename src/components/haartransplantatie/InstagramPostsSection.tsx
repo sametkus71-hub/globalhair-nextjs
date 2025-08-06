@@ -8,6 +8,13 @@ export const InstagramPostsSection = () => {
 
   const posts = [
     {
+      id: 'procedure',
+      title: language === 'nl' ? 'Precisie Techniek' : 'Precision Technique',
+      subtitle: language === 'nl' ? 'Procedure' : 'Procedure',
+      description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+      image: '/lovable-uploads/ea501157-5b9d-400b-ad68-e4172e38bb56.png',
+    },
+    {
       id: 'results',
       title: language === 'nl' ? 'Transformatie' : 'Transformation',
       subtitle: language === 'nl' ? 'Voorbeelden' : 'Examples',
@@ -20,13 +27,6 @@ export const InstagramPostsSection = () => {
       subtitle: language === 'nl' ? 'Consultatie' : 'Consultation',
       description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
       image: '/lovable-uploads/a593ff6b-3d96-407a-a55c-598bbc56df9b.png',
-    },
-    {
-      id: 'procedure',
-      title: language === 'nl' ? 'Precisie Techniek' : 'Precision Technique',
-      subtitle: language === 'nl' ? 'Procedure' : 'Procedure',
-      description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      image: '/lovable-uploads/ea501157-5b9d-400b-ad68-e4172e38bb56.png',
     },
     {
       id: 'contact',
