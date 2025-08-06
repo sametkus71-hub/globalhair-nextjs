@@ -199,10 +199,11 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
   position: relative;
 }
 
-/* Instagram-style sections with snap behavior */
+/* Instagram-style snap sections */
 .snap-section {
   min-height: 100vh;
   scroll-snap-align: start;
+  scroll-snap-stop: always;
   position: relative;
 }
 
@@ -289,7 +290,7 @@ body.s-wit {
     transform-origin: center center;
   }
 
-  /* Smooth scrolling with section snapping */
+  /* Instagram-like smooth scrolling */
   html {
     scroll-behavior: smooth;
     scroll-snap-type: y mandatory;
@@ -311,7 +312,6 @@ body.s-wit {
     body {
       -webkit-overflow-scrolling: touch;
       touch-action: pan-y;
-      overflow-y: auto;
     }
   }
 
@@ -838,14 +838,13 @@ body.s-wit {
 .page-entry-delay-3 { transition-delay: 0.3s; }
 .page-entry-delay-4 { transition-delay: 0.4s; }
 
-/* Scrollable page with snap behavior */
+/* Instagram-style full page scroll */
 html, body {
   height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   /* Mobile optimizations */
-  touch-action: pan-y;
-  overscroll-behavior-x: none;
+  touch-action: none;
+  overscroll-behavior: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
 }
