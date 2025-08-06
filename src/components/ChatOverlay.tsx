@@ -36,105 +36,97 @@ export const ChatOverlay: React.FC<ChatOverlayProps> = ({
       className="fixed inset-0 z-[10000] bg-black/50 backdrop-blur-sm flex items-end justify-center sm:items-center sm:justify-center p-4"
       onClick={handleBackdropClick}
     >
-      <div className="bg-background rounded-t-lg sm:rounded-lg shadow-2xl w-full max-w-sm">
+      <div className="bg-background rounded-t-xl sm:rounded-xl border border-border/20 w-full max-w-sm" style={{
+        boxShadow: 'var(--shadow-medium)'
+      }}>
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-border/50">
-          <div>
-            <p className="text-sm text-muted-foreground font-medium tracking-wide">GlobalHair</p>
-            <h3 className="text-lg font-semibold flex items-center gap-2">
-              <MessageCircle className="w-5 h-5" />
-              {language === 'nl' ? 'Contact & Support' : 'Contact & Support'}
-            </h3>
+        <div className="p-4 border-b border-border/50">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs text-muted-foreground font-medium tracking-wider uppercase">GlobalHair</p>
+              <h3 className="text-lg font-semibold flex items-center gap-2">
+                <MessageCircle className="w-4 h-4" />
+                {language === 'nl' ? 'Contact' : 'Contact'}
+              </h3>
+            </div>
+            <button
+              onClick={() => onOpenChange(false)}
+              className="w-7 h-7 rounded-full hover:bg-muted flex items-center justify-center transition-colors"
+              aria-label="Close"
+            >
+              <X className="w-4 h-4 text-muted-foreground" />
+            </button>
           </div>
-          <button
-            onClick={() => onOpenChange(false)}
-            className="w-8 h-8 rounded-full hover:bg-accent flex items-center justify-center transition-colors"
-            aria-label="Close"
-          >
-            <X className="w-5 h-5" />
-          </button>
         </div>
 
         {/* Content */}
-        <div className="p-4 space-y-4">
-          <p className="text-sm text-muted-foreground leading-relaxed">
+        <div className="p-4 space-y-3">
+          <p className="text-sm text-muted-foreground">
             {language === 'nl' 
-              ? 'Kies uw voorkeursmanier van contact voor premium ondersteuning en haartransplantatie advies.'
-              : 'Choose your preferred way to contact us for premium support and hair transplant advice.'
+              ? 'Kies uw contact methode'
+              : 'Choose your contact method'
             }
           </p>
 
-          <div className="space-y-3">
+          <div className="space-y-2">
             <Button 
               onClick={openWhatsApp}
-              className="w-full justify-between bg-green-600 hover:bg-green-700 text-white"
-              size="lg"
+              className="w-full justify-start gap-2 h-10 bg-primary hover:bg-primary/90"
+              size="sm"
             >
-              <span className="flex items-center gap-2">
-                <MessageCircle className="w-5 h-5" />
-                WhatsApp
-              </span>
-              <ExternalLink className="w-4 h-4" />
+              <MessageCircle className="w-4 h-4" />
+              WhatsApp
             </Button>
 
             <Button 
               variant="outline" 
-              className="w-full justify-between border-primary/20 hover:bg-primary/5" 
-              size="lg"
+              className="w-full justify-start gap-2 h-10" 
+              size="sm"
               onClick={() => window.open('https://instagram.com/globalhair', '_blank')}
             >
-              <span className="flex items-center gap-2">
-                <Instagram className="w-5 h-5" />
-                Instagram
-              </span>
-              <ExternalLink className="w-4 h-4" />
+              <Instagram className="w-4 h-4" />
+              Instagram
             </Button>
 
             <Button 
               variant="outline" 
-              className="w-full justify-between border-primary/20 hover:bg-primary/5" 
-              size="lg"
+              className="w-full justify-start gap-2 h-10" 
+              size="sm"
               onClick={() => window.open('https://tiktok.com/@globalhair', '_blank')}
             >
-              <span className="flex items-center gap-2">
-                <Camera className="w-5 h-5" />
-                TikTok
-              </span>
-              <ExternalLink className="w-4 h-4" />
+              <Camera className="w-4 h-4" />
+              TikTok
             </Button>
 
-            <div className="relative">
+            <div className="relative py-1">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-border/50" />
+                <div className="w-full border-t border-border/30" />
               </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">
-                  {language === 'nl' ? 'Of probeer' : 'Or try'}
+              <div className="relative flex justify-center">
+                <span className="bg-background px-2 text-xs text-muted-foreground">
+                  {language === 'nl' ? 'of probeer' : 'or try'}
                 </span>
               </div>
             </div>
 
             <Button 
               variant="secondary"
-              className="w-full justify-between" 
-              size="lg"
+              className="w-full justify-start gap-2 h-10" 
+              size="sm"
               onClick={() => {
-                // Navigate to hair scan
                 console.log('Navigate to hair scan');
               }}
             >
-              <span className="flex items-center gap-2">
-                <Scan className="w-5 h-5" />
-                {language === 'nl' ? 'Doe de haarscan' : 'Take hair scan'}
-              </span>
+              <Scan className="w-4 h-4" />
+              {language === 'nl' ? 'Haarscan' : 'Hair scan'}
             </Button>
           </div>
 
-          <div className="pt-2 border-t">
-            <p className="text-xs text-muted-foreground text-center">
+          <div className="pt-1 text-center">
+            <p className="text-xs text-muted-foreground">
               {language === 'nl' 
-                ? 'Gemiddelde reactietijd: 2-5 minuten'
-                : 'Average response time: 2-5 minutes'
+                ? 'Reactie binnen 2-5 minuten'
+                : 'Response in 2-5 minutes'
               }
             </p>
           </div>
