@@ -9,9 +9,11 @@ export const InstagramPostsSection = () => {
   const posts = [
     {
       id: 'procedure',
-      title: language === 'nl' ? 'Precisie Techniek' : 'Precision Technique',
+      title: language === 'nl' ? 'Zie het in werking' : 'See it in action',
       subtitle: language === 'nl' ? 'Procedure' : 'Procedure',
-      description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+      description: language === 'nl' 
+        ? 'Een complete rondleiding door ons moderne proces. Van consultatie tot resultaat - ontdek hoe wij natuurlijke haartransplantaties realiseren.'
+        : 'A complete walkthrough of our modern process. From consultation to results - discover how we achieve natural hair transplants.',
       video: 'https://vz-104aba77-1e1.b-cdn.net/24128683-fbb8-4733-abbb-95aa6a23ab48/playlist.m3u8',
     },
     {
