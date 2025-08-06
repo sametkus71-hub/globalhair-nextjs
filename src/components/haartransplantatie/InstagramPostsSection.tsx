@@ -15,18 +15,18 @@ export const InstagramPostsSection = () => {
       image: '/lovable-uploads/9a5567ac-b6d3-4a0b-98db-aefd6f1d3e21.png',
     },
     {
-      id: 'procedure',
-      title: language === 'nl' ? 'Precisie Techniek' : 'Precision Technique',
-      subtitle: language === 'nl' ? 'Procedure' : 'Procedure',
-      description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      image: '/lovable-uploads/ea501157-5b9d-400b-ad68-e4172e38bb56.png',
-    },
-    {
       id: 'consultation',
       title: language === 'nl' ? 'Professionele Analyse' : 'Professional Analysis',
       subtitle: language === 'nl' ? 'Consultatie' : 'Consultation',
-      description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+      description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
       image: '/lovable-uploads/a593ff6b-3d96-407a-a55c-598bbc56df9b.png',
+    },
+    {
+      id: 'procedure',
+      title: language === 'nl' ? 'Precisie Techniek' : 'Precision Technique',
+      subtitle: language === 'nl' ? 'Procedure' : 'Procedure',
+      description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+      image: '/lovable-uploads/ea501157-5b9d-400b-ad68-e4172e38bb56.png',
     },
     {
       id: 'contact',
