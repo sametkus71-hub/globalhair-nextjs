@@ -48,35 +48,37 @@ export const InstagramPostsSection = () => {
           id={`section-${index + 1}`} // section-1, section-2, etc.
           className="snap-section min-h-screen w-full relative flex flex-col"
         >
-          {/* Large Image - fills most of the screen */}
-          <div className="flex-1 w-full overflow-hidden">
+          {/* Large Image - fixed height for consistency */}
+          <div className="h-[70vh] w-full overflow-hidden">
             <img 
               src={post.image} 
               alt={post.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover object-center"
             />
           </div>
           
-          {/* Content Section - clean white area */}
-          <div className="w-full bg-white px-6 py-6 pb-32">
-            {/* Subtitle - small elegant text */}
-            <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2 font-medium">
-              {post.subtitle}
-            </p>
-            
-            {/* Main Title - refined typography */}
-            <h1 className="text-xl font-semibold text-foreground mb-4 leading-tight">
-              {post.title}
-            </h1>
-            
-            {/* Description - smaller, elegant */}
-            <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-              {post.description}
-            </p>
+          {/* Content Section - fixed height for consistency */}
+          <div className="h-[30vh] w-full bg-white px-6 py-6 pb-32 flex flex-col justify-between">
+            <div>
+              {/* Subtitle - small elegant text */}
+              <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2 font-medium">
+                {post.subtitle}
+              </p>
+              
+              {/* Main Title - refined typography */}
+              <h1 className="text-xl font-semibold text-foreground mb-4 leading-tight">
+                {post.title}
+              </h1>
+              
+              {/* Description - smaller, elegant */}
+              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                {post.description}
+              </p>
+            </div>
 
-            {/* Contact CTA - only for last item */}
+            {/* Contact CTA - only for last item, positioned at bottom */}
             {post.isContact && (
-              <button className="group inline-flex items-center text-sm text-foreground hover:text-primary transition-colors duration-200">
+              <button className="group inline-flex items-center text-sm text-foreground hover:text-primary transition-colors duration-200 self-start">
                 <span className="border-b border-current">
                   {language === 'nl' ? 'Neem contact op' : 'Get in touch'}
                 </span>
