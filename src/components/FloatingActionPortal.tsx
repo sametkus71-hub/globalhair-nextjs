@@ -28,17 +28,40 @@ export const FloatingActionPortal: React.FC = () => {
   }, []);
 
   const scrollToNextSection = () => {
-    // Use scroll context if available (on haartransplantatie page)
-    if (scrollContext && location.pathname.includes('/haartransplantatie')) {
-      const { currentPostIndex, totalPosts, scrollToPost } = scrollContext;
-      if (currentPostIndex < totalPosts - 1) {
-        scrollToPost(currentPostIndex + 1);
-        return;
-      } else {
-        // If on last section, scroll to top
+    // Check if we're on haartransplantatie page
+    if (location.pathname.includes('/haartransplantatie')) {
+      const sections = document.querySelectorAll('.snap-section');
+      const totalSections = sections.length;
+      
+      // Find current section by checking which one is most visible
+      let currentSectionIndex = 0;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const windowHeight = window.innerHeight;
+      
+      sections.forEach((section, index) => {
+        const rect = section.getBoundingClientRect();
+        const sectionTop = rect.top + scrollTop;
+        
+        if (scrollTop >= sectionTop - windowHeight / 2) {
+          currentSectionIndex = index;
+        }
+      });
+      
+      // If on last section, scroll to top
+      if (currentSectionIndex >= totalSections - 1) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
       }
+      
+      // Otherwise scroll to next section
+      const nextSection = sections[currentSectionIndex + 1] as HTMLElement;
+      if (nextSection) {
+        nextSection.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+      return;
     }
     
     // Default behavior for other pages
@@ -46,9 +69,23 @@ export const FloatingActionPortal: React.FC = () => {
   };
 
   const isOnLastSection = () => {
-    if (scrollContext && location.pathname.includes('/haartransplantatie')) {
-      const { currentPostIndex, totalPosts } = scrollContext;
-      return currentPostIndex >= totalPosts - 1;
+    if (location.pathname.includes('/haartransplantatie')) {
+      const sections = document.querySelectorAll('.snap-section');
+      const totalSections = sections.length;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const windowHeight = window.innerHeight;
+      
+      let currentSectionIndex = 0;
+      sections.forEach((section, index) => {
+        const rect = section.getBoundingClientRect();
+        const sectionTop = rect.top + scrollTop;
+        
+        if (scrollTop >= sectionTop - windowHeight / 2) {
+          currentSectionIndex = index;
+        }
+      });
+      
+      return currentSectionIndex >= totalSections - 1;
     }
     return false;
   };
@@ -58,63 +95,66 @@ export const FloatingActionPortal: React.FC = () => {
   const content = (
     <>
       {/* Floating Action Buttons */}
-      <div className="fixed bottom-20 right-6 z-[9999] flex flex-col gap-4 sm:bottom-24 sm:right-8">
+      <div className="fixed bottom-16 right-6 z-[9999] flex flex-col gap-3 sm:bottom-20 sm:right-8">
         {/* Plan Consultation Button */}
-        <div className="flex flex-col items-center gap-1">
+        <div className="flex flex-col items-center">
           <button
-            className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl shadow-medium hover:scale-105 hover:shadow-strong transition-all duration-300 ease-out flex items-center justify-center border border-white/10 backdrop-blur-sm group"
+            className="w-11 h-11 sm:w-12 sm:h-12 rounded-full transition-all duration-300 ease-out flex items-center justify-center group hover:scale-110"
             style={{
-              background: 'linear-gradient(145deg, hsl(var(--primary)), hsl(var(--primary-glow)))',
-              boxShadow: '0 4px 16px hsl(var(--primary) / 0.3), 0 0 0 1px hsl(var(--primary-foreground) / 0.1) inset',
+              background: 'linear-gradient(145deg, rgba(30, 51, 64, 0.25), rgba(22, 35, 43, 0.35), rgba(15, 26, 33, 0.25))',
+              boxShadow: '0 4px 16px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.08) inset',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
             }}
             onClick={() => setConsultModalOpen(true)}
             aria-label={language === 'nl' ? 'Plan Consult' : 'Plan Consultation'}
           >
-            <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground group-hover:scale-110 transition-transform duration-200" />
+            <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-white/90 group-hover:text-white group-hover:scale-110 transition-all duration-200" />
           </button>
-          <span className="text-xs font-medium text-foreground/70 text-center">
+          <span className="text-[10px] font-medium text-white/60 text-center mt-1">
             {language === 'nl' ? 'Consult' : 'Consult'}
           </span>
         </div>
 
         {/* Chat Support Button */}
-        <div className="flex flex-col items-center gap-1">
+        <div className="flex flex-col items-center">
           <button
-            className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl shadow-medium hover:scale-105 hover:shadow-strong transition-all duration-300 ease-out flex items-center justify-center border border-white/10 backdrop-blur-sm group"
+            className="w-11 h-11 sm:w-12 sm:h-12 rounded-full transition-all duration-300 ease-out flex items-center justify-center group hover:scale-110"
             style={{
-              background: 'linear-gradient(145deg, hsl(var(--secondary)), hsl(var(--secondary-light)))',
-              boxShadow: '0 4px 16px hsl(var(--secondary) / 0.3), 0 0 0 1px hsl(var(--secondary-foreground) / 0.1) inset',
+              background: 'linear-gradient(145deg, rgba(30, 51, 64, 0.25), rgba(22, 35, 43, 0.35), rgba(15, 26, 33, 0.25))',
+              boxShadow: '0 4px 16px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.08) inset',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
             }}
             onClick={() => setChatOverlayOpen(true)}
             aria-label={language === 'nl' ? 'Chat Support' : 'Chat Support'}
           >
-            <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-secondary-foreground group-hover:scale-110 transition-transform duration-200" />
+            <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 text-white/90 group-hover:text-white group-hover:scale-110 transition-all duration-200" />
           </button>
-          <span className="text-xs font-medium text-foreground/70 text-center">
+          <span className="text-[10px] font-medium text-white/60 text-center mt-1">
             {language === 'nl' ? 'Chat' : 'Chat'}
           </span>
         </div>
 
         {/* Scroll Navigation Button */}
-        <div className="flex flex-col items-center gap-1">
+        <div className="flex flex-col items-center">
           <button
-            className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl shadow-medium hover:scale-105 hover:shadow-strong transition-all duration-300 ease-out flex items-center justify-center border border-white/10 backdrop-blur-sm group"
+            className="w-11 h-11 sm:w-12 sm:h-12 rounded-full transition-all duration-300 ease-out flex items-center justify-center group hover:scale-110"
             style={{
-              background: 'linear-gradient(145deg, hsl(var(--gray-700)), hsl(var(--gray-600)))',
-              boxShadow: '0 4px 16px hsl(var(--gray-600) / 0.3), 0 0 0 1px hsl(var(--gray-200) / 0.1) inset',
+              background: 'linear-gradient(145deg, rgba(30, 51, 64, 0.25), rgba(22, 35, 43, 0.35), rgba(15, 26, 33, 0.25))',
+              boxShadow: '0 4px 16px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.08) inset',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
             }}
             onClick={scrollToNextSection}
-            aria-label={language === 'nl' ? (isOnLastSection() ? 'Naar boven' : 'Meer Info') : (isOnLastSection() ? 'To top' : 'More Info')}
+            aria-label={language === 'nl' ? (isOnLastSection() ? 'Naar boven' : 'Volgende') : (isOnLastSection() ? 'To top' : 'Next')}
           >
             {isOnLastSection() ? (
-              <ChevronUp className="w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:scale-110 transition-transform duration-200" />
+              <ChevronUp className="w-4 h-4 sm:w-5 sm:h-5 text-white/90 group-hover:text-white group-hover:scale-110 transition-all duration-200" />
             ) : (
-              <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:scale-110 transition-transform duration-200" />
+              <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-white/90 group-hover:text-white group-hover:scale-110 transition-all duration-200" />
             )}
           </button>
-          <span className="text-xs font-medium text-foreground/70 text-center">
-            {language === 'nl' ? (isOnLastSection() ? 'Top' : 'Meer') : (isOnLastSection() ? 'Top' : 'More')}
-          </span>
         </div>
       </div>
 
