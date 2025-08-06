@@ -1,9 +1,12 @@
 import { useLanguage } from '@/hooks/useLanguage';
-import { usePageScroll } from '@/hooks/usePageScroll';
 
-export const InstagramPostsSection = () => {
+interface InstagramPostsSectionProps {
+  currentSection: number;
+  scrollToSection: (section: number) => void;
+}
+
+export const InstagramPostsSection = ({ currentSection, scrollToSection }: InstagramPostsSectionProps) => {
   const { language } = useLanguage();
-  const { currentSection, scrollToSection } = usePageScroll();
 
   const posts = [
     {
@@ -54,7 +57,7 @@ export const InstagramPostsSection = () => {
         <section
           key={post.id}
           id={`post-${post.id}`}
-          className="snap-section"
+          className="instagram-section"
         >
           <div className="w-full h-full flex flex-col justify-center items-center px-4 sm:px-8 md:px-16">
             <div className="max-w-4xl w-full flex flex-col lg:flex-row items-center gap-8 lg:gap-16">

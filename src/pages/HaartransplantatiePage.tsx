@@ -9,13 +9,28 @@ import { VideoPlaySection } from '@/components/haartransplantatie/VideoPlaySecti
 import { BottomNavigation } from '@/components/haartransplantatie/BottomNavigation';
 import { FloatingActionPortal } from '@/components/FloatingActionPortal';
 import { InstagramPostsSection } from '@/components/haartransplantatie/InstagramPostsSection';
-import { usePageScroll } from '@/hooks/usePageScroll';
+import { useInstagramScroll } from '@/hooks/useInstagramScroll';
 
 
 const HaartransplantatiePage = () => {
   const { language } = useLanguage();
   const { height } = useViewportHeight();
-  const pageScrollHook = usePageScroll();
+  
+  // Total sections: 1 hero + 5 Instagram posts
+  const totalSections = 6;
+  
+  const {
+    currentSection,
+    containerRef,
+    scrollToSection,
+    scrollToNext,
+    isTransitioning,
+  } = useInstagramScroll({ 
+    totalSections,
+    onSectionChange: (section) => {
+      console.log('🏥 Section changed to:', section);
+    }
+  });
 
   // Force scroll to top immediately on mount
   useLayoutEffect(() => {
@@ -23,40 +38,41 @@ const HaartransplantatiePage = () => {
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
     }
-    
-    // Force scroll to top immediately
-    window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-    
-    // Also reset any scroll containers
-    const scrollContainers = document.querySelectorAll('.smooth-scroll-container');
-    scrollContainers.forEach(container => {
-      container.scrollTop = 0;
-    });
   }, []);
 
   useEffect(() => {
     console.log('🏥 HaartransplantatiePage mounted');
     
-    // Expose page scroll hook to global for FloatingActionPortal
-    (window as any).pageScrollHook = pageScrollHook;
+    // Expose scroll functions to global for FloatingActionPortal
+    (window as any).pageScrollHook = {
+      scrollToNext,
+      currentSection,
+      isTransitioning,
+    };
     
     return () => {
       console.log('🏥 HaartransplantatiePage unmounting');
       delete (window as any).pageScrollHook;
     };
-  }, [pageScrollHook]);
+  }, [scrollToNext, currentSection, isTransitioning]);
 
   return (
     <>
       <MetaHead language={language} page="haartransplantatie" />
       <PageTransition isNewPage={true}>
-        <div className="smooth-scroll-container">
+        {/* Instagram-style scroll container */}
+        <div 
+          ref={containerRef}
+          className="instagram-scroll-container"
+          style={{
+            transform: `translateY(${-currentSection * 100}vh)`,
+            transition: isTransitioning ? 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)' : 'none',
+          }}
+        >
           {/* Hero Section */}
           <section 
             id="hero-section"
-            className="snap-section content-section relative"
+            className="instagram-section relative"
             style={{ 
               height: `${height}px`
             }}
@@ -96,7 +112,10 @@ const HaartransplantatiePage = () => {
           </section>
 
           {/* Instagram-style Posts */}
-          <InstagramPostsSection />
+          <InstagramPostsSection 
+            currentSection={currentSection} 
+            scrollToSection={scrollToSection} 
+          />
 
           {/* Floating Action Buttons - rendered via portal */}
           <FloatingActionPortal />
