@@ -48,8 +48,8 @@ export const InstagramPostsSection = () => {
           id={`section-${index + 1}`} // section-1, section-2, etc.
           className="snap-section min-h-screen w-full relative flex flex-col"
         >
-          {/* Large Image - fixed height for consistency */}
-          <div className="h-[70vh] w-full overflow-hidden">
+          {/* Large Image - reduced height for better balance */}
+          <div className="h-[60vh] w-full overflow-hidden">
             <img 
               src={post.image} 
               alt={post.title}
@@ -57,8 +57,8 @@ export const InstagramPostsSection = () => {
             />
           </div>
           
-          {/* Content Section - fixed height for consistency */}
-          <div className="h-[30vh] w-full bg-white px-6 py-6 pb-32 flex flex-col justify-between">
+          {/* Content Section - increased height with proper bottom padding */}
+          <div className="h-[40vh] w-full bg-white px-6 py-6 pb-40 flex flex-col justify-between">
             <div>
               {/* Subtitle - small elegant text */}
               <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2 font-medium">
