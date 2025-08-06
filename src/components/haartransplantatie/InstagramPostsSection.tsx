@@ -9,11 +9,11 @@ export const InstagramPostsSection = () => {
   const posts = [
     {
       id: 'procedure',
-      title: language === 'nl' ? 'Zie het in werking' : 'See it in action',
-      subtitle: language === 'nl' ? 'Procedure' : 'Procedure',
+      title: language === 'nl' ? 'Haartransplantatie' : 'Hair Transplant',
+      subtitle: language === 'nl' ? 'De behandeling' : 'The Treatment',
       description: language === 'nl' 
-        ? 'Een complete rondleiding door ons moderne proces. Van consultatie tot resultaat - ontdek hoe wij natuurlijke haartransplantaties realiseren.'
-        : 'A complete walkthrough of our modern process. From consultation to results - discover how we achieve natural hair transplants.',
+        ? 'Kijk mee tijdens een échte behandeling. Zie hoe onze specialisten met precisie en zorg elke follickel plaatsen voor een volledig natuurlijk resultaat. Dit is hoe jouw transformatie tot leven komt.'
+        : 'Watch a real treatment unfold. See how our specialists place each follicle with precision and care for completely natural results. This is how your transformation comes to life.',
       video: 'https://vz-104aba77-1e1.b-cdn.net/24128683-fbb8-4733-abbb-95aa6a23ab48/playlist.m3u8',
     },
     {
