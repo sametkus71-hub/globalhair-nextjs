@@ -29,27 +29,32 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
       className="fixed inset-0 z-[10000] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4"
       onClick={handleBackdropClick}
     >
-      <div className="bg-background rounded-lg shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+      <div className="bg-background rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto" style={{
+        boxShadow: 'var(--shadow-strong)'
+      }}>
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b">
-          <h2 className="text-xl font-semibold">
-            {language === 'nl' ? 'Plan uw consultatie' : 'Plan your consultation'}
-          </h2>
+        <div className="flex items-center justify-between p-6 border-b border-border/50">
+          <div>
+            <p className="text-sm text-muted-foreground font-medium tracking-wide">GlobalHair</p>
+            <h2 className="text-xl font-semibold text-foreground">
+              {language === 'nl' ? 'Plan uw consultatie' : 'Plan your consultation'}
+            </h2>
+          </div>
           <button
             onClick={() => onOpenChange(false)}
-            className="w-8 h-8 rounded-full hover:bg-accent flex items-center justify-center transition-colors"
+            className="w-8 h-8 rounded-full hover:bg-muted flex items-center justify-center transition-colors"
             aria-label="Close"
           >
-            <X className="w-5 h-5" />
+            <X className="w-5 h-5 text-muted-foreground" />
           </button>
         </div>
 
         {/* Content */}
         <div className="p-6 space-y-6">
-          <p className="text-muted-foreground">
+          <p className="text-muted-foreground text-sm leading-relaxed">
             {language === 'nl' 
-              ? 'Vul uw gegevens in voor een persoonlijke consultatie over haartransplantatie.'
-              : 'Fill in your details for a personal hair transplant consultation.'
+              ? 'Ervaar onze premium haartransplantatie service. Vul uw gegevens in voor een persoonlijke consultatie met onze specialists.'
+              : 'Experience our premium hair transplant service. Fill in your details for a personal consultation with our specialists.'
             }
           </p>
 
