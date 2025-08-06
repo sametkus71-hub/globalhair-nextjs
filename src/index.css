@@ -186,17 +186,16 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
   }
 }
 
-/* Scroll Snap Styles */
-.scroll-snap-container {
-  scroll-snap-type: y mandatory;
+/* Smooth Scrolling Styles - Replaces CSS scroll-snap */
+.smooth-scroll-container {
   scroll-behavior: smooth;
   overflow-y: auto;
   height: 100vh;
 }
 
-.snap-section {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+.content-section {
+  min-height: 100vh;
+  position: relative;
 }
 
 /* Animated background blob colors - with smooth transitions */

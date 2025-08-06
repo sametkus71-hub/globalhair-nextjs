@@ -1,19 +1,38 @@
-import { useEffect } from 'react';
+import { useLayoutEffect, useEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { MetaHead } from '@/components/MetaHead';
 import { PageTransition } from '@/components/PageTransition';
-import { CentralLogo } from '@/components/homepage/CentralLogo';
+import { ScrollFadeLogo } from '@/components/ScrollFadeLogo';
 import { BeforeAfterGrid } from '@/components/haartransplantatie/BeforeAfterGrid';
 import { VideoPlaySection } from '@/components/haartransplantatie/VideoPlaySection';
 import { BottomNavigation } from '@/components/haartransplantatie/BottomNavigation';
 import { FloatingActionPortal } from '@/components/FloatingActionPortal';
-import { TreatmentInfoSection } from '@/components/haartransplantatie/TreatmentInfoSection';
+import { NewContentSection } from '@/components/haartransplantatie/NewContentSection';
 
 
 const HaartransplantatiePage = () => {
   const { language } = useLanguage();
   const { height } = useViewportHeight();
+
+  // Force scroll to top immediately on mount
+  useLayoutEffect(() => {
+    // Disable scroll restoration
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    
+    // Force scroll to top immediately
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    
+    // Also reset any scroll containers
+    const scrollContainers = document.querySelectorAll('.smooth-scroll-container');
+    scrollContainers.forEach(container => {
+      container.scrollTop = 0;
+    });
+  }, []);
 
   useEffect(() => {
     console.log('🏥 HaartransplantatiePage mounted');
@@ -26,21 +45,18 @@ const HaartransplantatiePage = () => {
     <>
       <MetaHead language={language} page="haartransplantatie" />
       <PageTransition isNewPage={true}>
-        <div className="scroll-snap-container">
-          {/* First Section - Snap Point */}
+        <div className="smooth-scroll-container">
+          {/* Hero Section */}
           <section 
-            id="main-section"
-            className="snap-section relative"
+            id="hero-section"
+            className="content-section relative"
             style={{ 
               height: `${height}px`
             }}
           >
-            {/* Central Logo positioned within first section */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none">
-              <div className="pointer-events-auto">
-                <CentralLogo />
-              </div>
-            </div>
+            {/* Fading Central Logo */}
+            <ScrollFadeLogo />
+            
             {/* Top Section - Before/After Grid */}
             <div 
               className="relative z-10"
@@ -70,13 +86,10 @@ const HaartransplantatiePage = () => {
                 <VideoPlaySection />
               </div>
             </div>
-
           </section>
 
-          {/* Second Section - Treatment Info with Regular Scroll */}
-          <section id="treatment-section" className="snap-section">
-            <TreatmentInfoSection />
-          </section>
+          {/* Content Sections - Image/Text Layouts */}
+          <NewContentSection />
 
           {/* Floating Action Buttons - rendered via portal */}
           <FloatingActionPortal />
