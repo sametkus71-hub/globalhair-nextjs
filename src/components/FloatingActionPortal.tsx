@@ -17,39 +17,18 @@ export const FloatingActionPortal: React.FC = () => {
   }, []);
 
   const scrollToNextSection = () => {
-    const heroSection = document.getElementById('hero-section');
-    const postsContainer = document.querySelector('.posts-container');
-    
-    if (!heroSection) return;
-    
-    const currentScrollTop = window.scrollY;
-    const heroHeight = heroSection.offsetHeight;
-    
-    // If we're in hero section, scroll to first post
-    if (currentScrollTop < heroHeight * 0.8) {
-      const firstPost = document.getElementById('post-results');
-      if (firstPost) {
-        firstPost.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
-    } else {
-      // If we're in posts section, scroll to next post
-      const posts = document.querySelectorAll('.snap-section');
-      const currentPost = Array.from(posts).findIndex(post => {
-        const rect = post.getBoundingClientRect();
-        return rect.top >= -100 && rect.top <= 100;
-      });
-      
-      const nextPost = posts[Math.min(currentPost + 1, posts.length - 1)];
-      if (nextPost) {
-        nextPost.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
+    // Check if we're on haartransplantatie page
+    if (location.pathname.includes('/haartransplantatie')) {
+      // Use the page scroll hook for navigation
+      const pageScrollHook = (window as any).pageScrollHook;
+      if (pageScrollHook?.scrollToNext) {
+        pageScrollHook.scrollToNext();
+        return;
       }
     }
+    
+    // Default behavior for other pages
+    window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
   };
 
   if (!mounted) return null;

@@ -9,11 +9,13 @@ import { VideoPlaySection } from '@/components/haartransplantatie/VideoPlaySecti
 import { BottomNavigation } from '@/components/haartransplantatie/BottomNavigation';
 import { FloatingActionPortal } from '@/components/FloatingActionPortal';
 import { InstagramPostsSection } from '@/components/haartransplantatie/InstagramPostsSection';
+import { usePageScroll } from '@/hooks/usePageScroll';
 
 
 const HaartransplantatiePage = () => {
   const { language } = useLanguage();
   const { height } = useViewportHeight();
+  const pageScrollHook = usePageScroll();
 
   // Force scroll to top immediately on mount
   useLayoutEffect(() => {
@@ -36,10 +38,15 @@ const HaartransplantatiePage = () => {
 
   useEffect(() => {
     console.log('🏥 HaartransplantatiePage mounted');
+    
+    // Expose page scroll hook to global for FloatingActionPortal
+    (window as any).pageScrollHook = pageScrollHook;
+    
     return () => {
       console.log('🏥 HaartransplantatiePage unmounting');
+      delete (window as any).pageScrollHook;
     };
-  }, []);
+  }, [pageScrollHook]);
 
   return (
     <>
@@ -49,7 +56,7 @@ const HaartransplantatiePage = () => {
           {/* Hero Section */}
           <section 
             id="hero-section"
-            className="content-section relative"
+            className="snap-section content-section relative"
             style={{ 
               height: `${height}px`
             }}

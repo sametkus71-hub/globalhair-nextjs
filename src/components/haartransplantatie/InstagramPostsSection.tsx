@@ -1,9 +1,9 @@
 import { useLanguage } from '@/hooks/useLanguage';
-import { useInstagramPosts } from '@/hooks/useInstagramPosts';
+import { usePageScroll } from '@/hooks/usePageScroll';
 
 export const InstagramPostsSection = () => {
   const { language } = useLanguage();
-  const { currentPost, scrollToPost } = useInstagramPosts();
+  const { currentSection, scrollToSection } = usePageScroll();
 
   const posts = [
     {
@@ -49,7 +49,7 @@ export const InstagramPostsSection = () => {
   ];
 
   return (
-    <div className="posts-container">
+    <>
       {posts.map((post, index) => (
         <section
           key={post.id}
@@ -84,9 +84,9 @@ export const InstagramPostsSection = () => {
                   {posts.map((_, i) => (
                     <button
                       key={i}
-                      onClick={() => scrollToPost(i)}
+                      onClick={() => scrollToSection(i + 1)} // +1 because hero is section 0
                       className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                        i === currentPost 
+                        i === currentSection - 1 // -1 because hero is section 0
                           ? 'bg-primary w-8' 
                           : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
                       }`}
@@ -98,6 +98,6 @@ export const InstagramPostsSection = () => {
           </div>
         </section>
       ))}
-    </div>
+    </>
   );
 };

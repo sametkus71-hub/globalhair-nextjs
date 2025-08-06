@@ -792,29 +792,28 @@ body.s-wit {
 .page-entry-delay-3 { transition-delay: 0.3s; }
 .page-entry-delay-4 { transition-delay: 0.4s; }
 
-/* Instagram-style snap scroll */
-.posts-container {
+/* Full page snap scrolling */
+html {
   scroll-snap-type: y mandatory;
-  overflow-y: scroll;
-  height: 100vh;
   scroll-behavior: smooth;
 }
 
 .snap-section {
-  scroll-snap-align: start;
   height: 100vh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Hide scrollbar on posts container */
-.posts-container::-webkit-scrollbar {
-  display: none;
+/* Hide scrollbar but keep functionality */
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.posts-container {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+html::-webkit-scrollbar {
+  display: none;
 }
