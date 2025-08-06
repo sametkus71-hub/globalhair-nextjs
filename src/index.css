@@ -802,10 +802,20 @@ html {
   height: 100vh;
   scroll-snap-align: start;
   scroll-snap-stop: always;
+}
+
+/* Default flex layout for Instagram posts */
+.snap-section:not(.content-section) {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Special styling for hero section to maintain original layout */
+.snap-section.content-section {
+  width: 100%;
+  display: block; /* Block layout for complex hero structure */
 }
 
 /* Hide scrollbar but keep functionality */
