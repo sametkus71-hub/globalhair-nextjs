@@ -17,15 +17,27 @@ export const FloatingActionPortal: React.FC = () => {
   }, []);
 
   const scrollToNextSection = () => {
-    // Find the next section or scroll down by viewport height
-    const currentScrollTop = window.scrollY;
-    const viewportHeight = window.innerHeight;
-    const targetScrollTop = currentScrollTop + viewportHeight;
+    const mainSection = document.getElementById('main-section');
+    const treatmentSection = document.getElementById('treatment-section');
     
-    window.scrollTo({
-      top: targetScrollTop,
-      behavior: 'smooth'
-    });
+    if (!mainSection || !treatmentSection) return;
+    
+    const currentScrollTop = window.scrollY;
+    const mainSectionHeight = mainSection.offsetHeight;
+    
+    // If we're in the first section, scroll to treatment section
+    if (currentScrollTop < mainSectionHeight / 2) {
+      treatmentSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    } else {
+      // If we're already in treatment section, scroll down by viewport height
+      window.scrollBy({
+        top: window.innerHeight,
+        behavior: 'smooth'
+      });
+    }
   };
 
   if (!mounted) return null;

@@ -16,13 +16,8 @@ const HaartransplantatiePage = () => {
 
   useEffect(() => {
     console.log('🏥 HaartransplantatiePage mounted');
-    
-    // Add fullscreen class to body for consistency with homepage
-    document.body.classList.add('fullscreen-no-scroll');
-    
     return () => {
       console.log('🏥 HaartransplantatiePage unmounting');
-      document.body.classList.remove('fullscreen-no-scroll');
     };
   }, []);
 
@@ -30,56 +25,59 @@ const HaartransplantatiePage = () => {
     <>
       <MetaHead language={language} page="haartransplantatie" />
       <PageTransition isNewPage={true}>
-        <div 
-          className="flex flex-col relative"
-          style={{ 
-            height: `${height}px`,
-            overflow: 'hidden'
-          }}
-        >
-          {/* Content with relative positioning over the persistent background */}
-          
-          {/* Top Section - Before/After Grid with strict height control */}
-          <div 
-            className="relative z-10 overflow-hidden"
+        <div className="scroll-snap-container">
+          {/* First Section - Snap Point */}
+          <section 
+            id="main-section"
+            className="snap-section relative"
             style={{ 
-              height: `${height * 0.47}px`
+              height: `${height}px`
             }}
           >
+            {/* Top Section - Before/After Grid */}
             <div 
-              className="page-entry-grid page-entry-delay-1 w-full h-full"
-              data-page-entry="grid"
+              className="relative z-10"
+              style={{ 
+                height: `${height * 0.47}px`
+              }}
             >
-              <BeforeAfterGrid />
+              <div 
+                className="page-entry-grid page-entry-delay-1 w-full h-full"
+                data-page-entry="grid"
+              >
+                <BeforeAfterGrid />
+              </div>
             </div>
-          </div>
 
-          {/* Bottom Section - Video Play & Controls with strict height control */}
-          <div 
-            className="relative z-10 overflow-hidden"
-            style={{ 
-              height: `${height * 0.53}px`
-            }}
-          >
+            {/* Bottom Section - Video Play & Controls */}
             <div 
-              className="page-entry-item page-entry-delay-2 w-full h-full"
-              data-page-entry="video"
+              className="relative z-10"
+              style={{ 
+                height: `${height * 0.53}px`
+              }}
             >
-              <VideoPlaySection />
+              <div 
+                className="page-entry-item page-entry-delay-2 w-full h-full"
+                data-page-entry="video"
+              >
+                <VideoPlaySection />
+              </div>
             </div>
-          </div>
 
-          {/* Bottom Navigation - positioned absolutely to overlay */}
-          <div className="absolute bottom-0 left-0 right-0 z-40">
-            <BottomNavigation />
-          </div>
+            {/* Bottom Navigation - positioned absolutely to overlay */}
+            <div className="absolute bottom-0 left-0 right-0 z-40">
+              <BottomNavigation />
+            </div>
+          </section>
+
+          {/* Second Section - Treatment Info with Regular Scroll */}
+          <section id="treatment-section" className="snap-section">
+            <TreatmentInfoSection />
+          </section>
 
           {/* Floating Action Buttons - rendered via portal */}
           <FloatingActionPortal />
         </div>
-
-        {/* Treatment Info Section */}
-        <TreatmentInfoSection />
       </PageTransition>
     </>
   );
