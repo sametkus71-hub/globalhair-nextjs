@@ -1,15 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { useLocation } from 'react-router-dom';
 import { Calendar, MessageCircle, ChevronDown } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { ConsultationModal } from './ConsultationModal';
 import { ChatOverlay } from './ChatOverlay';
+import { useScrollContext } from '@/contexts/ScrollContext';
 
 export const FloatingActionPortal: React.FC = () => {
   const [mounted, setMounted] = useState(false);
   const [consultModalOpen, setConsultModalOpen] = useState(false);
   const [chatOverlayOpen, setChatOverlayOpen] = useState(false);
   const { language } = useLanguage();
+  const location = useLocation();
+  
+  // Try to get scroll context, but handle case where it's not available
+  let scrollContext;
+  try {
+    scrollContext = useScrollContext();
+  } catch {
+    scrollContext = null;
+  }
 
   useEffect(() => {
     setMounted(true);
@@ -17,12 +28,11 @@ export const FloatingActionPortal: React.FC = () => {
   }, []);
 
   const scrollToNextSection = () => {
-    // Check if we're on haartransplantatie page
-    if (location.pathname.includes('/haartransplantatie')) {
-      // Use the page scroll hook for navigation
-      const pageScrollHook = (window as any).pageScrollHook;
-      if (pageScrollHook?.scrollToNext) {
-        pageScrollHook.scrollToNext();
+    // Use scroll context if available (on haartransplantatie page)
+    if (scrollContext && location.pathname.includes('/haartransplantatie')) {
+      const { currentPostIndex, totalPosts, scrollToPost } = scrollContext;
+      if (currentPostIndex < totalPosts - 1) {
+        scrollToPost(currentPostIndex + 1);
         return;
       }
     }

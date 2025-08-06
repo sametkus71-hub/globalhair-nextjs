@@ -281,6 +281,30 @@ body.s-wit {
     transform-origin: center center;
   }
 
+  /* Smooth scrolling for context-based system */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  /* iOS Safari optimizations */
+  @supports (-webkit-overflow-scrolling: touch) {
+    body {
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  /* Prevent scroll restoration */
+  @media (max-width: 768px) {
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+  }
+
   /* Loading logo pulse animation */
   .logo-loading-pulse {
     animation: logo-loading-breathe 2s ease-in-out infinite;

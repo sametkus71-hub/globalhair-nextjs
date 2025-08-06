@@ -1,12 +1,9 @@
 import { useLanguage } from '@/hooks/useLanguage';
+import { useScrollContext } from '@/contexts/ScrollContext';
 
-interface InstagramPostsSectionProps {
-  currentSection: number;
-  scrollToSection: (section: number) => void;
-}
-
-export const InstagramPostsSection = ({ currentSection, scrollToSection }: InstagramPostsSectionProps) => {
+export const InstagramPostsSection = () => {
   const { language } = useLanguage();
+  const { currentPostIndex, scrollToPost } = useScrollContext();
 
   const posts = [
     {
@@ -55,9 +52,9 @@ export const InstagramPostsSection = ({ currentSection, scrollToSection }: Insta
     <>
       {posts.map((post, index) => (
         <section
-          key={post.id}
-          id={`post-${post.id}`}
-          className="instagram-section"
+          key={index}
+          id={`section-${index + 1}`} // section-1, section-2, etc.
+          className="min-h-screen w-full relative flex items-center justify-center bg-background"
         >
           <div className="w-full h-full flex flex-col justify-center items-center px-4 sm:px-8 md:px-16">
             <div className="max-w-4xl w-full flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
@@ -87,9 +84,9 @@ export const InstagramPostsSection = ({ currentSection, scrollToSection }: Insta
                   {posts.map((_, i) => (
                     <button
                       key={i}
-                      onClick={() => scrollToSection(i + 1)} // +1 because hero is section 0
+                      onClick={() => scrollToPost(i + 1)} // +1 because hero is section 0
                       className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                        i === currentSection - 1 // -1 because hero is section 0
+                        i === currentPostIndex - 1 // -1 because hero is section 0
                           ? 'bg-primary w-8' 
                           : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
                       }`}
