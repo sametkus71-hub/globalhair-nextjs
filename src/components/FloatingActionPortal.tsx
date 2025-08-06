@@ -17,23 +17,26 @@ export const FloatingActionPortal: React.FC = () => {
   }, []);
 
   const scrollToNextSection = () => {
-    const heroSection = document.getElementById('hero-section');
-    const firstPost = document.querySelector('[data-post-index="0"]');
+    const mainSection = document.getElementById('main-section');
+    const treatmentSection = document.getElementById('treatment-section');
     
-    if (!heroSection || !firstPost) return;
+    if (!mainSection || !treatmentSection) return;
     
     const currentScrollTop = window.scrollY;
-    const heroSectionHeight = heroSection.offsetHeight;
+    const mainSectionHeight = mainSection.offsetHeight;
     
-    // If we're in the hero section, scroll to first post
-    if (currentScrollTop < heroSectionHeight * 0.8) {
-      firstPost.scrollIntoView({ 
+    // If we're in the first section, scroll to treatment section
+    if (currentScrollTop < mainSectionHeight / 2) {
+      treatmentSection.scrollIntoView({ 
         behavior: 'smooth',
         block: 'start'
       });
     } else {
-      // If we're in posts section, trigger next post via custom event
-      window.dispatchEvent(new CustomEvent('instagram-scroll-next'));
+      // If we're already in treatment section, scroll down by viewport height
+      window.scrollBy({
+        top: window.innerHeight,
+        behavior: 'smooth'
+      });
     }
   };
 

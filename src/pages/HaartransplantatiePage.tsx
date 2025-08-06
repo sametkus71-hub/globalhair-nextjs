@@ -8,7 +8,7 @@ import { BeforeAfterGrid } from '@/components/haartransplantatie/BeforeAfterGrid
 import { VideoPlaySection } from '@/components/haartransplantatie/VideoPlaySection';
 import { BottomNavigation } from '@/components/haartransplantatie/BottomNavigation';
 import { FloatingActionPortal } from '@/components/FloatingActionPortal';
-import { InstagramPostsSection } from '@/components/haartransplantatie/InstagramPostsSection';
+import { NewContentSection } from '@/components/haartransplantatie/NewContentSection';
 
 
 const HaartransplantatiePage = () => {
@@ -45,55 +45,57 @@ const HaartransplantatiePage = () => {
     <>
       <MetaHead language={language} page="haartransplantatie" />
       <PageTransition isNewPage={true}>
-        {/* Hero Section */}
-        <section 
-          id="hero-section"
-          className="content-section relative"
-          style={{ 
-            height: `${height}px`
-          }}
-        >
-          {/* Fading Central Logo */}
-          <ScrollFadeLogo />
-          
-          {/* Top Section - Before/After Grid */}
-          <div 
-            className="relative z-10"
+        <div className="smooth-scroll-container">
+          {/* Hero Section */}
+          <section 
+            id="hero-section"
+            className="content-section relative"
             style={{ 
-              height: `${height * 0.47}px`
+              height: `${height}px`
             }}
           >
+            {/* Fading Central Logo */}
+            <ScrollFadeLogo />
+            
+            {/* Top Section - Before/After Grid */}
             <div 
-              className="page-entry-grid page-entry-delay-1 w-full h-full"
-              data-page-entry="grid"
+              className="relative z-10"
+              style={{ 
+                height: `${height * 0.47}px`
+              }}
             >
-              <BeforeAfterGrid />
+              <div 
+                className="page-entry-grid page-entry-delay-1 w-full h-full"
+                data-page-entry="grid"
+              >
+                <BeforeAfterGrid />
+              </div>
             </div>
-          </div>
 
-          {/* Bottom Section - Video Play & Controls */}
-          <div 
-            className="relative z-10"
-            style={{ 
-              height: `${height * 0.53}px`
-            }}
-          >
+            {/* Bottom Section - Video Play & Controls */}
             <div 
-              className="page-entry-item page-entry-delay-2 w-full h-full"
-              data-page-entry="video"
+              className="relative z-10"
+              style={{ 
+                height: `${height * 0.53}px`
+              }}
             >
-              <VideoPlaySection />
+              <div 
+                className="page-entry-item page-entry-delay-2 w-full h-full"
+                data-page-entry="video"
+              >
+                <VideoPlaySection />
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* Instagram-style Content Posts - Document Flow */}
-        <InstagramPostsSection />
+          {/* Content Sections - Image/Text Layouts */}
+          <NewContentSection />
 
-        {/* Floating Action Buttons - rendered via portal */}
-        <FloatingActionPortal />
+          {/* Floating Action Buttons - rendered via portal */}
+          <FloatingActionPortal />
+        </div>
 
-        {/* Fixed Bottom Navigation */}
+        {/* Fixed Bottom Navigation - outside scroll container */}
         <div className="fixed bottom-0 left-0 right-0 z-40">
           <BottomNavigation />
         </div>
