@@ -792,27 +792,32 @@ body.s-wit {
 .page-entry-delay-3 { transition-delay: 0.3s; }
 .page-entry-delay-4 { transition-delay: 0.4s; }
 
-/* Full page snap scrolling with mobile optimizations */
-html {
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
+/* Full-page JavaScript controlled scrolling */
+html, body {
   height: 100%;
-  overflow-y: scroll;
-  /* Mobile optimizations */
-  -webkit-overflow-scrolling: touch;
-  touch-action: pan-y;
+  overflow: hidden; /* Prevent all native scrolling */
+  touch-action: none; /* Prevent all touch gestures */
   overscroll-behavior: none;
+  position: fixed; /* Lock the page in place */
+  width: 100%;
+}
+
+.fullpage-container {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  transform: translateY(0);
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .snap-section {
   height: 100vh;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+  width: 100%;
+  position: relative;
 }
 
 /* Default flex layout for Instagram posts */
 .snap-section:not(.content-section) {
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -820,16 +825,31 @@ html {
 
 /* Special styling for hero section to maintain original layout */
 .snap-section.content-section {
-  width: 100%;
   display: block; /* Block layout for complex hero structure */
 }
 
-/* Hide scrollbar but keep functionality */
-html {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+/* Scroll indicators */
+.scroll-indicator {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-html::-webkit-scrollbar {
-  display: none;
+.scroll-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: hsl(var(--muted));
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.scroll-dot.active {
+  background: hsl(var(--primary));
+  transform: scale(1.2);
 }
