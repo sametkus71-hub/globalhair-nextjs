@@ -547,8 +547,6 @@ body.s-wit {
     transform: translateY(100%) scale(0.95);
     opacity: 0;
   }
-    transform: translateX(20px) translateY(-10px) rotate(-27deg) scaleX(0.96) scaleY(1.04);
-  }
 }
 
 @keyframes ultra-massive-drift {
