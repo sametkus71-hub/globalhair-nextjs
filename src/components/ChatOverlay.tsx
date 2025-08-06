@@ -1,6 +1,7 @@
 import React from 'react';
-import { X, MessageCircle, Instagram, Camera, Scan } from 'lucide-react';
+import { X, MessageCircle, Instagram, ExternalLink, Scan } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
+import { Button } from '@/components/ui/button';
 
 interface ChatOverlayProps {
   open: boolean;
@@ -45,13 +46,13 @@ export const ChatOverlay: React.FC<ChatOverlayProps> = ({
 
   return (
     <div 
-      className="fixed inset-0 z-[10000] bg-black/50 backdrop-blur-sm flex items-end justify-center sm:items-center sm:justify-center p-4"
+      className="fixed inset-0 z-[10000] bg-black/50 backdrop-blur-sm flex items-end justify-center sm:items-center sm:justify-center p-0 sm:p-4"
       onClick={handleBackdropClick}
     >
       <div 
-        className="bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl w-full max-w-sm max-h-[85vh] overflow-y-auto"
+        className="bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl w-full sm:max-w-sm max-h-[85vh] overflow-y-auto"
         style={{
-          background: 'rgba(255, 255, 255, 0.95)',
+          background: 'rgba(255, 255, 255, 0.98)',
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
           borderTop: '3px solid #182F3C'
@@ -61,7 +62,7 @@ export const ChatOverlay: React.FC<ChatOverlayProps> = ({
         <div className="flex items-center justify-between p-4 border-b border-gray-100">
           <h3 className="text-lg font-semibold flex items-center gap-2 text-[#182F3C]">
             <MessageCircle className="w-5 h-5" />
-            {language === 'nl' ? 'Contact' : 'Contact'}
+            {language === 'nl' ? 'Chat Support' : 'Chat Support'}
           </h3>
           <button
             onClick={() => onOpenChange(false)}
@@ -73,60 +74,85 @@ export const ChatOverlay: React.FC<ChatOverlayProps> = ({
         </div>
 
         {/* Content */}
-        <div className="p-4 space-y-3">
-          {/* WhatsApp */}
-          <button
-            onClick={openWhatsApp}
-            className="w-full p-4 rounded-xl flex items-center gap-3 transition-all hover:scale-[1.02] active:scale-[0.98]"
-            style={{
-              background: '#25D366',
-              color: 'white'
-            }}
-          >
-            <MessageCircle className="w-5 h-5" />
-            <span className="font-medium">WhatsApp</span>
-          </button>
+        <div className="p-4 space-y-4">
+          <p className="text-sm text-gray-600">
+            {language === 'nl' 
+              ? 'Kies hoe u contact met ons wilt opnemen voor directe ondersteuning.'
+              : 'Choose how you want to contact us for direct support.'
+            }
+          </p>
 
-          {/* Instagram */}
-          <button
-            onClick={openInstagram}
-            className="w-full p-4 rounded-xl flex items-center gap-3 transition-all hover:scale-[1.02] active:scale-[0.98]"
-            style={{
-              background: 'linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)',
-              color: 'white'
-            }}
-          >
-            <Instagram className="w-5 h-5" />
-            <span className="font-medium">Instagram</span>
-          </button>
+          <div className="space-y-3">
+            <Button 
+              onClick={openWhatsApp}
+              className="w-full justify-between bg-green-600 hover:bg-green-700 text-white"
+              size="lg"
+            >
+              <span className="flex items-center gap-2">
+                <MessageCircle className="w-5 h-5" />
+                WhatsApp
+              </span>
+              <ExternalLink className="w-4 h-4" />
+            </Button>
 
-          {/* TikTok */}
-          <button
-            onClick={openTikTok}
-            className="w-full p-4 rounded-xl flex items-center gap-3 transition-all hover:scale-[1.02] active:scale-[0.98]"
-            style={{
-              background: '#000000',
-              color: 'white'
-            }}
-          >
-            <Camera className="w-5 h-5" />
-            <span className="font-medium">TikTok</span>
-          </button>
+            <Button 
+              onClick={openInstagram}
+              variant="outline" 
+              className="w-full justify-between border-2"
+              style={{
+                borderColor: '#182F3C',
+                color: '#182F3C'
+              }}
+              size="lg"
+            >
+              <span className="flex items-center gap-2">
+                <Instagram className="w-5 h-5" />
+                Instagram
+              </span>
+              <ExternalLink className="w-4 h-4" />
+            </Button>
 
-          {/* Hair Scan */}
-          <button
-            onClick={openHairScan}
-            className="w-full p-4 rounded-xl flex items-center gap-3 border-2 transition-all hover:scale-[1.02] active:scale-[0.98]"
-            style={{
-              border: '2px solid #182F3C',
-              color: '#182F3C'
-            }}
-          >
-            <Scan className="w-5 h-5" />
-            <span className="font-medium">
-              {language === 'nl' ? 'Doe de haarscan' : 'Take hair scan'}
-            </span>
-          </button>
+            <Button 
+              onClick={openTikTok}
+              variant="outline" 
+              className="w-full justify-between border-2"
+              style={{
+                borderColor: '#182F3C',
+                color: '#182F3C'
+              }}
+              size="lg"
+            >
+              <span className="flex items-center gap-2">
+                <MessageCircle className="w-5 h-5" />
+                TikTok
+              </span>
+              <ExternalLink className="w-4 h-4" />
+            </Button>
+
+            <Button 
+              onClick={openHairScan}
+              className="w-full justify-between"
+              style={{
+                backgroundColor: '#182F3C',
+                color: 'white'
+              }}
+              size="lg"
+            >
+              <span className="flex items-center gap-2">
+                <Scan className="w-5 h-5" />
+                {language === 'nl' ? 'Doe de haarscan' : 'Take hair scan'}
+              </span>
+            </Button>
+          </div>
+
+          <div className="pt-2 border-t border-gray-200">
+            <p className="text-xs text-gray-500 text-center">
+              {language === 'nl' 
+                ? 'Gemiddelde reactietijd: 2-5 minuten'
+                : 'Average response time: 2-5 minutes'
+              }
+            </p>
+          </div>
         </div>
       </div>
     </div>
