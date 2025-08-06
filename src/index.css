@@ -841,9 +841,10 @@ body.s-wit {
 /* Instagram-style full page scroll */
 html, body {
   height: 100%;
-  overflow: hidden;
+  /* Allow normal scroll for fixed elements to work */
+  overflow-x: hidden;
   /* Mobile optimizations */
-  touch-action: none;
+  touch-action: manipulation;
   overscroll-behavior: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
