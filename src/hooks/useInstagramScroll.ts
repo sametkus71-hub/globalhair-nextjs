@@ -8,9 +8,9 @@ interface UseInstagramScrollOptions {
 export const useInstagramScroll = ({ postCount, onPostChange }: UseInstagramScrollOptions) => {
   const [currentPost, setCurrentPost] = useState(0);
   const [isScrolling, setIsScrolling] = useState(false);
-  const scrollTimeoutRef = useRef<NodeJS.Timeout>();
-  const lastScrollTimeRef = useRef(0);
-  const scrollDirectionRef = useRef<'up' | 'down'>('down');
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const startTouchY = useRef(0);
+  const scrollAccumulator = useRef(0);
   
   const goToPost = useCallback((postIndex: number) => {
     if (postIndex < 0 || postIndex >= postCount || isScrolling) return;
@@ -19,19 +19,17 @@ export const useInstagramScroll = ({ postCount, onPostChange }: UseInstagramScro
     setCurrentPost(postIndex);
     onPostChange?.(postIndex);
     
-    // Scroll to the specific post
-    const postElement = document.querySelector(`[data-post-index="${postIndex}"]`);
-    if (postElement) {
-      postElement.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
+    // Use transform for immediate, smooth animation
+    const container = containerRef.current;
+    if (container) {
+      const translateY = -postIndex * 100;
+      container.style.transform = `translateY(${translateY}vh)`;
     }
     
     // Reset scrolling state after animation
     setTimeout(() => {
       setIsScrolling(false);
-    }, 800);
+    }, 350);
   }, [postCount, isScrolling, onPostChange]);
 
   const nextPost = useCallback(() => {
@@ -47,44 +45,60 @@ export const useInstagramScroll = ({ postCount, onPostChange }: UseInstagramScro
   }, [currentPost, goToPost]);
 
   useEffect(() => {
-    const handleScroll = (e: WheelEvent) => {
+    // Wheel events for desktop
+    const handleWheel = (e: WheelEvent) => {
       if (isScrolling) {
         e.preventDefault();
         return;
       }
 
-      const now = Date.now();
-      const deltaY = e.deltaY;
-      
-      // Determine scroll direction
-      scrollDirectionRef.current = deltaY > 0 ? 'down' : 'up';
-      
-      // Clear existing timeout
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
+      // Accumulate scroll delta for sensitivity
+      scrollAccumulator.current += e.deltaY;
+
+      // Very sensitive threshold - like Instagram
+      if (Math.abs(scrollAccumulator.current) > 15) {
+        e.preventDefault();
+        
+        if (scrollAccumulator.current > 0 && currentPost < postCount - 1) {
+          nextPost();
+        } else if (scrollAccumulator.current < 0 && currentPost > 0) {
+          previousPost();
+        }
+        
+        scrollAccumulator.current = 0;
       }
-      
-      // Debounce scroll events
-      if (now - lastScrollTimeRef.current < 150) {
+    };
+
+    // Touch events for mobile
+    const handleTouchStart = (e: TouchEvent) => {
+      if (isScrolling) return;
+      startTouchY.current = e.touches[0].clientY;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (isScrolling) {
+        e.preventDefault();
         return;
       }
       
-      lastScrollTimeRef.current = now;
+      const currentTouchY = e.touches[0].clientY;
+      const deltaY = startTouchY.current - currentTouchY;
       
-      // Only snap if scroll is significant enough
-      if (Math.abs(deltaY) > 50) {
+      // Immediate response to small touch movements
+      if (Math.abs(deltaY) > 20) {
         e.preventDefault();
         
         if (deltaY > 0 && currentPost < postCount - 1) {
-          // Scroll down
+          // Swiped up - go to next post
           nextPost();
         } else if (deltaY < 0 && currentPost > 0) {
-          // Scroll up
+          // Swiped down - go to previous post
           previousPost();
         }
       }
     };
 
+    // Keyboard navigation
     const handleKeyDown = (e: KeyboardEvent) => {
       if (isScrolling) return;
       
@@ -98,17 +112,10 @@ export const useInstagramScroll = ({ postCount, onPostChange }: UseInstagramScro
           e.preventDefault();
           previousPost();
           break;
-        case 'Home':
-          e.preventDefault();
-          goToPost(0);
-          break;
-        case 'End':
-          e.preventDefault();
-          goToPost(postCount - 1);
-          break;
       }
     };
 
+    // Custom event from floating button
     const handleCustomScrollNext = () => {
       if (!isScrolling) {
         nextPost();
@@ -116,19 +123,20 @@ export const useInstagramScroll = ({ postCount, onPostChange }: UseInstagramScro
     };
 
     // Add event listeners
-    window.addEventListener('wheel', handleScroll, { passive: false });
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('instagram-scroll-next', handleCustomScrollNext);
     
     return () => {
-      window.removeEventListener('wheel', handleScroll);
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('instagram-scroll-next', handleCustomScrollNext);
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
     };
-  }, [currentPost, postCount, isScrolling, nextPost, previousPost, goToPost]);
+  }, [currentPost, postCount, isScrolling, nextPost, previousPost]);
 
   return {
     currentPost,
@@ -136,6 +144,7 @@ export const useInstagramScroll = ({ postCount, onPostChange }: UseInstagramScro
     nextPost,
     previousPost,
     goToPost,
+    containerRef,
     canGoNext: currentPost < postCount - 1,
     canGoPrevious: currentPost > 0
   };

@@ -18,11 +18,13 @@ export const InstagramPost = ({
     <section 
       data-post-index={postIndex}
       className={cn(
-        "min-h-screen w-full relative flex flex-col bg-background transition-all duration-500 ease-out snap-start",
-        isActive && "scale-100 opacity-100",
-        !isActive && "scale-95 opacity-80",
+        "h-screen w-full relative flex flex-col bg-background",
         className
       )}
+      style={{
+        height: '100vh',
+        flexShrink: 0
+      }}
     >
       {children}
     </section>
