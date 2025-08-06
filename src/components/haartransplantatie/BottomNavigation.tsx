@@ -46,9 +46,15 @@ export const BottomNavigation = () => {
   ];
 
   return (
-    <div className="w-full h-full">
+    <div 
+      className="fixed left-0 w-full z-50"
+      style={{ 
+        top: 'calc(var(--app-height, 100vh) - 80px)',
+        height: '80px'
+      }}
+    >
       <div 
-        className="bg-black/95 backdrop-blur-sm border-t border-gray-800/50"
+        className="bg-black/95 backdrop-blur-sm border-t border-gray-800/50 h-full"
         style={{ 
           paddingBottom: 'max(0.25rem, env(safe-area-inset-bottom))'
         }}
