@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
@@ -7,11 +7,15 @@ import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNa
 export const ReviewItemPage = () => {
   const navigate = useNavigate();
   const { language } = useLanguage();
+  const [isExiting, setIsExiting] = useState(false);
 
   // Navigate back to reviews
   const handleBack = () => {
-    const reviewsRoute = language === 'nl' ? '/nl/reviews' : '/en/reviews';
-    navigate(reviewsRoute);
+    setIsExiting(true);
+    // Wait for animation to complete before navigating
+    setTimeout(() => {
+      navigate(-1); // Go back to previous page
+    }, 300);
   };
 
   // Handle ESC key
@@ -31,11 +35,11 @@ export const ReviewItemPage = () => {
 
   return (
     <>
-      <div className="review-item-page-fullscreen">
+      <div className={`review-item-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}>
         {/* Back button */}
         <button
           onClick={handleBack}
-          className="absolute top-4 left-4 z-50 p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+          className="absolute top-4 left-4 z-50 p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors transform hover:scale-105 active:scale-95"
           aria-label="Go back"
         >
           <ArrowLeft className="w-5 h-5 text-gray-600" />
@@ -44,10 +48,10 @@ export const ReviewItemPage = () => {
         {/* Content */}
         <div className="h-full flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-black mb-4">
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-black mb-4">
               Review Item 1
             </h1>
-            <p className="text-gray-600 text-lg">
+            <p className="text-gray-600 text-sm sm:text-base lg:text-lg">
               This is the review detail page for item 1.
             </p>
           </div>

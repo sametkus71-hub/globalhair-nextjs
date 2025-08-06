@@ -433,14 +433,18 @@ body.s-wit {
   /* Reviews page animations */
   .reviews-page-fullscreen {
     @apply fixed inset-0 z-50 bg-white;
-    animation: reviews-page-slide-up 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    transform: translateY(100%);
+    animation: reviews-page-slide-up 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    transform: translateY(100%) scale(0.98);
+  }
+  
+  .reviews-page-exit {
+    animation: reviews-page-slide-down 0.3s cubic-bezier(0.4, 0, 0.8, 0.2) forwards;
   }
   
   .review-item-page-fullscreen {
     @apply fixed inset-0 z-50 bg-white;
-    animation: reviews-page-slide-up 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    transform: translateY(100%);
+    animation: reviews-page-slide-up 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    transform: translateY(100%) scale(0.98);
   }
 }
 
@@ -518,11 +522,22 @@ body.s-wit {
 @keyframes reviews-page-slide-up {
   from {
     opacity: 0;
-    transform: translateY(100%);
+    transform: translateY(100%) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes reviews-page-slide-down {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(100%) scale(0.95);
   }
 }
 
