@@ -73,13 +73,13 @@ const HaartransplantatiePage = () => {
           <div className="absolute bottom-0 left-0 right-0 z-40">
             <BottomNavigation />
           </div>
+
+          {/* Floating Action Zone - positioned inside container for proper visibility */}
+          <FloatingActionZone />
         </div>
 
         {/* Treatment Info Section */}
         <TreatmentInfoSection />
-
-        {/* Floating Action Zone */}
-        <FloatingActionZone />
       </PageTransition>
     </>
   );
