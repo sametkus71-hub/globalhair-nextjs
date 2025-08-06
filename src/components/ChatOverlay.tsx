@@ -2,8 +2,6 @@ import React from 'react';
 import { X, MessageCircle, Instagram, ExternalLink, Scan } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { Button } from '@/components/ui/button';
-import whatsappIcon from '@/assets/whatsapp-icon.png';
-import tiktokIcon from '@/assets/tiktok-icon.png';
 
 interface ChatOverlayProps {
   open: boolean;
@@ -91,7 +89,7 @@ export const ChatOverlay: React.FC<ChatOverlayProps> = ({
               size="lg"
             >
               <span className="flex items-center gap-2">
-                <img src={whatsappIcon} alt="WhatsApp" className="w-5 h-5" />
+                <img src="/lovable-uploads/179a6a5e-ef1b-4126-a92f-5314abdc9aa3.png" alt="WhatsApp" className="w-5 h-5" />
                 WhatsApp
               </span>
               <ExternalLink className="w-4 h-4" />
@@ -125,7 +123,7 @@ export const ChatOverlay: React.FC<ChatOverlayProps> = ({
               size="lg"
             >
               <span className="flex items-center gap-2">
-                <img src={tiktokIcon} alt="TikTok" className="w-5 h-5" />
+                <img src="/lovable-uploads/d637cb05-65fb-4aff-9d16-3c79e83335f6.png" alt="TikTok" className="w-5 h-5" />
                 TikTok
               </span>
               <ExternalLink className="w-4 h-4" />
