@@ -3,6 +3,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { MetaHead } from '@/components/MetaHead';
 import { PageTransition } from '@/components/PageTransition';
+import { CentralLogo } from '@/components/homepage/CentralLogo';
 import { BeforeAfterGrid } from '@/components/haartransplantatie/BeforeAfterGrid';
 import { VideoPlaySection } from '@/components/haartransplantatie/VideoPlaySection';
 import { BottomNavigation } from '@/components/haartransplantatie/BottomNavigation';
@@ -34,6 +35,12 @@ const HaartransplantatiePage = () => {
               height: `${height}px`
             }}
           >
+            {/* Central Logo positioned within first section */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none">
+              <div className="pointer-events-auto">
+                <CentralLogo />
+              </div>
+            </div>
             {/* Top Section - Before/After Grid */}
             <div 
               className="relative z-10"
