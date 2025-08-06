@@ -17,6 +17,8 @@ const HaartransplantatiePage = () => {
 
   useEffect(() => {
     console.log('🏥 HaartransplantatiePage mounted');
+    // Always scroll to top when page loads
+    window.scrollTo(0, 0);
     return () => {
       console.log('🏥 HaartransplantatiePage unmounting');
     };
@@ -35,12 +37,6 @@ const HaartransplantatiePage = () => {
               height: `${height}px`
             }}
           >
-            {/* Central Logo positioned within first section */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none">
-              <div className="pointer-events-auto">
-                <CentralLogo />
-              </div>
-            </div>
             {/* Top Section - Before/After Grid */}
             <div 
               className="relative z-10"
