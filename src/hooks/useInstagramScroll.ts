@@ -2,10 +2,11 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 
 interface UseInstagramScrollOptions {
   postCount: number;
+  enabled?: boolean;
   onPostChange?: (currentPost: number) => void;
 }
 
-export const useInstagramScroll = ({ postCount, onPostChange }: UseInstagramScrollOptions) => {
+export const useInstagramScroll = ({ postCount, enabled = true, onPostChange }: UseInstagramScrollOptions) => {
   const [currentPost, setCurrentPost] = useState(0);
   const [isScrolling, setIsScrolling] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -48,7 +49,9 @@ export const useInstagramScroll = ({ postCount, onPostChange }: UseInstagramScro
   }, [currentPost, goToPost, isScrolling]);
 
   useEffect(() => {
-    // Prevent all default scrolling on the page
+    if (!enabled) return;
+    
+    // Prevent all default scrolling only when enabled
     const preventScroll = (e: Event) => {
       e.preventDefault();
       e.stopPropagation();
@@ -139,7 +142,7 @@ export const useInstagramScroll = ({ postCount, onPostChange }: UseInstagramScro
       }
     };
 
-    // Add event listeners with passive: false to prevent default scrolling
+    // Add event listeners with passive: false to prevent default scrolling only when enabled
     document.addEventListener('wheel', handleWheel, { passive: false });
     document.addEventListener('touchstart', handleTouchStart, { passive: false });
     document.addEventListener('touchmove', handleTouchMove, { passive: false });
@@ -157,7 +160,7 @@ export const useInstagramScroll = ({ postCount, onPostChange }: UseInstagramScro
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('instagram-scroll-next', handleCustomScrollNext);
     };
-  }, [currentPost, postCount, isScrolling, nextPost, previousPost]);
+  }, [currentPost, postCount, isScrolling, nextPost, previousPost, enabled]);
 
   return {
     currentPost,

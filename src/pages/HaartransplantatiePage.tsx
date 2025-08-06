@@ -45,57 +45,55 @@ const HaartransplantatiePage = () => {
     <>
       <MetaHead language={language} page="haartransplantatie" />
       <PageTransition isNewPage={true}>
-        <div className="smooth-scroll-container">
-          {/* Hero Section */}
-          <section 
-            id="hero-section"
-            className="content-section relative"
+        {/* Hero Section */}
+        <section 
+          id="hero-section"
+          className="content-section relative"
+          style={{ 
+            height: `${height}px`
+          }}
+        >
+          {/* Fading Central Logo */}
+          <ScrollFadeLogo />
+          
+          {/* Top Section - Before/After Grid */}
+          <div 
+            className="relative z-10"
             style={{ 
-              height: `${height}px`
+              height: `${height * 0.47}px`
             }}
           >
-            {/* Fading Central Logo */}
-            <ScrollFadeLogo />
-            
-            {/* Top Section - Before/After Grid */}
             <div 
-              className="relative z-10"
-              style={{ 
-                height: `${height * 0.47}px`
-              }}
+              className="page-entry-grid page-entry-delay-1 w-full h-full"
+              data-page-entry="grid"
             >
-              <div 
-                className="page-entry-grid page-entry-delay-1 w-full h-full"
-                data-page-entry="grid"
-              >
-                <BeforeAfterGrid />
-              </div>
+              <BeforeAfterGrid />
             </div>
+          </div>
 
-            {/* Bottom Section - Video Play & Controls */}
+          {/* Bottom Section - Video Play & Controls */}
+          <div 
+            className="relative z-10"
+            style={{ 
+              height: `${height * 0.53}px`
+            }}
+          >
             <div 
-              className="relative z-10"
-              style={{ 
-                height: `${height * 0.53}px`
-              }}
+              className="page-entry-item page-entry-delay-2 w-full h-full"
+              data-page-entry="video"
             >
-              <div 
-                className="page-entry-item page-entry-delay-2 w-full h-full"
-                data-page-entry="video"
-              >
-                <VideoPlaySection />
-              </div>
+              <VideoPlaySection />
             </div>
-          </section>
+          </div>
+        </section>
 
-          {/* Instagram-style Content Posts */}
-          <InstagramPostsSection />
+        {/* Instagram-style Content Posts - Document Flow */}
+        <InstagramPostsSection />
 
-          {/* Floating Action Buttons - rendered via portal */}
-          <FloatingActionPortal />
-        </div>
+        {/* Floating Action Buttons - rendered via portal */}
+        <FloatingActionPortal />
 
-        {/* Fixed Bottom Navigation - outside scroll container */}
+        {/* Fixed Bottom Navigation */}
         <div className="fixed bottom-0 left-0 right-0 z-40">
           <BottomNavigation />
         </div>

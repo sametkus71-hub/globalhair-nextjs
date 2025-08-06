@@ -1,16 +1,30 @@
+import { useEffect, useRef } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useInstagramScroll } from '@/hooks/useInstagramScroll';
+import { useScrollZones } from '@/hooks/useScrollZones';
 import { InstagramPost } from './InstagramPost';
 import { PostImage } from './PostImage';
 
 export const InstagramPostsSection = () => {
   const { language } = useLanguage();
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { registerZone, unregisterZone, isInInstagramZone } = useScrollZones();
+  
   const { currentPost, nextPost, previousPost, canGoNext, canGoPrevious, containerRef } = useInstagramScroll({
-    postCount: 5, // Simple 5 posts for testing
+    postCount: 5,
+    enabled: isInInstagramZone, // Only enable when in Instagram zone
     onPostChange: (post) => {
       console.log('Current post changed to:', post);
     }
   });
+
+  // Register this section as a scroll zone
+  useEffect(() => {
+    if (sectionRef.current) {
+      registerZone('instagram-posts', sectionRef.current);
+      return () => unregisterZone('instagram-posts');
+    }
+  }, [registerZone, unregisterZone]);
 
   // Simple sample posts for testing
   const posts = [
@@ -42,29 +56,33 @@ export const InstagramPostsSection = () => {
   ];
 
   return (
-    <div 
-      className="fixed inset-0 overflow-hidden"
+    <section 
+      ref={sectionRef}
+      className="relative w-full"
       style={{ 
-        height: '100vh',
-        touchAction: 'none',
-        overscrollBehavior: 'none'
+        height: `${posts.length * 100}vh`,
       }}
     >
-      {/* Posts Container with Transform */}
+      {/* Posts Container - Only active when in Instagram zone */}
       <div 
         ref={containerRef}
-        className="h-full w-full"
+        className={`w-full transition-all duration-300 ${
+          isInInstagramZone 
+            ? 'fixed inset-0 z-20 overflow-hidden' 
+            : 'relative'
+        }`}
         style={{
-          transform: `translateY(-${currentPost * 100}vh)`,
-          transition: 'none', // Transitions handled by the hook
-          willChange: 'transform'
+          transform: isInInstagramZone ? `translateY(-${currentPost * 100}vh)` : 'none',
+          height: isInInstagramZone ? '100vh' : `${posts.length * 100}vh`,
+          touchAction: isInInstagramZone ? 'none' : 'auto',
+          overscrollBehavior: isInInstagramZone ? 'none' : 'auto'
         }}
       >
         {posts.map((post, index) => (
           <InstagramPost 
             key={post.id} 
             postIndex={index} 
-            isActive={currentPost === index}
+            isActive={isInInstagramZone && currentPost === index}
           >
             <div className="flex flex-col justify-center items-center h-full p-8 text-center">
               <div className="max-w-md mx-auto">
@@ -90,19 +108,21 @@ export const InstagramPostsSection = () => {
         ))}
       </div>
 
-      {/* Progress Indicator */}
-      <div className="fixed right-4 top-1/2 transform -translate-y-1/2 z-30 flex flex-col space-y-2">
-        {posts.map((_, index) => (
-          <div
-            key={index}
-            className={`w-1 h-8 rounded-full transition-all duration-300 ${
-              index === currentPost 
-                ? 'bg-primary' 
-                : 'bg-muted-foreground/20'
-            }`}
-          />
-        ))}
-      </div>
-    </div>
+      {/* Progress Indicator - Only show when in Instagram zone */}
+      {isInInstagramZone && (
+        <div className="fixed right-4 top-1/2 transform -translate-y-1/2 z-30 flex flex-col space-y-2">
+          {posts.map((_, index) => (
+            <div
+              key={index}
+              className={`w-1 h-8 rounded-full transition-all duration-300 ${
+                index === currentPost 
+                  ? 'bg-primary' 
+                  : 'bg-muted-foreground/20'
+              }`}
+            />
+          ))}
+        </div>
+      )}
+    </section>
   );
 };
