@@ -16,7 +16,7 @@ export const BottomNavigation = () => {
       return location.pathname === '/nl' || location.pathname === '/en' || location.pathname === '/';
     }
     if (path === 'reviews') {
-      return location.pathname === '/nl/reviews' || location.pathname === '/en/reviews';
+      return location.pathname.startsWith('/nl/reviews') || location.pathname.startsWith('/en/reviews');
     }
     return false; // Other pages not implemented yet
   };

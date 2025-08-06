@@ -106,11 +106,11 @@ export const ReviewsGrid = () => {
             )}
           >
             {/* Content at bottom */}
-            <div className="absolute bottom-2 left-2 text-black">
-              <div className="text-sm font-medium leading-tight mb-1">
+            <div className="absolute bottom-1.5 left-1.5 text-black">
+              <div className="text-xs font-medium leading-tight mb-0.5">
                 Naam achternaam
               </div>
-              <div className="text-xs opacity-70 leading-tight">
+              <div className="text-[10px] opacity-60 leading-tight">
                 Behandeling
               </div>
             </div>

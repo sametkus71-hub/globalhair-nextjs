@@ -49,15 +49,15 @@ export const ReviewsPage = () => {
           <X className="w-5 h-5 text-gray-600" />
         </button>
         
-        {/* Content split: 75% grid, 25% text */}
+        {/* Content split: 80% grid, 20% text */}
         <div className="h-full flex flex-col">
-          {/* Reviews Grid - 75% */}
-          <div className="flex-1" style={{ height: '75%' }}>
+          {/* Reviews Grid - 80% */}
+          <div className="flex-1" style={{ height: '80%' }}>
             <ReviewsGrid />
           </div>
           
-          {/* Text Area - 25% */}
-          <div style={{ height: '25%' }}>
+          {/* Text Area - 20% */}
+          <div style={{ height: '20%' }}>
             <ReviewsTextArea />
           </div>
         </div>
