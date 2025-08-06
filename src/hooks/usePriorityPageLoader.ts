@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { PriorityAsset } from '@/components/PriorityImageLoader';
 
 interface UsePriorityPageLoaderOptions {
@@ -19,11 +19,32 @@ export const usePriorityPageLoader = ({
   });
   
   const [isFirstLoad, setIsFirstLoad] = useState(true);
-  const [loadedPhases, setLoadedPhases] = useState({
+  const loadedPhases = useRef({
     critical: false,
     high: false,
     all: false
   });
+
+  const timers = useRef<{
+    criticalTimer?: NodeJS.Timeout;
+    minLoadingTimer?: NodeJS.Timeout;
+  }>({});
+
+  const criticalDelayPassed = useRef(false);
+  const minTimePassed = useRef(false);
+
+  const checkShowContent = useCallback(() => {
+    if (loadedPhases.current.high && criticalDelayPassed.current && minTimePassed.current) {
+      setLoadingStates(prev => ({ ...prev, showContent: true }));
+      sessionStorage.setItem('homepage-visited', 'true');
+    }
+  }, []);
+
+  const checkAllLoaded = useCallback(() => {
+    if (loadedPhases.current.all) {
+      setLoadingStates(prev => ({ ...prev, allLoaded: true }));
+    }
+  }, []);
 
   useEffect(() => {
     // Check if this is the first load
@@ -41,54 +62,47 @@ export const usePriorityPageLoader = ({
       return;
     }
 
-    let criticalTimer: NodeJS.Timeout;
-    let minLoadingTimer: NodeJS.Timeout;
-    let criticalDelayPassed = false;
-    let minTimePassed = false;
-
-    const checkShowContent = () => {
-      if (loadedPhases.high && criticalDelayPassed && minTimePassed) {
-        setLoadingStates(prev => ({ ...prev, showContent: true }));
-        sessionStorage.setItem('homepage-visited', 'true');
-      }
-    };
-
-    const checkAllLoaded = () => {
-      if (loadedPhases.all) {
-        setLoadingStates(prev => ({ ...prev, allLoaded: true }));
-      }
-    };
+    // Reset refs for first load
+    criticalDelayPassed.current = false;
+    minTimePassed.current = false;
+    loadedPhases.current = { critical: false, high: false, all: false };
 
     // Critical delay timer (minimum logo show time)
-    criticalTimer = setTimeout(() => {
-      criticalDelayPassed = true;
+    timers.current.criticalTimer = setTimeout(() => {
+      criticalDelayPassed.current = true;
       checkShowContent();
     }, criticalDelay);
 
     // Minimum loading time timer
-    minLoadingTimer = setTimeout(() => {
-      minTimePassed = true;
+    timers.current.minLoadingTimer = setTimeout(() => {
+      minTimePassed.current = true;
       checkShowContent();
     }, minLoadingTime);
 
     return () => {
-      clearTimeout(criticalTimer);
-      clearTimeout(minLoadingTimer);
+      if (timers.current.criticalTimer) {
+        clearTimeout(timers.current.criticalTimer);
+      }
+      if (timers.current.minLoadingTimer) {
+        clearTimeout(timers.current.minLoadingTimer);
+      }
     };
-  }, [assets, criticalDelay, minLoadingTime, loadedPhases]);
+  }, []); // Only run once on mount
 
-  const handleCriticalLoaded = () => {
-    setLoadedPhases(prev => ({ ...prev, critical: true }));
+  const handleCriticalLoaded = useCallback(() => {
+    loadedPhases.current.critical = true;
     setLoadingStates(prev => ({ ...prev, showLogo: true }));
-  };
+  }, []);
 
-  const handleHighLoaded = () => {
-    setLoadedPhases(prev => ({ ...prev, high: true }));
-  };
+  const handleHighLoaded = useCallback(() => {
+    loadedPhases.current.high = true;
+    checkShowContent();
+  }, [checkShowContent]);
 
-  const handleAllLoaded = () => {
-    setLoadedPhases(prev => ({ ...prev, all: true }));
-  };
+  const handleAllLoaded = useCallback(() => {
+    loadedPhases.current.all = true;
+    checkAllLoaded();
+  }, [checkAllLoaded]);
 
   return {
     isFirstLoad,
