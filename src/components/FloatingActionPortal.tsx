@@ -47,8 +47,16 @@ export const FloatingActionPortal: React.FC = () => {
         }
       });
       
+      console.log('🔄 Scroll Debug:', {
+        currentSectionIndex,
+        totalSections,
+        scrollTop,
+        isOnLast: currentSectionIndex >= totalSections - 1
+      });
+      
       // If on last section, scroll to top
       if (currentSectionIndex >= totalSections - 1) {
+        console.log('📤 Scrolling to top');
         window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
       }
@@ -56,6 +64,7 @@ export const FloatingActionPortal: React.FC = () => {
       // Otherwise scroll to next section
       const nextSection = sections[currentSectionIndex + 1] as HTMLElement;
       if (nextSection) {
+        console.log('📥 Scrolling to next section:', currentSectionIndex + 1);
         nextSection.scrollIntoView({
           behavior: 'smooth',
           block: 'start'
@@ -85,7 +94,15 @@ export const FloatingActionPortal: React.FC = () => {
         }
       });
       
-      return currentSectionIndex >= totalSections - 1;
+      const isLast = currentSectionIndex >= totalSections - 1;
+      console.log('🔍 Button State Check:', {
+        currentSectionIndex,
+        totalSections,
+        isLast,
+        scrollTop
+      });
+      
+      return isLast;
     }
     return false;
   };
