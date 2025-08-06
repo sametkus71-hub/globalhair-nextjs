@@ -112,46 +112,55 @@ export const FloatingActionPortal: React.FC = () => {
   const content = (
     <>
       {/* Floating Action Buttons */}
-      <div className="fixed bottom-24 right-4 z-[9999] flex flex-col gap-1 sm:bottom-28 sm:right-6">
+      <div className="fixed bottom-24 right-4 z-[9999] flex flex-col gap-2 sm:bottom-28 sm:right-6">
         {/* Plan Consultation Button */}
-        <div className="flex flex-col items-center gap-0.5">
+        <div className="flex flex-col items-center gap-1">
           <button
-            className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white border border-gray-200 transition-all duration-200 ease-out flex items-center justify-center group hover:bg-gray-50"
+            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/95 backdrop-blur-sm border-0 transition-all duration-300 ease-out flex items-center justify-center group hover:bg-white hover:scale-105 shadow-lg hover:shadow-xl"
+            style={{
+              boxShadow: '0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08)',
+            }}
             onClick={() => setConsultModalOpen(true)}
             aria-label={language === 'nl' ? 'Plan Consult' : 'Plan Consultation'}
           >
-            <Calendar className="w-4 h-4 text-gray-700 group-hover:text-gray-900" />
+            <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors" />
           </button>
-          <span className="text-[8px] font-medium text-gray-900 text-center">
+          <span className="text-[9px] font-medium text-gray-800 text-center">
             {language === 'nl' ? 'Consult' : 'Consult'}
           </span>
         </div>
 
         {/* Chat Support Button */}
-        <div className="flex flex-col items-center gap-0.5">
+        <div className="flex flex-col items-center gap-1">
           <button
-            className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white border border-gray-200 transition-all duration-200 ease-out flex items-center justify-center group hover:bg-gray-50"
+            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/95 backdrop-blur-sm border-0 transition-all duration-300 ease-out flex items-center justify-center group hover:bg-white hover:scale-105 shadow-lg hover:shadow-xl"
+            style={{
+              boxShadow: '0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08)',
+            }}
             onClick={() => setChatOverlayOpen(true)}
             aria-label={language === 'nl' ? 'Chat Support' : 'Chat Support'}
           >
-            <MessageCircle className="w-4 h-4 text-gray-700 group-hover:text-gray-900" />
+            <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors" />
           </button>
-          <span className="text-[8px] font-medium text-gray-900 text-center">
+          <span className="text-[9px] font-medium text-gray-800 text-center">
             {language === 'nl' ? 'Chat' : 'Chat'}
           </span>
         </div>
 
         {/* Scroll Navigation Button */}
-        <div className="flex flex-col items-center gap-0.5">
+        <div className="flex flex-col items-center gap-1">
           <button
-            className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white border border-gray-200 transition-all duration-200 ease-out flex items-center justify-center group hover:bg-gray-50"
+            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/95 backdrop-blur-sm border-0 transition-all duration-300 ease-out flex items-center justify-center group hover:bg-white hover:scale-105 shadow-lg hover:shadow-xl"
+            style={{
+              boxShadow: '0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08)',
+            }}
             onClick={scrollToNextSection}
             aria-label={language === 'nl' ? (isOnLastSection() ? 'Naar boven' : 'Volgende') : (isOnLastSection() ? 'To top' : 'Next')}
           >
             {isOnLastSection() ? (
-              <ChevronUp className="w-4 h-4 text-gray-700 group-hover:text-gray-900" />
+              <ChevronUp className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors" />
             ) : (
-              <ChevronDown className="w-4 h-4 text-gray-700 group-hover:text-gray-900" />
+              <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors" />
             )}
           </button>
         </div>
