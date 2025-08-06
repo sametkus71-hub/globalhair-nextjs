@@ -873,3 +873,17 @@ html, body {
 .instagram-section.content-section {
   display: block; /* Block layout for complex hero structure */
 }
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Disable scroll snap during programmatic scrolling */
+html.disable-scroll-snap {
+  scroll-behavior: auto !important;
+}
+
+html.disable-scroll-snap * {
+  scroll-snap-type: none !important;
+}

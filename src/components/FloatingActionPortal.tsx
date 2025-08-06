@@ -12,6 +12,7 @@ export const FloatingActionPortal: React.FC = () => {
   const [consultModalOpen, setConsultModalOpen] = useState(false);
   const [chatOverlayOpen, setChatOverlayOpen] = useState(false);
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
+  const [isScrolling, setIsScrolling] = useState(false);
   const { language } = useLanguage();
   const location = useLocation();
   
@@ -28,33 +29,83 @@ export const FloatingActionPortal: React.FC = () => {
     return () => setMounted(false);
   }, []);
 
-  // Track scroll position to update button state
+  // Track scroll position to update button state with debouncing
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    
     const handleScroll = () => {
-      if (location.pathname.includes('/haartransplantatie')) {
-        const sections = document.querySelectorAll('.snap-section');
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const windowHeight = window.innerHeight;
-        
-        let currentIndex = 0;
-        sections.forEach((section, index) => {
-          const rect = section.getBoundingClientRect();
-          const sectionTop = rect.top + scrollTop;
+      // Don't update during programmatic scrolling
+      if (isScrolling) return;
+      
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        if (location.pathname.includes('/haartransplantatie')) {
+          const sections = document.querySelectorAll('.snap-section');
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          const windowHeight = window.innerHeight;
           
-          if (scrollTop >= sectionTop - windowHeight / 2) {
-            currentIndex = index;
-          }
-        });
-        
-        setCurrentSectionIndex(currentIndex);
-      }
+          let currentIndex = 0;
+          sections.forEach((section, index) => {
+            const rect = section.getBoundingClientRect();
+            const sectionTop = rect.top + scrollTop;
+            
+            if (scrollTop >= sectionTop - windowHeight / 2) {
+              currentIndex = index;
+            }
+          });
+          
+          setCurrentSectionIndex(currentIndex);
+        }
+      }, 100); // Debounce scroll events
     };
 
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Initial call
     
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [location.pathname]);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(timeoutId);
+    };
+  }, [location.pathname, isScrolling]);
+
+  const scrollToTop = () => {
+    setIsScrolling(true);
+    
+    // Temporarily disable scroll snap
+    document.documentElement.classList.add('disable-scroll-snap');
+    
+    // Multiple fallback methods for scrolling to top
+    const scrollMethods = [
+      () => window.scrollTo({ top: 0, behavior: 'smooth' }),
+      () => { document.documentElement.scrollTop = 0; },
+      () => { document.body.scrollTop = 0; },
+      () => { window.scrollTo(0, 0); }
+    ];
+    
+    // Try each method
+    let methodIndex = 0;
+    const tryScroll = () => {
+      if (methodIndex < scrollMethods.length) {
+        try {
+          scrollMethods[methodIndex]();
+          methodIndex++;
+        } catch (error) {
+          methodIndex++;
+          if (methodIndex < scrollMethods.length) {
+            tryScroll();
+          }
+        }
+      }
+    };
+    
+    tryScroll();
+    
+    // Re-enable scroll snap and reset scrolling state after animation
+    setTimeout(() => {
+      document.documentElement.classList.remove('disable-scroll-snap');
+      setIsScrolling(false);
+    }, 800);
+  };
 
   const scrollToNextSection = () => {
     // Check if we're on haartransplantatie page
@@ -62,27 +113,21 @@ export const FloatingActionPortal: React.FC = () => {
       const sections = document.querySelectorAll('.snap-section');
       const totalSections = sections.length;
       
-      console.log('🔄 Scroll Debug:', {
-        currentSectionIndex,
-        totalSections,
-        isOnLast: currentSectionIndex >= totalSections - 1
-      });
-      
       // If on last section, scroll to top
       if (currentSectionIndex >= totalSections - 1) {
-        console.log('📤 Scrolling to top');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        scrollToTop();
         return;
       }
       
       // Otherwise scroll to next section
       const nextSection = sections[currentSectionIndex + 1] as HTMLElement;
       if (nextSection) {
-        console.log('📥 Scrolling to next section:', currentSectionIndex + 1);
+        setIsScrolling(true);
         nextSection.scrollIntoView({
           behavior: 'smooth',
           block: 'start'
         });
+        setTimeout(() => setIsScrolling(false), 800);
       }
       return;
     }
