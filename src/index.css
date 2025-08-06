@@ -192,7 +192,6 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
   scroll-behavior: smooth;
   overflow-y: auto;
   height: 100vh;
-  scroll-padding-top: 20px;
 }
 
 .snap-section {
