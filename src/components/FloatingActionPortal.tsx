@@ -116,9 +116,13 @@ export const FloatingActionPortal: React.FC = () => {
         {/* Plan Consultation Button */}
         <div className="flex flex-col items-center gap-1">
           <button
-            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/95 backdrop-blur-sm border-0 transition-all duration-300 ease-out flex items-center justify-center group hover:bg-white hover:scale-105 shadow-lg hover:shadow-xl"
+            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full transition-all duration-300 ease-out flex items-center justify-center group hover:scale-105"
             style={{
-              boxShadow: '0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08)',
+              background: 'rgba(255, 255, 255, 0.75)',
+              backdropFilter: 'blur(20px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 0.4) inset, 0 1px 0px rgba(0, 0, 0, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
             }}
             onClick={() => setConsultModalOpen(true)}
             aria-label={language === 'nl' ? 'Plan Consult' : 'Plan Consultation'}
@@ -133,9 +137,13 @@ export const FloatingActionPortal: React.FC = () => {
         {/* Chat Support Button */}
         <div className="flex flex-col items-center gap-1">
           <button
-            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/95 backdrop-blur-sm border-0 transition-all duration-300 ease-out flex items-center justify-center group hover:bg-white hover:scale-105 shadow-lg hover:shadow-xl"
+            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full transition-all duration-300 ease-out flex items-center justify-center group hover:scale-105"
             style={{
-              boxShadow: '0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08)',
+              background: 'rgba(255, 255, 255, 0.75)',
+              backdropFilter: 'blur(20px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 0.4) inset, 0 1px 0px rgba(0, 0, 0, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
             }}
             onClick={() => setChatOverlayOpen(true)}
             aria-label={language === 'nl' ? 'Chat Support' : 'Chat Support'}
@@ -150,9 +158,13 @@ export const FloatingActionPortal: React.FC = () => {
         {/* Scroll Navigation Button */}
         <div className="flex flex-col items-center gap-1">
           <button
-            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/95 backdrop-blur-sm border-0 transition-all duration-300 ease-out flex items-center justify-center group hover:bg-white hover:scale-105 shadow-lg hover:shadow-xl"
+            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full transition-all duration-300 ease-out flex items-center justify-center group hover:scale-105"
             style={{
-              boxShadow: '0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08)',
+              background: 'rgba(255, 255, 255, 0.75)',
+              backdropFilter: 'blur(20px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 0.4) inset, 0 1px 0px rgba(0, 0, 0, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
             }}
             onClick={scrollToNextSection}
             aria-label={language === 'nl' ? (isOnLastSection() ? 'Naar boven' : 'Volgende') : (isOnLastSection() ? 'To top' : 'Next')}
