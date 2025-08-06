@@ -10,7 +10,6 @@ export const SessionManager = ({ children }: SessionManagerProps) => {
 
   useEffect(() => {
     // Initialize session storage and body classes on mount
-    console.log('Session Manager initialized with profile:', profile);
   }, [profile]);
 
   return <>{children}</>;

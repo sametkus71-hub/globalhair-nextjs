@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { useLocation } from 'react-router-dom';
 import { Calendar, MessageCircle, ChevronDown, ChevronUp } from 'lucide-react';
@@ -24,7 +24,7 @@ export const FloatingActionPortal: React.FC = () => {
     scrollContext = null;
   }
 
-  // Activity detection functions
+  // Activity detection with debouncing
   const resetActivityTimeout = useCallback(() => {
     setIsUserActive(true);
     
@@ -34,21 +34,26 @@ export const FloatingActionPortal: React.FC = () => {
     
     activityTimeout.current = setTimeout(() => {
       setIsUserActive(false);
-    }, 3500); // 3.5 seconds of inactivity
+    }, 3500);
   }, []);
 
+  // Throttled activity handler to reduce excessive calls
+  const throttledActivityHandler = useRef<NodeJS.Timeout>();
   const handleUserActivity = useCallback(() => {
-    resetActivityTimeout();
+    if (throttledActivityHandler.current) return;
+    
+    throttledActivityHandler.current = setTimeout(() => {
+      resetActivityTimeout();
+      throttledActivityHandler.current = undefined;
+    }, 100); // Throttle to max 10 calls per second
   }, [resetActivityTimeout]);
 
   useEffect(() => {
     setMounted(true);
-    
-    // Set up activity detection
     resetActivityTimeout();
     
-    // Activity event listeners
-    const events = ['mousemove', 'touchstart', 'touchmove', 'scroll', 'keydown'];
+    // Reduced activity event listeners for better performance
+    const events = ['mousemove', 'scroll'];
     
     events.forEach(event => {
       document.addEventListener(event, handleUserActivity, { passive: true });
@@ -57,25 +62,25 @@ export const FloatingActionPortal: React.FC = () => {
     return () => {
       setMounted(false);
       
-      // Clear timeout
       if (activityTimeout.current) {
         clearTimeout(activityTimeout.current);
       }
       
-      // Remove event listeners
+      if (throttledActivityHandler.current) {
+        clearTimeout(throttledActivityHandler.current);
+      }
+      
       events.forEach(event => {
         document.removeEventListener(event, handleUserActivity);
       });
     };
   }, [handleUserActivity, resetActivityTimeout]);
 
-  const scrollToNextSection = () => {
-    // Check if we're on haartransplantatie page
+  const scrollToNextSection = useCallback(() => {
     if (location.pathname.includes('/haartransplantatie')) {
       const sections = document.querySelectorAll('.snap-section');
       const totalSections = sections.length;
       
-      // Find current section by checking which one is most visible
       let currentSectionIndex = 0;
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const windowHeight = window.innerHeight;
@@ -89,24 +94,13 @@ export const FloatingActionPortal: React.FC = () => {
         }
       });
       
-      console.log('🔄 Scroll Debug:', {
-        currentSectionIndex,
-        totalSections,
-        scrollTop,
-        isOnLast: currentSectionIndex >= totalSections - 1
-      });
-      
-      // If on last section, scroll to top
       if (currentSectionIndex >= totalSections - 1) {
-        console.log('📤 Scrolling to top');
         window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
       }
       
-      // Otherwise scroll to next section
       const nextSection = sections[currentSectionIndex + 1] as HTMLElement;
       if (nextSection) {
-        console.log('📥 Scrolling to next section:', currentSectionIndex + 1);
         nextSection.scrollIntoView({
           behavior: 'smooth',
           block: 'start'
@@ -115,39 +109,30 @@ export const FloatingActionPortal: React.FC = () => {
       return;
     }
     
-    // Default behavior for other pages
     window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
-  };
+  }, [location.pathname]);
 
-  const isOnLastSection = () => {
-    if (location.pathname.includes('/haartransplantatie')) {
-      const sections = document.querySelectorAll('.snap-section');
-      const totalSections = sections.length;
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const windowHeight = window.innerHeight;
+  // Memoized calculation to avoid repeated DOM queries
+  const isOnLastSection = useMemo(() => {
+    if (!location.pathname.includes('/haartransplantatie')) return false;
+    
+    const sections = document.querySelectorAll('.snap-section');
+    const totalSections = sections.length;
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const windowHeight = window.innerHeight;
+    
+    let currentSectionIndex = 0;
+    sections.forEach((section, index) => {
+      const rect = section.getBoundingClientRect();
+      const sectionTop = rect.top + scrollTop;
       
-      let currentSectionIndex = 0;
-      sections.forEach((section, index) => {
-        const rect = section.getBoundingClientRect();
-        const sectionTop = rect.top + scrollTop;
-        
-        if (scrollTop >= sectionTop - windowHeight / 2) {
-          currentSectionIndex = index;
-        }
-      });
-      
-      const isLast = currentSectionIndex >= totalSections - 1;
-      console.log('🔍 Button State Check:', {
-        currentSectionIndex,
-        totalSections,
-        isLast,
-        scrollTop
-      });
-      
-      return isLast;
-    }
-    return false;
-  };
+      if (scrollTop >= sectionTop - windowHeight / 2) {
+        currentSectionIndex = index;
+      }
+    });
+    
+    return currentSectionIndex >= totalSections - 1;
+  }, [location.pathname]);
 
   if (!mounted) return null;
 
@@ -214,9 +199,9 @@ export const FloatingActionPortal: React.FC = () => {
               border: '1px solid rgba(255, 255, 255, 0.2)',
             }}
             onClick={scrollToNextSection}
-            aria-label={language === 'nl' ? (isOnLastSection() ? 'Naar boven' : 'Volgende') : (isOnLastSection() ? 'To top' : 'Next')}
+            aria-label={language === 'nl' ? (isOnLastSection ? 'Naar boven' : 'Volgende') : (isOnLastSection ? 'To top' : 'Next')}
           >
-            {isOnLastSection() ? (
+            {isOnLastSection ? (
               <ChevronUp className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors" />
             ) : (
               <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors" />

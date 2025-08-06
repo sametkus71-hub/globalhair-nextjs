@@ -7,21 +7,10 @@ interface PageTransitionProps {
 }
 
 export const PageTransition = ({ children, isNewPage = false }: PageTransitionProps) => {
-  // Check if this is a direct page load immediately
   const isDirectPageLoad = !document.referrer || !document.referrer.includes(window.location.origin);
-  
-  console.log('🔍 PageTransition Debug:', {
-    isNewPage,
-    isDirectPageLoad,
-    referrer: document.referrer,
-    currentOrigin: window.location.origin,
-    pathname: window.location.pathname
-  });
   
   const [isVisible, setIsVisible] = useState(!isNewPage || isDirectPageLoad);
   const [showContent, setShowContent] = useState(!isNewPage || isDirectPageLoad);
-  
-  console.log('🔍 PageTransition State:', { isVisible, showContent });
 
   useEffect(() => {
     if (isNewPage && !isDirectPageLoad) {
@@ -43,7 +32,6 @@ export const PageTransition = ({ children, isNewPage = false }: PageTransitionPr
       const timer = setTimeout(() => {
         setIsVisible(true);
         
-        // Immediately show all page entry items on direct loads
         const pageItems = document.querySelectorAll('[data-page-entry]');
         pageItems.forEach((item) => {
           if (item.classList.contains('page-entry-grid')) {
@@ -52,7 +40,6 @@ export const PageTransition = ({ children, isNewPage = false }: PageTransitionPr
             item.classList.add('page-entry-item-visible');
           }
         });
-        console.log('🚀 Direct load: Applied visible class to', pageItems.length, 'page elements');
       }, 50);
       return () => clearTimeout(timer);
     }
