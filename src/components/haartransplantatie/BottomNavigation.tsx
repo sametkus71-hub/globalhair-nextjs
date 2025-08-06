@@ -56,7 +56,7 @@ export const BottomNavigation = () => {
       <div 
         className="bg-black/95 backdrop-blur-sm border-t border-gray-800/50 h-full"
         style={{ 
-          paddingBottom: 'max(0.25rem, env(safe-area-inset-bottom))'
+          paddingBottom: 'env(safe-area-inset-bottom)'
         }}
       >
         <div className="max-w-lg mx-auto px-2 pt-1.5 pb-0.5">
