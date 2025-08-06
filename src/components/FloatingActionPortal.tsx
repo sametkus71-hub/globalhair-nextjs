@@ -11,7 +11,6 @@ export const FloatingActionPortal: React.FC = () => {
   const [mounted, setMounted] = useState(false);
   const [consultModalOpen, setConsultModalOpen] = useState(false);
   const [chatOverlayOpen, setChatOverlayOpen] = useState(false);
-  const [isAtTop, setIsAtTop] = useState(true);
   const { language } = useLanguage();
   const location = useLocation();
   
@@ -28,52 +27,84 @@ export const FloatingActionPortal: React.FC = () => {
     return () => setMounted(false);
   }, []);
 
-  // Simple scroll position tracking
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
+  const scrollToNextSection = () => {
+    // Check if we're on haartransplantatie page
+    if (location.pathname.includes('/haartransplantatie')) {
+      const sections = document.querySelectorAll('.snap-section');
+      const totalSections = sections.length;
+      
+      // Find current section by checking which one is most visible
+      let currentSectionIndex = 0;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const windowHeight = window.innerHeight;
+      
+      sections.forEach((section, index) => {
+        const rect = section.getBoundingClientRect();
+        const sectionTop = rect.top + scrollTop;
+        
+        if (scrollTop >= sectionTop - windowHeight / 2) {
+          currentSectionIndex = index;
+        }
+      });
+      
+      console.log('🔄 Scroll Debug:', {
+        currentSectionIndex,
+        totalSections,
+        scrollTop,
+        isOnLast: currentSectionIndex >= totalSections - 1
+      });
+      
+      // If on last section, scroll to top
+      if (currentSectionIndex >= totalSections - 1) {
+        console.log('📤 Scrolling to top');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+      
+      // Otherwise scroll to next section
+      const nextSection = sections[currentSectionIndex + 1] as HTMLElement;
+      if (nextSection) {
+        console.log('📥 Scrolling to next section:', currentSectionIndex + 1);
+        nextSection.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+      return;
+    }
     
-    const handleScroll = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        const scrollY = window.scrollY || window.pageYOffset;
-        setIsAtTop(scrollY < 100); // Show "up" arrow when scrolled past 100px
-      }, 100);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial call
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      clearTimeout(timeoutId);
-    };
-  }, []);
-
-  const forceScrollToTop = () => {
-    // Disable scroll behaviors temporarily
-    document.documentElement.classList.add('disable-scroll-snap');
-    const originalScrollBehavior = document.documentElement.style.scrollBehavior;
-    document.documentElement.style.scrollBehavior = 'auto';
-    
-    // Force immediate scroll to top
-    window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-    
-    // Restore behaviors after a short delay
-    setTimeout(() => {
-      document.documentElement.style.scrollBehavior = originalScrollBehavior;
-      document.documentElement.classList.remove('disable-scroll-snap');
-    }, 100);
+    // Default behavior for other pages
+    window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
   };
 
-  const handleScrollAction = () => {
-    if (!isAtTop) {
-      forceScrollToTop();
-    } else {
-      // Scroll down one viewport
-      window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+  const isOnLastSection = () => {
+    if (location.pathname.includes('/haartransplantatie')) {
+      const sections = document.querySelectorAll('.snap-section');
+      const totalSections = sections.length;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const windowHeight = window.innerHeight;
+      
+      let currentSectionIndex = 0;
+      sections.forEach((section, index) => {
+        const rect = section.getBoundingClientRect();
+        const sectionTop = rect.top + scrollTop;
+        
+        if (scrollTop >= sectionTop - windowHeight / 2) {
+          currentSectionIndex = index;
+        }
+      });
+      
+      const isLast = currentSectionIndex >= totalSections - 1;
+      console.log('🔍 Button State Check:', {
+        currentSectionIndex,
+        totalSections,
+        isLast,
+        scrollTop
+      });
+      
+      return isLast;
     }
+    return false;
   };
 
   if (!mounted) return null;
@@ -132,10 +163,10 @@ export const FloatingActionPortal: React.FC = () => {
               backdropFilter: 'blur(12px)',
               WebkitBackdropFilter: 'blur(12px)',
             }}
-            onClick={handleScrollAction}
-            aria-label={language === 'nl' ? (!isAtTop ? 'Naar boven' : 'Naar beneden') : (!isAtTop ? 'To top' : 'Scroll down')}
+            onClick={scrollToNextSection}
+            aria-label={language === 'nl' ? (isOnLastSection() ? 'Naar boven' : 'Volgende') : (isOnLastSection() ? 'To top' : 'Next')}
           >
-            {!isAtTop ? (
+            {isOnLastSection() ? (
               <ChevronUp className="w-4 h-4 sm:w-5 sm:h-5 text-white/90 group-hover:text-white group-hover:scale-110 transition-all duration-200" />
             ) : (
               <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-white/90 group-hover:text-white group-hover:scale-110 transition-all duration-200" />
