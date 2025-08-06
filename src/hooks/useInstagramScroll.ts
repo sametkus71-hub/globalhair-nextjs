@@ -8,12 +8,12 @@ interface UseInstagramScrollProps {
 export const useInstagramScroll = ({ totalSections, onSectionChange }: UseInstagramScrollProps) => {
   const [currentSection, setCurrentSection] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const touchStartY = useRef(0);
   const touchCurrentY = useRef(0);
   const startScrollPosition = useRef(0);
   const lastScrollTime = useRef(0);
+  const isDragging = useRef(false);
   const animationFrame = useRef<number>();
 
   // Get section position for smooth scrolling
@@ -61,7 +61,7 @@ export const useInstagramScroll = ({ totalSections, onSectionChange }: UseInstag
     touchStartY.current = e.touches[0].clientY;
     touchCurrentY.current = e.touches[0].clientY;
     startScrollPosition.current = window.pageYOffset;
-    setIsDragging(true);
+    isDragging.current = true;
     
     // Cancel any ongoing scroll animation
     if (animationFrame.current) {
@@ -70,7 +70,7 @@ export const useInstagramScroll = ({ totalSections, onSectionChange }: UseInstag
   }, [isTransitioning]);
 
   const handleTouchMove = useCallback((e: TouchEvent) => {
-    if (!isDragging || isTransitioning) return;
+    if (!isDragging.current || isTransitioning) return;
     
     touchCurrentY.current = e.touches[0].clientY;
     const deltaY = touchStartY.current - touchCurrentY.current;
@@ -90,12 +90,12 @@ export const useInstagramScroll = ({ totalSections, onSectionChange }: UseInstag
     
     // Immediate scroll update for responsive feel
     window.scrollTo(0, targetScroll);
-  }, [isDragging, isTransitioning, totalSections]);
+  }, [isTransitioning, totalSections]);
 
   const handleTouchEnd = useCallback((e: TouchEvent) => {
-    if (!isDragging) return;
+    if (!isDragging.current) return;
     
-    setIsDragging(false);
+    isDragging.current = false;
     
     const touchEndY = e.changedTouches[0].clientY;
     const deltaY = touchStartY.current - touchEndY;
@@ -128,7 +128,7 @@ export const useInstagramScroll = ({ totalSections, onSectionChange }: UseInstag
     // Snap to target section
     scrollToSection(targetSection);
     lastScrollTime.current = Date.now();
-  }, [isDragging, currentSection, totalSections, scrollToSection]);
+  }, [currentSection, totalSections, scrollToSection]);
 
   // Simple wheel handling - no debouncing, instant response
   const handleWheel = useCallback((e: WheelEvent) => {
@@ -229,7 +229,6 @@ export const useInstagramScroll = ({ totalSections, onSectionChange }: UseInstag
     scrollToSection,
     scrollToNext,
     scrollToPrevious,
-    isTransitioning,
-    isDragging
+    isTransitioning
   };
 };
