@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '@/hooks/useLanguage';
 import { cn } from '@/lib/utils';
 
 interface ReviewItem {
@@ -14,33 +16,34 @@ const REVIEW_ITEMS: Omit<ReviewItem, 'isAfter'>[] = [
   { id: 3, beforeColor: 'bg-gray-700', afterColor: 'bg-gray-200' },
   { id: 4, beforeColor: 'bg-gray-400', afterColor: 'bg-gray-300' },
   { id: 5, beforeColor: 'bg-gray-800', afterColor: 'bg-gray-100' },
-  { id: 6, beforeColor: 'bg-gray-500', afterColor: 'bg-gray-300' }
+  { id: 6, beforeColor: 'bg-gray-500', afterColor: 'bg-gray-300' },
+  { id: 7, beforeColor: 'bg-gray-600', afterColor: 'bg-gray-400' },
+  { id: 8, beforeColor: 'bg-gray-700', afterColor: 'bg-gray-200' },
+  { id: 9, beforeColor: 'bg-gray-400', afterColor: 'bg-gray-500' }
 ];
 
-// Initial balanced state: 3 BEFORE, 3 AFTER
-const INITIAL_STATE = [false, true, false, true, false, true]; // alternating pattern
+// Initial balanced state: alternating pattern for 9 items
+const INITIAL_STATE = [false, true, false, true, false, true, false, true, false];
 
-// Animation groups that swap 1 BEFORE with 1 AFTER to maintain balance
+// Animation groups that swap pairs to maintain balance
 const ANIMATION_GROUPS = [
-  { beforeId: 1, afterId: 2, initialDelay: 3000, stayDuration: 18000 }, // swap top left (before) with top middle (after)
-  { beforeId: 3, afterId: 4, initialDelay: 8000, stayDuration: 22000 }, // swap top right (before) with bottom left (after)  
-  { beforeId: 5, afterId: 6, initialDelay: 15000, stayDuration: 16000 }, // swap bottom middle (before) with bottom right (after)
+  { beforeId: 1, afterId: 2, initialDelay: 3000, stayDuration: 18000 },
+  { beforeId: 3, afterId: 4, initialDelay: 8000, stayDuration: 22000 },
+  { beforeId: 5, afterId: 6, initialDelay: 15000, stayDuration: 16000 },
+  { beforeId: 7, afterId: 8, initialDelay: 5000, stayDuration: 20000 }
 ];
 
 export const ReviewsGrid = () => {
+  const navigate = useNavigate();
+  const { language } = useLanguage();
   const [items, setItems] = useState<ReviewItem[]>(
     REVIEW_ITEMS.map((item, index) => ({ ...item, isAfter: INITIAL_STATE[index] }))
   );
 
-  // Handle manual click toggles
+  // Handle click to navigate to item page
   const handleItemClick = (clickedId: number) => {
-    setItems(prevItems => 
-      prevItems.map(item => 
-        item.id === clickedId 
-          ? { ...item, isAfter: !item.isAfter }
-          : item
-      )
-    );
+    const itemRoute = language === 'nl' ? `/nl/reviews/item1` : `/en/reviews/item1`;
+    navigate(itemRoute);
   };
 
   useEffect(() => {
@@ -84,11 +87,11 @@ export const ReviewsGrid = () => {
   }, []);
 
   return (
-    <div className="w-full h-full p-4">
+    <div className="w-full h-full">
       <div 
         className="grid grid-cols-3 w-full h-full gap-0"
         style={{ 
-          gridTemplateRows: '1fr 1fr', // Explicitly equal rows - 3x2 grid
+          gridTemplateRows: '1fr 1fr 1fr', // 3x3 grid
           height: '100%'
         }}
       >

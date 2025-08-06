@@ -430,20 +430,15 @@ body.s-wit {
     animation: ultra-massive-pulse 260s ease-in-out infinite;
   }
   
-  /* Reviews popup animations */
-  .reviews-popup-overlay {
-    @apply fixed inset-0 z-50;
-    animation: reviews-popup-enter 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  /* Reviews page animations */
+  .reviews-page-fullscreen {
+    @apply fixed inset-0 z-50 bg-white;
+    animation: reviews-page-enter 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
   
-  .reviews-popup-content {
-    @apply fixed inset-x-4 bottom-4 top-20 bg-black/90 backdrop-blur-sm rounded-2xl border border-white/10 z-50;
-    animation: reviews-popup-slide-up 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    transform: translateY(100%) scale(0.95);
-  }
-  
-  .reviews-popup-exit {
-    animation: reviews-popup-slide-down 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  .review-item-page-fullscreen {
+    @apply fixed inset-0 z-50 bg-white;
+    animation: reviews-page-enter 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
 }
 
@@ -518,34 +513,14 @@ body.s-wit {
   }
 }
 
-@keyframes reviews-popup-enter {
+@keyframes reviews-page-enter {
   from {
     opacity: 0;
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
-  }
-}
-
-@keyframes reviews-popup-slide-up {
-  from {
-    transform: translateY(100%) scale(0.95);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes reviews-popup-slide-down {
-  from {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(100%) scale(0.95);
-    opacity: 0;
+    transform: translateY(0);
   }
 }
 
