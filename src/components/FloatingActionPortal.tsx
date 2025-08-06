@@ -1,17 +1,16 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { useLocation } from 'react-router-dom';
-import { Calendar, MessageCircle, ChevronDown, ChevronUp, Instagram, Send, Zap } from 'lucide-react';
+import { Calendar, MessageCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { ConsultationModal } from './ConsultationModal';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+import { ChatOverlay } from './ChatOverlay';
 import { useScrollContext } from '@/contexts/ScrollContext';
 
 export const FloatingActionPortal: React.FC = () => {
   const [mounted, setMounted] = useState(false);
   const [consultModalOpen, setConsultModalOpen] = useState(false);
-  const [chatModalOpen, setChatModalOpen] = useState(false);
+  const [chatOverlayOpen, setChatOverlayOpen] = useState(false);
   const [isUserActive, setIsUserActive] = useState(true);
   const { language } = useLanguage();
   const location = useLocation();
@@ -151,18 +150,18 @@ export const FloatingActionPortal: React.FC = () => {
           <button
             className="w-12 h-12 sm:w-14 sm:h-14 rounded-full transition-all duration-300 ease-out flex items-center justify-center group hover:scale-105"
             style={{
-              background: 'hsl(var(--primary))',
+              background: 'rgba(255, 255, 255, 0.75)',
               backdropFilter: 'blur(20px) saturate(180%)',
               WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-              boxShadow: 'var(--shadow-strong)',
-              border: '2px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 0.4) inset, 0 1px 0px rgba(0, 0, 0, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
             }}
             onClick={() => setConsultModalOpen(true)}
             aria-label={language === 'nl' ? 'Plan Consult' : 'Plan Consultation'}
           >
-            <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:text-white/90 transition-colors" />
+            <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors" />
           </button>
-          <span className="text-[9px] font-medium text-white text-center drop-shadow-sm">
+          <span className="text-[9px] font-medium text-gray-800 text-center">
             {language === 'nl' ? 'Consult' : 'Consult'}
           </span>
         </div>
@@ -172,18 +171,18 @@ export const FloatingActionPortal: React.FC = () => {
           <button
             className="w-12 h-12 sm:w-14 sm:h-14 rounded-full transition-all duration-300 ease-out flex items-center justify-center group hover:scale-105"
             style={{
-              background: 'hsl(var(--secondary))',
+              background: 'rgba(255, 255, 255, 0.75)',
               backdropFilter: 'blur(20px) saturate(180%)',
               WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-              boxShadow: 'var(--shadow-strong)',
-              border: '2px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 0.4) inset, 0 1px 0px rgba(0, 0, 0, 0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
             }}
-            onClick={() => setChatModalOpen(true)}
+            onClick={() => setChatOverlayOpen(true)}
             aria-label={language === 'nl' ? 'Chat Support' : 'Chat Support'}
           >
-            <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:text-white/90 transition-colors" />
+            <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors" />
           </button>
-          <span className="text-[9px] font-medium text-white text-center drop-shadow-sm">
+          <span className="text-[9px] font-medium text-gray-800 text-center">
             {language === 'nl' ? 'Chat' : 'Chat'}
           </span>
         </div>
@@ -216,44 +215,10 @@ export const FloatingActionPortal: React.FC = () => {
         open={consultModalOpen} 
         onOpenChange={setConsultModalOpen}
       />
-      
-      {/* Chat Support Modal */}
-      <Dialog open={chatModalOpen} onOpenChange={setChatModalOpen}>
-        <DialogContent className="sm:max-w-md bg-card border-border shadow-strong">
-          <DialogHeader className="bg-gradient-to-r from-primary/5 to-secondary/5 -m-6 mb-4 p-6 rounded-t-lg">
-            <DialogTitle className="text-foreground">
-              {language === 'nl' ? 'Contact & Support' : 'Contact & Support'}
-            </DialogTitle>
-            <p className="text-sm text-muted-foreground">GlobalHair</p>
-          </DialogHeader>
-          <div className="space-y-4 p-4">
-            <p className="text-sm text-muted-foreground">
-              {language === 'nl' 
-                ? 'Kies uw voorkeur om contact met ons op te nemen.'
-                : 'Choose your preferred way to contact us.'
-              }
-            </p>
-            <div className="flex flex-col gap-3">
-              <Button className="w-full bg-green-600 hover:bg-green-700 text-white shadow-medium gap-2">
-                <MessageCircle className="w-4 h-4" />
-                {language === 'nl' ? 'WhatsApp Chat' : 'WhatsApp Chat'}
-              </Button>
-              <Button className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-medium gap-2">
-                <Instagram className="w-4 h-4" />
-                {language === 'nl' ? 'Instagram DM' : 'Instagram DM'}
-              </Button>
-              <Button className="w-full bg-black hover:bg-gray-900 text-white shadow-medium gap-2">
-                <Send className="w-4 h-4" />
-                {language === 'nl' ? 'TikTok Bericht' : 'TikTok Message'}
-              </Button>
-              <Button variant="outline" className="w-full border-secondary hover:bg-secondary/10 hover:border-secondary/60 gap-2">
-                <Zap className="w-4 h-4" />
-                {language === 'nl' ? 'Doe de haarscan' : 'Take hair scan'}
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <ChatOverlay 
+        open={chatOverlayOpen} 
+        onOpenChange={setChatOverlayOpen}
+      />
     </>
   );
 

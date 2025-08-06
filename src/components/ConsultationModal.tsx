@@ -29,18 +29,15 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
       className="fixed inset-0 z-[10000] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4"
       onClick={handleBackdropClick}
     >
-      <div className="bg-card rounded-lg shadow-strong w-full max-w-md max-h-[90vh] overflow-y-auto border border-border">
+      <div className="bg-background rounded-lg shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-border bg-gradient-to-r from-primary/5 to-secondary/5">
-          <div>
-            <h2 className="text-xl font-semibold text-foreground">
-              {language === 'nl' ? 'Plan uw consultatie' : 'Plan your consultation'}
-            </h2>
-            <p className="text-sm text-muted-foreground mt-1">GlobalHair</p>
-          </div>
+        <div className="flex items-center justify-between p-6 border-b">
+          <h2 className="text-xl font-semibold">
+            {language === 'nl' ? 'Plan uw consultatie' : 'Plan your consultation'}
+          </h2>
           <button
             onClick={() => onOpenChange(false)}
-            className="w-8 h-8 rounded-full hover:bg-accent/50 flex items-center justify-center transition-colors text-muted-foreground hover:text-foreground"
+            className="w-8 h-8 rounded-full hover:bg-accent flex items-center justify-center transition-colors"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -58,12 +55,12 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
 
           {/* Quick Contact Options */}
           <div className="grid grid-cols-1 gap-3">
-            <Button className="w-full justify-start gap-3 bg-primary hover:bg-primary/90 text-primary-foreground shadow-medium" size="lg">
+            <Button className="w-full justify-start gap-3" size="lg">
               <Phone className="w-5 h-5" />
               {language === 'nl' ? 'Direct bellen' : 'Call directly'}
             </Button>
             
-            <Button variant="outline" className="w-full justify-start gap-3 border-primary/20 hover:bg-primary/5 hover:border-primary/40" size="lg">
+            <Button variant="outline" className="w-full justify-start gap-3" size="lg">
               <Mail className="w-5 h-5" />
               {language === 'nl' ? 'E-mail versturen' : 'Send email'}
             </Button>
@@ -106,7 +103,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
               rows={3}
             />
             
-            <Button className="w-full gap-2 bg-primary hover:bg-primary/90 text-primary-foreground shadow-medium" size="lg">
+            <Button className="w-full gap-2" size="lg">
               <Calendar className="w-5 h-5" />
               {language === 'nl' ? 'Afspraak inplannen' : 'Schedule appointment'}
             </Button>
