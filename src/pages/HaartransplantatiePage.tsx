@@ -17,12 +17,17 @@ const HaartransplantatiePage = () => {
 
   useEffect(() => {
     console.log('🏥 HaartransplantatiePage mounted');
-    // Always scroll to top when page loads
-    window.scrollTo(0, 0);
     return () => {
       console.log('🏥 HaartransplantatiePage unmounting');
     };
   }, []);
+
+  // Ensure page loads at the top
+  useEffect(() => {
+    // Set scroll position to top immediately before page renders
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  });
 
   return (
     <>
