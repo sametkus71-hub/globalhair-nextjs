@@ -9,13 +9,13 @@ import { VideoPlaySection } from '@/components/haartransplantatie/VideoPlaySecti
 import { BottomNavigation } from '@/components/haartransplantatie/BottomNavigation';
 import { FloatingActionPortal } from '@/components/FloatingActionPortal';
 import { InstagramPostsSection } from '@/components/haartransplantatie/InstagramPostsSection';
-import { useFullPageScroll } from '@/hooks/useFullPageScroll';
+import { usePageScroll } from '@/hooks/usePageScroll';
 
 
 const HaartransplantatiePage = () => {
   const { language } = useLanguage();
   const { height } = useViewportHeight();
-  const pageScrollHook = useFullPageScroll();
+  const pageScrollHook = usePageScroll();
 
   // Force scroll to top immediately on mount
   useLayoutEffect(() => {
@@ -39,9 +39,6 @@ const HaartransplantatiePage = () => {
   useEffect(() => {
     console.log('🏥 HaartransplantatiePage mounted');
     
-    // Initialize scroll system
-    pageScrollHook.initializeScroll();
-    
     // Expose page scroll hook to global for FloatingActionPortal
     (window as any).pageScrollHook = pageScrollHook;
     
@@ -55,7 +52,7 @@ const HaartransplantatiePage = () => {
     <>
       <MetaHead language={language} page="haartransplantatie" />
       <PageTransition isNewPage={true}>
-        <div className="fullpage-container">
+        <div className="smooth-scroll-container">
           {/* Hero Section */}
           <section 
             id="hero-section"
