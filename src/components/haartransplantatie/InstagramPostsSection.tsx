@@ -54,7 +54,7 @@ export const InstagramPostsSection = () => {
         <section
           key={index}
           id={`section-${index + 1}`} // section-1, section-2, etc.
-          className="min-h-screen w-full relative flex items-center justify-center bg-background"
+          className="snap-section min-h-screen w-full relative flex items-center justify-center bg-background"
         >
           <div className="w-full h-full flex flex-col justify-center items-center px-4 sm:px-8 md:px-16">
             <div className="max-w-4xl w-full flex flex-col lg:flex-row items-center gap-8 lg:gap-16">

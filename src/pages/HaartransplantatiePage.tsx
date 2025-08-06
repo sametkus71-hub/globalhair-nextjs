@@ -1,6 +1,7 @@
 import { useLayoutEffect, useEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
+import { usePageScroll } from '@/hooks/usePageScroll';
 import { MetaHead } from '@/components/MetaHead';
 import { PageTransition } from '@/components/PageTransition';
 import { ScrollFadeLogo } from '@/components/ScrollFadeLogo';
@@ -16,7 +17,8 @@ import { ScrollIndicator } from '@/components/ScrollIndicator';
 const HaartransplantatiePageContent = () => {
   const { language } = useLanguage();
   const { height } = useViewportHeight();
-  const { registerScrollCallback, setTotalPosts } = useScrollContext();
+  const { registerScrollCallback, setTotalPosts, scrollToPost } = useScrollContext();
+  const { currentSection, scrollToSection } = usePageScroll();
   
   // Force scroll to top immediately on mount
   useLayoutEffect(() => {
@@ -36,21 +38,18 @@ const HaartransplantatiePageContent = () => {
     
     // Register scroll callback for smooth scrolling
     registerScrollCallback((index: number) => {
-      const sectionId = `section-${index}`;
-      const element = document.getElementById(sectionId);
-      
-      if (element) {
-        element.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
+      scrollToSection(index);
     });
     
     return () => {
       console.log('🏥 HaartransplantatiePage unmounting');
     };
-  }, [registerScrollCallback, setTotalPosts]);
+  }, [registerScrollCallback, setTotalPosts, scrollToSection]);
+
+  // Sync usePageScroll currentSection with ScrollContext
+  useEffect(() => {
+    scrollToPost(currentSection);
+  }, [currentSection, scrollToPost]);
 
   return (
     <>
@@ -59,7 +58,7 @@ const HaartransplantatiePageContent = () => {
         {/* Hero Section */}
         <section 
           id="section-0"
-          className="min-h-screen w-full relative"
+          className="snap-section min-h-screen w-full relative"
           style={{ 
             height: `${height}px`
           }}
