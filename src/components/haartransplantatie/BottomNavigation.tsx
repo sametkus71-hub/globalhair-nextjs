@@ -47,9 +47,8 @@ export const BottomNavigation = () => {
 
   return (
     <div 
-      className="fixed left-0 w-full z-50"
+      className="fixed bottom-0 left-0 w-full z-50"
       style={{ 
-        top: 'calc(var(--app-height, 100vh) - 60px)',
         height: '60px'
       }}
     >
