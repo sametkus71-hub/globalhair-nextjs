@@ -148,20 +148,16 @@ export const FloatingActionPortal: React.FC = () => {
         {/* Plan Consultation Button */}
         <div className="flex flex-col items-center gap-1">
           <button
-            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full transition-all duration-300 ease-out flex items-center justify-center group hover:scale-105"
+            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full transition-all duration-300 ease-out flex items-center justify-center group hover:scale-105 bg-primary/90 hover:bg-primary backdrop-blur-md border border-primary/20"
             style={{
-              background: 'rgba(255, 255, 255, 0.75)',
-              backdropFilter: 'blur(20px) saturate(180%)',
-              WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 0.4) inset, 0 1px 0px rgba(0, 0, 0, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: 'var(--shadow-medium)'
             }}
             onClick={() => setConsultModalOpen(true)}
             aria-label={language === 'nl' ? 'Plan Consult' : 'Plan Consultation'}
           >
-            <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors" />
+            <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground transition-colors" />
           </button>
-          <span className="text-[9px] font-medium text-gray-800 text-center">
+          <span className="text-[9px] font-medium text-white/90 text-center">
             {language === 'nl' ? 'Consult' : 'Consult'}
           </span>
         </div>
@@ -169,20 +165,16 @@ export const FloatingActionPortal: React.FC = () => {
         {/* Chat Support Button */}
         <div className="flex flex-col items-center gap-1">
           <button
-            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full transition-all duration-300 ease-out flex items-center justify-center group hover:scale-105"
+            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full transition-all duration-300 ease-out flex items-center justify-center group hover:scale-105 bg-secondary/90 hover:bg-secondary backdrop-blur-md border border-secondary/20"
             style={{
-              background: 'rgba(255, 255, 255, 0.75)',
-              backdropFilter: 'blur(20px) saturate(180%)',
-              WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 0.4) inset, 0 1px 0px rgba(0, 0, 0, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: 'var(--shadow-medium)'
             }}
             onClick={() => setChatOverlayOpen(true)}
             aria-label={language === 'nl' ? 'Chat Support' : 'Chat Support'}
           >
-            <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors" />
+            <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-secondary-foreground transition-colors" />
           </button>
-          <span className="text-[9px] font-medium text-gray-800 text-center">
+          <span className="text-[9px] font-medium text-white/90 text-center">
             {language === 'nl' ? 'Chat' : 'Chat'}
           </span>
         </div>
@@ -190,21 +182,17 @@ export const FloatingActionPortal: React.FC = () => {
         {/* Scroll Navigation Button */}
         <div className="flex flex-col items-center gap-1">
           <button
-            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full transition-all duration-300 ease-out flex items-center justify-center group hover:scale-105"
+            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full transition-all duration-300 ease-out flex items-center justify-center group hover:scale-105 bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/20"
             style={{
-              background: 'rgba(255, 255, 255, 0.75)',
-              backdropFilter: 'blur(20px) saturate(180%)',
-              WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 0.4) inset, 0 1px 0px rgba(0, 0, 0, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: 'var(--shadow-soft)'
             }}
             onClick={scrollToNextSection}
             aria-label={language === 'nl' ? (isOnLastSection ? 'Naar boven' : 'Volgende') : (isOnLastSection ? 'To top' : 'Next')}
           >
             {isOnLastSection ? (
-              <ChevronUp className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors" />
+              <ChevronUp className="w-5 h-5 sm:w-6 sm:h-6 text-white/80 group-hover:text-white transition-colors" />
             ) : (
-              <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors" />
+              <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-white/80 group-hover:text-white transition-colors" />
             )}
           </button>
         </div>
