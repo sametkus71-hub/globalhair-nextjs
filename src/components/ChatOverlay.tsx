@@ -2,6 +2,8 @@ import React from 'react';
 import { X, MessageCircle, Instagram, ExternalLink, Scan } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { Button } from '@/components/ui/button';
+import whatsappIcon from '@/assets/whatsapp-icon.png';
+import tiktokIcon from '@/assets/tiktok-icon.png';
 
 interface ChatOverlayProps {
   open: boolean;
@@ -85,14 +87,11 @@ export const ChatOverlay: React.FC<ChatOverlayProps> = ({
           <div className="space-y-3">
             <Button 
               onClick={openWhatsApp}
-              className="w-full justify-between bg-green-600 hover:bg-green-700 text-white rounded-none"
+              className="w-full justify-between bg-green-600 hover:bg-green-700 text-white h-12"
               size="lg"
             >
               <span className="flex items-center gap-2">
-                <MessageCircle 
-                  className="w-5 h-5" 
-                  style={{ filter: 'invert(1)' }}
-                />
+                <img src={whatsappIcon} alt="WhatsApp" className="w-5 h-5" />
                 WhatsApp
               </span>
               <ExternalLink className="w-4 h-4" />
@@ -101,48 +100,44 @@ export const ChatOverlay: React.FC<ChatOverlayProps> = ({
             <Button 
               onClick={openInstagram}
               variant="outline" 
-              className="w-full justify-between border border-gray-300 rounded-none hover:bg-gray-50"
+              className="w-full justify-between border-2 h-12"
+              style={{
+                borderColor: '#182F3C',
+                color: '#182F3C'
+              }}
               size="lg"
             >
-              <span className="flex items-center gap-2 text-gray-700">
+              <span className="flex items-center gap-2">
                 <Instagram className="w-5 h-5" />
                 Instagram
               </span>
-              <ExternalLink className="w-4 h-4 text-gray-700" />
+              <ExternalLink className="w-4 h-4" />
             </Button>
 
             <Button 
               onClick={openTikTok}
               variant="outline" 
-              className="w-full justify-between border border-gray-300 rounded-none hover:bg-gray-50"
+              className="w-full justify-between border-2 h-12"
+              style={{
+                borderColor: '#182F3C',
+                color: '#182F3C'
+              }}
               size="lg"
             >
-              <span className="flex items-center gap-2 text-gray-700">
-                <div 
-                  className="w-5 h-5 flex items-center justify-center"
-                  style={{
-                    background: 'black',
-                    borderRadius: '2px'
-                  }}
-                >
-                  <span 
-                    className="text-white text-xs font-bold"
-                    style={{ fontSize: '10px' }}
-                  >
-                    TT
-                  </span>
-                </div>
+              <span className="flex items-center gap-2">
+                <img src={tiktokIcon} alt="TikTok" className="w-5 h-5" />
                 TikTok
               </span>
-              <ExternalLink className="w-4 h-4 text-gray-700" />
+              <ExternalLink className="w-4 h-4" />
             </Button>
 
             <Button 
               onClick={openHairScan}
-              className="w-full justify-between rounded-none"
+              className="w-full justify-between h-14"
               style={{
                 backgroundColor: '#182F3C',
-                color: 'white'
+                color: 'white',
+                fontSize: '16px'
               }}
               size="lg"
             >
