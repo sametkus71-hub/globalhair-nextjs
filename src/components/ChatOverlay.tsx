@@ -85,11 +85,14 @@ export const ChatOverlay: React.FC<ChatOverlayProps> = ({
           <div className="space-y-3">
             <Button 
               onClick={openWhatsApp}
-              className="w-full justify-between bg-green-600 hover:bg-green-700 text-white"
+              className="w-full justify-between bg-green-600 hover:bg-green-700 text-white rounded-none"
               size="lg"
             >
               <span className="flex items-center gap-2">
-                <MessageCircle className="w-5 h-5" />
+                <MessageCircle 
+                  className="w-5 h-5" 
+                  style={{ filter: 'invert(1)' }}
+                />
                 WhatsApp
               </span>
               <ExternalLink className="w-4 h-4" />
@@ -98,40 +101,45 @@ export const ChatOverlay: React.FC<ChatOverlayProps> = ({
             <Button 
               onClick={openInstagram}
               variant="outline" 
-              className="w-full justify-between border-2"
-              style={{
-                borderColor: '#182F3C',
-                color: '#182F3C'
-              }}
+              className="w-full justify-between border border-gray-300 rounded-none hover:bg-gray-50"
               size="lg"
             >
-              <span className="flex items-center gap-2">
+              <span className="flex items-center gap-2 text-gray-700">
                 <Instagram className="w-5 h-5" />
                 Instagram
               </span>
-              <ExternalLink className="w-4 h-4" />
+              <ExternalLink className="w-4 h-4 text-gray-700" />
             </Button>
 
             <Button 
               onClick={openTikTok}
               variant="outline" 
-              className="w-full justify-between border-2"
-              style={{
-                borderColor: '#182F3C',
-                color: '#182F3C'
-              }}
+              className="w-full justify-between border border-gray-300 rounded-none hover:bg-gray-50"
               size="lg"
             >
-              <span className="flex items-center gap-2">
-                <MessageCircle className="w-5 h-5" />
+              <span className="flex items-center gap-2 text-gray-700">
+                <div 
+                  className="w-5 h-5 flex items-center justify-center"
+                  style={{
+                    background: 'black',
+                    borderRadius: '2px'
+                  }}
+                >
+                  <span 
+                    className="text-white text-xs font-bold"
+                    style={{ fontSize: '10px' }}
+                  >
+                    TT
+                  </span>
+                </div>
                 TikTok
               </span>
-              <ExternalLink className="w-4 h-4" />
+              <ExternalLink className="w-4 h-4 text-gray-700" />
             </Button>
 
             <Button 
               onClick={openHairScan}
-              className="w-full justify-between"
+              className="w-full justify-between rounded-none"
               style={{
                 backgroundColor: '#182F3C',
                 color: 'white'

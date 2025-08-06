@@ -141,6 +141,13 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
               <Calendar className="w-5 h-5" />
               {language === 'nl' ? 'Afspraak inplannen' : 'Schedule appointment'}
             </Button>
+
+            <p className="text-xs text-gray-500 text-center mt-3">
+              {language === 'nl' 
+                ? 'We nemen binnen 24 uur contact met u op om de afspraak in te plannen.'
+                : 'We will contact you within 24 hours to schedule your appointment.'
+              }
+            </p>
           </div>
         </div>
       </div>
