@@ -1,7 +1,7 @@
 import { useLayoutEffect, useEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
-import { useInstagramScroll } from '@/hooks/useInstagramScroll';
+import { useInstagramScroll } from '../hooks/useInstagramScroll';
 import { MetaHead } from '@/components/MetaHead';
 import { PageTransition } from '@/components/PageTransition';
 import { ScrollFadeLogo } from '@/components/ScrollFadeLogo';
