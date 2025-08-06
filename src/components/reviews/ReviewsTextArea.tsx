@@ -8,7 +8,7 @@ export const ReviewsTextArea = () => {
   return (
     <div className="w-full h-full flex items-center justify-center px-4">
       <div className="text-center">
-        <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-black">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black">
           Bekijk onze reviews
         </h1>
       </div>
