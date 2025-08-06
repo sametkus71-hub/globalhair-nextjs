@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { useLocation } from 'react-router-dom';
 import { Calendar, MessageCircle, ChevronDown, ChevronUp } from 'lucide-react';
@@ -11,8 +11,10 @@ export const FloatingActionPortal: React.FC = () => {
   const [mounted, setMounted] = useState(false);
   const [consultModalOpen, setConsultModalOpen] = useState(false);
   const [chatOverlayOpen, setChatOverlayOpen] = useState(false);
+  const [isUserActive, setIsUserActive] = useState(true);
   const { language } = useLanguage();
   const location = useLocation();
+  const activityTimeout = useRef<NodeJS.Timeout>();
   
   // Try to get scroll context, but handle case where it's not available
   let scrollContext;
@@ -22,10 +24,50 @@ export const FloatingActionPortal: React.FC = () => {
     scrollContext = null;
   }
 
+  // Activity detection functions
+  const resetActivityTimeout = useCallback(() => {
+    setIsUserActive(true);
+    
+    if (activityTimeout.current) {
+      clearTimeout(activityTimeout.current);
+    }
+    
+    activityTimeout.current = setTimeout(() => {
+      setIsUserActive(false);
+    }, 3500); // 3.5 seconds of inactivity
+  }, []);
+
+  const handleUserActivity = useCallback(() => {
+    resetActivityTimeout();
+  }, [resetActivityTimeout]);
+
   useEffect(() => {
     setMounted(true);
-    return () => setMounted(false);
-  }, []);
+    
+    // Set up activity detection
+    resetActivityTimeout();
+    
+    // Activity event listeners
+    const events = ['mousemove', 'touchstart', 'touchmove', 'scroll', 'keydown'];
+    
+    events.forEach(event => {
+      document.addEventListener(event, handleUserActivity, { passive: true });
+    });
+    
+    return () => {
+      setMounted(false);
+      
+      // Clear timeout
+      if (activityTimeout.current) {
+        clearTimeout(activityTimeout.current);
+      }
+      
+      // Remove event listeners
+      events.forEach(event => {
+        document.removeEventListener(event, handleUserActivity);
+      });
+    };
+  }, [handleUserActivity, resetActivityTimeout]);
 
   const scrollToNextSection = () => {
     // Check if we're on haartransplantatie page
@@ -112,7 +154,12 @@ export const FloatingActionPortal: React.FC = () => {
   const content = (
     <>
       {/* Floating Action Buttons */}
-      <div className="fixed bottom-24 right-4 z-[9999] flex flex-col gap-2 sm:bottom-28 sm:right-6">
+      <div 
+        className="fixed bottom-24 right-4 z-[9999] flex flex-col gap-2 sm:bottom-28 sm:right-6 transition-opacity duration-500 ease-in-out"
+        style={{
+          opacity: isUserActive ? 1 : 0.3
+        }}
+      >
         {/* Plan Consultation Button */}
         <div className="flex flex-col items-center gap-1">
           <button
