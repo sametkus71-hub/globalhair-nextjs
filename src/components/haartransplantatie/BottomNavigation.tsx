@@ -71,7 +71,7 @@ export const BottomNavigation = () => {
 
   return (
     <div 
-      className="fixed bottom-0 left-0 w-full z-50"
+      className="fixed bottom-0 left-0 w-full z-[10000]"
       style={{ 
         height: '60px'
       }}
