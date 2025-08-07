@@ -11,6 +11,26 @@ export const BottomNavigation = () => {
     navigate(language === 'nl' ? '/nl' : '/en');
   };
 
+  const isCurrentlyOnPopupPage = () => {
+    return location.pathname.includes('/reviews') || 
+           location.pathname.includes('/missie') || 
+           location.pathname.includes('/mission');
+  };
+
+  const handlePopupNavigation = (targetPath: string) => {
+    if (isCurrentlyOnPopupPage()) {
+      // First navigate to homepage, then to target popup
+      const homePath = language === 'nl' ? '/nl' : '/en';
+      navigate(homePath);
+      setTimeout(() => {
+        navigate(targetPath);
+      }, 100);
+    } else {
+      // Direct navigation
+      navigate(targetPath);
+    }
+  };
+
   const isActive = (path: string) => {
     if (path === 'home') {
       return location.pathname === '/nl' || location.pathname === '/en' || location.pathname === '/';
@@ -34,7 +54,7 @@ export const BottomNavigation = () => {
     { 
       icon: Target, 
       label: language === 'nl' ? 'Missie' : 'Mission', 
-      onClick: () => navigate(language === 'nl' ? '/nl/missie' : '/en/mission'),
+      onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/missie' : '/en/mission'),
       id: 'mission'
     },
     { 
@@ -46,7 +66,7 @@ export const BottomNavigation = () => {
     { 
       icon: MessageSquareText, 
       label: 'Reviews', 
-      onClick: () => navigate(language === 'nl' ? '/nl/reviews' : '/en/reviews'),
+      onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/reviews' : '/en/reviews'),
       id: 'reviews'
     }
   ];
