@@ -39,7 +39,7 @@ export const ReviewsPage = () => {
 
   return (
     <>
-      <div className={`reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}>
+      <div className={`reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''} popup-cross-fade-enter`}>
         {/* Close button */}
         <button
           onClick={handleClose}

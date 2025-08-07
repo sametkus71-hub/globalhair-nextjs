@@ -912,3 +912,62 @@ html, body {
 .instagram-section.content-section {
   display: block; /* Block layout for complex hero structure */
 }
+
+/* Popup cross-fade transition animations */
+.popup-cross-fade-exit {
+  animation: popup-cross-fade-exit 0.25s ease-out forwards;
+}
+
+.popup-cross-fade-enter {
+  animation: popup-cross-fade-enter 0.3s ease-out forwards;
+  animation-delay: 0.15s;
+  opacity: 0;
+}
+
+.popup-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background: var(--background);
+  opacity: 0;
+  pointer-events: none;
+  animation: popup-overlay-fade 0.4s ease-out forwards;
+}
+
+/* Popup transition keyframes */
+@keyframes popup-cross-fade-exit {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+}
+
+@keyframes popup-cross-fade-enter {
+  0% {
+    opacity: 0;
+    transform: scale(1.05) translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes popup-overlay-fade {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

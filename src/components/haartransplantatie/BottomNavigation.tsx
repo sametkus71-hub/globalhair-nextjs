@@ -1,4 +1,5 @@
 import { useLanguage } from '@/hooks/useLanguage';
+import { usePopupTransition } from '@/hooks/usePopupTransition';
 import { Home, Target, Calendar, MessageSquareText } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -6,28 +7,19 @@ export const BottomNavigation = () => {
   const { language } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
+  const { startPopupTransition, directNavigate, isOnPopupPage } = usePopupTransition();
 
   const handleHomeClick = () => {
-    navigate(language === 'nl' ? '/nl' : '/en');
-  };
-
-  const isCurrentlyOnPopupPage = () => {
-    return location.pathname.includes('/reviews') || 
-           location.pathname.includes('/missie') || 
-           location.pathname.includes('/mission');
+    directNavigate(language === 'nl' ? '/nl' : '/en');
   };
 
   const handlePopupNavigation = (targetPath: string) => {
-    if (isCurrentlyOnPopupPage()) {
-      // First navigate to homepage, then to target popup
-      const homePath = language === 'nl' ? '/nl' : '/en';
-      navigate(homePath);
-      setTimeout(() => {
-        navigate(targetPath);
-      }, 100);
+    if (isOnPopupPage()) {
+      // Use fluid transition for popup-to-popup navigation
+      startPopupTransition(targetPath);
     } else {
-      // Direct navigation
-      navigate(targetPath);
+      // Direct navigation for non-popup pages
+      directNavigate(targetPath);
     }
   };
 
