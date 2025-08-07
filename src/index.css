@@ -1027,6 +1027,11 @@ html, body {
   0% {
     transform: translateX(0);
     opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0.8;
+  }
 }
 
 /* Mission page specific styles */
@@ -1041,9 +1046,5 @@ html, body {
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   background: white;
-}
-  100% {
-    transform: translateX(100%);
-    opacity: 0.8;
-  }
+  min-height: 100vh;
 }
