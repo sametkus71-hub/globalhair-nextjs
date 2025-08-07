@@ -1,21 +1,22 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
+import { useSlideTransition } from '@/hooks/useSlideTransition';
 import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 
 export const ReviewItemPage = () => {
-  const navigate = useNavigate();
   const { language } = useLanguage();
+  const { slideBackToReviews } = useSlideTransition();
   const [isExiting, setIsExiting] = useState(false);
 
-  // Navigate back to reviews
+  // Navigate back to reviews with slide animation
   const handleBack = () => {
     setIsExiting(true);
+    const reviewsRoute = language === 'nl' ? '/nl/reviews' : '/en/reviews';
     // Wait for animation to complete before navigating
     setTimeout(() => {
-      navigate(-1); // Go back to previous page
-    }, 300);
+      slideBackToReviews(reviewsRoute);
+    }, 100);
   };
 
   // Handle ESC key
@@ -35,7 +36,7 @@ export const ReviewItemPage = () => {
 
   return (
     <>
-      <div className={`review-item-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}>
+      <div className={`review-item-page-fullscreen ${isExiting ? 'slide-exit-right' : 'slide-enter-left'}`}>
         {/* Back button */}
         <button
           onClick={handleBack}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
+import { useSlideTransition } from '@/hooks/useSlideTransition';
 import { cn } from '@/lib/utils';
 
 interface ReviewItem {
@@ -34,16 +34,16 @@ const ANIMATION_GROUPS = [
 ];
 
 export const ReviewsGrid = () => {
-  const navigate = useNavigate();
   const { language } = useLanguage();
+  const { slideToItem } = useSlideTransition();
   const [items, setItems] = useState<ReviewItem[]>(
     REVIEW_ITEMS.map((item, index) => ({ ...item, isAfter: INITIAL_STATE[index] }))
   );
 
-  // Handle click to navigate to item page
+  // Handle click to navigate to item page with slide animation
   const handleItemClick = (clickedId: number) => {
     const itemRoute = language === 'nl' ? `/nl/reviews/item1` : `/en/reviews/item1`;
-    navigate(itemRoute);
+    slideToItem(itemRoute);
   };
 
   useEffect(() => {

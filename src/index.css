@@ -971,3 +971,65 @@ html, body {
     opacity: 0;
   }
 }
+
+/* iOS-style slide animations for review items */
+.slide-enter-left {
+  animation: slide-enter-left 0.3s ease-out forwards;
+}
+
+.slide-exit-left {
+  animation: slide-exit-left 0.3s ease-out forwards;
+}
+
+.slide-enter-right {
+  animation: slide-enter-right 0.3s ease-out forwards;
+}
+
+.slide-exit-right {
+  animation: slide-exit-right 0.3s ease-out forwards;
+}
+
+/* Slide animation keyframes */
+@keyframes slide-enter-left {
+  0% {
+    transform: translateX(100%);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-exit-left {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0.8;
+  }
+}
+
+@keyframes slide-enter-right {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-exit-right {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0.8;
+  }
+}
