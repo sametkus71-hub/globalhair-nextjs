@@ -1,24 +1,24 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { X } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
+import { usePopupClose } from '@/hooks/usePopupClose';
 import { ReviewsGrid } from '@/components/reviews/ReviewsGrid';
 import { ReviewsTextArea } from '@/components/reviews/ReviewsTextArea';
 import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 
 export const ReviewsPage = () => {
-  const navigate = useNavigate();
   const { language } = useLanguage();
   const { t } = useTranslation(language);
   const [isExiting, setIsExiting] = useState(false);
+  const { handleClose: handlePopupClose } = usePopupClose();
 
-  // Navigate back to previous page
+  // Navigate back to appropriate page
   const handleClose = () => {
     setIsExiting(true);
     // Wait for animation to complete before navigating
     setTimeout(() => {
-      navigate(-1); // Go back to previous page
+      handlePopupClose();
     }, 300);
   };
 

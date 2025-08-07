@@ -10,6 +10,10 @@ export const BottomNavigation = () => {
   const { startPopupTransition, directNavigate, isOnPopupPage } = usePopupTransition();
 
   const handleHomeClick = () => {
+    // Store current path before going home (only if not already a popup)
+    if (!isOnPopupPage()) {
+      sessionStorage.setItem('previousPath', location.pathname);
+    }
     directNavigate(language === 'nl' ? '/nl' : '/en');
   };
 

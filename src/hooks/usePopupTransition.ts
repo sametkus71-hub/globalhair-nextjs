@@ -34,6 +34,11 @@ export const usePopupTransition = () => {
     const currentPopup = getCurrentPopup();
     const targetPopup = targetPath.includes('/reviews') ? 'reviews' : 'mission';
     
+    // Store current path as previous path for the target popup
+    if (!isOnPopupPage()) {
+      sessionStorage.setItem('previousPath', location.pathname);
+    }
+    
     if (currentPopup && currentPopup !== targetPopup && !fromNonPopup) {
       // Cross-fade transition between popups
       setTransitionState({
@@ -67,7 +72,7 @@ export const usePopupTransition = () => {
       // Direct navigation with original slide-up animation
       navigate(targetPath);
     }
-  }, [getCurrentPopup, navigate]);
+  }, [getCurrentPopup, navigate, isOnPopupPage, location.pathname]);
 
   const directNavigate = useCallback((targetPath: string) => {
     navigate(targetPath);
