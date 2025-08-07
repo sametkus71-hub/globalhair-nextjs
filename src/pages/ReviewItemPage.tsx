@@ -59,17 +59,17 @@ export const ReviewItemPage = () => {
           {/* Content Section */}
           <div className="px-6 py-8">
             {/* Name */}
-            <h1 className="text-2xl md:text-3xl font-bold text-black mb-2">
+            <h1 className="text-xl md:text-2xl font-bold text-black mb-2">
               Naam achternaam
             </h1>
 
             {/* Treatment */}
-            <h2 className="text-lg md:text-xl text-gray-600 mb-6">
+            <h2 className="text-base md:text-lg text-gray-600 mb-6">
               Behandeling
             </h2>
 
             {/* Description */}
-            <div className="text-gray-800 text-base md:text-lg leading-relaxed">
+            <div className="text-gray-800 text-sm md:text-base leading-relaxed">
               <p className="italic">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
               </p>
