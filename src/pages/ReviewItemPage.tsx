@@ -48,15 +48,12 @@ export const ReviewItemPage = () => {
         
         {/* Scrollable Content */}
         <div className="min-h-screen bg-white">
-          {/* Image Section - matches height of 3x3 grid row (33.33vh) */}
+          {/* Image Section - 65% of viewport height */}
           <div 
-            className="w-full bg-gray-200 relative flex items-center justify-center"
-            style={{ height: '33.33vh' }}
+            className="w-full bg-gray-300 relative"
+            style={{ height: '65vh' }}
           >
-            {/* Image Placeholder Wireframe */}
-            <div className="w-24 h-16 border-2 border-gray-400 border-dashed rounded flex items-center justify-center">
-              <div className="w-4 h-4 bg-gray-400 rounded-full"></div>
-            </div>
+            {/* Clean placeholder - just the color */}
           </div>
 
           {/* Content Section */}
