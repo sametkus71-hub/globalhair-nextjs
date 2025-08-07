@@ -18,6 +18,7 @@ import DashboardPage from "./pages/DashboardPage";
 import FormPage from "./pages/FormPage";
 import ReviewsPage from "./pages/ReviewsPage";
 import ReviewItemPage from "./pages/ReviewItemPage";
+import MissionPage from "./pages/MissionPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -53,6 +54,7 @@ const App = () => (
               <Route path="/nl/form" element={<FormPage />} />
               <Route path="/nl/reviews" element={<ReviewsPage />} />
               <Route path="/nl/reviews/item1" element={<ReviewItemPage />} />
+              <Route path="/nl/missie" element={<MissionPage />} />
               
               {/* English routes */}
               <Route path="/en" element={<HomePage />} />
@@ -64,6 +66,7 @@ const App = () => (
               <Route path="/en/form" element={<FormPage />} />
               <Route path="/en/reviews" element={<ReviewsPage />} />
               <Route path="/en/reviews/item1" element={<ReviewItemPage />} />
+              <Route path="/en/mission" element={<MissionPage />} />
               
               {/* Catch-all 404 */}
               <Route path="*" element={<NotFound />} />

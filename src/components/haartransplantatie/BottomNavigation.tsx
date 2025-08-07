@@ -15,6 +15,9 @@ export const BottomNavigation = () => {
     if (path === 'home') {
       return location.pathname === '/nl' || location.pathname === '/en' || location.pathname === '/';
     }
+    if (path === 'mission') {
+      return location.pathname === '/nl/missie' || location.pathname === '/en/mission';
+    }
     if (path === 'reviews') {
       return location.pathname.startsWith('/nl/reviews') || location.pathname.startsWith('/en/reviews');
     }
@@ -31,7 +34,7 @@ export const BottomNavigation = () => {
     { 
       icon: Target, 
       label: language === 'nl' ? 'Missie' : 'Mission', 
-      onClick: () => {},
+      onClick: () => navigate(language === 'nl' ? '/nl/missie' : '/en/mission'),
       id: 'mission'
     },
     { 
