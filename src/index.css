@@ -1027,7 +1027,21 @@ html, body {
   0% {
     transform: translateX(0);
     opacity: 1;
-  }
+}
+
+/* Mission page specific styles */
+.mission-page-scrollable {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  background: white;
+}
   100% {
     transform: translateX(100%);
     opacity: 0.8;
