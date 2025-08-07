@@ -37,24 +37,49 @@ export const ReviewItemPage = () => {
   return (
     <>
       <div className={`review-item-page-fullscreen ${isExiting ? 'slide-exit-right' : 'slide-enter-left'}`}>
-        {/* Back button */}
+        {/* Close button */}
         <button
           onClick={handleBack}
-          className="absolute top-4 left-4 z-50 p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors transform hover:scale-105 active:scale-95"
+          className="fixed top-4 left-4 z-50 p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors transform hover:scale-105 active:scale-95"
           aria-label="Go back"
         >
           <ArrowLeft className="w-5 h-5 text-gray-600" />
         </button>
         
-        {/* Content */}
-        <div className="h-full flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-black mb-4">
-              Review Item 1
+        {/* Scrollable Content */}
+        <div className="min-h-screen bg-white">
+          {/* Image Section - matches height of 3x3 grid row (33.33vh) */}
+          <div 
+            className="w-full bg-gray-200 relative flex items-center justify-center"
+            style={{ height: '33.33vh' }}
+          >
+            {/* Image Placeholder Wireframe */}
+            <div className="w-24 h-16 border-2 border-gray-400 border-dashed rounded flex items-center justify-center">
+              <div className="w-4 h-4 bg-gray-400 rounded-full"></div>
+            </div>
+          </div>
+
+          {/* Content Section */}
+          <div className="px-6 py-8">
+            {/* Name */}
+            <h1 className="text-2xl md:text-3xl font-bold text-black mb-2">
+              Naam achternaam
             </h1>
-            <p className="text-gray-600 text-sm sm:text-base lg:text-lg">
-              This is the review detail page for item 1.
-            </p>
+
+            {/* Treatment */}
+            <h2 className="text-lg md:text-xl text-gray-600 mb-6">
+              Behandeling
+            </h2>
+
+            {/* Description */}
+            <div className="text-gray-800 text-base md:text-lg leading-relaxed">
+              <p className="italic">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+              </p>
+            </div>
+
+            {/* Extra spacing */}
+            <div className="h-32"></div>
           </div>
         </div>
       </div>
