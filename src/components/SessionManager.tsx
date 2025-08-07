@@ -6,11 +6,20 @@ interface SessionManagerProps {
 }
 
 export const SessionManager = ({ children }: SessionManagerProps) => {
-  const { profile } = useSession();
+  const { profile, language } = useSession();
 
   useEffect(() => {
     // Initialize session storage and body classes on mount
-  }, [profile]);
+    // Set html lang attribute for SEO
+    document.documentElement.lang = language;
+    
+    // Add language class to html for styling
+    document.documentElement.className = document.documentElement.className
+      .replace(/lang-(nl|en)/g, '').trim();
+    document.documentElement.classList.add(`lang-${language}`);
+    
+    console.info('Session initialized:', { profile, language });
+  }, [profile, language]);
 
   return <>{children}</>;
 };

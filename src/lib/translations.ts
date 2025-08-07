@@ -61,6 +61,26 @@ export const translations = {
     'mission.value3.title': 'Zorg',
     'mission.value3.description': 'Persoonlijke aandacht en nazorg staan centraal in onze benadering.',
     'mission.close': 'Sluiten',
+    
+    // Treatment options
+    'treatment.location.nederland': 'Nederland',
+    'treatment.location.turkije': 'Turkije',
+    'treatment.shaving.met': 'Met scheren',
+    'treatment.shaving.zonder': 'Zonder scheren',
+    'treatment.type.normaal': 'Normaal',
+    'treatment.type.stamcel': 'Stamcel',
+    
+    // Review specific
+    'review.title': 'Klantervaring',
+    'review.treatment': 'Behandeling',
+    'review.description': 'Beschrijving',
+    'review.back': 'Terug naar reviews',
+    
+    // Bottom navigation
+    'nav.bottom.home': 'Home',
+    'nav.bottom.mission': 'Missie', 
+    'nav.bottom.reviews': 'Reviews',
+    'nav.bottom.book': 'Boeken',
   },
   en: {
     // Navigation
@@ -122,6 +142,26 @@ export const translations = {
     'mission.value3.title': 'Care',
     'mission.value3.description': 'Personal attention and aftercare are central to our approach.',
     'mission.close': 'Close',
+    
+    // Treatment options
+    'treatment.location.nederland': 'Netherlands',
+    'treatment.location.turkije': 'Turkey',
+    'treatment.shaving.met': 'With shaving',
+    'treatment.shaving.zonder': 'Without shaving',
+    'treatment.type.normaal': 'Standard',
+    'treatment.type.stamcel': 'Stem cell',
+    
+    // Review specific
+    'review.title': 'Customer Experience',
+    'review.treatment': 'Treatment',
+    'review.description': 'Description',
+    'review.back': 'Back to reviews',
+    
+    // Bottom navigation
+    'nav.bottom.home': 'Home',
+    'nav.bottom.mission': 'Mission', 
+    'nav.bottom.reviews': 'Reviews',
+    'nav.bottom.book': 'Book',
   }
 } as const;
 

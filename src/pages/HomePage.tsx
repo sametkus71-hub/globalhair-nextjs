@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useLanguage } from '@/hooks/useLanguage';
 import { useSession } from '@/hooks/useSession';
 import { useTranslation } from '@/lib/translations';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
@@ -17,8 +16,7 @@ import { cn } from '@/lib/utils';
 import { usePageTransition } from '@/hooks/usePageTransition';
 
 const HomePage = () => {
-  const { language } = useLanguage();
-  const { profile } = useSession();
+  const { profile, language } = useSession();
   const { t } = useTranslation(language);
   const { heightBreakpoint } = useViewportHeight();
   const { transitionState, startTransition } = usePageTransition();

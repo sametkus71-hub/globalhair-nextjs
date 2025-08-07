@@ -6,6 +6,7 @@ export type HairColor = 'Zwart' | 'Bruin' | 'Blond' | 'Wit';
 export type Location = 'Nederland' | 'Turkije';
 export type Shaving = 'Met scheren' | 'Zonder scheren';
 export type Treatment = 'Normaal' | 'Stamcel';
+export type Language = 'nl' | 'en';
 
 export interface UserProfile {
   geslacht: Gender;
@@ -14,6 +15,7 @@ export interface UserProfile {
   locatie: Location;
   scheren: Shaving;
   behandeling: Treatment;
+  language: Language;
 }
 
 const defaultProfile: UserProfile = {
@@ -22,11 +24,19 @@ const defaultProfile: UserProfile = {
   haarkleur: 'Zwart',
   locatie: 'Nederland',
   scheren: 'Met scheren',
-  behandeling: 'Normaal'
+  behandeling: 'Normaal',
+  language: 'nl'
 };
 
 export const useSession = () => {
   const [profile, setProfile] = useState<UserProfile>(defaultProfile);
+
+  // Detect browser language preference
+  const detectBrowserLanguage = (): Language => {
+    const browserLang = navigator.language.toLowerCase();
+    if (browserLang.startsWith('en')) return 'en';
+    return 'nl'; // Default to Dutch
+  };
 
   // Initialize from sessionStorage and set up listeners
   useEffect(() => {
@@ -37,6 +47,11 @@ export const useSession = () => {
       const savedLocatie = sessionStorage.getItem('gh_locatie') as Location;
       const savedScheren = sessionStorage.getItem('gh_scheren') as Shaving;
       const savedBehandeling = sessionStorage.getItem('gh_behandeling') as Treatment;
+      
+      // Language detection: prioritize sessionStorage, then localStorage, then browser
+      const savedLanguageSession = sessionStorage.getItem('gh_language') as Language;
+      const savedLanguageLocal = localStorage.getItem('gh_lang') as Language;
+      const detectedLanguage = savedLanguageSession || savedLanguageLocal || detectBrowserLanguage();
 
       const currentProfile = {
         geslacht: savedGeslacht || defaultProfile.geslacht,
@@ -44,18 +59,23 @@ export const useSession = () => {
         haarkleur: savedHaarkleur || defaultProfile.haarkleur,
         locatie: savedLocatie || defaultProfile.locatie,
         scheren: savedScheren || defaultProfile.scheren,
-        behandeling: savedBehandeling || defaultProfile.behandeling
+        behandeling: savedBehandeling || defaultProfile.behandeling,
+        language: detectedLanguage
       };
 
       setProfile(currentProfile);
       
-      // Set defaults if not exists
+      // Set defaults if not exists - sync both storages for language
       if (!savedGeslacht) sessionStorage.setItem('gh_geslacht', currentProfile.geslacht);
       if (!savedHaartype) sessionStorage.setItem('gh_haartype', currentProfile.haartype);
       if (!savedHaarkleur) sessionStorage.setItem('gh_haarkleur', currentProfile.haarkleur);
       if (!savedLocatie) sessionStorage.setItem('gh_locatie', currentProfile.locatie);
       if (!savedScheren) sessionStorage.setItem('gh_scheren', currentProfile.scheren);
       if (!savedBehandeling) sessionStorage.setItem('gh_behandeling', currentProfile.behandeling);
+      
+      // Sync language in both storages
+      sessionStorage.setItem('gh_language', currentProfile.language);
+      localStorage.setItem('gh_lang', currentProfile.language);
 
       updateBodyClasses(currentProfile);
       return currentProfile;
@@ -90,7 +110,7 @@ export const useSession = () => {
     const body = document.body;
     
     // Remove existing classes
-    body.className = body.className.replace(/s-(man|vrouw|fijn|stijl|krul|kroes|zwart|bruin|blond|wit|nederland|turkije|met-scheren|zonder-scheren|normaal|stamcel)/g, '').trim();
+    body.className = body.className.replace(/s-(man|vrouw|fijn|stijl|krul|kroes|zwart|bruin|blond|wit|nederland|turkije|met-scheren|zonder-scheren|normaal|stamcel|nl|en)/g, '').trim();
     
     // Add new classes
     const geslachtClass = `s-${newProfile.geslacht.toLowerCase()}`;
@@ -99,8 +119,9 @@ export const useSession = () => {
     const locatieClass = `s-${newProfile.locatie.toLowerCase()}`;
     const scherenClass = `s-${newProfile.scheren.toLowerCase().replace(' ', '-')}`;
     const behandelingClass = `s-${newProfile.behandeling.toLowerCase()}`;
+    const languageClass = `s-${newProfile.language}`;
     
-    body.classList.add(geslachtClass, haartypeClass, haarkleurClass, locatieClass, scherenClass, behandelingClass);
+    body.classList.add(geslachtClass, haartypeClass, haarkleurClass, locatieClass, scherenClass, behandelingClass, languageClass);
   };
 
   // Update specific profile field
@@ -108,8 +129,14 @@ export const useSession = () => {
     const newProfile = { ...profile, [field]: value };
     setProfile(newProfile);
     
-    // Update sessionStorage
-    sessionStorage.setItem(`gh_${field}`, value);
+    // Update sessionStorage (using special key for language)
+    const storageKey = field === 'language' ? 'gh_language' : `gh_${field}`;
+    sessionStorage.setItem(storageKey, value);
+    
+    // For language, also sync localStorage for URL routing compatibility
+    if (field === 'language') {
+      localStorage.setItem('gh_lang', value);
+    }
     
     // Update body classes
     updateBodyClasses(newProfile);
@@ -129,10 +156,17 @@ export const useSession = () => {
     });
   };
 
+  // Language-specific methods
+  const updateLanguage = (newLanguage: Language) => {
+    updateProfile('language', newLanguage);
+  };
+
   return {
     profile,
     updateProfile,
+    updateLanguage,
     matchesVideo,
-    isProfileComplete: () => profile.geslacht && profile.haartype && profile.haarkleur
+    isProfileComplete: () => profile.geslacht && profile.haartype && profile.haarkleur,
+    language: profile.language
   };
 };

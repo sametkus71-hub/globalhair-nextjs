@@ -1,10 +1,12 @@
-import { useLanguage } from '@/hooks/useLanguage';
+import { useSession } from '@/hooks/useSession';
+import { useTranslation } from '@/lib/translations';
 import { usePopupTransition } from '@/hooks/usePopupTransition';
 import { Home, Target, Calendar, MessageSquareText } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 export const BottomNavigation = () => {
-  const { language } = useLanguage();
+  const { language } = useSession();
+  const { t } = useTranslation(language);
   const navigate = useNavigate();
   const location = useLocation();
   const { startPopupTransition, directNavigate, isOnPopupPage } = usePopupTransition();
@@ -45,25 +47,25 @@ export const BottomNavigation = () => {
   const navItems = [
     { 
       icon: Home, 
-      label: 'Home', 
+      label: t('nav.bottom.home'), 
       onClick: handleHomeClick,
       id: 'home'
     },
     { 
       icon: Target, 
-      label: language === 'nl' ? 'Missie' : 'Mission', 
+      label: t('nav.bottom.mission'), 
       onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/missie' : '/en/mission'),
       id: 'mission'
     },
     { 
       icon: Calendar, 
-      label: 'Book', 
+      label: t('nav.bottom.book'), 
       onClick: () => {},
       id: 'book'
     },
     { 
       icon: MessageSquareText, 
-      label: 'Reviews', 
+      label: t('nav.bottom.reviews'), 
       onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/reviews' : '/en/reviews'),
       id: 'reviews'
     }

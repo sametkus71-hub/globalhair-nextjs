@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useSession } from '@/hooks/useSession';
 
 export type Language = 'nl' | 'en';
 
 export const useLanguage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [language, setLanguage] = useState<Language>('nl');
+  const { profile, updateLanguage } = useSession();
+  const [language, setLanguage] = useState<Language>(profile.language);
 
   // Extract language from current path
   const getLanguageFromPath = (): Language => {
@@ -22,12 +24,11 @@ export const useLanguage = () => {
     return 'nl'; // Default to Dutch
   };
 
-  // Handle root redirect
+  // Handle root redirect and sync with session
   useEffect(() => {
     if (location.pathname === '/') {
-      // Check localStorage for saved preference
-      const savedLang = localStorage.getItem('gh_lang') as Language;
-      const targetLang = savedLang || detectBrowserLanguage();
+      // Use session language for redirect
+      const targetLang = profile.language;
       
       // Redirect to appropriate language homepage
       navigate(`/${targetLang}`, { replace: true });
@@ -36,14 +37,20 @@ export const useLanguage = () => {
 
     // Update current language based on path
     const currentLang = getLanguageFromPath();
-    setLanguage(currentLang);
     
-    // Save to localStorage
-    localStorage.setItem('gh_lang', currentLang);
-  }, [location.pathname, navigate]);
+    // Only update if different to prevent loops
+    if (currentLang !== profile.language) {
+      updateLanguage(currentLang);
+    }
+    
+    setLanguage(currentLang);
+  }, [location.pathname, navigate, profile.language, updateLanguage]);
 
   // Function to switch language
   const switchLanguage = (newLang: Language) => {
+    // Update session first
+    updateLanguage(newLang);
+    
     const currentPath = location.pathname;
     const segments = currentPath.split('/').filter(Boolean);
     

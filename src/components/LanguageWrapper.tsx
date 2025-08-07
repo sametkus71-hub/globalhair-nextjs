@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { useLanguage } from '@/hooks/useLanguage';
+import { useSession } from '@/hooks/useSession';
 import { MetaHead } from '@/components/MetaHead';
 
 interface LanguageWrapperProps {
@@ -7,7 +7,7 @@ interface LanguageWrapperProps {
 }
 
 export const LanguageWrapper = ({ children }: LanguageWrapperProps) => {
-  const { language } = useLanguage();
+  const { language } = useSession();
 
   return (
     <>
