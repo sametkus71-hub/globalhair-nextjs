@@ -30,12 +30,12 @@ export const usePopupTransition = () => {
     return null;
   }, [location.pathname]);
 
-  const startPopupTransition = useCallback((targetPath: string) => {
+  const startPopupTransition = useCallback((targetPath: string, fromNonPopup = false) => {
     const currentPopup = getCurrentPopup();
     const targetPopup = targetPath.includes('/reviews') ? 'reviews' : 'mission';
     
-    if (currentPopup && currentPopup !== targetPopup) {
-      // Start cross-fade transition
+    if (currentPopup && currentPopup !== targetPopup && !fromNonPopup) {
+      // Cross-fade transition between popups
       setTransitionState({
         isTransitioning: true,
         exitingPopup: currentPopup,
@@ -64,7 +64,7 @@ export const usePopupTransition = () => {
         }, 100);
       }, 200);
     } else {
-      // Direct navigation if not transitioning between popups
+      // Direct navigation with original slide-up animation
       navigate(targetPath);
     }
   }, [getCurrentPopup, navigate]);

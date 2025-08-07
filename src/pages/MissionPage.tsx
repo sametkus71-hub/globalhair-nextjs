@@ -39,7 +39,7 @@ export const MissionPage = () => {
 
   return (
     <>
-      <div className={`reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''} popup-cross-fade-enter`}>
+      <div className={`reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}>
         {/* Close button */}
         <button
           onClick={handleClose}

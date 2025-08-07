@@ -14,12 +14,14 @@ export const BottomNavigation = () => {
   };
 
   const handlePopupNavigation = (targetPath: string) => {
-    if (isOnPopupPage()) {
-      // Use fluid transition for popup-to-popup navigation
-      startPopupTransition(targetPath);
+    const isCurrentlyOnPopup = isOnPopupPage();
+    
+    if (isCurrentlyOnPopup) {
+      // Use fluid cross-fade transition for popup-to-popup navigation
+      startPopupTransition(targetPath, false);
     } else {
-      // Direct navigation for non-popup pages
-      directNavigate(targetPath);
+      // Use original slide-up animation for opening from non-popup pages
+      startPopupTransition(targetPath, true);
     }
   };
 
