@@ -36,7 +36,9 @@ const HomePage = () => {
   
   const { isLoading, isFirstLoad } = usePageLoader({
     preloadDuration: 800, // Reduced since images are cached
-    images: imagesToPreload
+    images: imagesToPreload,
+    maxWaitMs: 3000,
+    persistAcrossSessions: true
   });
 
   useEffect(() => {

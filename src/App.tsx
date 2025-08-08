@@ -21,7 +21,6 @@ const App = () => (
         <BrowserRouter>
           <LanguageWrapper>
             <ViewportHeightSetter />
-            <ViewportHeightSetter />
             {/* Persistent background across all pages */}
             <div className="fixed inset-0" style={{ background: '#111111' }}>
               <AnimatedBackground />
