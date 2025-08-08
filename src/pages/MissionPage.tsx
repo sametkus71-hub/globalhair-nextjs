@@ -39,7 +39,7 @@ export const MissionPage = () => {
 
   return (
     <>
-      <div className={`mission-page-scrollable ${isExiting ? 'reviews-page-exit' : ''}`}>
+      <div className={`reviews-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
         {/* Close button */}
         <button
           onClick={handleClose}

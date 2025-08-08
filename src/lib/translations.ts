@@ -80,7 +80,7 @@ export const translations = {
     'nav.bottom.home': 'Home',
     'nav.bottom.mission': 'Missie', 
     'nav.bottom.reviews': 'Reviews',
-    'nav.bottom.book': 'Boeken',
+    'nav.bottom.book': 'Book',
   },
   en: {
     // Navigation
