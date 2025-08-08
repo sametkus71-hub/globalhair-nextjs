@@ -44,28 +44,49 @@ export const BottomNavigation = () => {
     return false; // Other pages not implemented yet
   };
 
+  // Force explicit translations to work around translation hook issues
+  const getLabels = () => {
+    if (language === 'nl') {
+      return {
+        home: 'Home',
+        mission: 'Missie',
+        book: 'Book',
+        reviews: 'Reviews'
+      };
+    } else {
+      return {
+        home: 'Home',
+        mission: 'Mission',
+        book: 'Book',
+        reviews: 'Reviews'
+      };
+    }
+  };
+
+  const labels = getLabels();
+
   const navItems = [
     { 
       icon: Home, 
-      label: t('nav.bottom.home'), 
+      label: labels.home, 
       onClick: handleHomeClick,
       id: 'home'
     },
     { 
       icon: Target, 
-      label: t('nav.bottom.mission'), 
+      label: labels.mission, 
       onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/missie' : '/en/mission'),
       id: 'mission'
     },
     { 
       icon: Calendar, 
-      label: t('nav.bottom.book'), 
+      label: labels.book, 
       onClick: () => {},
       id: 'book'
     },
     { 
       icon: MessageSquareText, 
-      label: t('nav.bottom.reviews'), 
+      label: labels.reviews, 
       onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/reviews' : '/en/reviews'),
       id: 'reviews'
     }
