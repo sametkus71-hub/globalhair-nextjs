@@ -11,11 +11,11 @@ export const ColorSelector = ({ heightBreakpoint = 'large' }: ColorSelectorProps
   const { profile, updateProfile } = useSession();
   const { transitionToColor } = useSmoothColorTransition();
 
-  const colors: { value: HairColor; image: string }[] = [
-    { value: 'Blond', image: '/assets/hair-blonde.png' },
-    { value: 'Bruin', image: '/assets/hair-brown.png' },
-    { value: 'Zwart', image: '/assets/hair-dark.png' },
-    { value: 'Wit', image: '/assets/hair-gray.png' },
+  const colors: { value: HairColor; image: string; alt: string }[] = [
+    { value: 'Blond', image: '/lovable-uploads/aca001f8-e280-494a-b8a8-028265622a3c.png', alt: 'Blond haar textuur voor GlobalHair haartransplantatie behandeling' },
+    { value: 'Bruin', image: '/lovable-uploads/99d7d19a-5297-4bd5-94a9-63b3442aece0.png', alt: 'Bruin haar textuur voor GlobalHair haartransplantatie behandeling' },
+    { value: 'Zwart', image: '/lovable-uploads/df4923b9-9a1c-4947-af38-2c39249664a4.png', alt: 'Zwart haar textuur voor GlobalHair haartransplantatie behandeling' },
+    { value: 'Wit', image: '/lovable-uploads/30181b08-9d4b-4553-98aa-04bd671930be.png', alt: 'Wit grijs haar textuur voor GlobalHair haartransplantatie behandeling' },
   ];
 
   const handleColorChange = (color: HairColor) => {
@@ -32,7 +32,7 @@ export const ColorSelector = ({ heightBreakpoint = 'large' }: ColorSelectorProps
       heightBreakpoint === 'medium' ? "space-x-2.5" :
       "space-x-3"
     )}>
-      {colors.map(({ value, image }) => (
+      {colors.map(({ value, image, alt }) => (
         <button
           key={value}
           onClick={() => handleColorChange(value)}
@@ -49,10 +49,11 @@ export const ColorSelector = ({ heightBreakpoint = 'large' }: ColorSelectorProps
           style={{ 
             borderRadius: '50%'
           }}
+          title={`Selecteer ${value.toLowerCase()} haar voor haartransplantatie - GlobalHair`}
         >
           <CachedImage 
             src={image} 
-            alt={`${value} hair`}
+            alt={alt}
             className="w-full h-full object-cover"
           />
         </button>

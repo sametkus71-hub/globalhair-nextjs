@@ -26,11 +26,11 @@ const HomePage = () => {
   
   // Preload images for smooth experience
   const imagesToPreload = [
-    '/assets/hair-blonde.png',
-    '/assets/hair-brown.png',
-    '/assets/hair-dark.png',
-    '/assets/hair-gray.png',
-    '/assets/logo-shield.png'
+    '/lovable-uploads/aca001f8-e280-494a-b8a8-028265622a3c.png', // blonde hair
+    '/lovable-uploads/99d7d19a-5297-4bd5-94a9-63b3442aece0.png', // brown hair
+    '/lovable-uploads/df4923b9-9a1c-4947-af38-2c39249664a4.png', // black hair
+    '/lovable-uploads/30181b08-9d4b-4553-98aa-04bd671930be.png', // gray hair
+    '/lovable-uploads/1c0a6d55-db05-4d05-a47b-e6dd814c6d62.png'  // logo
   ];
   
   

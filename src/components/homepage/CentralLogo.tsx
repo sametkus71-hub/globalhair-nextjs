@@ -23,8 +23,8 @@ export const CentralLogo = ({ className }: CentralLogoProps) => {
     }}
     >
       <CachedImage 
-        src="/assets/logo-shield.png" 
-        alt="GlobalHair Shield Logo" 
+        src="/lovable-uploads/1c0a6d55-db05-4d05-a47b-e6dd814c6d62.png" 
+        alt="GlobalHair logo - Premium haartransplantatie en V6 Hairboost specialist" 
         className="w-20 h-20 object-contain"
       />
     </div>
