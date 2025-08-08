@@ -1,13 +1,13 @@
-import { useSession } from '@/hooks/useSession';
+import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
 import { usePopupTransition } from '@/hooks/usePopupTransition';
 import { Home, Target, Calendar, MessageSquareText } from 'lucide-react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 export const BottomNavigation = () => {
-  const { language } = useSession();
+  const { language } = useLanguage();
   const { t } = useTranslation(language);
-  const navigate = useNavigate();
+  
   const location = useLocation();
   const { startPopupTransition, directNavigate, isOnPopupPage } = usePopupTransition();
 
