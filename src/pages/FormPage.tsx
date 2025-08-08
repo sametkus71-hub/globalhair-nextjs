@@ -35,7 +35,7 @@ const FormPage = () => {
   return (
     <>
       <MetaHead language={language} page="form" />
-      <div className="min-h-screen bg-gradient-hero">
+      <div className="min-h-[var(--app-height)] bg-gradient-hero">
         {/* Navigation */}
         <nav className="p-6 border-b border-gray-200">
           <div className="max-w-6xl mx-auto flex items-center justify-between">

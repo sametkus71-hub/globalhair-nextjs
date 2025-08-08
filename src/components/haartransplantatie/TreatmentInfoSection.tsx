@@ -41,7 +41,7 @@ export const TreatmentInfoSection: React.FC = () => {
 
   return (
     <section 
-      className="min-h-screen bg-gradient-to-b from-background to-muted/20 pt-16"
+      className="min-h-[var(--app-height)] bg-gradient-to-b from-background to-muted/20 pt-16"
       data-scroll-target="treatment-info"
     >
       <div className="container mx-auto px-4 py-16">

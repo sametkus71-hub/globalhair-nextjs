@@ -8,6 +8,7 @@ import { LanguageWrapper } from "@/components/LanguageWrapper";
 import { GlobalCentralLogo } from "@/components/GlobalCentralLogo";
 import { AnimatedBackground } from "@/components/homepage/AnimatedBackground";
 import { SEORoutes } from "@/components/SEORoutes";
+import ViewportHeightSetter from "@/components/ViewportHeightSetter";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,8 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <LanguageWrapper>
+            <ViewportHeightSetter />
+            <ViewportHeightSetter />
             {/* Persistent background across all pages */}
             <div className="fixed inset-0" style={{ background: '#111111' }}>
               <AnimatedBackground />

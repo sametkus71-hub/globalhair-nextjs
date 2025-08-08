@@ -10,7 +10,7 @@ const ComingSoon2Page = () => {
   return (
     <>
       <MetaHead language={language} />
-      <div className="min-h-screen bg-gradient-hero flex items-center justify-center">
+      <div className="min-h-[var(--app-height)] bg-gradient-hero flex items-center justify-center">
         <div className="text-center space-y-8">
           <div className="font-header text-6xl text-primary mb-8">
             GlobalHair

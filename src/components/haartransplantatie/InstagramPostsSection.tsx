@@ -48,10 +48,10 @@ export const InstagramPostsSection = () => {
         <section
           key={index}
           id={`section-${index + 1}`} // section-1, section-2, etc.
-          className="snap-section min-h-screen w-full relative flex flex-col"
+          className="snap-section min-h-[var(--app-height)] w-full relative flex flex-col"
         >
           {/* Large Media - reduced height for better balance */}
-          <div className="h-[60vh] w-full overflow-hidden">
+          <div className="h-[calc(var(--app-height)*0.6)] w-full overflow-hidden">
             {post.video ? (
               <video 
                 src={post.video}
@@ -71,7 +71,7 @@ export const InstagramPostsSection = () => {
           </div>
           
           {/* Content Section - increased height with proper bottom padding */}
-          <div className="h-[40vh] w-full bg-white px-6 py-6 pb-40 flex flex-col justify-between">
+          <div className="h-[calc(var(--app-height)*0.4)] w-full bg-white px-6 py-6 pb-40 flex flex-col justify-between">
             <div>
               {/* Subtitle - small elegant text */}
               <p className="text-xs uppercase tracking-wider text-muted-foreground mb-2 font-medium">

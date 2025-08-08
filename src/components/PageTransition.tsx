@@ -48,7 +48,7 @@ export const PageTransition = ({ children, isNewPage = false }: PageTransitionPr
   return (
     <div 
       className={cn(
-        "min-h-screen relative",
+        "min-h-[var(--app-height)] relative",
         isNewPage && !isVisible && "opacity-0 scale-98",
         isNewPage && isVisible && "page-transition-scale-in"
       )}

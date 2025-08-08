@@ -186,22 +186,21 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
   }
 }
 
-  /* Instagram-like Smooth Scrolling */
 .smooth-scroll-container {
   scroll-behavior: smooth;
   overflow-y: auto;
-  height: 100vh;
+  height: var(--app-height);
   -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
 }
 
 .content-section {
-  min-height: 100vh;
+  min-height: var(--app-height);
   position: relative;
 }
 
 /* Instagram-style snap sections */
 .snap-section {
-  min-height: 100vh;
+  min-height: var(--app-height);
   scroll-snap-align: start;
   scroll-snap-stop: always;
   position: relative;

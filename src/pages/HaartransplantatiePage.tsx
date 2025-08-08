@@ -55,7 +55,7 @@ const HaartransplantatiePageContent = () => {
         {/* Hero Section */}
         <section 
           id="section-0"
-          className="snap-section min-h-screen w-full relative"
+          className="snap-section min-h-[var(--app-height)] w-full relative"
           style={{ 
             height: `${height}px`
           }}

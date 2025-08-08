@@ -47,11 +47,11 @@ export const ReviewItemPage = () => {
         </button>
         
         {/* Scrollable Content */}
-        <div className="min-h-screen bg-white">
+        <div className="min-h-[var(--app-height)] bg-white">
           {/* Image Section - 65% of viewport height */}
           <div 
             className="w-full bg-gray-300 relative"
-            style={{ height: '65vh' }}
+            style={{ height: 'calc(var(--app-height) * 0.65)' }}
           >
             {/* Clean placeholder - just the color */}
           </div>

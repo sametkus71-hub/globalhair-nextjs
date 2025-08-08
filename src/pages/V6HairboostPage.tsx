@@ -10,7 +10,7 @@ const V6HairboostPage = () => {
     <>
       <MetaHead language={language} page="v6hairboost" />
       <PageTransition isNewPage={true}>
-        <div className="min-h-screen bg-gradient-hero flex flex-col">
+        <div className="min-h-[var(--app-height)] bg-gradient-hero flex flex-col">
           {/* Navigation */}
           <nav 
             className="p-6 border-b border-gray-200 page-entry-item page-entry-delay-1"
