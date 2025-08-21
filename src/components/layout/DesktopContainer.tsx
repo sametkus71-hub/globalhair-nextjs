@@ -7,9 +7,9 @@ interface DesktopContainerProps {
 }
 
 /**
- * DesktopContainer - Adds responsive side margins for desktop-only boxed layout
+ * DesktopContainer - Fixed width container for desktop-only boxed layout
  * - Mobile/tablet: Full width (no changes)
- * - Desktop (lg+): 15% side margins for less stretched feeling
+ * - Desktop (lg+): 500px fixed width, centered, matching homepage grid items
  * - Only use on non-homepage pages
  */
 export const DesktopContainer = ({ children, className }: DesktopContainerProps) => {
@@ -17,8 +17,8 @@ export const DesktopContainer = ({ children, className }: DesktopContainerProps)
     <div className={cn(
       // Mobile: full width
       "w-full",
-      // Desktop: 15% side margins (70% content width)
-      "lg:px-[15vw]",
+      // Desktop: fixed 500px width, centered
+      "lg:max-w-[500px] lg:mx-auto",
       className
     )}>
       {children}

@@ -257,11 +257,11 @@ body.s-wit {
 @layer components {
   /* Desktop layout utilities */
   .desktop-container {
-    @apply w-full lg:px-[15vw];
+    @apply w-full lg:max-w-[500px] lg:mx-auto;
   }
   
   .desktop-boxed {
-    @apply lg:max-w-[70vw] lg:mx-auto;
+    @apply lg:max-w-[500px] lg:mx-auto;
   }
 
   /* Hero grid tile base styles */
