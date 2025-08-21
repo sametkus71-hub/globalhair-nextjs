@@ -200,14 +200,14 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
     <div 
       className={cn(
         "grid grid-cols-2 relative w-full px-2 sm:px-0",
-        heightBreakpoint === 'small' ? "gap-1.5 max-w-[320px]" :
-        heightBreakpoint === 'medium' ? "gap-2 max-w-[360px]" :
-        "gap-2 sm:gap-3 md:gap-4 max-w-[400px] lg:max-w-[420px]",
+        heightBreakpoint === 'small' ? "gap-1.5 max-w-[340px]" :
+        heightBreakpoint === 'medium' ? "gap-2 max-w-[380px]" :
+        "gap-2 sm:gap-3 md:gap-4 max-w-[440px] lg:max-w-[480px]",
         className
       )}
       style={{ 
-        transform: 'translateY(-20px)', // Move grid up by 20px (less than before)
-        marginBottom: '-20px' // Compensate for the space
+        transform: 'translateY(0px)', // Move grid to neutral position (20px lower than before)
+        marginBottom: '0px' // Remove negative margin compensation
       }}
     >
       {/* Haartransplantatie - Top Left */}
