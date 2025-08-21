@@ -200,9 +200,9 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
     <div 
       className={cn(
         "grid grid-cols-2 relative w-full px-2 sm:px-0",
-        heightBreakpoint === 'small' ? "gap-1.5 max-w-[260px]" :
-        heightBreakpoint === 'medium' ? "gap-2 max-w-[280px]" :
-        "gap-2 sm:gap-3 md:gap-4 max-w-[300px] lg:max-w-[320px]",
+        heightBreakpoint === 'small' ? "gap-1.5 max-w-[320px]" :
+        heightBreakpoint === 'medium' ? "gap-2 max-w-[360px]" :
+        "gap-2 sm:gap-3 md:gap-4 max-w-[400px] lg:max-w-[420px]",
         className
       )}
       style={{ 
