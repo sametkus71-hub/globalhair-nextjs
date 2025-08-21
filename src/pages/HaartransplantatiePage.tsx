@@ -12,6 +12,7 @@ import { FloatingActionPortal } from '@/components/FloatingActionPortal';
 import { InstagramPostsSection } from '@/components/haartransplantatie/InstagramPostsSection';
 import { ScrollProvider, useScrollContext } from '@/contexts/ScrollContext';
 import { ScrollIndicator } from '@/components/ScrollIndicator';
+import { DesktopContainer } from '@/components/layout/DesktopContainer';
 
 
 const HaartransplantatiePageContent = () => {
@@ -51,61 +52,63 @@ const HaartransplantatiePageContent = () => {
   return (
     <>
       <MetaHead language={language} page="haartransplantatie" />
-      <PageTransition isNewPage={true}>
-        {/* Hero Section */}
-        <section 
-          id="section-0"
-          className="snap-section min-h-[var(--app-height)] w-full relative"
-          style={{ 
-            height: `${height}px`
-          }}
-        >
-          {/* Fading Central Logo */}
-          <ScrollFadeLogo />
-          
-          {/* Top Section - Before/After Grid */}
-          <div 
-            className="relative z-10"
+      <DesktopContainer>
+        <PageTransition isNewPage={true}>
+          {/* Hero Section */}
+          <section 
+            id="section-0"
+            className="snap-section min-h-[var(--app-height)] w-full relative"
             style={{ 
-              height: `${height * 0.47}px`
+              height: `${height}px`
             }}
           >
+            {/* Fading Central Logo */}
+            <ScrollFadeLogo />
+            
+            {/* Top Section - Before/After Grid */}
             <div 
-              className="page-entry-grid page-entry-delay-1 w-full h-full"
-              data-page-entry="grid"
+              className="relative z-10"
+              style={{ 
+                height: `${height * 0.47}px`
+              }}
             >
-              <BeforeAfterGrid />
+              <div 
+                className="page-entry-grid page-entry-delay-1 w-full h-full"
+                data-page-entry="grid"
+              >
+                <BeforeAfterGrid />
+              </div>
             </div>
-          </div>
 
-          {/* Bottom Section - Video Play & Controls */}
-          <div 
-            className="relative z-10"
-            style={{ 
-              height: `${height * 0.53}px`
-            }}
-          >
+            {/* Bottom Section - Video Play & Controls */}
             <div 
-              className="page-entry-item page-entry-delay-2 w-full h-full"
-              data-page-entry="video"
+              className="relative z-10"
+              style={{ 
+                height: `${height * 0.53}px`
+              }}
             >
-              <VideoPlaySection />
+              <div 
+                className="page-entry-item page-entry-delay-2 w-full h-full"
+                data-page-entry="video"
+              >
+                <VideoPlaySection />
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* Instagram-style Posts */}
-        <InstagramPostsSection />
+          {/* Instagram-style Posts */}
+          <InstagramPostsSection />
 
-        {/* Scroll Indicator */}
-        <ScrollIndicator />
+          {/* Scroll Indicator */}
+          <ScrollIndicator />
 
-        {/* Floating Action Buttons - rendered via portal */}
-        <FloatingActionPortal />
+          {/* Floating Action Buttons - rendered via portal */}
+          <FloatingActionPortal />
 
-        {/* Bottom Navigation - rendered via portal */}
-        <BottomNavigationPortal />
-      </PageTransition>
+          {/* Bottom Navigation - rendered via portal */}
+          <BottomNavigationPortal />
+        </PageTransition>
+      </DesktopContainer>
     </>
   );
 };

@@ -255,6 +255,15 @@ body.s-wit {
 }
 
 @layer components {
+  /* Desktop layout utilities */
+  .desktop-container {
+    @apply w-full lg:px-[15vw];
+  }
+  
+  .desktop-boxed {
+    @apply lg:max-w-[70vw] lg:mx-auto;
+  }
+
   /* Hero grid tile base styles */
   .hero-tile {
     @apply relative overflow-hidden rounded-2xl cursor-pointer;

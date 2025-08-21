@@ -80,10 +80,10 @@ const HomePage = () => {
           <GenderToggle />
         </div>
 
-        {/* Main content area with video grid - hidden during loading, with footer compensation */}
+        {/* Main content area with video grid - hidden during loading, adjusted spacing */}
         <div 
           className="flex-1 flex items-center justify-center px-2 sm:px-4 relative min-h-0"
-          style={{ marginBottom: '-50px' }} // Increased footer compensation
+          style={{ marginBottom: '-20px' }} // Reduced to prevent overlap with bottom selectors
         >
           <div 
             className={cn(
@@ -110,9 +110,9 @@ const HomePage = () => {
         <div 
           className={cn(
             "relative z-10 flex flex-col items-center flex-shrink-0",
-            heightBreakpoint === 'small' ? 'pb-4 pt-3 space-y-3' :
-            heightBreakpoint === 'medium' ? 'pb-6 pt-4 space-y-4' :
-            'pb-6 sm:pb-8 pt-4 sm:pt-6 space-y-5 sm:space-y-6',
+            heightBreakpoint === 'small' ? 'pb-4 pt-6 space-y-3' :
+            heightBreakpoint === 'medium' ? 'pb-6 pt-8 space-y-4' :
+            'pb-6 sm:pb-8 pt-8 sm:pt-10 space-y-5 sm:space-y-6',
             // Animation classes
             isLoading ? 'entrance-hidden-up' : (isFirstLoad ? 'entrance-slide-up' : ''),
             // Transition classes
