@@ -170,9 +170,10 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
   return (
     <div 
       className={cn(
-        "grid grid-cols-2 fixed inset-0 w-screen h-screen",
+        "grid grid-cols-2 fixed inset-0 w-screen h-screen isolate",
         className
       )}
+      style={{ zIndex: 1 }}
     >
       {/* Haartransplantatie - Top Left */}
       {renderPlaceholderItem("HAAR TRANSPLANTATIE", 0, true, false, handleHaartransplantatieClick)}
