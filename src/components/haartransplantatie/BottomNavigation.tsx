@@ -44,49 +44,24 @@ export const BottomNavigation = () => {
     return false; // Other pages not implemented yet
   };
 
-  // Force explicit translations to work around translation hook issues
-  const getLabels = () => {
-    if (language === 'nl') {
-      return {
-        home: 'Home',
-        mission: 'Missie',
-        book: 'Book',
-        reviews: 'Reviews'
-      };
-    } else {
-      return {
-        home: 'Home',
-        mission: 'Mission',
-        book: 'Book',
-        reviews: 'Reviews'
-      };
-    }
-  };
-
-  const labels = getLabels();
-
   const navItems = [
     { 
       icon: Home, 
-      label: labels.home, 
       onClick: handleHomeClick,
       id: 'home'
     },
     { 
       icon: Target, 
-      label: labels.mission, 
       onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/missie' : '/en/mission'),
       id: 'mission'
     },
     { 
       icon: Calendar, 
-      label: labels.book, 
       onClick: () => {},
       id: 'book'
     },
     { 
       icon: MessageSquareText, 
-      label: labels.reviews, 
       onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/reviews' : '/en/reviews'),
       id: 'reviews'
     }
@@ -105,20 +80,31 @@ export const BottomNavigation = () => {
           paddingBottom: 'env(safe-area-inset-bottom)'
         }}
       >
-        <div className="max-w-lg mx-auto px-2 pt-1.5 pb-0.5">
+        <div className="max-w-lg mx-auto px-4 py-2">
           <div className="flex justify-around items-center">
             {navItems.map((item, index) => {
               const active = isActive(item.id);
+              const isBookButton = item.id === 'book';
+              
               return (
                 <button
                   key={index}
                   onClick={item.onClick}
-                  className="flex flex-col items-center space-y-0.5 p-1.5 min-w-0"
+                  className={`flex items-center justify-center p-3 min-w-0 transition-all duration-200 ${
+                    isBookButton 
+                      ? 'bg-white/10 backdrop-blur-sm rounded-full shadow-lg shadow-white/20 hover:bg-white/15' 
+                      : 'hover:bg-white/5 rounded-lg'
+                  }`}
                 >
-                  <item.icon className={`w-5 h-5 ${active ? 'text-white' : 'text-gray-400'}`} />
-                  <span className={`text-[10px] leading-none ${active ? 'text-white font-bold' : 'text-gray-400 font-normal'}`}>
-                    {item.label}
-                  </span>
+                  <item.icon 
+                    className={`w-6 h-6 ${
+                      isBookButton 
+                        ? 'text-white' 
+                        : active 
+                          ? 'text-white' 
+                          : 'text-gray-400'
+                    }`} 
+                  />
                 </button>
               );
             })}
