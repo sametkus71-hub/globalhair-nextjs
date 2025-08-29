@@ -43,12 +43,12 @@ export const BottomNavigation = () => {
 
   const navItems = [
     { 
-      iconSrc: '/lovable-uploads/2b9e0bad-9af2-418e-9da5-61251fda9bf5.png',
+      iconSrc: '/lovable-uploads/54d5ba6c-7e60-4b15-8638-069720030225.png',
       onClick: handleHomeClick,
       id: 'home'
     },
     { 
-      iconSrc: '/lovable-uploads/1e4738b7-ae5c-4b74-bd8c-73364351bd6c.png',
+      iconSrc: '/lovable-uploads/f090962b-0f2c-4b17-9a77-c7a3d700434f.png',
       onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/missie' : '/en/mission'),
       id: 'mission'
     },
@@ -58,12 +58,12 @@ export const BottomNavigation = () => {
       id: 'book'
     },
     { 
-      iconSrc: '/lovable-uploads/f090962b-0f2c-4b17-9a77-c7a3d700434f.png',
+      iconSrc: '/lovable-uploads/1e4738b7-ae5c-4b74-bd8c-73364351bd6c.png',
       onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/reviews' : '/en/reviews'),
       id: 'reviews'
     },
     { 
-      iconSrc: '/lovable-uploads/54d5ba6c-7e60-4b15-8638-069720030225.png',
+      iconSrc: '/lovable-uploads/2b9e0bad-9af2-418e-9da5-61251fda9bf5.png',
       onClick: () => {},
       id: 'contact'
     }
@@ -101,7 +101,7 @@ export const BottomNavigation = () => {
                   <img 
                     src={item.iconSrc}
                     alt={`${item.id} icon`}
-                    className={`w-6 h-6 ${
+                    className={`w-6 h-6 brightness-0 invert ${
                       active ? 'opacity-100' : 'opacity-70'
                     }`} 
                   />
