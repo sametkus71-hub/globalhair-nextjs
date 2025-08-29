@@ -1,11 +1,9 @@
 import { useLanguage } from '@/hooks/useLanguage';
-import { useTranslation } from '@/lib/translations';
 import { usePopupTransition } from '@/hooks/usePopupTransition';
 import { useLocation } from 'react-router-dom';
 
 export const BottomNavigation = () => {
   const { language } = useLanguage();
-  const { t } = useTranslation(language);
   
   const location = useLocation();
   const { startPopupTransition, directNavigate, isOnPopupPage } = usePopupTransition();
