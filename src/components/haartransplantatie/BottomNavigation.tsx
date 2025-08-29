@@ -43,12 +43,12 @@ export const BottomNavigation = () => {
 
   const navItems = [
     { 
-      iconSrc: '/lovable-uploads/b5004700-4ebf-4a8d-9f10-fcddc2176942.png',
+      iconSrc: '/lovable-uploads/04aab7a8-e1ff-45f4-a726-51acc3e02a41.png',
       onClick: handleHomeClick,
       id: 'home'
     },
     { 
-      iconSrc: '/lovable-uploads/49617091-42a9-4433-bd8b-df560cd352ac.png',
+      iconSrc: '/lovable-uploads/75185e09-91f9-4292-90d7-fd4371d2ab23.png',
       onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/missie' : '/en/mission'),
       id: 'mission'
     },
@@ -58,12 +58,12 @@ export const BottomNavigation = () => {
       id: 'book'
     },
     { 
-      iconSrc: '/lovable-uploads/75185e09-91f9-4292-90d7-fd4371d2ab23.png',
+      iconSrc: '/lovable-uploads/49617091-42a9-4433-bd8b-df560cd352ac.png',
       onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/reviews' : '/en/reviews'),
       id: 'reviews'
     },
     { 
-      iconSrc: '/lovable-uploads/04aab7a8-e1ff-45f4-a726-51acc3e02a41.png',
+      iconSrc: '/lovable-uploads/b5004700-4ebf-4a8d-9f10-fcddc2176942.png',
       onClick: () => {},
       id: 'contact'
     }
