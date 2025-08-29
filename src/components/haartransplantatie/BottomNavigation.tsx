@@ -70,43 +70,37 @@ export const BottomNavigation = () => {
   ];
 
   return (
-    <div 
-      className="fixed bottom-0 left-0 w-full z-[10000]"
-      style={{ 
-        height: '90px'
-      }}
-    >
+    <div className="fixed bottom-0 left-0 w-full z-[10000] h-20">
       <div 
-        className="bg-black h-full flex items-center justify-center"
+        className="bg-black h-full flex items-center justify-center px-4"
         style={{ 
           paddingBottom: 'env(safe-area-inset-bottom)'
         }}
       >
-        <div className="max-w-lg mx-auto px-6">
-          <div className="flex justify-between items-center w-full" style={{ gap: '4.5rem' }}>
-            {navItems.map((item, index) => {
-              const active = isActive(item.id);
-              const isBookButton = item.id === 'book';
-              
-              return (
+        <div className="flex items-center justify-between w-full max-w-sm">
+          {navItems.map((item, index) => {
+            const active = isActive(item.id);
+            const isBookButton = item.id === 'book';
+            
+            return (
+              <div key={index} className="flex-1 flex justify-center">
                 <button
-                  key={index}
                   onClick={item.onClick}
                   className={`flex items-center justify-center transition-all duration-200 ${
                     isBookButton 
-                      ? 'bg-zinc-700 rounded-full w-16 h-16' 
+                      ? 'bg-zinc-700 rounded-full px-6 py-3' 
                       : 'p-3'
                   }`}
                 >
                   <img 
                     src={item.iconSrc}
                     alt={`${item.id} icon`}
-                    className="brightness-0 invert opacity-100 w-14 h-14 object-contain"
+                    className="brightness-0 invert w-6 h-6"
                   />
                 </button>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
