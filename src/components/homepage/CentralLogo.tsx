@@ -13,9 +13,9 @@ export const CentralLogo = ({ className }: CentralLogoProps) => {
       className
     )}>
       <CachedImage 
-        src="/lovable-uploads/1c0a6d55-db05-4d05-a47b-e6dd814c6d62.png" 
+        src="/lovable-uploads/230b8ef0-b4c0-4aee-af54-df5e7f2a6201.png" 
         alt="GlobalHair logo - Premium haartransplantatie en V6 Hairboost specialist" 
-        className="w-16 h-16 object-contain"
+        className="w-20 h-20 object-contain"
       />
     </div>
   );
