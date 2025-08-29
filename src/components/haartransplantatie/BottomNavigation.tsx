@@ -1,7 +1,6 @@
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
 import { usePopupTransition } from '@/hooks/usePopupTransition';
-import { Home, Target, Calendar, MessageSquareText, Phone } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 
 export const BottomNavigation = () => {
@@ -46,27 +45,27 @@ export const BottomNavigation = () => {
 
   const navItems = [
     { 
-      icon: Home, 
+      iconSrc: '/lovable-uploads/2b9e0bad-9af2-418e-9da5-61251fda9bf5.png',
       onClick: handleHomeClick,
       id: 'home'
     },
     { 
-      icon: Target, 
+      iconSrc: '/lovable-uploads/1e4738b7-ae5c-4b74-bd8c-73364351bd6c.png',
       onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/missie' : '/en/mission'),
       id: 'mission'
     },
     { 
-      icon: Calendar, 
+      iconSrc: '/lovable-uploads/b4af7cd8-5300-4318-bda8-a95e185a1310.png',
       onClick: () => {},
       id: 'book'
     },
     { 
-      icon: MessageSquareText, 
+      iconSrc: '/lovable-uploads/f090962b-0f2c-4b17-9a77-c7a3d700434f.png',
       onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/reviews' : '/en/reviews'),
       id: 'reviews'
     },
     { 
-      icon: Phone, 
+      iconSrc: '/lovable-uploads/54d5ba6c-7e60-4b15-8638-069720030225.png',
       onClick: () => {},
       id: 'contact'
     }
@@ -101,13 +100,11 @@ export const BottomNavigation = () => {
                       : 'hover:bg-white/5 rounded-lg'
                   }`}
                 >
-                  <item.icon 
+                  <img 
+                    src={item.iconSrc}
+                    alt={`${item.id} icon`}
                     className={`w-6 h-6 ${
-                      isBookButton 
-                        ? 'text-white' 
-                        : active 
-                          ? 'text-white' 
-                          : 'text-gray-400'
+                      active ? 'opacity-100' : 'opacity-70'
                     }`} 
                   />
                 </button>
