@@ -72,9 +72,9 @@ export const BottomNavigation = () => {
   return (
     <div className="fixed bottom-0 left-0 w-full z-[10000] h-14">
       <div 
-        className="bg-black h-full flex items-center justify-center px-4 pt-2"
+        className="bg-black h-full flex items-center justify-center px-4 pb-2"
         style={{ 
-          paddingBottom: 'env(safe-area-inset-bottom)'
+          paddingBottom: 'calc(env(safe-area-inset-bottom) + 0.5rem)'
         }}
       >
         <div className="flex items-center justify-between w-full max-w-sm px-3">
