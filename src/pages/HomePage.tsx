@@ -56,7 +56,7 @@ const HomePage = () => {
       {/* Preload critical images immediately */}
       <ImagePreloader images={imagesToPreload} />
       <MetaHead language={language} page="home" />
-      <div className="fullscreen-safe relative overflow-hidden">
+      <div className="relative overflow-hidden" style={{ height: 'var(--app-height)' }}>
         {/* Full screen video grid */}
         <div 
           className={cn(
