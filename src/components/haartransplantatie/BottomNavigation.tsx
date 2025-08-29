@@ -83,19 +83,19 @@ export const BottomNavigation = () => {
             const isBookButton = item.id === 'book';
             
             return (
-              <div key={index} className="flex-1 flex justify-center">
+              <div key={index} className={`flex-1 flex justify-center ${isBookButton ? 'relative' : ''}`}>
                 <button
                   onClick={item.onClick}
                   className={`flex items-center justify-center transition-all duration-200 ${
                     isBookButton 
-                      ? 'bg-zinc-800/30 rounded-full w-12 h-12' 
+                      ? 'bg-white rounded-full w-16 h-16 shadow-lg -mt-6 border-2 border-black/10' 
                       : 'p-2'
                   }`}
                 >
                   <img 
                     src={item.iconSrc}
                     alt={`${item.id} icon`}
-                    className={`brightness-0 invert ${isBookButton ? 'w-10 h-10' : 'w-5 h-5'}`}
+                    className={`${isBookButton ? 'w-8 h-8 brightness-0' : 'brightness-0 invert w-5 h-5'}`}
                   />
                 </button>
               </div>
