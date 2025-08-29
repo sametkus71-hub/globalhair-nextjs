@@ -88,14 +88,14 @@ export const BottomNavigation = () => {
                   onClick={item.onClick}
                   className={`flex items-center justify-center transition-all duration-200 ${
                     isBookButton 
-                      ? 'bg-zinc-700 rounded-full px-7 py-4' 
+                      ? 'bg-zinc-700 rounded-full w-14 h-14' 
                       : 'p-3'
                   }`}
                 >
                   <img 
                     src={item.iconSrc}
                     alt={`${item.id} icon`}
-                    className={`brightness-0 invert ${isBookButton ? 'w-8 h-8' : 'w-6 h-6'}`}
+                    className={`brightness-0 invert ${isBookButton ? 'w-8 h-8' : 'w-7 h-7'}`}
                   />
                 </button>
               </div>
