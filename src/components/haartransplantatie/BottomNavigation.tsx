@@ -1,7 +1,7 @@
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
 import { usePopupTransition } from '@/hooks/usePopupTransition';
-import { Home, Target, Calendar, MessageSquareText } from 'lucide-react';
+import { Home, Target, Calendar, MessageSquareText, Phone } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 
 export const BottomNavigation = () => {
@@ -64,6 +64,11 @@ export const BottomNavigation = () => {
       icon: MessageSquareText, 
       onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/reviews' : '/en/reviews'),
       id: 'reviews'
+    },
+    { 
+      icon: Phone, 
+      onClick: () => {},
+      id: 'contact'
     }
   ];
 
