@@ -95,7 +95,7 @@ export const BottomNavigation = () => {
                   <img 
                     src={item.iconSrc}
                     alt={`${item.id} icon`}
-                    className={`brightness-0 invert ${isBookButton ? 'w-8 h-8' : 'w-7 h-7'}`}
+                    className={`brightness-0 invert ${isBookButton ? 'w-12 h-12' : 'w-7 h-7'}`}
                   />
                 </button>
               </div>
