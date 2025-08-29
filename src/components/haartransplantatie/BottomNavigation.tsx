@@ -73,17 +73,17 @@ export const BottomNavigation = () => {
     <div 
       className="fixed bottom-0 left-0 w-full z-[10000]"
       style={{ 
-        height: '80px'
+        height: '70px'
       }}
     >
       <div 
-        className="bg-zinc-900 h-full flex items-center justify-center"
+        className="bg-black h-full flex items-center justify-center"
         style={{ 
           paddingBottom: 'env(safe-area-inset-bottom)'
         }}
       >
-        <div className="max-w-lg mx-auto px-8">
-          <div className="flex justify-between items-center gap-8">
+        <div className="max-w-lg mx-auto px-6">
+          <div className="flex justify-between items-center w-full" style={{ gap: '3rem' }}>
             {navItems.map((item, index) => {
               const active = isActive(item.id);
               const isBookButton = item.id === 'book';
@@ -94,14 +94,14 @@ export const BottomNavigation = () => {
                   onClick={item.onClick}
                   className={`flex items-center justify-center transition-all duration-200 ${
                     isBookButton 
-                      ? 'bg-zinc-700 rounded-full w-16 h-10 px-4' 
+                      ? 'bg-zinc-700 rounded-full w-12 h-12' 
                       : 'p-2'
                   }`}
                 >
                   <img 
                     src={item.iconSrc}
                     alt={`${item.id} icon`}
-                    className="brightness-0 invert opacity-100 w-6 h-6 object-contain"
+                    className="brightness-0 invert opacity-100 w-7 h-7 object-contain"
                   />
                 </button>
               );
