@@ -43,19 +43,9 @@ export const BottomNavigation = () => {
 
   const navItems = [
     { 
-      iconSrc: '/lovable-uploads/2b9e0bad-9af2-418e-9da5-61251fda9bf5.png',
-      onClick: handleHomeClick,
-      id: 'home'
-    },
-    { 
-      iconSrc: '/lovable-uploads/1e4738b7-ae5c-4b74-bd8c-73364351bd6c.png',
-      onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/missie' : '/en/mission'),
-      id: 'mission'
-    },
-    { 
-      iconSrc: '/lovable-uploads/b4af7cd8-5300-4318-bda8-a95e185a1310.png',
+      iconSrc: '/lovable-uploads/54d5ba6c-7e60-4b15-8638-069720030225.png',
       onClick: () => {},
-      id: 'book'
+      id: 'contact'
     },
     { 
       iconSrc: '/lovable-uploads/f090962b-0f2c-4b17-9a77-c7a3d700434f.png',
@@ -63,9 +53,19 @@ export const BottomNavigation = () => {
       id: 'reviews'
     },
     { 
-      iconSrc: '/lovable-uploads/54d5ba6c-7e60-4b15-8638-069720030225.png',
+      iconSrc: '/lovable-uploads/b4af7cd8-5300-4318-bda8-a95e185a1310.png',
       onClick: () => {},
-      id: 'contact'
+      id: 'book'
+    },
+    { 
+      iconSrc: '/lovable-uploads/1e4738b7-ae5c-4b74-bd8c-73364351bd6c.png',
+      onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/missie' : '/en/mission'),
+      id: 'mission'
+    },
+    { 
+      iconSrc: '/lovable-uploads/2b9e0bad-9af2-418e-9da5-61251fda9bf5.png',
+      onClick: handleHomeClick,
+      id: 'home'
     }
   ];
 
@@ -92,17 +92,17 @@ export const BottomNavigation = () => {
                 <button
                   key={index}
                   onClick={item.onClick}
-                  className={`flex items-center justify-center p-3 min-w-0 transition-all duration-200 ${
+                  className={`flex items-center justify-center transition-all duration-200 ${
                     isBookButton 
-                      ? 'bg-white/10 backdrop-blur-sm rounded-full shadow-lg shadow-white/20 hover:bg-white/15' 
-                      : 'hover:bg-white/5 rounded-lg'
+                      ? 'bg-white/15 backdrop-blur-sm rounded-full shadow-lg shadow-white/30 hover:bg-white/20 p-3' 
+                      : 'hover:bg-white/5 rounded-lg p-2'
                   }`}
                 >
                   <img 
                     src={item.iconSrc}
                     alt={`${item.id} icon`}
-                    className={`w-6 h-6 ${
-                      active ? 'opacity-100' : 'opacity-70'
+                    className={`w-6 h-6 brightness-0 invert ${
+                      active ? 'opacity-100' : 'opacity-80'
                     }`} 
                   />
                 </button>
