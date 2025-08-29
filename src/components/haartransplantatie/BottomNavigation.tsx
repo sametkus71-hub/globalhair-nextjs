@@ -92,10 +92,10 @@ export const BottomNavigation = () => {
                 <button
                   key={index}
                   onClick={item.onClick}
-                  className={`flex items-center justify-center p-3 min-w-0 transition-all duration-200 ${
+                  className={`flex items-center justify-center p-3 min-w-0 transition-all duration-200 rounded-lg ${
                     isBookButton 
-                      ? 'bg-white/10 backdrop-blur-sm rounded-full shadow-lg shadow-white/20 hover:bg-white/15' 
-                      : 'hover:bg-white/5 rounded-lg'
+                      ? 'bg-white/5 hover:bg-white/8' 
+                      : 'hover:bg-white/5'
                   }`}
                 >
                   <img 
