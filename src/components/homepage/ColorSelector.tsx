@@ -39,11 +39,11 @@ export const ColorSelector = ({ heightBreakpoint = 'large' }: ColorSelectorProps
           className={cn(
             "overflow-hidden border transition-all duration-300",
             "hover:scale-110 active:scale-95 shadow-lg",
-            heightBreakpoint === 'small' ? "w-6 h-6" :
-            heightBreakpoint === 'medium' ? "w-7 h-7" :
-            "w-8 h-8",
+            heightBreakpoint === 'small' ? "w-5 h-5" :
+            heightBreakpoint === 'medium' ? "w-6 h-6" :
+            "w-7 h-7",
             profile.haarkleur === value
-              ? "border-white shadow-white/20 ring-1 ring-white/15 scale-110"
+              ? "border-2 border-white shadow-white/20 ring-1 ring-white/15 scale-110"
               : "border-white/25 hover:border-white/40"
           )}
           style={{ 
