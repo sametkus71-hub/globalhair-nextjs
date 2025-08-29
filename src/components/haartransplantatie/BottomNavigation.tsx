@@ -83,7 +83,7 @@ export const BottomNavigation = () => {
         }}
       >
         <div className="max-w-lg mx-auto px-6">
-          <div className="flex justify-between items-center w-full" style={{ gap: '2.5rem' }}>
+          <div className="flex justify-between items-center w-full" style={{ gap: '4.5rem' }}>
             {navItems.map((item, index) => {
               const active = isActive(item.id);
               const isBookButton = item.id === 'book';
