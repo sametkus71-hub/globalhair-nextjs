@@ -13,7 +13,7 @@ export const GlobalCentralLogo = () => {
 
   return (
     <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] pointer-events-none">
-      <div className="pointer-events-auto bg-red-500/20 p-4 rounded-lg">
+      <div className="pointer-events-auto">
         <CentralLogo />
       </div>
     </div>
