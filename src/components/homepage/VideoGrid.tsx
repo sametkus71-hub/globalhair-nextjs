@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSession } from '@/hooks/useSession';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '@/hooks/useLanguage';
 import { cn } from '@/lib/utils';
 
 interface VideoGridProps {
@@ -11,6 +12,7 @@ interface VideoGridProps {
 
 export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransition }: VideoGridProps) => {
   const { profile } = useSession();
+  const { language } = useLanguage();
   const navigate = useNavigate();
   const [animationKey, setAnimationKey] = useState(0);
   const [navigatingItem, setNavigatingItem] = useState<number | null>(null);
@@ -23,21 +25,23 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
   // Navigation handlers
   const handleHaartransplantatieClick = useCallback(() => {
     setNavigatingItem(0);
+    const targetPath = language === 'en' ? '/en/hair-transplant' : '/nl/haartransplantatie';
     if (startTransition) {
-      startTransition('/haartransplantatie');
+      startTransition(targetPath);
     } else {
-      navigate('/haartransplantatie');
+      navigate(targetPath);
     }
-  }, [navigate, startTransition]);
+  }, [navigate, startTransition, language]);
 
   const handleV6HairboostClick = useCallback(() => {
     setNavigatingItem(1);
+    const targetPath = `/${language}/v6-hairboost`;
     if (startTransition) {
-      startTransition('/v6-hairboost');
+      startTransition(targetPath);
     } else {
-      navigate('/v6-hairboost');
+      navigate(targetPath);
     }
-  }, [navigate, startTransition]);
+  }, [navigate, startTransition, language]);
 
   // Preview variations
   const previewVariations = {
