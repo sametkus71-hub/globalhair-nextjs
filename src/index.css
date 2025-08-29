@@ -147,13 +147,16 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
   
   /* Fullscreen utilities for homepage */
   .fullscreen-no-scroll {
-    height: 100vh;
-    height: 100dvh;
+    height: var(--app-height) !important;
     overflow: hidden;
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
+    touch-action: none;
+    -webkit-touch-action: none;
+    overscroll-behavior: none;
+    -webkit-overscroll-behavior: none;
   }
 
   /* CSS custom properties for dynamic viewport height */
