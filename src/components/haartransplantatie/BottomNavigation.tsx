@@ -43,27 +43,27 @@ export const BottomNavigation = () => {
 
   const navItems = [
     { 
-      iconSrc: '/lovable-uploads/54d5ba6c-7e60-4b15-8638-069720030225.png',
+      iconSrc: '/lovable-uploads/b5004700-4ebf-4a8d-9f10-fcddc2176942.png',
       onClick: handleHomeClick,
       id: 'home'
     },
     { 
-      iconSrc: '/lovable-uploads/f090962b-0f2c-4b17-9a77-c7a3d700434f.png',
+      iconSrc: '/lovable-uploads/49617091-42a9-4433-bd8b-df560cd352ac.png',
       onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/missie' : '/en/mission'),
       id: 'mission'
     },
     { 
-      iconSrc: '/lovable-uploads/b4af7cd8-5300-4318-bda8-a95e185a1310.png',
+      iconSrc: '/lovable-uploads/4f77654b-737b-493a-a695-ad8360dbeb0d.png',
       onClick: () => {},
       id: 'book'
     },
     { 
-      iconSrc: '/lovable-uploads/1e4738b7-ae5c-4b74-bd8c-73364351bd6c.png',
+      iconSrc: '/lovable-uploads/75185e09-91f9-4292-90d7-fd4371d2ab23.png',
       onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/reviews' : '/en/reviews'),
       id: 'reviews'
     },
     { 
-      iconSrc: '/lovable-uploads/2b9e0bad-9af2-418e-9da5-61251fda9bf5.png',
+      iconSrc: '/lovable-uploads/04aab7a8-e1ff-45f4-a726-51acc3e02a41.png',
       onClick: () => {},
       id: 'contact'
     }
