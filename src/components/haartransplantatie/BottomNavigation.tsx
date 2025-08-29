@@ -88,7 +88,7 @@ export const BottomNavigation = () => {
                   onClick={item.onClick}
                   className={`flex items-center justify-center transition-all duration-200 ${
                     isBookButton 
-                      ? 'bg-gradient-to-b from-zinc-800 to-zinc-800/10 rounded-full w-14 h-14 shadow-lg -mt-2' 
+                      ? 'bg-[linear-gradient(to_bottom,_rgb(39_39_42)_0%,_rgb(39_39_42)_15%,_rgb(39_39_42_/_0.1)_100%)] rounded-full w-14 h-14 shadow-lg -mt-2' 
                       : 'p-2'
                   }`}
                 >
