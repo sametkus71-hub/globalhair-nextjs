@@ -1,123 +1,111 @@
-import { useLanguage } from '@/hooks/useLanguage';
+import { useState, useEffect, useCallback } from 'react';
 import { useSession } from '@/hooks/useSession';
+import { useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { useEffect, useState } from 'react';
 
 interface VideoGridProps {
   className?: string;
   heightBreakpoint?: 'small' | 'medium' | 'large';
-  startTransition: (targetPath: string, delay?: number) => void;
+  startTransition?: (targetPath: string, delay?: number) => void;
 }
 
 export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransition }: VideoGridProps) => {
-  const { language } = useLanguage();
   const { profile } = useSession();
+  const navigate = useNavigate();
   const [animationKey, setAnimationKey] = useState(0);
   const [navigatingItem, setNavigatingItem] = useState<number | null>(null);
 
-  // Force re-render with animation when profile changes
+  // Re-animate when profile details change
   useEffect(() => {
     setAnimationKey(prev => prev + 1);
   }, [profile.geslacht, profile.haarkleur, profile.haartype]);
 
-  const handleHaartransplantatieClick = () => {
+  // Navigation handlers
+  const handleHaartransplantatieClick = useCallback(() => {
     setNavigatingItem(0);
-    const path = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
-    startTransition(path, 50); // Small delay for button animation
-  };
+    if (startTransition) {
+      startTransition('/haartransplantatie');
+    } else {
+      navigate('/haartransplantatie');
+    }
+  }, [navigate, startTransition]);
 
-  const handleV6HairboostClick = () => {
+  const handleV6HairboostClick = useCallback(() => {
     setNavigatingItem(1);
-    const path = language === 'nl' ? '/nl/v6-hairboost' : '/en/v6-hairboost';
-    startTransition(path, 50); // Small delay for button animation
-  };
+    if (startTransition) {
+      startTransition('/v6-hairboost');
+    } else {
+      navigate('/v6-hairboost');
+    }
+  }, [navigate, startTransition]);
 
-  // All 32 possible combinations (2 genders × 4 colors × 4 types)
+  // Preview variations
   const previewVariations = {
-    // Man combinations
-    "Man-Blond-Fijn": { preview: "MA-BL-FI", pattern: 0, content: 1, darkness: 15 },
-    "Man-Blond-Stijl": { preview: "MA-BL-ST", pattern: 1, content: 2, darkness: 18 },
-    "Man-Blond-Krul": { preview: "MA-BL-KR", pattern: 2, content: 3, darkness: 21 },
-    "Man-Blond-Kroes": { preview: "MA-BL-KS", pattern: 0, content: 4, darkness: 24 },
-    "Man-Bruin-Fijn": { preview: "MA-BR-FI", pattern: 1, content: 5, darkness: 27 },
-    "Man-Bruin-Stijl": { preview: "MA-BR-ST", pattern: 2, content: 6, darkness: 30 },
-    "Man-Bruin-Krul": { preview: "MA-BR-KR", pattern: 0, content: 7, darkness: 33 },
-    "Man-Bruin-Kroes": { preview: "MA-BR-KS", pattern: 1, content: 8, darkness: 36 },
-    "Man-Zwart-Fijn": { preview: "MA-ZW-FI", pattern: 2, content: 9, darkness: 39 },
-    "Man-Zwart-Stijl": { preview: "MA-ZW-ST", pattern: 0, content: 10, darkness: 42 },
-    "Man-Zwart-Krul": { preview: "MA-ZW-KR", pattern: 1, content: 11, darkness: 45 },
-    "Man-Zwart-Kroes": { preview: "MA-ZW-KS", pattern: 2, content: 12, darkness: 48 },
-    "Man-Wit-Fijn": { preview: "MA-WI-FI", pattern: 0, content: 13, darkness: 20 },
-    "Man-Wit-Stijl": { preview: "MA-WI-ST", pattern: 1, content: 14, darkness: 23 },
-    "Man-Wit-Krul": { preview: "MA-WI-KR", pattern: 2, content: 15, darkness: 26 },
-    "Man-Wit-Kroes": { preview: "MA-WI-KS", pattern: 0, content: 16, darkness: 29 },
-    
-    // Vrouw combinations
-    "Vrouw-Blond-Fijn": { preview: "VR-BL-FI", pattern: 1, content: 17, darkness: 32 },
-    "Vrouw-Blond-Stijl": { preview: "VR-BL-ST", pattern: 2, content: 18, darkness: 35 },
-    "Vrouw-Blond-Krul": { preview: "VR-BL-KR", pattern: 0, content: 19, darkness: 38 },
-    "Vrouw-Blond-Kroes": { preview: "VR-BL-KS", pattern: 1, content: 20, darkness: 41 },
-    "Vrouw-Bruin-Fijn": { preview: "VR-BR-FI", pattern: 2, content: 21, darkness: 44 },
-    "Vrouw-Bruin-Stijl": { preview: "VR-BR-ST", pattern: 0, content: 22, darkness: 47 },
-    "Vrouw-Bruin-Krul": { preview: "VR-BR-KR", pattern: 1, content: 23, darkness: 25 },
-    "Vrouw-Bruin-Kroes": { preview: "VR-BR-KS", pattern: 2, content: 24, darkness: 28 },
-    "Vrouw-Zwart-Fijn": { preview: "VR-ZW-FI", pattern: 0, content: 25, darkness: 31 },
-    "Vrouw-Zwart-Stijl": { preview: "VR-ZW-ST", pattern: 1, content: 26, darkness: 34 },
-    "Vrouw-Zwart-Krul": { preview: "VR-ZW-KR", pattern: 2, content: 27, darkness: 37 },
-    "Vrouw-Zwart-Kroes": { preview: "VR-ZW-KS", pattern: 0, content: 28, darkness: 40 },
-    "Vrouw-Wit-Fijn": { preview: "VR-WI-FI", pattern: 1, content: 29, darkness: 43 },
-    "Vrouw-Wit-Stijl": { preview: "VR-WI-ST", pattern: 2, content: 30, darkness: 46 },
-    "Vrouw-Wit-Krul": { preview: "VR-WI-KR", pattern: 0, content: 31, darkness: 22 },
-    "Vrouw-Wit-Kroes": { preview: "VR-WI-KS", pattern: 1, content: 32, darkness: 19 },
+    'Vrouw-Blond-Fijn': { previewCode: 'VBF001', pattern: 'light', contentIndex: 0, baseDarkness: 0.15 },
+    'Vrouw-Blond-Stijl': { previewCode: 'VBS002', pattern: 'medium', contentIndex: 1, baseDarkness: 0.2 },
+    'Vrouw-Blond-Krul': { previewCode: 'VBK003', pattern: 'curly', contentIndex: 2, baseDarkness: 0.25 },
+    'Vrouw-Blond-Kroes': { previewCode: 'VBR004', pattern: 'textured', contentIndex: 3, baseDarkness: 0.3 },
+    'Vrouw-Bruin-Fijn': { previewCode: 'VBrF005', pattern: 'light', contentIndex: 4, baseDarkness: 0.35 },
+    'Vrouw-Bruin-Stijl': { previewCode: 'VBrS006', pattern: 'medium', contentIndex: 5, baseDarkness: 0.4 },
+    'Vrouw-Bruin-Krul': { previewCode: 'VBrK007', pattern: 'curly', contentIndex: 6, baseDarkness: 0.45 },
+    'Vrouw-Bruin-Kroes': { previewCode: 'VBrR008', pattern: 'textured', contentIndex: 7, baseDarkness: 0.5 },
+    'Vrouw-Zwart-Fijn': { previewCode: 'VZF009', pattern: 'light', contentIndex: 8, baseDarkness: 0.55 },
+    'Vrouw-Zwart-Stijl': { previewCode: 'VZS010', pattern: 'medium', contentIndex: 9, baseDarkness: 0.6 },
+    'Vrouw-Zwart-Krul': { previewCode: 'VZK011', pattern: 'curly', contentIndex: 10, baseDarkness: 0.65 },
+    'Vrouw-Zwart-Kroes': { previewCode: 'VZR012', pattern: 'textured', contentIndex: 11, baseDarkness: 0.7 },
+    'Vrouw-Grijs-Fijn': { previewCode: 'VGF013', pattern: 'light', contentIndex: 12, baseDarkness: 0.75 },
+    'Vrouw-Grijs-Stijl': { previewCode: 'VGS014', pattern: 'medium', contentIndex: 13, baseDarkness: 0.8 },
+    'Vrouw-Grijs-Krul': { previewCode: 'VGK015', pattern: 'curly', contentIndex: 14, baseDarkness: 0.85 },
+    'Vrouw-Grijs-Kroes': { previewCode: 'VGR016', pattern: 'textured', contentIndex: 15, baseDarkness: 0.9 },
+    'Man-Blond-Fijn': { previewCode: 'MBF017', pattern: 'light', contentIndex: 16, baseDarkness: 0.15 },
+    'Man-Blond-Stijl': { previewCode: 'MBS018', pattern: 'medium', contentIndex: 17, baseDarkness: 0.2 },
+    'Man-Blond-Krul': { previewCode: 'MBK019', pattern: 'curly', contentIndex: 18, baseDarkness: 0.25 },
+    'Man-Blond-Kroes': { previewCode: 'MBR020', pattern: 'textured', contentIndex: 19, baseDarkness: 0.3 },
+    'Man-Bruin-Fijn': { previewCode: 'MBrF021', pattern: 'light', contentIndex: 20, baseDarkness: 0.35 },
+    'Man-Bruin-Stijl': { previewCode: 'MBrS022', pattern: 'medium', contentIndex: 21, baseDarkness: 0.4 },
+    'Man-Bruin-Krul': { previewCode: 'MBrK023', pattern: 'curly', contentIndex: 22, baseDarkness: 0.45 },
+    'Man-Bruin-Kroes': { previewCode: 'MBrR024', pattern: 'textured', contentIndex: 23, baseDarkness: 0.5 },
+    'Man-Zwart-Fijn': { previewCode: 'MZF025', pattern: 'light', contentIndex: 24, baseDarkness: 0.55 },
+    'Man-Zwart-Stijl': { previewCode: 'MZS026', pattern: 'medium', contentIndex: 25, baseDarkness: 0.6 },
+    'Man-Zwart-Krul': { previewCode: 'MZK027', pattern: 'curly', contentIndex: 26, baseDarkness: 0.65 },
+    'Man-Zwart-Kroes': { previewCode: 'MZR028', pattern: 'textured', contentIndex: 27, baseDarkness: 0.7 },
+    'Man-Grijs-Fijn': { previewCode: 'MGF029', pattern: 'light', contentIndex: 28, baseDarkness: 0.75 },
+    'Man-Grijs-Stijl': { previewCode: 'MGS030', pattern: 'medium', contentIndex: 29, baseDarkness: 0.8 },
+    'Man-Grijs-Krul': { previewCode: 'MGK031', pattern: 'curly', contentIndex: 30, baseDarkness: 0.85 },
+    'Man-Grijs-Kroes': { previewCode: 'MGR032', pattern: 'textured', contentIndex: 31, baseDarkness: 0.9 },
   };
 
-  // Get specific variation based on current profile
+  // Function to get variation based on profile and grid position
   const getItemVariation = (gridIndex: number) => {
-    const profileKey = `${profile.geslacht}-${profile.haarkleur}-${profile.haartype}`;
-    const baseVariation = previewVariations[profileKey as keyof typeof previewVariations];
+    const profileKey = `${profile.geslacht}-${profile.haarkleur}-${profile.haartype}` as keyof typeof previewVariations;
+    const baseVariation = previewVariations[profileKey];
     
-    if (baseVariation) {
-      // Adjust variation based on grid position
-      const adjustedContent = ((baseVariation.content + gridIndex) % 32) + 1;
-      const adjustedDarkness = Math.max(15, Math.min(50, baseVariation.darkness + (gridIndex * 3)));
-      
+    if (!baseVariation) {
+      // Fallback for incomplete profiles
       return {
-        baseDarkness: adjustedDarkness,
-        patternType: (baseVariation.pattern + gridIndex) % 3,
-        contentVariation: adjustedContent,
-        previewCode: `${baseVariation.preview}-${gridIndex + 1}`
+        baseDarkness: 0.5,
+        patternType: 'medium',
+        contentVariation: 1,
+        previewCode: 'DEFAULT'
       };
     }
+
+    // Apply grid-specific adjustments
+    const adjustedDarkness = Math.max(0.1, Math.min(0.9, baseVariation.baseDarkness + (gridIndex * 0.05)));
     
-    // Fallback for incomplete profiles
     return {
-      baseDarkness: 20 + (gridIndex * 5),
-      patternType: gridIndex % 3,
-      contentVariation: gridIndex + 1,
-      previewCode: `DEFAULT-${gridIndex + 1}`
+      baseDarkness: adjustedDarkness,
+      patternType: baseVariation.pattern,
+      contentVariation: (baseVariation.contentIndex + gridIndex) % 8,
+      previewCode: `${baseVariation.previewCode}-G${gridIndex}`
     };
   };
 
-  const renderPlaceholderItem = (title: string, gridIndex: number, isActive: boolean, isStatic = false) => {
-    // For static items, use fixed colors that don't change with profile
-    const staticColors = {
-      baseDarkness: 25,
-      bgColor: 'rgb(75%, 75%, 75%)',
-      borderColor: 'rgb(65%, 65%, 65%)',
-      textColor: 'rgb(25%, 25%, 25%)',
-      wireColor: 'rgb(55%, 55%, 55%)'
-    };
+  // Render individual grid item
+  const renderPlaceholderItem = (title: string, gridIndex: number, isActive: boolean, isStatic?: boolean, onClick?: () => void) => {
+    const variation = isStatic ? null : getItemVariation(gridIndex);
     
-    const dynamicVariation = getItemVariation(gridIndex);
-    const colors = isStatic ? staticColors : {
-      baseDarkness: dynamicVariation.baseDarkness,
-      bgColor: `rgb(${100 - dynamicVariation.baseDarkness}%, ${100 - dynamicVariation.baseDarkness}%, ${100 - dynamicVariation.baseDarkness}%)`,
-      borderColor: `rgb(${90 - dynamicVariation.baseDarkness}%, ${90 - dynamicVariation.baseDarkness}%, ${90 - dynamicVariation.baseDarkness}%)`,
-      textColor: `rgb(${50 - dynamicVariation.baseDarkness}%, ${50 - dynamicVariation.baseDarkness}%, ${50 - dynamicVariation.baseDarkness}%)`,
-      wireColor: `rgb(${80 - dynamicVariation.baseDarkness}%, ${80 - dynamicVariation.baseDarkness}%, ${80 - dynamicVariation.baseDarkness}%)`
-    };
-    
-    const previewCode = isStatic ? `STATIC-${gridIndex}` : dynamicVariation.previewCode;
+    const previewCode = isStatic ? `STATIC-${gridIndex}` : variation!.previewCode;
     const selectionInfo = isStatic ? "COMING SOON" : `${profile.geslacht} • ${profile.haarkleur} • ${profile.haartype}`;
     
     return (
@@ -125,72 +113,55 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
         key={isStatic ? `static-${gridIndex}` : `${gridIndex}-${animationKey}`}
         data-grid-item={gridIndex}
         className={cn(
-          "relative overflow-hidden border transition-all duration-500 ease-out",
-          heightBreakpoint === 'small' ? "aspect-[4/5]" :
-          heightBreakpoint === 'medium' ? "aspect-[3/4]" :
-          "aspect-[3/4]",
-          isActive ? "cursor-pointer hover:scale-[1.02] group" : "cursor-not-allowed opacity-60",
+          "relative w-full h-full overflow-hidden transition-all duration-500 ease-out",
+          isActive ? "cursor-pointer hover:scale-[1.01] group" : "cursor-not-allowed opacity-60",
           !isStatic && "animate-fade-in"
         )}
-        style={{ 
-          backgroundColor: colors.bgColor,
-          borderColor: colors.borderColor,
-          borderWidth: '1px',
-          borderStyle: 'solid',
-          borderRadius: '4px',
+        style={{
+          background: isStatic 
+            ? 'linear-gradient(135deg, rgba(60,60,60,0.8), rgba(40,40,40,0.9))'
+            : `linear-gradient(135deg, 
+                hsla(${Math.round(variation!.baseDarkness * 360)}, 30%, ${20 + variation!.baseDarkness * 15}%, 0.9), 
+                hsla(${Math.round(variation!.baseDarkness * 360)}, 25%, ${15 + variation!.baseDarkness * 10}%, 0.95)
+              )`,
           // Bring to front during navigation
-          ...(navigatingItem === gridIndex && { position: 'relative', zIndex: 50 }),
-          // Add subtle shadow for depth
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
+          ...(navigatingItem === gridIndex && { position: 'relative', zIndex: 50 })
         }}
+        onClick={isActive ? onClick : undefined}
       >
         {/* Simple, consistent wireframe pattern */}
         <div className="absolute inset-0 opacity-25">
           <svg className="w-full h-full" viewBox="0 0 100 80" preserveAspectRatio="none">
             <defs>
-              <pattern id={`simple-grid-${gridIndex}-${previewCode}`} x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
-                <path d="M 10,0 L 0,0 0,10" fill="none" stroke={colors.wireColor} strokeWidth="0.3" opacity="0.6"/>
+              <pattern id={`grid-${gridIndex}`} width="10" height="10" patternUnits="userSpaceOnUse">
+                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.5"/>
               </pattern>
             </defs>
-            <rect width="100" height="80" fill={`url(#simple-grid-${gridIndex}-${previewCode})`}/>
-            
-            {/* Simple centered elements */}
-            <rect x="35" y="30" width="30" height="20" fill="none" stroke={colors.wireColor} strokeWidth="0.6" opacity="0.8"/>
-            <circle cx="50" cy="40" r="4" fill="none" stroke={colors.wireColor} strokeWidth="0.8" opacity="0.9"/>
-            <polygon points="48,38 48,42 52,40" fill={colors.wireColor} opacity="0.8"/>
+            <rect width="100%" height="100%" fill={`url(#grid-${gridIndex})`} />
           </svg>
         </div>
-        
-        {/* Content */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center p-3">
-          <div className="text-center mb-2">
-            <div className={cn(
-              "font-header font-bold tracking-wide leading-tight",
-              heightBreakpoint === 'small' ? "text-xs" :
-              heightBreakpoint === 'medium' ? "text-sm" :
-              "text-sm"
-            )} style={{ color: colors.textColor }}>
-              {title}
-            </div>
+
+        {/* Content overlay with improved spacing and sizing */}
+        <div className="absolute inset-0 flex flex-col justify-center items-center p-4 text-white">
+          {/* Title */}
+          <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-center mb-3 leading-tight tracking-wide">
+            {title}
+          </h3>
+          
+          {/* Selection info */}
+          <div className="text-xs sm:text-sm opacity-75 text-center mb-4 font-medium">
+            {selectionInfo}
+          </div>
+          
+          {/* Preview code - smaller and more subtle */}
+          <div className="text-[10px] sm:text-xs opacity-50 font-mono tracking-wider">
+            {previewCode}
           </div>
         </div>
-        
-        {/* Selection info label */}
-        <div 
-          className="absolute bottom-1.5 left-1.5 right-1.5 text-center text-[9px] font-mono px-1.5 py-0.5 border"
-          style={{ 
-            color: colors.textColor,
-            backgroundColor: `rgb(${102 - colors.baseDarkness}%, ${102 - colors.baseDarkness}%, ${102 - colors.baseDarkness}%)`,
-            borderColor: colors.borderColor,
-            opacity: 0.8,
-            borderRadius: '1px'
-          }}
-        >
-          {selectionInfo}
-        </div>
-        
+
+        {/* Hover effect overlay */}
         {isActive && (
-          <div className="absolute inset-0 bg-black/3 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         )}
       </div>
     );
@@ -199,31 +170,18 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
   return (
     <div 
       className={cn(
-        "grid grid-cols-2 relative w-full px-2 sm:px-0",
-        heightBreakpoint === 'small' ? "gap-1.5 max-w-[340px]" :
-        heightBreakpoint === 'medium' ? "gap-2 max-w-[380px]" :
-        "gap-2 sm:gap-3 md:gap-4 max-w-[440px] lg:max-w-[480px]",
+        "grid grid-cols-2 fixed inset-0 w-screen h-screen",
         className
       )}
-      style={{ 
-        transform: 'translateY(0px)', // Move grid to neutral position (20px lower than before)
-        marginBottom: '0px' // Remove negative margin compensation
-      }}
     >
       {/* Haartransplantatie - Top Left */}
-      <div onClick={handleHaartransplantatieClick}>
-        {renderPlaceholderItem("HAAR\nTRANSPLANTATIE", 0, true)}
-      </div>
-
+      {renderPlaceholderItem("HAAR TRANSPLANTATIE", 0, true, false, handleHaartransplantatieClick)}
+      
       {/* V6 Hairboost - Top Right */}
-      <div onClick={handleV6HairboostClick}>
-        {renderPlaceholderItem("V6\nHAIRBOOST", 1, true)}
-      </div>
-
-      {/* Coming Soon - Bottom Left */}
+      {renderPlaceholderItem("V6 HAIRBOOST", 1, true, false, handleV6HairboostClick)}
+      
+      {/* Coming Soon items - Bottom */}
       {renderPlaceholderItem("COMING SOON", 2, false, true)}
-
-      {/* Coming Soon - Bottom Right */}
       {renderPlaceholderItem("COMING SOON", 3, false, true)}
     </div>
   );

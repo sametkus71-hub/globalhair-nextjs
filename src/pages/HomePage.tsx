@@ -56,16 +56,34 @@ const HomePage = () => {
       {/* Preload critical images immediately */}
       <ImagePreloader images={imagesToPreload} />
       <MetaHead language={language} page="home" />
-      <div className="fullscreen-safe flex flex-col relative overflow-hidden">
-        {/* Content with relative positioning over the persistent background */}
-        
-        {/* Top section with gender toggle - hidden during loading */}
+      <div className="fullscreen-safe relative overflow-hidden">
+        {/* Full screen video grid */}
         <div 
           className={cn(
-            "relative z-10 flex justify-center flex-shrink-0",
-            heightBreakpoint === 'small' ? 'pt-4 pb-2' :
-            heightBreakpoint === 'medium' ? 'pt-6 pb-3' :
-            'pt-8 pb-6',
+            "relative w-full h-full",
+            // Animation classes
+            isLoading ? 'entrance-hidden-scale' : (isFirstLoad ? 'entrance-scale-fade' : ''),
+            // Transition classes for buttons
+            transitionState.fadeOut && 'page-transition-buttons-fade'
+          )}
+          data-debug-buttons-fadeout={transitionState.fadeOut ? 'true' : 'false'}
+          style={{ 
+            animationDelay: isFirstLoad && !isLoading ? '0.7s' : '0s'
+          }}
+        >
+          <VideoGrid 
+            heightBreakpoint={heightBreakpoint}
+            startTransition={startTransition}
+          />
+        </div>
+
+        {/* Top section with gender toggle - floating overlay */}
+        <div 
+          className={cn(
+            "absolute top-0 left-0 right-0 z-20 flex justify-center",
+            heightBreakpoint === 'small' ? 'pt-4' :
+            heightBreakpoint === 'medium' ? 'pt-6' :
+            'pt-8',
             // Animation classes
             isLoading ? 'entrance-hidden' : (isFirstLoad ? 'entrance-slide-down' : ''),
             // Transition classes
@@ -80,39 +98,13 @@ const HomePage = () => {
           <GenderToggle />
         </div>
 
-        {/* Main content area with video grid - hidden during loading, adjusted spacing */}
-        <div 
-          className="flex-1 flex items-center justify-center px-2 sm:px-4 relative min-h-0"
-          style={{ marginBottom: '-20px' }} // Reduced to prevent overlap with bottom selectors
-        >
-          <div 
-            className={cn(
-              "relative flex items-center justify-center w-full h-full",
-              // Animation classes
-              isLoading ? 'entrance-hidden-scale' : (isFirstLoad ? 'entrance-scale-fade' : ''),
-              // Transition classes for buttons
-              transitionState.fadeOut && 'page-transition-buttons-fade'
-            )}
-            data-debug-buttons-fadeout={transitionState.fadeOut ? 'true' : 'false'}
-            style={{ 
-              animationDelay: isFirstLoad && !isLoading ? '0.7s' : '0s'
-            }}
-          >
-            <VideoGrid 
-              className="mx-auto" 
-              heightBreakpoint={heightBreakpoint}
-              startTransition={startTransition}
-            />
-          </div>
-        </div>
-
-        {/* Bottom section with selectors - hidden during loading */}
+        {/* Bottom section with selectors - floating overlay */}
         <div 
           className={cn(
-            "relative z-10 flex flex-col items-center flex-shrink-0",
-            heightBreakpoint === 'small' ? 'pb-4 pt-6 space-y-3' :
-            heightBreakpoint === 'medium' ? 'pb-6 pt-8 space-y-4' :
-            'pb-6 sm:pb-8 pt-8 sm:pt-10 space-y-5 sm:space-y-6',
+            "absolute bottom-0 left-0 right-0 z-20 flex flex-col items-center",
+            heightBreakpoint === 'small' ? 'pb-4 space-y-3' :
+            heightBreakpoint === 'medium' ? 'pb-6 space-y-4' :
+            'pb-6 sm:pb-8 space-y-5 sm:space-y-6',
             // Animation classes
             isLoading ? 'entrance-hidden-up' : (isFirstLoad ? 'entrance-slide-up' : ''),
             // Transition classes
@@ -120,8 +112,7 @@ const HomePage = () => {
           )}
           data-debug-bottom-fadeout={transitionState.fadeOut ? 'true' : 'false'}
           style={{ 
-            paddingBottom: 'max(3rem, env(safe-area-inset-bottom))', // Increased bottom padding
-            paddingTop: heightBreakpoint === 'small' ? 'max(0.75rem, env(safe-area-inset-top))' : undefined,
+            paddingBottom: 'max(3rem, env(safe-area-inset-bottom))',
             animationDelay: isFirstLoad && !isLoading ? '0.5s' : '0s'
           }}
         >
