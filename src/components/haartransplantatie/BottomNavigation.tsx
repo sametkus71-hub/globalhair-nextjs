@@ -73,7 +73,7 @@ export const BottomNavigation = () => {
     <div 
       className="fixed bottom-0 left-0 w-full z-[10000]"
       style={{ 
-        height: '70px'
+        height: '90px'
       }}
     >
       <div 
@@ -83,7 +83,7 @@ export const BottomNavigation = () => {
         }}
       >
         <div className="max-w-lg mx-auto px-6">
-          <div className="flex justify-between items-center w-full" style={{ gap: '3rem' }}>
+          <div className="flex justify-between items-center w-full" style={{ gap: '2.5rem' }}>
             {navItems.map((item, index) => {
               const active = isActive(item.id);
               const isBookButton = item.id === 'book';
@@ -94,8 +94,8 @@ export const BottomNavigation = () => {
                   onClick={item.onClick}
                   className={`flex items-center justify-center transition-all duration-200 ${
                     isBookButton 
-                      ? 'bg-zinc-700 rounded-full w-12 h-12' 
-                      : 'p-2'
+                      ? 'bg-zinc-700 rounded-full w-16 h-16' 
+                      : 'p-3'
                   }`}
                 >
                   <img 
