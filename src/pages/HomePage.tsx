@@ -64,10 +64,9 @@ const HomePage = () => {
             "relative w-full h-full",
             // Animation classes
             isLoading ? 'entrance-hidden-scale' : (isFirstLoad ? 'entrance-scale-fade' : ''),
-            // Transition classes for buttons
-            transitionState.fadeOut && 'page-transition-buttons-fade'
+            // Ultra-fast transition for video grid
+            transitionState.fadeOut && 'page-transition-fade-out'
           )}
-          data-debug-buttons-fadeout={transitionState.fadeOut ? 'true' : 'false'}
           style={{ 
             animationDelay: isFirstLoad && !isLoading ? '0.7s' : '0s'
           }}
