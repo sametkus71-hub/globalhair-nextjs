@@ -4,6 +4,7 @@ import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { MetaHead } from '@/components/MetaHead';
 import { PageTransition } from '@/components/PageTransition';
 import { ScrollFadeLogo } from '@/components/ScrollFadeLogo';
+import { CentralLogo } from '@/components/homepage/CentralLogo';
 import { BeforeAfterGrid } from '@/components/haartransplantatie/BeforeAfterGrid';
 import { VideoPlaySection } from '@/components/haartransplantatie/VideoPlaySection';
 import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
@@ -46,12 +47,14 @@ const HaartransplantatiePage = () => {
           >
             {/* Fading Central Logo - positioned at grid boundary */}
             <div 
-              className="absolute left-1/2 transform -translate-x-1/2 z-20 pointer-events-none"
+              className="absolute left-1/2 transform -translate-x-1/2 z-[60] pointer-events-none"
               style={{ 
                 top: `calc(40vh - 75px)`
               }}
             >
-              <ScrollFadeLogo />
+              <div className="pointer-events-auto">
+                <CentralLogo />
+              </div>
             </div>
             
             {/* Top Section - Before/After Grid */}
