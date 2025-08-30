@@ -22,9 +22,9 @@ const APPEARANCE_ORDER = [
 ];
 
 const FLIP_ORDER = [
-  { ids: [6, 7], delay: 2000 },         // Wave 1: Bottom center (6-7)
-  { ids: [5, 8, 2, 3], delay: 2800 },   // Wave 2: Bottom left + right, Top center (5-8-2-3) 
-  { ids: [1, 4], delay: 3600 }          // Wave 3: Top corners (1-4)
+  { ids: [6, 7], delay: 15000 },        // Wave 1: Wait 15s, then start with bottom center (6-7)
+  { ids: [5, 8, 2, 3], delay: 15500 },  // Wave 2: 500ms later - bottom left + right, top center (5-8-2-3) 
+  { ids: [1, 4], delay: 16000 }         // Wave 3: 500ms later - top corners (1-4)
 ];
 
 export const BeforeAfterGrid = () => {
@@ -99,7 +99,7 @@ export const BeforeAfterGrid = () => {
                 : item
             )
           );
-        }, index * 600); // Slightly faster wave timing for more premium feel
+        }, index * 500); // 500ms wave timing between groups
         timers.push(timer);
       });
     }, 10000); // 10 second cycle for more relaxed viewing
