@@ -10,13 +10,6 @@ interface BeforeAfterImageProps {
   onTransitionComplete?: () => void;
 }
 
-interface ImageState {
-  src: string;
-  alt: string;
-  isLoaded: boolean;
-  hasError: boolean;
-}
-
 export const BeforeAfterImage = ({ 
   src, 
   alt, 
@@ -25,161 +18,111 @@ export const BeforeAfterImage = ({
   onTransitionStart,
   onTransitionComplete
 }: BeforeAfterImageProps) => {
-  const [currentImage, setCurrentImage] = useState<ImageState>({
-    src,
-    alt,
-    isLoaded: false,
-    hasError: false
-  });
-  
-  const [nextImage, setNextImage] = useState<ImageState | null>(null);
+  // Two-layer approach: base image (always mounted) + overlay image (for transitions)
+  const [baseImage, setBaseImage] = useState({ src, alt, isLoaded: false, hasError: false });
+  const [overlayImage, setOverlayImage] = useState({ src: '', alt: '', isLoaded: false, hasError: false });
+  const [overlayOpacity, setOverlayOpacity] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [transitionPhase, setTransitionPhase] = useState<'idle' | 'fadeOut' | 'pop' | 'fadeIn' | 'overlap'>('idle');
 
-  // Preload next image when src changes
+  // Handle base image loading
+  const handleBaseImageLoad = useCallback(() => {
+    setBaseImage(prev => ({ ...prev, isLoaded: true, hasError: false }));
+  }, []);
+
+  const handleBaseImageError = useCallback(() => {
+    setBaseImage(prev => ({ ...prev, hasError: true }));
+  }, []);
+
+  // Handle overlay image loading
+  const handleOverlayImageLoad = useCallback(() => {
+    setOverlayImage(prev => ({ ...prev, isLoaded: true, hasError: false }));
+  }, []);
+
+  const handleOverlayImageError = useCallback(() => {
+    setOverlayImage(prev => ({ ...prev, hasError: true }));
+  }, []);
+
+  // Handle image changes
   useEffect(() => {
-    if (src !== currentImage.src && !isTransitioning) {
-      // Start transition
-      onTransitionStart?.();
-      setIsTransitioning(true);
-      setTransitionPhase('fadeOut');
+    if (src === baseImage.src) return;
+
+    onTransitionStart?.();
+    setIsTransitioning(true);
+
+    // Load new image into overlay
+    setOverlayImage({ src, alt, isLoaded: false, hasError: false });
+    
+    // Preload the image
+    const img = new Image();
+    img.onload = () => {
+      setOverlayImage(prev => ({ ...prev, isLoaded: true, hasError: false }));
       
-      // Preload the new image
-      const img = new Image();
-      img.onload = () => {
-        setNextImage({
-          src,
-          alt,
-          isLoaded: true,
-          hasError: false
-        });
-      };
-      img.onerror = () => {
-        setNextImage({
-          src,
-          alt,
-          isLoaded: false,
-          hasError: true
-        });
-      };
-      img.src = src;
-    }
-  }, [src, alt, currentImage.src, isTransitioning, onTransitionStart]);
+      // Start crossfade after image loads
+      requestAnimationFrame(() => {
+        setOverlayOpacity(1);
+        
+        // After transition completes, swap images
+        setTimeout(() => {
+          setBaseImage({ src, alt, isLoaded: true, hasError: false });
+          setOverlayOpacity(0);
+          setIsTransitioning(false);
+          
+          requestAnimationFrame(() => {
+            onTransitionComplete?.();
+          });
+        }, 300); // Match transition duration
+      });
+    };
+    
+    img.onerror = () => {
+      setOverlayImage(prev => ({ ...prev, hasError: true }));
+      setIsTransitioning(false);
+    };
+    
+    img.src = src;
+  }, [src, alt, baseImage.src, onTransitionStart, onTransitionComplete]);
 
-  // Handle transition phases with anti-flicker improvements
-  useEffect(() => {
-    if (!isTransitioning || !nextImage) return;
+  const baseImageStyles = "absolute inset-0 w-full h-full object-cover object-center";
+  const overlayImageStyles = "absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-300 ease-out";
 
-    const timers: NodeJS.Timeout[] = [];
-
-    if (transitionPhase === 'fadeOut') {
-      // Phase 1: Fade out current image (100ms)
-      const timer1 = setTimeout(() => {
-        setTransitionPhase('pop');
-      }, 100);
-      timers.push(timer1);
-    } else if (transitionPhase === 'pop') {
-      // Phase 2: Pop effect - new image scales in (150ms)
-      const timer2 = setTimeout(() => {
-        setTransitionPhase('fadeIn');
-      }, 150);
-      timers.push(timer2);
-    } else if (transitionPhase === 'fadeIn') {
-      // Phase 3: Settle and create overlap (100ms)
-      const timer3 = setTimeout(() => {
-        setTransitionPhase('overlap');
-      }, 100);
-      timers.push(timer3);
-    } else if (transitionPhase === 'overlap') {
-      // Phase 4: Brief overlap to prevent flicker, then complete (16ms - one frame)
-      const timer4 = setTimeout(() => {
-        // Use functional update to prevent race conditions
-        setCurrentImage(prevCurrent => nextImage);
-        setNextImage(null);
-        setIsTransitioning(false);
-        setTransitionPhase('idle');
-        // Delay callback to ensure state is fully updated
-        requestAnimationFrame(() => {
-          onTransitionComplete?.();
-        });
-      }, 16);
-      timers.push(timer4);
-    }
-
-    return () => timers.forEach(timer => clearTimeout(timer));
-  }, [transitionPhase, isTransitioning, nextImage, onTransitionComplete]);
-
-  const handleCurrentImageLoad = useCallback(() => {
-    if (!isTransitioning) {
-      setCurrentImage(prev => ({ ...prev, isLoaded: true }));
-    }
-  }, [isTransitioning]);
-
-  const handleCurrentImageError = useCallback(() => {
-    if (!isTransitioning) {
-      setCurrentImage(prev => ({ ...prev, hasError: true }));
-    }
-  }, [isTransitioning]);
-
-  // Base styles for GPU acceleration and layout stability
-  const baseImageStyles = "absolute inset-0 w-full h-full object-cover object-center transition-all duration-100 ease-out will-change-transform backface-hidden";
-  
   return (
-    <div className={cn("w-full h-full relative overflow-hidden", className)} style={{ imageRendering: 'auto' }}>
-      {/* Current Image - with improved visibility logic */}
+    <div className={cn("w-full h-full relative overflow-hidden", className)}>
+      {/* Base Image - Always mounted */}
       <img
-        src={currentImage.src}
-        alt={currentImage.alt}
+        src={baseImage.src}
+        alt={baseImage.alt}
         className={cn(
           baseImageStyles,
-          // Base visibility
-          isVisible && currentImage.isLoaded && !currentImage.hasError ? "opacity-100" : "opacity-0",
-          // Transition states - keep visible longer to prevent gaps
-          !isTransitioning && "scale-100",
-          isTransitioning && transitionPhase === 'fadeOut' && "scale-95 opacity-20", // Reduced opacity instead of 0
-          isTransitioning && transitionPhase === 'pop' && "scale-95 opacity-10", // Minimal but visible
-          isTransitioning && transitionPhase === 'fadeIn' && "scale-95 opacity-5", // Nearly invisible but present
-          isTransitioning && transitionPhase === 'overlap' && "scale-100 opacity-100" // Fully visible during overlap
+          isVisible && baseImage.isLoaded && !baseImage.hasError ? "opacity-100" : "opacity-0"
         )}
-        style={{ 
-          zIndex: isTransitioning && (transitionPhase === 'pop' || transitionPhase === 'fadeIn') ? 1 : 2,
-          transform: 'translate3d(0, 0, 0)' // Force GPU layer
-        }}
-        onLoad={handleCurrentImageLoad}
-        onError={handleCurrentImageError}
+        onLoad={handleBaseImageLoad}
+        onError={handleBaseImageError}
         loading="eager"
       />
 
-      {/* Next Image (during transition) - with improved z-index management */}
-      {isTransitioning && nextImage && nextImage.isLoaded && (
+      {/* Overlay Image - For transitions */}
+      {overlayImage.src && (
         <img
-          src={nextImage.src}
-          alt={nextImage.alt}
-          className={cn(
-            baseImageStyles,
-            // Transition phases with smoother visibility
-            transitionPhase === 'fadeOut' && "opacity-0 scale-105",
-            transitionPhase === 'pop' && "opacity-90 scale-105",
-            transitionPhase === 'fadeIn' && "opacity-100 scale-100",
-            transitionPhase === 'overlap' && "opacity-100 scale-100",
-            nextImage.hasError && "opacity-0"
-          )}
+          src={overlayImage.src}
+          alt={overlayImage.alt}
+          className={overlayImageStyles}
           style={{ 
-            zIndex: transitionPhase === 'overlap' ? 1 : 3, // Lower during overlap
-            transform: 'translate3d(0, 0, 0)' // Force GPU layer
+            opacity: overlayImage.isLoaded && !overlayImage.hasError ? overlayOpacity : 0 
           }}
+          onLoad={handleOverlayImageLoad}
+          onError={handleOverlayImageError}
           loading="eager"
         />
       )}
       
-      {/* Loading state - only show when not transitioning */}
-      {!currentImage.isLoaded && !currentImage.hasError && !isTransitioning && (
-        <div className="absolute inset-0 bg-muted animate-pulse" style={{ zIndex: 0 }} />
+      {/* Loading state */}
+      {!baseImage.isLoaded && !baseImage.hasError && (
+        <div className="absolute inset-0 bg-muted animate-pulse" />
       )}
       
-      {/* Error state - only show when not transitioning */}
-      {currentImage.hasError && !isTransitioning && (
-        <div className="absolute inset-0 bg-muted flex items-center justify-center" style={{ zIndex: 0 }}>
+      {/* Error state */}
+      {baseImage.hasError && (
+        <div className="absolute inset-0 bg-muted flex items-center justify-center">
           <span className="text-muted-foreground text-xs">Failed to load</span>
         </div>
       )}
