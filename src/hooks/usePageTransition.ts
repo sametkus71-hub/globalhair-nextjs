@@ -56,8 +56,8 @@ export const usePageTransition = () => {
       });
     }, 20);
 
-    // Navigate early so page can start loading while animation plays
-    const navigationDelay = isLogoTransition ? 200 : 300;
+    // Navigate at 0.9s to allow logo animation to play
+    const navigationDelay = isLogoTransition ? 900 : 300;
     
     setTimeout(() => {
       navigate(targetPath);
