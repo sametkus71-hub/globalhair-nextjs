@@ -924,41 +924,63 @@ html, body {
   display: block; /* Block layout for complex hero structure */
 }
 
-/* Subtle gradient animation for booking button */
+/* High-end subtle gradient animation for booking button */
 .booking-button-glow {
   position: relative;
   overflow: hidden;
+  background: linear-gradient(135deg, rgb(39 39 42) 0%, rgb(45 45 48) 25%, rgb(39 39 42) 50%, rgb(35 35 38) 75%, rgb(39 39 42) 100%);
+  background-size: 300% 300%;
+  animation: luxury-gradient-shift 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 .booking-button-glow::before {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
-  transform: translateX(-100%) translateY(-100%);
-  animation: subtle-gradient-sweep 2s ease-in-out infinite;
-  animation-delay: 0s;
-  animation-iteration-count: infinite;
-  animation-duration: 6s;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+  opacity: 0;
+  animation: luxury-pulse 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 1s;
 }
 
-@keyframes subtle-gradient-sweep {
-  0%, 90% {
-    transform: translateX(-100%) translateY(-100%);
+.booking-button-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.08) 50%, transparent 100%);
+  transform: translateX(-100%);
+  animation: luxury-shine 10s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+  animation-delay: 3s;
+}
+
+@keyframes luxury-gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes luxury-pulse {
+  0%, 85%, 100% {
     opacity: 0;
   }
-  15% {
+  15%, 25% {
     opacity: 1;
   }
-  25% {
-    transform: translateX(100%) translateY(100%);
+}
+
+@keyframes luxury-shine {
+  0%, 90%, 100% {
+    transform: translateX(-100%);
     opacity: 0;
   }
-  100% {
-    transform: translateX(-100%) translateY(-100%);
+  5% {
+    opacity: 1;
+  }
+  15% {
+    transform: translateX(100%);
     opacity: 0;
   }
 }
