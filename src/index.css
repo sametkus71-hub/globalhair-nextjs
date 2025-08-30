@@ -924,24 +924,64 @@ html, body {
   display: block; /* Block layout for complex hero structure */
 }
 
-/* Elegant breathing light effect for booking button */
+/* High-end subtle gradient animation for booking button */
 .booking-button-glow {
-  background: hsl(var(--muted));
-  animation: breathing-light 5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgb(39 39 42) 0%, rgb(45 45 48) 25%, rgb(39 39 42) 50%, rgb(35 35 38) 75%, rgb(39 39 42) 100%);
+  background-size: 300% 300%;
+  animation: luxury-gradient-shift 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
-@keyframes breathing-light {
+.booking-button-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+  opacity: 0;
+  animation: luxury-pulse 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 1s;
+}
+
+.booking-button-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.08) 50%, transparent 100%);
+  transform: translateX(-100%);
+  animation: luxury-shine 10s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+  animation-delay: 3s;
+}
+
+@keyframes luxury-gradient-shift {
   0%, 100% {
-    box-shadow: 
-      0 0 20px hsla(0, 0%, 100%, 0.1),
-      0 0 40px hsla(0, 0%, 100%, 0.05),
-      inset 0 0 20px hsla(0, 0%, 100%, 0.02);
+    background-position: 0% 50%;
   }
   50% {
-    box-shadow: 
-      0 0 30px hsla(45, 100%, 95%, 0.15),
-      0 0 60px hsla(45, 100%, 95%, 0.08),
-      inset 0 0 30px hsla(45, 100%, 95%, 0.04);
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes luxury-pulse {
+  0%, 85%, 100% {
+    opacity: 0;
+  }
+  15%, 25% {
+    opacity: 1;
+  }
+}
+
+@keyframes luxury-shine {
+  0%, 90%, 100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  15% {
+    transform: translateX(100%);
+    opacity: 0;
   }
 }
 
