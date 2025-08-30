@@ -69,10 +69,10 @@ export const BEFORE_AFTER_IMAGES: BeforeAfterImage[] = [
   {
     id: 8,
     patientId: "patient-008",
-    beforeImage: "/lovable-uploads/9a5567ac-b6d3-4a0b-98db-aefd6f1d3e21.png",
-    afterImage: "/lovable-uploads/a593ff6b-3d96-407a-a55c-598bbc56df9b.png", 
-    beforeAlt: "Hair transplant patient before treatment - full head",
-    afterAlt: "Hair transplant patient after treatment - full head"
+    beforeImage: "/lovable-uploads/008c1f64-92b4-4871-a49b-7460adabfdfe.png",
+    afterImage: "/lovable-uploads/1f2d1b48-9182-4a41-b281-6e5aba856d87.png", 
+    beforeAlt: "Hair transplant procedure in progress - graft implantation process",
+    afterAlt: "Hair transplant final result - complete hairline and density restoration"
   }
 ];
 
