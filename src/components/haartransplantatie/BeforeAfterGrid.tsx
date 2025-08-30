@@ -56,19 +56,13 @@ export const BeforeAfterGrid = () => {
 
   useEffect(() => {
     // Only start animations once all images are preloaded
-    if (!allImagesLoaded) {
-      console.log('🔄 Waiting for images to preload...');
-      return;
-    }
+    if (!allImagesLoaded) return;
     
     const timers: NodeJS.Timeout[] = [];
-    
-    console.log('🎬 BeforeAfterGrid: All images loaded, starting animations');
 
     // Appearance animation - custom order: 6+7, then 2+3+5+8, then 1+4
-    APPEARANCE_ORDER.forEach((group, groupIndex) => {
+    APPEARANCE_ORDER.forEach((group) => {
       const timer = setTimeout(() => {
-        console.log(`✨ Appearance group ${groupIndex + 1}: showing items [${group.ids.join(', ')}]`);
         setItems(prevItems => 
           prevItems.map(item => 
             group.ids.includes(item.id)
@@ -81,9 +75,8 @@ export const BeforeAfterGrid = () => {
     });
 
     // Flip animation - same order as appearance
-    FLIP_ORDER.forEach((group, groupIndex) => {
+    FLIP_ORDER.forEach((group) => {
       const timer = setTimeout(() => {
-        console.log(`🔄 Flip group ${groupIndex + 1}: flipping items [${group.ids.join(', ')}]`);
         setItems(prevItems => 
           prevItems.map(item => 
             group.ids.includes(item.id)
@@ -97,7 +90,6 @@ export const BeforeAfterGrid = () => {
 
     // Continuous flip cycle every 6 seconds
     const cycleTimer = setInterval(() => {
-      console.log('🔄 Starting flip cycle');
       FLIP_ORDER.forEach((group, index) => {
         const timer = setTimeout(() => {
           setItems(prevItems => 
@@ -107,18 +99,17 @@ export const BeforeAfterGrid = () => {
                 : item
             )
           );
-        }, index * 800); // Match the 800ms wave delay timing
+        }, index * 600); // Slightly faster wave timing for more premium feel
         timers.push(timer);
       });
-    }, 6000);
+    }, 5000); // Slightly faster cycle for more dynamic feel
 
     timers.push(cycleTimer);
 
     return () => {
-      console.log('🧹 BeforeAfterGrid: Cleaning up timers');
       timers.forEach(timer => clearTimeout(timer));
     };
-  }, [allImagesLoaded]); // Re-run when images are loaded
+  }, [allImagesLoaded]);
 
   return (
     <div className="w-full h-full" key={gridKey}>
@@ -134,8 +125,9 @@ export const BeforeAfterGrid = () => {
             key={item.id}
             onClick={() => handleItemClick(item.id)}
             className={cn(
-              "w-full h-full relative cursor-pointer hover:opacity-90 transition-opacity duration-300",
-              "min-h-0 flex-shrink-0 bg-muted"
+              "w-full h-full relative cursor-pointer transition-all duration-200 ease-out",
+              "min-h-0 flex-shrink-0 bg-muted hover:scale-[1.02] hover:shadow-lg",
+              "transform-gpu" // Use GPU acceleration for smoother animations
             )}
           >
             <ImageComponent
@@ -144,18 +136,7 @@ export const BeforeAfterGrid = () => {
               isVisible={item.isVisible}
               className="absolute inset-0"
               isPreloaded={isImageLoaded(item.isAfter ? item.data.afterImage : item.data.beforeImage)}
-              onTransitionStart={() => {
-                console.log(`🎭 Image ${item.id}: Transition started`);
-              }}
-              onTransitionComplete={() => {
-                console.log(`✅ Image ${item.id}: Transition completed`);
-              }}
             />
-            
-            {/* Label overlay */}
-            <div className="absolute top-2 left-2 bg-black/50 text-white text-xs px-2 py-1 rounded font-mono pointer-events-none backdrop-blur-sm">
-              {item.isAfter ? "AFTER" : "BEFORE"}
-            </div>
           </div>
         ))}
       </div>

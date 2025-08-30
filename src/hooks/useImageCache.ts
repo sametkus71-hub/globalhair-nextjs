@@ -1,66 +1,119 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 // Global image cache to persist across component unmounts
 const imageCache = new Set<string>();
 const imagePromises = new Map<string, Promise<void>>();
+const preloadedImages = new Map<string, HTMLImageElement>();
+
+// Aggressive preloading function
+const preloadImage = (src: string): Promise<HTMLImageElement> => {
+  return new Promise((resolve, reject) => {
+    // Return cached image immediately
+    if (preloadedImages.has(src)) {
+      resolve(preloadedImages.get(src)!);
+      return;
+    }
+
+    // If already loading, wait for existing promise
+    if (imagePromises.has(src)) {
+      imagePromises.get(src)?.then(() => {
+        resolve(preloadedImages.get(src)!);
+      }).catch(reject);
+      return;
+    }
+
+    const img = new Image();
+    const loadPromise = new Promise<void>((resolveLoad, rejectLoad) => {
+      img.onload = () => {
+        imageCache.add(src);
+        preloadedImages.set(src, img);
+        imagePromises.delete(src);
+        resolveLoad();
+      };
+      img.onerror = () => {
+        imagePromises.delete(src);
+        rejectLoad(new Error(`Failed to load image: ${src}`));
+      };
+    });
+
+    imagePromises.set(src, loadPromise);
+    
+    // Set high priority for faster loading
+    img.fetchPriority = 'high' as any;
+    img.loading = 'eager';
+    img.src = src;
+    
+    loadPromise.then(() => resolve(img)).catch(reject);
+  });
+};
 
 export const useImageCache = (images: string[]) => {
   const [allImagesLoaded, setAllImagesLoaded] = useState(false);
+  const [loadedCount, setLoadedCount] = useState(0);
+  const mountedRef = useRef(true);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => { mountedRef.current = false; };
+  }, []);
 
   useEffect(() => {
     const loadImages = async () => {
       // Check if all images are already cached
-      if (images.every(src => imageCache.has(src))) {
-        setAllImagesLoaded(true);
+      const cachedCount = images.filter(src => imageCache.has(src)).length;
+      
+      if (cachedCount === images.length) {
+        if (mountedRef.current) {
+          setLoadedCount(cachedCount);
+          setAllImagesLoaded(true);
+        }
         return;
       }
 
-      const loadPromises = images.map(async (src) => {
-        // If already cached globally, skip
-        if (imageCache.has(src)) {
-          return;
-        }
-
-        // If already loading, wait for existing promise
-        if (imagePromises.has(src)) {
-          return imagePromises.get(src);
-        }
-
-        // Create new loading promise
-        const loadPromise = new Promise<void>((resolve, reject) => {
-          const img = new Image();
-          img.onload = () => {
-            imageCache.add(src);
-            imagePromises.delete(src);
-            resolve();
-          };
-          img.onerror = () => {
-            imagePromises.delete(src);
-            reject(new Error(`Failed to load image: ${src}`));
-          };
-          img.src = src;
-        });
-
-        imagePromises.set(src, loadPromise);
-        return loadPromise;
-      });
+      // Start aggressive preloading
+      const loadPromises = images.map(src => preloadImage(src));
 
       try {
-        await Promise.all(loadPromises);
-        setAllImagesLoaded(true);
+        let completedCount = cachedCount;
+        
+        // Update progress as each image loads
+        const progressPromises = loadPromises.map(async (promise, index) => {
+          try {
+            await promise;
+            completedCount++;
+            if (mountedRef.current) {
+              setLoadedCount(completedCount);
+            }
+          } catch (error) {
+            // Continue loading other images even if one fails
+            completedCount++;
+            if (mountedRef.current) {
+              setLoadedCount(completedCount);
+            }
+          }
+        });
+
+        await Promise.allSettled(progressPromises);
+        
+        if (mountedRef.current) {
+          setAllImagesLoaded(true);
+        }
       } catch (error) {
-        console.warn('Some images failed to load:', error);
-        setAllImagesLoaded(true); // Continue even if some images fail
+        // Even if some images fail, mark as complete to avoid blocking
+        if (mountedRef.current) {
+          setAllImagesLoaded(true);
+        }
       }
     };
 
     loadImages();
-  }, []); // Only run once when component mounts
+  }, [images]);
 
   return {
     isImageLoaded: (src: string) => imageCache.has(src),
     allImagesLoaded,
-    loadedCount: images.filter(src => imageCache.has(src)).length,
-    totalCount: images.length
+    loadedCount,
+    totalCount: images.length,
+    loadProgress: images.length > 0 ? loadedCount / images.length : 0
   };
 };

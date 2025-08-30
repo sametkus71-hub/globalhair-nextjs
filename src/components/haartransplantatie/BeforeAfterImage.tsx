@@ -7,8 +7,6 @@ interface BeforeAfterImageProps {
   isVisible: boolean;
   className?: string;
   isPreloaded?: boolean;
-  onTransitionStart?: () => void;
-  onTransitionComplete?: () => void;
 }
 
 export const BeforeAfterImage = ({ 
@@ -16,9 +14,7 @@ export const BeforeAfterImage = ({
   alt, 
   isVisible, 
   className,
-  isPreloaded = false,
-  onTransitionStart,
-  onTransitionComplete
+  isPreloaded = false
 }: BeforeAfterImageProps) => {
   // Two-layer approach: base image (always mounted) + overlay image (for transitions)
   const [baseImage, setBaseImage] = useState({ 
@@ -49,57 +45,45 @@ export const BeforeAfterImage = ({
     setOverlayImage(prev => ({ ...prev, hasError: true }));
   }, []);
 
-  // Handle image changes
+  // Handle image changes with optimized transitions
   useEffect(() => {
     if (src === baseImage.src) return;
 
-    onTransitionStart?.();
     setIsTransitioning(true);
 
-    // If image is preloaded, transition immediately
+    // If image is preloaded, transition immediately with smooth animation
     if (isPreloaded) {
       setOverlayImage({ src, alt, isLoaded: true, hasError: false });
       
-      // Start crossfade immediately
+      // Use requestAnimationFrame for smoother transitions
       requestAnimationFrame(() => {
         setOverlayOpacity(1);
         
-        // Complete transition faster for preloaded images
+        // Ultra-smooth transition for premium feel
         setTimeout(() => {
           setBaseImage({ src, alt, isLoaded: true, hasError: false });
           setOverlayOpacity(0);
           setIsTransitioning(false);
-          
-          requestAnimationFrame(() => {
-            onTransitionComplete?.();
-          });
-        }, 150); // Much faster for preloaded images
+        }, 200); // Faster but still smooth
       });
       return;
     }
 
-    // Regular loading for non-preloaded images
+    // For non-preloaded images, still maintain smooth experience
     setOverlayImage({ src, alt, isLoaded: false, hasError: false });
     
-    // Preload the image
     const img = new Image();
     img.onload = () => {
       setOverlayImage(prev => ({ ...prev, isLoaded: true, hasError: false }));
       
-      // Start crossfade after image loads
       requestAnimationFrame(() => {
         setOverlayOpacity(1);
         
-        // After transition completes, swap images
         setTimeout(() => {
           setBaseImage({ src, alt, isLoaded: true, hasError: false });
           setOverlayOpacity(0);
           setIsTransitioning(false);
-          
-          requestAnimationFrame(() => {
-            onTransitionComplete?.();
-          });
-        }, 300); // Match transition duration
+        }, 250); // Balanced speed and smoothness
       });
     };
     
@@ -109,10 +93,10 @@ export const BeforeAfterImage = ({
     };
     
     img.src = src;
-  }, [src, alt, baseImage.src, isPreloaded, onTransitionStart, onTransitionComplete]);
+  }, [src, alt, baseImage.src, isPreloaded]);
 
-  const baseImageStyles = "absolute inset-0 w-full h-full object-cover object-center";
-  const overlayImageStyles = "absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-300 ease-out";
+  const baseImageStyles = "absolute inset-0 w-full h-full object-cover object-center transform-gpu";
+  const overlayImageStyles = "absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] transform-gpu";
 
   return (
     <div className={cn("w-full h-full relative overflow-hidden", className)}>
