@@ -88,7 +88,7 @@ export const BeforeAfterGrid = () => {
       timers.push(timer);
     });
 
-    // Continuous flip cycle every 6 seconds
+    // Continuous flip cycle every 10 seconds
     const cycleTimer = setInterval(() => {
       FLIP_ORDER.forEach((group, index) => {
         const timer = setTimeout(() => {
@@ -102,7 +102,7 @@ export const BeforeAfterGrid = () => {
         }, index * 600); // Slightly faster wave timing for more premium feel
         timers.push(timer);
       });
-    }, 5000); // Slightly faster cycle for more dynamic feel
+    }, 10000); // 10 second cycle for more relaxed viewing
 
     timers.push(cycleTimer);
 
