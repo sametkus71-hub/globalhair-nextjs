@@ -133,6 +133,12 @@ export const BeforeAfterGrid = () => {
               alt={item.isAfter ? item.data.afterAlt : item.data.beforeAlt}
               isVisible={item.isVisible}
               className="absolute inset-0"
+              onTransitionStart={() => {
+                console.log(`🎭 Image ${item.id}: Transition started`);
+              }}
+              onTransitionComplete={() => {
+                console.log(`✅ Image ${item.id}: Transition completed`);
+              }}
             />
             
             {/* Label overlay */}
