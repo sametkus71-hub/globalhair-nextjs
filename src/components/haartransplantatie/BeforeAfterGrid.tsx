@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { BEFORE_AFTER_IMAGES, BeforeAfterImage } from '@/data/beforeAfterImages';
+import { BEFORE_AFTER_IMAGES, BeforeAfterImage, getAllImagePaths } from '@/data/beforeAfterImages';
 import { BeforeAfterImage as ImageComponent } from './BeforeAfterImage';
+import { useImageCache } from '@/hooks/useImageCache';
 
 interface GridItemState {
   id: number;
@@ -27,6 +28,9 @@ const FLIP_ORDER = [
 ];
 
 export const BeforeAfterGrid = () => {
+  // Aggressive preloading of all images
+  const { allImagesLoaded, isImageLoaded } = useImageCache(getAllImagePaths());
+  
   const [items, setItems] = useState<GridItemState[]>(
     BEFORE_AFTER_IMAGES.map((data, index) => ({ 
       id: data.id,
@@ -51,9 +55,15 @@ export const BeforeAfterGrid = () => {
   };
 
   useEffect(() => {
+    // Only start animations once all images are preloaded
+    if (!allImagesLoaded) {
+      console.log('🔄 Waiting for images to preload...');
+      return;
+    }
+    
     const timers: NodeJS.Timeout[] = [];
     
-    console.log('🎬 BeforeAfterGrid: Starting animations');
+    console.log('🎬 BeforeAfterGrid: All images loaded, starting animations');
 
     // Appearance animation - custom order: 6+7, then 2+3+5+8, then 1+4
     APPEARANCE_ORDER.forEach((group, groupIndex) => {
@@ -108,7 +118,7 @@ export const BeforeAfterGrid = () => {
       console.log('🧹 BeforeAfterGrid: Cleaning up timers');
       timers.forEach(timer => clearTimeout(timer));
     };
-  }, []); // Empty dependency array to run only once
+  }, [allImagesLoaded]); // Re-run when images are loaded
 
   return (
     <div className="w-full h-full" key={gridKey}>
@@ -133,6 +143,7 @@ export const BeforeAfterGrid = () => {
               alt={item.isAfter ? item.data.afterAlt : item.data.beforeAlt}
               isVisible={item.isVisible}
               className="absolute inset-0"
+              isPreloaded={isImageLoaded(item.isAfter ? item.data.afterImage : item.data.beforeImage)}
               onTransitionStart={() => {
                 console.log(`🎭 Image ${item.id}: Transition started`);
               }}

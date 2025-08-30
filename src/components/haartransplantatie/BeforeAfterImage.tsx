@@ -6,6 +6,7 @@ interface BeforeAfterImageProps {
   alt: string;
   isVisible: boolean;
   className?: string;
+  isPreloaded?: boolean;
   onTransitionStart?: () => void;
   onTransitionComplete?: () => void;
 }
@@ -15,11 +16,17 @@ export const BeforeAfterImage = ({
   alt, 
   isVisible, 
   className,
+  isPreloaded = false,
   onTransitionStart,
   onTransitionComplete
 }: BeforeAfterImageProps) => {
   // Two-layer approach: base image (always mounted) + overlay image (for transitions)
-  const [baseImage, setBaseImage] = useState({ src, alt, isLoaded: false, hasError: false });
+  const [baseImage, setBaseImage] = useState({ 
+    src, 
+    alt, 
+    isLoaded: isPreloaded, // If preloaded, start as loaded
+    hasError: false 
+  });
   const [overlayImage, setOverlayImage] = useState({ src: '', alt: '', isLoaded: false, hasError: false });
   const [overlayOpacity, setOverlayOpacity] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -49,7 +56,29 @@ export const BeforeAfterImage = ({
     onTransitionStart?.();
     setIsTransitioning(true);
 
-    // Load new image into overlay
+    // If image is preloaded, transition immediately
+    if (isPreloaded) {
+      setOverlayImage({ src, alt, isLoaded: true, hasError: false });
+      
+      // Start crossfade immediately
+      requestAnimationFrame(() => {
+        setOverlayOpacity(1);
+        
+        // Complete transition faster for preloaded images
+        setTimeout(() => {
+          setBaseImage({ src, alt, isLoaded: true, hasError: false });
+          setOverlayOpacity(0);
+          setIsTransitioning(false);
+          
+          requestAnimationFrame(() => {
+            onTransitionComplete?.();
+          });
+        }, 150); // Much faster for preloaded images
+      });
+      return;
+    }
+
+    // Regular loading for non-preloaded images
     setOverlayImage({ src, alt, isLoaded: false, hasError: false });
     
     // Preload the image
@@ -80,7 +109,7 @@ export const BeforeAfterImage = ({
     };
     
     img.src = src;
-  }, [src, alt, baseImage.src, onTransitionStart, onTransitionComplete]);
+  }, [src, alt, baseImage.src, isPreloaded, onTransitionStart, onTransitionComplete]);
 
   const baseImageStyles = "absolute inset-0 w-full h-full object-cover object-center";
   const overlayImageStyles = "absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-300 ease-out";
