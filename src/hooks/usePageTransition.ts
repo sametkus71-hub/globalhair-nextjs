@@ -56,8 +56,8 @@ export const usePageTransition = () => {
       });
     }, 20);
 
-    // Navigate at 600ms for shorter animation
-    const navigationDelay = isLogoTransition ? 600 : 300;
+    // Navigate immediately for smoother transition - new page loads while logo animates
+    const navigationDelay = isLogoTransition ? 100 : 300;
     
     setTimeout(() => {
       navigate(targetPath);
@@ -71,6 +71,7 @@ export const usePageTransition = () => {
           logoFadeOut: false
         }));
 
+        // Delay item animations to start after logo transition completes
         setTimeout(() => {
           const pageItems = document.querySelectorAll('[data-page-entry]');
           pageItems.forEach((item) => {
@@ -80,7 +81,7 @@ export const usePageTransition = () => {
               item.classList.add('page-entry-item-visible');
             }
           });
-        }, 50);
+        }, 500); // Delay to let logo animation complete first
 
         setTimeout(() => {
           setTransitionState({
