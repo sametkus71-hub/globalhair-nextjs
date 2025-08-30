@@ -40,19 +40,12 @@ export const usePageTransition = () => {
 
     // Start logo animations immediately for smooth transition
     if (isLogoTransition) {
-      // Start scale animation immediately
+      // Start both scale and fade immediately for parallel effect
       setTransitionState(prev => ({
         ...prev,
-        logoScaleUp: true
+        logoScaleUp: true,
+        logoFadeOut: true
       }));
-      
-      // Start fade animation at 0.4s
-      setTimeout(() => {
-        setTransitionState(prev => ({
-          ...prev,
-          logoFadeOut: true
-        }));
-      }, 400);
     }
 
     setTimeout(() => {
@@ -63,8 +56,8 @@ export const usePageTransition = () => {
       });
     }, 20);
 
-    // Navigate at 0.9 seconds
-    const navigationDelay = isLogoTransition ? 900 : 300;
+    // Navigate early so page can start loading while animation plays
+    const navigationDelay = isLogoTransition ? 200 : 300;
     
     setTimeout(() => {
       navigate(targetPath);
