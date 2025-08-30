@@ -13,10 +13,11 @@ interface GridItemState {
 // 4x2 grid: positions 1-4 (top row - BEFORE), 5-8 (bottom row - AFTER)
 const INITIAL_STATE = [false, false, false, false, true, true, true, true];
 
-// Center-out animation order: middle items first (2,3,6,7), then outer items (1,4,5,8)
+// Custom animation order: start with 6+7, then fast 2+3+5+8, then 1+4
 const APPEARANCE_ORDER = [
-  { ids: [2, 3, 6, 7], delay: 500 }, // Center items appear first
-  { ids: [1, 4, 5, 8], delay: 1000 }  // Outer items appear second
+  { ids: [6, 7], delay: 500 },        // Bottom center items appear first
+  { ids: [2, 3, 5, 8], delay: 700 },  // Top center + bottom outer items appear fast after
+  { ids: [1, 4], delay: 1200 }        // Top outer items appear last
 ];
 
 const FLIP_ORDER = [
