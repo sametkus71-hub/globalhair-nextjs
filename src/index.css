@@ -985,6 +985,49 @@ html, body {
   }
 }
 
+/* Ambient gradient for bottom navigation */
+.ambient-nav-bg {
+  background: linear-gradient(
+    to bottom,
+    rgb(0 0 0) 0%,
+    rgb(0 0 0) 15%,
+    rgb(0 0 0 / 0.1) 100%
+  );
+  position: relative;
+}
+
+.ambient-nav-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    rgb(0 0 0) 0%,
+    rgb(5 5 5) 25%,
+    rgb(2 2 2) 50%,
+    rgb(8 8 8) 75%,
+    rgb(0 0 0) 100%
+  );
+  background-size: 200% 200%;
+  animation: ambient-gradient-shift 15s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+  opacity: 0.3;
+  mask: linear-gradient(
+    to bottom,
+    black 0%,
+    black 15%,
+    transparent 100%
+  );
+}
+
+@keyframes ambient-gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 2% 52%;
+  }
+}
+
 .popup-cross-fade-enter {
   animation: popup-cross-fade-enter 0.3s ease-out forwards;
   animation-delay: 0.15s;
