@@ -10,7 +10,7 @@ import { GenderToggle } from '@/components/homepage/GenderToggle';
 import { VideoGrid } from '@/components/homepage/VideoGrid';
 import { ColorSelector } from '@/components/homepage/ColorSelector';
 import { HairTypeSelector } from '@/components/homepage/HairTypeSelector';
-
+import { getAllImagePaths } from '@/data/beforeAfterImages';
 
 import { cn } from '@/lib/utils';
 import { usePageTransition } from '@/hooks/usePageTransition';
@@ -30,7 +30,8 @@ const HomePage = () => {
     '/lovable-uploads/99d7d19a-5297-4bd5-94a9-63b3442aece0.png', // brown hair
     '/lovable-uploads/df4923b9-9a1c-4947-af38-2c39249664a4.png', // black hair
     '/lovable-uploads/30181b08-9d4b-4553-98aa-04bd671930be.png', // gray hair
-    '/lovable-uploads/1c0a6d55-db05-4d05-a47b-e6dd814c6d62.png'  // logo
+    '/lovable-uploads/1c0a6d55-db05-4d05-a47b-e6dd814c6d62.png', // logo
+    ...getAllImagePaths() // Add all before/after images for haartransplantatie page
   ];
   
   

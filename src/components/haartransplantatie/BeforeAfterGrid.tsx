@@ -1,35 +1,37 @@
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
+import { BEFORE_AFTER_IMAGES, BeforeAfterImage } from '@/data/beforeAfterImages';
+import { BeforeAfterImage as ImageComponent } from './BeforeAfterImage';
 
-interface GridItem {
+interface GridItemState {
   id: number;
   isAfter: boolean;
-  beforeColor: string;
-  afterColor: string;
+  isVisible: boolean;
+  data: BeforeAfterImage;
 }
 
-const GRID_ITEMS: Omit<GridItem, 'isAfter'>[] = [
-  { id: 1, beforeColor: 'bg-gray-500', afterColor: 'bg-gray-300' },
-  { id: 2, beforeColor: 'bg-gray-600', afterColor: 'bg-gray-400' },
-  { id: 3, beforeColor: 'bg-gray-700', afterColor: 'bg-gray-200' },
-  { id: 4, beforeColor: 'bg-gray-400', afterColor: 'bg-gray-300' },
-  { id: 5, beforeColor: 'bg-gray-800', afterColor: 'bg-gray-100' },
-  { id: 6, beforeColor: 'bg-gray-500', afterColor: 'bg-gray-300' }
+// 4x2 grid: positions 1-4 (top row - BEFORE), 5-8 (bottom row - AFTER)
+const INITIAL_STATE = [false, false, false, false, true, true, true, true];
+
+// Center-out animation order: middle items first (2,3,6,7), then outer items (1,4,5,8)
+const APPEARANCE_ORDER = [
+  { ids: [2, 3, 6, 7], delay: 500 }, // Center items appear first
+  { ids: [1, 4, 5, 8], delay: 1000 }  // Outer items appear second
 ];
 
-// Initial balanced state: 3 BEFORE, 3 AFTER
-const INITIAL_STATE = [false, true, false, true, false, true]; // alternating pattern
-
-// Animation groups that swap 1 BEFORE with 1 AFTER to maintain balance
-const ANIMATION_GROUPS = [
-  { beforeId: 1, afterId: 2, initialDelay: 3000, stayDuration: 18000 }, // swap top left (before) with top middle (after)
-  { beforeId: 3, afterId: 4, initialDelay: 8000, stayDuration: 22000 }, // swap top right (before) with bottom left (after)  
-  { beforeId: 5, afterId: 6, initialDelay: 15000, stayDuration: 16000 }, // swap bottom middle (before) with bottom right (after)
+const FLIP_ORDER = [
+  { ids: [2, 3, 6, 7], delay: 3000 },  // Center items flip first
+  { ids: [1, 4, 5, 8], delay: 3500 }   // Outer items flip 500ms later
 ];
 
 export const BeforeAfterGrid = () => {
-  const [items, setItems] = useState<GridItem[]>(
-    GRID_ITEMS.map((item, index) => ({ ...item, isAfter: INITIAL_STATE[index] }))
+  const [items, setItems] = useState<GridItemState[]>(
+    BEFORE_AFTER_IMAGES.map((data, index) => ({ 
+      id: data.id,
+      isAfter: INITIAL_STATE[index],
+      isVisible: false,
+      data
+    }))
   );
 
   // Handle manual click toggles
@@ -44,51 +46,65 @@ export const BeforeAfterGrid = () => {
   };
 
   useEffect(() => {
-    const intervals: NodeJS.Timeout[] = [];
+    const timers: NodeJS.Timeout[] = [];
 
-    // Set up balanced swap animation groups
-    ANIMATION_GROUPS.forEach((group) => {
-      // Initial delay before first swap
-      const initialTimer = setTimeout(() => {
-        // Swap the before item to after and after item to before
+    // Appearance animation - center out
+    APPEARANCE_ORDER.forEach((group) => {
+      const timer = setTimeout(() => {
         setItems(prevItems => 
-          prevItems.map(prevItem => {
-            if (prevItem.id === group.beforeId || prevItem.id === group.afterId) {
-              return { ...prevItem, isAfter: !prevItem.isAfter };
-            }
-            return prevItem;
-          })
+          prevItems.map(item => 
+            group.ids.includes(item.id)
+              ? { ...item, isVisible: true }
+              : item
+          )
         );
-
-        // Set up continuous balanced swapping for this pair
-        const cycleInterval = setInterval(() => {
-          setItems(prevItems => 
-            prevItems.map(prevItem => {
-              if (prevItem.id === group.beforeId || prevItem.id === group.afterId) {
-                return { ...prevItem, isAfter: !prevItem.isAfter };
-              }
-              return prevItem;
-            })
-          );
-        }, group.stayDuration);
-
-        intervals.push(cycleInterval);
-      }, group.initialDelay);
-
-      intervals.push(initialTimer);
+      }, group.delay);
+      timers.push(timer);
     });
 
+    // Flip animation - center out
+    FLIP_ORDER.forEach((group) => {
+      const timer = setTimeout(() => {
+        setItems(prevItems => 
+          prevItems.map(item => 
+            group.ids.includes(item.id)
+              ? { ...item, isAfter: !item.isAfter }
+              : item
+          )
+        );
+      }, group.delay);
+      timers.push(timer);
+    });
+
+    // Continuous flip cycle every 8 seconds
+    const cycleTimer = setInterval(() => {
+      FLIP_ORDER.forEach((group, index) => {
+        const timer = setTimeout(() => {
+          setItems(prevItems => 
+            prevItems.map(item => 
+              group.ids.includes(item.id)
+                ? { ...item, isAfter: !item.isAfter }
+                : item
+            )
+          );
+        }, index * 500);
+        timers.push(timer);
+      });
+    }, 8000);
+
+    timers.push(cycleTimer);
+
     return () => {
-      intervals.forEach(interval => clearTimeout(interval));
+      timers.forEach(timer => clearTimeout(timer));
     };
   }, []);
 
   return (
     <div className="w-full h-full">
       <div 
-        className="grid grid-cols-3 w-full h-full gap-0"
+        className="grid grid-cols-4 w-full h-full gap-0"
         style={{ 
-          gridTemplateRows: '1fr 1fr', // Explicitly equal rows
+          gridTemplateRows: '1fr 1fr',
           height: '100%'
         }}
       >
@@ -97,13 +113,19 @@ export const BeforeAfterGrid = () => {
             key={item.id}
             onClick={() => handleItemClick(item.id)}
             className={cn(
-              "w-full h-full transition-colors duration-[5000ms] ease-in-out relative cursor-pointer hover:opacity-90",
-              "min-h-0 flex-shrink-0", // Ensure consistent height
-              item.isAfter ? item.afterColor : item.beforeColor
+              "w-full h-full relative cursor-pointer hover:opacity-90 transition-opacity duration-300",
+              "min-h-0 flex-shrink-0 bg-muted"
             )}
           >
-            {/* Subtle label */}
-            <div className="absolute top-2 left-2 text-xs text-black/30 font-mono pointer-events-none">
+            <ImageComponent
+              src={item.isAfter ? item.data.afterImage : item.data.beforeImage}
+              alt={item.isAfter ? item.data.afterAlt : item.data.beforeAlt}
+              isVisible={item.isVisible}
+              className="absolute inset-0"
+            />
+            
+            {/* Label overlay */}
+            <div className="absolute top-2 left-2 bg-black/50 text-white text-xs px-2 py-1 rounded font-mono pointer-events-none backdrop-blur-sm">
               {item.isAfter ? "AFTER" : "BEFORE"}
             </div>
           </div>
