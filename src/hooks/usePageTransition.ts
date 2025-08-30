@@ -56,8 +56,8 @@ export const usePageTransition = () => {
       });
     }, 20);
 
-    // Navigate immediately for smoother transition - new page loads while logo animates
-    const navigationDelay = isLogoTransition ? 100 : 300;
+    // Navigate after logo animation nearly completes (800ms total, navigate at 750ms)
+    const navigationDelay = isLogoTransition ? 750 : 300;
     
     setTimeout(() => {
       navigate(targetPath);
