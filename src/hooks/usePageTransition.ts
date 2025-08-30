@@ -29,6 +29,7 @@ export const usePageTransition = () => {
                             targetPath.includes('/hair-transplant') || 
                             targetPath.includes('/v6-hairboost');
     
+    // Immediately start fading home content for ALL transitions
     setTransitionState({
       isTransitioning: true,
       fadeOut: true,

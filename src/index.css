@@ -831,57 +831,19 @@ body.s-wit {
   }
 }
 
-/* Page Transition Animations */
-.page-transition-fade-out {
-  animation: pageContentFadeOut 350ms ease-in-out forwards;
-}
-
-.page-transition-buttons-fade {
-  animation: buttonsFadeOut 250ms ease-in-out forwards;
-}
-
-.page-transition-scale-in {
-  animation: pageScaleIn 400ms ease-out forwards;
-}
-
-@keyframes pageContentFadeOut {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes buttonsFadeOut {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: scale(0.98);
-  }
-}
-
-@keyframes pageScaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Page transition animations - Much slower and more visible scale */
+/* Home Page Transition Animations - Fast and synchronized with logo */
 .page-transition-fade-out {
   opacity: 0 !important;
-  transform: translateY(-30px) scale(0.8) !important;
-  transition: opacity 1s ease-out, transform 1s ease-out !important;
+  transform: translateY(-20px) scale(0.95) !important;
+  transition: opacity 200ms ease-out, transform 200ms ease-out !important;
+  pointer-events: none !important;
+}
+
+/* Fast fade specifically for interactive elements during logo transition */
+.page-transition-elements-fast-fade {
+  opacity: 0 !important;
+  transform: scale(0.98) !important;
+  transition: opacity 150ms ease-out, transform 150ms ease-out !important;
   pointer-events: none !important;
 }
 

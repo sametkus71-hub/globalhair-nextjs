@@ -87,10 +87,9 @@ const HomePage = () => {
             'pt-8',
             // Animation classes
             isLoading ? 'entrance-hidden' : (isFirstLoad ? 'entrance-slide-down' : ''),
-            // Transition classes
-            transitionState.fadeOut && 'page-transition-fade-out'
+            // Fast transition for interactive elements during logo animation
+            transitionState.fadeOut && 'page-transition-elements-fast-fade'
           )}
-          data-debug-fadeout={transitionState.fadeOut ? 'true' : 'false'}
           style={{ 
             paddingTop: heightBreakpoint === 'small' ? 'max(1rem, env(safe-area-inset-top))' : undefined,
             animationDelay: isFirstLoad && !isLoading ? '0.3s' : '0s'
@@ -108,10 +107,9 @@ const HomePage = () => {
             'pb-6 sm:pb-8 space-y-5 sm:space-y-6',
             // Animation classes
             isLoading ? 'entrance-hidden-up' : (isFirstLoad ? 'entrance-slide-up' : ''),
-            // Transition classes
-            transitionState.fadeOut && 'page-transition-fade-out'
+            // Fast transition for interactive elements during logo animation
+            transitionState.fadeOut && 'page-transition-elements-fast-fade'
           )}
-          data-debug-bottom-fadeout={transitionState.fadeOut ? 'true' : 'false'}
           style={{ 
             paddingBottom: 'max(3rem, env(safe-area-inset-bottom))',
             animationDelay: isFirstLoad && !isLoading ? '0.5s' : '0s'
