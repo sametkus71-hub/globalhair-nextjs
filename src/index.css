@@ -507,10 +507,10 @@ body.s-wit {
 
 @keyframes logo-scale-up-smooth {
   0% {
-    transform: scale(1);
+    transform: translate(-50%, -50%) scale(1);
   }
   100% {
-    transform: scale(50);
+    transform: translate(-50%, -50%) scale(50);
   }
 }
 
