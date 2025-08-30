@@ -34,18 +34,27 @@ export const usePageTransition = () => {
       fadeOut: true,
       scaleIn: false,
       targetPage: targetPath,
-      logoScaleUp: isLogoTransition,
+      logoScaleUp: false,
       logoFadeOut: false
     });
 
-    // Start logo fade animation after scale starts
+    // Start logo animations with delay for smooth transition
     if (isLogoTransition) {
+      // Start scale animation after 400ms delay
+      setTimeout(() => {
+        setTransitionState(prev => ({
+          ...prev,
+          logoScaleUp: true
+        }));
+      }, 400);
+      
+      // Start fade animation 200ms after scale starts
       setTimeout(() => {
         setTransitionState(prev => ({
           ...prev,
           logoFadeOut: true
         }));
-      }, 200); // Fade starts 200ms after scale
+      }, 600); // 400ms delay + 200ms offset
     }
 
     setTimeout(() => {
@@ -57,7 +66,7 @@ export const usePageTransition = () => {
     }, 20);
 
     // Wait for logo animation to complete before navigating
-    const navigationDelay = isLogoTransition ? 1000 : 300; // Extended to wait for fade to complete
+    const navigationDelay = isLogoTransition ? 1400 : 300; // 400ms delay + 800ms scale + 200ms buffer
     
     setTimeout(() => {
       navigate(targetPath);
