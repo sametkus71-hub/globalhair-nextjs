@@ -13,17 +13,17 @@ interface GridItemState {
 // 4x2 grid: positions 1-4 (top row - BEFORE), 5-8 (bottom row - AFTER)
 const INITIAL_STATE = [false, false, false, false, true, true, true, true];
 
-// Custom animation order: start with 6+7, then fast 2+3+5+8, then 1+4
+// Custom animation order: start with 6+7, then delay 400ms, then 2+3+5+8, then delay 300ms, then 1+4
 const APPEARANCE_ORDER = [
   { ids: [6, 7], delay: 300 },        // Bottom center items appear first
-  { ids: [2, 3, 5, 8], delay: 500 },  // Top center + bottom outer items appear fast after
-  { ids: [1, 4], delay: 900 }         // Top outer items appear last
+  { ids: [2, 3, 5, 8], delay: 700 },  // Top center + bottom outer (300 + 400ms delay)
+  { ids: [1, 4], delay: 1000 }        // Top outer items (700 + 300ms delay)
 ];
 
 const FLIP_ORDER = [
-  { ids: [6, 7], delay: 2000 },       // Bottom center flip first (same order as appearance)
-  { ids: [2, 3, 5, 8], delay: 2200 }, // Top center + bottom outer flip fast after
-  { ids: [1, 4], delay: 2600 }        // Top outer flip last
+  { ids: [6, 7], delay: 2000 },       // Bottom center flip first
+  { ids: [2, 3, 5, 8], delay: 2400 }, // Top center + bottom outer (2000 + 400ms delay)
+  { ids: [1, 4], delay: 2700 }        // Top outer flip (2400 + 300ms delay)
 ];
 
 export const BeforeAfterGrid = () => {
