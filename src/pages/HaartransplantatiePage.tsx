@@ -49,10 +49,10 @@ const HaartransplantatiePage = () => {
             <div 
               className="absolute left-1/2 transform -translate-x-1/2 z-[60] pointer-events-none"
               style={{ 
-                top: `calc(40vh - 75px)`
+                top: `calc(40vh - 45px)` // Moved down 30px from original -75px
               }}
             >
-              <div className="pointer-events-auto">
+              <div className="pointer-events-auto transform scale-125"> {/* Made 25% bigger */}
                 <CentralLogo />
               </div>
             </div>
