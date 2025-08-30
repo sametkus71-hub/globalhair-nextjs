@@ -69,7 +69,7 @@ const HaartransplantatiePageContent = () => {
             <div 
               className="relative z-10"
               style={{ 
-                height: `${height * 0.35}px`
+                height: `${height * 0.40}px`
               }}
             >
               <div 
@@ -84,7 +84,7 @@ const HaartransplantatiePageContent = () => {
             <div 
               className="relative z-10"
               style={{ 
-                height: `${height * 0.65}px`
+                height: `${height * 0.60}px`
               }}
             >
               <div 
