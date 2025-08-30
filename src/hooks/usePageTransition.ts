@@ -6,6 +6,8 @@ export interface TransitionState {
   fadeOut: boolean;
   scaleIn: boolean;
   targetPage: string | null;
+  logoScaleUp: boolean;
+  logoFadeOut: boolean;
 }
 
 export const usePageTransition = () => {
@@ -14,18 +16,37 @@ export const usePageTransition = () => {
     isTransitioning: false,
     fadeOut: false,
     scaleIn: false,
-    targetPage: null
+    targetPage: null,
+    logoScaleUp: false,
+    logoFadeOut: false
   });
 
   const startTransition = useCallback((targetPath: string, delay = 0) => {
     document.body.style.overflow = 'hidden';
     
+    // Check if target is haartransplantatie or v6-hairboost for logo animation
+    const isLogoTransition = targetPath.includes('/haartransplantatie') || 
+                            targetPath.includes('/hair-transplant') || 
+                            targetPath.includes('/v6-hairboost');
+    
     setTransitionState({
       isTransitioning: true,
       fadeOut: true,
       scaleIn: false,
-      targetPage: targetPath
+      targetPage: targetPath,
+      logoScaleUp: isLogoTransition,
+      logoFadeOut: false
     });
+
+    // Start logo scale animation immediately if it's a logo transition
+    if (isLogoTransition) {
+      setTimeout(() => {
+        setTransitionState(prev => ({
+          ...prev,
+          logoFadeOut: true
+        }));
+      }, 400); // Start fade after scale animation
+    }
 
     setTimeout(() => {
       const gridItems = document.querySelectorAll('[data-grid-item]');
@@ -35,6 +56,9 @@ export const usePageTransition = () => {
       });
     }, 20);
 
+    // Extended delay for logo transition to complete
+    const navigationDelay = isLogoTransition ? 600 : 300;
+    
     setTimeout(() => {
       navigate(targetPath);
       
@@ -42,7 +66,9 @@ export const usePageTransition = () => {
         setTransitionState(prev => ({
           ...prev,
           fadeOut: false,
-          scaleIn: true
+          scaleIn: true,
+          logoScaleUp: false,
+          logoFadeOut: false
         }));
 
         setTimeout(() => {
@@ -61,13 +87,15 @@ export const usePageTransition = () => {
             isTransitioning: false,
             fadeOut: false,
             scaleIn: false,
-            targetPage: null
+            targetPage: null,
+            logoScaleUp: false,
+            logoFadeOut: false
           });
           
           document.body.style.overflow = '';
         }, 600);
       }, 50);
-    }, 300 + delay);
+    }, navigationDelay + delay);
   }, [navigate]);
 
   return {

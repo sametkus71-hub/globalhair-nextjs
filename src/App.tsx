@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { SessionManager } from "@/components/SessionManager";
 import { LanguageWrapper } from "@/components/LanguageWrapper";
 import { GlobalCentralLogo } from "@/components/GlobalCentralLogo";
+import { PageEntryLogo } from "@/components/PageEntryLogo";
 import { AnimatedBackground } from "@/components/homepage/AnimatedBackground";
 import { SEORoutes } from "@/components/SEORoutes";
 import ViewportHeightSetter from "@/components/ViewportHeightSetter";
@@ -29,6 +30,9 @@ const App = () => (
             
             {/* Global logo - outside background container to avoid fading */}
             <GlobalCentralLogo />
+            
+            {/* Page entry logo for transition effects */}
+            <PageEntryLogo />
             
             <SEORoutes />
           </LanguageWrapper>
