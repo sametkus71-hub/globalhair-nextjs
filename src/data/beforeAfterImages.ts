@@ -53,8 +53,8 @@ export const BEFORE_AFTER_IMAGES: BeforeAfterImage[] = [
   {
     id: 6,
     patientId: "patient-006", 
-    beforeImage: "/lovable-uploads/54d5ba6c-7e60-4b15-8638-069720030225.png",
-    afterImage: "/lovable-uploads/75185e09-91f9-4292-90d7-fd4371d2ab23.png",
+    beforeImage: "https://GlobalHair.b-cdn.net/DSC05062-min.JPG",
+    afterImage: "https://GlobalHair.b-cdn.net/Global_Hair23542%20(1).jpg",
     beforeAlt: "Hair transplant patient before treatment - back view",
     afterAlt: "Hair transplant patient after treatment - back view"
   },
