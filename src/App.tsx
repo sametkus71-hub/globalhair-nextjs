@@ -33,9 +33,6 @@ const App = () => (
               {/* Global logo - outside background container to avoid fading */}
               <GlobalCentralLogo />
               
-              {/* Page entry logo for transition effects */}
-              <PageEntryLogo />
-              
               <SEORoutes />
             </TransitionProvider>
           </LanguageWrapper>
