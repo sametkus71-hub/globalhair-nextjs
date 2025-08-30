@@ -22,8 +22,8 @@ const APPEARANCE_ORDER = [
 
 const FLIP_ORDER = [
   { ids: [6, 7], delay: 2000 },         // Wave 1: Bottom center (6-7)
-  { ids: [5, 8, 2, 3], delay: 2400 },   // Wave 2: Bottom left + right, Top center (5-8-2-3) 
-  { ids: [1, 4], delay: 2800 }          // Wave 3: Top corners (1-4)
+  { ids: [5, 8, 2, 3], delay: 2800 },   // Wave 2: Bottom left + right, Top center (5-8-2-3) 
+  { ids: [1, 4], delay: 3600 }          // Wave 3: Top corners (1-4)
 ];
 
 export const BeforeAfterGrid = () => {
@@ -97,7 +97,7 @@ export const BeforeAfterGrid = () => {
                 : item
             )
           );
-        }, index * 400); // Match the wave delay timing
+        }, index * 800); // Match the 800ms wave delay timing
         timers.push(timer);
       });
     }, 6000);
