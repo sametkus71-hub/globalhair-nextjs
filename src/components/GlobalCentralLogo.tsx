@@ -23,11 +23,15 @@ export const GlobalCentralLogo = () => {
       <div 
         className={cn(
           "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] pointer-events-none",
-          transitionState.logoScaleUp && "logo-scale-up-smooth", 
-          transitionState.logoFadeOut && "logo-fade-out-smooth"
+          transitionState.logoScaleUp && "logo-scale-up-smooth"
         )}
       >
-        <div className="pointer-events-auto">
+        <div 
+          className={cn(
+            "pointer-events-auto",
+            transitionState.logoFadeOut && "logo-fade-out-smooth"
+          )}
+        >
           <CentralLogo />
         </div>
       </div>
