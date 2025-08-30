@@ -6,6 +6,7 @@ import { PageTransition } from '@/components/PageTransition';
 import { ScrollFadeLogo } from '@/components/ScrollFadeLogo';
 import { BeforeAfterGrid } from '@/components/haartransplantatie/BeforeAfterGrid';
 import { VideoPlaySection } from '@/components/haartransplantatie/VideoPlaySection';
+import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
 
 
@@ -76,6 +77,9 @@ const HaartransplantatiePage = () => {
               </div>
             </div>
           </section>
+
+          {/* Bottom Navigation - rendered via portal */}
+          <BottomNavigationPortal />
         </PageTransition>
       </DesktopContainer>
     </>
