@@ -982,10 +982,6 @@ html, body {
   8% {
     transform: translateX(100%);
     opacity: 0;
-  }
-}
-    opacity: 0;
-  }
 }
 
 .popup-cross-fade-enter {
