@@ -924,36 +924,36 @@ html, body {
   display: block; /* Block layout for complex hero structure */
 }
 
-/* High-end subtle gradient animation for booking button */
+/* High-end minimalistic gradient animation for booking button */
 .booking-button-glow {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, rgb(39 39 42) 0%, rgb(45 45 48) 25%, rgb(39 39 42) 50%, rgb(35 35 38) 75%, rgb(39 39 42) 100%);
-  background-size: 300% 300%;
-  animation: luxury-gradient-shift 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  background: linear-gradient(135deg, hsl(0 0% 8%) 0%, hsl(0 0% 12%) 25%, hsl(0 0% 10%) 50%, hsl(0 0% 6%) 75%, hsl(0 0% 8%) 100%);
+  background-size: 400% 400%;
+  animation: subtle-gradient-shift 15s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 .booking-button-glow::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 60%);
   opacity: 0;
-  animation: luxury-pulse 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  animation-delay: 1s;
+  animation: gentle-pulse 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 2s;
 }
 
 .booking-button-glow::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.08) 50%, transparent 100%);
+  background: linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.03) 50%, transparent 100%);
   transform: translateX(-100%);
-  animation: luxury-shine 10s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
-  animation-delay: 3s;
+  animation: minimal-shine 18s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+  animation-delay: 5s;
 }
 
-@keyframes luxury-gradient-shift {
+@keyframes subtle-gradient-shift {
   0%, 100% {
     background-position: 0% 50%;
   }
@@ -962,25 +962,28 @@ html, body {
   }
 }
 
-@keyframes luxury-pulse {
-  0%, 85%, 100% {
+@keyframes gentle-pulse {
+  0%, 90%, 100% {
     opacity: 0;
   }
-  15%, 25% {
+  5%, 15% {
     opacity: 1;
   }
 }
 
-@keyframes luxury-shine {
-  0%, 90%, 100% {
+@keyframes minimal-shine {
+  0%, 95%, 100% {
     transform: translateX(-100%);
     opacity: 0;
   }
-  5% {
+  2% {
     opacity: 1;
   }
-  15% {
+  8% {
     transform: translateX(100%);
+    opacity: 0;
+  }
+}
     opacity: 0;
   }
 }
