@@ -37,10 +37,10 @@ export const BEFORE_AFTER_IMAGES: BeforeAfterImage[] = [
   {
     id: 4,
     patientId: "patient-004",
-    beforeImage: "/lovable-uploads/30181b08-9d4b-4553-98aa-04bd671930be.png",
-    afterImage: "/lovable-uploads/36b7add7-c0c6-4b53-a0bd-41854d1270e7.png", 
-    beforeAlt: "Hair transplant patient before treatment - hairline",
-    afterAlt: "Hair transplant patient after treatment - hairline"
+    beforeImage: "/lovable-uploads/974fb0eb-036f-4f62-af0d-7943b4eb0365.png",
+    afterImage: "/lovable-uploads/7991a444-0c04-42f9-a4b8-4afd8e3f3306.png", 
+    beforeAlt: "Hair transplant patient before treatment - profile view showing receding hairline",
+    afterAlt: "Hair transplant patient after treatment - frontal view with restored natural hairline"
   },
   {
     id: 5,
