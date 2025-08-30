@@ -15,14 +15,15 @@ const INITIAL_STATE = [false, false, false, false, true, true, true, true];
 
 // Custom animation order: start with 6+7, then fast 2+3+5+8, then 1+4
 const APPEARANCE_ORDER = [
-  { ids: [6, 7], delay: 500 },        // Bottom center items appear first
-  { ids: [2, 3, 5, 8], delay: 700 },  // Top center + bottom outer items appear fast after
-  { ids: [1, 4], delay: 1200 }        // Top outer items appear last
+  { ids: [6, 7], delay: 300 },        // Bottom center items appear first
+  { ids: [2, 3, 5, 8], delay: 500 },  // Top center + bottom outer items appear fast after
+  { ids: [1, 4], delay: 900 }         // Top outer items appear last
 ];
 
 const FLIP_ORDER = [
-  { ids: [2, 3, 6, 7], delay: 3000 },  // Center items flip first
-  { ids: [1, 4, 5, 8], delay: 3500 }   // Outer items flip 500ms later
+  { ids: [6, 7], delay: 2000 },       // Bottom center flip first (same order as appearance)
+  { ids: [2, 3, 5, 8], delay: 2200 }, // Top center + bottom outer flip fast after
+  { ids: [1, 4], delay: 2600 }        // Top outer flip last
 ];
 
 export const BeforeAfterGrid = () => {
@@ -34,6 +35,9 @@ export const BeforeAfterGrid = () => {
       data
     }))
   );
+  
+  // Add a key to force re-mount when needed
+  const [gridKey, setGridKey] = useState(0);
 
   // Handle manual click toggles
   const handleItemClick = (clickedId: number) => {
@@ -48,10 +52,13 @@ export const BeforeAfterGrid = () => {
 
   useEffect(() => {
     const timers: NodeJS.Timeout[] = [];
+    
+    console.log('🎬 BeforeAfterGrid: Starting animations');
 
-    // Appearance animation - center out
-    APPEARANCE_ORDER.forEach((group) => {
+    // Appearance animation - custom order: 6+7, then 2+3+5+8, then 1+4
+    APPEARANCE_ORDER.forEach((group, groupIndex) => {
       const timer = setTimeout(() => {
+        console.log(`✨ Appearance group ${groupIndex + 1}: showing items [${group.ids.join(', ')}]`);
         setItems(prevItems => 
           prevItems.map(item => 
             group.ids.includes(item.id)
@@ -63,9 +70,10 @@ export const BeforeAfterGrid = () => {
       timers.push(timer);
     });
 
-    // Flip animation - center out
-    FLIP_ORDER.forEach((group) => {
+    // Flip animation - same order as appearance
+    FLIP_ORDER.forEach((group, groupIndex) => {
       const timer = setTimeout(() => {
+        console.log(`🔄 Flip group ${groupIndex + 1}: flipping items [${group.ids.join(', ')}]`);
         setItems(prevItems => 
           prevItems.map(item => 
             group.ids.includes(item.id)
@@ -77,8 +85,9 @@ export const BeforeAfterGrid = () => {
       timers.push(timer);
     });
 
-    // Continuous flip cycle every 8 seconds
+    // Continuous flip cycle every 6 seconds
     const cycleTimer = setInterval(() => {
+      console.log('🔄 Starting flip cycle');
       FLIP_ORDER.forEach((group, index) => {
         const timer = setTimeout(() => {
           setItems(prevItems => 
@@ -88,20 +97,21 @@ export const BeforeAfterGrid = () => {
                 : item
             )
           );
-        }, index * 500);
+        }, index * 200); // Faster cycling between groups
         timers.push(timer);
       });
-    }, 8000);
+    }, 6000);
 
     timers.push(cycleTimer);
 
     return () => {
+      console.log('🧹 BeforeAfterGrid: Cleaning up timers');
       timers.forEach(timer => clearTimeout(timer));
     };
-  }, []);
+  }, []); // Empty dependency array to run only once
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full" key={gridKey}>
       <div 
         className="grid grid-cols-4 w-full h-full gap-0"
         style={{ 
