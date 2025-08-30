@@ -1,35 +1,19 @@
-import { useLayoutEffect, useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
-import { useInstagramScroll } from '../hooks/useInstagramScroll';
 import { MetaHead } from '@/components/MetaHead';
 import { PageTransition } from '@/components/PageTransition';
 import { ScrollFadeLogo } from '@/components/ScrollFadeLogo';
 import { BeforeAfterGrid } from '@/components/haartransplantatie/BeforeAfterGrid';
 import { VideoPlaySection } from '@/components/haartransplantatie/VideoPlaySection';
-import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
-import { FloatingActionPortal } from '@/components/FloatingActionPortal';
-import { InstagramPostsSection } from '@/components/haartransplantatie/InstagramPostsSection';
-import { ScrollProvider, useScrollContext } from '@/contexts/ScrollContext';
-import { ScrollIndicator } from '@/components/ScrollIndicator';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
 
 
-const HaartransplantatiePageContent = () => {
+const HaartransplantatiePage = () => {
   const { language } = useLanguage();
   const { height } = useViewportHeight();
-  const { setCurrentPostIndex, setTotalPosts } = useScrollContext();
   
-  const totalSections = 6; // 1 hero + 5 Instagram posts
-  
-  const { currentSection, scrollToSection } = useInstagramScroll({
-    totalSections,
-    onSectionChange: (section) => {
-      setCurrentPostIndex(section);
-    }
-  });
-  
-  // Force scroll to top immediately on mount
+  // Disable scrolling on mount
   useLayoutEffect(() => {
     // Disable scroll restoration
     if ('scrollRestoration' in history) {
@@ -37,27 +21,24 @@ const HaartransplantatiePageContent = () => {
     }
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'instant' });
-  }, []);
-
-  // Setup scroll context
-  useEffect(() => {
-    console.log('🏥 HaartransplantatiePage mounting');
-    setTotalPosts(totalSections);
+    
+    // Disable page scrolling
+    document.body.style.overflow = 'hidden';
     
     return () => {
-      console.log('🏥 HaartransplantatiePage unmounting');
+      // Re-enable scrolling when leaving the page
+      document.body.style.overflow = '';
     };
-  }, [setTotalPosts]);
+  }, []);
 
   return (
     <>
       <MetaHead language={language} page="haartransplantatie" />
       <DesktopContainer>
         <PageTransition isNewPage={true}>
-          {/* Hero Section */}
+          {/* Hero Section - Above the fold only */}
           <section 
-            id="section-0"
-            className="snap-section min-h-[var(--app-height)] w-full relative"
+            className="min-h-[var(--app-height)] w-full relative overflow-hidden"
             style={{ 
               height: `${height}px`
             }}
@@ -95,29 +76,9 @@ const HaartransplantatiePageContent = () => {
               </div>
             </div>
           </section>
-
-          {/* Instagram-style Posts */}
-          <InstagramPostsSection />
-
-          {/* Scroll Indicator */}
-          <ScrollIndicator />
-
-          {/* Floating Action Buttons - rendered via portal */}
-          <FloatingActionPortal />
-
-          {/* Bottom Navigation - rendered via portal */}
-          <BottomNavigationPortal />
         </PageTransition>
       </DesktopContainer>
     </>
-  );
-};
-
-const HaartransplantatiePage = () => {
-  return (
-    <ScrollProvider>
-      <HaartransplantatiePageContent />
-    </ScrollProvider>
   );
 };
 
