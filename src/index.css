@@ -386,15 +386,16 @@ body.s-wit {
   
   /* Logo transition animations */
   .logo-scale-up {
-    animation: logo-scale-up 400ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: logo-scale-up 600ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
   
   .logo-fade-out {
     animation: logo-fade-out 200ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: 200ms;
   }
   
   .logo-entry-scale-down {
-    animation: logo-entry-scale-down 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation: logo-entry-scale-down 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   }
   
   /* Animated background animations */
@@ -509,15 +510,19 @@ body.s-wit {
     transform: scale(1);
     opacity: 1;
   }
+  60% {
+    transform: scale(50);
+    opacity: 1;
+  }
   100% {
     transform: scale(50);
-    opacity: 0.3;
+    opacity: 0;
   }
 }
 
 @keyframes logo-fade-out {
   0% {
-    opacity: 0.3;
+    opacity: 1;
   }
   100% {
     opacity: 0;
@@ -526,11 +531,11 @@ body.s-wit {
 
 @keyframes logo-entry-scale-down {
   0% {
-    transform: scale(50);
+    transform: scale(30);
     opacity: 0;
   }
-  50% {
-    opacity: 0.8;
+  30% {
+    opacity: 0.5;
   }
   100% {
     transform: scale(1);

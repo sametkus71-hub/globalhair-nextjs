@@ -38,14 +38,14 @@ export const usePageTransition = () => {
       logoFadeOut: false
     });
 
-    // Start logo scale animation immediately if it's a logo transition
+    // Start logo fade animation after scale starts
     if (isLogoTransition) {
       setTimeout(() => {
         setTransitionState(prev => ({
           ...prev,
           logoFadeOut: true
         }));
-      }, 400); // Start fade after scale animation
+      }, 200); // Fade starts 200ms after scale
     }
 
     setTimeout(() => {
@@ -57,7 +57,7 @@ export const usePageTransition = () => {
     }, 20);
 
     // Extended delay for logo transition to complete
-    const navigationDelay = isLogoTransition ? 600 : 300;
+    const navigationDelay = isLogoTransition ? 700 : 300;
     
     setTimeout(() => {
       navigate(targetPath);

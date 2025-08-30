@@ -4,6 +4,7 @@ import { useTranslation } from '@/lib/translations';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { usePageLoader } from '@/hooks/usePageLoader';
 import { usePreventZoom } from '@/hooks/usePreventZoom';
+import { useTransition } from '@/contexts/TransitionContext';
 import { ImagePreloader } from '@/components/ImagePreloader';
 import { MetaHead } from '@/components/MetaHead';
 import { GenderToggle } from '@/components/homepage/GenderToggle';
@@ -13,13 +14,12 @@ import { HairTypeSelector } from '@/components/homepage/HairTypeSelector';
 import { getAllImagePaths } from '@/data/beforeAfterImages';
 
 import { cn } from '@/lib/utils';
-import { usePageTransition } from '@/hooks/usePageTransition';
 
 const HomePage = () => {
   const { profile, language } = useSession();
   const { t } = useTranslation(language);
   const { heightBreakpoint } = useViewportHeight();
-  const { transitionState, startTransition } = usePageTransition();
+  const { transitionState, startTransition } = useTransition();
   
   // Prevent zoom and unwanted interactions
   usePreventZoom();

@@ -1,11 +1,11 @@
 import { useLocation } from 'react-router-dom';
 import { CentralLogo } from '@/components/homepage/CentralLogo';
-import { usePageTransition } from '@/hooks/usePageTransition';
+import { useTransition } from '@/contexts/TransitionContext';
 import { TransitionLogo } from '@/components/TransitionLogo';
 
 export const GlobalCentralLogo = () => {
   const location = useLocation();
-  const { transitionState } = usePageTransition();
+  const { transitionState } = useTransition();
   
   // Hide on haartransplantatie pages since they have their own ScrollFadeLogo
   const isHaartransplantatiePage = location.pathname.includes('/haartransplantatie') || 
