@@ -56,8 +56,8 @@ export const usePageTransition = () => {
       });
     }, 20);
 
-    // Extended delay for logo transition to complete
-    const navigationDelay = isLogoTransition ? 700 : 300;
+    // Wait for logo animation to complete before navigating
+    const navigationDelay = isLogoTransition ? 1000 : 300; // Extended to wait for fade to complete
     
     setTimeout(() => {
       navigate(targetPath);
