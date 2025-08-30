@@ -386,12 +386,12 @@ body.s-wit {
   
   /* Logo transition animations with smooth easing */
   .logo-scale-up-smooth {
-    animation: logo-scale-up-smooth 1200ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    transform-origin: center center;
+    animation: logo-scale-up-smooth 800ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    transform-origin: 50% 50%;
   }
   
   .logo-fade-out-smooth {
-    animation: logo-fade-out-smooth 1200ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: logo-fade-out-smooth 800ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
   
   .logo-entry-scale-down {

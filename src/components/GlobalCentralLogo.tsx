@@ -22,9 +22,14 @@ export const GlobalCentralLogo = () => {
     return (
       <div 
         className={cn(
-          "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] pointer-events-none",
+          "fixed z-[9999] pointer-events-none",
           transitionState.logoScaleUp && "logo-scale-up-smooth"
         )}
+        style={{
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)'
+        }}
       >
         <div 
           className={cn(

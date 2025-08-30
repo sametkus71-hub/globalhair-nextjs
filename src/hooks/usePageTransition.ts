@@ -56,8 +56,8 @@ export const usePageTransition = () => {
       });
     }, 20);
 
-    // Navigate at 0.9s to allow logo animation to play
-    const navigationDelay = isLogoTransition ? 900 : 300;
+    // Navigate at 600ms for shorter animation
+    const navigationDelay = isLogoTransition ? 600 : 300;
     
     setTimeout(() => {
       navigate(targetPath);
