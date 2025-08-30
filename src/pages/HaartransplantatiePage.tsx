@@ -44,8 +44,15 @@ const HaartransplantatiePage = () => {
               height: `${height}px`
             }}
           >
-            {/* Fading Central Logo */}
-            <ScrollFadeLogo />
+            {/* Fading Central Logo - positioned at grid boundary */}
+            <div 
+              className="absolute left-1/2 transform -translate-x-1/2 z-20 pointer-events-none"
+              style={{ 
+                top: `calc(40vh - 75px)`
+              }}
+            >
+              <ScrollFadeLogo />
+            </div>
             
             {/* Top Section - Before/After Grid */}
             <div 
