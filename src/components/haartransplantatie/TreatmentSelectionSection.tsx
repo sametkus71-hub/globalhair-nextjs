@@ -47,7 +47,7 @@ export const TreatmentSelectionSection = () => {
       <div 
         className="flex-1 flex flex-col px-6 pb-20"
         style={{ 
-          paddingTop: 'calc(40vh + 30px)' // Position right after the logo
+          paddingTop: 'calc(40vh - 10px)' // Position much closer to the logo
         }}
       >
         {/* Header */}
