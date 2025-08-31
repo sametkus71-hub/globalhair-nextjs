@@ -43,7 +43,7 @@ export const HairTypeSelector = ({ heightBreakpoint = 'large' }: HairTypeSelecto
           )}
           style={profile.haartype === value ? {
             backdropFilter: 'blur(40px)',
-            background: 'rgba(255, 255, 255, 0.9)'
+            background: 'rgba(255, 255, 255, 0.3)'
           } : {}}
         >
           {label}

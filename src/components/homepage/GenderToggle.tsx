@@ -27,7 +27,7 @@ export const GenderToggle = () => {
         )}
         style={profile.geslacht === 'Man' ? {
           backdropFilter: 'blur(40px)',
-          background: 'rgba(255, 255, 255, 0.9)'
+          background: 'rgba(255, 255, 255, 0.3)'
         } : {}}
       >
         Man
@@ -42,7 +42,7 @@ export const GenderToggle = () => {
         )}
         style={profile.geslacht === 'Vrouw' ? {
           backdropFilter: 'blur(40px)',
-          background: 'rgba(255, 255, 255, 0.9)'
+          background: 'rgba(255, 255, 255, 0.3)'
         } : {}}
       >
         Vrouw
