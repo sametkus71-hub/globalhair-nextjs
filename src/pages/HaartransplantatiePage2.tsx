@@ -22,21 +22,17 @@ const HaartransplantatiePage2 = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
       
-      console.log('=== PAGE LOGO DETECTION ===');
-      console.log('Width:', width, 'Height:', height);
-      
       if (width <= 480 && height > width) { // Portrait mobile devices
         if (width <= 390) {
           setPhoneSize('small'); // iPhone 14, iPhone 13, smaller phones
-          console.log('🔴 PAGE LOGO: SMALL PHONE -', width, 'px');
         } else {
           setPhoneSize('large'); // iPhone 14 Pro Max, iPhone 15 Plus, larger phones
-          console.log('🟢 PAGE LOGO: LARGE PHONE -', width, 'px');
         }
       } else {
         setPhoneSize('large'); // Default for tablets/desktops
-        console.log('🔵 PAGE LOGO: NON-PHONE DEVICE -', width, 'px');
       }
+      
+      console.log('Page logo phone size detected:', width <= 390 ? 'small' : 'large', 'width:', width);
     };
 
     detectPhoneSize();
@@ -46,13 +42,10 @@ const HaartransplantatiePage2 = () => {
 
   // Dynamic logo positioning based on phone size
   const getLogoPosition = () => {
-    console.log('🎯 Logo positioning for phone size:', phoneSize);
     if (phoneSize === 'small') {
-      console.log('📍 Using CLOSE logo position for small phone');
-      return 'calc(30vh - 70px)'; // Much closer for small phones
+      return 'calc(30vh - 60px)'; // Closer for small phones
     } else {
-      console.log('📍 Using SPACIOUS logo position for large phone');
-      return 'calc(30vh - 20px)'; // More space for larger phones
+      return 'calc(30vh - 30px)'; // More space for larger phones
     }
   };
   

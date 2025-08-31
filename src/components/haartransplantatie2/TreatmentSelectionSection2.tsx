@@ -22,22 +22,18 @@ export const TreatmentSelectionSection2 = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;
       
-      console.log('=== SCREEN DETECTION ===');
-      console.log('Width:', width, 'Height:', height);
-      
       // Only apply phone detection for mobile devices
       if (width <= 480 && height > width) { // Portrait mobile devices
         if (width <= 390) {
           setPhoneSize('small'); // iPhone 14, iPhone 13, smaller phones
-          console.log('🔴 DETECTED: SMALL PHONE -', width, 'px');
         } else {
           setPhoneSize('large'); // iPhone 14 Pro Max, iPhone 15 Plus, larger phones
-          console.log('🟢 DETECTED: LARGE PHONE -', width, 'px');
         }
       } else {
         setPhoneSize('large'); // Default for tablets/desktops
-        console.log('🔵 DETECTED: NON-PHONE DEVICE -', width, 'px');
       }
+      
+      console.log('Phone size detected:', width <= 390 ? 'small' : 'large', 'width:', width);
     };
 
     detectPhoneSize();
@@ -107,27 +103,23 @@ export const TreatmentSelectionSection2 = () => {
 
   // Dynamic spacing based on phone size detection
   const getPhoneSpacing = () => {
-    console.log('🎯 Current phone size state:', phoneSize);
-    
     if (phoneSize === 'small') {
-      console.log('📱 Applying SMALL phone spacing (ultra-compact)');
       return {
-        container: '', // No extra padding  
-        header: 'mb-0', // No margin after header
-        text: 'mb-0', // No margin after text
-        country: 'mb-0', // NO gap between location and package switches
-        package: 'mb-1', // Tiny gap after package switches
-        content: 'mb-1' // Minimal content gap
+        container: 'pt-1 pb-1',
+        header: 'pt-0 mb-1',
+        text: 'mb-1',
+        country: 'mb-1', // Reduced gap between switches
+        package: 'mb-1', // Reduced gap between switches  
+        content: 'mb-1'
       };
     } else {
-      console.log('📱 Applying LARGE phone spacing (generous)');
       return {
-        container: 'pt-12 pb-12', // Generous padding
-        header: 'mb-12', // Big margin after header  
-        text: 'mb-8', // Big margin after text
-        country: 'mb-8', // Big gap between switches
-        package: 'mb-8', // Big gap after package switches
-        content: 'mb-8' // Big content gap
+        container: 'pt-6 pb-6',
+        header: 'pt-2 mb-6',
+        text: 'mb-4',
+        country: 'mb-6',
+        package: 'mb-6',
+        content: 'mb-6'
       };
     }
   };
