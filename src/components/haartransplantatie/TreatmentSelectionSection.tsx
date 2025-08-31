@@ -53,12 +53,6 @@ export const TreatmentSelectionSection = () => {
     }
   ];
 
-  const features = [
-    "Lorem ipsum dolor sit amet, consectetur adipiscing",
-    "Lorem ipsum dolor sit amet,",
-    "Lorem ipsum dolor sit am",
-    "Lorem ipsum dolor sit amet, con"
-  ];
 
   return (
     <div className="w-full h-full relative bg-[#E4E5E0] flex flex-col">
@@ -150,17 +144,6 @@ export const TreatmentSelectionSection = () => {
           </div>
         </div>
 
-        {/* Features List */}
-        <div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto mb-4 sm:mb-5 md:mb-6 lg:mb-8 xl:mb-10 [@media(max-height:780px)]:mb-3">
-          <ul className="space-y-1.5 sm:space-y-2 md:space-y-2.5 lg:space-y-3 xl:space-y-3.5 [@media(max-height:780px)]:space-y-1">
-            {features.map((feature, index) => (
-              <li key={index} className="flex items-start text-gray-700">
-                <span className="w-1.5 h-1.5 rounded-full bg-black mt-2 mr-3 sm:mr-3.5 md:mr-4 flex-shrink-0 [@media(max-height:780px)]:mt-1.5" />
-                <span className="font-lato text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] [@media(max-height:780px)]:text-[11px] font-normal leading-snug sm:leading-normal md:leading-relaxed [@media(max-height:780px)]:leading-tight">{feature}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
 
         {/* Cost Display */}
         <div className="text-center">
