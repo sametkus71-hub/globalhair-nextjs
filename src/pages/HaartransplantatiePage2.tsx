@@ -45,11 +45,11 @@ const HaartransplantatiePage2 = () => {
               height: 'var(--app-height)'
             }}
           >
-            {/* Fading Central Logo - positioned above grid with slight overlap */}
+            {/* Fading Central Logo - positioned lower with slight overlap */}
             <div 
               className="absolute left-1/2 transform -translate-x-1/2 z-[60] pointer-events-none"
               style={{ 
-                top: '80px' // Positioned above the grid with only bottom edge overlapping
+                top: '160px' // Positioned lower so only bottom edge overlaps with grid
               }}
             >
               <div className="pointer-events-auto transform scale-125"> {/* Made 25% bigger */}
