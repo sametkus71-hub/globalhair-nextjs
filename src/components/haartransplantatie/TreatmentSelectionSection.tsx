@@ -7,7 +7,6 @@ import { calculatePrice, formatPrice } from '@/lib/pricing';
 export const TreatmentSelectionSection = () => {
   const { language } = useLanguage();
   const { profile, updateProfile } = useSession();
-  const [selectedPackage, setSelectedPackage] = useState('Standard');
   
   const totalPrice = calculatePrice(profile);
 
@@ -111,13 +110,13 @@ export const TreatmentSelectionSection = () => {
                     </div>
                   )}
                   <button
-                    onClick={() => setSelectedPackage(pkg.id)}
+                    onClick={() => updateProfile('selectedPackage', pkg.id)}
                     className={`px-4 sm:px-5 md:px-6 lg:px-7 py-1.5 sm:py-2 font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal transition-all duration-200 rounded-full ${
-                      selectedPackage === pkg.id
+                      profile.selectedPackage === pkg.id
                         ? 'text-black'
                         : 'text-gray-600 hover:text-black'
                     }`}
-                    style={selectedPackage === pkg.id ? {
+                    style={profile.selectedPackage === pkg.id ? {
                       boxShadow: '5px 0px 12px 0px rgba(151, 151, 151, 1)',
                       backdropFilter: 'blur(52.3px)',
                       background: 'rgba(255, 255, 255, 0.9)'

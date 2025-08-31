@@ -7,6 +7,7 @@ export type Location = 'Nederland' | 'Turkije';
 export type Shaving = 'Met scheren' | 'Zonder scheren';
 export type Treatment = 'Normaal' | 'Stamcel';
 export type Language = 'nl' | 'en';
+export type Package = 'Standard' | 'Plus' | 'Premium' | 'Advanced';
 
 export interface UserProfile {
   geslacht: Gender;
@@ -16,6 +17,7 @@ export interface UserProfile {
   scheren: Shaving;
   behandeling: Treatment;
   language: Language;
+  selectedPackage: Package;
 }
 
 const defaultProfile: UserProfile = {
@@ -25,7 +27,8 @@ const defaultProfile: UserProfile = {
   locatie: 'Nederland',
   scheren: 'Met scheren',
   behandeling: 'Normaal',
-  language: 'nl'
+  language: 'nl',
+  selectedPackage: 'Standard'
 };
 
 export const useSession = () => {
@@ -47,6 +50,7 @@ export const useSession = () => {
       const savedLocatie = sessionStorage.getItem('gh_locatie') as Location;
       const savedScheren = sessionStorage.getItem('gh_scheren') as Shaving;
       const savedBehandeling = sessionStorage.getItem('gh_behandeling') as Treatment;
+      const savedSelectedPackage = sessionStorage.getItem('gh_selectedPackage') as Package;
       
       // Language detection: prioritize sessionStorage, then localStorage, then browser
       const savedLanguageSession = sessionStorage.getItem('gh_language') as Language;
@@ -60,7 +64,8 @@ export const useSession = () => {
         locatie: savedLocatie || defaultProfile.locatie,
         scheren: savedScheren || defaultProfile.scheren,
         behandeling: savedBehandeling || defaultProfile.behandeling,
-        language: detectedLanguage
+        language: detectedLanguage,
+        selectedPackage: savedSelectedPackage || defaultProfile.selectedPackage
       };
 
       setProfile(currentProfile);
@@ -72,6 +77,7 @@ export const useSession = () => {
       if (!savedLocatie) sessionStorage.setItem('gh_locatie', currentProfile.locatie);
       if (!savedScheren) sessionStorage.setItem('gh_scheren', currentProfile.scheren);
       if (!savedBehandeling) sessionStorage.setItem('gh_behandeling', currentProfile.behandeling);
+      if (!savedSelectedPackage) sessionStorage.setItem('gh_selectedPackage', currentProfile.selectedPackage);
       
       // Sync language in both storages
       sessionStorage.setItem('gh_language', currentProfile.language);
@@ -110,7 +116,7 @@ export const useSession = () => {
     const body = document.body;
     
     // Remove existing classes
-    body.className = body.className.replace(/s-(man|vrouw|fijn|stijl|krul|kroes|zwart|bruin|blond|wit|nederland|turkije|met-scheren|zonder-scheren|normaal|stamcel|nl|en)/g, '').trim();
+    body.className = body.className.replace(/s-(man|vrouw|fijn|stijl|krul|kroes|zwart|bruin|blond|wit|nederland|turkije|met-scheren|zonder-scheren|normaal|stamcel|nl|en|standard|plus|premium|advanced)/g, '').trim();
     
     // Add new classes
     const geslachtClass = `s-${newProfile.geslacht.toLowerCase()}`;
@@ -120,8 +126,9 @@ export const useSession = () => {
     const scherenClass = `s-${newProfile.scheren.toLowerCase().replace(' ', '-')}`;
     const behandelingClass = `s-${newProfile.behandeling.toLowerCase()}`;
     const languageClass = `s-${newProfile.language}`;
+    const packageClass = `s-${newProfile.selectedPackage.toLowerCase()}`;
     
-    body.classList.add(geslachtClass, haartypeClass, haarkleurClass, locatieClass, scherenClass, behandelingClass, languageClass);
+    body.classList.add(geslachtClass, haartypeClass, haarkleurClass, locatieClass, scherenClass, behandelingClass, languageClass, packageClass);
   };
 
   // Update specific profile field
