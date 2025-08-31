@@ -107,10 +107,10 @@ export const TreatmentSelectionSection2 = () => {
       return {
         container: 'pt-0 pb-0', // Ultra compact for iPhone 14
         header: 'pt-0 mb-1', // Very tight header spacing
-        text: 'mb-4', // More space between subtitle and region switch
+        text: 'mb-6', // More space between subtitle and region switch
         country: 'mb-2', // More gap between region and package switches
         package: 'mb-2', // Small space for content
-        content: 'mb-3' // Space between lorem ipsum and price
+        content: 'mb-5' // More space between lorem ipsum and price
       };
     } else {
       return {
