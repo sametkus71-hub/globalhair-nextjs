@@ -35,10 +35,13 @@ export const BeforeAfterGrid = () => {
     BEFORE_AFTER_IMAGES.map((data, index) => ({ 
       id: data.id,
       isAfter: INITIAL_STATE[index],
-      isVisible: true, // Always visible immediately
+      isVisible: false, // Start invisible for animations
       data
     }))
   );
+  
+  // Add a key to force re-mount when needed
+  const [gridKey, setGridKey] = useState(0);
 
   // Handle manual click toggles
   const handleItemClick = (clickedId: number) => {
@@ -51,8 +54,65 @@ export const BeforeAfterGrid = () => {
     );
   };
 
+  useEffect(() => {
+    // Only start animations once all images are preloaded
+    if (!allImagesLoaded) return;
+    
+    const timers: NodeJS.Timeout[] = [];
+
+    // Appearance animation - custom order: 6+7, then 2+3+5+8, then 1+4
+    APPEARANCE_ORDER.forEach((group) => {
+      const timer = setTimeout(() => {
+        setItems(prevItems => 
+          prevItems.map(item => 
+            group.ids.includes(item.id)
+              ? { ...item, isVisible: true }
+              : item
+          )
+        );
+      }, group.delay);
+      timers.push(timer);
+    });
+
+    // Flip animation - same order as appearance
+    FLIP_ORDER.forEach((group) => {
+      const timer = setTimeout(() => {
+        setItems(prevItems => 
+          prevItems.map(item => 
+            group.ids.includes(item.id)
+              ? { ...item, isAfter: !item.isAfter }
+              : item
+          )
+        );
+      }, group.delay);
+      timers.push(timer);
+    });
+
+    // Continuous flip cycle every 10 seconds
+    const cycleTimer = setInterval(() => {
+      FLIP_ORDER.forEach((group, index) => {
+        const timer = setTimeout(() => {
+          setItems(prevItems => 
+            prevItems.map(item => 
+              group.ids.includes(item.id)
+                ? { ...item, isAfter: !item.isAfter }
+                : item
+            )
+          );
+        }, index * 500); // 500ms wave timing between groups
+        timers.push(timer);
+      });
+    }, 10000); // 10 second cycle for more relaxed viewing
+
+    timers.push(cycleTimer);
+
+    return () => {
+      timers.forEach(timer => clearTimeout(timer));
+    };
+  }, [allImagesLoaded]);
+
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full" key={gridKey}>
       <div 
         className="grid grid-cols-4 w-full h-full gap-0"
         style={{ 
@@ -65,8 +125,9 @@ export const BeforeAfterGrid = () => {
             key={item.id}
             onClick={() => handleItemClick(item.id)}
             className={cn(
-              "w-full h-full relative cursor-pointer",
-              "min-h-0 flex-shrink-0 bg-muted"
+              "w-full h-full relative cursor-pointer transition-all duration-200 ease-out",
+              "min-h-0 flex-shrink-0 bg-muted hover:scale-[1.02] hover:shadow-lg",
+              "transform-gpu" // Use GPU acceleration for smoother animations
             )}
           >
             <ImageComponent
