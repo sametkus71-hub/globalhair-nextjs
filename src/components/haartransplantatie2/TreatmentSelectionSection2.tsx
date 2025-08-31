@@ -12,6 +12,9 @@ export const TreatmentSelectionSection2 = () => {
   
   const totalPrice = calculatePrice(profile);
 
+  // Force recompilation to clear cached version with spacing references
+  console.log('TreatmentSelectionSection2 loaded successfully');
+
   // Flash effect when price changes
   useEffect(() => {
     setPriceFlash(true);
