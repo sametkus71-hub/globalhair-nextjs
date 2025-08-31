@@ -22,9 +22,9 @@ export const TreatmentSelectionSection = () => {
   // Staggered button entrance animation
   useEffect(() => {
     const timers = [
-      setTimeout(() => setButtonsLoaded(prev => [true, prev[1], prev[2]]), 300),
-      setTimeout(() => setButtonsLoaded(prev => [prev[0], true, prev[2]]), 500),
-      setTimeout(() => setButtonsLoaded(prev => [prev[0], prev[1], true]), 700),
+      setTimeout(() => setButtonsLoaded(prev => [true, prev[1], prev[2]]), 3200),
+      setTimeout(() => setButtonsLoaded(prev => [prev[0], true, prev[2]]), 3400),
+      setTimeout(() => setButtonsLoaded(prev => [prev[0], prev[1], true]), 3600),
     ];
     
     return () => timers.forEach(clearTimeout);
@@ -176,8 +176,8 @@ export const TreatmentSelectionSection = () => {
       <div className="fixed right-3 sm:right-4 md:right-5 lg:right-6 bottom-20 sm:bottom-24 md:bottom-28 lg:bottom-32 xl:bottom-36 space-y-3 z-50">
         <button 
           onClick={() => {/* TODO: Add info functionality */}}
-          className={`w-11 h-11 sm:w-12 sm:h-12 bg-black/20 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/25 transition-all duration-500 cursor-pointer ${
-            buttonsLoaded[0] ? 'translate-x-0 translate-y-0 opacity-100' : 'translate-x-8 translate-y-8 opacity-0'
+          className={`w-11 h-11 sm:w-12 sm:h-12 bg-black/20 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/25 transition-all duration-700 ease-in-out cursor-pointer ${
+            buttonsLoaded[0] ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
           }`}
           style={{
             boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
@@ -187,8 +187,8 @@ export const TreatmentSelectionSection = () => {
         </button>
         <button 
           onClick={() => {/* TODO: Add support functionality */}}
-          className={`w-11 h-11 sm:w-12 sm:h-12 bg-black/20 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/25 transition-all duration-500 cursor-pointer ${
-            buttonsLoaded[1] ? 'translate-x-0 translate-y-0 opacity-100' : 'translate-x-8 translate-y-8 opacity-0'
+          className={`w-11 h-11 sm:w-12 sm:h-12 bg-black/20 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/25 transition-all duration-700 ease-in-out cursor-pointer ${
+            buttonsLoaded[1] ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
           }`}
           style={{
             boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
@@ -202,8 +202,8 @@ export const TreatmentSelectionSection = () => {
         </button>
         <button 
           onClick={() => {/* TODO: Add guide functionality */}}
-          className={`w-11 h-11 sm:w-12 sm:h-12 bg-black/20 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/25 transition-all duration-500 cursor-pointer ${
-            buttonsLoaded[2] ? 'translate-x-0 translate-y-0 opacity-100' : 'translate-x-8 translate-y-8 opacity-0'
+          className={`w-11 h-11 sm:w-12 sm:h-12 bg-black/20 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/25 transition-all duration-700 ease-in-out cursor-pointer ${
+            buttonsLoaded[2] ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
           }`}
           style={{
             boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
