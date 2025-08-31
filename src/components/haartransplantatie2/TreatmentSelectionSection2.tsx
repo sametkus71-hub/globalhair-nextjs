@@ -24,7 +24,7 @@ export const TreatmentSelectionSection2 = () => {
       
       // Only apply phone detection for mobile devices
       if (width <= 480 && height > width) { // Portrait mobile devices
-        if (width <= 390) {
+        if (width <= 393) { // More robust detection for iPhone 14 and smaller
           setPhoneSize('small'); // iPhone 14, iPhone 13, smaller phones
         } else {
           setPhoneSize('large'); // iPhone 14 Pro Max, iPhone 15 Plus, larger phones
@@ -33,7 +33,7 @@ export const TreatmentSelectionSection2 = () => {
         setPhoneSize('large'); // Default for tablets/desktops
       }
       
-      console.log('Phone size detected:', width <= 390 ? 'small' : 'large', 'width:', width);
+      console.log('Phone size detected:', width <= 393 ? 'small' : 'large', 'width:', width);
     };
 
     detectPhoneSize();
@@ -105,12 +105,12 @@ export const TreatmentSelectionSection2 = () => {
   const getPhoneSpacing = () => {
     if (phoneSize === 'small') {
       return {
-        container: 'pt-0 pb-1', // Move everything up by removing top padding
-        header: 'pt-0 mb-2', // Keep header spacing
-        text: 'mb-2',
-        country: 'mb-1', // Small gap after country selector
-        package: 'mb-3', // Slightly more space after package for content
-        content: 'mb-2'
+        container: 'pt-0 pb-0', // Ultra compact for iPhone 14
+        header: 'pt-0 mb-1', // Very tight header spacing
+        text: 'mb-1',
+        country: 'mb-0.5', // Minimal gap between switches
+        package: 'mb-2', // Small space for content
+        content: 'mb-1'
       };
     } else {
       return {
