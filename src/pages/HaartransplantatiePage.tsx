@@ -6,7 +6,7 @@ import { PageTransition } from '@/components/PageTransition';
 import { ScrollFadeLogo } from '@/components/ScrollFadeLogo';
 import { CentralLogo } from '@/components/homepage/CentralLogo';
 import { BeforeAfterGrid } from '@/components/haartransplantatie/BeforeAfterGrid';
-import { VideoPlaySection } from '@/components/haartransplantatie/VideoPlaySection';
+import { TreatmentSelectionSection } from '@/components/haartransplantatie/TreatmentSelectionSection';
 import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
 
@@ -83,7 +83,7 @@ const HaartransplantatiePage = () => {
                 className="page-entry-item page-entry-delay-2 w-full h-full"
                 data-page-entry="video"
               >
-                <VideoPlaySection />
+                <TreatmentSelectionSection />
               </div>
             </div>
           </section>
