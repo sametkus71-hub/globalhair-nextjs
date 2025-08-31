@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { BEFORE_AFTER_IMAGES, BeforeAfterImage, getAllImagePaths } from '@/data/beforeAfterImages';
 import { BeforeAfterImage2 as ImageComponent } from './BeforeAfterImage2';
@@ -11,20 +11,11 @@ interface GridItemState {
   data: BeforeAfterImage;
 }
 
-// 4x2 grid: positions 1-4 (top row - BEFORE), 5-8 (bottom row - AFTER)
-const INITIAL_STATE = [false, false, false, false, true, true, true, true];
-
-// Custom animation order: start with 6+7, then delay 600ms, then 2+3+5+8, then delay 350ms, then 1+4
-const APPEARANCE_ORDER = [
-  { ids: [6, 7], delay: 300 },        // Bottom center items appear first
-  { ids: [2, 3, 5, 8], delay: 900 },  // Top center + bottom outer (300 + 600ms delay)
-  { ids: [1, 4], delay: 1250 }        // Top outer items (900 + 350ms delay)
-];
-
-const FLIP_ORDER = [
-  { ids: [6, 7], delay: 15000 },        // Wave 1: Wait 15s, then start with bottom center (6-7)
-  { ids: [5, 8, 2, 3], delay: 15500 },  // Wave 2: 500ms later - bottom left + right, top center (5-8-2-3) 
-  { ids: [1, 4], delay: 16000 }         // Wave 3: 500ms later - top corners (1-4)
+// Create 10 items for 5x2 grid - reuse first 2 items for positions 9 and 10
+const EXTENDED_IMAGES = [
+  ...BEFORE_AFTER_IMAGES,
+  { ...BEFORE_AFTER_IMAGES[0], id: 9, patientId: "patient-001-alt" },
+  { ...BEFORE_AFTER_IMAGES[1], id: 10, patientId: "patient-002-alt" }
 ];
 
 export const BeforeAfterGrid2 = () => {
@@ -32,16 +23,13 @@ export const BeforeAfterGrid2 = () => {
   const { allImagesLoaded, isImageLoaded } = useImageCache(getAllImagePaths());
   
   const [items, setItems] = useState<GridItemState[]>(
-    BEFORE_AFTER_IMAGES.map((data, index) => ({ 
+    EXTENDED_IMAGES.map((data) => ({ 
       id: data.id,
-      isAfter: INITIAL_STATE[index],
-      isVisible: false,
+      isAfter: true, // Always show after images by default
+      isVisible: true, // Always visible, no animations
       data
     }))
   );
-  
-  // Add a key to force re-mount when needed
-  const [gridKey, setGridKey] = useState(0);
 
   // Handle manual click toggles
   const handleItemClick = (clickedId: number) => {
@@ -54,67 +42,10 @@ export const BeforeAfterGrid2 = () => {
     );
   };
 
-  useEffect(() => {
-    // Only start animations once all images are preloaded
-    if (!allImagesLoaded) return;
-    
-    const timers: NodeJS.Timeout[] = [];
-
-    // Appearance animation - custom order: 6+7, then 2+3+5+8, then 1+4
-    APPEARANCE_ORDER.forEach((group) => {
-      const timer = setTimeout(() => {
-        setItems(prevItems => 
-          prevItems.map(item => 
-            group.ids.includes(item.id)
-              ? { ...item, isVisible: true }
-              : item
-          )
-        );
-      }, group.delay);
-      timers.push(timer);
-    });
-
-    // Flip animation - same order as appearance
-    FLIP_ORDER.forEach((group) => {
-      const timer = setTimeout(() => {
-        setItems(prevItems => 
-          prevItems.map(item => 
-            group.ids.includes(item.id)
-              ? { ...item, isAfter: !item.isAfter }
-              : item
-          )
-        );
-      }, group.delay);
-      timers.push(timer);
-    });
-
-    // Continuous flip cycle every 10 seconds
-    const cycleTimer = setInterval(() => {
-      FLIP_ORDER.forEach((group, index) => {
-        const timer = setTimeout(() => {
-          setItems(prevItems => 
-            prevItems.map(item => 
-              group.ids.includes(item.id)
-                ? { ...item, isAfter: !item.isAfter }
-                : item
-            )
-          );
-        }, index * 500); // 500ms wave timing between groups
-        timers.push(timer);
-      });
-    }, 10000); // 10 second cycle for more relaxed viewing
-
-    timers.push(cycleTimer);
-
-    return () => {
-      timers.forEach(timer => clearTimeout(timer));
-    };
-  }, [allImagesLoaded]);
-
   return (
-    <div className="w-full h-full" key={gridKey}>
+    <div className="w-full h-full">
       <div 
-        className="grid grid-cols-4 w-full h-full gap-0"
+        className="grid grid-cols-5 w-full h-full gap-0"
         style={{ 
           gridTemplateRows: '1fr 1fr',
           height: '100%'
