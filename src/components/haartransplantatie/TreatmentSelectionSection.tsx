@@ -44,19 +44,19 @@ export const TreatmentSelectionSection = () => {
   return (
     <div className="w-full h-full relative bg-[#E4E5E0] flex flex-col">
       {/* Main Content - now naturally positioned after the grid */}
-      <div className="flex-1 flex flex-col justify-start px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 lg:pt-20 pb-12 sm:pb-16 lg:pb-20">
+      <div className="flex-1 flex flex-col justify-start px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 pt-10 sm:pt-14 md:pt-18 lg:pt-22 xl:pt-24 pb-10 sm:pb-14 md:pb-18 lg:pb-22 xl:pb-24">
         {/* Header */}
-        <div className="text-center mb-4 sm:mb-6 lg:mb-8">
-          <h1 className="font-lato text-[24px] sm:text-[30px] md:text-[33px] lg:text-[36px] font-normal text-black mb-1 sm:mb-2 lg:mb-3" style={{ lineHeight: '0.97' }}>
+        <div className="text-center mb-4 sm:mb-6 md:mb-8 lg:mb-10 xl:mb-12">
+          <h1 className="font-lato text-[29px] sm:text-[32px] md:text-[35px] lg:text-[38px] xl:text-[40px] font-normal text-black mb-2 sm:mb-3 md:mb-4 lg:mb-5" style={{ lineHeight: '0.97' }}>
             Time to start over
           </h1>
-          <p className="font-lato text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] font-normal text-gray-700" style={{ lineHeight: '0.97' }}>
+          <p className="font-lato text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] xl:text-[17px] font-normal text-gray-700" style={{ lineHeight: '0.97' }}>
             Ontdek de kracht van haartransplantatie
           </p>
         </div>
 
         {/* Country Selection */}
-        <div className="flex justify-center mb-3 sm:mb-4 lg:mb-6">
+        <div className="flex justify-center mb-4 sm:mb-5 md:mb-6 lg:mb-8 xl:mb-10">
           <div 
             className="rounded-full p-0.5 sm:p-1"
             style={{
@@ -68,7 +68,7 @@ export const TreatmentSelectionSection = () => {
                 <button
                   key={country}
                   onClick={() => updateProfile('locatie', country)}
-                  className={`px-3 sm:px-4 md:px-5 py-1 sm:py-1.5 rounded-full font-lato text-[10px] sm:text-[11px] md:text-[12px] font-normal transition-all duration-200 ${
+                  className={`px-4 sm:px-5 md:px-6 lg:px-7 py-1.5 sm:py-2 rounded-full font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal transition-all duration-200 ${
                     profile.locatie === country
                       ? 'text-black'
                       : 'text-gray-600 hover:text-black'
@@ -87,7 +87,7 @@ export const TreatmentSelectionSection = () => {
         </div>
 
         {/* Package Selection */}
-        <div className="flex justify-center mb-4 sm:mb-6 lg:mb-8">
+        <div className="flex justify-center mb-5 sm:mb-6 md:mb-8 lg:mb-10 xl:mb-12">
           <div 
             className="rounded-full p-0.5 sm:p-1"
             style={{
@@ -104,7 +104,7 @@ export const TreatmentSelectionSection = () => {
                   )}
                   <button
                     onClick={() => setSelectedPackage(pkg.id)}
-                    className={`px-3 sm:px-4 md:px-5 py-1 sm:py-1.5 font-lato text-[10px] sm:text-[11px] md:text-[12px] font-normal transition-all duration-200 first:rounded-l-full last:rounded-r-full ${
+                    className={`px-4 sm:px-5 md:px-6 lg:px-7 py-1.5 sm:py-2 font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal transition-all duration-200 first:rounded-l-full last:rounded-r-full ${
                       selectedPackage === pkg.id
                         ? 'text-black'
                         : 'text-gray-600 hover:text-black'
@@ -124,12 +124,12 @@ export const TreatmentSelectionSection = () => {
         </div>
 
         {/* Features List */}
-        <div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto mb-3 sm:mb-4 lg:mb-6">
-          <ul className="space-y-1 sm:space-y-1.5 lg:space-y-2">
+        <div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto mb-4 sm:mb-5 md:mb-6 lg:mb-8 xl:mb-10">
+          <ul className="space-y-1.5 sm:space-y-2 md:space-y-2.5 lg:space-y-3 xl:space-y-3.5">
             {features.map((feature, index) => (
               <li key={index} className="flex items-start text-gray-700">
-                <span className="w-1.5 h-1.5 rounded-full bg-black mt-1.5 sm:mt-2 mr-2 sm:mr-2.5 lg:mr-3 flex-shrink-0" />
-                <span className="font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal leading-tight sm:leading-snug lg:leading-relaxed">{feature}</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-black mt-2 mr-3 sm:mr-3.5 md:mr-4 flex-shrink-0" />
+                <span className="font-lato text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] font-normal leading-snug sm:leading-normal md:leading-relaxed">{feature}</span>
               </li>
             ))}
           </ul>
@@ -137,7 +137,7 @@ export const TreatmentSelectionSection = () => {
 
         {/* Cost Display */}
         <div className="text-center">
-          <p className="font-lato text-[12px] sm:text-[13px] md:text-[14px] font-normal text-gray-700">
+          <p className="font-lato text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] font-normal text-gray-700">
             Geschatte kosten: {formatPrice(totalPrice)}
           </p>
         </div>
