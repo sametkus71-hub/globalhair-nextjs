@@ -44,19 +44,19 @@ export const TreatmentSelectionSection = () => {
   return (
     <div className="w-full h-full relative bg-[#E4E5E0] flex flex-col">
       {/* Main Content - now naturally positioned after the grid */}
-      <div className="flex-1 flex flex-col justify-start px-6 pt-20 pb-20">
+      <div className="flex-1 flex flex-col justify-start px-4 sm:px-6 pt-12 sm:pt-20 pb-12 sm:pb-20">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="font-lato text-[33px] font-normal text-black mb-3" style={{ lineHeight: '0.97' }}>
+        <div className="text-center mb-4 sm:mb-8">
+          <h1 className="font-lato text-[28px] sm:text-[33px] font-normal text-black mb-1 sm:mb-3" style={{ lineHeight: '0.97' }}>
             Time to start over
           </h1>
-          <p className="font-lato text-[14px] font-normal text-gray-700" style={{ lineHeight: '0.97' }}>
+          <p className="font-lato text-[12px] sm:text-[14px] font-normal text-gray-700" style={{ lineHeight: '0.97' }}>
             Ontdek de kracht van haartransplantatie
           </p>
         </div>
 
         {/* Country Selection */}
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center mb-3 sm:mb-6">
           <div 
             className="rounded-full p-0.5"
             style={{
@@ -68,7 +68,7 @@ export const TreatmentSelectionSection = () => {
                 <button
                   key={country}
                   onClick={() => updateProfile('locatie', country)}
-                  className={`px-4 py-1 rounded-full font-lato text-[12px] font-normal transition-all duration-200 ${
+                  className={`px-3 sm:px-4 py-1 rounded-full font-lato text-[10px] sm:text-[12px] font-normal transition-all duration-200 ${
                     profile.locatie === country
                       ? 'text-black'
                       : 'text-gray-600 hover:text-black'
@@ -87,7 +87,7 @@ export const TreatmentSelectionSection = () => {
         </div>
 
         {/* Package Selection */}
-        <div className="flex justify-center mb-8">
+        <div className="flex justify-center mb-4 sm:mb-8">
           <div 
             className="rounded-full p-0.5"
             style={{
@@ -104,7 +104,7 @@ export const TreatmentSelectionSection = () => {
                   )}
                   <button
                     onClick={() => setSelectedPackage(pkg.id)}
-                    className={`px-4 py-1 font-lato text-[12px] font-normal transition-all duration-200 first:rounded-l-full last:rounded-r-full ${
+                    className={`px-3 sm:px-4 py-1 font-lato text-[10px] sm:text-[12px] font-normal transition-all duration-200 first:rounded-l-full last:rounded-r-full ${
                       selectedPackage === pkg.id
                         ? 'text-black'
                         : 'text-gray-600 hover:text-black'
@@ -124,12 +124,12 @@ export const TreatmentSelectionSection = () => {
         </div>
 
         {/* Features List */}
-        <div className="max-w-md mx-auto mb-6">
-          <ul className="space-y-2">
+        <div className="max-w-xs sm:max-w-md mx-auto mb-3 sm:mb-6">
+          <ul className="space-y-1 sm:space-y-2">
             {features.map((feature, index) => (
               <li key={index} className="flex items-start text-gray-700">
-                <span className="w-1.5 h-1.5 rounded-full bg-black mt-2 mr-3 flex-shrink-0" />
-                <span className="font-lato text-[14px] font-normal leading-relaxed">{feature}</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-black mt-1.5 sm:mt-2 mr-2 sm:mr-3 flex-shrink-0" />
+                <span className="font-lato text-[11px] sm:text-[14px] font-normal leading-tight sm:leading-relaxed">{feature}</span>
               </li>
             ))}
           </ul>
@@ -137,7 +137,7 @@ export const TreatmentSelectionSection = () => {
 
         {/* Cost Display */}
         <div className="text-center">
-          <p className="font-lato text-[14px] font-normal text-gray-700">
+          <p className="font-lato text-[12px] sm:text-[14px] font-normal text-gray-700">
             Geschatte kosten: {formatPrice(totalPrice)}
           </p>
         </div>
