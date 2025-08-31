@@ -165,11 +165,11 @@ export const TreatmentSelectionSection2 = () => {
 
         {/* Dynamic Package Content */}
         <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16 xl:mb-20">
-          <div className="max-w-md mx-auto">
+          <div className="max-w-xs mx-auto">
             {packageContent[profile.selectedPackage as keyof typeof packageContent]?.map((item, index) => (
-              <div key={index} className="flex items-start justify-start mb-2 text-left">
-                <span className="text-black mr-3 mt-1">•</span>
-                <p className="font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal text-gray-700 leading-relaxed">
+              <div key={index} className="flex items-start justify-start mb-1 text-left">
+                <span className="text-black mr-3 mt-0.5">•</span>
+                <p className="font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal text-gray-700" style={{ lineHeight: '1.2' }}>
                   {item}
                 </p>
               </div>
