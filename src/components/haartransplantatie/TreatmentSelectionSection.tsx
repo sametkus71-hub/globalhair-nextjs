@@ -162,13 +162,31 @@ export const TreatmentSelectionSection = () => {
 
       {/* Right Side Icons */}
       <div className="absolute right-4 top-1/2 transform -translate-y-1/2 space-y-6">
-        <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
+        <div 
+          className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center"
+          style={{
+            border: '0.86px solid',
+            borderImageSource: 'linear-gradient(90deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.6) 100%)',
+          }}
+        >
           <MessageCircle className="w-6 h-6 text-white/80" />
         </div>
-        <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
+        <div 
+          className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center"
+          style={{
+            border: '0.86px solid',
+            borderImageSource: 'linear-gradient(90deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.6) 100%)',
+          }}
+        >
           <Headphones className="w-6 h-6 text-white/80" />
         </div>
-        <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
+        <div 
+          className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center"
+          style={{
+            border: '0.86px solid',
+            borderImageSource: 'linear-gradient(90deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.6) 100%)',
+          }}
+        >
           <BookOpen className="w-6 h-6 text-white/80" />
         </div>
       </div>
