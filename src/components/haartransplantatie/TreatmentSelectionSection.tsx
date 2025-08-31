@@ -54,7 +54,7 @@ export const TreatmentSelectionSection = () => {
       <div className="flex-1 flex flex-col justify-start px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 pt-10 sm:pt-14 md:pt-18 lg:pt-22 xl:pt-24 pb-10 sm:pb-14 md:pb-18 lg:pb-22 xl:pb-24">
         {/* Header */}
         <div className="text-center mb-4 sm:mb-6 md:mb-8 lg:mb-10 xl:mb-12">
-          <h1 className="font-lato text-[29px] sm:text-[32px] md:text-[35px] lg:text-[38px] xl:text-[40px] font-normal text-black mb-2 sm:mb-3 md:mb-4 lg:mb-5" style={{ lineHeight: '0.97' }}>
+          <h1 className="font-lato text-[31px] sm:text-[34px] md:text-[37px] lg:text-[40px] xl:text-[42px] font-normal text-black mb-2 sm:mb-3 md:mb-4 lg:mb-5" style={{ lineHeight: '0.97' }}>
             Time to start over
           </h1>
           <p className="font-lato text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] xl:text-[17px] font-normal text-gray-700" style={{ lineHeight: '0.97' }}>
