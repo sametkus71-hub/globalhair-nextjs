@@ -172,13 +172,17 @@ export const TreatmentSelectionSection = () => {
           <Info className="w-5 h-5 sm:w-6 sm:h-6 text-white/90" />
         </button>
         <button 
-          onClick={() => {/* TODO: Add phone support functionality */}}
+          onClick={() => {/* TODO: Add support functionality */}}
           className="w-11 h-11 sm:w-12 sm:h-12 bg-black/20 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/25 transition-all duration-200 cursor-pointer"
           style={{
             boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
           }}
         >
-          <Phone className="w-5 h-5 sm:w-6 sm:h-6 text-white/90" />
+          <img 
+            src="/lovable-uploads/61372204-ad34-421b-877a-e61ca6adf93e.png" 
+            alt="Support icon" 
+            className="w-5 h-5 sm:w-6 sm:h-6 opacity-90"
+          />
         </button>
         <button 
           onClick={() => {/* TODO: Add guide functionality */}}
