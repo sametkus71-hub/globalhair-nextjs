@@ -45,11 +45,11 @@ const HaartransplantatiePage2 = () => {
               height: 'var(--app-height)'
             }}
           >
-            {/* Fading Central Logo - positioned with vh units for consistency */}
+            {/* Fading Central Logo - positioned with responsive spacing for smaller screens */}
             <div 
               className="absolute left-1/2 transform -translate-x-1/2 z-[60] pointer-events-none"
               style={{ 
-                top: 'calc(30vh - 20px)' // Positioned relative to grid height (40vh * 75% = 30vh)
+                top: 'calc(30vh - 40px)' // Closer to text on smaller screens
               }}
             >
               <div className="pointer-events-auto transform scale-125"> {/* Made 25% bigger */}

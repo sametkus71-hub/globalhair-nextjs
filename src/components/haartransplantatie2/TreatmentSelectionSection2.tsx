@@ -75,20 +75,20 @@ export const TreatmentSelectionSection2 = () => {
 
   return (
     <div className="w-full h-full relative bg-[#E4E5E0] flex flex-col">
-      {/* Main Content - now naturally positioned after the grid */}
-      <div className="flex-1 flex flex-col justify-start px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 pt-10 sm:pt-14 md:pt-18 lg:pt-22 xl:pt-24 pb-10 sm:pb-14 md:pb-18 lg:pb-22 xl:pb-24">
+      {/* Main Content - adjusted padding for smaller screens */}
+      <div className="flex-1 flex flex-col justify-start px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 pt-6 sm:pt-10 md:pt-14 lg:pt-18 xl:pt-22 pb-6 sm:pb-10 md:pb-14 lg:pb-18 xl:pb-22">
         {/* Header */}
-        <div className="text-center pt-2 sm:pt-4 md:pt-6 lg:pt-8 xl:pt-10 mb-6 sm:mb-8 md:mb-10 lg:mb-12 xl:mb-14">
+        <div className="text-center pt-1 sm:pt-2 md:pt-4 lg:pt-6 xl:pt-8 mb-4 sm:mb-6 md:mb-8 lg:mb-10 xl:mb-12">
           <h1 className="font-lato text-[31px] sm:text-[34px] md:text-[37px] lg:text-[40px] xl:text-[42px] font-normal text-black mb-2 sm:mb-3 md:mb-4 lg:mb-5" style={{ lineHeight: '0.97' }}>
             Time to start over
           </h1>
-          <p className="font-lato text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] xl:text-[17px] font-normal text-gray-700 mb-4 sm:mb-6 md:mb-8" style={{ lineHeight: '0.97' }}>
+          <p className="font-lato text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] xl:text-[17px] font-normal text-gray-700 mb-3 sm:mb-4 md:mb-6 lg:mb-8" style={{ lineHeight: '0.97' }}>
             Ontdek de kracht van haartransplantatie
           </p>
         </div>
 
         {/* Country Selection */}
-        <div className="flex justify-center mb-4 sm:mb-5 md:mb-6 lg:mb-7 xl:mb-8">
+        <div className="flex justify-center mb-3 sm:mb-4 md:mb-5 lg:mb-6 xl:mb-7">
           <div 
             className="rounded-full p-0.5 sm:p-1"
             style={{
@@ -123,7 +123,7 @@ export const TreatmentSelectionSection2 = () => {
         </div>
 
         {/* Package Selection */}
-        <div className="flex justify-center mb-8 sm:mb-10 md:mb-12 lg:mb-16 xl:mb-20">
+        <div className="flex justify-center mb-3 sm:mb-4 md:mb-6 lg:mb-8 xl:mb-10">
           <div 
             className="rounded-full p-0.5 sm:p-1"
             style={{
