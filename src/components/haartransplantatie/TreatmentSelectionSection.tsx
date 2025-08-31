@@ -176,18 +176,18 @@ export const TreatmentSelectionSection = () => {
       <div className="fixed right-3 sm:right-4 md:right-5 lg:right-6 bottom-20 sm:bottom-24 md:bottom-28 lg:bottom-32 xl:bottom-36 space-y-3 z-50">
         <button 
           onClick={() => {/* TODO: Add info functionality */}}
-          className={`w-11 h-11 sm:w-12 sm:h-12 bg-black/20 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/25 transition-all duration-700 ease-in-out cursor-pointer ${
+          className={`w-12 h-12 sm:w-14 sm:h-14 bg-black/12 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/16 transition-all duration-700 ease-in-out cursor-pointer ${
             buttonsLoaded[0] ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
           }`}
           style={{
             boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
           }}
         >
-          <Info className="w-5 h-5 sm:w-6 sm:h-6 text-white/90" />
+          <Info className="w-6 h-6 sm:w-7 sm:h-7 text-white/90" />
         </button>
         <button 
           onClick={() => {/* TODO: Add support functionality */}}
-          className={`w-11 h-11 sm:w-12 sm:h-12 bg-black/20 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/25 transition-all duration-700 ease-in-out cursor-pointer ${
+          className={`w-12 h-12 sm:w-14 sm:h-14 bg-black/12 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/16 transition-all duration-700 ease-in-out cursor-pointer ${
             buttonsLoaded[1] ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
           }`}
           style={{
@@ -197,19 +197,19 @@ export const TreatmentSelectionSection = () => {
           <img 
             src="/lovable-uploads/61372204-ad34-421b-877a-e61ca6adf93e.png" 
             alt="Support icon" 
-            className="w-5 h-5 sm:w-6 sm:h-6 opacity-90"
+            className="w-6 h-6 sm:w-7 sm:h-7 opacity-90"
           />
         </button>
         <button 
           onClick={() => {/* TODO: Add guide functionality */}}
-          className={`w-11 h-11 sm:w-12 sm:h-12 bg-black/20 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/25 transition-all duration-700 ease-in-out cursor-pointer ${
+          className={`w-12 h-12 sm:w-14 sm:h-14 bg-black/12 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/16 transition-all duration-700 ease-in-out cursor-pointer ${
             buttonsLoaded[2] ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
           }`}
           style={{
             boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
           }}
         >
-          <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-white/90" />
+          <BookOpen className="w-6 h-6 sm:w-7 sm:h-7 text-white/90" />
         </button>
       </div>
     </div>
