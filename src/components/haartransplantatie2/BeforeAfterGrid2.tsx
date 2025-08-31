@@ -43,7 +43,7 @@ export const BeforeAfterGrid2 = () => {
   };
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-3/4 -mt-8">
       <div 
         className="grid grid-cols-5 w-full h-full gap-0"
         style={{ 
