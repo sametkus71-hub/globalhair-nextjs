@@ -164,27 +164,27 @@ export const TreatmentSelectionSection = () => {
       <div className="absolute right-4 top-1/2 transform -translate-y-1/2 space-y-6">
         <button 
           onClick={() => {/* TODO: Add chat functionality */}}
-          className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 hover:border-white/60 hover:bg-white/15 transition-all duration-200 cursor-pointer shadow-lg hover:shadow-xl"
+          className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 hover:border-white/60 hover:bg-white/15 transition-all duration-200 cursor-pointer"
           style={{
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.3)',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(255, 255, 255, 0.3)',
           }}
         >
           <MessageCircle className="w-6 h-6 text-white/80" />
         </button>
         <button 
           onClick={() => {/* TODO: Add support functionality */}}
-          className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 hover:border-white/60 hover:bg-white/15 transition-all duration-200 cursor-pointer shadow-lg hover:shadow-xl"
+          className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 hover:border-white/60 hover:bg-white/15 transition-all duration-200 cursor-pointer"
           style={{
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.3)',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(255, 255, 255, 0.3)',
           }}
         >
           <Headphones className="w-6 h-6 text-white/80" />
         </button>
         <button 
           onClick={() => {/* TODO: Add guide functionality */}}
-          className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 hover:border-white/60 hover:bg-white/15 transition-all duration-200 cursor-pointer shadow-lg hover:shadow-xl"
+          className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 hover:border-white/60 hover:bg-white/15 transition-all duration-200 cursor-pointer"
           style={{
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.3)',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(255, 255, 255, 0.3)',
           }}
         >
           <BookOpen className="w-6 h-6 text-white/80" />
