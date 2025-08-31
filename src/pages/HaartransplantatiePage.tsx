@@ -38,9 +38,9 @@ const HaartransplantatiePage = () => {
       <MetaHead language={language} page="haartransplantatie" />
       <DesktopContainer>
         <PageTransition isNewPage={true}>
-          {/* Hero Section - Above the fold only */}
+          {/* Hero Section - Flex container for stacked items */}
           <section 
-            className="w-full relative overflow-hidden"
+            className="w-full relative overflow-hidden flex flex-col"
             style={{ 
               height: 'var(--app-height)'
             }}
@@ -57,11 +57,11 @@ const HaartransplantatiePage = () => {
               </div>
             </div>
             
-            {/* Top Section - Before/After Grid */}
+            {/* Top Section - Before/After Grid - Fixed Height */}
             <div 
-              className="relative z-10"
+              className="relative z-10 flex-shrink-0"
               style={{ 
-                height: 'calc(var(--app-height) * 0.40)'
+                height: '40vh'
               }}
             >
               <div 
@@ -72,13 +72,8 @@ const HaartransplantatiePage = () => {
               </div>
             </div>
 
-            {/* Bottom Section - Video Play & Controls */}
-            <div 
-              className="relative z-10"
-              style={{ 
-                height: 'calc(var(--app-height) * 0.60)'
-              }}
-            >
+            {/* Bottom Section - Treatment Selection - Flex Grow */}
+            <div className="relative z-10 flex-1">
               <div 
                 className="page-entry-item page-entry-delay-2 w-full h-full"
                 data-page-entry="video"

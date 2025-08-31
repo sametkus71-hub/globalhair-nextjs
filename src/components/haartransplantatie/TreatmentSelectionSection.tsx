@@ -43,13 +43,8 @@ export const TreatmentSelectionSection = () => {
 
   return (
     <div className="w-full h-full relative bg-[#E4E5E0] flex flex-col">
-      {/* Main Content - positioned right below the logo */}
-      <div 
-        className="flex-1 flex flex-col px-6 pb-20"
-        style={{ 
-          paddingTop: 'calc(40vh - 10px)' // Position much closer to the logo
-        }}
-      >
+      {/* Main Content - now naturally positioned after the grid */}
+      <div className="flex-1 flex flex-col justify-start px-6 pt-6 pb-20">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="font-lato text-[32px] font-normal text-black mb-1" style={{ lineHeight: '0.97' }}>
