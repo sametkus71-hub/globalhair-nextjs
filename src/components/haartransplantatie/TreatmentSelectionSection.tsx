@@ -43,14 +43,19 @@ export const TreatmentSelectionSection = () => {
 
   return (
     <div className="w-full h-full relative bg-[#E4E5E0] flex flex-col">
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col justify-center px-6 pb-20">
+      {/* Main Content - positioned below logo with consistent spacing */}
+      <div 
+        className="flex-1 flex flex-col px-6 pb-20"
+        style={{ 
+          paddingTop: 'calc(40vh + 60px)' // Position 60px below the logo
+        }}
+      >
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="font-lato text-[36px] leading-tight font-normal text-black mb-2">
+          <h1 className="font-lato text-[32px] font-normal text-black mb-1" style={{ lineHeight: '0.97' }}>
             Time to start over
           </h1>
-          <p className="font-lato text-[14px] leading-relaxed font-normal text-gray-700">
+          <p className="font-lato text-[14px] font-normal text-gray-700" style={{ lineHeight: '0.97' }}>
             Ontdek de kracht van haartransplantatie
           </p>
         </div>
