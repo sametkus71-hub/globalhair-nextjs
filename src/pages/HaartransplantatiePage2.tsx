@@ -49,7 +49,7 @@ const HaartransplantatiePage2 = () => {
             <div 
               className="absolute left-1/2 transform -translate-x-1/2 z-[60] pointer-events-none"
               style={{ 
-                top: '160px' // Positioned lower so only bottom edge overlaps with grid
+                top: '225px' // Positioned at 225px from top
               }}
             >
               <div className="pointer-events-auto transform scale-125"> {/* Made 25% bigger */}
