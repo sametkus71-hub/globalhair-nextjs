@@ -105,12 +105,12 @@ export const TreatmentSelectionSection2 = () => {
   const getPhoneSpacing = () => {
     if (phoneSize === 'small') {
       return {
-        container: 'pt-2 pb-2',
+        container: 'pt-1 pb-1',
         header: 'pt-0 mb-1',
         text: 'mb-1',
-        country: 'mb-2',
-        package: 'mb-2',
-        content: 'mb-2'
+        country: 'mb-1', // Reduced gap between switches
+        package: 'mb-1', // Reduced gap between switches  
+        content: 'mb-1'
       };
     } else {
       return {
