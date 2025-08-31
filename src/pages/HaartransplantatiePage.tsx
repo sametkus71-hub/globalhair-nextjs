@@ -40,9 +40,9 @@ const HaartransplantatiePage = () => {
         <PageTransition isNewPage={true}>
           {/* Hero Section - Above the fold only */}
           <section 
-            className="min-h-[var(--app-height)] w-full relative overflow-hidden"
+            className="w-full relative overflow-hidden"
             style={{ 
-              height: `${height}px`
+              height: 'var(--app-height)'
             }}
           >
             {/* Fading Central Logo - positioned at grid boundary */}
@@ -61,7 +61,7 @@ const HaartransplantatiePage = () => {
             <div 
               className="relative z-10"
               style={{ 
-                height: `${height * 0.40}px`
+                height: 'calc(var(--app-height) * 0.40)'
               }}
             >
               <div 
@@ -76,7 +76,7 @@ const HaartransplantatiePage = () => {
             <div 
               className="relative z-10"
               style={{ 
-                height: `${height * 0.60}px`
+                height: 'calc(var(--app-height) * 0.60)'
               }}
             >
               <div 
