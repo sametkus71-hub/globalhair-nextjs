@@ -57,17 +57,30 @@ export const TreatmentSelectionSection = () => {
 
         {/* Country Selection */}
         <div className="flex justify-center mb-6">
-          <div className="bg-white/80 backdrop-blur-sm rounded-full p-1 shadow-sm">
+          <div 
+            className="rounded-full p-0.5"
+            style={{
+              boxShadow: '-2px 6px 6.3px 0px rgba(0, 0, 0, 0.25) inset',
+              border: '1px solid',
+              borderImage: 'linear-gradient(90deg, rgba(255, 255, 255, 0.27) 0%, rgba(255, 255, 255, 0.35) 100%)',
+              borderImageSlice: 1,
+            }}
+          >
             <div className="flex">
               {['Nederland', 'Turkije'].map((country) => (
                 <button
                   key={country}
                   onClick={() => updateProfile('locatie', country)}
-                  className={`px-6 py-2 rounded-full font-lato text-[14px] font-normal transition-all duration-200 ${
+                  className={`px-4 py-1 rounded-full font-lato text-[12px] font-normal transition-all duration-200 ${
                     profile.locatie === country
-                      ? 'bg-white text-black shadow-sm'
+                      ? 'text-black'
                       : 'text-gray-600 hover:text-black'
                   }`}
+                  style={profile.locatie === country ? {
+                    boxShadow: '5px 0px 12px 0px rgba(151, 151, 151, 1)',
+                    backdropFilter: 'blur(52.3px)',
+                    background: 'rgba(255, 255, 255, 0.9)'
+                  } : {}}
                 >
                   {country}
                 </button>
@@ -78,8 +91,16 @@ export const TreatmentSelectionSection = () => {
 
         {/* Package Selection */}
         <div className="flex justify-center mb-8">
-          <div className="bg-white/80 backdrop-blur-sm rounded-full p-1 shadow-sm">
-            <div className="flex divide-x divide-gray-200/60">
+          <div 
+            className="rounded-full p-0.5"
+            style={{
+              boxShadow: '-2px 6px 6.3px 0px rgba(0, 0, 0, 0.25) inset',
+              border: '1px solid',
+              borderImage: 'linear-gradient(90deg, rgba(255, 255, 255, 0.27) 0%, rgba(255, 255, 255, 0.35) 100%)',
+              borderImageSlice: 1,
+            }}
+          >
+            <div className="flex">
               {packages.map((pkg) => (
                 <div key={pkg.id} className="relative">
                   {pkg.isNew && (
@@ -89,11 +110,16 @@ export const TreatmentSelectionSection = () => {
                   )}
                   <button
                     onClick={() => setSelectedPackage(pkg.id)}
-                    className={`px-6 py-2 font-lato text-[14px] font-normal transition-all duration-200 first:rounded-l-full last:rounded-r-full ${
+                    className={`px-4 py-1 font-lato text-[12px] font-normal transition-all duration-200 first:rounded-l-full last:rounded-r-full ${
                       selectedPackage === pkg.id
-                        ? 'bg-white text-black shadow-sm'
+                        ? 'text-black'
                         : 'text-gray-600 hover:text-black'
                     }`}
+                    style={selectedPackage === pkg.id ? {
+                      boxShadow: '5px 0px 12px 0px rgba(151, 151, 151, 1)',
+                      backdropFilter: 'blur(52.3px)',
+                      background: 'rgba(255, 255, 255, 0.9)'
+                    } : {}}
                   >
                     {pkg.label}
                   </button>

@@ -10,23 +10,26 @@ export const GenderToggle = () => {
 
   return (
     <div 
-      className="relative inline-flex p-1 rounded-full"
+      className="relative inline-flex p-0.5 rounded-full"
       style={{
-        background: 'linear-gradient(145deg, rgba(80,80,80,0.15), rgba(50,50,50,0.25))',
-        backdropFilter: 'blur(20px)',
-        border: '1px solid rgba(255,255,255,0.1)'
+        boxShadow: '-2px 6px 6.3px 0px rgba(0, 0, 0, 0.25) inset',
+        border: '1px solid',
+        borderImage: 'linear-gradient(90deg, rgba(255, 255, 255, 0.27) 0%, rgba(255, 255, 255, 0.35) 100%)',
+        borderImageSlice: 1,
       }}
     >
       <button
         onClick={() => handleGenderChange('Vrouw')}
         className={cn(
-          "relative px-5 py-1.5 rounded-full font-header text-xs font-medium transition-all duration-300 ease-out",
+          "relative px-3 py-1 rounded-full font-header text-[10px] font-medium transition-all duration-300 ease-out",
           profile.geslacht === 'Vrouw'
             ? "text-gray-900"
             : "text-white/80 hover:text-white"
         )}
         style={profile.geslacht === 'Vrouw' ? {
-          background: 'linear-gradient(145deg, rgba(255,255,255,0.9), rgba(240,240,240,0.8))'
+          boxShadow: '5px 0px 12px 0px rgba(151, 151, 151, 1)',
+          backdropFilter: 'blur(52.3px)',
+          background: 'rgba(255, 255, 255, 0.9)'
         } : {}}
       >
         VROUW
@@ -34,13 +37,15 @@ export const GenderToggle = () => {
       <button
         onClick={() => handleGenderChange('Man')}
         className={cn(
-          "relative px-5 py-1.5 rounded-full font-header text-xs font-medium transition-all duration-300 ease-out",
+          "relative px-3 py-1 rounded-full font-header text-[10px] font-medium transition-all duration-300 ease-out",
           profile.geslacht === 'Man'
             ? "text-gray-900"
             : "text-white/80 hover:text-white"
         )}
         style={profile.geslacht === 'Man' ? {
-          background: 'linear-gradient(145deg, rgba(255,255,255,0.9), rgba(240,240,240,0.8))'
+          boxShadow: '5px 0px 12px 0px rgba(151, 151, 151, 1)',
+          backdropFilter: 'blur(52.3px)',
+          background: 'rgba(255, 255, 255, 0.9)'
         } : {}}
       >
         MAN

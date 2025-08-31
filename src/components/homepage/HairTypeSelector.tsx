@@ -21,11 +21,12 @@ export const HairTypeSelector = ({ heightBreakpoint = 'large' }: HairTypeSelecto
 
   return (
     <div 
-      className="inline-flex p-1 rounded-full"
+      className="inline-flex p-0.5 rounded-full"
       style={{
-        background: 'linear-gradient(145deg, rgba(80,80,80,0.15), rgba(50,50,50,0.25))',
-        backdropFilter: 'blur(20px)',
-        border: '1px solid rgba(255,255,255,0.1)'
+        boxShadow: '-2px 6px 6.3px 0px rgba(0, 0, 0, 0.25) inset',
+        border: '1px solid',
+        borderImage: 'linear-gradient(90deg, rgba(255, 255, 255, 0.27) 0%, rgba(255, 255, 255, 0.35) 100%)',
+        borderImageSlice: 1,
       }}
     >
       {hairTypes.map(({ value, label }) => (
@@ -34,15 +35,17 @@ export const HairTypeSelector = ({ heightBreakpoint = 'large' }: HairTypeSelecto
           onClick={() => handleHairTypeChange(value)}
           className={cn(
             "rounded-full font-header font-medium transition-all duration-300",
-            heightBreakpoint === 'small' ? "px-2.5 py-1 text-[10px]" :
-            heightBreakpoint === 'medium' ? "px-3 py-1.5 text-xs" :
-            "px-4 py-1.5 text-xs",
+            heightBreakpoint === 'small' ? "px-2 py-0.5 text-[9px]" :
+            heightBreakpoint === 'medium' ? "px-2.5 py-1 text-[10px]" :
+            "px-3 py-1 text-[10px]",
             profile.haartype === value
               ? "text-gray-900"
               : "text-white/80 hover:text-white"
           )}
           style={profile.haartype === value ? {
-            background: 'linear-gradient(145deg, rgba(255,255,255,0.9), rgba(240,240,240,0.8))'
+            boxShadow: '5px 0px 12px 0px rgba(151, 151, 151, 1)',
+            backdropFilter: 'blur(52.3px)',
+            background: 'rgba(255, 255, 255, 0.9)'
           } : {}}
         >
           {label}
