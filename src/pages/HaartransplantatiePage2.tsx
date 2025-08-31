@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState, useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { MetaHead } from '@/components/MetaHead';
@@ -14,25 +14,6 @@ import { DesktopContainer } from '@/components/layout/DesktopContainer';
 const HaartransplantatiePage2 = () => {
   const { language } = useLanguage();
   const { height } = useViewportHeight();
-  const [logoPosition, setLogoPosition] = useState('calc(30vh - 40px)');
-  
-  // Screen size detection for logo positioning
-  useEffect(() => {
-    const detectScreenSize = () => {
-      const width = window.innerWidth;
-      if (width <= 375) {
-        setLogoPosition('calc(30vh - 55px)'); // Closer to text on smaller screens
-      } else if (width >= 414) {
-        setLogoPosition('calc(30vh - 25px)'); // More space on larger screens
-      } else {
-        setLogoPosition('calc(30vh - 40px)'); // Default spacing
-      }
-    };
-
-    detectScreenSize();
-    window.addEventListener('resize', detectScreenSize);
-    return () => window.removeEventListener('resize', detectScreenSize);
-  }, []);
   
   // Disable scrolling on mount
   useLayoutEffect(() => {
@@ -68,7 +49,7 @@ const HaartransplantatiePage2 = () => {
             <div 
               className="absolute left-1/2 transform -translate-x-1/2 z-[60] pointer-events-none"
               style={{ 
-                top: logoPosition // Dynamic positioning based on screen size
+                top: 'calc(30vh - 50px)' // Responsive positioning relative to grid height
               }}
             >
               <div className="pointer-events-auto transform scale-125"> {/* Made 25% bigger */}

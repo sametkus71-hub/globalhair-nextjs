@@ -9,27 +9,8 @@ export const TreatmentSelectionSection2 = () => {
   const { profile, updateProfile } = useSession();
   const [priceFlash, setPriceFlash] = useState(false);
   const [buttonsLoaded, setButtonsLoaded] = useState([false, false, false]);
-  const [screenSize, setScreenSize] = useState<'small' | 'regular' | 'large'>('regular');
   
   const totalPrice = calculatePrice(profile);
-
-  // Screen size detection for iPhone models
-  useEffect(() => {
-    const detectScreenSize = () => {
-      const width = window.innerWidth;
-      if (width <= 375) {
-        setScreenSize('small'); // iPhone 13 mini, iPhone SE, smaller phones
-      } else if (width >= 414) {
-        setScreenSize('large'); // iPhone 14 Pro Max, iPhone 15 Plus, etc.
-      } else {
-        setScreenSize('regular'); // iPhone 14, iPhone 14 Pro, etc.
-      }
-    };
-
-    detectScreenSize();
-    window.addEventListener('resize', detectScreenSize);
-    return () => window.removeEventListener('resize', detectScreenSize);
-  }, []);
 
   // Flash effect when price changes
   useEffect(() => {
@@ -91,61 +72,22 @@ export const TreatmentSelectionSection2 = () => {
     ]
   };
 
-  // Dynamic spacing based on screen size
-  const getSpacing = () => {
-    switch (screenSize) {
-      case 'small':
-        return {
-          containerPadding: 'pt-3 pb-3',
-          headerPadding: 'pt-0 mb-1',
-          textMargin: 'mb-1',
-          countryMargin: 'mb-2',
-          packageMargin: 'mb-2',
-          contentMargin: 'mb-3',
-          priceMargin: 'mb-2'
-        };
-      case 'large':
-        return {
-          containerPadding: 'pt-8 pb-8',
-          headerPadding: 'pt-2 mb-8',
-          textMargin: 'mb-6',
-          countryMargin: 'mb-8',
-          packageMargin: 'mb-6',
-          contentMargin: 'mb-6',
-          priceMargin: 'mb-4'
-        };
-      default:
-        return {
-          containerPadding: 'pt-6 pb-6',
-          headerPadding: 'pt-1 mb-4',
-          textMargin: 'mb-3',
-          countryMargin: 'mb-4',
-          packageMargin: 'mb-4',
-          contentMargin: 'mb-4',
-          priceMargin: 'mb-3'
-        };
-    }
-  };
-
-  const spacing = getSpacing();
-
-
   return (
     <div className="w-full h-full relative bg-[#E4E5E0] flex flex-col">
-      {/* Main Content - dynamic spacing based on screen size */}
-      <div className={`flex-1 flex flex-col justify-start px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 ${spacing.containerPadding}`}>
+      {/* Main Content - responsive spacing using Tailwind breakpoints */}
+      <div className="flex-1 flex flex-col justify-start px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 pt-2 sm:pt-6 md:pt-8 lg:pt-10 xl:pt-12 pb-2 sm:pb-6 md:pb-8 lg:pb-10 xl:pb-12">
         {/* Header */}
-        <div className={`text-center ${spacing.headerPadding}`}>
+        <div className="text-center pt-0 sm:pt-2 md:pt-4 lg:pt-6 xl:pt-8 mb-1 sm:mb-4 md:mb-6 lg:mb-8 xl:mb-10">
           <h1 className="font-lato text-[31px] sm:text-[34px] md:text-[37px] lg:text-[40px] xl:text-[42px] font-normal text-black mb-2 sm:mb-3 md:mb-4 lg:mb-5" style={{ lineHeight: '0.97' }}>
             Time to start over
           </h1>
-          <p className={`font-lato text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] xl:text-[17px] font-normal text-gray-700 ${spacing.textMargin}`} style={{ lineHeight: '0.97' }}>
+          <p className="font-lato text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] xl:text-[17px] font-normal text-gray-700 mb-1 sm:mb-3 md:mb-4 lg:mb-5 xl:mb-6" style={{ lineHeight: '0.97' }}>
             Ontdek de kracht van haartransplantatie
           </p>
         </div>
 
         {/* Country Selection */}
-        <div className={`flex justify-center ${spacing.countryMargin}`}>
+        <div className="flex justify-center mb-2 sm:mb-4 md:mb-6 lg:mb-8 xl:mb-10">
           <div 
             className="rounded-full p-0.5 sm:p-1"
             style={{
@@ -180,7 +122,7 @@ export const TreatmentSelectionSection2 = () => {
         </div>
 
         {/* Package Selection */}
-        <div className={`flex justify-center ${spacing.packageMargin}`}>
+        <div className="flex justify-center mb-2 sm:mb-4 md:mb-6 lg:mb-8 xl:mb-10">
           <div 
             className="rounded-full p-0.5 sm:p-1"
             style={{
@@ -221,7 +163,7 @@ export const TreatmentSelectionSection2 = () => {
         </div>
 
         {/* Dynamic Package Content */}
-        <div className={`text-center ${spacing.contentMargin}`}>
+        <div className="text-center mb-2 sm:mb-4 md:mb-6 lg:mb-8 xl:mb-10">
           <div className="max-w-48 mx-auto">
             {packageContent[profile.selectedPackage as keyof typeof packageContent]?.map((item, index) => (
               <div key={index} className="flex items-start justify-start mb-1 text-left">
