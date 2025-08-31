@@ -162,33 +162,33 @@ export const TreatmentSelectionSection = () => {
 
       {/* Right Side Icons */}
       <div className="absolute right-4 top-1/2 transform -translate-y-1/2 space-y-6">
-        <div 
-          className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center"
+        <button 
+          onClick={() => {/* TODO: Add chat functionality */}}
+          className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 hover:border-white/60 hover:bg-white/15 transition-all duration-200 cursor-pointer shadow-lg hover:shadow-xl"
           style={{
-            border: '0.86px solid',
-            borderImageSource: 'linear-gradient(90deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.6) 100%)',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.3)',
           }}
         >
           <MessageCircle className="w-6 h-6 text-white/80" />
-        </div>
-        <div 
-          className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center"
+        </button>
+        <button 
+          onClick={() => {/* TODO: Add support functionality */}}
+          className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 hover:border-white/60 hover:bg-white/15 transition-all duration-200 cursor-pointer shadow-lg hover:shadow-xl"
           style={{
-            border: '0.86px solid',
-            borderImageSource: 'linear-gradient(90deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.6) 100%)',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.3)',
           }}
         >
           <Headphones className="w-6 h-6 text-white/80" />
-        </div>
-        <div 
-          className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center"
+        </button>
+        <button 
+          onClick={() => {/* TODO: Add guide functionality */}}
+          className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 hover:border-white/60 hover:bg-white/15 transition-all duration-200 cursor-pointer shadow-lg hover:shadow-xl"
           style={{
-            border: '0.86px solid',
-            borderImageSource: 'linear-gradient(90deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.6) 100%)',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.3)',
           }}
         >
           <BookOpen className="w-6 h-6 text-white/80" />
-        </div>
+        </button>
       </div>
     </div>
   );
