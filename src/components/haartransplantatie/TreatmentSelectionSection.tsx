@@ -47,10 +47,10 @@ export const TreatmentSelectionSection = () => {
       <div className="flex-1 flex flex-col justify-center px-6 pb-20">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-black mb-2">
+          <h1 className="font-lato text-[36px] leading-tight font-normal text-black mb-2">
             Time to start over
           </h1>
-          <p className="text-lg text-gray-700">
+          <p className="font-lato text-[14px] leading-relaxed font-normal text-gray-700">
             Ontdek de kracht van haartransplantatie
           </p>
         </div>
@@ -63,7 +63,7 @@ export const TreatmentSelectionSection = () => {
                 <button
                   key={country}
                   onClick={() => updateProfile('locatie', country)}
-                  className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                  className={`px-6 py-2 rounded-full font-lato text-[14px] font-normal transition-all duration-200 ${
                     profile.locatie === country
                       ? 'bg-white text-black shadow-sm'
                       : 'text-gray-600 hover:text-black'
@@ -89,7 +89,7 @@ export const TreatmentSelectionSection = () => {
                   )}
                   <button
                     onClick={() => setSelectedPackage(pkg.id)}
-                    className={`px-6 py-2 text-sm font-medium transition-all duration-200 first:rounded-l-full last:rounded-r-full ${
+                    className={`px-6 py-2 font-lato text-[14px] font-normal transition-all duration-200 first:rounded-l-full last:rounded-r-full ${
                       selectedPackage === pkg.id
                         ? 'bg-white text-black shadow-sm'
                         : 'text-gray-600 hover:text-black'
@@ -109,7 +109,7 @@ export const TreatmentSelectionSection = () => {
             {features.map((feature, index) => (
               <li key={index} className="flex items-start text-gray-700">
                 <span className="w-1.5 h-1.5 rounded-full bg-black mt-2 mr-3 flex-shrink-0" />
-                <span className="text-sm leading-relaxed">{feature}</span>
+                <span className="font-lato text-[14px] font-normal leading-relaxed">{feature}</span>
               </li>
             ))}
           </ul>
@@ -117,7 +117,7 @@ export const TreatmentSelectionSection = () => {
 
         {/* Cost Display */}
         <div className="text-center">
-          <p className="text-sm font-medium text-gray-700">
+          <p className="font-lato text-[14px] font-normal text-gray-700">
             Geschatte kosten: {formatPrice(totalPrice)}
           </p>
         </div>
