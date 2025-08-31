@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useSession } from '@/hooks/useSession';
-import { calculatePrice, formatPrice } from '@/lib/pricing';
 import { Info, BookOpen } from 'lucide-react';
+import { calculatePrice, formatPrice } from '@/lib/pricing';
 
 export const TreatmentSelectionSection2 = () => {
   const { language } = useLanguage();
@@ -12,19 +12,19 @@ export const TreatmentSelectionSection2 = () => {
   
   const totalPrice = calculatePrice(profile);
 
-  // Flash effect for price changes
+  // Flash effect when price changes
   useEffect(() => {
     setPriceFlash(true);
-    const timer = setTimeout(() => setPriceFlash(false), 200);
+    const timer = setTimeout(() => setPriceFlash(false), 300);
     return () => clearTimeout(timer);
   }, [totalPrice]);
 
-  // Staggered button loading animation
+  // Staggered button entrance animation
   useEffect(() => {
     const timers = [
-      setTimeout(() => setButtonsLoaded(prev => [true, prev[1], prev[2]]), 1500),
-      setTimeout(() => setButtonsLoaded(prev => [prev[0], true, prev[2]]), 1800),
-      setTimeout(() => setButtonsLoaded(prev => [prev[0], prev[1], true]), 2100),
+      setTimeout(() => setButtonsLoaded(prev => [true, prev[1], prev[2]]), 3200),
+      setTimeout(() => setButtonsLoaded(prev => [prev[0], true, prev[2]]), 3400),
+      setTimeout(() => setButtonsLoaded(prev => [prev[0], prev[1], true]), 3600),
     ];
     
     return () => timers.forEach(clearTimeout);
@@ -33,28 +33,29 @@ export const TreatmentSelectionSection2 = () => {
   const packages = [
     { 
       id: 'Standard', 
-      label: language === 'nl' ? 'Standard' : 'Standard',
+      label: 'Standard',
       isNew: false
     },
     { 
       id: 'Plus', 
-      label: language === 'nl' ? 'Plus' : 'Plus',
+      label: 'Plus',
       isNew: false
     },
     { 
       id: 'Premium', 
-      label: language === 'nl' ? 'Premium' : 'Premium',
-      isNew: false
+      label: 'Premium',
+      isNew: true
     },
     { 
       id: 'Advanced', 
-      label: language === 'nl' ? 'Advanced' : 'Advanced',
+      label: 'Advanced',
       isNew: true
     }
   ];
 
+
   return (
-    <div className="w-full h-full relative overflow-hidden">
+    <div className="w-full h-full relative bg-[#E4E5E0] flex flex-col">
       {/* Main Content - now naturally positioned after the grid */}
       <div className="flex-1 flex flex-col justify-start px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 pt-10 sm:pt-14 md:pt-18 lg:pt-22 xl:pt-24 pb-10 sm:pb-14 md:pb-18 lg:pb-22 xl:pb-24">
         {/* Header */}
@@ -62,109 +63,127 @@ export const TreatmentSelectionSection2 = () => {
           <h1 className="font-lato text-[31px] sm:text-[34px] md:text-[37px] lg:text-[40px] xl:text-[42px] font-normal text-black mb-2 sm:mb-3 md:mb-4 lg:mb-5" style={{ lineHeight: '0.97' }}>
             Time to start over
           </h1>
-          <p className="text-[13px] sm:text-[14px] md:text-[15px] text-gray-600 font-medium leading-relaxed mb-12 sm:mb-14 md:mb-16 lg:mb-20 xl:mb-24">
-            Kies uw locatie en pakket om te beginnen aan uw transformatie
+          <p className="font-lato text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] xl:text-[17px] font-normal text-gray-700" style={{ lineHeight: '0.97' }}>
+            Ontdek de kracht van haartransplantatie
           </p>
         </div>
 
         {/* Country Selection */}
-        <div className="text-center mb-12 sm:mb-14 md:mb-16 lg:mb-20 xl:mb-24">
-          <div className="flex justify-center gap-4 sm:gap-6 md:gap-8">
-            <button
-              onClick={() => updateProfile('locatie', 'Nederland')}
-              className={`px-6 sm:px-8 md:px-10 lg:px-12 py-2.5 sm:py-3 md:py-3.5 text-sm sm:text-base font-medium rounded-full transition-all duration-300 ${
-                profile.locatie === 'Nederland' 
-                  ? 'bg-black text-white shadow-lg' 
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              Nederland
-            </button>
-            <button
-              onClick={() => updateProfile('locatie', 'Turkije')}
-              className={`px-6 sm:px-8 md:px-10 lg:px-12 py-2.5 sm:py-3 md:py-3.5 text-sm sm:text-base font-medium rounded-full transition-all duration-300 ${
-                profile.locatie === 'Turkije' 
-                  ? 'bg-black text-white shadow-lg' 
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              Turkije
-            </button>
+        <div className="flex justify-center mb-6 sm:mb-8 md:mb-10 lg:mb-12 xl:mb-16">
+          <div 
+            className="rounded-full p-0.5 sm:p-1"
+            style={{
+              border: '1px solid',
+              borderImageSource: 'linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.6) 100%)',
+              background: 'rgba(228, 229, 224, 1)',
+              backdropFilter: 'blur(30px)',
+              boxShadow: '4px 3px 9.1px 4px rgba(0, 0, 0, 0.25) inset',
+            }}
+          >
+            <div className="flex">
+              {['Nederland', 'Turkije'].map((country) => (
+                <button
+                  key={country}
+                  onClick={() => updateProfile('locatie', country)}
+                  className={`px-4 sm:px-5 md:px-6 lg:px-7 py-1.5 sm:py-2 rounded-full font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal transition-all duration-200 ${
+                    profile.locatie === country
+                      ? 'text-black'
+                      : 'text-gray-600 hover:text-black'
+                  }`}
+                  style={profile.locatie === country ? {
+                    boxShadow: '5px 0px 12px 0px rgba(151, 151, 151, 1)',
+                    backdropFilter: 'blur(52.3px)',
+                    background: 'rgba(255, 255, 255, 0.9)'
+                  } : {}}
+                >
+                  {country}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
         {/* Package Selection */}
-        <div className="text-center mb-12 sm:mb-14 md:mb-16 lg:mb-20 xl:mb-24">
-          <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 max-w-sm sm:max-w-md mx-auto">
-            {packages.map((pkg) => (
-              <button
-                key={pkg.id}
-              onClick={() => updateProfile('selectedPackage', pkg.id)}
-              className={`relative px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-medium rounded-lg transition-all duration-300 ${
-                profile.selectedPackage === pkg.id
-                    ? 'bg-black text-white shadow-lg'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                {pkg.label}
-                {pkg.isNew && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
-                    Nieuw
-                  </span>
-                )}
-              </button>
-            ))}
+        <div className="flex justify-center mb-8 sm:mb-10 md:mb-12 lg:mb-16 xl:mb-20">
+          <div 
+            className="rounded-full p-0.5 sm:p-1"
+            style={{
+              border: '1px solid',
+              borderImageSource: 'linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.6) 100%)',
+              background: 'rgba(228, 229, 224, 1)',
+              backdropFilter: 'blur(30px)',
+              boxShadow: '4px 3px 9.1px 4px rgba(0, 0, 0, 0.25) inset',
+            }}
+          >
+            <div className="flex">
+              {packages.map((pkg) => (
+                <div key={pkg.id} className="relative">
+                  {pkg.isNew && (
+                    <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 z-50 px-2 py-0.5 rounded-full font-lato text-[7px] font-normal text-white" style={{ background: 'rgba(76, 104, 125, 1)' }}>
+                      Nieuw
+                    </div>
+                  )}
+                  <button
+                    onClick={() => updateProfile('selectedPackage', pkg.id)}
+                    className={`px-4 sm:px-5 md:px-6 lg:px-7 py-1.5 sm:py-2 font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal transition-all duration-200 rounded-full ${
+                      profile.selectedPackage === pkg.id
+                        ? 'text-black'
+                        : 'text-gray-600 hover:text-black'
+                    }`}
+                    style={profile.selectedPackage === pkg.id ? {
+                      boxShadow: '5px 0px 12px 0px rgba(151, 151, 151, 1)',
+                      backdropFilter: 'blur(52.3px)',
+                      background: 'rgba(255, 255, 255, 0.9)'
+                    } : {}}
+                  >
+                    {pkg.label}
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Price Display */}
+
+        {/* Cost Display */}
         <div className="text-center">
-          <div 
-            className={`inline-block px-6 sm:px-8 py-3 sm:py-4 rounded-2xl transition-all duration-200 ${
-              priceFlash ? 'bg-yellow-100 scale-105' : 'bg-gray-50'
-            }`}
-          >
-            <p className="text-xs sm:text-sm text-gray-600 mb-1 font-medium">
-              Geschatte kosten
-            </p>
-            <p className="text-xl sm:text-2xl md:text-3xl font-bold text-black">
-              {formatPrice(totalPrice)}
-            </p>
-          </div>
+          <p className={`font-lato text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] font-normal text-gray-700 transition-all duration-300 ${
+            priceFlash ? 'bg-white/60 px-3 py-1 rounded-full shadow-sm' : ''
+          }`}>
+            Geschatte kosten: {formatPrice(totalPrice)}
+          </p>
         </div>
       </div>
 
-      {/* Right Side Informational Icons */}
-      <div className="fixed bottom-20 sm:bottom-24 right-4 sm:right-6 flex flex-col space-y-3 z-40">
-        {/* Info Button */}
+      {/* Right Side Icons */}
+      <div className="fixed right-3 sm:right-4 md:right-5 lg:right-6 bottom-20 sm:bottom-24 md:bottom-28 lg:bottom-32 xl:bottom-36 space-y-3 z-50">
         <button 
-          className={`w-12 h-12 sm:w-14 sm:h-14 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200/50 ${
-            buttonsLoaded[0] ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
+          onClick={() => {/* TODO: Add info functionality */}}
+          className={`w-12 h-12 sm:w-14 sm:h-14 bg-black/18 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/22 transition-all duration-700 ease-in-out cursor-pointer ${
+            buttonsLoaded[0] ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
           }`}
         >
-          <Info className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700" />
+          <Info className="w-6 h-6 sm:w-7 sm:h-7 text-white/90" />
         </button>
-        
-        {/* Guide Button */}
         <button 
-          className={`w-12 h-12 sm:w-14 sm:h-14 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200/50 ${
-            buttonsLoaded[1] ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
-          }`}
-        >
-          <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700" />
-        </button>
-        
-        {/* Support Button */}
-        <button 
-          className={`w-12 h-12 sm:w-14 sm:h-14 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200/50 ${
-            buttonsLoaded[2] ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
+          onClick={() => {/* TODO: Add support functionality */}}
+          className={`w-12 h-12 sm:w-14 sm:h-14 bg-black/18 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/22 transition-all duration-700 ease-in-out cursor-pointer ${
+            buttonsLoaded[1] ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
           }`}
         >
           <img 
-            src="/lovable-uploads/b5004700-4ebf-4a8d-9f10-fcddc2176942.png" 
-            alt="Support" 
-            className="w-5 h-5 sm:w-6 sm:h-6"
+            src="/lovable-uploads/61372204-ad34-421b-877a-e61ca6adf93e.png" 
+            alt="Support icon" 
+            className="w-6 h-6 sm:w-7 sm:h-7 opacity-90"
           />
+        </button>
+        <button 
+          onClick={() => {/* TODO: Add guide functionality */}}
+          className={`w-12 h-12 sm:w-14 sm:h-14 bg-black/18 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/22 transition-all duration-700 ease-in-out cursor-pointer ${
+            buttonsLoaded[2] ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+          }`}
+        >
+          <BookOpen className="w-6 h-6 sm:w-7 sm:h-7 text-white/90" />
         </button>
       </div>
     </div>
