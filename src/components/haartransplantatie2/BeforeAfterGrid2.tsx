@@ -56,9 +56,8 @@ export const BeforeAfterGrid2 = () => {
             key={item.id}
             onClick={() => handleItemClick(item.id)}
             className={cn(
-              "w-full h-full relative cursor-pointer transition-all duration-200 ease-out",
-              "min-h-0 flex-shrink-0 bg-muted hover:scale-[1.02] hover:shadow-lg",
-              "transform-gpu" // Use GPU acceleration for smoother animations
+              "w-full h-full relative cursor-pointer",
+              "min-h-0 flex-shrink-0 bg-muted"
             )}
           >
             <ImageComponent
