@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useSession } from '@/hooks/useSession';
 import { MessageCircle, Headphones, BookOpen } from 'lucide-react';
@@ -7,8 +7,16 @@ import { calculatePrice, formatPrice } from '@/lib/pricing';
 export const TreatmentSelectionSection = () => {
   const { language } = useLanguage();
   const { profile, updateProfile } = useSession();
+  const [priceFlash, setPriceFlash] = useState(false);
   
   const totalPrice = calculatePrice(profile);
+
+  // Flash effect when price changes
+  useEffect(() => {
+    setPriceFlash(true);
+    const timer = setTimeout(() => setPriceFlash(false), 300);
+    return () => clearTimeout(timer);
+  }, [totalPrice]);
 
   const packages = [
     { 
@@ -144,7 +152,9 @@ export const TreatmentSelectionSection = () => {
 
         {/* Cost Display */}
         <div className="text-center">
-          <p className="font-lato text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] font-normal text-gray-700">
+          <p className={`font-lato text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] font-normal text-gray-700 transition-all duration-300 ${
+            priceFlash ? 'bg-white/60 px-3 py-1 rounded-full shadow-sm' : ''
+          }`}>
             Geschatte kosten: {formatPrice(totalPrice)}
           </p>
         </div>

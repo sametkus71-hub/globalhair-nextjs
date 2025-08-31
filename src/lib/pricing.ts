@@ -1,31 +1,24 @@
-import { UserProfile } from '@/hooks/useSession';
+import { UserProfile, Package, Location } from '@/hooks/useSession';
 
-export const PRICING_CONFIG = {
-  base: 9000,
-  modifiers: {
-    locatie: { 
-      'Turkije': 3000, 
-      'Nederland': 0 
-    },
-    scheren: { 
-      'Zonder scheren': 1000, 
-      'Met scheren': 0 
-    },
-    behandeling: { 
-      'Stamcel': 1500, 
-      'Normaal': 0 
-    }
-  }
+// Base package prices in euros
+const PACKAGE_PRICES: Record<Package, number> = {
+  'Standard': 7500,
+  'Plus': 10000,
+  'Premium': 12500,
+  'Advanced': 15000
+};
+
+// Location-based price adjustments
+const LOCATION_ADJUSTMENTS: Record<Location, number> = {
+  'Nederland': 0,
+  'Turkije': 3000
 };
 
 export const calculatePrice = (profile: UserProfile): number => {
-  let totalPrice = PRICING_CONFIG.base;
+  const basePrice = PACKAGE_PRICES[profile.selectedPackage] || PACKAGE_PRICES.Standard;
+  const locationAdjustment = LOCATION_ADJUSTMENTS[profile.locatie] || 0;
   
-  totalPrice += PRICING_CONFIG.modifiers.locatie[profile.locatie] || 0;
-  totalPrice += PRICING_CONFIG.modifiers.scheren[profile.scheren] || 0;
-  totalPrice += PRICING_CONFIG.modifiers.behandeling[profile.behandeling] || 0;
-  
-  return totalPrice;
+  return basePrice + locationAdjustment;
 };
 
 export const formatPrice = (price: number): string => {
@@ -35,4 +28,18 @@ export const formatPrice = (price: number): string => {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(price);
+};
+
+export const getPriceBreakdown = (profile: UserProfile) => {
+  const basePrice = PACKAGE_PRICES[profile.selectedPackage] || PACKAGE_PRICES.Standard;
+  const locationAdjustment = LOCATION_ADJUSTMENTS[profile.locatie] || 0;
+  const totalPrice = basePrice + locationAdjustment;
+  
+  return {
+    basePrice,
+    locationAdjustment,
+    totalPrice,
+    packageName: profile.selectedPackage,
+    location: profile.locatie
+  };
 };
