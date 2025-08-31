@@ -164,7 +164,7 @@ export const TreatmentSelectionSection = () => {
       <div className="fixed right-3 sm:right-4 md:right-5 lg:right-6 bottom-20 sm:bottom-24 md:bottom-28 lg:bottom-32 xl:bottom-36 space-y-3 z-50">
         <button 
           onClick={() => {/* TODO: Add chat functionality */}}
-          className="w-11 h-11 sm:w-12 sm:h-12 bg-black/15 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/20 transition-all duration-200 cursor-pointer"
+          className="w-11 h-11 sm:w-12 sm:h-12 bg-black/8 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/12 transition-all duration-200 cursor-pointer"
           style={{
             boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
           }}
@@ -173,7 +173,7 @@ export const TreatmentSelectionSection = () => {
         </button>
         <button 
           onClick={() => {/* TODO: Add support functionality */}}
-          className="w-11 h-11 sm:w-12 sm:h-12 bg-black/15 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/20 transition-all duration-200 cursor-pointer"
+          className="w-11 h-11 sm:w-12 sm:h-12 bg-black/8 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/12 transition-all duration-200 cursor-pointer"
           style={{
             boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
           }}
@@ -182,7 +182,7 @@ export const TreatmentSelectionSection = () => {
         </button>
         <button 
           onClick={() => {/* TODO: Add guide functionality */}}
-          className="w-11 h-11 sm:w-12 sm:h-12 bg-black/15 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/20 transition-all duration-200 cursor-pointer"
+          className="w-11 h-11 sm:w-12 sm:h-12 bg-black/8 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/12 transition-all duration-200 cursor-pointer"
           style={{
             boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
           }}
