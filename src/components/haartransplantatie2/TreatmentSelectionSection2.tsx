@@ -88,7 +88,7 @@ export const TreatmentSelectionSection2 = () => {
         </div>
 
         {/* Country Selection */}
-        <div className="flex justify-center mb-10 sm:mb-12 md:mb-14 lg:mb-16 xl:mb-18">
+        <div className="flex justify-center mb-4 sm:mb-5 md:mb-6 lg:mb-7 xl:mb-8">
           <div 
             className="rounded-full p-0.5 sm:p-1"
             style={{
@@ -165,7 +165,7 @@ export const TreatmentSelectionSection2 = () => {
 
         {/* Dynamic Package Content */}
         <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16 xl:mb-20">
-          <div className="max-w-xs mx-auto">
+          <div className="max-w-48 mx-auto">
             {packageContent[profile.selectedPackage as keyof typeof packageContent]?.map((item, index) => (
               <div key={index} className="flex items-start justify-start mb-1 text-left">
                 <span className="text-black mr-3 mt-0.5">•</span>
