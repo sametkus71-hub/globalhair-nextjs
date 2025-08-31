@@ -13,9 +13,6 @@ export const GenderToggle = () => {
       className="relative inline-flex p-0.5 rounded-full"
       style={{
         boxShadow: '-2px 6px 6.3px 0px rgba(0, 0, 0, 0.25) inset',
-        border: '1px solid',
-        borderImage: 'linear-gradient(90deg, rgba(255, 255, 255, 0.27) 0%, rgba(255, 255, 255, 0.35) 100%)',
-        borderImageSlice: 1,
       }}
     >
       <button
