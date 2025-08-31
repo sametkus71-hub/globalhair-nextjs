@@ -59,7 +59,7 @@ export const TreatmentSelectionSection = () => {
       {/* Main Content - now naturally positioned after the grid */}
       <div className="flex-1 flex flex-col justify-start px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 pt-10 sm:pt-14 md:pt-18 lg:pt-22 xl:pt-24 pb-10 sm:pb-14 md:pb-18 lg:pb-22 xl:pb-24">
         {/* Header */}
-        <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16 xl:mb-20">
+        <div className="text-center pt-6 sm:pt-8 md:pt-10 lg:pt-12 xl:pt-16 mb-8 sm:mb-10 md:mb-12 lg:mb-16 xl:mb-20">
           <h1 className="font-lato text-[31px] sm:text-[34px] md:text-[37px] lg:text-[40px] xl:text-[42px] font-normal text-black mb-2 sm:mb-3 md:mb-4 lg:mb-5" style={{ lineHeight: '0.97' }}>
             Time to start over
           </h1>
