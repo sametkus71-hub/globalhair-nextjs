@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 // Pages
 import HomePage from '@/pages/HomePage';
 import HaartransplantatiePage from '@/pages/HaartransplantatiePage';
+import HaartransplantatiePage2 from '@/pages/HaartransplantatiePage2';
 import HaartransplantatieOldPage from '@/pages/HaartransplantatieOldPage';
 import V6HairboostPage from '@/pages/V6HairboostPage';
 import ComingSoon1Page from '@/pages/ComingSoon1Page';
@@ -23,6 +24,7 @@ export const SEORoutes = () => {
       {/* Dutch routes */}
       <Route path="/nl" element={<HomePage />} />
       <Route path="/nl/haartransplantatie" element={<HaartransplantatiePage />} />
+      <Route path="/nl/haartransplantatie2" element={<HaartransplantatiePage2 />} />
       <Route path="/nl/haartransplantatie-old" element={<HaartransplantatieOldPage />} />
       <Route path="/nl/v6-hairboost" element={<V6HairboostPage />} />
       <Route path="/nl/coming-soon-1" element={<ComingSoon1Page />} />
