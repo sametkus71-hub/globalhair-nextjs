@@ -105,12 +105,12 @@ export const TreatmentSelectionSection2 = () => {
   const getPhoneSpacing = () => {
     if (phoneSize === 'small') {
       return {
-        container: 'pt-1 pb-1',
-        header: 'pt-0 mb-1',
-        text: 'mb-1',
-        country: 'mb-1', // Reduced gap between switches
-        package: 'mb-1', // Reduced gap between switches  
-        content: 'mb-1'
+        container: 'pt-0 pb-1', // Move everything up by removing top padding
+        header: 'pt-0 mb-2', // Keep header spacing
+        text: 'mb-2',
+        country: 'mb-1', // Small gap after country selector
+        package: 'mb-3', // Slightly more space after package for content
+        content: 'mb-2'
       };
     } else {
       return {
