@@ -47,7 +47,7 @@ export const TreatmentSelectionSection = () => {
       <div className="flex-1 flex flex-col justify-start px-6 pt-20 pb-20">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="font-lato text-[32px] font-normal text-black mb-1" style={{ lineHeight: '0.97' }}>
+          <h1 className="font-lato text-[36px] font-normal text-black mb-1" style={{ lineHeight: '0.97' }}>
             Time to start over
           </h1>
           <p className="font-lato text-[14px] font-normal text-gray-700" style={{ lineHeight: '0.97' }}>
