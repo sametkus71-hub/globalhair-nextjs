@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useSession } from '@/hooks/useSession';
-import { MessageCircle, Headphones, BookOpen } from 'lucide-react';
+import { Info, Headphones, BookOpen } from 'lucide-react';
 import { calculatePrice, formatPrice } from '@/lib/pricing';
 
 export const TreatmentSelectionSection = () => {
@@ -163,13 +163,13 @@ export const TreatmentSelectionSection = () => {
       {/* Right Side Icons */}
       <div className="fixed right-3 sm:right-4 md:right-5 lg:right-6 bottom-20 sm:bottom-24 md:bottom-28 lg:bottom-32 xl:bottom-36 space-y-3 z-50">
         <button 
-          onClick={() => {/* TODO: Add chat functionality */}}
+          onClick={() => {/* TODO: Add info functionality */}}
           className="w-11 h-11 sm:w-12 sm:h-12 bg-black/20 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/25 transition-all duration-200 cursor-pointer"
           style={{
             boxShadow: '0 2px 6px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
           }}
         >
-          <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white/90" />
+          <Info className="w-5 h-5 sm:w-6 sm:h-6 text-white/90" />
         </button>
         <button 
           onClick={() => {/* TODO: Add support functionality */}}
