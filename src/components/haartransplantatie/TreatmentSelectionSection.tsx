@@ -60,7 +60,11 @@ export const TreatmentSelectionSection = () => {
           <div 
             className="rounded-full p-0.5 sm:p-1"
             style={{
-              boxShadow: '-2px 6px 6.3px 0px rgba(0, 0, 0, 0.25) inset',
+              border: '1px solid',
+              borderImageSource: 'linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.6) 100%)',
+              background: 'rgba(228, 229, 224, 1)',
+              backdropFilter: 'blur(30px)',
+              boxShadow: '4px 3px 9.1px 4px rgba(0, 0, 0, 0.25) inset',
             }}
           >
             <div className="flex">
@@ -91,7 +95,11 @@ export const TreatmentSelectionSection = () => {
           <div 
             className="rounded-full p-0.5 sm:p-1"
             style={{
-              boxShadow: '-2px 6px 6.3px 0px rgba(0, 0, 0, 0.25) inset',
+              border: '1px solid',
+              borderImageSource: 'linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.6) 100%)',
+              background: 'rgba(228, 229, 224, 1)',
+              backdropFilter: 'blur(30px)',
+              boxShadow: '4px 3px 9.1px 4px rgba(0, 0, 0, 0.25) inset',
             }}
           >
             <div className="flex">
