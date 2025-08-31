@@ -9,11 +9,37 @@ export const TreatmentSelectionSection2 = () => {
   const { profile, updateProfile } = useSession();
   const [priceFlash, setPriceFlash] = useState(false);
   const [buttonsLoaded, setButtonsLoaded] = useState([false, false, false]);
+  const [phoneSize, setPhoneSize] = useState<'small' | 'large'>('small');
   
   const totalPrice = calculatePrice(profile);
 
   // Force recompilation to clear cached version with spacing references
   console.log('TreatmentSelectionSection2 loaded successfully');
+
+  // Phone size detection - specifically for phones
+  useEffect(() => {
+    const detectPhoneSize = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      
+      // Only apply phone detection for mobile devices
+      if (width <= 480 && height > width) { // Portrait mobile devices
+        if (width <= 390) {
+          setPhoneSize('small'); // iPhone 14, iPhone 13, smaller phones
+        } else {
+          setPhoneSize('large'); // iPhone 14 Pro Max, iPhone 15 Plus, larger phones
+        }
+      } else {
+        setPhoneSize('large'); // Default for tablets/desktops
+      }
+      
+      console.log('Phone size detected:', width <= 390 ? 'small' : 'large', 'width:', width);
+    };
+
+    detectPhoneSize();
+    window.addEventListener('resize', detectPhoneSize);
+    return () => window.removeEventListener('resize', detectPhoneSize);
+  }, []);
 
   // Flash effect when price changes
   useEffect(() => {
@@ -75,22 +101,47 @@ export const TreatmentSelectionSection2 = () => {
     ]
   };
 
+  // Dynamic spacing based on phone size detection
+  const getPhoneSpacing = () => {
+    if (phoneSize === 'small') {
+      return {
+        container: 'pt-2 pb-2',
+        header: 'pt-0 mb-1',
+        text: 'mb-1',
+        country: 'mb-2',
+        package: 'mb-2',
+        content: 'mb-2'
+      };
+    } else {
+      return {
+        container: 'pt-6 pb-6',
+        header: 'pt-2 mb-6',
+        text: 'mb-4',
+        country: 'mb-6',
+        package: 'mb-6',
+        content: 'mb-6'
+      };
+    }
+  };
+
+  const spacing = getPhoneSpacing();
+
   return (
     <div className="w-full h-full relative bg-[#E4E5E0] flex flex-col">
-      {/* Main Content - dramatic responsive spacing differences */}
-      <div className="flex-1 flex flex-col justify-start px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 pt-2 sm:pt-8 md:pt-12 lg:pt-16 xl:pt-20 pb-2 sm:pb-8 md:pb-12 lg:pb-16 xl:pb-20">
+      {/* Main Content - phone size specific spacing */}
+      <div className={`flex-1 flex flex-col justify-start px-4 ${spacing.container}`}>
         {/* Header */}
-        <div className="text-center pt-0 sm:pt-4 md:pt-8 lg:pt-12 xl:pt-16 mb-1 sm:mb-6 md:mb-10 lg:mb-16 xl:mb-20">
-          <h1 className="font-lato text-[31px] sm:text-[34px] md:text-[37px] lg:text-[40px] xl:text-[42px] font-normal text-black mb-2 sm:mb-3 md:mb-4 lg:mb-6 xl:mb-8" style={{ lineHeight: '0.97' }}>
+        <div className={`text-center ${spacing.header}`}>
+          <h1 className="font-lato text-[31px] font-normal text-black mb-2" style={{ lineHeight: '0.97' }}>
             Time to start over
           </h1>
-          <p className="font-lato text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] xl:text-[17px] font-normal text-gray-700 mb-1 sm:mb-4 md:mb-6 lg:mb-10 xl:mb-12" style={{ lineHeight: '0.97' }}>
+          <p className={`font-lato text-[13px] font-normal text-gray-700 ${spacing.text}`} style={{ lineHeight: '0.97' }}>
             Ontdek de kracht van haartransplantatie
           </p>
         </div>
 
         {/* Country Selection */}
-        <div className="flex justify-center mb-2 sm:mb-6 md:mb-10 lg:mb-16 xl:mb-20">
+        <div className={`flex justify-center ${spacing.country}`}>
           <div 
             className="rounded-full p-0.5 sm:p-1"
             style={{
@@ -125,7 +176,7 @@ export const TreatmentSelectionSection2 = () => {
         </div>
 
         {/* Package Selection */}
-        <div className="flex justify-center mb-2 sm:mb-6 md:mb-10 lg:mb-16 xl:mb-20">
+        <div className={`flex justify-center ${spacing.package}`}>
           <div 
             className="rounded-full p-0.5 sm:p-1"
             style={{
@@ -166,7 +217,7 @@ export const TreatmentSelectionSection2 = () => {
         </div>
 
         {/* Dynamic Package Content */}
-        <div className="text-center mb-2 sm:mb-6 md:mb-10 lg:mb-16 xl:mb-20">
+        <div className={`text-center ${spacing.content}`}>
           <div className="max-w-48 mx-auto">
             {packageContent[profile.selectedPackage as keyof typeof packageContent]?.map((item, index) => (
               <div key={index} className="flex items-start justify-start mb-1 text-left">

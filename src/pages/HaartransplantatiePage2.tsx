@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useState, useEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { MetaHead } from '@/components/MetaHead';
@@ -14,6 +14,40 @@ import { DesktopContainer } from '@/components/layout/DesktopContainer';
 const HaartransplantatiePage2 = () => {
   const { language } = useLanguage();
   const { height } = useViewportHeight();
+  const [phoneSize, setPhoneSize] = useState<'small' | 'large'>('small');
+
+  // Phone size detection for logo positioning - same as component
+  useEffect(() => {
+    const detectPhoneSize = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      
+      if (width <= 480 && height > width) { // Portrait mobile devices
+        if (width <= 390) {
+          setPhoneSize('small'); // iPhone 14, iPhone 13, smaller phones
+        } else {
+          setPhoneSize('large'); // iPhone 14 Pro Max, iPhone 15 Plus, larger phones
+        }
+      } else {
+        setPhoneSize('large'); // Default for tablets/desktops
+      }
+      
+      console.log('Page logo phone size detected:', width <= 390 ? 'small' : 'large', 'width:', width);
+    };
+
+    detectPhoneSize();
+    window.addEventListener('resize', detectPhoneSize);
+    return () => window.removeEventListener('resize', detectPhoneSize);
+  }, []);
+
+  // Dynamic logo positioning based on phone size
+  const getLogoPosition = () => {
+    if (phoneSize === 'small') {
+      return 'calc(30vh - 60px)'; // Closer for small phones
+    } else {
+      return 'calc(30vh - 30px)'; // More space for larger phones
+    }
+  };
   
   // Disable scrolling on mount
   useLayoutEffect(() => {
@@ -45,11 +79,11 @@ const HaartransplantatiePage2 = () => {
               height: 'var(--app-height)'
             }}
           >
-            {/* Fading Central Logo - positioned with responsive spacing based on screen size */}
+            {/* Fading Central Logo - positioned with phone size detection */}
             <div 
               className="absolute left-1/2 transform -translate-x-1/2 z-[60] pointer-events-none"
               style={{ 
-                top: 'calc(30vh - 50px)' // Responsive positioning relative to grid height
+                top: getLogoPosition() // Dynamic positioning based on phone size detection
               }}
             >
               <div className="pointer-events-auto transform scale-125"> {/* Made 25% bigger */}
