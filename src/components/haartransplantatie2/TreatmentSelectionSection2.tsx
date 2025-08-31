@@ -77,20 +77,20 @@ export const TreatmentSelectionSection2 = () => {
 
   return (
     <div className="w-full h-full relative bg-[#E4E5E0] flex flex-col">
-      {/* Main Content - responsive spacing using Tailwind breakpoints */}
-      <div className="flex-1 flex flex-col justify-start px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 pt-2 sm:pt-6 md:pt-8 lg:pt-10 xl:pt-12 pb-2 sm:pb-6 md:pb-8 lg:pb-10 xl:pb-12">
+      {/* Main Content - dramatic responsive spacing differences */}
+      <div className="flex-1 flex flex-col justify-start px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 pt-2 sm:pt-8 md:pt-12 lg:pt-16 xl:pt-20 pb-2 sm:pb-8 md:pb-12 lg:pb-16 xl:pb-20">
         {/* Header */}
-        <div className="text-center pt-0 sm:pt-2 md:pt-4 lg:pt-6 xl:pt-8 mb-1 sm:mb-4 md:mb-6 lg:mb-8 xl:mb-10">
-          <h1 className="font-lato text-[31px] sm:text-[34px] md:text-[37px] lg:text-[40px] xl:text-[42px] font-normal text-black mb-2 sm:mb-3 md:mb-4 lg:mb-5" style={{ lineHeight: '0.97' }}>
+        <div className="text-center pt-0 sm:pt-4 md:pt-8 lg:pt-12 xl:pt-16 mb-1 sm:mb-6 md:mb-10 lg:mb-16 xl:mb-20">
+          <h1 className="font-lato text-[31px] sm:text-[34px] md:text-[37px] lg:text-[40px] xl:text-[42px] font-normal text-black mb-2 sm:mb-3 md:mb-4 lg:mb-6 xl:mb-8" style={{ lineHeight: '0.97' }}>
             Time to start over
           </h1>
-          <p className="font-lato text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] xl:text-[17px] font-normal text-gray-700 mb-1 sm:mb-3 md:mb-4 lg:mb-5 xl:mb-6" style={{ lineHeight: '0.97' }}>
+          <p className="font-lato text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] xl:text-[17px] font-normal text-gray-700 mb-1 sm:mb-4 md:mb-6 lg:mb-10 xl:mb-12" style={{ lineHeight: '0.97' }}>
             Ontdek de kracht van haartransplantatie
           </p>
         </div>
 
         {/* Country Selection */}
-        <div className="flex justify-center mb-2 sm:mb-4 md:mb-6 lg:mb-8 xl:mb-10">
+        <div className="flex justify-center mb-2 sm:mb-6 md:mb-10 lg:mb-16 xl:mb-20">
           <div 
             className="rounded-full p-0.5 sm:p-1"
             style={{
@@ -125,7 +125,7 @@ export const TreatmentSelectionSection2 = () => {
         </div>
 
         {/* Package Selection */}
-        <div className="flex justify-center mb-2 sm:mb-4 md:mb-6 lg:mb-8 xl:mb-10">
+        <div className="flex justify-center mb-2 sm:mb-6 md:mb-10 lg:mb-16 xl:mb-20">
           <div 
             className="rounded-full p-0.5 sm:p-1"
             style={{
@@ -166,7 +166,7 @@ export const TreatmentSelectionSection2 = () => {
         </div>
 
         {/* Dynamic Package Content */}
-        <div className="text-center mb-2 sm:mb-4 md:mb-6 lg:mb-8 xl:mb-10">
+        <div className="text-center mb-2 sm:mb-6 md:mb-10 lg:mb-16 xl:mb-20">
           <div className="max-w-48 mx-auto">
             {packageContent[profile.selectedPackage as keyof typeof packageContent]?.map((item, index) => (
               <div key={index} className="flex items-start justify-start mb-1 text-left">
