@@ -49,8 +49,8 @@ export const PageTransition = ({ children, isNewPage = false }: PageTransitionPr
     <div 
       className={cn(
         "min-h-[var(--app-height)] relative",
-        // Start with white background for smooth transition, no scale animation
-        isNewPage && !isVisible && "bg-white",
+        // Start with #E4E5E0 background for smooth transition, no scale animation
+        isNewPage && !isVisible && "bg-[#E4E5E0]",
         isNewPage && isVisible && "bg-transparent transition-colors duration-300"
       )}
     >
