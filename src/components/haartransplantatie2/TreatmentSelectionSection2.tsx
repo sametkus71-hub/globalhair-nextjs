@@ -53,6 +53,25 @@ export const TreatmentSelectionSection2 = () => {
     }
   ];
 
+  const packageContent = {
+    Standard: [
+      "Lorem ipsum dolor sit amet, consectetur adipiscing",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing"
+    ],
+    Plus: [
+      "Plus package lorem ipsum dolor sit amet, consectetur",
+      "Plus enhanced features with lorem ipsum dolor sit"
+    ],
+    Premium: [
+      "Premium package lorem ipsum dolor sit amet, consectetur",
+      "Premium exclusive features with lorem ipsum dolor"
+    ],
+    Advanced: [
+      "Advanced package lorem ipsum dolor sit amet, consectetur",
+      "Advanced cutting-edge features with lorem ipsum"
+    ]
+  };
+
 
   return (
     <div className="w-full h-full relative bg-[#E4E5E0] flex flex-col">
@@ -66,16 +85,6 @@ export const TreatmentSelectionSection2 = () => {
           <p className="font-lato text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] xl:text-[17px] font-normal text-gray-700 mb-4 sm:mb-6 md:mb-8" style={{ lineHeight: '0.97' }}>
             Ontdek de kracht van haartransplantatie
           </p>
-          
-          {/* Lorem Ipsum Content */}
-          <div className="max-w-2xl mx-auto px-4">
-            <p className="font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal text-gray-600 leading-relaxed mb-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
-            </p>
-            <p className="font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal text-gray-600 leading-relaxed">
-              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.
-            </p>
-          </div>
         </div>
 
         {/* Country Selection */}
@@ -151,6 +160,20 @@ export const TreatmentSelectionSection2 = () => {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* Dynamic Package Content */}
+        <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16 xl:mb-20">
+          <div className="max-w-md mx-auto">
+            {packageContent[profile.selectedPackage as keyof typeof packageContent]?.map((item, index) => (
+              <div key={index} className="flex items-start justify-start mb-2 text-left">
+                <span className="text-black mr-3 mt-1">•</span>
+                <p className="font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal text-gray-700 leading-relaxed">
+                  {item}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
 
