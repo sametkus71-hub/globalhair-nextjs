@@ -136,11 +136,23 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
         {/* Hard overlay for coming soon items - your brand color with subtle shine */}
         {isStatic && (
           <>
-            {/* Base overlay using your brand color #01334C */}
+            {/* Base overlay using darker brand color with vertical gradient */}
             <div 
               className="absolute inset-0 z-10"
               style={{
-                background: `linear-gradient(135deg, #01334C 0%, #001f2e 100%)`
+                background: `linear-gradient(135deg, #002a3f 0%, #001a26 100%)`,
+              }}
+            />
+            
+            {/* Additional vertical darkening overlay - darker towards bottom */}
+            <div 
+              className="absolute inset-0 z-10"
+              style={{
+                background: `linear-gradient(to bottom, 
+                  rgba(0, 0, 0, 0.1) 0%, 
+                  rgba(0, 0, 0, 0.3) 70%, 
+                  rgba(0, 0, 0, 0.5) 100%
+                )`
               }}
             />
             
