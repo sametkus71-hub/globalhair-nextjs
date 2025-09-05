@@ -135,9 +135,9 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
       >
         {/* Hard overlay for coming soon items - marine blue gradient that feels alive */}
         {isStatic && (
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-800/80 via-slate-900/90 to-blue-950/95 z-10">
-            {/* Additional subtle gradient for depth */}
-            <div className="absolute inset-0 bg-gradient-to-t from-blue-900/40 via-transparent to-slate-700/20" />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-700/75 via-slate-900/85 to-slate-950/98 z-10 animate-pulse">
+            {/* Additional subtle moving gradient for depth */}
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-slate-800/15 animate-[fade-in_8s_ease-in-out_infinite_alternate]" />
           </div>
         )}
 
