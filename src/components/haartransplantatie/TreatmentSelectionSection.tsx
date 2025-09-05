@@ -135,9 +135,9 @@ export const TreatmentSelectionSection = () => {
         </div>
 
         {/* Country Selection */}
-        <div className={`flex justify-center ${spacing.country} relative z-20`}>
+        <div className={`flex justify-center ${spacing.country} relative z-40`}>
           <div 
-            className="rounded-md p-0.5 relative"
+            className="rounded-md p-0.5 relative z-40"
             style={{
               border: '1px solid',
               borderImageSource: 'linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.6) 100%)',
@@ -146,12 +146,12 @@ export const TreatmentSelectionSection = () => {
               boxShadow: '4px 3px 9.1px 4px rgba(0, 0, 0, 0.25) inset',
             }}
           >
-            <div className="flex relative z-10">
+            <div className="flex relative z-40">
               {['Nederland', 'Turkije'].map((country) => (
                 <button
                   key={country}
                   onClick={() => updateProfile('locatie', country)}
-                  className={`px-3 py-1 rounded-sm font-lato text-[10px] sm:text-[11px] md:text-[12px] font-normal transition-all duration-200 relative z-10 touch-manipulation ${
+                  className={`px-3 py-1 rounded-sm font-lato text-[10px] sm:text-[11px] md:text-[12px] font-normal transition-all duration-200 relative z-40 touch-manipulation ${
                     profile.locatie === country
                       ? 'text-black'
                       : 'text-gray-600 hover:text-black'
