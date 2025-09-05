@@ -133,9 +133,12 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
         }}
         onClick={isActive ? onClick : undefined}
       >
-        {/* Hard overlay for coming soon items - darker at bottom */}
+        {/* Hard overlay for coming soon items - marine blue gradient that feels alive */}
         {isStatic && (
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/80 z-10" />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-800/80 via-slate-900/90 to-blue-950/95 z-10">
+            {/* Additional subtle gradient for depth */}
+            <div className="absolute inset-0 bg-gradient-to-t from-blue-900/40 via-transparent to-slate-700/20" />
+          </div>
         )}
 
         {/* Simple, consistent wireframe pattern - hidden for coming soon items */}
@@ -159,10 +162,10 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
         )}>
           {/* Title */}
           <h3 className={cn(
-            "font-bold text-center leading-tight tracking-wide",
+            "font-bold text-center leading-tight",
             isStatic 
-              ? "text-xl sm:text-2xl md:text-3xl opacity-60" 
-              : "text-lg sm:text-xl md:text-2xl mb-3"
+              ? "text-2xl sm:text-3xl md:text-4xl text-white/70 font-light tracking-[0.2em] uppercase" 
+              : "text-lg sm:text-xl md:text-2xl mb-3 tracking-wide"
           )}>
             {title}
           </h3>
