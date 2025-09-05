@@ -3,7 +3,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useSession } from '@/hooks/useSession';
 import { Info, BookOpen } from 'lucide-react';
 import { calculatePrice, formatPrice } from '@/lib/pricing';
-import { ShieldIcon } from '@/components/logos/ShieldIcon';
+import { GlobalHairLogo } from '@/components/logos/GlobalHairLogo';
 
 export const TreatmentSelectionSection = () => {
   const { language } = useLanguage();
@@ -230,8 +230,10 @@ export const TreatmentSelectionSection = () => {
           <div className="max-w-48 mx-auto">
             {packageContent[profile.selectedPackage as keyof typeof packageContent]?.map((item, index) => (
               <div key={index} className="flex items-start justify-start mb-2 text-left">
-                <ShieldIcon className="w-3 h-3 text-black mr-3 mt-0.5 flex-shrink-0" />
-                <p className="font-lato text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] font-normal text-gray-800" style={{ lineHeight: '1.3' }}>
+                <div className="w-3 h-3 mr-3 mt-0.5 flex-shrink-0">
+                  <GlobalHairLogo className="w-full h-full [&_.cls-1]:fill-black" />
+                </div>
+                <p className="font-lato text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] font-light text-gray-800" style={{ lineHeight: '1.3' }}>
                   {item}
                 </p>
               </div>
