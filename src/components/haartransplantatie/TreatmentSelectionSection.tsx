@@ -38,8 +38,8 @@ export const TreatmentSelectionSection = () => {
 
   const packages = [
     { 
-      id: 'Standard', 
-      label: 'Standard',
+      id: 'Basic', 
+      label: 'Basic',
       isNew: false
     },
     { 
@@ -60,29 +60,29 @@ export const TreatmentSelectionSection = () => {
   ];
 
   const packageContent = {
-    Standard: [
-      "Uitgebreide en behandeloptes",
-      "Volledig precisieprogrannna",
-      "Met intensieve begeleiding",
-      "Ons exclusieve biotechprotocol"
+    Basic: [
+      "Basis haartransplantatie procedure",
+      "Standaard FUE techniek",
+      "Lokale verdoving inclusief",
+      "1 jaar nacontrole garantie"
     ],
     Plus: [
-      "Uitgebreide en behandeloptes",
-      "Volledig precisieprogrannna",
-      "Met intensieve begeleiding",
-      "Ons exclusieve biotechprotocol"
+      "Geavanceerde FUE+ techniek", 
+      "Micro-grafting precisie methode",
+      "Premium verdoving & comfort",
+      "2 jaar uitgebreide nacontrole"
     ],
     Premium: [
-      "Uitgebreide en behandeloptes",
-      "Volledig precisieprogrannna",
-      "Met intensieve begeleiding",
-      "Ons exclusieve biotechprotocol"
+      "Sapphire FUE premium techniek",
+      "PRP bloedplaatjes therapie",
+      "VIP behandelkamer & service",
+      "3 jaar volledige garantie"
     ],
     Advanced: [
-      "Uitgebreide en behandeloptes",
-      "Volledig precisieprogrannna",
-      "Met intensieve begeleiding",
-      "Ons exclusieve biotechprotocol"
+      "DHI pen implantatie techniek",
+      "Stamceltherapie behandeling", 
+      "Luxury suite & persoonlijke begeleiding",
+      "Levenslange service garantie"
     ]
   };
 
