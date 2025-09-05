@@ -106,7 +106,7 @@ export const TreatmentSelectionSection = () => {
     if (phoneSize === 'small') {
       return {
         container: 'pt-0 pb-0', // Ultra compact for iPhone 14
-        header: 'pt-0 mb-1', // Very tight header spacing
+        header: 'pt-0 mb-0', // Move header up more for small phones
         text: 'mb-6', // More space between subtitle and region switch
         country: 'mb-2', // More gap between region and package switches
         package: 'mb-2', // Small space for content
@@ -115,7 +115,7 @@ export const TreatmentSelectionSection = () => {
     } else {
       return {
         container: 'pt-6 pb-6',
-        header: 'pt-2 mb-6',
+        header: 'pt-0 mb-4', // Move header up for large phones too
         text: 'mb-4',
         country: 'mb-6',
         package: 'mb-6',
@@ -132,11 +132,11 @@ export const TreatmentSelectionSection = () => {
       <div className={`flex-1 flex flex-col justify-start px-4 ${spacing.container}`}>
         {/* Header */}
         <div className={`text-center ${spacing.header}`}>
-          <h1 className="font-lato text-[31px] font-normal text-black mb-2" style={{ lineHeight: '0.97' }}>
+          <h1 className="font-lato text-[31px] font-normal text-black mb-2 uppercase" style={{ lineHeight: '0.97' }}>
             Time to start over
           </h1>
           <p className={`font-lato text-[13px] font-normal text-gray-700 ${spacing.text}`} style={{ lineHeight: '0.97' }}>
-            Ontdek de kracht van haartransplantatie
+            GHI Hairtransplant
           </p>
         </div>
 
