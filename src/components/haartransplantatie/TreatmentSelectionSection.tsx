@@ -143,7 +143,7 @@ export const TreatmentSelectionSection = () => {
         {/* Country Selection */}
         <div className={`flex justify-center ${spacing.country}`}>
           <div 
-            className="rounded-md p-0.5 sm:p-1"
+            className="rounded-lg p-0.5 sm:p-1"
             style={{
               border: '1px solid',
               borderImageSource: 'linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.6) 100%)',
@@ -178,7 +178,7 @@ export const TreatmentSelectionSection = () => {
         {/* Package Selection */}
         <div className={`flex justify-center ${spacing.package}`}>
           <div 
-            className="rounded-md p-0.5 sm:p-1"
+            className="rounded-lg p-0.5 sm:p-1"
             style={{
               border: '1px solid',
               borderImageSource: 'linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.6) 100%)',
