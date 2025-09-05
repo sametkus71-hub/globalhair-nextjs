@@ -104,3 +104,5 @@ export const InstagramPostsSection = () => {
     </>
   );
 };
+
+export default InstagramPostsSection;
