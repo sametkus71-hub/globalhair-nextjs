@@ -42,7 +42,7 @@ const HaartransplantatiePage = () => {
 
   // Dynamic logo positioning - overlapping with top grid
   const getLogoPosition = () => {
-    return '20vh'; // Even higher to overlap more with the top grid
+    return '15vh'; // Even higher to overlap significantly with the top grid
   };
   
   // Disable scrolling on mount
