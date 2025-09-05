@@ -1,4 +1,4 @@
-import { CachedImage } from '@/components/ImagePreloader';
+import { GlobalHairLogo } from '@/components/logos/GlobalHairLogo';
 import { cn } from '@/lib/utils';
 
 interface CentralLogoProps {
@@ -11,11 +11,7 @@ export const CentralLogo = ({ className }: CentralLogoProps) => {
       "relative flex items-center justify-center",
       className
     )}>
-      <CachedImage 
-        src="/lovable-uploads/230b8ef0-b4c0-4aee-af54-df5e7f2a6201.png" 
-        alt="GlobalHair logo - Premium haartransplantatie en V6 Hairboost specialist" 
-        className="w-20 h-20 object-contain"
-      />
+      <GlobalHairLogo />
     </div>
   );
 };
