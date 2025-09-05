@@ -181,7 +181,7 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
           <h3 className={cn(
             "font-bold text-center leading-tight",
             isStatic 
-              ? "text-2xl sm:text-3xl md:text-4xl text-white/70 font-light tracking-[0.2em] uppercase" 
+              ? "text-2xl sm:text-3xl md:text-4xl text-white/40 font-light tracking-[0.2em] uppercase" 
               : "text-lg sm:text-xl md:text-2xl mb-3 tracking-wide"
           )}>
             {title}
