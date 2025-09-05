@@ -138,7 +138,7 @@ export const TreatmentSelectionSection = () => {
   return (
     <div className="w-full h-full relative bg-[#E4E5E0] flex flex-col">
       {/* Main Content - phone size specific spacing */}
-      <div className={`flex-1 flex flex-col justify-start px-4 pt-2`}>
+      <div className={`flex-1 flex flex-col justify-start px-4`}>
         {/* Header */}
         <div className={`text-center ${spacing.header}`}>
           <h1 className="font-lato text-[31px] font-normal text-black mb-2 uppercase" style={{ lineHeight: '0.97' }}>
