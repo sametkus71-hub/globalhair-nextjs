@@ -119,16 +119,13 @@ export default {
 				},
 				'gradient-shift': {
 					'0%': { 
-						backgroundPosition: '-200% -200%',
-						opacity: '0.3'
+						opacity: '0.2'
 					},
 					'50%': { 
-						backgroundPosition: '0% 0%',
-						opacity: '0.6'
+						opacity: '0.4'
 					},
 					'100%': { 
-						backgroundPosition: '200% 200%',
-						opacity: '0.3'
+						opacity: '0.2'
 					}
 				}
 			},
@@ -137,7 +134,7 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'fade-in': 'fadeIn 0.4s ease-out',
 				'slide-up': 'slideUp 0.3s ease-out',
-				'gradient-shift': 'gradient-shift 12s ease-in-out infinite',
+				'gradient-shift': 'gradient-shift 15s ease-in-out infinite',
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',

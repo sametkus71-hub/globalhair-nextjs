@@ -133,25 +133,26 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
         }}
         onClick={isActive ? onClick : undefined}
       >
-        {/* Hard overlay for coming soon items - medical blue with subtle moving shine */}
+        {/* Hard overlay for coming soon items - your brand color with subtle shine */}
         {isStatic && (
           <>
-            {/* Base dark medical blue overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-900/85 via-blue-950/90 to-slate-950/98 z-10" />
+            {/* Base overlay using your brand color #01334C */}
+            <div 
+              className="absolute inset-0 z-10"
+              style={{
+                background: `linear-gradient(135deg, #01334C 0%, #001f2e 100%)`
+              }}
+            />
             
-            {/* Moving diagonal shine effect */}
+            {/* Very subtle shine-through effect */}
             <div 
               className="absolute inset-0 z-10 animate-gradient-shift"
               style={{
-                background: `linear-gradient(
-                  45deg,
-                  transparent 30%,
-                  rgba(59, 130, 246, 0.1) 45%,
-                  rgba(96, 165, 250, 0.15) 50%,
-                  rgba(59, 130, 246, 0.1) 55%,
-                  transparent 70%
-                )`,
-                backgroundSize: '400% 400%'
+                background: `linear-gradient(135deg, 
+                  rgba(1, 51, 76, 0.8) 0%, 
+                  rgba(1, 51, 76, 0.6) 50%, 
+                  rgba(1, 51, 76, 0.8) 100%
+                )`
               }}
             />
           </>
