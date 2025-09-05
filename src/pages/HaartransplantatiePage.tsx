@@ -40,10 +40,9 @@ const HaartransplantatiePage = () => {
     return () => window.removeEventListener('resize', detectPhoneSize);
   }, []);
 
-  // Dynamic logo positioning - consistent relative to top grid (40vh)
+  // Dynamic logo positioning - at the end of top grid minus 50px margin
   const getLogoPosition = () => {
-    // Position logo at the bottom of the 40vh grid area (center of transition)
-    return '35vh'; // Slightly below center of 40vh grid
+    return 'calc(40vh - 50px)'; // End of top grid (40vh) minus 50px margin
   };
   
   // Disable scrolling on mount
