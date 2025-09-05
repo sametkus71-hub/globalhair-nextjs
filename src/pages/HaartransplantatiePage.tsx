@@ -43,9 +43,9 @@ const HaartransplantatiePage = () => {
   // Dynamic logo positioning based on phone size
   const getLogoPosition = () => {
     if (phoneSize === 'small') {
-      return 'calc(25vh - 60px)'; // Moved up from 30vh
+      return 'calc(28vh - 60px)'; // Adjusted to 28vh
     } else {
-      return 'calc(25vh - 30px)'; // Moved up from 30vh
+      return 'calc(28vh - 30px)'; // Adjusted to 28vh
     }
   };
   
@@ -86,7 +86,7 @@ const HaartransplantatiePage = () => {
                 top: getLogoPosition() // Dynamic positioning based on phone size detection
               }}
             >
-              <div className="pointer-events-auto w-70 h-70"> {/* 280px */}
+              <div className="pointer-events-auto" style={{ width: '280px', height: '280px' }}> {/* 280px */}
                 <ShieldIcon />
               </div>
             </div>
