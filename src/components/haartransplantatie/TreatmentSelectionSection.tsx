@@ -229,7 +229,7 @@ export const TreatmentSelectionSection = () => {
         <div className={`text-center ${spacing.content}`}>
           <div className="max-w-56 mx-auto">
             {packageContent[profile.selectedPackage as keyof typeof packageContent]?.map((item, index) => (
-              <div key={index} className="flex items-center justify-start -mb-3 -mt-2 text-left">
+              <div key={index} className="flex items-center justify-start -mb-4 -mt-3 text-left">
                 <div className="w-12 h-12 -mr-1 flex-shrink-0 pt-2">
                   <ShieldIcon className="w-full h-full [&_.cls-1]:fill-black" />
                 </div>
