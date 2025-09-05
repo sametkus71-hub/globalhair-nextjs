@@ -116,19 +116,19 @@ export const TreatmentSelectionSection = () => {
       return {
         container: 'pt-0 pb-0', // Ultra compact for iPhone 14
         header: 'pt-0 mb-0', // Move header up more for small phones
-        text: 'mb-6', // More space between subtitle and region switch
-        country: 'mb-2', // More gap between region and package switches
-        package: 'mb-2', // Small space for content
-        content: 'mb-5' // More space between lorem ipsum and price
+        text: 'mb-4', // Reduced space between subtitle and region switch
+        country: 'mb-1', // Less gap between region and package switches
+        package: 'mb-1', // Small space for content
+        content: 'mb-3' // Less space between lorem ipsum and price
       };
     } else {
       return {
-        container: 'pt-6 pb-6',
-        header: 'pt-0 mb-4', // Move header up for large phones too
-        text: 'mb-4',
-        country: 'mb-6',
-        package: 'mb-6',
-        content: 'mb-6'
+        container: 'pt-2 pb-2', // Reduced top padding
+        header: 'pt-0 mb-2', // Less margin below header
+        text: 'mb-3', // Reduced text spacing
+        country: 'mb-4', // Reduced country spacing
+        package: 'mb-4', // Reduced package spacing
+        content: 'mb-4' // Reduced content spacing
       };
     }
   };
