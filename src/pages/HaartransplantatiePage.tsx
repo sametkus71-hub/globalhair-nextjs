@@ -77,7 +77,7 @@ const HaartransplantatiePage = () => {
           >
             {/* Fading Central Logo - positioned with phone size detection */}
             <div 
-              className="absolute left-1/2 transform -translate-x-1/2 z-[5] pointer-events-none"
+              className="absolute left-1/2 transform -translate-x-1/2 z-[50] pointer-events-none"
               style={{ 
                 top: getLogoPosition() // Dynamic positioning based on phone size detection
               }}
