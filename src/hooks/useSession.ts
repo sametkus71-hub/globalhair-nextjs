@@ -7,7 +7,7 @@ export type Location = 'Nederland' | 'Turkije';
 export type Shaving = 'Met scheren' | 'Zonder scheren';
 export type Treatment = 'Normaal' | 'Stamcel';
 export type Language = 'nl' | 'en';
-export type Package = 'Standard' | 'Plus' | 'Premium' | 'Advanced';
+export type Package = 'Basic' | 'Plus' | 'Premium' | 'Advanced';
 
 export interface UserProfile {
   geslacht: Gender;
@@ -28,7 +28,7 @@ const defaultProfile: UserProfile = {
   scheren: 'Met scheren',
   behandeling: 'Normaal',
   language: 'nl',
-  selectedPackage: 'Standard'
+  selectedPackage: 'Plus'
 };
 
 export const useSession = () => {
@@ -116,7 +116,7 @@ export const useSession = () => {
     const body = document.body;
     
     // Remove existing classes
-    body.className = body.className.replace(/s-(man|vrouw|fijn|stijl|krul|kroes|zwart|bruin|blond|wit|nederland|turkije|met-scheren|zonder-scheren|normaal|stamcel|nl|en|standard|plus|premium|advanced)/g, '').trim();
+    body.className = body.className.replace(/s-(man|vrouw|fijn|stijl|krul|kroes|zwart|bruin|blond|wit|nederland|turkije|met-scheren|zonder-scheren|normaal|stamcel|nl|en|basic|plus|premium|advanced)/g, '').trim();
     
     // Add new classes
     const geslachtClass = `s-${newProfile.geslacht.toLowerCase()}`;
