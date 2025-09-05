@@ -3,6 +3,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useSession } from '@/hooks/useSession';
 import { Info, BookOpen } from 'lucide-react';
 import { calculatePrice, formatPrice } from '@/lib/pricing';
+import { ShieldIcon } from '@/components/logos/ShieldIcon';
 
 export const TreatmentSelectionSection = () => {
   const { language } = useLanguage();
@@ -84,20 +85,28 @@ export const TreatmentSelectionSection = () => {
 
   const packageContent = {
     Standard: [
-      "Lorem ipsum dolor sit amet, consectetur adipiscing",
-      "Lorem ipsum dolor sit amet, consectetur adipiscing"
+      "Uitgebreide en behandeloptes",
+      "Volledig precisieprogrannna",
+      "Met intensieve begeleiding",
+      "Ons exclusieve biotechprotocol"
     ],
     Plus: [
-      "Plus package lorem ipsum dolor sit amet, consectetur",
-      "Plus enhanced features with lorem ipsum dolor sit"
+      "Uitgebreide en behandeloptes",
+      "Volledig precisieprogrannna",
+      "Met intensieve begeleiding",
+      "Ons exclusieve biotechprotocol"
     ],
     Premium: [
-      "Premium package lorem ipsum dolor sit amet, consectetur",
-      "Premium exclusive features with lorem ipsum dolor"
+      "Uitgebreide en behandeloptes",
+      "Volledig precisieprogrannna",
+      "Met intensieve begeleiding",
+      "Ons exclusieve biotechprotocol"
     ],
     Advanced: [
-      "Advanced package lorem ipsum dolor sit amet, consectetur",
-      "Advanced cutting-edge features with lorem ipsum"
+      "Uitgebreide en behandeloptes",
+      "Volledig precisieprogrannna",
+      "Met intensieve begeleiding",
+      "Ons exclusieve biotechprotocol"
     ]
   };
 
@@ -220,24 +229,23 @@ export const TreatmentSelectionSection = () => {
         <div className={`text-center ${spacing.content}`}>
           <div className="max-w-48 mx-auto">
             {packageContent[profile.selectedPackage as keyof typeof packageContent]?.map((item, index) => (
-              <div key={index} className="flex items-start justify-start mb-1 text-left">
-                <span className="text-black mr-3 mt-0.5">•</span>
-                <p className="font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal text-gray-700" style={{ lineHeight: '1.2' }}>
+              <div key={index} className="flex items-start justify-start mb-2 text-left">
+                <ShieldIcon className="w-3 h-3 text-black mr-3 mt-0.5 flex-shrink-0" />
+                <p className="font-lato text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] font-normal text-gray-800" style={{ lineHeight: '1.3' }}>
                   {item}
                 </p>
               </div>
             ))}
+            
+            {/* Cost Display - moved inside content section */}
+            <div className="text-center mt-4">
+              <p className={`font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal text-gray-600 transition-all duration-300 ${
+                priceFlash ? 'bg-white/60 px-3 py-1 rounded-full shadow-sm' : ''
+              }`}>
+                Geschatte kosten: {formatPrice(totalPrice)}
+              </p>
+            </div>
           </div>
-        </div>
-
-
-        {/* Cost Display */}
-        <div className="text-center">
-          <p className={`font-lato text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] font-normal text-gray-700 transition-all duration-300 ${
-            priceFlash ? 'bg-white/60 px-3 py-1 rounded-full shadow-sm' : ''
-          }`}>
-            Geschatte kosten: {formatPrice(totalPrice)}
-          </p>
         </div>
       </div>
 
