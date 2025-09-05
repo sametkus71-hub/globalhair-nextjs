@@ -1,4 +1,4 @@
-import { GlobalHairLogo } from '@/components/logos/GlobalHairLogo';
+import { LogoWithGlass } from '@/components/logos/LogoWithGlass';
 import { cn } from '@/lib/utils';
 
 interface CentralLogoProps {
@@ -13,7 +13,7 @@ export const CentralLogo = ({ className, size = 'default' }: CentralLogoProps) =
       "relative flex items-center justify-center",
       className
     )}>
-      <GlobalHairLogo className={logoSize} />
+      <LogoWithGlass className={logoSize} />
     </div>
   );
 };
