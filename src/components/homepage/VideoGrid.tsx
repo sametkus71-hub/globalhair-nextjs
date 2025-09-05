@@ -133,12 +133,28 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
         }}
         onClick={isActive ? onClick : undefined}
       >
-        {/* Hard overlay for coming soon items - marine blue gradient that feels alive */}
+        {/* Hard overlay for coming soon items - medical blue with subtle moving shine */}
         {isStatic && (
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-700/75 via-slate-900/85 to-slate-950/98 z-10 animate-pulse">
-            {/* Additional subtle moving gradient for depth */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-slate-800/15 animate-[fade-in_8s_ease-in-out_infinite_alternate]" />
-          </div>
+          <>
+            {/* Base dark medical blue overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-900/85 via-blue-950/90 to-slate-950/98 z-10" />
+            
+            {/* Moving diagonal shine effect */}
+            <div 
+              className="absolute inset-0 z-10 animate-gradient-shift"
+              style={{
+                background: `linear-gradient(
+                  45deg,
+                  transparent 30%,
+                  rgba(59, 130, 246, 0.1) 45%,
+                  rgba(96, 165, 250, 0.15) 50%,
+                  rgba(59, 130, 246, 0.1) 55%,
+                  transparent 70%
+                )`,
+                backgroundSize: '400% 400%'
+              }}
+            />
+          </>
         )}
 
         {/* Simple, consistent wireframe pattern - hidden for coming soon items */}
