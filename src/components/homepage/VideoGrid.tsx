@@ -109,8 +109,8 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
   const renderPlaceholderItem = (title: string, gridIndex: number, isActive: boolean, isStatic?: boolean, onClick?: () => void) => {
     const variation = isStatic ? null : getItemVariation(gridIndex);
     
-    const previewCode = isStatic ? `STATIC-${gridIndex}` : variation!.previewCode;
-    const selectionInfo = isStatic ? "COMING SOON" : `${profile.geslacht} • ${profile.haarkleur} • ${profile.haartype}`;
+    const previewCode = isStatic ? null : variation!.previewCode;
+    const selectionInfo = isStatic ? null : `${profile.geslacht} • ${profile.haarkleur} • ${profile.haartype}`;
     
     return (
       <div 
@@ -118,7 +118,7 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
         data-grid-item={gridIndex}
         className={cn(
           "relative w-full h-full overflow-hidden transition-all duration-500 ease-out",
-          isActive ? "cursor-pointer hover:scale-[1.01] group" : "cursor-not-allowed opacity-60",
+          isActive ? "cursor-pointer hover:scale-[1.01] group" : "cursor-not-allowed",
           !isStatic && "animate-fade-in"
         )}
         style={{
@@ -133,37 +133,56 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
         }}
         onClick={isActive ? onClick : undefined}
       >
-        {/* Simple, consistent wireframe pattern */}
-        <div className="absolute inset-0 opacity-25">
-          <svg className="w-full h-full" viewBox="0 0 100 80" preserveAspectRatio="none">
-            <defs>
-              <pattern id={`grid-${gridIndex}`} width="10" height="10" patternUnits="userSpaceOnUse">
-                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.5"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill={`url(#grid-${gridIndex})`} />
-          </svg>
-        </div>
+        {/* Hard overlay for coming soon items - darker at bottom */}
+        {isStatic && (
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/80 z-10" />
+        )}
+
+        {/* Simple, consistent wireframe pattern - hidden for coming soon items */}
+        {!isStatic && (
+          <div className="absolute inset-0 opacity-25">
+            <svg className="w-full h-full" viewBox="0 0 100 80" preserveAspectRatio="none">
+              <defs>
+                <pattern id={`grid-${gridIndex}`} width="10" height="10" patternUnits="userSpaceOnUse">
+                  <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.5"/>
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill={`url(#grid-${gridIndex})`} />
+            </svg>
+          </div>
+        )}
 
         {/* Content overlay with improved spacing and sizing */}
-        <div className="absolute inset-0 flex flex-col justify-center items-center p-4 text-white">
+        <div className={cn(
+          "absolute inset-0 flex flex-col justify-center items-center p-4 text-white",
+          isStatic && "z-20"
+        )}>
           {/* Title */}
-          <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-center mb-3 leading-tight tracking-wide">
+          <h3 className={cn(
+            "font-bold text-center leading-tight tracking-wide",
+            isStatic 
+              ? "text-xl sm:text-2xl md:text-3xl opacity-60" 
+              : "text-lg sm:text-xl md:text-2xl mb-3"
+          )}>
             {title}
           </h3>
           
-          {/* Selection info */}
-          <div className="text-xs sm:text-sm opacity-75 text-center mb-4 font-medium">
-            {selectionInfo}
-          </div>
+          {/* Selection info - only for active items */}
+          {!isStatic && selectionInfo && (
+            <div className="text-xs sm:text-sm opacity-75 text-center mb-4 font-medium">
+              {selectionInfo}
+            </div>
+          )}
           
-          {/* Preview code - smaller and more subtle */}
-          <div className="text-[10px] sm:text-xs opacity-50 font-mono tracking-wider">
-            {previewCode}
-          </div>
+          {/* Preview code - only for active items */}
+          {!isStatic && previewCode && (
+            <div className="text-[10px] sm:text-xs opacity-50 font-mono tracking-wider">
+              {previewCode}
+            </div>
+          )}
         </div>
 
-        {/* Hover effect overlay */}
+        {/* Hover effect overlay - only for active items */}
         {isActive && (
           <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         )}
