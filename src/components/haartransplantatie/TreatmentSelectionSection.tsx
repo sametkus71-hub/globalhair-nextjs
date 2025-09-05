@@ -135,9 +135,9 @@ export const TreatmentSelectionSection = () => {
         </div>
 
         {/* Country Selection */}
-        <div className={`flex justify-center ${spacing.country}`}>
+        <div className={`flex justify-center ${spacing.country} relative z-20`}>
           <div 
-            className="rounded-md p-0.5"
+            className="rounded-md p-0.5 relative"
             style={{
               border: '1px solid',
               borderImageSource: 'linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.6) 100%)',
@@ -146,12 +146,12 @@ export const TreatmentSelectionSection = () => {
               boxShadow: '4px 3px 9.1px 4px rgba(0, 0, 0, 0.25) inset',
             }}
           >
-            <div className="flex">
+            <div className="flex relative z-10">
               {['Nederland', 'Turkije'].map((country) => (
                 <button
                   key={country}
                   onClick={() => updateProfile('locatie', country)}
-                  className={`px-3 py-1 rounded-sm font-lato text-[10px] sm:text-[11px] md:text-[12px] font-normal transition-all duration-200 ${
+                  className={`px-3 py-1 rounded-sm font-lato text-[10px] sm:text-[11px] md:text-[12px] font-normal transition-all duration-200 relative z-10 touch-manipulation ${
                     profile.locatie === country
                       ? 'text-black'
                       : 'text-gray-600 hover:text-black'
@@ -185,7 +185,7 @@ export const TreatmentSelectionSection = () => {
               {packages.map((pkg) => (
                 <div key={pkg.id} className="relative">
                   {pkg.isNew && (
-                    <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 z-50 px-2 py-0.5 rounded-full font-lato text-[7px] font-normal text-white" style={{ background: 'rgba(76, 104, 125, 1)' }}>
+                    <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 z-10 px-2 py-0.5 rounded-full font-lato text-[7px] font-normal text-white" style={{ background: 'rgba(76, 104, 125, 1)' }}>
                       Nieuw
                     </div>
                   )}
