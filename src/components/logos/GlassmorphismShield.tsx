@@ -6,11 +6,11 @@ interface GlassmorphismShieldProps {
 
 export const GlassmorphismShield = ({ className }: GlassmorphismShieldProps) => {
   return (
-    <div className={cn("absolute inset-0", className)}>
+    <div className={cn("absolute inset-0 w-full h-full", className)}>
       <svg 
         viewBox="0 0 512 512" 
         className="w-full h-full absolute inset-0"
-        style={{ zIndex: -1 }}
+        style={{ zIndex: 'inherit' }}
       >
         <defs>
           <clipPath id="shield-clip">

@@ -10,10 +10,10 @@ export const LogoWithGlass = ({ className }: LogoWithGlassProps) => {
   return (
     <div className={cn("relative", className)}>
       {/* Glassmorphism background behind the logo */}
-      <GlassmorphismShield />
+      <GlassmorphismShield className="absolute inset-0 z-[9998]" />
       
       {/* Original logo on top */}
-      <GlobalHairLogo className="relative z-10 w-full h-full" />
+      <GlobalHairLogo className="relative z-[9999] w-full h-full" />
     </div>
   );
 };
