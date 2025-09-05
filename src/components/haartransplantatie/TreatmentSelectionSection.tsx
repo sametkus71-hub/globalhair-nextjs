@@ -15,8 +15,8 @@ export const TreatmentSelectionSection = () => {
   
   const totalPrice = calculatePrice(profile);
 
-  // Force recompilation to clear cached version with spacing references
-  console.log('TreatmentSelectionSection2 loaded successfully');
+  // Force recompilation to clear cached version with spacing references - v3
+  console.log('TreatmentSelectionSection3 loaded successfully - height-based spacing active');
 
   // Flash effect when price changes
   useEffect(() => {
