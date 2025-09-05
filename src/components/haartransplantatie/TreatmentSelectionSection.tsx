@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useSession } from '@/hooks/useSession';
+import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { Info, BookOpen } from 'lucide-react';
 import { calculatePrice, formatPrice } from '@/lib/pricing';
 import { ShieldIcon } from '@/components/logos/ShieldIcon';
@@ -8,39 +9,14 @@ import { ShieldIcon } from '@/components/logos/ShieldIcon';
 export const TreatmentSelectionSection = () => {
   const { language } = useLanguage();
   const { profile, updateProfile } = useSession();
+  const { heightBreakpoint } = useViewportHeight();
   const [priceFlash, setPriceFlash] = useState(false);
   const [buttonsLoaded, setButtonsLoaded] = useState([false, false, false]);
-  const [phoneSize, setPhoneSize] = useState<'small' | 'large'>('small');
   
   const totalPrice = calculatePrice(profile);
 
   // Force recompilation to clear cached version with spacing references
   console.log('TreatmentSelectionSection2 loaded successfully');
-
-  // Phone size detection - specifically for phones
-  useEffect(() => {
-    const detectPhoneSize = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      
-      // Only apply phone detection for mobile devices
-      if (width <= 480 && height > width) { // Portrait mobile devices
-        if (width <= 393) { // More robust detection for iPhone 14 and smaller
-          setPhoneSize('small'); // iPhone 14, iPhone 13, smaller phones
-        } else {
-          setPhoneSize('large'); // iPhone 14 Pro Max, iPhone 15 Plus, larger phones
-        }
-      } else {
-        setPhoneSize('large'); // Default for tablets/desktops
-      }
-      
-      console.log('Phone size detected:', width <= 393 ? 'small' : 'large', 'width:', width);
-    };
-
-    detectPhoneSize();
-    window.addEventListener('resize', detectPhoneSize);
-    return () => window.removeEventListener('resize', detectPhoneSize);
-  }, []);
 
   // Flash effect when price changes
   useEffect(() => {
@@ -110,30 +86,39 @@ export const TreatmentSelectionSection = () => {
     ]
   };
 
-  // Dynamic spacing based on phone size detection
-  const getPhoneSpacing = () => {
-    if (phoneSize === 'small') {
+  // Dynamic spacing based on viewport height breakpoints
+  const getSpacing = () => {
+    if (heightBreakpoint === 'small') {
       return {
-        container: 'pt-0 pb-0', // Ultra compact for iPhone 14
+        container: 'pt-0 pb-0', // Ultra compact for small height screens
         header: '-mt-4 mb-0', // Move header up with negative margin
-        text: 'mb-4', // Reduced space between subtitle and region switch
+        text: 'mb-2', // Tight space between subtitle and region switch
         country: 'mb-1', // Less gap between region and package switches
         package: 'mb-1', // Small space for content
         content: 'mb-3' // Less space between lorem ipsum and price
       };
+    } else if (heightBreakpoint === 'medium') {
+      return {
+        container: 'pt-1 pb-1', // Moderate padding
+        header: '-mt-2 mb-2', // Move header up with negative margin
+        text: 'mb-5', // More breathing room between subtitle and location switch
+        country: 'mb-3', // Moderate gap between region and package switches
+        package: 'mb-3', // Moderate space for content
+        content: 'mb-4' // Moderate content spacing
+      };
     } else {
       return {
-        container: 'pt-2 pb-2', // Reduced top padding
-        header: '-mt-2 mb-2', // Move header up with negative margin
-        text: 'mb-3', // Reduced text spacing
-        country: 'mb-4', // Reduced country spacing
-        package: 'mb-4', // Reduced package spacing
-        content: 'mb-4' // Reduced content spacing
+        container: 'pt-2 pb-2', // Generous padding for large screens
+        header: '-mt-2 mb-3', // Move header up with negative margin
+        text: 'mb-6', // Maximum breathing room between subtitle and location switch
+        country: 'mb-4', // Generous gap between region and package switches
+        package: 'mb-4', // Generous space for content
+        content: 'mb-5' // Generous content spacing
       };
     }
   };
 
-  const spacing = getPhoneSpacing();
+  const spacing = getSpacing();
 
   return (
     <div className="w-full h-full relative bg-[#E4E5E0] flex flex-col">
