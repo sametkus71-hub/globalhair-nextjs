@@ -86,7 +86,7 @@ const HaartransplantatiePage = () => {
                 top: getLogoPosition() // Dynamic positioning based on phone size detection
               }}
             >
-              <div className="pointer-events-auto w-16 h-16"> {/* 75% of home size (20 * 0.75 = 15, but using 16 for better proportions) */}
+              <div className="pointer-events-auto w-60 h-60"> {/* 75% of home large size (w-80 * 0.75 = w-60) */}
                 <ShieldIcon />
               </div>
             </div>
