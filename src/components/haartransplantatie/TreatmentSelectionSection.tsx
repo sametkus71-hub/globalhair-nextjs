@@ -143,7 +143,7 @@ export const TreatmentSelectionSection = () => {
         {/* Country Selection */}
         <div className={`flex justify-center ${spacing.country}`}>
           <div 
-            className="rounded-2xl p-0.5 sm:p-1"
+            className="rounded-lg p-0.5 sm:p-1"
             style={{
               border: '1px solid',
               borderImageSource: 'linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.6) 100%)',
@@ -157,7 +157,7 @@ export const TreatmentSelectionSection = () => {
                 <button
                   key={country}
                   onClick={() => updateProfile('locatie', country)}
-                  className={`px-4 sm:px-5 md:px-6 lg:px-7 py-1.5 sm:py-2 rounded-2xl font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal transition-all duration-200 ${
+                  className={`px-4 sm:px-5 md:px-6 lg:px-7 py-1.5 sm:py-2 rounded-lg font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal transition-all duration-200 ${
                     profile.locatie === country
                       ? 'text-black'
                       : 'text-gray-600 hover:text-black'
@@ -178,7 +178,7 @@ export const TreatmentSelectionSection = () => {
         {/* Package Selection */}
         <div className={`flex justify-center ${spacing.package}`}>
           <div 
-            className="rounded-2xl p-0.5 sm:p-1"
+            className="rounded-lg p-0.5 sm:p-1"
             style={{
               border: '1px solid',
               borderImageSource: 'linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.6) 100%)',
@@ -197,7 +197,7 @@ export const TreatmentSelectionSection = () => {
                   )}
                   <button
                     onClick={() => updateProfile('selectedPackage', pkg.id)}
-                    className={`px-4 sm:px-5 md:px-6 lg:px-7 py-1.5 sm:py-2 font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal transition-all duration-200 rounded-2xl ${
+                    className={`px-4 sm:px-5 md:px-6 lg:px-7 py-1.5 sm:py-2 font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal transition-all duration-200 rounded-lg ${
                       profile.selectedPackage === pkg.id
                         ? 'text-black'
                         : 'text-gray-600 hover:text-black'
