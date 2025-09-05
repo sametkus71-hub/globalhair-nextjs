@@ -43,9 +43,9 @@ const HaartransplantatiePage = () => {
   // Dynamic logo positioning based on phone size
   const getLogoPosition = () => {
     if (phoneSize === 'small') {
-      return 'calc(28vh - 60px)'; // Adjusted to 28vh
+      return 'calc(26vh - 60px)'; // Adjusted to 26vh
     } else {
-      return 'calc(28vh - 30px)'; // Adjusted to 28vh
+      return 'calc(26vh - 30px)'; // Adjusted to 26vh
     }
   };
   
