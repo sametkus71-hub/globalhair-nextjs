@@ -14,14 +14,11 @@ export const MetaHead = ({ language, page = 'home', title, description }: MetaHe
   
   useEffect(() => {
     // Update title  
-    const pageTitle = title || 
-      (page === 'haartransplantatie2' ? t('page.haartransplantatie.title') : t(`page.${page}.title`)) || 
-      t('home.title');
+    const pageTitle = title || t(`page.${page}.title`) || t('home.title');
     document.title = `${pageTitle} | GlobalHair`;
     
     // Update meta description
-    const metaDescription = description || 
-      (page === 'haartransplantatie2' ? t('meta.haartransplantatie.description') : t(`meta.${page}.description`));
+    const metaDescription = description || t(`meta.${page}.description`);
     const descriptionMeta = document.querySelector('meta[name="description"]');
     if (descriptionMeta) {
       descriptionMeta.setAttribute('content', metaDescription);
