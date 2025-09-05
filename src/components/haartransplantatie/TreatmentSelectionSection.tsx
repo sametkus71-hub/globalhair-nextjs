@@ -135,7 +135,7 @@ export const TreatmentSelectionSection = () => {
         </div>
 
         {/* Country Selection */}
-        <div className={`flex justify-center ${spacing.country} relative`} style={{ zIndex: 100 }}>
+        <div className={`flex justify-center ${spacing.country} relative`} style={{ zIndex: 9999 }}>
           <div 
             className="rounded-md p-0.5 relative"
             style={{
@@ -144,10 +144,10 @@ export const TreatmentSelectionSection = () => {
               background: 'rgba(228, 229, 224, 1)',
               backdropFilter: 'blur(30px)',
               boxShadow: '4px 3px 9.1px 4px rgba(0, 0, 0, 0.25) inset',
-              zIndex: 100
+              zIndex: 9999
             }}
           >
-            <div className="flex relative" style={{ zIndex: 100 }}>
+            <div className="flex relative" style={{ zIndex: 9999 }}>
               {['Nederland', 'Turkije'].map((country) => (
                 <button
                   key={country}
@@ -158,7 +158,7 @@ export const TreatmentSelectionSection = () => {
                       : 'text-gray-600 hover:text-black'
                   }`}
                   style={{
-                    zIndex: 100,
+                    zIndex: 9999,
                     ...(profile.locatie === country ? {
                       boxShadow: '5px 0px 12px 0px rgba(151, 151, 151, 1)',
                       backdropFilter: 'blur(52.3px)',
