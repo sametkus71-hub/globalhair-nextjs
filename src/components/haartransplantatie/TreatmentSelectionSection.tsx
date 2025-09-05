@@ -230,10 +230,10 @@ export const TreatmentSelectionSection = () => {
           <div className="max-w-56 mx-auto">
             {packageContent[profile.selectedPackage as keyof typeof packageContent]?.map((item, index) => (
               <div key={index} className="flex items-center justify-start mb-0.5 text-left">
-                <div className="w-11 h-11 mr-2 flex-shrink-0 pt-1">
+                <div className="w-12 h-12 mr-2 flex-shrink-0 pt-1">
                   <ShieldIcon className="w-full h-full [&_.cls-1]:fill-black" />
                 </div>
-                <p className="font-lato text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] font-light text-gray-800" style={{ lineHeight: '1.3' }}>
+                <p className="font-lato text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] font-light text-gray-800" style={{ lineHeight: '1.1' }}>
                   {item}
                 </p>
               </div>
