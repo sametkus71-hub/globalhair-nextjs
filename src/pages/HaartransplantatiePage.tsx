@@ -82,7 +82,7 @@ const HaartransplantatiePage = () => {
                 top: getLogoPosition() // Dynamic positioning based on phone size detection
               }}
             >
-              <div className="pointer-events-auto" style={{ width: '280px', height: '280px' }}> {/* 280px */}
+              <div className="pointer-events-none" style={{ width: '280px', height: '280px' }}> {/* 280px */}
                 <ShieldIcon />
               </div>
             </div>
