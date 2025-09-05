@@ -115,7 +115,7 @@ export const TreatmentSelectionSection = () => {
     if (phoneSize === 'small') {
       return {
         container: 'pt-0 pb-0', // Ultra compact for iPhone 14
-        header: 'pt-0 mb-0', // Move header up more for small phones
+        header: '-mt-4 mb-0', // Move header up with negative margin
         text: 'mb-4', // Reduced space between subtitle and region switch
         country: 'mb-1', // Less gap between region and package switches
         package: 'mb-1', // Small space for content
@@ -124,7 +124,7 @@ export const TreatmentSelectionSection = () => {
     } else {
       return {
         container: 'pt-2 pb-2', // Reduced top padding
-        header: 'pt-0 mb-2', // Less margin below header
+        header: '-mt-2 mb-2', // Move header up with negative margin
         text: 'mb-3', // Reduced text spacing
         country: 'mb-4', // Reduced country spacing
         package: 'mb-4', // Reduced package spacing
