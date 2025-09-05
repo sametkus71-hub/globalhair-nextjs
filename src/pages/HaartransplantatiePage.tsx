@@ -4,7 +4,7 @@ import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { MetaHead } from '@/components/MetaHead';
 import { PageTransition } from '@/components/PageTransition';
 import { ScrollFadeLogo } from '@/components/ScrollFadeLogo';
-import { CentralLogo } from '@/components/homepage/CentralLogo';
+import { ShieldIcon } from '@/components/logos/ShieldIcon';
 import { BeforeAfterGrid } from '@/components/haartransplantatie/BeforeAfterGrid';
 import { TreatmentSelectionSection } from '@/components/haartransplantatie/TreatmentSelectionSection';
 import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
@@ -86,8 +86,8 @@ const HaartransplantatiePage = () => {
                 top: getLogoPosition() // Dynamic positioning based on phone size detection
               }}
             >
-              <div className="pointer-events-auto transform scale-125"> {/* Made 25% bigger */}
-                <CentralLogo />
+              <div className="pointer-events-auto w-16 h-16"> {/* 75% of home size (20 * 0.75 = 15, but using 16 for better proportions) */}
+                <ShieldIcon />
               </div>
             </div>
             
