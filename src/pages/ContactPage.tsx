@@ -115,33 +115,14 @@ const ContactPage: React.FC = () => {
     };
   }, [iconCarouselApi, locationCarouselApi]);
 
-  // Get icon for location
+  // Get icon for location - now just placeholder boxes
   const getLocationIcon = (iconType: string, isActive: boolean, opacity: number = 1) => {
-    const iconClass = `w-8 h-8 transition-all duration-300`;
-    const style = { opacity };
-    
-    switch (iconType) {
-      case 'windmill':
-        return (
-          <svg className={iconClass} style={style} fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 2L8 8h8l-4-6zm0 20l4-6H8l4 6zm10-10l-6-4v8l6-4zM2 12l6 4V8l-6 4z"/>
-          </svg>
-        );
-      case 'tulip':
-        return (
-          <svg className={iconClass} style={style} fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 2c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2s2-.9 2-2V4c0-1.1-.9-2-2-2zm-6 8c0-3.3 2.7-6 6-6s6 2.7 6 6c0 1.5-.6 2.8-1.5 3.8L12 22l-4.5-8.2C6.6 12.8 6 11.5 6 10z"/>
-          </svg>
-        );
-      case 'mosque':
-        return (
-          <svg className={iconClass} style={style} fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 1l-2 2v2l2-2 2 2V3l-2-2zm8 9c0-2-1-3-2-3s-2 1-2 3v1h4V10zM6 10c0-2-1-3-2-3S2 8 2 10v1h4v-1zm14 3H4v8h16v-8zm-8-1c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
-          </svg>
-        );
-      default:
-        return null;
-    }
+    return (
+      <div 
+        className="w-full h-full rounded-md bg-white transition-all duration-300"
+        style={{ opacity }}
+      />
+    );
   };
 
   // Staggered entrance animations
@@ -241,7 +222,7 @@ const ContactPage: React.FC = () => {
               </div>
 
               {/* Icon Carousel Section */}
-              <div className={`mt-16 mb-12 transition-all duration-500 ease-out ${
+              <div className={`mt-16 mb-6 transition-all duration-500 ease-out ${
                 iconsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
                 <Carousel 
@@ -264,38 +245,37 @@ const ContactPage: React.FC = () => {
                       const isPrevious = (activeGlobalIndex - 1 + allLocations.length) % allLocations.length === actualIndex;
                       const isNext = (activeGlobalIndex + 1) % allLocations.length === actualIndex;
                       
-                      let opacity = 0.2;
-                      let scale = 0.7;
-                      
-                      if (isActive) {
-                        opacity = 1;
-                        scale = 1;
-                      } else if (isPrevious || isNext) {
-                        opacity = 0.4;
-                        scale = 0.8;
-                      }
-                      
-                      return (
-                        <CarouselItem key={`${location.id}-icon-${index}`} className="pl-4 basis-1/3">
-                          <div className="flex justify-center">
-                            <div 
-                              className={`w-16 h-16 rounded-lg flex items-center justify-center transition-all duration-300 border-2 cursor-pointer ${
-                                isActive 
-                                  ? 'bg-gray-800 text-white border-gray-800' 
-                                  : 'bg-white text-gray-400 border-gray-200 hover:border-gray-300'
-                              }`}
-                              style={{ 
-                                opacity, 
-                                transform: `scale(${scale})`,
-                                filter: isActive ? 'none' : 'grayscale(0.3)'
-                              }}
-                              onClick={() => syncCarousels(actualIndex)}
-                            >
-                              {getLocationIcon(location.icon, isActive, 1)}
-                            </div>
-                          </div>
-                        </CarouselItem>
-                      );
+                       let opacity = 0.3;
+                       let scale = 0.75;
+                       
+                       if (isActive) {
+                         opacity = 1;
+                         scale = 1;
+                       } else if (isPrevious || isNext) {
+                         opacity = 0.5;
+                         scale = 0.85;
+                       }
+                       
+                       return (
+                         <CarouselItem key={`${location.id}-icon-${index}`} className="pl-4 basis-1/3">
+                           <div className="flex justify-center">
+                             <div 
+                               className={`w-16 h-16 rounded-lg flex items-center justify-center transition-all duration-300 border cursor-pointer ${
+                                 isActive 
+                                   ? 'bg-white border-gray-300' 
+                                   : 'bg-gray-100 border-gray-200'
+                               }`}
+                               style={{ 
+                                 opacity, 
+                                 transform: `scale(${scale})`
+                               }}
+                               onClick={() => syncCarousels(actualIndex)}
+                             >
+                               {getLocationIcon(location.icon, isActive, 1)}
+                             </div>
+                           </div>
+                         </CarouselItem>
+                       );
                     })}
                   </CarouselContent>
                 </Carousel>
