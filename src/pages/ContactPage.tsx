@@ -148,6 +148,7 @@ const ContactPage: React.FC = () => {
                       </button>
                     ))}
                   </div>
+                </div>
               </div>
 
               {/* Location Icons Section */}
@@ -216,10 +217,10 @@ const ContactPage: React.FC = () => {
                           </svg>
                         </div>
                       </div>
-                    )}
-                  </div>
+                     )}
+              </div>
 
-                  {/* Location Cards */}
+              {/* Location Cards */}
                   {selectedCountry === 'nederland' && (
                     <div className={`transition-all duration-500 ease-out ${
                       locationsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
@@ -314,8 +315,7 @@ const ContactPage: React.FC = () => {
                         </div>
                       </Carousel>
                     </div>
-                  )}
-                </div>
+                   )}
 
               {/* Contact Icons Section */}
               <div className={`mt-auto pt-12 transition-all duration-500 ease-out ${
