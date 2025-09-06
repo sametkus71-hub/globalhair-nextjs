@@ -5,6 +5,8 @@ import HomePage from '@/pages/HomePage';
 import HaartransplantatiePage from '@/pages/HaartransplantatiePage';
 import HaartransplantatieOldPage from '@/pages/HaartransplantatieOldPage';
 import InfoPage from '@/pages/InfoPage';
+import InfoMethodPage from '@/pages/InfoMethodPage';
+import InfoTrajectoryPage from '@/pages/InfoTrajectoryPage';
 import MissionPage from '@/pages/MissionPage';
 import SupportPage from '@/pages/SupportPage';
 import V6HairboostPage from '@/pages/V6HairboostPage';
@@ -35,6 +37,8 @@ export const SEORoutes = () => {
       <Route path="/nl/reviews/:id" element={<ReviewItemPage />} />
       <Route path="/nl/missie" element={<MissionPage />} />
       <Route path="/nl/info" element={<InfoPage />} />
+      <Route path="/nl/info/methode" element={<InfoMethodPage />} />
+      <Route path="/nl/info/traject" element={<InfoTrajectoryPage />} />
       <Route path="/nl/support" element={<SupportPage />} />
       
       {/* English routes */}
@@ -50,6 +54,8 @@ export const SEORoutes = () => {
       <Route path="/en/reviews/:id" element={<ReviewItemPage />} />
       <Route path="/en/mission" element={<MissionPage />} />
       <Route path="/en/info" element={<InfoPage />} />
+      <Route path="/en/info/method" element={<InfoMethodPage />} />
+      <Route path="/en/info/trajectory" element={<InfoTrajectoryPage />} />
       <Route path="/en/support" element={<SupportPage />} />
       
       {/* Legacy support - maintain old item1 route */}

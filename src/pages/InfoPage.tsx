@@ -8,6 +8,9 @@ const InfoPage: React.FC = () => {
   const { language } = useLanguage();
   const navigate = useNavigate();
   const [isExiting, setIsExiting] = useState(false);
+  const [titleVisible, setTitleVisible] = useState(false);
+  const [button1Visible, setButton1Visible] = useState(false);
+  const [button2Visible, setButton2Visible] = useState(false);
 
   const handleClose = () => {
     setIsExiting(true);
@@ -21,6 +24,31 @@ const InfoPage: React.FC = () => {
       navigate(previousPath);
     }, 300);
   };
+
+  const handleMethodClick = () => {
+    // Store current path and navigate to method subpage
+    sessionStorage.setItem('previousPath', window.location.pathname);
+    navigate(language === 'nl' ? '/nl/info/methode' : '/en/info/method');
+  };
+
+  const handleTrajectClick = () => {
+    // Store current path and navigate to trajectory subpage
+    sessionStorage.setItem('previousPath', window.location.pathname);
+    navigate(language === 'nl' ? '/nl/info/traject' : '/en/info/trajectory');
+  };
+
+  // Staggered entrance animations
+  useEffect(() => {
+    const titleTimer = setTimeout(() => setTitleVisible(true), 200);
+    const button1Timer = setTimeout(() => setButton1Visible(true), 500);
+    const button2Timer = setTimeout(() => setButton2Visible(true), 650);
+    
+    return () => {
+      clearTimeout(titleTimer);
+      clearTimeout(button1Timer);
+      clearTimeout(button2Timer);
+    };
+  }, []);
 
   // Handle ESC key
   useEffect(() => {
@@ -40,38 +68,65 @@ const InfoPage: React.FC = () => {
   return (
     <>
       <MetaHead 
-        title={language === 'nl' ? 'Informatie' : 'Information'}
-        description={language === 'nl' ? 'Informatie pagina' : 'Information page'}
+        title={language === 'nl' ? 'Hoe kunnen wij u helpen?' : 'How can we help you?'}
+        description={language === 'nl' ? 'Kies uw gebied en methode' : 'Choose your area and method'}
         language={language}
       />
       <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
-        {/* Close button */}
-        <button
-          onClick={handleClose}
-          className="fixed top-4 right-4 z-50 p-2 rounded-full bg-black/10 backdrop-blur-sm border border-white/20 hover:bg-black/20 transition-colors transform hover:scale-105 active:scale-95"
-          aria-label={language === 'nl' ? 'Sluiten' : 'Close'}
-        >
-          <X className="w-5 h-5 text-white" />
-        </button>
-        
-        {/* Scrollable Content */}
-        <div className="min-h-[var(--app-height)] bg-gradient-to-b from-gray-50 to-white">
-          <div className="max-w-4xl mx-auto px-6 py-16">
-            <h1 className="text-4xl font-bold mb-8 text-gray-900">
-              {language === 'nl' ? 'Informatie' : 'Information'}
-            </h1>
-            <div className="text-gray-600 text-lg leading-relaxed">
-              <p className="mb-6">
-                {language === 'nl' 
-                  ? 'Hier vindt u alle belangrijke informatie over onze diensten en behandelingen.'
-                  : 'Here you will find all important information about our services and treatments.'
-                }
+        {/* Background matching haartransplantatie page */}
+        <div className="min-h-[var(--app-height)]" style={{ background: '#E4E5E0' }}>
+          
+          {/* Close button */}
+          <button
+            onClick={handleClose}
+            className="fixed top-4 left-4 z-50 p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-colors transform hover:scale-105 active:scale-95"
+            aria-label={language === 'nl' ? 'Sluiten' : 'Close'}
+          >
+            <X className="w-6 h-6 text-gray-600" />
+          </button>
+          
+          {/* Content Container */}
+          <div className="flex flex-col items-center justify-center min-h-[var(--app-height)] px-6 py-20">
+            
+            {/* Title Section */}
+            <div className={`text-center mb-16 transition-all duration-500 ease-out ${
+              titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-4 leading-tight">
+                {language === 'nl' ? 'HOW CAN WE' : 'HOW CAN WE'}
+                <br />
+                {language === 'nl' ? 'HELP YOU?' : 'HELP YOU?'}
+              </h1>
+              <p className="text-lg md:text-xl text-gray-600 font-medium">
+                {language === 'nl' ? 'Kies jou gebied en methode' : 'Choose your area and method'}
               </p>
-              {/* Content will be added later */}
+            </div>
+
+            {/* Buttons Container */}
+            <div className="w-full max-w-md space-y-6">
+              
+              {/* Treatment Method Button */}
+              <button
+                onClick={handleMethodClick}
+                className={`w-full py-6 px-8 bg-gray-900 text-white text-lg font-semibold rounded-full hover:bg-gray-800 active:scale-[0.98] transition-all duration-300 ease-out ${
+                  button1Visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+              >
+                {language === 'nl' ? 'Behandel methode' : 'Treatment method'}
+              </button>
+
+              {/* Treatment Trajectory Button */}
+              <button
+                onClick={handleTrajectClick}
+                className={`w-full py-6 px-8 bg-gray-900 text-white text-lg font-semibold rounded-full hover:bg-gray-800 active:scale-[0.98] transition-all duration-300 ease-out ${
+                  button2Visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+              >
+                {language === 'nl' ? 'Behandel traject' : 'Treatment trajectory'}
+              </button>
+              
             </div>
             
-            {/* Extra spacing for mobile navigation */}
-            <div className="h-32"></div>
           </div>
         </div>
       </div>
