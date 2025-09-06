@@ -28,6 +28,12 @@ export const BottomNavigation = () => {
     }
   };
 
+  const handleMissionNavigation = () => {
+    // Store current page before navigating to mission
+    sessionStorage.setItem('previousPage', location.pathname);
+    handlePopupNavigation(language === 'nl' ? '/nl/missie' : '/en/mission');
+  };
+
   const isActive = (path: string) => {
     if (path === 'home') {
       return location.pathname === '/nl' || location.pathname === '/en' || location.pathname === '/';
@@ -49,7 +55,7 @@ export const BottomNavigation = () => {
     },
     { 
       iconSrc: '/lovable-uploads/75185e09-91f9-4292-90d7-fd4371d2ab23.png',
-      onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/missie' : '/en/mission'),
+      onClick: handleMissionNavigation,
       id: 'mission'
     },
     { 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft } from 'lucide-react';
+import { X } from 'lucide-react';
 import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
@@ -17,12 +17,22 @@ const MissionPage: React.FC = () => {
 
   const handleClose = () => {
     setIsExiting(true);
-    // Navigate back to home
-    const homePath = language === 'nl' ? '/nl' : '/en';
+    
+    // Get the previous page from session storage
+    const previousPage = sessionStorage.getItem('previousPage');
+    let targetPath = language === 'nl' ? '/nl/haartransplantatie' : '/en/haartransplantatie'; // default
+    
+    if (previousPage) {
+      if (previousPage.includes('v6hairboost')) {
+        targetPath = language === 'nl' ? '/nl/v6hairboost' : '/en/v6hairboost';
+      } else if (previousPage.includes('haartransplantatie')) {
+        targetPath = language === 'nl' ? '/nl/haartransplantatie' : '/en/haartransplantatie';
+      }
+    }
     
     // Wait for animation to complete before navigating
     setTimeout(() => {
-      navigate(homePath);
+      navigate(targetPath);
     }, 300);
   };
 
@@ -68,7 +78,7 @@ const MissionPage: React.FC = () => {
         description={t('mission.page.description')}
         language={language}
       />
-      <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'slide-exit-right' : 'slide-enter-left'}`}>
+      <div className={`reviews-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
         {/* Background matching parent */}
         <div className="min-h-[var(--app-height)]" style={{ background: '#E4E5E0' }}>
           
@@ -76,9 +86,9 @@ const MissionPage: React.FC = () => {
           <button
             onClick={handleClose}
             className="fixed top-4 left-4 z-50 w-10 h-10 rounded-full bg-gray-400/60 hover:bg-gray-400/80 transition-colors flex items-center justify-center"
-            aria-label={language === 'nl' ? 'Terug' : 'Back'}
+            aria-label={language === 'nl' ? 'Sluiten' : 'Close'}
           >
-            <ArrowLeft className="w-5 h-5 text-white" />
+            <X className="w-5 h-5 text-white" />
           </button>
           
           {/* Scrollable Content */}
