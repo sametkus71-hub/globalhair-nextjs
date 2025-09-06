@@ -4,6 +4,9 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from '@/pages/HomePage';
 import HaartransplantatiePage from '@/pages/HaartransplantatiePage';
 import HaartransplantatieOldPage from '@/pages/HaartransplantatieOldPage';
+import InfoPage from '@/pages/InfoPage';
+import MissionPage from '@/pages/MissionPage';
+import SupportPage from '@/pages/SupportPage';
 import V6HairboostPage from '@/pages/V6HairboostPage';
 import ComingSoon1Page from '@/pages/ComingSoon1Page';
 import ComingSoon2Page from '@/pages/ComingSoon2Page';
@@ -11,7 +14,6 @@ import DashboardPage from '@/pages/DashboardPage';
 import FormPage from '@/pages/FormPage';
 import ReviewsPage from '@/pages/ReviewsPage';
 import ReviewItemPage from '@/pages/ReviewItemPage';
-import MissionPage from '@/pages/MissionPage';
 import NotFound from '@/pages/NotFound';
 
 export const SEORoutes = () => {
@@ -32,6 +34,8 @@ export const SEORoutes = () => {
       <Route path="/nl/reviews" element={<ReviewsPage />} />
       <Route path="/nl/reviews/:id" element={<ReviewItemPage />} />
       <Route path="/nl/missie" element={<MissionPage />} />
+      <Route path="/nl/info" element={<InfoPage />} />
+      <Route path="/nl/support" element={<SupportPage />} />
       
       {/* English routes */}
       <Route path="/en" element={<HomePage />} />
@@ -45,6 +49,8 @@ export const SEORoutes = () => {
       <Route path="/en/reviews" element={<ReviewsPage />} />
       <Route path="/en/reviews/:id" element={<ReviewItemPage />} />
       <Route path="/en/mission" element={<MissionPage />} />
+      <Route path="/en/info" element={<InfoPage />} />
+      <Route path="/en/support" element={<SupportPage />} />
       
       {/* Legacy support - maintain old item1 route */}
       <Route path="/nl/reviews/item1" element={<ReviewItemPage />} />
