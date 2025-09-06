@@ -68,11 +68,13 @@ export const ReviewsGrid = () => {
   };
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full overflow-auto">
       <div 
-        className="grid grid-cols-3 w-full h-full"
+        className="grid grid-cols-3"
         style={{
-          gridAutoRows: 'minmax(0, 1fr)',
+          width: '100vw',
+          minHeight: '100vh',
+          gridAutoRows: '32vw', // Fixed row height based on viewport width
           gap: '2px',
           backgroundColor: '#ffffff'
         }}
@@ -85,6 +87,10 @@ export const ReviewsGrid = () => {
               "cursor-pointer hover:opacity-90 transition-opacity duration-200",
               item.rowSpan === 2 ? "row-span-2" : "row-span-1"
             )}
+            style={{
+              width: '33vw', // Fixed width based on viewport
+              height: item.rowSpan === 2 ? '64vw' : '32vw' // Fixed height maintaining aspect ratio
+            }}
           >
             {item.type === 'quote' && item.content?.quote && (
               <QuoteCard quote={item.content.quote} name={item.content.name || 'Anonymous'} />
