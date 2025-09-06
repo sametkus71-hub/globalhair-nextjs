@@ -373,13 +373,13 @@ const ContactPage: React.FC = () => {
                     href="https://api.whatsapp.com/send?phone=31633388757"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 bg-black rounded-full flex items-center justify-center hover:bg-gray-800 active:scale-95 transition-all duration-200"
+                    className="hover:opacity-80 active:scale-95 transition-all duration-200"
                     aria-label="WhatsApp"
                   >
                     <img 
                       src="/lovable-uploads/8bfdb28d-b20e-4765-8917-61897ed14855.png" 
                       alt="WhatsApp" 
-                      className="w-5 h-5"
+                      className="w-12 h-12"
                     />
                   </a>
                   
