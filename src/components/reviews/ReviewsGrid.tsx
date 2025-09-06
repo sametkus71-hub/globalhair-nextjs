@@ -68,14 +68,13 @@ export const ReviewsGrid = () => {
   };
 
   return (
-    <div className="w-full h-full bg-gray-50">
+    <div className="w-full h-full">
       <div 
-        className="grid grid-cols-3 h-full w-full"
+        className="grid grid-cols-3 w-full h-full"
         style={{
-          gridTemplateRows: 'repeat(6, minmax(0, 1fr))',
-          gap: '1px',
-          backgroundColor: '#d1d5db', // Grid line color
-          aspectRatio: '3/6' // Ensures proper square proportions
+          gridAutoRows: 'minmax(0, 1fr)',
+          gap: '2px',
+          backgroundColor: '#ffffff'
         }}
       >
         {GRID_ITEMS.map((item) => (
@@ -83,12 +82,9 @@ export const ReviewsGrid = () => {
             key={item.id}
             onClick={() => handleItemClick(item.id)}
             className={cn(
-              "cursor-pointer hover:opacity-95 transition-opacity duration-200 w-full",
+              "cursor-pointer hover:opacity-90 transition-opacity duration-200",
               item.rowSpan === 2 ? "row-span-2" : "row-span-1"
             )}
-            style={{
-              aspectRatio: item.rowSpan === 2 ? '1/2' : '1/1' // Force proper aspect ratios
-            }}
           >
             {item.type === 'quote' && item.content?.quote && (
               <QuoteCard quote={item.content.quote} name={item.content.name || 'Anonymous'} />
