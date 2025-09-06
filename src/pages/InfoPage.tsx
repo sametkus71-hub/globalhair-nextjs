@@ -79,36 +79,36 @@ const InfoPage: React.FC = () => {
           {/* Close button */}
           <button
             onClick={handleClose}
-            className="fixed top-4 left-4 z-50 p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-colors transform hover:scale-105 active:scale-95"
+            className="fixed top-4 left-4 z-50 w-10 h-10 rounded-full bg-gray-400/60 hover:bg-gray-400/80 transition-colors flex items-center justify-center"
             aria-label={language === 'nl' ? 'Sluiten' : 'Close'}
           >
-            <X className="w-6 h-6 text-gray-600" />
+            <X className="w-5 h-5 text-white" />
           </button>
           
           {/* Content Container */}
           <div className="flex flex-col items-center justify-center min-h-[var(--app-height)] px-6 py-20">
             
             {/* Title Section */}
-            <div className={`text-center mb-16 transition-all duration-500 ease-out ${
+            <div className={`text-center mb-20 transition-all duration-500 ease-out ${
               titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-4 leading-tight">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-gray-700 mb-6 leading-[0.9] tracking-tight">
                 {language === 'nl' ? 'HOW CAN WE' : 'HOW CAN WE'}
                 <br />
                 {language === 'nl' ? 'HELP YOU?' : 'HELP YOU?'}
               </h1>
-              <p className="text-lg md:text-xl text-gray-600 font-medium">
+              <p className="text-base md:text-lg text-gray-500 font-normal">
                 {language === 'nl' ? 'Kies jou gebied en methode' : 'Choose your area and method'}
               </p>
             </div>
 
             {/* Buttons Container */}
-            <div className="w-full max-w-md space-y-6">
+            <div className="w-full max-w-sm space-y-5">
               
               {/* Treatment Method Button */}
               <button
                 onClick={handleMethodClick}
-                className={`w-full py-6 px-8 bg-gray-900 text-white text-lg font-semibold rounded-full hover:bg-gray-800 active:scale-[0.98] transition-all duration-300 ease-out ${
+                className={`w-full py-4 px-8 bg-gray-900 text-white text-base font-medium rounded-full hover:bg-gray-800 active:scale-[0.98] transition-all duration-300 ease-out ${
                   button1Visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
               >
@@ -118,7 +118,7 @@ const InfoPage: React.FC = () => {
               {/* Treatment Trajectory Button */}
               <button
                 onClick={handleTrajectClick}
-                className={`w-full py-6 px-8 bg-gray-900 text-white text-lg font-semibold rounded-full hover:bg-gray-800 active:scale-[0.98] transition-all duration-300 ease-out ${
+                className={`w-full py-4 px-8 bg-gray-900 text-white text-base font-medium rounded-full hover:bg-gray-800 active:scale-[0.98] transition-all duration-300 ease-out ${
                   button2Visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
               >
