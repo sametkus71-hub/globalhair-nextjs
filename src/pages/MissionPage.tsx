@@ -4,7 +4,6 @@ import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
 import { useNavigate } from 'react-router-dom';
-import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 
 const MissionPage: React.FC = () => {
   const { language } = useLanguage();
@@ -149,9 +148,6 @@ const MissionPage: React.FC = () => {
           </div>
         </div>
       </div>
-      
-      {/* Bottom Navigation Portal */}
-      <BottomNavigationPortal />
     </>
   );
 };
