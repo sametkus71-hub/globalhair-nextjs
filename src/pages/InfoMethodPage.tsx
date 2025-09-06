@@ -63,62 +63,62 @@ const InfoMethodPage: React.FC = () => {
 
   const methodsData = language === 'nl' ? {
     title: 'MIGHTY METHOD',
-    subtitle: 'Onze bewezen behandelmethoden',
-    trajectoryButton: 'Behandel traject',
+    subtitle: 'Haar | wenkbauwen | Baard',
+    trajectoryButton: 'bekijk het traject',
     methods: [
       {
-        title: 'FUE Haartransplantatie',
+        title: 'FUE safer & DHI- laall',
         content: 'Follicular Unit Extraction is een moderne methode waarbij individuele haarzakjes worden geëxtraheerd en getransplanteerd. Deze techniek zorgt voor natuurlijke resultaten met minimale littekens.'
       },
       {
-        title: 'DHI Technique',
-        content: 'Direct Hair Implantation gebruikt een speciale pen voor directe implantatie van haarzakjes. Dit zorgt voor meer precisie en snellere genezing.'
+        title: 'Stamcel - lala',
+        content: 'Stamceltherapie ter ondersteuning van haargezondheid en stimulatie van natuurlijke haargroei met regeneratieve eigenschappen.'
       },
       {
-        title: 'Sapphire FUE',
-        content: 'Een geavanceerde versie van FUE waarbij saffierblaadjes worden gebruikt voor nog preciezere en minder traumatische incisies.'
+        title: 'Comfort behandeling',
+        content: 'Een comfortabele behandelervaring met minimale pijn en optimale zorg tijdens en na de procedure voor uw gemoedsrust.'
       },
       {
-        title: 'Beard Transplantation',
-        content: 'Gespecialiseerde techniek voor baard- en snortransplantaties met natuurlijke groeipatronen en optimale dichtheid.'
+        title: 'V6 Hairboost® - lalal',
+        content: 'Onze exclusieve V6 Hairboost technologie voor verbeterde haargroei en optimale resultaten met geavanceerde methoden.'
       },
       {
-        title: 'Eyebrow Restoration',
-        content: 'Delicate techniek voor wenkbrauwtransplantaties met aandacht voor natuurlijke vorm en groeirichting.'
+        title: 'GHI precision method™',
+        content: 'Gepatenteerde precisie methode voor exacte plaatsing en natuurlijke resultaten met state-of-the-art technologie.'
       },
       {
-        title: 'PRP Therapy',
-        content: 'Platelet Rich Plasma therapie ter ondersteuning van haargezondheid en stimulatie van natuurlijke haargroei.'
+        title: '12-Point Precision Scan™',
+        content: 'Geavanceerde 12-punts precisie scan voor optimale analyse en planning van uw haartransplantatie behandeling.'
       }
     ]
   } : {
     title: 'MIGHTY METHOD',
-    subtitle: 'Our proven treatment methods',
-    trajectoryButton: 'Treatment trajectory',
+    subtitle: 'Hair | eyebrows | Beard',
+    trajectoryButton: 'view the trajectory',
     methods: [
       {
-        title: 'FUE Hair Transplant',
+        title: 'FUE safer & DHI- laall',
         content: 'Follicular Unit Extraction is a modern method where individual hair follicles are extracted and transplanted. This technique ensures natural results with minimal scarring.'
       },
       {
-        title: 'DHI Technique',
-        content: 'Direct Hair Implantation uses a special pen for direct implantation of hair follicles. This provides more precision and faster healing.'
+        title: 'Stamcel - lala',
+        content: 'Stem cell therapy to support hair health and stimulate natural hair growth with regenerative properties.'
       },
       {
-        title: 'Sapphire FUE',
-        content: 'An advanced version of FUE using sapphire blades for even more precise and less traumatic incisions.'
+        title: 'Comfort treatment',
+        content: 'A comfortable treatment experience with minimal pain and optimal care during and after the procedure for your peace of mind.'
       },
       {
-        title: 'Beard Transplantation',
-        content: 'Specialized technique for beard and mustache transplants with natural growth patterns and optimal density.'
+        title: 'V6 Hairboost® - lalal',
+        content: 'Our exclusive V6 Hairboost technology for enhanced hair growth and optimal results with advanced methods.'
       },
       {
-        title: 'Eyebrow Restoration',
-        content: 'Delicate technique for eyebrow transplants with attention to natural shape and growth direction.'
+        title: 'GHI precision method™',
+        content: 'Patented precision method for exact placement and natural results with state-of-the-art technology.'
       },
       {
-        title: 'PRP Therapy',
-        content: 'Platelet Rich Plasma therapy to support hair health and stimulate natural hair growth.'
+        title: '12-Point Precision Scan™',
+        content: 'Advanced 12-point precision scan for optimal analysis and planning of your hair transplant treatment.'
       }
     ]
   };
@@ -148,37 +148,37 @@ const InfoMethodPage: React.FC = () => {
             <div className="max-w-2xl mx-auto">
               
               {/* Title Section */}
-              <div className={`text-center mb-12 transition-all duration-500 ease-out ${
+              <div className={`text-center mb-16 transition-all duration-500 ease-out ${
                 titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-gray-700 mb-6 leading-[0.9] tracking-tight">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-700 mb-8 leading-[0.9] tracking-tight">
                   {methodsData.title}
                 </h1>
-                <p className="text-base md:text-lg text-gray-500 font-normal">
+                <p className="text-lg md:text-xl text-gray-600 font-normal tracking-wide">
                   {methodsData.subtitle}
                 </p>
               </div>
 
               {/* Accordion Section */}
-              <div className={`mb-12 transition-all duration-500 ease-out ${
+              <div className={`mb-20 transition-all duration-500 ease-out ${
                 accordionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
-                <Accordion type="multiple" className="space-y-4">
+                <Accordion type="multiple" className="space-y-0">
                   {methodsData.methods.map((method, index) => (
                     <AccordionItem
                       key={index}
                       value={`item-${index}`}
-                      className="border border-gray-300/50 rounded-2xl bg-white/30 backdrop-blur-sm overflow-hidden"
+                      className="border-b border-gray-400/30 last:border-b-0"
                     >
-                      <AccordionTrigger className="px-6 py-5 hover:no-underline group [&[data-state=open]>div>svg]:rotate-45">
+                      <AccordionTrigger className="py-6 px-0 hover:no-underline group [&[data-state=open]>div>svg]:rotate-45">
                         <div className="flex items-center justify-between w-full">
-                          <span className="text-left text-lg font-medium text-gray-800 group-hover:text-gray-900">
+                          <span className="text-left text-lg font-normal text-gray-600 group-hover:text-gray-800">
                             {method.title}
                           </span>
                           <Plus className="w-5 h-5 text-gray-600 transition-transform duration-200 shrink-0" />
                         </div>
                       </AccordionTrigger>
-                      <AccordionContent className="px-6 pb-5">
+                      <AccordionContent className="px-0 pb-6">
                         <p className="text-gray-600 leading-relaxed">
                           {method.content}
                         </p>
@@ -194,7 +194,7 @@ const InfoMethodPage: React.FC = () => {
               }`}>
                 <button
                   onClick={handleTrajectoryClick}
-                  className="w-full max-w-sm py-4 px-8 bg-gray-900 text-white text-base font-medium rounded-full hover:bg-gray-800 active:scale-[0.98] transition-all duration-300 ease-out"
+                  className="py-3 px-8 bg-gray-600 text-white text-sm font-normal rounded-full hover:bg-gray-700 active:scale-[0.98] transition-all duration-300 ease-out"
                 >
                   {methodsData.trajectoryButton}
                 </button>
