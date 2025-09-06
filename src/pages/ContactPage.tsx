@@ -1,32 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
 import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
-import { useNavigate } from 'react-router-dom';
+import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
 
 const ContactPage: React.FC = () => {
   const { language } = useLanguage();
-  const navigate = useNavigate();
+  const { handlePopupClose } = usePopupClose();
   const [isExiting, setIsExiting] = useState(false);
   const [titleVisible, setTitleVisible] = useState(false);
   const [contentVisible, setContentVisible] = useState(false);
 
   const handleClose = () => {
     setIsExiting(true);
-    // Always go to haartransplantatie page
-    const haartransplantatieePath = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
-    
-    // Fast iOS-style dismissal - shorter animation time
-    setTimeout(() => {
-      // Clear any stored paths to prevent re-animations
-      sessionStorage.removeItem('previousPath');
-      sessionStorage.setItem('skipPageAnimations', 'true');
-      navigate(haartransplantatieePath);
-      // Remove the skip flag after navigation
-      setTimeout(() => {
-        sessionStorage.removeItem('skipPageAnimations');
-      }, 100);
-    }, 200);
+    handlePopupClose(200);
   };
 
   // Staggered entrance animations
@@ -37,21 +23,6 @@ const ContactPage: React.FC = () => {
     return () => {
       clearTimeout(titleTimer);
       clearTimeout(contentTimer);
-    };
-  }, []);
-
-  // Handle ESC key
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        handleClose();
-      }
-    };
-    
-    document.addEventListener('keydown', handleEsc);
-    
-    return () => {
-      document.removeEventListener('keydown', handleEsc);
     };
   }, []);
 
@@ -67,13 +38,7 @@ const ContactPage: React.FC = () => {
         <div className="min-h-[var(--app-height)]" style={{ background: '#E4E5E0' }}>
           
           {/* Close button */}
-          <button
-            onClick={handleClose}
-            className="fixed top-4 left-4 z-50 w-10 h-10 rounded-full bg-gray-400/60 hover:bg-gray-400/80 transition-colors flex items-center justify-center"
-            aria-label={language === 'nl' ? 'Sluiten' : 'Close'}
-          >
-            <X className="w-5 h-5 text-white" />
-          </button>
+          <PopupCloseButton onClose={handleClose} />
           
           {/* Content Container */}
           <div className="flex flex-col items-center justify-center min-h-[var(--app-height)] px-6 py-20">

@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
 import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
 import { useNavigate } from 'react-router-dom';
+import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
 
 const MissionPage: React.FC = () => {
   const { language } = useLanguage();
   const { t } = useTranslation(language);
   const navigate = useNavigate();
+  const { handlePopupClose } = usePopupClose();
   const [isExiting, setIsExiting] = useState(false);
   const [titleVisible, setTitleVisible] = useState(false);
   const [contentVisible, setContentVisible] = useState(false);
@@ -16,23 +17,7 @@ const MissionPage: React.FC = () => {
 
   const handleClose = () => {
     setIsExiting(true);
-    
-    // Get the previous page from session storage
-    const previousPage = sessionStorage.getItem('previousPage');
-    let targetPath = language === 'nl' ? '/nl/haartransplantatie' : '/en/haartransplantatie'; // default
-    
-    if (previousPage) {
-      if (previousPage.includes('v6hairboost')) {
-        targetPath = language === 'nl' ? '/nl/v6hairboost' : '/en/v6hairboost';
-      } else if (previousPage.includes('haartransplantatie')) {
-        targetPath = language === 'nl' ? '/nl/haartransplantatie' : '/en/haartransplantatie';
-      }
-    }
-    
-    // Wait for animation to complete before navigating
-    setTimeout(() => {
-      navigate(targetPath);
-    }, 300);
+    handlePopupClose(300);
   };
 
   const handleMethodsClick = () => {
@@ -42,22 +27,7 @@ const MissionPage: React.FC = () => {
     navigate(methodPath);
   };
 
-  // Handle ESC key
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        handleClose();
-      }
-    };
-    
-    document.addEventListener('keydown', handleEsc);
-    
-    return () => {
-      document.removeEventListener('keydown', handleEsc);
-    };
-  }, []);
-
-  // Staggered entrance animations
+  // Handle ESC key and staggered entrance animations
   useEffect(() => {
     const timer1 = setTimeout(() => setTitleVisible(true), 100);
     const timer2 = setTimeout(() => setContentVisible(true), 300);
@@ -82,13 +52,7 @@ const MissionPage: React.FC = () => {
         <div className="min-h-[var(--app-height)]" style={{ background: '#E4E5E0' }}>
           
           {/* Close button */}
-          <button
-            onClick={handleClose}
-            className="fixed top-4 left-4 z-50 w-10 h-10 rounded-full bg-gray-400/60 hover:bg-gray-400/80 transition-colors flex items-center justify-center"
-            aria-label={language === 'nl' ? 'Sluiten' : 'Close'}
-          >
-            <X className="w-5 h-5 text-white" />
-          </button>
+          <PopupCloseButton onClose={handleClose} />
           
           {/* Scrollable Content */}
           <div className="pt-16 md:pt-20 pb-20 md:pb-32 px-6">
