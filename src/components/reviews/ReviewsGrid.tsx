@@ -1,44 +1,70 @@
-import { useEffect, useState } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useSlideTransition } from '@/hooks/useSlideTransition';
 import { cn } from '@/lib/utils';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Play, Quote } from 'lucide-react';
 
-interface ReviewItem {
+type ContentType = 'quote' | 'video' | 'photo' | 'title';
+
+interface GridItem {
   id: number;
-  isAfter: boolean;
-  beforeColor: string;
-  afterColor: string;
+  type: ContentType;
+  span: 1 | 2; // Grid column span
+  content?: {
+    quote?: string;
+    name?: string;
+    title?: string;
+  };
 }
 
-const REVIEW_ITEMS: Omit<ReviewItem, 'isAfter'>[] = [
-  { id: 1, beforeColor: 'bg-gray-500', afterColor: 'bg-gray-300' },
-  { id: 2, beforeColor: 'bg-gray-600', afterColor: 'bg-gray-400' },
-  { id: 3, beforeColor: 'bg-gray-700', afterColor: 'bg-gray-200' },
-  { id: 4, beforeColor: 'bg-gray-400', afterColor: 'bg-gray-300' },
-  { id: 5, beforeColor: 'bg-gray-800', afterColor: 'bg-gray-100' },
-  { id: 6, beforeColor: 'bg-gray-500', afterColor: 'bg-gray-300' },
-  { id: 7, beforeColor: 'bg-gray-600', afterColor: 'bg-gray-400' },
-  { id: 8, beforeColor: 'bg-gray-700', afterColor: 'bg-gray-200' },
-  { id: 9, beforeColor: 'bg-gray-400', afterColor: 'bg-gray-500' }
+// Instagram explore-style grid layout with mixed content
+const GRID_ITEMS: GridItem[] = [
+  { id: 1, type: 'photo', span: 1 },
+  { id: 2, type: 'quote', span: 2, content: { quote: "Geweldig resultaat!", name: "M. van der Berg" } },
+  { id: 3, type: 'video', span: 1 },
+  { id: 4, type: 'photo', span: 1 },
+  { id: 5, type: 'title', span: 1, content: { title: "Bekijk onze reviews" } },
+  { id: 6, type: 'quote', span: 1, content: { quote: "Perfect service", name: "J. Smit" } },
+  { id: 7, type: 'video', span: 2 },
+  { id: 8, type: 'photo', span: 1 },
+  { id: 9, type: 'quote', span: 1, content: { quote: "Zeer tevreden!", name: "A. Johnson" } }
 ];
 
-// Initial balanced state: alternating pattern for 9 items
-const INITIAL_STATE = [false, true, false, true, false, true, false, true, false];
+const QuoteCard = ({ quote, name }: { quote: string; name: string }) => (
+  <div className="w-full h-full bg-white/90 p-4 flex flex-col justify-between min-h-[120px]">
+    <Quote className="w-6 h-6 text-gray-400 mb-2" />
+    <p className="text-sm font-medium text-gray-800 flex-1 flex items-center">"{quote}"</p>
+    <p className="text-xs text-gray-600 mt-2">— {name}</p>
+  </div>
+);
 
-// Animation groups that swap pairs to maintain balance
-const ANIMATION_GROUPS = [
-  { beforeId: 1, afterId: 2, initialDelay: 3000, stayDuration: 18000 },
-  { beforeId: 3, afterId: 4, initialDelay: 8000, stayDuration: 22000 },
-  { beforeId: 5, afterId: 6, initialDelay: 15000, stayDuration: 16000 },
-  { beforeId: 7, afterId: 8, initialDelay: 5000, stayDuration: 20000 }
-];
+const VideoCard = () => (
+  <div className="w-full h-full bg-gray-900 flex items-center justify-center relative min-h-[120px]">
+    <Skeleton className="absolute inset-0 bg-gray-800" />
+    <div className="relative z-10 w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+      <Play className="w-6 h-6 text-white ml-1" fill="white" />
+    </div>
+  </div>
+);
+
+const PhotoCard = () => (
+  <div className="w-full h-full bg-gray-200 relative min-h-[120px]">
+    <Skeleton className="w-full h-full" />
+    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+  </div>
+);
+
+const TitleCard = ({ title }: { title: string }) => (
+  <div className="w-full h-full bg-gradient-to-br from-gray-900 to-gray-700 flex items-center justify-center p-4 min-h-[120px]">
+    <h1 className="text-white font-bold text-center leading-tight">
+      <span className="text-lg sm:text-xl md:text-2xl">{title}</span>
+    </h1>
+  </div>
+);
 
 export const ReviewsGrid = () => {
   const { language } = useLanguage();
   const { slideToItem } = useSlideTransition();
-  const [items, setItems] = useState<ReviewItem[]>(
-    REVIEW_ITEMS.map((item, index) => ({ ...item, isAfter: INITIAL_STATE[index] }))
-  );
 
   // Handle click to navigate to item page with slide animation
   const handleItemClick = (clickedId: number) => {
@@ -46,74 +72,26 @@ export const ReviewsGrid = () => {
     slideToItem(itemRoute);
   };
 
-  useEffect(() => {
-    const intervals: NodeJS.Timeout[] = [];
-
-    // Set up balanced swap animation groups
-    ANIMATION_GROUPS.forEach((group) => {
-      // Initial delay before first swap
-      const initialTimer = setTimeout(() => {
-        // Swap the before item to after and after item to before
-        setItems(prevItems => 
-          prevItems.map(prevItem => {
-            if (prevItem.id === group.beforeId || prevItem.id === group.afterId) {
-              return { ...prevItem, isAfter: !prevItem.isAfter };
-            }
-            return prevItem;
-          })
-        );
-
-        // Set up continuous balanced swapping for this pair
-        const cycleInterval = setInterval(() => {
-          setItems(prevItems => 
-            prevItems.map(prevItem => {
-              if (prevItem.id === group.beforeId || prevItem.id === group.afterId) {
-                return { ...prevItem, isAfter: !prevItem.isAfter };
-              }
-              return prevItem;
-            })
-          );
-        }, group.stayDuration);
-
-        intervals.push(cycleInterval);
-      }, group.initialDelay);
-
-      intervals.push(initialTimer);
-    });
-
-    return () => {
-      intervals.forEach(interval => clearTimeout(interval));
-    };
-  }, []);
-
   return (
-    <div className="w-full h-full">
-      <div 
-        className="grid grid-cols-3 w-full h-full gap-0"
-        style={{ 
-          gridTemplateRows: '1fr 1fr 1fr', // 3x3 grid
-          height: '100%'
-        }}
-      >
-        {items.map((item) => (
+    <div className="w-full h-full p-1">
+      <div className="grid grid-cols-3 gap-1 h-full auto-rows-fr">
+        {GRID_ITEMS.map((item) => (
           <div
             key={item.id}
             onClick={() => handleItemClick(item.id)}
             className={cn(
-              "w-full h-full transition-colors duration-[5000ms] ease-in-out relative cursor-pointer hover:opacity-90",
-              "min-h-0 flex-shrink-0", // Ensure consistent height
-              item.isAfter ? item.afterColor : item.beforeColor
+              "cursor-pointer hover:opacity-90 transition-opacity duration-200 rounded-lg overflow-hidden",
+              item.span === 2 ? "col-span-2" : "col-span-1"
             )}
           >
-            {/* Content at bottom */}
-            <div className="absolute bottom-1.5 left-1.5 text-black">
-              <div className="text-xs font-medium leading-tight mb-0.5">
-                Naam achternaam
-              </div>
-              <div className="text-[10px] opacity-60 leading-tight">
-                Behandeling
-              </div>
-            </div>
+            {item.type === 'quote' && item.content?.quote && (
+              <QuoteCard quote={item.content.quote} name={item.content.name || 'Anonymous'} />
+            )}
+            {item.type === 'video' && <VideoCard />}
+            {item.type === 'photo' && <PhotoCard />}
+            {item.type === 'title' && item.content?.title && (
+              <TitleCard title={item.content.title} />
+            )}
           </div>
         ))}
       </div>
