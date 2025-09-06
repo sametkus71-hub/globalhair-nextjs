@@ -151,7 +151,7 @@ const InfoMethodPage: React.FC = () => {
               <div className={`text-center mb-16 transition-all duration-500 ease-out ${
                 titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-700 mb-8 leading-[0.9] tracking-tight">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-700 mb-4 leading-[0.9] tracking-tight">
                   {methodsData.title}
                 </h1>
                 <p className="text-lg md:text-xl text-gray-600 font-normal tracking-wide">
@@ -160,7 +160,7 @@ const InfoMethodPage: React.FC = () => {
               </div>
 
               {/* Accordion Section */}
-              <div className={`mb-20 transition-all duration-500 ease-out ${
+              <div className={`mb-16 transition-all duration-500 ease-out ${
                 accordionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
                 <Accordion type="multiple" className="space-y-0">
@@ -170,15 +170,15 @@ const InfoMethodPage: React.FC = () => {
                       value={`item-${index}`}
                       className="border-b border-gray-400/30 last:border-b-0"
                     >
-                      <AccordionTrigger className="py-6 px-0 hover:no-underline group [&[data-state=open]>div>svg]:rotate-45">
+                      <AccordionTrigger className="py-5 px-0 hover:no-underline group">
                         <div className="flex items-center justify-between w-full">
                           <span className="text-left text-lg font-normal text-gray-600 group-hover:text-gray-800">
                             {method.title}
                           </span>
-                          <Plus className="w-5 h-5 text-gray-600 transition-transform duration-200 shrink-0" />
+                          <Plus className="w-5 h-5 text-gray-600 transition-transform duration-200 shrink-0 group-data-[state=open]:rotate-45" />
                         </div>
                       </AccordionTrigger>
-                      <AccordionContent className="px-0 pb-6">
+                      <AccordionContent className="px-0 pb-5">
                         <p className="text-gray-600 leading-relaxed">
                           {method.content}
                         </p>
