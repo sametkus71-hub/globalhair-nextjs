@@ -4,40 +4,39 @@ import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Play, Quote } from 'lucide-react';
 
-type ContentType = 'quote' | 'video' | 'photo' | 'title';
+type ContentType = 'quote' | 'video' | 'photo';
 
 interface GridItem {
   id: number;
   type: ContentType;
-  span: 1 | 2; // Grid column span
+  rowSpan: 1 | 2; // Grid row span for vertical items
   content?: {
     quote?: string;
     name?: string;
-    title?: string;
   };
 }
 
-// Instagram explore-style grid layout with proper sizing
+// Instagram explore-style grid layout with vertical spans
 const GRID_ITEMS: GridItem[] = [
-  { id: 1, type: 'photo', span: 1 },
-  { id: 2, type: 'photo', span: 1 },
-  { id: 3, type: 'quote', span: 1, content: { quote: "Quote content", name: "Customer" } },
-  { id: 4, type: 'video', span: 2 },
-  { id: 5, type: 'photo', span: 1 },
-  { id: 6, type: 'quote', span: 1, content: { quote: "Quote content", name: "Customer" } },
-  { id: 7, type: 'photo', span: 1 },
-  { id: 8, type: 'video', span: 1 },
-  { id: 9, type: 'photo', span: 2 },
-  { id: 10, type: 'quote', span: 1, content: { quote: "Quote content", name: "Customer" } },
-  { id: 11, type: 'photo', span: 1 },
-  { id: 12, type: 'video', span: 1 },
-  { id: 13, type: 'photo', span: 1 },
-  { id: 14, type: 'quote', span: 1, content: { quote: "Quote content", name: "Customer" } },
-  { id: 15, type: 'video', span: 2 }
+  { id: 1, type: 'photo', rowSpan: 1 },
+  { id: 2, type: 'photo', rowSpan: 1 },
+  { id: 3, type: 'quote', rowSpan: 1, content: { quote: "Quote content", name: "Customer" } },
+  { id: 4, type: 'video', rowSpan: 2 }, // Vertical span
+  { id: 5, type: 'photo', rowSpan: 1 },
+  { id: 6, type: 'quote', rowSpan: 1, content: { quote: "Quote content", name: "Customer" } },
+  { id: 7, type: 'photo', rowSpan: 1 },
+  { id: 8, type: 'video', rowSpan: 1 },
+  { id: 9, type: 'photo', rowSpan: 2 }, // Vertical span
+  { id: 10, type: 'quote', rowSpan: 1, content: { quote: "Quote content", name: "Customer" } },
+  { id: 11, type: 'photo', rowSpan: 1 },
+  { id: 12, type: 'video', rowSpan: 1 },
+  { id: 13, type: 'photo', rowSpan: 1 },
+  { id: 14, type: 'quote', rowSpan: 1, content: { quote: "Quote content", name: "Customer" } },
+  { id: 15, type: 'video', rowSpan: 2 } // Vertical span
 ];
 
 const QuoteCard = ({ quote, name }: { quote: string; name: string }) => (
-  <div className="w-full h-full bg-blue-50 flex items-center justify-center">
+  <div className="w-full h-full bg-gray-50 flex items-center justify-center">
     <div className="text-center text-gray-400 font-light text-sm">
       "QUOTE"
     </div>
@@ -45,15 +44,15 @@ const QuoteCard = ({ quote, name }: { quote: string; name: string }) => (
 );
 
 const VideoCard = () => (
-  <div className="w-full h-full bg-gray-800 flex items-center justify-center">
-    <div className="text-center text-white font-light text-sm">
+  <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+    <div className="text-center text-gray-500 font-light text-sm">
       VIDEO
     </div>
   </div>
 );
 
 const PhotoCard = () => (
-  <div className="w-full h-full bg-gray-100">
+  <div className="w-full h-full bg-white">
     {/* Empty placeholder for photos */}
   </div>
 );
@@ -73,7 +72,7 @@ export const ReviewsGrid = () => {
       <div 
         className="grid grid-cols-3 h-full"
         style={{
-          gridTemplateRows: 'repeat(6, 1fr)', // More rows for smaller items
+          gridTemplateRows: 'repeat(6, 1fr)',
           gap: '1px',
           backgroundColor: '#d1d5db' // Grid line color
         }}
@@ -83,8 +82,8 @@ export const ReviewsGrid = () => {
             key={item.id}
             onClick={() => handleItemClick(item.id)}
             className={cn(
-              "cursor-pointer hover:opacity-95 transition-opacity duration-200 bg-white",
-              item.span === 2 ? "col-span-2" : "col-span-1"
+              "cursor-pointer hover:opacity-95 transition-opacity duration-200",
+              item.rowSpan === 2 ? "row-span-2" : "row-span-1"
             )}
           >
             {item.type === 'quote' && item.content?.quote && (
