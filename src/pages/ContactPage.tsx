@@ -35,32 +35,32 @@ const ContactPage: React.FC = () => {
     nederland: [
       {
         id: 'barendrecht',
-        name: t('contact.locations.barendrecht.name'),
-        subtitle: t('contact.locations.barendrecht.subtitle'),
-        address: t('contact.locations.barendrecht.address'),
-        phone: t('contact.locations.barendrecht.phone'),
-        hours: t('contact.locations.barendrecht.hours'),
-        province: t('contact.locations.barendrecht.province'),
+        name: 'BARENDRECHT',
+        subtitle: 'HOOFDKANTOOR',
+        address: 'Pesetastraat 76, 2991 XT Barendrecht',
+        phone: '085 750 0577',
+        hours: 'Ma/di/wo/do/vr',
+        province: 'Zuid-Holland',
       },
       {
         id: 'leiden',
-        name: t('contact.locations.leiden.name'),
-        subtitle: t('contact.locations.leiden.subtitle'),
-        address: t('contact.locations.leiden.address'),
-        phone: t('contact.locations.leiden.phone'),
-        hours: t('contact.locations.leiden.hours'),
-        province: t('contact.locations.leiden.province'),
+        name: 'LEIDEN',
+        subtitle: 'VESTIGING',
+        address: 'Stationsweg 46, 2312 AV Leiden',
+        phone: '071 514 1400',
+        hours: 'Ma/di/wo/do/vr',
+        province: 'Zuid-Holland',
       },
     ],
     turkije: [
       {
         id: 'istanbul',
-        name: t('contact.locations.istanbul.name'),
-        subtitle: t('contact.locations.istanbul.subtitle'),
-        address: t('contact.locations.istanbul.address'),
-        phone: t('contact.locations.istanbul.phone'),
-        hours: t('contact.locations.istanbul.hours'),
-        province: t('contact.locations.istanbul.province'),
+        name: 'ISTANBUL',
+        subtitle: 'KLINIEK',
+        address: 'Şişli Mahallesi, İstanbul, Turkey',
+        phone: '+90 212 555 0123',
+        hours: 'Pzt/Sal/Çar/Per/Cum',
+        province: 'Istanbul',
       },
     ],
   };
@@ -219,22 +219,24 @@ const ContactPage: React.FC = () => {
                         <CarouselContent className="-ml-4">
                           {locationData.nederland.map((location, index) => (
                             <CarouselItem key={location.id} className="pl-4 basis-full">
-                              <div className="bg-white rounded-3xl p-10 shadow-xl text-center">
-                                <h3 className="text-4xl font-black text-gray-800 mb-2 tracking-tight">{location.name}</h3>
-                                <p className="text-sm text-gray-500 font-medium mb-8 uppercase tracking-widest">{location.subtitle}</p>
+                              <div className="bg-white rounded-3xl p-12 shadow-xl text-center">
+                                {/* Location Title */}
+                                <h3 className="text-5xl font-black text-gray-800 mb-3 tracking-tight">{location.name}</h3>
+                                <p className="text-base text-gray-500 font-medium mb-12 uppercase tracking-widest">{location.subtitle}</p>
                                 
-                                <div className="space-y-3 text-gray-700 text-left">
+                                {/* Location Details */}
+                                <div className="space-y-4 text-gray-700">
                                   <div>
-                                    <p className="text-sm leading-relaxed"><span className="font-medium">Adres:</span> {location.address}</p>
+                                    <p className="text-base leading-relaxed">Adres: {location.address}</p>
                                   </div>
                                   <div>
-                                    <p className="text-sm leading-relaxed"><span className="font-medium">Telefoon:</span> {location.phone}</p>
+                                    <p className="text-base leading-relaxed">Telefoon: {location.phone}</p>
                                   </div>
                                   <div>
-                                    <p className="text-sm leading-relaxed"><span className="font-medium">Openingstijden:</span> {location.hours}</p>
+                                    <p className="text-base leading-relaxed">Openingstijden: {location.hours}</p>
                                   </div>
                                   <div>
-                                    <p className="text-sm leading-relaxed"><span className="font-medium">Provincie:</span> {location.province}</p>
+                                    <p className="text-base leading-relaxed">Provincie: {location.province}</p>
                                   </div>
                                 </div>
                               </div>
@@ -262,22 +264,24 @@ const ContactPage: React.FC = () => {
                         <CarouselContent className="-ml-4">
                           {locationData.turkije.map((location) => (
                             <CarouselItem key={location.id} className="pl-4 basis-full">
-                              <div className="bg-white rounded-3xl p-10 shadow-xl text-center">
-                                <h3 className="text-4xl font-black text-gray-800 mb-2 tracking-tight">{location.name}</h3>
-                                <p className="text-sm text-gray-500 font-medium mb-8 uppercase tracking-widest">{location.subtitle}</p>
+                              <div className="bg-white rounded-3xl p-12 shadow-xl text-center">
+                                {/* Location Title */}
+                                <h3 className="text-5xl font-black text-gray-800 mb-3 tracking-tight">{location.name}</h3>
+                                <p className="text-base text-gray-500 font-medium mb-12 uppercase tracking-widest">{location.subtitle}</p>
                                 
-                                <div className="space-y-3 text-gray-700 text-left">
+                                {/* Location Details */}
+                                <div className="space-y-4 text-gray-700">
                                   <div>
-                                    <p className="text-sm leading-relaxed"><span className="font-medium">Adres:</span> {location.address}</p>
+                                    <p className="text-base leading-relaxed">Adres: {location.address}</p>
                                   </div>
                                   <div>
-                                    <p className="text-sm leading-relaxed"><span className="font-medium">Telefoon:</span> {location.phone}</p>
+                                    <p className="text-base leading-relaxed">Telefoon: {location.phone}</p>
                                   </div>
                                   <div>
-                                    <p className="text-sm leading-relaxed"><span className="font-medium">Openingstijden:</span> {location.hours}</p>
+                                    <p className="text-base leading-relaxed">Openingstijden: {location.hours}</p>
                                   </div>
                                   <div>
-                                    <p className="text-sm leading-relaxed"><span className="font-medium">Provincie:</span> {location.province}</p>
+                                    <p className="text-base leading-relaxed">Provincie: {location.province}</p>
                                   </div>
                                 </div>
                               </div>
