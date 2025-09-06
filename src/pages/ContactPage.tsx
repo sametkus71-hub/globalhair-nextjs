@@ -155,12 +155,9 @@ const ContactPage: React.FC = () => {
               <div className={`mt-16 mb-12 transition-all duration-500 ease-out ${
                 iconsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
-                    {selectedCountry === 'nederland' && (
-                      <div className="text-center">
-                        <div className="text-orange-400 text-sm mb-6">
-                          nl: molen, tulp en ? - turkije: moskee
-                        </div>
-                        <div className="flex justify-center items-center gap-8 mb-4">
+                     {selectedCountry === 'nederland' && (
+                       <div className="text-center">
+                         <div className="flex justify-center items-center gap-8 mb-4">
                           {/* Windmill Icon for Barendrecht */}
                           <div className={`w-16 h-16 rounded-lg flex items-center justify-center transition-all duration-300 ${
                             activeLocationIndex === 0 ? 'bg-gray-800 text-white' : 'bg-white text-gray-400'
@@ -185,38 +182,21 @@ const ContactPage: React.FC = () => {
                               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
                             </svg>
                           </div>
-                        </div>
-                        
-                        {/* Down Arrow */}
-                        <div className="flex justify-center">
-                          <svg className="w-8 h-8 text-orange-400" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M7 10l5 5 5-5z"/>
-                          </svg>
-                        </div>
-                      </div>
-                    )}
+                         </div>
+                       </div>
+                     )}
 
-                    {selectedCountry === 'turkije' && (
-                      <div className="text-center">
-                        <div className="text-orange-400 text-sm mb-6">
-                          nl: molen, tulp en ? - turkije: moskee
-                        </div>
-                        <div className="flex justify-center items-center mb-4">
+                     {selectedCountry === 'turkije' && (
+                       <div className="text-center">
+                         <div className="flex justify-center items-center mb-4">
                           {/* Mosque Icon for Istanbul */}
                           <div className="w-16 h-16 bg-gray-800 rounded-lg flex items-center justify-center text-white">
                             <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
                               <path d="M12 1l-2 2v2l2-2 2 2V3l-2-2zm8 9c0-2-1-3-2-3s-2 1-2 3v1h4V10zM6 10c0-2-1-3-2-3S2 8 2 10v1h4v-1zm14 3H4v8h16v-8zm-8-1c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
                             </svg>
                           </div>
-                        </div>
-                        
-                        {/* Down Arrow */}
-                        <div className="flex justify-center">
-                          <svg className="w-8 h-8 text-orange-400" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M7 10l5 5 5-5z"/>
-                          </svg>
-                        </div>
-                      </div>
+                         </div>
+                       </div>
                      )}
               </div>
 
