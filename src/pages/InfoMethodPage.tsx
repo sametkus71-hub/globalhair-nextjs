@@ -15,14 +15,12 @@ const InfoMethodPage: React.FC = () => {
 
   const handleBack = () => {
     setIsExiting(true);
-    // Get previous path or default to info
-    const previousPath = sessionStorage.getItem('previousPath') || 
-                        (language === 'nl' ? '/nl/info' : '/en/info');
+    // Always go back to info page
+    const infoPath = language === 'nl' ? '/nl/info' : '/en/info';
     
     // Wait for animation to complete before navigating
     setTimeout(() => {
-      sessionStorage.removeItem('previousPath');
-      navigate(previousPath);
+      navigate(infoPath);
     }, 300);
   };
 
