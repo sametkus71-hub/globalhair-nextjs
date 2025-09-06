@@ -2,10 +2,9 @@ import { UserProfile, Package, Location } from '@/hooks/useSession';
 
 // Base package prices in euros
 const PACKAGE_PRICES: Record<Package, number> = {
-  'Basic': 7500,
-  'Plus': 10000,
+  'Standard': 8500,
   'Premium': 12500,
-  'Advanced': 15000
+  'Advanced': 16000
 };
 
 // Location-based price adjustments
@@ -15,7 +14,7 @@ const LOCATION_ADJUSTMENTS: Record<Location, number> = {
 };
 
 export const calculatePrice = (profile: UserProfile): number => {
-  const basePrice = PACKAGE_PRICES[profile.selectedPackage] || PACKAGE_PRICES.Plus;
+  const basePrice = PACKAGE_PRICES[profile.selectedPackage] || PACKAGE_PRICES.Standard;
   const locationAdjustment = LOCATION_ADJUSTMENTS[profile.locatie] || 0;
   
   return basePrice + locationAdjustment;
@@ -31,7 +30,7 @@ export const formatPrice = (price: number): string => {
 };
 
 export const getPriceBreakdown = (profile: UserProfile) => {
-  const basePrice = PACKAGE_PRICES[profile.selectedPackage] || PACKAGE_PRICES.Plus;
+  const basePrice = PACKAGE_PRICES[profile.selectedPackage] || PACKAGE_PRICES.Standard;
   const locationAdjustment = LOCATION_ADJUSTMENTS[profile.locatie] || 0;
   const totalPrice = basePrice + locationAdjustment;
   

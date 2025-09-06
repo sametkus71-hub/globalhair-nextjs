@@ -40,19 +40,14 @@ export const TreatmentSelectionSection = () => {
 
   const packages = [
     { 
-      id: 'Basic', 
-      label: 'Basic',
-      isNew: false
-    },
-    { 
-      id: 'Plus', 
-      label: 'Plus',
+      id: 'Standard', 
+      label: 'Standard',
       isNew: false
     },
     { 
       id: 'Premium', 
       label: 'Premium',
-      isNew: true
+      isNew: false
     },
     { 
       id: 'Advanced', 
@@ -62,17 +57,11 @@ export const TreatmentSelectionSection = () => {
   ];
 
   const packageContent = {
-    Basic: [
+    Standard: [
       "Basis haartransplantatie procedure",
       "Standaard FUE techniek",
       "Lokale verdoving inclusief",
-      "1 jaar nacontrole garantie"
-    ],
-    Plus: [
-      "Geavanceerde FUE+ techniek", 
-      "Micro-grafting precisie methode",
-      "Premium verdoving & comfort",
-      "2 jaar uitgebreide nacontrole"
+      "2 jaar nacontrole garantie"
     ],
     Premium: [
       "Sapphire FUE premium techniek",
@@ -83,6 +72,7 @@ export const TreatmentSelectionSection = () => {
     Advanced: [
       "DHI pen implantatie techniek",
       "Stamceltherapie behandeling", 
+      "AI-gestuurde haarlijn design",
       "Luxury suite & persoonlijke begeleiding",
       "Levenslange service garantie"
     ]
