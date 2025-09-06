@@ -105,18 +105,18 @@ const ContactPage: React.FC = () => {
                 countryVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
                 <Tabs value={selectedCountry} onValueChange={(value) => setSelectedCountry(value as 'nederland' | 'turkije')} className="w-full">
-                  <TabsList className="w-full max-w-md mx-auto grid grid-cols-2 bg-white/80 backdrop-blur-sm rounded-full p-1 h-12">
+                  <TabsList className="w-full max-w-lg mx-auto grid grid-cols-2 bg-white/90 backdrop-blur-sm rounded-full p-2 h-14 border-0">
                     <TabsTrigger 
                       value="nederland" 
-                      className="data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm text-gray-500 font-medium rounded-full transition-all"
+                      className="data-[state=active]:bg-gray-800 data-[state=active]:text-white data-[state=inactive]:text-gray-500 text-base font-medium rounded-full px-8 py-2 transition-all duration-200"
                     >
-                      {t('contact.countries.nederland')}
+                      NEDERLAND
                     </TabsTrigger>
                     <TabsTrigger 
                       value="turkije"
-                      className="data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm text-gray-500 font-medium rounded-full transition-all"
+                      className="data-[state=active]:bg-gray-800 data-[state=active]:text-white data-[state=inactive]:text-gray-500 text-base font-medium rounded-full px-8 py-2 transition-all duration-200"
                     >
-                      {t('contact.countries.turkije')}
+                      TURKIJE
                     </TabsTrigger>
                   </TabsList>
 
@@ -127,11 +127,13 @@ const ContactPage: React.FC = () => {
                     }`}>
                       {/* Location hint text */}
                       <div className="text-center mb-8">
-                        <div className="flex items-center justify-center gap-2 text-orange-400 text-sm">
+                        <div className="flex items-center justify-center text-orange-400 text-base font-medium">
                           <span>nl: molen, tulp en ?</span>
-                          <div className="w-6 h-6 bg-white rounded flex items-center justify-center">
-                            <div className="w-0 h-0 border-l-2 border-r-2 border-b-3 border-transparent border-b-orange-400"></div>
-                          </div>
+                        </div>
+                        <div className="flex justify-center mt-2">
+                          <svg className="w-8 h-8 text-orange-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M7 10l5 5 5-5z"/>
+                          </svg>
                         </div>
                       </div>
                       
@@ -139,23 +141,23 @@ const ContactPage: React.FC = () => {
                         <CarouselContent className="-ml-4">
                           {locationData.nederland.map((location, index) => (
                             <CarouselItem key={location.id} className="pl-4 basis-full">
-                              <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200/20 text-center">
+                              <div className="bg-white rounded-3xl p-10 shadow-xl text-center max-w-sm mx-auto">
                                 {/* Location Details */}
-                                <h3 className="text-3xl font-black text-gray-800 mb-2">{location.name}</h3>
-                                <p className="text-sm text-gray-500 font-medium mb-8 uppercase tracking-wider">{location.subtitle}</p>
+                                <h3 className="text-4xl font-black text-gray-800 mb-2 tracking-tight">{location.name}</h3>
+                                <p className="text-sm text-gray-500 font-medium mb-8 uppercase tracking-widest">{location.subtitle}</p>
                                 
-                                <div className="space-y-3 text-gray-600">
+                                <div className="space-y-3 text-gray-700">
                                   <div>
-                                    <p className="text-sm font-medium">Adres: {location.address}</p>
+                                    <p className="text-sm leading-relaxed"><span className="font-medium">Adres:</span> {location.address}</p>
                                   </div>
                                   <div>
-                                    <p className="text-sm font-medium">Telefoon: {location.phone}</p>
+                                    <p className="text-sm leading-relaxed"><span className="font-medium">Telefoon:</span> {location.phone}</p>
                                   </div>
                                   <div>
-                                    <p className="text-sm font-medium">Openingstijden: {location.hours}</p>
+                                    <p className="text-sm leading-relaxed"><span className="font-medium">Openingstijden:</span> {location.hours}</p>
                                   </div>
                                   <div>
-                                    <p className="text-sm font-medium">Provincie: {location.province}</p>
+                                    <p className="text-sm leading-relaxed"><span className="font-medium">Provincie:</span> {location.province}</p>
                                   </div>
                                 </div>
                               </div>
@@ -164,9 +166,9 @@ const ContactPage: React.FC = () => {
                         </CarouselContent>
                         
                         {/* Pagination Dots */}
-                        <div className="flex justify-center gap-2 mt-6">
+                        <div className="flex justify-center gap-3 mt-8">
                           {locationData.nederland.map((_, index) => (
-                            <div key={index} className="w-2 h-2 rounded-full bg-gray-400"></div>
+                            <div key={index} className="w-3 h-3 rounded-full bg-gray-400"></div>
                           ))}
                         </div>
                       </Carousel>
@@ -179,11 +181,13 @@ const ContactPage: React.FC = () => {
                     }`}>
                       {/* Location hint text */}
                       <div className="text-center mb-8">
-                        <div className="flex items-center justify-center gap-2 text-orange-400 text-sm">
+                        <div className="flex items-center justify-center text-orange-400 text-base font-medium">
                           <span>turkije: moskee</span>
-                          <div className="w-6 h-6 bg-white rounded flex items-center justify-center">
-                            <div className="w-0 h-0 border-l-2 border-r-2 border-b-3 border-transparent border-b-orange-400"></div>
-                          </div>
+                        </div>
+                        <div className="flex justify-center mt-2">
+                          <svg className="w-8 h-8 text-orange-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M7 10l5 5 5-5z"/>
+                          </svg>
                         </div>
                       </div>
                       
@@ -191,23 +195,23 @@ const ContactPage: React.FC = () => {
                         <CarouselContent className="-ml-4">
                           {locationData.turkije.map((location) => (
                             <CarouselItem key={location.id} className="pl-4 basis-full">
-                              <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200/20 text-center">
+                              <div className="bg-white rounded-3xl p-10 shadow-xl text-center max-w-sm mx-auto">
                                 {/* Location Details */}
-                                <h3 className="text-3xl font-black text-gray-800 mb-2">{location.name}</h3>
-                                <p className="text-sm text-gray-500 font-medium mb-8 uppercase tracking-wider">{location.subtitle}</p>
+                                <h3 className="text-4xl font-black text-gray-800 mb-2 tracking-tight">{location.name}</h3>
+                                <p className="text-sm text-gray-500 font-medium mb-8 uppercase tracking-widest">{location.subtitle}</p>
                                 
-                                <div className="space-y-3 text-gray-600">
+                                <div className="space-y-3 text-gray-700">
                                   <div>
-                                    <p className="text-sm font-medium">Adres: {location.address}</p>
+                                    <p className="text-sm leading-relaxed"><span className="font-medium">Adres:</span> {location.address}</p>
                                   </div>
                                   <div>
-                                    <p className="text-sm font-medium">Telefoon: {location.phone}</p>
+                                    <p className="text-sm leading-relaxed"><span className="font-medium">Telefoon:</span> {location.phone}</p>
                                   </div>
                                   <div>
-                                    <p className="text-sm font-medium">Openingstijden: {location.hours}</p>
+                                    <p className="text-sm leading-relaxed"><span className="font-medium">Openingstijden:</span> {location.hours}</p>
                                   </div>
                                   <div>
-                                    <p className="text-sm font-medium">Provincie: {location.province}</p>
+                                    <p className="text-sm leading-relaxed"><span className="font-medium">Provincie:</span> {location.province}</p>
                                   </div>
                                 </div>
                               </div>
@@ -216,8 +220,8 @@ const ContactPage: React.FC = () => {
                         </CarouselContent>
                         
                         {/* Pagination Dots - Single dot for Turkey */}
-                        <div className="flex justify-center gap-2 mt-6">
-                          <div className="w-2 h-2 rounded-full bg-gray-400"></div>
+                        <div className="flex justify-center gap-3 mt-8">
+                          <div className="w-3 h-3 rounded-full bg-gray-400"></div>
                         </div>
                       </Carousel>
                     </div>
