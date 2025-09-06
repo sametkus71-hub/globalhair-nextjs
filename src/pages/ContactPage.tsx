@@ -209,7 +209,16 @@ const ContactPage: React.FC = () => {
                     {['nederland', 'turkije'].map((country) => (
                       <button
                         key={country}
-                        onClick={() => setSelectedCountry(country as 'nederland' | 'turkije')}
+                        onClick={() => {
+                          const targetCountry = country as 'nederland' | 'turkije';
+                          setSelectedCountry(targetCountry);
+                          // Jump to first location of selected country
+                          if (targetCountry === 'nederland') {
+                            syncCarousels(0); // Barendrecht
+                          } else {
+                            syncCarousels(2); // Istanbul
+                          }
+                        }}
                         className={`px-4 py-1.5 rounded-sm font-lato text-[11px] sm:text-[12px] md:text-[13px] font-normal transition-all duration-200 relative touch-manipulation ${
                           selectedCountry === country
                             ? 'text-black'
@@ -239,18 +248,21 @@ const ContactPage: React.FC = () => {
                   opts={{ 
                     align: 'center', 
                     loop: true,
-                    dragFree: true,
-                    containScroll: false
+                    dragFree: false,
+                    containScroll: false,
+                    skipSnaps: false,
+                    duration: 25
                   }} 
-                  className="w-full max-w-md mx-auto"
+                  className="w-full max-w-xs mx-auto"
                   setApi={setIconCarouselApi}
                 >
-                  <CarouselContent className="-ml-8">
-                    {allLocations.map((location, index) => {
-                      // Calculate relative position for opacity
-                      const isActive = index === activeGlobalIndex;
-                      const isPrevious = (activeGlobalIndex - 1 + allLocations.length) % allLocations.length === index;
-                      const isNext = (activeGlobalIndex + 1) % allLocations.length === index;
+                  <CarouselContent className="-ml-4">
+                    {/* Create duplicates for seamless looping */}
+                    {[...allLocations, ...allLocations, ...allLocations].map((location, index) => {
+                      const actualIndex = index % allLocations.length;
+                      const isActive = actualIndex === activeGlobalIndex;
+                      const isPrevious = (activeGlobalIndex - 1 + allLocations.length) % allLocations.length === actualIndex;
+                      const isNext = (activeGlobalIndex + 1) % allLocations.length === actualIndex;
                       
                       let opacity = 0.2;
                       let scale = 0.7;
@@ -264,7 +276,7 @@ const ContactPage: React.FC = () => {
                       }
                       
                       return (
-                        <CarouselItem key={`${location.id}-icon`} className="pl-8 basis-1/3">
+                        <CarouselItem key={`${location.id}-icon-${index}`} className="pl-4 basis-1/3">
                           <div className="flex justify-center">
                             <div 
                               className={`w-16 h-16 rounded-lg flex items-center justify-center transition-all duration-300 border-2 cursor-pointer ${
@@ -277,7 +289,7 @@ const ContactPage: React.FC = () => {
                                 transform: `scale(${scale})`,
                                 filter: isActive ? 'none' : 'grayscale(0.3)'
                               }}
-                              onClick={() => syncCarousels(index)}
+                              onClick={() => syncCarousels(actualIndex)}
                             >
                               {getLocationIcon(location.icon, isActive, 1)}
                             </div>
@@ -297,8 +309,10 @@ const ContactPage: React.FC = () => {
                   opts={{ 
                     align: 'center', 
                     loop: true,
-                    dragFree: true,
-                    containScroll: false
+                    dragFree: false,
+                    containScroll: false,
+                    skipSnaps: false,
+                    duration: 25
                   }} 
                   className="w-full max-w-sm mx-auto"
                   setApi={setLocationCarouselApi}
@@ -330,6 +344,19 @@ const ContactPage: React.FC = () => {
                       </CarouselItem>
                     ))}
                   </CarouselContent>
+                  
+                  {/* Pagination Dots */}
+                  <div className="flex justify-center gap-3 mt-8">
+                    {allLocations.map((_, index) => (
+                      <div 
+                        key={index} 
+                        className={`w-3 h-3 rounded-full transition-all duration-300 cursor-pointer ${
+                          index === activeGlobalIndex ? 'bg-gray-800' : 'bg-gray-400 hover:bg-gray-600'
+                        }`}
+                        onClick={() => syncCarousels(index)}
+                      />
+                    ))}
+                  </div>
                 </Carousel>
               </div>
 
