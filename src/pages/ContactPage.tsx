@@ -219,24 +219,24 @@ const ContactPage: React.FC = () => {
                         <CarouselContent className="-ml-4">
                           {locationData.nederland.map((location, index) => (
                             <CarouselItem key={location.id} className="pl-4 basis-full">
-                              <div className="text-center px-8 py-4">
+                              <div className="text-center px-4 py-2">
                                 {/* Location Title */}
-                                <h3 className="text-6xl font-black text-gray-700 mb-4 tracking-tight">{location.name}</h3>
-                                <p className="text-lg text-gray-500 font-normal mb-12 uppercase tracking-widest">{location.subtitle}</p>
+                                <h3 className="text-4xl font-black text-gray-700 mb-1 tracking-tight">{location.name}</h3>
+                                <p className="text-base text-gray-500 font-normal mb-6 uppercase tracking-wider">{location.subtitle}</p>
                                 
                                 {/* Location Details */}
-                                <div className="space-y-3 text-gray-600">
+                                <div className="space-y-1 text-gray-600">
                                   <div>
-                                    <p className="text-lg font-normal">Adres: {location.address}</p>
+                                    <p className="text-sm font-normal">Adres: {location.address}</p>
                                   </div>
                                   <div>
-                                    <p className="text-lg font-normal">Telefoon: {location.phone}</p>
+                                    <p className="text-sm font-normal">Telefoon: {location.phone}</p>
                                   </div>
                                   <div>
-                                    <p className="text-lg font-normal">Openingstijden: {location.hours}</p>
+                                    <p className="text-sm font-normal">Openingstijden: {location.hours}</p>
                                   </div>
                                   <div>
-                                    <p className="text-lg font-normal">Provincie: {location.province}</p>
+                                    <p className="text-sm font-normal">Provincie: {location.province}</p>
                                   </div>
                                 </div>
                               </div>
@@ -264,24 +264,24 @@ const ContactPage: React.FC = () => {
                         <CarouselContent className="-ml-4">
                           {locationData.turkije.map((location) => (
                             <CarouselItem key={location.id} className="pl-4 basis-full">
-                              <div className="text-center px-8 py-4">
+                              <div className="text-center px-4 py-2">
                                 {/* Location Title */}
-                                <h3 className="text-6xl font-black text-gray-700 mb-4 tracking-tight">{location.name}</h3>
-                                <p className="text-lg text-gray-500 font-normal mb-12 uppercase tracking-widest">{location.subtitle}</p>
+                                <h3 className="text-4xl font-black text-gray-700 mb-1 tracking-tight">{location.name}</h3>
+                                <p className="text-base text-gray-500 font-normal mb-6 uppercase tracking-wider">{location.subtitle}</p>
                                 
                                 {/* Location Details */}
-                                <div className="space-y-3 text-gray-600">
+                                <div className="space-y-1 text-gray-600">
                                   <div>
-                                    <p className="text-lg font-normal">Adres: {location.address}</p>
+                                    <p className="text-sm font-normal">Adres: {location.address}</p>
                                   </div>
                                   <div>
-                                    <p className="text-lg font-normal">Telefoon: {location.phone}</p>
+                                    <p className="text-sm font-normal">Telefoon: {location.phone}</p>
                                   </div>
                                   <div>
-                                    <p className="text-lg font-normal">Openingstijden: {location.hours}</p>
+                                    <p className="text-sm font-normal">Openingstijden: {location.hours}</p>
                                   </div>
                                   <div>
-                                    <p className="text-lg font-normal">Provincie: {location.province}</p>
+                                    <p className="text-sm font-normal">Provincie: {location.province}</p>
                                   </div>
                                 </div>
                               </div>
