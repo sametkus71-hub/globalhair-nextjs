@@ -114,7 +114,7 @@ const MissionPage: React.FC = () => {
                 
                 {/* Founder Text */}
                 <div className="text-left">
-                  <p className="text-base md:text-lg text-gray-600 leading-relaxed">
+                  <p className="text-sm md:text-base text-gray-500 leading-relaxed font-light">
                     {language === 'nl' 
                       ? 'Founder & Medisch Directeur, Berkant Dural, zag al op jonge leeftijd wat erfelijk haarverlies met zijn vader deed en hij was ervan overtuigd dat dit voorkomen kon worden. Na jaren onderzoek en samenwerkingen met Tricho artsen ontwikkelde hij een werkwijze niet alleen voor zijn eigen haar, maar ook voor meer.'
                       : 'Founder & Medical Director, Berkant Dural, saw at a young age what hereditary hair loss did to his father and he was convinced that this could be prevented. After years of research and collaborations with Tricho doctors, he developed a method not only for his own hair, but also for more.'
