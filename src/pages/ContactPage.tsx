@@ -306,15 +306,17 @@ const ContactPage: React.FC = () => {
                           <p className="text-sm text-gray-500 font-normal mb-4 uppercase tracking-wider">{location.subtitle}</p>
                           
                           {/* Location Details */}
-                          <div className="space-y-0 text-gray-600 leading-tight">
+                          <div className="space-y-1 text-gray-600 leading-tight">
                             <div>
-                              <p className="text-xs font-normal leading-tight">Adres: {location.address}</p>
+                              <p className="text-xs font-normal leading-tight">{location.address}</p>
                             </div>
-                            <div>
-                              <p className="text-xs font-normal leading-tight">Telefoon: {location.phone}</p>
+                            <div className="flex items-center gap-1">
+                              <Phone className="w-3 h-3" />
+                              <p className="text-xs font-normal leading-tight">{location.phone}</p>
                             </div>
-                            <div>
-                              <p className="text-xs font-normal leading-tight">Openingstijden: {location.hours}</p>
+                            <div className="flex items-center gap-1">
+                              <Clock className="w-3 h-3" />
+                              <p className="text-xs font-normal leading-tight">{location.hours}</p>
                             </div>
                             <div>
                               <p className="text-xs font-normal leading-tight">Provincie: {location.province}</p>
