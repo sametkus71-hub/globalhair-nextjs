@@ -4,7 +4,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
 import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
 import { Carousel, CarouselContent, CarouselItem, CarouselApi } from '@/components/ui/carousel';
-import { MapPin, Phone, Mail, Clock, Instagram } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Instagram, MessageCircle } from 'lucide-react';
 
 const ContactPage: React.FC = () => {
   const { language } = useLanguage();
@@ -361,25 +361,27 @@ const ContactPage: React.FC = () => {
                 <div className="flex items-center justify-center gap-4">
                   {/* Email */}
                   <a 
-                    href="mailto:info@hairexcellence.com"
+                    href="mailto:contact@globalhair.nl"
                     className="w-10 h-10 bg-black rounded-full flex items-center justify-center hover:bg-gray-800 active:scale-95 transition-all duration-200"
                     aria-label="Email"
                   >
                     <Mail className="w-4 h-4 text-white" />
                   </a>
                   
-                  {/* Phone - Middle item (slightly bigger) */}
+                  {/* WhatsApp - Middle item (slightly bigger) */}
                   <a 
-                    href="tel:0857500577"
+                    href="https://api.whatsapp.com/send?phone=31633388757"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-12 h-12 bg-black rounded-full flex items-center justify-center hover:bg-gray-800 active:scale-95 transition-all duration-200"
-                    aria-label="Phone"
+                    aria-label="WhatsApp"
                   >
-                    <Phone className="w-5 h-5 text-white" />
+                    <MessageCircle className="w-5 h-5 text-white" />
                   </a>
                   
                   {/* Instagram */}
                   <a 
-                    href="https://instagram.com/hairexcellence"
+                    href="https://www.instagram.com/globalhair.nl/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-10 h-10 bg-black rounded-full flex items-center justify-center hover:bg-gray-800 active:scale-95 transition-all duration-200"
