@@ -53,9 +53,7 @@ export const translations = {
     'mission.page.description': 'Ontdek onze missie van precisie en excellentie in haartransplantatie behandelingen.',
     'mission.main.title': 'PRECISIE IS ONZE MISSIE.',
     'mission.main.subtitle': '+10.000 behandelingen en we blijven groeien.',
-    'mission.content.paragraph1': 'Ons verhaal begint met Berkant Dural, een visionaire professional die zijn passie voor haarzorg combineerde met een ongeëvenaarde toewijding aan precisie en kwaliteit.',
-    'mission.content.paragraph2': 'Na jaren van onderzoek en ontwikkeling hebben wij een revolutionaire methode gecreëerd die de standaard in haartransplantatie heeft verhoogd. Onze precisie-benadering zorgt voor natuurlijke, blijvende resultaten.',
-    'mission.content.paragraph3': 'Elke behandeling wordt uitgevoerd met de hoogste nauwkeurigheid, zodat u kunt rekenen op resultaten die uw verwachtingen overtreffen.',
+    'mission.content.founder': 'Founder & Medisch Directeur, Berkant Dural, zag al op jonge leeftijd wat erfelijk haarverlies met zijn vader deed en hij was ervan overtuigd dat dit voorkomen kon worden. Na jaren onderzoek en samenwerkingen met Tricho artsen ontwikkelde hij een werkwijze niet alleen voor zijn eigen haar, maar ook voor meer.',
     'mission.button.methods': 'bekijk methodes',
     
     // Treatment options
@@ -130,9 +128,7 @@ export const translations = {
     'mission.page.description': 'Discover our mission of precision and excellence in hair transplant treatments.',
     'mission.main.title': 'PRECISION IS OUR MISSION.',
     'mission.main.subtitle': '+10,000 treatments and we keep growing.',
-    'mission.content.paragraph1': 'Our story begins with Berkant Dural, a visionary professional who combined his passion for hair care with an unparalleled dedication to precision and quality.',
-    'mission.content.paragraph2': 'After years of research and development, we have created a revolutionary method that has raised the standard in hair transplantation. Our precision approach ensures natural, lasting results.',
-    'mission.content.paragraph3': 'Every treatment is performed with the highest accuracy, so you can count on results that exceed your expectations.',
+    'mission.content.founder': 'Founder & Medical Director, Berkant Dural, saw at a young age what hereditary hair loss did to his father and he was convinced that this could be prevented. After years of research and collaborations with Tricho doctors, he developed a method not only for his own hair, but also for more.',
     'mission.button.methods': 'view methods',
     
     // Treatment options
