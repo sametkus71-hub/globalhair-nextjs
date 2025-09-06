@@ -376,7 +376,11 @@ const ContactPage: React.FC = () => {
                     className="w-12 h-12 bg-black rounded-full flex items-center justify-center hover:bg-gray-800 active:scale-95 transition-all duration-200"
                     aria-label="WhatsApp"
                   >
-                    <MessageCircle className="w-5 h-5 text-white" />
+                    <img 
+                      src="/lovable-uploads/8bfdb28d-b20e-4765-8917-61897ed14855.png" 
+                      alt="WhatsApp" 
+                      className="w-5 h-5"
+                    />
                   </a>
                   
                   {/* Instagram */}
