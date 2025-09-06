@@ -144,23 +144,23 @@ const InfoMethodPage: React.FC = () => {
           </button>
           
           {/* Scrollable Content */}
-          <div className="pt-20 pb-32 px-6">
-            <div className="max-w-2xl mx-auto">
+          <div className="pt-16 md:pt-20 pb-20 md:pb-32 px-6">
+            <div className="max-w-2xl mx-auto min-h-[calc(var(--app-height)-8rem)] flex flex-col">
               
               {/* Title Section */}
-              <div className={`text-center mb-16 transition-all duration-500 ease-out ${
+              <div className={`text-center mb-8 md:mb-16 transition-all duration-500 ease-out ${
                 titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-700 mb-4 leading-[0.9] tracking-tight">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-gray-700 mb-3 md:mb-4 leading-[0.9] tracking-tight">
                   {methodsData.title}
                 </h1>
-                <p className="text-lg md:text-xl text-gray-600 font-normal tracking-wide">
+                <p className="text-base md:text-lg xl:text-xl text-gray-600 font-normal tracking-wide">
                   {methodsData.subtitle}
                 </p>
               </div>
 
               {/* Accordion Section */}
-              <div className={`mb-16 transition-all duration-500 ease-out ${
+              <div className={`flex-1 mb-8 md:mb-16 transition-all duration-500 ease-out ${
                 accordionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
                 <Accordion type="multiple" className="space-y-0">
@@ -170,16 +170,16 @@ const InfoMethodPage: React.FC = () => {
                       value={`item-${index}`}
                       className="border-b border-gray-400/30 last:border-b-0"
                     >
-                      <AccordionTrigger className="py-5 px-0 hover:no-underline group">
+                      <AccordionTrigger className="py-3 md:py-5 px-0 hover:no-underline group">
                         <div className="flex items-center justify-between w-full">
-                          <span className="text-left text-lg font-normal text-gray-600 group-hover:text-gray-800">
+                          <span className="text-left text-base md:text-lg font-normal text-gray-600 group-hover:text-gray-800">
                             {method.title}
                           </span>
-                          <Plus className="w-5 h-5 text-gray-600 transition-transform duration-200 shrink-0 group-data-[state=open]:rotate-45" />
+                          <Plus className="w-4 md:w-5 h-4 md:h-5 text-gray-600 transition-transform duration-200 shrink-0 group-data-[state=open]:rotate-45" />
                         </div>
                       </AccordionTrigger>
-                      <AccordionContent className="px-0 pb-5">
-                        <p className="text-gray-600 leading-relaxed">
+                      <AccordionContent className="px-0 pb-3 md:pb-5">
+                        <p className="text-sm md:text-base text-gray-600 leading-relaxed">
                           {method.content}
                         </p>
                       </AccordionContent>
@@ -189,12 +189,12 @@ const InfoMethodPage: React.FC = () => {
               </div>
 
               {/* Bottom Button */}
-              <div className={`text-center transition-all duration-500 ease-out ${
+              <div className={`text-center mt-auto pt-4 transition-all duration-500 ease-out ${
                 buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
                 <button
                   onClick={handleTrajectoryClick}
-                  className="py-3 px-8 bg-gray-600 text-white text-sm font-normal rounded-full hover:bg-gray-700 active:scale-[0.98] transition-all duration-300 ease-out"
+                  className="py-2.5 md:py-3 px-6 md:px-8 bg-gray-600 text-white text-sm font-normal rounded-full hover:bg-gray-700 active:scale-[0.98] transition-all duration-300 ease-out"
                 >
                   {methodsData.trajectoryButton}
                 </button>
