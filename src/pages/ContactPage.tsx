@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
@@ -17,51 +17,131 @@ const ContactPage: React.FC = () => {
   const [locationsVisible, setLocationsVisible] = useState(false);
   const [contactVisible, setContactVisible] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState<'nederland' | 'turkije'>('nederland');
-  const [activeLocationIndex, setActiveLocationIndex] = useState(0);
+  const [activeGlobalIndex, setActiveGlobalIndex] = useState(0);
+  const [locationCarouselApi, setLocationCarouselApi] = useState<CarouselApi>();
+  const [iconCarouselApi, setIconCarouselApi] = useState<CarouselApi>();
 
   const handleClose = () => {
     setIsExiting(true);
     handlePopupClose(200);
   };
 
-  // Reset active location index when country changes
-  useEffect(() => {
-    setActiveLocationIndex(0);
-  }, [selectedCountry]);
+  // Unified location data for endless carousel
+  const allLocations = [
+    {
+      id: 'barendrecht',
+      name: 'BARENDRECHT',
+      subtitle: 'HOOFDKANTOOR',
+      address: 'Pesetastraat 76, 2991 XT Barendrecht',
+      phone: '085 750 0577',
+      hours: 'Ma/di/wo/do/vr',
+      province: 'Zuid-Holland',
+      country: 'nederland' as const,
+      icon: 'windmill'
+    },
+    {
+      id: 'leiden',
+      name: 'LEIDEN',
+      subtitle: 'VESTIGING',
+      address: 'Stationsweg 46, 2312 AV Leiden',
+      phone: '071 514 1400',
+      hours: 'Ma/di/wo/do/vr',
+      province: 'Zuid-Holland',
+      country: 'nederland' as const,
+      icon: 'tulip'
+    },
+    {
+      id: 'istanbul',
+      name: 'ISTANBUL',
+      subtitle: 'KLINIEK',
+      address: 'Şişli Mahallesi, İstanbul, Turkey',
+      phone: '+90 212 555 0123',
+      hours: 'Pzt/Sal/Çar/Per/Cum',
+      province: 'Istanbul',
+      country: 'turkije' as const,
+      icon: 'mosque'
+    },
+  ];
 
-  // Location data
-  const locationData = {
-    nederland: [
-      {
-        id: 'barendrecht',
-        name: 'BARENDRECHT',
-        subtitle: 'HOOFDKANTOOR',
-        address: 'Pesetastraat 76, 2991 XT Barendrecht',
-        phone: '085 750 0577',
-        hours: 'Ma/di/wo/do/vr',
-        province: 'Zuid-Holland',
-      },
-      {
-        id: 'leiden',
-        name: 'LEIDEN',
-        subtitle: 'VESTIGING',
-        address: 'Stationsweg 46, 2312 AV Leiden',
-        phone: '071 514 1400',
-        hours: 'Ma/di/wo/do/vr',
-        province: 'Zuid-Holland',
-      },
-    ],
-    turkije: [
-      {
-        id: 'istanbul',
-        name: 'ISTANBUL',
-        subtitle: 'KLINIEK',
-        address: 'Şişli Mahallesi, İstanbul, Turkey',
-        phone: '+90 212 555 0123',
-        hours: 'Pzt/Sal/Çar/Per/Cum',
-        province: 'Istanbul',
-      },
-    ],
+  // Auto-switch country based on active location
+  useEffect(() => {
+    const currentCountry = allLocations[activeGlobalIndex]?.country;
+    if (currentCountry && currentCountry !== selectedCountry) {
+      setSelectedCountry(currentCountry);
+    }
+  }, [activeGlobalIndex, selectedCountry]);
+
+  // Sync both carousels
+  const syncCarousels = useCallback((index: number) => {
+    if (locationCarouselApi && iconCarouselApi) {
+      locationCarouselApi.scrollTo(index);
+      iconCarouselApi.scrollTo(index);
+    }
+  }, [locationCarouselApi, iconCarouselApi]);
+
+  // Handle location carousel changes
+  useEffect(() => {
+    if (!locationCarouselApi) return;
+
+    const onSelect = () => {
+      const newIndex = locationCarouselApi.selectedScrollSnap();
+      setActiveGlobalIndex(newIndex);
+      if (iconCarouselApi) {
+        iconCarouselApi.scrollTo(newIndex);
+      }
+    };
+
+    locationCarouselApi.on('select', onSelect);
+    return () => {
+      locationCarouselApi.off('select', onSelect);
+    };
+  }, [locationCarouselApi, iconCarouselApi]);
+
+  // Handle icon carousel changes
+  useEffect(() => {
+    if (!iconCarouselApi) return;
+
+    const onSelect = () => {
+      const newIndex = iconCarouselApi.selectedScrollSnap();
+      setActiveGlobalIndex(newIndex);
+      if (locationCarouselApi) {
+        locationCarouselApi.scrollTo(newIndex);
+      }
+    };
+
+    iconCarouselApi.on('select', onSelect);
+    return () => {
+      iconCarouselApi.off('select', onSelect);
+    };
+  }, [iconCarouselApi, locationCarouselApi]);
+
+  // Get icon for location
+  const getLocationIcon = (iconType: string, isActive: boolean, opacity: number = 1) => {
+    const iconClass = `w-8 h-8 transition-all duration-300`;
+    const style = { opacity };
+    
+    switch (iconType) {
+      case 'windmill':
+        return (
+          <svg className={iconClass} style={style} fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 2L8 8h8l-4-6zm0 20l4-6H8l4 6zm10-10l-6-4v8l6-4zM2 12l6 4V8l-6 4z"/>
+          </svg>
+        );
+      case 'tulip':
+        return (
+          <svg className={iconClass} style={style} fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 2c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2s2-.9 2-2V4c0-1.1-.9-2-2-2zm-6 8c0-3.3 2.7-6 6-6s6 2.7 6 6c0 1.5-.6 2.8-1.5 3.8L12 22l-4.5-8.2C6.6 12.8 6 11.5 6 10z"/>
+          </svg>
+        );
+      case 'mosque':
+        return (
+          <svg className={iconClass} style={style} fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 1l-2 2v2l2-2 2 2V3l-2-2zm8 9c0-2-1-3-2-3s-2 1-2 3v1h4V10zM6 10c0-2-1-3-2-3S2 8 2 10v1h4v-1zm14 3H4v8h16v-8zm-8-1c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+          </svg>
+        );
+      default:
+        return null;
+    }
   };
 
   // Staggered entrance animations
@@ -151,151 +231,107 @@ const ContactPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Location Icons Section */}
+              {/* Icon Carousel Section */}
               <div className={`mt-16 mb-12 transition-all duration-500 ease-out ${
                 iconsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
-                     {selectedCountry === 'nederland' && (
-                       <div className="text-center">
-                         <div className="flex justify-center items-center gap-8 mb-4">
-                          {/* Windmill Icon for Barendrecht */}
-                          <div className={`w-16 h-16 rounded-lg flex items-center justify-center transition-all duration-300 ${
-                            activeLocationIndex === 0 ? 'bg-gray-800 text-white' : 'bg-white text-gray-400'
-                          }`}>
-                            <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M12 2L8 8h8l-4-6zm0 20l4-6H8l4 6zm10-10l-6-4v8l6-4zM2 12l6 4V8l-6 4z"/>
-                            </svg>
+                <Carousel 
+                  opts={{ 
+                    align: 'center', 
+                    loop: true,
+                    dragFree: true,
+                    containScroll: false
+                  }} 
+                  className="w-full max-w-md mx-auto"
+                  setApi={setIconCarouselApi}
+                >
+                  <CarouselContent className="-ml-8">
+                    {allLocations.map((location, index) => {
+                      // Calculate relative position for opacity
+                      const isActive = index === activeGlobalIndex;
+                      const isPrevious = (activeGlobalIndex - 1 + allLocations.length) % allLocations.length === index;
+                      const isNext = (activeGlobalIndex + 1) % allLocations.length === index;
+                      
+                      let opacity = 0.2;
+                      let scale = 0.7;
+                      
+                      if (isActive) {
+                        opacity = 1;
+                        scale = 1;
+                      } else if (isPrevious || isNext) {
+                        opacity = 0.4;
+                        scale = 0.8;
+                      }
+                      
+                      return (
+                        <CarouselItem key={`${location.id}-icon`} className="pl-8 basis-1/3">
+                          <div className="flex justify-center">
+                            <div 
+                              className={`w-16 h-16 rounded-lg flex items-center justify-center transition-all duration-300 border-2 cursor-pointer ${
+                                isActive 
+                                  ? 'bg-gray-800 text-white border-gray-800' 
+                                  : 'bg-white text-gray-400 border-gray-200 hover:border-gray-300'
+                              }`}
+                              style={{ 
+                                opacity, 
+                                transform: `scale(${scale})`,
+                                filter: isActive ? 'none' : 'grayscale(0.3)'
+                              }}
+                              onClick={() => syncCarousels(index)}
+                            >
+                              {getLocationIcon(location.icon, isActive, 1)}
+                            </div>
                           </div>
-                          
-                          {/* Tulip Icon for Leiden */}
-                          <div className={`w-16 h-16 rounded-lg flex items-center justify-center transition-all duration-300 ${
-                            activeLocationIndex === 1 ? 'bg-gray-800 text-white' : 'bg-white text-gray-400'
-                          }`}>
-                            <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M12 2c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2s2-.9 2-2V4c0-1.1-.9-2-2-2zm-6 8c0-3.3 2.7-6 6-6s6 2.7 6 6c0 1.5-.6 2.8-1.5 3.8L12 22l-4.5-8.2C6.6 12.8 6 11.5 6 10z"/>
-                            </svg>
-                          </div>
-                          
-                          {/* Question Mark for Third Location */}
-                          <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center text-gray-400">
-                            <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
-                            </svg>
-                          </div>
-                         </div>
-                       </div>
-                     )}
-
-                     {selectedCountry === 'turkije' && (
-                       <div className="text-center">
-                         <div className="flex justify-center items-center mb-4">
-                          {/* Mosque Icon for Istanbul */}
-                          <div className="w-16 h-16 bg-gray-800 rounded-lg flex items-center justify-center text-white">
-                            <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M12 1l-2 2v2l2-2 2 2V3l-2-2zm8 9c0-2-1-3-2-3s-2 1-2 3v1h4V10zM6 10c0-2-1-3-2-3S2 8 2 10v1h4v-1zm14 3H4v8h16v-8zm-8-1c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
-                            </svg>
-                          </div>
-                         </div>
-                       </div>
-                     )}
+                        </CarouselItem>
+                      );
+                    })}
+                  </CarouselContent>
+                </Carousel>
               </div>
 
-              {/* Location Cards */}
-                  {selectedCountry === 'nederland' && (
-                    <div className={`transition-all duration-500 ease-out ${
-                      locationsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                    }`}>
-                      <Carousel 
-                        opts={{ align: 'center', loop: false }} 
-                        className="w-full max-w-sm mx-auto"
-                        setApi={(api) => {
-                          if (api) {
-                            api.on('select', () => {
-                              setActiveLocationIndex(api.selectedScrollSnap());
-                            });
-                          }
-                        }}
-                      >
-                        <CarouselContent className="-ml-4">
-                          {locationData.nederland.map((location, index) => (
-                            <CarouselItem key={location.id} className="pl-4 basis-full">
-                              <div className="text-center px-4 py-2">
-                                {/* Location Title */}
-                                <h3 className="text-3xl font-black text-gray-700 mb-0 tracking-tight leading-tight">{location.name}</h3>
-                                <p className="text-base text-gray-500 font-normal mb-6 uppercase tracking-wider">{location.subtitle}</p>
-                                
-                                {/* Location Details */}
-                                <div className="space-y-0 text-gray-600 leading-tight">
-                                  <div>
-                                    <p className="text-xs font-normal leading-tight">Adres: {location.address}</p>
-                                  </div>
-                                  <div>
-                                    <p className="text-xs font-normal leading-tight">Telefoon: {location.phone}</p>
-                                  </div>
-                                  <div>
-                                    <p className="text-xs font-normal leading-tight">Openingstijden: {location.hours}</p>
-                                  </div>
-                                  <div>
-                                    <p className="text-xs font-normal leading-tight">Provincie: {location.province}</p>
-                                  </div>
-                                </div>
-                              </div>
-                            </CarouselItem>
-                          ))}
-                        </CarouselContent>
-                        
-                        {/* Pagination Dots */}
-                        <div className="flex justify-center gap-3 mt-8">
-                          {locationData.nederland.map((_, index) => (
-                            <div key={index} className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                              index === activeLocationIndex ? 'bg-gray-800' : 'bg-gray-400'
-                            }`}></div>
-                          ))}
+              {/* Endless Location Cards */}
+              <div className={`transition-all duration-500 ease-out ${
+                locationsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}>
+                <Carousel 
+                  opts={{ 
+                    align: 'center', 
+                    loop: true,
+                    dragFree: true,
+                    containScroll: false
+                  }} 
+                  className="w-full max-w-sm mx-auto"
+                  setApi={setLocationCarouselApi}
+                >
+                  <CarouselContent className="-ml-4">
+                    {allLocations.map((location, index) => (
+                      <CarouselItem key={`${location.id}-location`} className="pl-4 basis-full">
+                        <div className="text-center px-4 py-2">
+                          {/* Location Title */}
+                          <h3 className="text-3xl font-black text-gray-700 mb-0 tracking-tight leading-tight">{location.name}</h3>
+                          <p className="text-base text-gray-500 font-normal mb-6 uppercase tracking-wider">{location.subtitle}</p>
+                          
+                          {/* Location Details */}
+                          <div className="space-y-0 text-gray-600 leading-tight">
+                            <div>
+                              <p className="text-xs font-normal leading-tight">Adres: {location.address}</p>
+                            </div>
+                            <div>
+                              <p className="text-xs font-normal leading-tight">Telefoon: {location.phone}</p>
+                            </div>
+                            <div>
+                              <p className="text-xs font-normal leading-tight">Openingstijden: {location.hours}</p>
+                            </div>
+                            <div>
+                              <p className="text-xs font-normal leading-tight">Provincie: {location.province}</p>
+                            </div>
+                          </div>
                         </div>
-                      </Carousel>
-                    </div>
-                  )}
-
-                  {selectedCountry === 'turkije' && (
-                    <div className={`transition-all duration-500 ease-out ${
-                      locationsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                    }`}>
-                      <Carousel opts={{ align: 'center', loop: false }} className="w-full max-w-sm mx-auto">
-                        <CarouselContent className="-ml-4">
-                          {locationData.turkije.map((location) => (
-                            <CarouselItem key={location.id} className="pl-4 basis-full">
-                              <div className="text-center px-4 py-2">
-                                {/* Location Title */}
-                                <h3 className="text-3xl font-black text-gray-700 mb-0 tracking-tight leading-tight">{location.name}</h3>
-                                <p className="text-base text-gray-500 font-normal mb-6 uppercase tracking-wider">{location.subtitle}</p>
-                                
-                                {/* Location Details */}
-                                <div className="space-y-0 text-gray-600 leading-tight">
-                                  <div>
-                                    <p className="text-xs font-normal leading-tight">Adres: {location.address}</p>
-                                  </div>
-                                  <div>
-                                    <p className="text-xs font-normal leading-tight">Telefoon: {location.phone}</p>
-                                  </div>
-                                  <div>
-                                    <p className="text-xs font-normal leading-tight">Openingstijden: {location.hours}</p>
-                                  </div>
-                                  <div>
-                                    <p className="text-xs font-normal leading-tight">Provincie: {location.province}</p>
-                                  </div>
-                                </div>
-                              </div>
-                            </CarouselItem>
-                          ))}
-                        </CarouselContent>
-                        
-                        {/* Pagination Dots - Single dot for Turkey */}
-                        <div className="flex justify-center gap-3 mt-8">
-                          <div className="w-3 h-3 rounded-full bg-gray-800"></div>
-                        </div>
-                      </Carousel>
-                    </div>
-                   )}
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                </Carousel>
+              </div>
 
               {/* Contact Icons Section */}
               <div className={`mt-auto pt-12 transition-all duration-500 ease-out ${
