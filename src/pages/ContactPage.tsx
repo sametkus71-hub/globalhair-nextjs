@@ -305,23 +305,35 @@ const ContactPage: React.FC = () => {
                           <h3 className="text-xl font-black text-gray-700 mb-0 tracking-tight leading-tight">{location.name}</h3>
                           <p className="text-sm text-gray-500 font-normal mb-4 uppercase tracking-wider">{location.subtitle}</p>
                           
-                          {/* Location Details */}
-                          <div className="space-y-1 text-gray-600 leading-tight">
-                            <div>
-                              <p className="text-xs font-normal leading-tight">{location.address}</p>
-                            </div>
-                            <div className="flex items-center justify-center gap-1">
-                              <Phone className="w-3 h-3" />
-                              <p className="text-xs font-normal leading-tight">{location.phone}</p>
-                            </div>
-                            <div className="flex items-center justify-center gap-1">
-                              <Clock className="w-3 h-3" />
-                              <p className="text-xs font-normal leading-tight">{location.hours}</p>
-                            </div>
-                            <div>
-                              <p className="text-xs font-normal leading-tight">Provincie: {location.province}</p>
-                            </div>
-                          </div>
+                           {/* Location Details */}
+                           <div className="space-y-1 text-gray-600 leading-tight">
+                             <div>
+                               <a 
+                                 href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address)}`}
+                                 target="_blank"
+                                 rel="noopener noreferrer"
+                                 className="text-xs font-normal leading-tight hover:text-gray-800 transition-colors cursor-pointer"
+                               >
+                                 {location.address}
+                               </a>
+                             </div>
+                             <div className="flex items-center justify-center gap-1">
+                               <Phone className="w-3 h-3" />
+                               <a 
+                                 href={`tel:${location.phone.replace(/\s/g, '')}`}
+                                 className="text-xs font-normal leading-tight hover:text-gray-800 transition-colors cursor-pointer"
+                               >
+                                 {location.phone}
+                               </a>
+                             </div>
+                             <div className="flex items-center justify-center gap-1">
+                               <Clock className="w-3 h-3" />
+                               <p className="text-xs font-normal leading-tight">{location.hours}</p>
+                             </div>
+                             <div>
+                               <p className="text-xs font-normal leading-tight">Provincie: {location.province}</p>
+                             </div>
+                           </div>
                         </div>
                       </CarouselItem>
                     ))}
