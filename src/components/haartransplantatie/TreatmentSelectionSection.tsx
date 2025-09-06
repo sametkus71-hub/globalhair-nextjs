@@ -245,7 +245,11 @@ export const TreatmentSelectionSection = () => {
       {/* Right Side Icons */}
       <div className="fixed right-3 sm:right-4 md:right-5 lg:right-6 bottom-20 sm:bottom-24 md:bottom-28 lg:bottom-32 xl:bottom-36 space-y-3 z-50">
         <button 
-          onClick={() => navigate(language === 'nl' ? '/nl/info' : '/en/info')}
+          onClick={() => {
+            // Store current path before navigating to popup
+            sessionStorage.setItem('previousPath', window.location.pathname);
+            navigate(language === 'nl' ? '/nl/info' : '/en/info');
+          }}
           className={`w-12 h-12 sm:w-14 sm:h-14 bg-black/18 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/22 transition-all duration-700 ease-in-out cursor-pointer ${
             buttonsLoaded[0] ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
           }`}
@@ -253,7 +257,11 @@ export const TreatmentSelectionSection = () => {
           <Info className="w-6 h-6 sm:w-7 sm:h-7 text-white/90" />
         </button>
         <button 
-          onClick={() => navigate(language === 'nl' ? '/nl/support' : '/en/support')}
+          onClick={() => {
+            // Store current path before navigating to popup
+            sessionStorage.setItem('previousPath', window.location.pathname);
+            navigate(language === 'nl' ? '/nl/support' : '/en/support');
+          }}
           className={`w-12 h-12 sm:w-14 sm:h-14 bg-black/18 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/22 transition-all duration-700 ease-in-out cursor-pointer ${
             buttonsLoaded[1] ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
           }`}

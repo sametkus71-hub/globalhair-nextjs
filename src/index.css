@@ -456,7 +456,9 @@ body.s-wit {
   }
   
   /* Reviews page animations */
-  .reviews-page-fullscreen {
+  .reviews-page-fullscreen,
+  .info-page-fullscreen,
+  .support-page-fullscreen {
     @apply fixed inset-0 z-50 bg-white;
     animation: reviews-page-slide-up 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
     transform: translateY(100%) scale(0.98);
