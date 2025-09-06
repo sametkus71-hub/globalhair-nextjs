@@ -3,7 +3,6 @@ import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
 import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Carousel, CarouselContent, CarouselItem, CarouselApi } from '@/components/ui/carousel';
 import { MapPin, Phone, Mail, Clock, Instagram } from 'lucide-react';
 
@@ -112,29 +111,49 @@ const ContactPage: React.FC = () => {
               </div>
 
               {/* Country Selection */}
-              <div className={`mb-12 transition-all duration-500 ease-out ${
+              <div className={`flex justify-center mb-12 transition-all duration-500 ease-out relative ${
                 countryVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}>
-                <Tabs value={selectedCountry} onValueChange={(value) => setSelectedCountry(value as 'nederland' | 'turkije')} className="w-full">
-                  <TabsList className="w-full max-w-lg mx-auto grid grid-cols-2 bg-white/90 backdrop-blur-sm rounded-full p-2 h-14 border-0">
-                    <TabsTrigger 
-                      value="nederland" 
-                      className="data-[state=active]:bg-gray-800 data-[state=active]:text-white data-[state=inactive]:text-gray-500 text-base font-medium rounded-full px-8 py-2 transition-all duration-200"
-                    >
-                      NEDERLAND
-                    </TabsTrigger>
-                    <TabsTrigger 
-                      value="turkije"
-                      className="data-[state=active]:bg-gray-800 data-[state=active]:text-white data-[state=inactive]:text-gray-500 text-base font-medium rounded-full px-8 py-2 transition-all duration-200"
-                    >
-                      TURKIJE
-                    </TabsTrigger>
-                  </TabsList>
+              }`} style={{ zIndex: 9999 }}>
+                <div 
+                  className="rounded-md p-0.5 relative"
+                  style={{
+                    border: '1px solid',
+                    borderImageSource: 'linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.6) 100%)',
+                    background: 'rgba(228, 229, 224, 1)',
+                    backdropFilter: 'blur(30px)',
+                    boxShadow: '4px 3px 9.1px 4px rgba(0, 0, 0, 0.25) inset',
+                    zIndex: 9999
+                  }}
+                >
+                  <div className="flex relative" style={{ zIndex: 9999 }}>
+                    {['nederland', 'turkije'].map((country) => (
+                      <button
+                        key={country}
+                        onClick={() => setSelectedCountry(country as 'nederland' | 'turkije')}
+                        className={`px-3 py-1 rounded-sm font-lato text-[10px] sm:text-[11px] md:text-[12px] font-normal transition-all duration-200 relative touch-manipulation ${
+                          selectedCountry === country
+                            ? 'text-black'
+                            : 'text-gray-600 hover:text-black'
+                        }`}
+                        style={{
+                          zIndex: 9999,
+                          ...(selectedCountry === country ? {
+                            boxShadow: '5px 0px 12px 0px rgba(151, 151, 151, 1)',
+                            backdropFilter: 'blur(52.3px)',
+                            background: 'rgba(255, 255, 255, 0.9)'
+                          } : {})
+                        }}
+                      >
+                        {country === 'nederland' ? 'Nederland' : 'Turkije'}
+                      </button>
+                    ))}
+                  </div>
+              </div>
 
-                  {/* Location Icons Section */}
-                  <div className={`mt-16 mb-12 transition-all duration-500 ease-out ${
-                    iconsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                  }`}>
+              {/* Location Icons Section */}
+              <div className={`mt-16 mb-12 transition-all duration-500 ease-out ${
+                iconsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}>
                     {selectedCountry === 'nederland' && (
                       <div className="text-center">
                         <div className="text-orange-400 text-sm mb-6">
@@ -201,7 +220,7 @@ const ContactPage: React.FC = () => {
                   </div>
 
                   {/* Location Cards */}
-                  <TabsContent value="nederland" className="mt-0">
+                  {selectedCountry === 'nederland' && (
                     <div className={`transition-all duration-500 ease-out ${
                       locationsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                     }`}>
@@ -254,9 +273,9 @@ const ContactPage: React.FC = () => {
                         </div>
                       </Carousel>
                     </div>
-                  </TabsContent>
+                  )}
 
-                  <TabsContent value="turkije" className="mt-0">
+                  {selectedCountry === 'turkije' && (
                     <div className={`transition-all duration-500 ease-out ${
                       locationsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                     }`}>
@@ -295,9 +314,8 @@ const ContactPage: React.FC = () => {
                         </div>
                       </Carousel>
                     </div>
-                  </TabsContent>
-                </Tabs>
-              </div>
+                  )}
+                </div>
 
               {/* Contact Icons Section */}
               <div className={`mt-auto pt-12 transition-all duration-500 ease-out ${
