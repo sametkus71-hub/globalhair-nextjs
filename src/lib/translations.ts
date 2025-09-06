@@ -49,18 +49,14 @@ export const translations = {
     'reviews.close': 'Sluiten',
     
     // Mission
-    'mission.title': 'Onze Missie',
-    'mission.subtitle': 'Excellentie in haarzorg en esthetiek',
-    'mission.description1': 'Bij GlobalHair streven we naar het hoogste niveau van haarzorg en esthetische behandelingen. Onze missie is om elke cliënt te voorzien van natuurlijke, blijvende resultaten die hun zelfvertrouwen versterken.',
-    'mission.description2': 'Met jaren van expertise en de nieuwste technologieën bieden wij persoonlijke zorg die voldoet aan de hoogste internationale standaarden.',
-    'mission.description3': 'Wij geloven dat iedereen het recht heeft om zich goed te voelen over hun uiterlijk, en wij zijn er om dat mogelijk te maken.',
-    'mission.value1.title': 'Kwaliteit',
-    'mission.value1.description': 'Wij hanteren de hoogste kwaliteitsnormen in alle aspecten van onze behandelingen.',
-    'mission.value2.title': 'Innovatie',
-    'mission.value2.description': 'Wij investeren continu in de nieuwste technieken en technologieën.',
-    'mission.value3.title': 'Zorg',
-    'mission.value3.description': 'Persoonlijke aandacht en nazorg staan centraal in onze benadering.',
-    'mission.close': 'Sluiten',
+    'mission.page.title': 'Onze Missie - Precisie is onze missie',
+    'mission.page.description': 'Ontdek onze missie van precisie en excellentie in haartransplantatie behandelingen.',
+    'mission.main.title': 'PRECISIE IS ONZE MISSIE.',
+    'mission.main.subtitle': '+10.000 behandelingen en we blijven groeien.',
+    'mission.content.paragraph1': 'Ons verhaal begint met Berkant Dural, een visionaire professional die zijn passie voor haarzorg combineerde met een ongeëvenaarde toewijding aan precisie en kwaliteit.',
+    'mission.content.paragraph2': 'Na jaren van onderzoek en ontwikkeling hebben wij een revolutionaire methode gecreëerd die de standaard in haartransplantatie heeft verhoogd. Onze precisie-benadering zorgt voor natuurlijke, blijvende resultaten.',
+    'mission.content.paragraph3': 'Elke behandeling wordt uitgevoerd met de hoogste nauwkeurigheid, zodat u kunt rekenen op resultaten die uw verwachtingen overtreffen.',
+    'mission.button.methods': 'bekijk methodes',
     
     // Treatment options
     'treatment.location.nederland': 'Nederland',
@@ -130,18 +126,14 @@ export const translations = {
     'reviews.close': 'Close',
     
     // Mission
-    'mission.title': 'Our Mission',
-    'mission.subtitle': 'Excellence in hair care and aesthetics',
-    'mission.description1': 'At GlobalHair, we strive for the highest level of hair care and aesthetic treatments. Our mission is to provide every client with natural, lasting results that enhance their confidence.',
-    'mission.description2': 'With years of expertise and the latest technologies, we offer personalized care that meets the highest international standards.',
-    'mission.description3': 'We believe everyone has the right to feel good about their appearance, and we are here to make that possible.',
-    'mission.value1.title': 'Quality',
-    'mission.value1.description': 'We maintain the highest quality standards in all aspects of our treatments.',
-    'mission.value2.title': 'Innovation',
-    'mission.value2.description': 'We continuously invest in the latest techniques and technologies.',
-    'mission.value3.title': 'Care',
-    'mission.value3.description': 'Personal attention and aftercare are central to our approach.',
-    'mission.close': 'Close',
+    'mission.page.title': 'Our Mission - Precision is our mission',
+    'mission.page.description': 'Discover our mission of precision and excellence in hair transplant treatments.',
+    'mission.main.title': 'PRECISION IS OUR MISSION.',
+    'mission.main.subtitle': '+10,000 treatments and we keep growing.',
+    'mission.content.paragraph1': 'Our story begins with Berkant Dural, a visionary professional who combined his passion for hair care with an unparalleled dedication to precision and quality.',
+    'mission.content.paragraph2': 'After years of research and development, we have created a revolutionary method that has raised the standard in hair transplantation. Our precision approach ensures natural, lasting results.',
+    'mission.content.paragraph3': 'Every treatment is performed with the highest accuracy, so you can count on results that exceed your expectations.',
+    'mission.button.methods': 'view methods',
     
     // Treatment options
     'treatment.location.nederland': 'Netherlands',
