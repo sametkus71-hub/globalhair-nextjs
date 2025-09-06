@@ -90,10 +90,10 @@ const MissionPage: React.FC = () => {
                 titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
                 <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-gray-700 mb-3 md:mb-4 leading-[0.9] tracking-tight">
-                  {t('mission.main.title')}
+                  PRECISION IS OUR MISSION.
                 </h1>
                 <p className="text-base md:text-lg xl:text-xl text-gray-600 font-normal tracking-wide">
-                  {t('mission.main.subtitle')}
+                  {language === 'nl' ? '+10.000 behandelingen en we blijven groeien.' : '+10,000 treatments and we keep growing.'}
                 </p>
               </div>
 
@@ -115,7 +115,10 @@ const MissionPage: React.FC = () => {
                 {/* Founder Text */}
                 <div className="text-left">
                   <p className="text-base md:text-lg text-gray-600 leading-relaxed">
-                    {t('mission.content.founder')}
+                    {language === 'nl' 
+                      ? 'Founder & Medisch Directeur, Berkant Dural, zag al op jonge leeftijd wat erfelijk haarverlies met zijn vader deed en hij was ervan overtuigd dat dit voorkomen kon worden. Na jaren onderzoek en samenwerkingen met Tricho artsen ontwikkelde hij een werkwijze niet alleen voor zijn eigen haar, maar ook voor meer.'
+                      : 'Founder & Medical Director, Berkant Dural, saw at a young age what hereditary hair loss did to his father and he was convinced that this could be prevented. After years of research and collaborations with Tricho doctors, he developed a method not only for his own hair, but also for more.'
+                    }
                   </p>
                 </div>
               </div>
@@ -128,7 +131,7 @@ const MissionPage: React.FC = () => {
                   onClick={handleMethodsClick}
                   className="py-2.5 md:py-3 px-6 md:px-8 bg-black text-white text-sm font-normal rounded-full hover:bg-gray-800 active:scale-[0.98] transition-all duration-300 ease-out"
                 >
-                  {t('mission.button.methods')}
+                  {language === 'nl' ? 'bekijk methodes' : 'view methods'}
                 </button>
               </div>
 
