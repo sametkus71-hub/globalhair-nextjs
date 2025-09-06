@@ -100,7 +100,7 @@ const ContactPage: React.FC = () => {
             <div className="max-w-4xl mx-auto min-h-[calc(var(--app-height)-8rem)] flex flex-col">
               
               {/* Title Section */}
-              <div className={`text-center mb-16 transition-all duration-500 ease-out ${
+              <div className={`text-center mb-8 transition-all duration-500 ease-out ${
                 titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-700 mb-4 leading-tight tracking-tight">
@@ -115,7 +115,7 @@ const ContactPage: React.FC = () => {
                 countryVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`} style={{ zIndex: 9999 }}>
                 <div 
-                  className="rounded-md p-0.5 relative"
+                  className="rounded-md p-1.5 relative"
                   style={{
                     border: '1px solid',
                     borderImageSource: 'linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.6) 100%)',
@@ -130,7 +130,7 @@ const ContactPage: React.FC = () => {
                       <button
                         key={country}
                         onClick={() => setSelectedCountry(country as 'nederland' | 'turkije')}
-                        className={`px-3 py-1 rounded-sm font-lato text-[10px] sm:text-[11px] md:text-[12px] font-normal transition-all duration-200 relative touch-manipulation ${
+                        className={`px-8 py-3 rounded-sm font-lato text-[14px] sm:text-[16px] md:text-[18px] font-normal transition-all duration-200 relative touch-manipulation ${
                           selectedCountry === country
                             ? 'text-black'
                             : 'text-gray-600 hover:text-black'
