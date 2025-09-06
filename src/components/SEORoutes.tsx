@@ -16,6 +16,7 @@ import DashboardPage from '@/pages/DashboardPage';
 import FormPage from '@/pages/FormPage';
 import ReviewsPage from '@/pages/ReviewsPage';
 import ReviewItemPage from '@/pages/ReviewItemPage';
+import ContactPage from '@/pages/ContactPage';
 import NotFound from '@/pages/NotFound';
 
 export const SEORoutes = () => {
@@ -40,6 +41,7 @@ export const SEORoutes = () => {
       <Route path="/nl/info/methode" element={<InfoMethodPage />} />
       <Route path="/nl/info/traject" element={<InfoTrajectoryPage />} />
       <Route path="/nl/support" element={<SupportPage />} />
+      <Route path="/nl/contact" element={<ContactPage />} />
       
       {/* English routes */}
       <Route path="/en" element={<HomePage />} />
@@ -57,6 +59,7 @@ export const SEORoutes = () => {
       <Route path="/en/info/method" element={<InfoMethodPage />} />
       <Route path="/en/info/trajectory" element={<InfoTrajectoryPage />} />
       <Route path="/en/support" element={<SupportPage />} />
+      <Route path="/en/contact" element={<ContactPage />} />
       
       {/* Legacy support - maintain old item1 route */}
       <Route path="/nl/reviews/item1" element={<ReviewItemPage />} />

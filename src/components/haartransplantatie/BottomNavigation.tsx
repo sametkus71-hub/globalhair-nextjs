@@ -44,7 +44,10 @@ export const BottomNavigation = () => {
     if (path === 'reviews') {
       return location.pathname.startsWith('/nl/reviews') || location.pathname.startsWith('/en/reviews');
     }
-    return false; // Other pages not implemented yet
+    if (path === 'contact') {
+      return location.pathname === '/nl/contact' || location.pathname === '/en/contact';
+    }
+    return false;
   };
 
   const navItems = [
@@ -70,7 +73,7 @@ export const BottomNavigation = () => {
     },
     { 
       iconSrc: '/lovable-uploads/b5004700-4ebf-4a8d-9f10-fcddc2176942.png',
-      onClick: () => {},
+      onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/contact' : '/en/contact'),
       id: 'contact'
     }
   ];

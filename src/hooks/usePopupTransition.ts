@@ -23,7 +23,8 @@ export const usePopupTransition = () => {
            location.pathname.includes('/missie') || 
            location.pathname.includes('/mission') ||
            location.pathname.includes('/info') ||
-           location.pathname.includes('/support');
+           location.pathname.includes('/support') ||
+           location.pathname.includes('/contact');
   }, [location.pathname]);
 
   const getCurrentPopup = useCallback(() => {
@@ -31,6 +32,7 @@ export const usePopupTransition = () => {
     if (location.pathname.includes('/missie') || location.pathname.includes('/mission')) return 'mission';
     if (location.pathname.includes('/info')) return 'info';
     if (location.pathname.includes('/support')) return 'support';
+    if (location.pathname.includes('/contact')) return 'contact';
     return null;
   }, [location.pathname]);
 
@@ -39,7 +41,8 @@ export const usePopupTransition = () => {
     const targetPopup = targetPath.includes('/reviews') ? 'reviews' : 
                        targetPath.includes('/missie') || targetPath.includes('/mission') ? 'mission' :
                        targetPath.includes('/info') ? 'info' :
-                       targetPath.includes('/support') ? 'support' : null;
+                       targetPath.includes('/support') ? 'support' :
+                       targetPath.includes('/contact') ? 'contact' : null;
     
     // Store current path as previous path for the target popup
     if (!isOnPopupPage()) {
@@ -56,7 +59,7 @@ export const usePopupTransition = () => {
       });
 
       // Add exit animation to current popup
-      const currentPopupElement = document.querySelector('.reviews-page-fullscreen, .info-page-fullscreen, .support-page-fullscreen');
+      const currentPopupElement = document.querySelector('.reviews-page-fullscreen, .info-page-fullscreen, .support-page-fullscreen, .contact-page-fullscreen');
       if (currentPopupElement) {
         currentPopupElement.classList.add('popup-cross-fade-exit');
       }
