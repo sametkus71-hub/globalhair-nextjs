@@ -322,8 +322,8 @@ const ContactPage: React.FC = () => {
                       <CarouselItem key={`${location.id}-location`} className="pl-4 basis-full">
                         <div className="text-center px-4 py-2">
                           {/* Location Title */}
-                          <h3 className="text-3xl font-black text-gray-700 mb-0 tracking-tight leading-tight">{location.name}</h3>
-                          <p className="text-base text-gray-500 font-normal mb-6 uppercase tracking-wider">{location.subtitle}</p>
+                          <h3 className="text-xl font-black text-gray-700 mb-0 tracking-tight leading-tight">{location.name}</h3>
+                          <p className="text-sm text-gray-500 font-normal mb-4 uppercase tracking-wider">{location.subtitle}</p>
                           
                           {/* Location Details */}
                           <div className="space-y-0 text-gray-600 leading-tight">
@@ -346,11 +346,11 @@ const ContactPage: React.FC = () => {
                   </CarouselContent>
                   
                   {/* Pagination Dots */}
-                  <div className="flex justify-center gap-3 mt-8">
+                  <div className="flex justify-center gap-2 mt-6">
                     {allLocations.map((_, index) => (
                       <div 
                         key={index} 
-                        className={`w-3 h-3 rounded-full transition-all duration-300 cursor-pointer ${
+                        className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${
                           index === activeGlobalIndex ? 'bg-gray-800' : 'bg-gray-400 hover:bg-gray-600'
                         }`}
                         onClick={() => syncCarousels(index)}
@@ -361,26 +361,26 @@ const ContactPage: React.FC = () => {
               </div>
 
               {/* Contact Icons Section */}
-              <div className={`mt-auto pt-12 transition-all duration-500 ease-out ${
+              <div className={`mt-auto pt-4 transition-all duration-500 ease-out ${
                 contactVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
-                <div className="flex items-center justify-center gap-8">
+                <div className="flex items-center justify-center gap-4">
                   {/* Email */}
                   <a 
                     href="mailto:info@hairexcellence.com"
-                    className="w-14 h-14 bg-black rounded-full flex items-center justify-center hover:bg-gray-800 active:scale-95 transition-all duration-200"
+                    className="w-10 h-10 bg-black rounded-full flex items-center justify-center hover:bg-gray-800 active:scale-95 transition-all duration-200"
                     aria-label="Email"
                   >
-                    <Mail className="w-6 h-6 text-white" />
+                    <Mail className="w-4 h-4 text-white" />
                   </a>
                   
-                  {/* Phone */}
+                  {/* Phone - Middle item (slightly bigger) */}
                   <a 
                     href="tel:0857500577"
-                    className="w-14 h-14 bg-black rounded-full flex items-center justify-center hover:bg-gray-800 active:scale-95 transition-all duration-200"
+                    className="w-12 h-12 bg-black rounded-full flex items-center justify-center hover:bg-gray-800 active:scale-95 transition-all duration-200"
                     aria-label="Phone"
                   >
-                    <Phone className="w-6 h-6 text-white" />
+                    <Phone className="w-5 h-5 text-white" />
                   </a>
                   
                   {/* Instagram */}
@@ -388,10 +388,10 @@ const ContactPage: React.FC = () => {
                     href="https://instagram.com/hairexcellence"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-14 h-14 bg-black rounded-full flex items-center justify-center hover:bg-gray-800 active:scale-95 transition-all duration-200"
+                    className="w-10 h-10 bg-black rounded-full flex items-center justify-center hover:bg-gray-800 active:scale-95 transition-all duration-200"
                     aria-label="Instagram"
                   >
-                    <Instagram className="w-6 h-6 text-white" />
+                    <Instagram className="w-4 h-4 text-white" />
                   </a>
                 </div>
               </div>
