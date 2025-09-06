@@ -115,7 +115,7 @@ const ContactPage: React.FC = () => {
                 countryVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`} style={{ zIndex: 9999 }}>
                 <div 
-                  className="rounded-md p-1.5 relative"
+                  className="rounded-md p-1 relative"
                   style={{
                     border: '1px solid',
                     borderImageSource: 'linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.6) 100%)',
@@ -125,7 +125,7 @@ const ContactPage: React.FC = () => {
                     zIndex: 9999
                   }}
                 >
-                  <div className="flex relative" style={{ zIndex: 9999 }}>
+                  <div className="flex relative gap-0.5" style={{ zIndex: 9999 }}>
                     {['nederland', 'turkije'].map((country) => (
                       <button
                         key={country}
@@ -138,9 +138,9 @@ const ContactPage: React.FC = () => {
                         style={{
                           zIndex: 9999,
                           ...(selectedCountry === country ? {
-                            boxShadow: '5px 0px 12px 0px rgba(151, 151, 151, 1)',
+                            boxShadow: '3px 0px 8px 0px rgba(151, 151, 151, 0.8)',
                             backdropFilter: 'blur(52.3px)',
-                            background: 'rgba(255, 255, 255, 0.9)'
+                            background: 'rgba(255, 255, 255, 0.95)'
                           } : {})
                         }}
                       >
