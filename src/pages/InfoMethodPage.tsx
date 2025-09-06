@@ -27,7 +27,7 @@ const InfoMethodPage: React.FC = () => {
   const handleTrajectoryClick = () => {
     // Store current path for back navigation
     sessionStorage.setItem('previousPath', window.location.pathname);
-    const trajectoryPath = language === 'nl' ? '/nl/info/trajectory' : '/en/info/trajectory';
+    const trajectoryPath = language === 'nl' ? '/nl/info/traject' : '/en/info/trajectory';
     navigate(trajectoryPath);
   };
 
