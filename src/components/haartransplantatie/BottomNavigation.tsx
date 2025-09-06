@@ -97,7 +97,7 @@ export const BottomNavigation = () => {
                   onClick={item.onClick}
                   className={`flex items-center justify-center transition-all duration-200 ${
                     isBookButton 
-                      ? 'rounded-full w-[3.25rem] h-[3.25rem] shadow-xl backdrop-blur-md bg-gradient-to-br from-white/25 via-white/15 to-white/5 ring-1 ring-white/10 booking-button-glow' 
+                      ? 'rounded-full w-14 h-14 shadow-xl backdrop-blur-md bg-gradient-to-br from-white/25 via-white/15 to-white/5 ring-1 ring-white/10 booking-button-glow' 
                       : 'p-2'
                   }`}
                 >

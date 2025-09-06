@@ -939,29 +939,30 @@ html, body {
 .booking-button-glow {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, hsl(0 0% 8%) 0%, hsl(0 0% 12%) 25%, hsl(0 0% 10%) 50%, hsl(0 0% 6%) 75%, hsl(0 0% 8%) 100%);
+  background: linear-gradient(135deg, hsl(0 0% 8%) 0%, hsl(0 0% 15%) 25%, hsl(0 0% 12%) 50%, hsl(0 0% 8%) 75%, hsl(0 0% 10%) 100%);
   background-size: 400% 400%;
-  animation: subtle-gradient-shift 15s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation: subtle-gradient-shift 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
 }
 
 .booking-button-glow::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 60%);
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
   opacity: 0;
-  animation: gentle-pulse 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  animation-delay: 2s;
+  animation: gentle-pulse 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 1s;
 }
 
 .booking-button-glow::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.03) 50%, transparent 100%);
+  background: linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.08) 50%, transparent 100%);
   transform: translateX(-100%);
-  animation: minimal-shine 18s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
-  animation-delay: 5s;
+  animation: minimal-shine 14s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+  animation-delay: 3s;
 }
 
 @keyframes subtle-gradient-shift {
