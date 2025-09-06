@@ -130,7 +130,7 @@ const ContactPage: React.FC = () => {
                       <button
                         key={country}
                         onClick={() => setSelectedCountry(country as 'nederland' | 'turkije')}
-                        className={`px-5 py-2 rounded-sm font-lato text-[12px] sm:text-[13px] md:text-[14px] font-normal transition-all duration-200 relative touch-manipulation ${
+                        className={`px-4 py-1.5 rounded-sm font-lato text-[11px] sm:text-[12px] md:text-[13px] font-normal transition-all duration-200 relative touch-manipulation ${
                           selectedCountry === country
                             ? 'text-black'
                             : 'text-gray-600 hover:text-black'
