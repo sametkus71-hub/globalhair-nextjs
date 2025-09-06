@@ -14,15 +14,20 @@ const InfoPage: React.FC = () => {
 
   const handleClose = () => {
     setIsExiting(true);
-    // Get previous path or default to haartransplantatie
-    const previousPath = sessionStorage.getItem('previousPath') || 
-                        (language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant');
+    // Always go to haartransplantatie page
+    const haartransplantatieePath = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
     
-    // Wait for animation to complete before navigating
+    // Fast iOS-style dismissal - shorter animation time
     setTimeout(() => {
+      // Clear any stored paths to prevent re-animations
       sessionStorage.removeItem('previousPath');
-      navigate(previousPath);
-    }, 300);
+      sessionStorage.setItem('skipPageAnimations', 'true');
+      navigate(haartransplantatieePath);
+      // Remove the skip flag after navigation
+      setTimeout(() => {
+        sessionStorage.removeItem('skipPageAnimations');
+      }, 100);
+    }, 200);
   };
 
   const handleMethodClick = () => {
