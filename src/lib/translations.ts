@@ -59,8 +59,8 @@ export const translations = {
     // Contact
     'contact.page.title': 'Contact - Hair Excellence',
     'contact.page.description': 'Neem contact met ons op',
-    'contact.title': 'CONTACT',
-    'contact.subtitle': 'Neem contact met ons op',
+    'contact.title': 'MEET YOUR FUTURE HAIRLINE',
+    'contact.subtitle': 'Kies uw locatie voor een consult',
     'contact.countries.nederland': 'Nederland',
     'contact.countries.turkije': 'Turkije',
     'contact.locations.barendrecht.name': 'BARENDRECHT',
@@ -160,8 +160,8 @@ export const translations = {
     // Contact
     'contact.page.title': 'Contact - Hair Excellence',
     'contact.page.description': 'Get in touch with us',
-    'contact.title': 'CONTACT',
-    'contact.subtitle': 'Get in touch with us',
+    'contact.title': 'MEET YOUR FUTURE HAIRLINE',
+    'contact.subtitle': 'Choose your location for a consultation',
     'contact.countries.nederland': 'Netherlands',
     'contact.countries.turkije': 'Turkey',
     'contact.locations.barendrecht.name': 'BARENDRECHT',

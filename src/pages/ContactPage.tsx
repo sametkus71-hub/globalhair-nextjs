@@ -92,122 +92,133 @@ const ContactPage: React.FC = () => {
             <div className="max-w-4xl mx-auto min-h-[calc(var(--app-height)-8rem)] flex flex-col">
               
               {/* Title Section */}
-              <div className={`text-center mb-12 md:mb-16 transition-all duration-500 ease-out ${
+              <div className={`text-center mb-16 transition-all duration-500 ease-out ${
                 titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-gray-700 mb-6 leading-[0.9] tracking-tight">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-700 mb-4 leading-tight tracking-tight">
                   {t('contact.title')}
                 </h1>
-                <p className="text-base md:text-lg text-gray-500 font-normal">
-                  {t('contact.subtitle')}
-                </p>
               </div>
 
               {/* Country Selection */}
-              <div className={`mb-8 md:mb-12 transition-all duration-500 ease-out ${
+              <div className={`mb-12 transition-all duration-500 ease-out ${
                 countryVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
                 <Tabs value={selectedCountry} onValueChange={(value) => setSelectedCountry(value as 'nederland' | 'turkije')} className="w-full">
-                  <TabsList className="w-full max-w-sm mx-auto grid grid-cols-2 bg-white/60 backdrop-blur-sm">
+                  <TabsList className="w-full max-w-md mx-auto grid grid-cols-2 bg-white/80 backdrop-blur-sm rounded-full p-1 h-12">
                     <TabsTrigger 
                       value="nederland" 
-                      className="data-[state=active]:bg-white data-[state=active]:text-gray-900 text-gray-600 font-medium"
+                      className="data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm text-gray-500 font-medium rounded-full transition-all"
                     >
                       {t('contact.countries.nederland')}
                     </TabsTrigger>
                     <TabsTrigger 
                       value="turkije"
-                      className="data-[state=active]:bg-white data-[state=active]:text-gray-900 text-gray-600 font-medium"
+                      className="data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm text-gray-500 font-medium rounded-full transition-all"
                     >
                       {t('contact.countries.turkije')}
                     </TabsTrigger>
                   </TabsList>
 
                   {/* Location Cards */}
-                  <TabsContent value="nederland" className="mt-8">
+                  <TabsContent value="nederland" className="mt-12">
                     <div className={`transition-all duration-500 ease-out ${
                       locationsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                     }`}>
-                      <Carousel opts={{ align: 'start', loop: false }} className="w-full">
-                        <CarouselContent className="-ml-2 md:-ml-4">
-                          {locationData.nederland.map((location) => (
-                            <CarouselItem key={location.id} className="pl-2 md:pl-4 basis-full md:basis-1/2">
-                              <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-gray-200/50 hover:bg-white/90 transition-all duration-300">
-                                {/* Location Icon */}
-                                <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mb-4">
-                                  <MapPin className="w-6 h-6 text-gray-600" />
-                                </div>
-                                
+                      {/* Location hint text */}
+                      <div className="text-center mb-8">
+                        <div className="flex items-center justify-center gap-2 text-orange-400 text-sm">
+                          <span>nl: molen, tulp en ?</span>
+                          <div className="w-6 h-6 bg-white rounded flex items-center justify-center">
+                            <div className="w-0 h-0 border-l-2 border-r-2 border-b-3 border-transparent border-b-orange-400"></div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <Carousel opts={{ align: 'center', loop: false }} className="w-full max-w-sm mx-auto">
+                        <CarouselContent className="-ml-4">
+                          {locationData.nederland.map((location, index) => (
+                            <CarouselItem key={location.id} className="pl-4 basis-full">
+                              <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200/20 text-center">
                                 {/* Location Details */}
-                                <h3 className="text-xl font-black text-gray-800 mb-1">{location.name}</h3>
-                                <p className="text-sm text-gray-500 font-medium mb-4">{location.subtitle}</p>
+                                <h3 className="text-3xl font-black text-gray-800 mb-2">{location.name}</h3>
+                                <p className="text-sm text-gray-500 font-medium mb-8 uppercase tracking-wider">{location.subtitle}</p>
                                 
-                                <div className="space-y-2 text-sm text-gray-600">
-                                  <div className="flex items-start gap-2">
-                                    <MapPin className="w-4 h-4 text-gray-400 mt-0.5 shrink-0" />
-                                    <span>{location.address}</span>
+                                <div className="space-y-3 text-gray-600">
+                                  <div>
+                                    <p className="text-sm font-medium">Adres: {location.address}</p>
                                   </div>
-                                  <div className="flex items-center gap-2">
-                                    <Phone className="w-4 h-4 text-gray-400 shrink-0" />
-                                    <span>{location.phone}</span>
+                                  <div>
+                                    <p className="text-sm font-medium">Telefoon: {location.phone}</p>
                                   </div>
-                                  <div className="flex items-center gap-2">
-                                    <Clock className="w-4 h-4 text-gray-400 shrink-0" />
-                                    <span>{location.hours}</span>
+                                  <div>
+                                    <p className="text-sm font-medium">Openingstijden: {location.hours}</p>
                                   </div>
-                                </div>
-                                
-                                <div className="mt-4 pt-3 border-t border-gray-100">
-                                  <span className="text-xs text-gray-500 font-medium">{location.province}</span>
+                                  <div>
+                                    <p className="text-sm font-medium">Provincie: {location.province}</p>
+                                  </div>
                                 </div>
                               </div>
                             </CarouselItem>
                           ))}
                         </CarouselContent>
+                        
+                        {/* Pagination Dots */}
+                        <div className="flex justify-center gap-2 mt-6">
+                          {locationData.nederland.map((_, index) => (
+                            <div key={index} className="w-2 h-2 rounded-full bg-gray-400"></div>
+                          ))}
+                        </div>
                       </Carousel>
                     </div>
                   </TabsContent>
 
-                  <TabsContent value="turkije" className="mt-8">
+                  <TabsContent value="turkije" className="mt-12">
                     <div className={`transition-all duration-500 ease-out ${
                       locationsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                     }`}>
-                      <Carousel opts={{ align: 'start', loop: false }} className="w-full">
-                        <CarouselContent className="-ml-2 md:-ml-4">
+                      {/* Location hint text */}
+                      <div className="text-center mb-8">
+                        <div className="flex items-center justify-center gap-2 text-orange-400 text-sm">
+                          <span>turkije: moskee</span>
+                          <div className="w-6 h-6 bg-white rounded flex items-center justify-center">
+                            <div className="w-0 h-0 border-l-2 border-r-2 border-b-3 border-transparent border-b-orange-400"></div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <Carousel opts={{ align: 'center', loop: false }} className="w-full max-w-sm mx-auto">
+                        <CarouselContent className="-ml-4">
                           {locationData.turkije.map((location) => (
-                            <CarouselItem key={location.id} className="pl-2 md:pl-4 basis-full">
-                              <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-gray-200/50 hover:bg-white/90 transition-all duration-300 max-w-md mx-auto">
-                                {/* Location Icon */}
-                                <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mb-4">
-                                  <MapPin className="w-6 h-6 text-gray-600" />
-                                </div>
-                                
+                            <CarouselItem key={location.id} className="pl-4 basis-full">
+                              <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200/20 text-center">
                                 {/* Location Details */}
-                                <h3 className="text-xl font-black text-gray-800 mb-1">{location.name}</h3>
-                                <p className="text-sm text-gray-500 font-medium mb-4">{location.subtitle}</p>
+                                <h3 className="text-3xl font-black text-gray-800 mb-2">{location.name}</h3>
+                                <p className="text-sm text-gray-500 font-medium mb-8 uppercase tracking-wider">{location.subtitle}</p>
                                 
-                                <div className="space-y-2 text-sm text-gray-600">
-                                  <div className="flex items-start gap-2">
-                                    <MapPin className="w-4 h-4 text-gray-400 mt-0.5 shrink-0" />
-                                    <span>{location.address}</span>
+                                <div className="space-y-3 text-gray-600">
+                                  <div>
+                                    <p className="text-sm font-medium">Adres: {location.address}</p>
                                   </div>
-                                  <div className="flex items-center gap-2">
-                                    <Phone className="w-4 h-4 text-gray-400 shrink-0" />
-                                    <span>{location.phone}</span>
+                                  <div>
+                                    <p className="text-sm font-medium">Telefoon: {location.phone}</p>
                                   </div>
-                                  <div className="flex items-center gap-2">
-                                    <Clock className="w-4 h-4 text-gray-400 shrink-0" />
-                                    <span>{location.hours}</span>
+                                  <div>
+                                    <p className="text-sm font-medium">Openingstijden: {location.hours}</p>
                                   </div>
-                                </div>
-                                
-                                <div className="mt-4 pt-3 border-t border-gray-100">
-                                  <span className="text-xs text-gray-500 font-medium">{location.province}</span>
+                                  <div>
+                                    <p className="text-sm font-medium">Provincie: {location.province}</p>
+                                  </div>
                                 </div>
                               </div>
                             </CarouselItem>
                           ))}
                         </CarouselContent>
+                        
+                        {/* Pagination Dots - Single dot for Turkey */}
+                        <div className="flex justify-center gap-2 mt-6">
+                          <div className="w-2 h-2 rounded-full bg-gray-400"></div>
+                        </div>
                       </Carousel>
                     </div>
                   </TabsContent>
@@ -215,26 +226,26 @@ const ContactPage: React.FC = () => {
               </div>
 
               {/* Contact Icons Section */}
-              <div className={`mt-auto pt-8 transition-all duration-500 ease-out ${
+              <div className={`mt-auto pt-12 transition-all duration-500 ease-out ${
                 contactVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
-                <div className="flex items-center justify-center gap-6">
+                <div className="flex items-center justify-center gap-8">
                   {/* Email */}
                   <a 
                     href="mailto:info@hairexcellence.com"
-                    className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 active:scale-95 transition-all duration-200"
+                    className="w-14 h-14 bg-black rounded-full flex items-center justify-center hover:bg-gray-800 active:scale-95 transition-all duration-200"
                     aria-label="Email"
                   >
-                    <Mail className="w-5 h-5 text-white" />
+                    <Mail className="w-6 h-6 text-white" />
                   </a>
                   
                   {/* Phone */}
                   <a 
                     href="tel:0857500577"
-                    className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 active:scale-95 transition-all duration-200"
+                    className="w-14 h-14 bg-black rounded-full flex items-center justify-center hover:bg-gray-800 active:scale-95 transition-all duration-200"
                     aria-label="Phone"
                   >
-                    <Phone className="w-5 h-5 text-white" />
+                    <Phone className="w-6 h-6 text-white" />
                   </a>
                   
                   {/* Instagram */}
@@ -242,10 +253,10 @@ const ContactPage: React.FC = () => {
                     href="https://instagram.com/hairexcellence"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 active:scale-95 transition-all duration-200"
+                    className="w-14 h-14 bg-black rounded-full flex items-center justify-center hover:bg-gray-800 active:scale-95 transition-all duration-200"
                     aria-label="Instagram"
                   >
-                    <Instagram className="w-5 h-5 text-white" />
+                    <Instagram className="w-6 h-6 text-white" />
                   </a>
                 </div>
               </div>
