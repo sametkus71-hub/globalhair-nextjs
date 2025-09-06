@@ -222,7 +222,7 @@ const ContactPage: React.FC = () => {
               </div>
 
               {/* Icon Carousel Section */}
-              <div className={`mt-16 mb-6 transition-all duration-500 ease-out ${
+              <div className={`mt-10 mb-6 transition-all duration-500 ease-out ${
                 iconsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
                 <Carousel 
