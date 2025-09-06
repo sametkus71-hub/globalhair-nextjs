@@ -14,7 +14,7 @@ const LOCATION_ADJUSTMENTS: Record<Location, number> = {
 };
 
 export const calculatePrice = (profile: UserProfile): number => {
-  const basePrice = PACKAGE_PRICES[profile.selectedPackage] || PACKAGE_PRICES.Standard;
+  const basePrice = PACKAGE_PRICES[profile.selectedPackage] || PACKAGE_PRICES.Premium;
   const locationAdjustment = LOCATION_ADJUSTMENTS[profile.locatie] || 0;
   
   return basePrice + locationAdjustment;
@@ -30,7 +30,7 @@ export const formatPrice = (price: number): string => {
 };
 
 export const getPriceBreakdown = (profile: UserProfile) => {
-  const basePrice = PACKAGE_PRICES[profile.selectedPackage] || PACKAGE_PRICES.Standard;
+  const basePrice = PACKAGE_PRICES[profile.selectedPackage] || PACKAGE_PRICES.Premium;
   const locationAdjustment = LOCATION_ADJUSTMENTS[profile.locatie] || 0;
   const totalPrice = basePrice + locationAdjustment;
   

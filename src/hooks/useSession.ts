@@ -28,7 +28,7 @@ const defaultProfile: UserProfile = {
   scheren: 'Met scheren',
   behandeling: 'Normaal',
   language: 'nl',
-  selectedPackage: 'Standard'
+  selectedPackage: 'Premium'
 };
 
 export const useSession = () => {
