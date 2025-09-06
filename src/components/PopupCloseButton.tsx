@@ -32,7 +32,7 @@ export const PopupCloseButton: React.FC<PopupCloseButtonProps> = ({
   return (
     <button
       onClick={onClose}
-      className={`fixed top-4 left-4 z-50 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/30 hover:bg-white/30 transition-all duration-200 flex items-center justify-center ${className}`}
+      className={`fixed top-4 left-4 z-50 w-10 h-10 rounded-full bg-white/30 backdrop-blur-md border border-white/40 hover:bg-white/40 transition-all duration-200 flex items-center justify-center ${className}`}
       aria-label={language === 'nl' ? 'Sluiten' : 'Close'}
     >
       <X className="w-5 h-5 text-white" />
