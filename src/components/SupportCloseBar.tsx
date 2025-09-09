@@ -29,12 +29,8 @@ export function SupportCloseBar() {
       siq.chatwindow?.visible("hide");
       siq.floatwindow?.visible("hide");
     }
-    // go back to haartransplantatie page
-    if (window.history.state?.__supportOverlay) {
-      window.history.back();
-    } else {
-      navigate("/haartransplantatie");
-    }
+    // go back to the correct localized haartransplantatie page
+    navigate(`/${language}/haartransplantatie`);
   }
 
   // Render to body to avoid any stacking context
