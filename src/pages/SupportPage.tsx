@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
-import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
 import { waitForSalesIQ } from '@/lib/salesiq';
+import { SupportCloseBar } from '@/components/SupportCloseBar';
 
 // TypeScript declaration for Zoho SalesIQ
 declare global {
@@ -31,63 +31,36 @@ declare global {
 
 const SupportPage: React.FC = () => {
   const { language } = useLanguage();
-  const { handlePopupClose } = usePopupClose();
-  const [isExiting, setIsExiting] = useState(false);
-
-  const handleClose = () => {
-    setIsExiting(true);
-    // Hide chat window when leaving
-    const siq = (window as any).$zoho?.salesiq;
-    if (siq) {
-      siq.chatwindow?.visible("hide");
-      siq.floatwindow?.visible("hide");
-    }
-    handlePopupClose(200);
-  };
 
   useEffect(() => {
     let didUnmount = false;
 
+    // open Zoho chat full page
     waitForSalesIQ(() => {
       if (didUnmount) return;
       const siq = (window as any).$zoho.salesiq;
-
-      // Toon/open chatvenster direct op /support
       siq.floatwindow.visible("show");
       siq.chatwindow.visible("show");
-
-      // Verberg de standaard closebutton zodat jij zelf controle hebt
+      // hide Zoho's own close so users use ours
       if (siq.chatwindow?.closebutton) {
         siq.chatwindow.closebutton("hide");
       }
-
-      // Hide Zoho's close button and logo with CSS
-      const style = document.createElement('style');
-      style.textContent = `
-        /* Hide Zoho close buttons and logos */
-        #zsiqwidget .zsiq-min,
-        #zsiqwidget .zsiq-close,
-        #zsiqwidget [title*="close"],
-        #zsiqwidget [aria-label*="close"],
-        #zsiqwidget .zsiq-header-close,
-        #zsiqwidget .zsiq-logo,
-        #zsiqwidget .zsiq-branding {
-          display: none !important;
-          visibility: hidden !important;
-        }
-        
-        /* Ensure our close button is above everything */
-        .popup-close-button {
-          z-index: 2247483648 !important;
-          position: fixed !important;
-        }
-      `;
-      document.head.appendChild(style);
     });
 
-    // Opruimen bij verlaten van /support
+    // ESC to close (optional)
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        const siq = (window as any).$zoho?.salesiq;
+        siq?.chatwindow?.visible("hide");
+        siq?.floatwindow?.visible("hide");
+        window.history.back();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+
     return () => {
       didUnmount = true;
+      window.removeEventListener("keydown", onKey);
       const siq = (window as any).$zoho?.salesiq;
       if (siq) {
         siq.chatwindow?.visible("hide");
@@ -98,38 +71,18 @@ const SupportPage: React.FC = () => {
 
   return (
     <>
-      <MetaHead 
-        title={language === 'nl' ? 'Ondersteuning' : 'Support'}
-        description={language === 'nl' ? 'Ondersteuning pagina' : 'Support page'}
+      <MetaHead
+        title={language === "nl" ? "Ondersteuning" : "Support"}
+        description={language === "nl" ? "Ondersteuning pagina" : "Support page"}
         language={language}
       />
-      <div className={`support-page-fullscreen overflow-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
-        {/* Background matching haartransplantatie page */}
-        <div className="min-h-[var(--app-height)]" style={{ background: '#E4E5E0' }}>
-          
-          {/* JOUW eigen close-button (sluit chat en navigeer weg) */}
-          <PopupCloseButton 
-            onClose={handleClose} 
-            className="popup-close-button !fixed" 
-            style={{ zIndex: 2247483648 }}
-          />
-          
-          {/* Chatbot Container - Full width and height with no padding/borders */}
-          <div className="w-full h-[var(--app-height)] pt-16">
-            <div 
-              id="zoho-salesiq-container" 
-              className="w-full h-full"
-              style={{ 
-                border: 'none',
-                padding: '0',
-                margin: '0',
-                overflow: 'hidden'
-              }}
-            />
-          </div>
-          
-        </div>
+      {/* Your page bg, but no z-index tricks here */}
+      <div className="min-h-[var(--app-height)]" style={{ background: "#E4E5E0" }}>
+        {/* Your content if any… but keep it simple since Zoho overlays the page */}
       </div>
+
+      {/* Always-on-top close bar rendered to <body> */}
+      <SupportCloseBar />
     </>
   );
 };
