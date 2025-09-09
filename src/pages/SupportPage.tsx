@@ -52,23 +52,46 @@ const SupportPage: React.FC = () => {
         window.$zoho.salesiq.chatwindow.open();
         window.$zoho.salesiq.chatwindow.visible("show");
         
-        // Hide Zoho's close button since we have our own
+        // Hide Zoho's close button completely
         window.$zoho.salesiq.chatwindow.closebutton("hide");
+        
+        // Override any close events from Zoho to use our navigation
+        const chatWindow = document.querySelector('#zsiqwidget');
+        if (chatWindow) {
+          // Look for any close buttons in the Zoho widget and override their behavior
+          const observer = new MutationObserver(() => {
+            const closeButtons = chatWindow.querySelectorAll('[title*="close"], [aria-label*="close"], .zsiq-min, .zsiq-close');
+            closeButtons.forEach(button => {
+              button.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleClose();
+              });
+            });
+          });
+          
+          observer.observe(chatWindow, { childList: true, subtree: true });
+          
+          // Return cleanup function for the observer
+          return () => observer.disconnect();
+        }
       }
     };
 
     // Try to show immediately if Zoho is ready
     if (window.$zoho?.salesiq?.chatwindow) {
-      showChatWindow();
+      const cleanup = showChatWindow();
+      return cleanup;
     } else {
       // Wait for Zoho to load with multiple attempts
       let attempts = 0;
       const maxAttempts = 50; // 5 seconds max
+      let cleanup: (() => void) | undefined;
       
       const checkZoho = setInterval(() => {
         attempts++;
         if (window.$zoho?.salesiq?.chatwindow) {
-          showChatWindow();
+          cleanup = showChatWindow();
           clearInterval(checkZoho);
         } else if (attempts >= maxAttempts) {
           clearInterval(checkZoho);
@@ -76,18 +99,18 @@ const SupportPage: React.FC = () => {
         }
       }, 100);
 
-      return () => clearInterval(checkZoho);
+      return () => {
+        clearInterval(checkZoho);
+        if (cleanup) cleanup();
+        // Cleanup - hide everything when component unmounts
+        if (window.$zoho?.salesiq) {
+          window.$zoho.salesiq.chatwindow?.visible("hide");
+          window.$zoho.salesiq.floatwindow?.visible("hide");
+          window.$zoho.salesiq.floatbutton?.visible("hide");
+        }
+      };
     }
-
-    return () => {
-      // Cleanup - hide everything when component unmounts
-      if (window.$zoho?.salesiq) {
-        window.$zoho.salesiq.chatwindow?.visible("hide");
-        window.$zoho.salesiq.floatwindow?.visible("hide");
-        window.$zoho.salesiq.floatbutton?.visible("hide");
-      }
-    };
-  }, []);
+  }, [handleClose]);
 
   return (
     <>
@@ -100,8 +123,8 @@ const SupportPage: React.FC = () => {
         {/* Background matching haartransplantatie page */}
         <div className="min-h-[var(--app-height)]" style={{ background: '#E4E5E0' }}>
           
-          {/* Close button */}
-          <PopupCloseButton onClose={handleClose} />
+          {/* Close button - positioned above Zoho widget */}
+          <PopupCloseButton onClose={handleClose} className="z-[9999]" />
           
           {/* Chatbot Container - Full width and height with no padding/borders */}
           <div className="w-full h-[var(--app-height)] pt-16">
