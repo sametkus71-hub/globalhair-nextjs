@@ -9,6 +9,13 @@ declare global {
     $zoho?: {
       salesiq?: {
         ready: () => void;
+        floatwindow?: {
+          visible: (state: "show" | "hide") => void;
+        };
+        chatwindow?: {
+          visible: (state: "show" | "hide") => void;
+          closebutton: (state: "show" | "hide") => void;
+        };
       };
     };
   }
@@ -21,30 +28,47 @@ const SupportPage: React.FC = () => {
 
   const handleClose = () => {
     setIsExiting(true);
+    // Hide chat window when leaving
+    if (window.$zoho?.salesiq?.chatwindow) {
+      window.$zoho.salesiq.chatwindow.visible("hide");
+      window.$zoho.salesiq.floatwindow?.visible("hide");
+    }
     handlePopupClose(200);
   };
 
-  // Load Zoho SalesIQ chatbot script
+  // Show Zoho SalesIQ chat window on mount
   useEffect(() => {
-    // Initialize Zoho object
-    if (!window.$zoho) {
-      window.$zoho = {};
-    }
-    if (!window.$zoho.salesiq) {
-      window.$zoho.salesiq = { ready: function() {} };
-    }
+    const showChatWindow = () => {
+      if (window.$zoho?.salesiq?.chatwindow) {
+        // Show the chat window immediately
+        window.$zoho.salesiq.floatwindow?.visible("show");
+        window.$zoho.salesiq.chatwindow.visible("show");
+        // Hide the close button for full-page experience
+        window.$zoho.salesiq.chatwindow.closebutton("hide");
+      }
+    };
 
-    // Load the script if not already loaded
-    if (!document.getElementById('zsiqscript')) {
-      const script = document.createElement('script');
-      script.id = 'zsiqscript';
-      script.src = 'https://salesiq.zohopublic.eu/widget?wc=siq01d1b3e0629f4cfbc6d3756bcfdbb157078935b69673e3f7f335806dd39409e8';
-      script.defer = true;
-      document.head.appendChild(script);
+    // If Zoho is already loaded, show immediately
+    if (window.$zoho?.salesiq?.chatwindow) {
+      showChatWindow();
+    } else {
+      // Wait for Zoho to load
+      const checkZoho = setInterval(() => {
+        if (window.$zoho?.salesiq?.chatwindow) {
+          showChatWindow();
+          clearInterval(checkZoho);
+        }
+      }, 100);
+
+      return () => clearInterval(checkZoho);
     }
 
     return () => {
-      // Cleanup if needed
+      // Cleanup - hide chat when component unmounts
+      if (window.$zoho?.salesiq?.chatwindow) {
+        window.$zoho.salesiq.chatwindow.visible("hide");
+        window.$zoho.salesiq.floatwindow?.visible("hide");
+      }
     };
   }, []);
 

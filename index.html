@@ -26,6 +26,22 @@
 
   <body>
     <div id="root"></div>
+    
+    <!-- Zoho SalesIQ - Global loading for tracking, hidden by default -->
+    <script>
+      window.$zoho = window.$zoho || {};
+      $zoho.salesiq = $zoho.salesiq || {
+        widgetcode: "siq01d1b3e0629f4cfbc6d3756bcfdbb157078935b69673e3f7f335806dd39409e8",
+        values: {},
+        ready: function() {
+          // Hide both floating widget and chat window by default
+          $zoho.salesiq.floatwindow.visible("hide");
+          $zoho.salesiq.chatwindow.visible("hide");
+        }
+      };
+    </script>
+    <script id="zsiqscript" src="https://salesiq.zohopublic.eu/widget?wc=siq01d1b3e0629f4cfbc6d3756bcfdbb157078935b69673e3f7f335806dd39409e8" defer></script>
+    
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
