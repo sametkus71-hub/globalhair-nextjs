@@ -39,46 +39,36 @@ export function SupportCloseBar() {
 
   // Render to body to avoid any stacking context
   return createPortal(
-    <div
+    <button
+      onClick={handleClose}
       style={{
         position: "fixed",
-        inset: 0,
-        pointerEvents: "none", // let clicks pass through, except our button
-        zIndex: Z_TOP,
+        top: 16, // top-4
+        right: 16, // right-4
+        width: 40, // w-10
+        height: 40, // h-10
+        borderRadius: "50%", // rounded-full
+        background: "rgba(0, 0, 0, 0.25)", // bg-black/25
+        backdropFilter: "blur(12px)", // backdrop-blur-md
+        border: "1px solid rgba(255, 255, 255, 0.5)", // border-white/50
+        cursor: "pointer",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        overflow: "hidden",
+        transition: "all 0.2s ease",
+        zIndex: Z_TOP, // Ultra high z-index
       }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.background = "rgba(0, 0, 0, 0.35)"; // hover:bg-black/35
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.background = "rgba(0, 0, 0, 0.25)";
+      }}
+      aria-label={language === 'nl' ? 'Sluiten' : 'Close support'}
     >
-      {/* Close button - top right */}
-      <button
-        onClick={handleClose}
-        style={{
-          position: "absolute",
-          top: 16, // top-4
-          right: 16, // right-4
-          width: 40, // w-10
-          height: 40, // h-10
-          borderRadius: "50%", // rounded-full
-          background: "rgba(0, 0, 0, 0.25)", // bg-black/25
-          backdropFilter: "blur(12px)", // backdrop-blur-md
-          border: "1px solid rgba(255, 255, 255, 0.5)", // border-white/50
-          cursor: "pointer",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          overflow: "hidden",
-          transition: "all 0.2s ease",
-          pointerEvents: "auto", // clickable
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = "rgba(0, 0, 0, 0.35)"; // hover:bg-black/35
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = "rgba(0, 0, 0, 0.25)";
-        }}
-        aria-label={language === 'nl' ? 'Sluiten' : 'Close support'}
-      >
-        <X style={{ width: 20, height: 20, color: "white" }} />
-      </button>
-    </div>,
+      <X style={{ width: 20, height: 20, color: "white" }} />
+    </button>,
     document.body
   );
 }
