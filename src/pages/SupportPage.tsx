@@ -108,7 +108,11 @@ const SupportPage: React.FC = () => {
         <div className="min-h-[var(--app-height)]" style={{ background: '#E4E5E0' }}>
           
           {/* JOUW eigen close-button (sluit chat en navigeer weg) */}
-          <PopupCloseButton onClose={handleClose} className="popup-close-button !z-[2247483648] !fixed" />
+          <PopupCloseButton 
+            onClose={handleClose} 
+            className="popup-close-button !fixed" 
+            style={{ zIndex: 2247483648 }}
+          />
           
           {/* Chatbot Container - Full width and height with no padding/borders */}
           <div className="w-full h-[var(--app-height)] pt-16">

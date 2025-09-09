@@ -6,11 +6,13 @@ import { useNavigate } from 'react-router-dom';
 interface PopupCloseButtonProps {
   onClose: () => void;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export const PopupCloseButton: React.FC<PopupCloseButtonProps> = ({ 
   onClose, 
-  className = "" 
+  className = "",
+  style
 }) => {
   const { language } = useLanguage();
 
@@ -33,6 +35,7 @@ export const PopupCloseButton: React.FC<PopupCloseButtonProps> = ({
     <button
       onClick={onClose}
       className={`fixed top-4 left-4 z-50 w-10 h-10 rounded-full bg-black/25 backdrop-blur-md border border-white/50 hover:bg-black/35 transition-all duration-200 flex items-center justify-center overflow-hidden glass-shine ${className}`}
+      style={style}
       aria-label={language === 'nl' ? 'Sluiten' : 'Close'}
     >
       <X className="w-5 h-5 text-white" />
