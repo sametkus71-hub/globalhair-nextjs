@@ -11,8 +11,24 @@ import { PageEntryLogo } from "@/components/PageEntryLogo";
 import { AnimatedBackground } from "@/components/homepage/AnimatedBackground";
 import { SEORoutes } from "@/components/SEORoutes";
 import ViewportHeightSetter from "@/components/ViewportHeightSetter";
+import { useEffect } from "react";
+import { waitForSalesIQ } from "@/lib/salesiq";
 
 const queryClient = new QueryClient();
+
+function AppRootInit() {
+  useEffect(() => {
+    waitForSalesIQ(() => {
+      // overal: verberg standaard alles
+      (window as any).$zoho.salesiq.floatbutton.visible("hide");
+      (window as any).$zoho.salesiq.chatbutton?.visible("hide");
+      (window as any).$zoho.salesiq.floatwindow.visible("hide");
+      (window as any).$zoho.salesiq.chatwindow.visible("hide");
+    });
+  }, []);
+
+  return null;
+}
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -23,6 +39,7 @@ const App = () => (
         <BrowserRouter>
           <LanguageWrapper>
             <TransitionProvider>
+              <AppRootInit />
               <ViewportHeightSetter />
               {/* Solid background across all pages */}
               <div className="fixed inset-0" style={{ background: '#E4E5E0' }} />
