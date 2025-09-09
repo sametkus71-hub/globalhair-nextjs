@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/hooks/useLanguage";
+import { X } from "lucide-react";
 
 const Z_TOP = 999999999999; // higher than SalesIQ
 
@@ -42,46 +43,41 @@ export function SupportCloseBar() {
       style={{
         position: "fixed",
         inset: 0,
-        pointerEvents: "none",   // let clicks pass through, except our bar
+        pointerEvents: "none", // let clicks pass through, except our button
         zIndex: Z_TOP,
       }}
     >
-      {/* Top bar */}
-      <div
+      {/* Close button - top right */}
+      <button
+        onClick={handleClose}
         style={{
           position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: 64,
+          top: 16, // top-4
+          right: 16, // right-4
+          width: 40, // w-10
+          height: 40, // h-10
+          borderRadius: "50%", // rounded-full
+          background: "rgba(0, 0, 0, 0.25)", // bg-black/25
+          backdropFilter: "blur(12px)", // backdrop-blur-md
+          border: "1px solid rgba(255, 255, 255, 0.5)", // border-white/50
+          cursor: "pointer",
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0 16px",
-          backdropFilter: "saturate(1.2) blur(8px)",
-          background: "rgba(255,255,255,0.8)",
-          borderBottom: "1px solid rgba(0,0,0,0.06)",
+          justifyContent: "center",
+          overflow: "hidden",
+          transition: "all 0.2s ease",
           pointerEvents: "auto", // clickable
         }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = "rgba(0, 0, 0, 0.35)"; // hover:bg-black/35
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = "rgba(0, 0, 0, 0.25)";
+        }}
+        aria-label={language === 'nl' ? 'Sluiten' : 'Close support'}
       >
-        <div style={{ fontWeight: 600 }}>
-          {language === 'nl' ? 'Ondersteuning' : 'Support'}
-        </div>
-        <button
-          onClick={handleClose}
-          style={{
-            padding: "8px 12px",
-            borderRadius: 8,
-            border: "1px solid rgba(0,0,0,0.1)",
-            background: "white",
-            cursor: "pointer",
-            fontWeight: 500,
-          }}
-          aria-label={language === 'nl' ? 'Sluiten' : 'Close support'}
-        >
-          {language === 'nl' ? 'Sluiten' : 'Close'}
-        </button>
-      </div>
+        <X style={{ width: 20, height: 20, color: "white" }} />
+      </button>
     </div>,
     document.body
   );
