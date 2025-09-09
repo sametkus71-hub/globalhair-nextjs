@@ -4,6 +4,7 @@ import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
 import { MessageCircle, Phone, Instagram, Mail } from 'lucide-react';
+import { GlobalHairLogo } from '@/components/logos/GlobalHairLogo';
 
 const SupportPage: React.FC = () => {
   const { language } = useLanguage();
@@ -78,9 +79,9 @@ const SupportPage: React.FC = () => {
             <div className={`mb-8 transition-all duration-700 ease-out ${
               logoVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
             }`}>
-              <h1 className="text-3xl md:text-4xl font-light text-gray-700 tracking-wide">
-                GlobalHair
-              </h1>
+              <div className="w-20 md:w-24 mx-auto">
+                <GlobalHairLogo className="w-full h-full text-gray-700" />
+              </div>
             </div>
 
             {/* Professional Title */}
