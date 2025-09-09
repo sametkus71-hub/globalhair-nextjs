@@ -54,44 +54,49 @@ const SupportPage: React.FC = () => {
         
         // Hide Zoho's close button completely
         window.$zoho.salesiq.chatwindow.closebutton("hide");
-        
-        // Override any close events from Zoho to use our navigation
-        const chatWindow = document.querySelector('#zsiqwidget');
-        if (chatWindow) {
-          // Look for any close buttons in the Zoho widget and override their behavior
-          const observer = new MutationObserver(() => {
-            const closeButtons = chatWindow.querySelectorAll('[title*="close"], [aria-label*="close"], .zsiq-min, .zsiq-close');
-            closeButtons.forEach(button => {
-              button.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                handleClose();
-              });
-            });
-          });
-          
-          observer.observe(chatWindow, { childList: true, subtree: true });
-          
-          // Return cleanup function for the observer
-          return () => observer.disconnect();
-        }
       }
     };
 
+    const hideZohoElements = () => {
+      // Add CSS to hide Zoho's close button and logo
+      const style = document.createElement('style');
+      style.textContent = `
+        /* Hide Zoho close buttons and logos */
+        #zsiqwidget .zsiq-min,
+        #zsiqwidget .zsiq-close,
+        #zsiqwidget [title*="close"],
+        #zsiqwidget [aria-label*="close"],
+        #zsiqwidget .zsiq-header-close,
+        #zsiqwidget .zsiq-logo,
+        #zsiqwidget .zsiq-branding {
+          display: none !important;
+          visibility: hidden !important;
+        }
+        
+        /* Ensure our close button is above everything */
+        .popup-close-button {
+          z-index: 999999 !important;
+          position: fixed !important;
+        }
+      `;
+      document.head.appendChild(style);
+    };
+
+    // Hide Zoho elements immediately
+    hideZohoElements();
+
     // Try to show immediately if Zoho is ready
     if (window.$zoho?.salesiq?.chatwindow) {
-      const cleanup = showChatWindow();
-      return cleanup;
+      showChatWindow();
     } else {
       // Wait for Zoho to load with multiple attempts
       let attempts = 0;
       const maxAttempts = 50; // 5 seconds max
-      let cleanup: (() => void) | undefined;
       
       const checkZoho = setInterval(() => {
         attempts++;
         if (window.$zoho?.salesiq?.chatwindow) {
-          cleanup = showChatWindow();
+          showChatWindow();
           clearInterval(checkZoho);
         } else if (attempts >= maxAttempts) {
           clearInterval(checkZoho);
@@ -99,18 +104,18 @@ const SupportPage: React.FC = () => {
         }
       }, 100);
 
-      return () => {
-        clearInterval(checkZoho);
-        if (cleanup) cleanup();
-        // Cleanup - hide everything when component unmounts
-        if (window.$zoho?.salesiq) {
-          window.$zoho.salesiq.chatwindow?.visible("hide");
-          window.$zoho.salesiq.floatwindow?.visible("hide");
-          window.$zoho.salesiq.floatbutton?.visible("hide");
-        }
-      };
+      return () => clearInterval(checkZoho);
     }
-  }, [handleClose]);
+
+    return () => {
+      // Cleanup - hide everything when component unmounts
+      if (window.$zoho?.salesiq) {
+        window.$zoho.salesiq.chatwindow?.visible("hide");
+        window.$zoho.salesiq.floatwindow?.visible("hide");
+        window.$zoho.salesiq.floatbutton?.visible("hide");
+      }
+    };
+  }, []);
 
   return (
     <>
@@ -123,8 +128,8 @@ const SupportPage: React.FC = () => {
         {/* Background matching haartransplantatie page */}
         <div className="min-h-[var(--app-height)]" style={{ background: '#E4E5E0' }}>
           
-          {/* Close button - positioned above Zoho widget */}
-          <PopupCloseButton onClose={handleClose} className="z-[9999]" />
+          {/* Close button - positioned above Zoho widget with maximum z-index */}
+          <PopupCloseButton onClose={handleClose} className="popup-close-button !z-[999999] !fixed" />
           
           {/* Chatbot Container - Full width and height with no padding/borders */}
           <div className="w-full h-[var(--app-height)] pt-16">
