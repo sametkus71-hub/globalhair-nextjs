@@ -1,39 +1,50 @@
 import React, { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
 import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
-import { useNavigate } from 'react-router-dom';
+import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
+
+// TypeScript declaration for Zoho SalesIQ
+declare global {
+  interface Window {
+    $zoho?: {
+      salesiq?: {
+        ready: () => void;
+      };
+    };
+  }
+}
 
 const SupportPage: React.FC = () => {
   const { language } = useLanguage();
-  const navigate = useNavigate();
+  const { handlePopupClose } = usePopupClose();
   const [isExiting, setIsExiting] = useState(false);
 
   const handleClose = () => {
     setIsExiting(true);
-    // Get previous path or default to haartransplantatie
-    const previousPath = sessionStorage.getItem('previousPath') || 
-                        (language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant');
-    
-    // Wait for animation to complete before navigating
-    setTimeout(() => {
-      sessionStorage.removeItem('previousPath');
-      navigate(previousPath);
-    }, 300);
+    handlePopupClose(200);
   };
 
-  // Handle ESC key
+  // Load Zoho SalesIQ chatbot script
   useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        handleClose();
-      }
-    };
-    
-    document.addEventListener('keydown', handleEsc);
-    
+    // Initialize Zoho object
+    if (!window.$zoho) {
+      window.$zoho = {};
+    }
+    if (!window.$zoho.salesiq) {
+      window.$zoho.salesiq = { ready: function() {} };
+    }
+
+    // Load the script if not already loaded
+    if (!document.getElementById('zsiqscript')) {
+      const script = document.createElement('script');
+      script.id = 'zsiqscript';
+      script.src = 'https://salesiq.zohopublic.eu/widget?wc=siq01d1b3e0629f4cfbc6d3756bcfdbb157078935b69673e3f7f335806dd39409e8';
+      script.defer = true;
+      document.head.appendChild(script);
+    }
+
     return () => {
-      document.removeEventListener('keydown', handleEsc);
+      // Cleanup if needed
     };
   }, []);
 
@@ -44,35 +55,27 @@ const SupportPage: React.FC = () => {
         description={language === 'nl' ? 'Ondersteuning pagina' : 'Support page'}
         language={language}
       />
-      <div className={`support-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
-        {/* Close button */}
-        <button
-          onClick={handleClose}
-          className="fixed top-4 right-4 z-50 p-2 rounded-full bg-black/10 backdrop-blur-sm border border-white/20 hover:bg-black/20 transition-colors transform hover:scale-105 active:scale-95"
-          aria-label={language === 'nl' ? 'Sluiten' : 'Close'}
-        >
-          <X className="w-5 h-5 text-white" />
-        </button>
-        
-        {/* Scrollable Content */}
-        <div className="min-h-[var(--app-height)] bg-gradient-to-b from-gray-50 to-white">
-          <div className="max-w-4xl mx-auto px-6 py-16">
-            <h1 className="text-4xl font-bold mb-8 text-gray-900">
-              {language === 'nl' ? 'Ondersteuning' : 'Support'}
-            </h1>
-            <div className="text-gray-600 text-lg leading-relaxed">
-              <p className="mb-6">
-                {language === 'nl' 
-                  ? 'Heeft u vragen of heeft u hulp nodig? Ons ondersteuningsteam staat voor u klaar.'
-                  : 'Do you have questions or need help? Our support team is here for you.'
-                }
-              </p>
-              {/* Content will be added later */}
-            </div>
-            
-            {/* Extra spacing for mobile navigation */}
-            <div className="h-32"></div>
+      <div className={`support-page-fullscreen overflow-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
+        {/* Background matching haartransplantatie page */}
+        <div className="min-h-[var(--app-height)]" style={{ background: '#E4E5E0' }}>
+          
+          {/* Close button */}
+          <PopupCloseButton onClose={handleClose} />
+          
+          {/* Chatbot Container - Full width and height with no padding/borders */}
+          <div className="w-full h-[var(--app-height)] pt-16">
+            <div 
+              id="zoho-salesiq-container" 
+              className="w-full h-full"
+              style={{ 
+                border: 'none',
+                padding: '0',
+                margin: '0',
+                overflow: 'hidden'
+              }}
+            />
           </div>
+          
         </div>
       </div>
     </>
