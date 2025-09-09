@@ -48,7 +48,7 @@ export const BookingPage = () => {
           style={{ zIndex: 2147483647 }} 
         />
         
-        <div className="flex flex-col items-center justify-start h-screen px-4 pt-16 pb-8 overflow-hidden bg-black">
+        <div className="flex flex-col items-center justify-start h-screen px-4 pb-8 overflow-hidden bg-black">
           
           {/* Title */}
           <div className={`text-center mb-8 transition-all duration-700 ease-out ${
