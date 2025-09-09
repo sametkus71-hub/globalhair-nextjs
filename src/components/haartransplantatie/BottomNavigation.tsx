@@ -34,6 +34,12 @@ export const BottomNavigation = () => {
     handlePopupNavigation(language === 'nl' ? '/nl/missie' : '/en/mission');
   };
 
+  const handleBookingNavigation = () => {
+    // Store current page before navigating to booking
+    sessionStorage.setItem('previousPage', location.pathname);
+    handlePopupNavigation(language === 'nl' ? '/nl/boek' : '/en/book');
+  };
+
   const isActive = (path: string) => {
     if (path === 'home') {
       return location.pathname === '/nl' || location.pathname === '/en' || location.pathname === '/';
@@ -46,6 +52,9 @@ export const BottomNavigation = () => {
     }
     if (path === 'contact') {
       return location.pathname === '/nl/contact' || location.pathname === '/en/contact';
+    }
+    if (path === 'book') {
+      return location.pathname === '/nl/boek' || location.pathname === '/en/book';
     }
     return false;
   };
@@ -63,7 +72,7 @@ export const BottomNavigation = () => {
     },
     { 
       iconSrc: '/lovable-uploads/4f77654b-737b-493a-a695-ad8360dbeb0d.png',
-      onClick: () => {},
+      onClick: handleBookingNavigation,
       id: 'book'
     },
     { 

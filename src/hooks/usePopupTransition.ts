@@ -24,7 +24,9 @@ export const usePopupTransition = () => {
            location.pathname.includes('/mission') ||
            location.pathname.includes('/info') ||
            location.pathname.includes('/support') ||
-           location.pathname.includes('/contact');
+           location.pathname.includes('/contact') ||
+           location.pathname.includes('/boek') ||
+           location.pathname.includes('/book');
   }, [location.pathname]);
 
   const getCurrentPopup = useCallback(() => {
@@ -33,6 +35,7 @@ export const usePopupTransition = () => {
     if (location.pathname.includes('/info')) return 'info';
     if (location.pathname.includes('/support')) return 'support';
     if (location.pathname.includes('/contact')) return 'contact';
+    if (location.pathname.includes('/boek') || location.pathname.includes('/book')) return 'booking';
     return null;
   }, [location.pathname]);
 
@@ -42,7 +45,8 @@ export const usePopupTransition = () => {
                        targetPath.includes('/missie') || targetPath.includes('/mission') ? 'mission' :
                        targetPath.includes('/info') ? 'info' :
                        targetPath.includes('/support') ? 'support' :
-                       targetPath.includes('/contact') ? 'contact' : null;
+                       targetPath.includes('/contact') ? 'contact' :
+                       targetPath.includes('/boek') || targetPath.includes('/book') ? 'booking' : null;
     
     // Store current path as previous path for the target popup
     if (!isOnPopupPage()) {
@@ -59,7 +63,7 @@ export const usePopupTransition = () => {
       });
 
       // Add exit animation to current popup
-      const currentPopupElement = document.querySelector('.reviews-page-fullscreen, .info-page-fullscreen, .support-page-fullscreen, .contact-page-fullscreen');
+      const currentPopupElement = document.querySelector('.reviews-page-fullscreen, .info-page-fullscreen, .support-page-fullscreen, .contact-page-fullscreen, .booking-page-fullscreen');
       if (currentPopupElement) {
         currentPopupElement.classList.add('popup-cross-fade-exit');
       }

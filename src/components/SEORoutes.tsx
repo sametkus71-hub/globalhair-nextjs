@@ -18,6 +18,7 @@ import FormPage from '@/pages/FormPage';
 import ReviewsPage from '@/pages/ReviewsPage';
 import ReviewItemPage from '@/pages/ReviewItemPage';
 import ContactPage from '@/pages/ContactPage';
+import BookingPage from '@/pages/BookingPage';
 import NotFound from '@/pages/NotFound';
 
 export const SEORoutes = () => {
@@ -43,6 +44,7 @@ export const SEORoutes = () => {
       <Route path="/nl/info/traject" element={<InfoTrajectoryPage />} />
       <Route path="/nl/support" element={<SupportPage />} />
       <Route path="/nl/support/chat" element={<SupportChatPage />} />
+      <Route path="/nl/boek" element={<BookingPage />} />
       <Route path="/nl/contact" element={<ContactPage />} />
       
       {/* English routes */}
@@ -62,6 +64,7 @@ export const SEORoutes = () => {
       <Route path="/en/info/trajectory" element={<InfoTrajectoryPage />} />
       <Route path="/en/support" element={<SupportPage />} />
       <Route path="/en/support/chat" element={<SupportChatPage />} />
+      <Route path="/en/book" element={<BookingPage />} />
       <Route path="/en/contact" element={<ContactPage />} />
       
       {/* Legacy support - maintain old item1 route */}
