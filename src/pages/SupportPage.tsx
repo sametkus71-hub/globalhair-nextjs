@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
@@ -7,6 +8,7 @@ import { MessageCircle, Phone, Instagram, Mail } from 'lucide-react';
 const SupportPage: React.FC = () => {
   const { language } = useLanguage();
   const { handlePopupClose } = usePopupClose();
+  const navigate = useNavigate();
   const [isExiting, setIsExiting] = useState(false);
   const [titleVisible, setTitleVisible] = useState(false);
   const [subtitleVisible, setSubtitleVisible] = useState(false);
@@ -37,8 +39,8 @@ const SupportPage: React.FC = () => {
       description: language === 'nl' ? 'Direct chatten met onze experts' : 'Chat directly with our experts',
       icon: MessageCircle,
       action: () => {
-        // Navigate to chat subpage
-        window.location.href = language === 'nl' ? '/nl/support/chat' : '/en/support/chat';
+        // Navigate to chat subpage using React Router
+        navigate(language === 'nl' ? '/nl/support/chat' : '/en/support/chat');
       },
       primary: true
     },
