@@ -12,9 +12,13 @@ declare global {
         floatwindow?: {
           visible: (state: "show" | "hide") => void;
         };
+        floatbutton?: {
+          visible: (state: "show" | "hide") => void;
+        };
         chatwindow?: {
           visible: (state: "show" | "hide") => void;
           closebutton: (state: "show" | "hide") => void;
+          open: () => void;
         };
       };
     };
@@ -40,23 +44,35 @@ const SupportPage: React.FC = () => {
   useEffect(() => {
     const showChatWindow = () => {
       if (window.$zoho?.salesiq?.chatwindow) {
-        // Show the chat window immediately
-        window.$zoho.salesiq.floatwindow?.visible("show");
+        // Ensure floating elements are hidden
+        window.$zoho.salesiq.floatbutton?.visible("hide");
+        window.$zoho.salesiq.floatwindow?.visible("hide");
+        
+        // Open the chat window directly and make it visible
+        window.$zoho.salesiq.chatwindow.open();
         window.$zoho.salesiq.chatwindow.visible("show");
-        // Hide the close button for full-page experience
+        
+        // Hide Zoho's close button since we have our own
         window.$zoho.salesiq.chatwindow.closebutton("hide");
       }
     };
 
-    // If Zoho is already loaded, show immediately
+    // Try to show immediately if Zoho is ready
     if (window.$zoho?.salesiq?.chatwindow) {
       showChatWindow();
     } else {
-      // Wait for Zoho to load
+      // Wait for Zoho to load with multiple attempts
+      let attempts = 0;
+      const maxAttempts = 50; // 5 seconds max
+      
       const checkZoho = setInterval(() => {
+        attempts++;
         if (window.$zoho?.salesiq?.chatwindow) {
           showChatWindow();
           clearInterval(checkZoho);
+        } else if (attempts >= maxAttempts) {
+          clearInterval(checkZoho);
+          console.warn('Zoho SalesIQ failed to load after 5 seconds');
         }
       }, 100);
 
@@ -64,10 +80,11 @@ const SupportPage: React.FC = () => {
     }
 
     return () => {
-      // Cleanup - hide chat when component unmounts
-      if (window.$zoho?.salesiq?.chatwindow) {
-        window.$zoho.salesiq.chatwindow.visible("hide");
+      // Cleanup - hide everything when component unmounts
+      if (window.$zoho?.salesiq) {
+        window.$zoho.salesiq.chatwindow?.visible("hide");
         window.$zoho.salesiq.floatwindow?.visible("hide");
+        window.$zoho.salesiq.floatbutton?.visible("hide");
       }
     };
   }, []);
