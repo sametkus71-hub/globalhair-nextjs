@@ -79,8 +79,8 @@ const SupportPage: React.FC = () => {
             <div className={`mb-8 md:mb-12 transition-all duration-700 ease-out ${
               logoVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
             }`}>
-              <div className="w-32 md:w-40 lg:w-48 mx-auto">
-                <GlobalHairLogo className="w-full h-full text-black" />
+              <div className="w-40 md:w-48 lg:w-56 mx-auto">
+                <GlobalHairLogo className="w-full h-full [&_.cls-1]:fill-black" />
               </div>
             </div>
 
@@ -105,21 +105,21 @@ const SupportPage: React.FC = () => {
             }`}>
               <button
                 onClick={handleChatClick}
-                className="group relative overflow-hidden animate-pulse hover:animate-none"
+                className="group relative overflow-hidden"
               >
                 <div 
-                  className="flex items-center gap-4 px-8 py-5 rounded-2xl transition-all duration-300 group-hover:scale-105 group-active:scale-95 group-hover:shadow-lg"
+                  className="flex items-center gap-4 px-8 py-5 rounded-2xl transition-all duration-300 group-hover:scale-105 group-active:scale-95 group-hover:shadow-xl relative"
                   style={{
-                    background: 'rgba(255, 255, 255, 0.8)',
+                    background: 'rgba(255, 255, 255, 0.85)',
                     backdropFilter: 'blur(20px)',
-                    border: '1px solid rgba(0, 0, 0, 0.1)',
-                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.9)'
+                    border: '1px solid rgba(0, 0, 0, 0.08)',
+                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)'
                   }}
                 >
-                  <div className="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center group-hover:bg-gray-800 transition-colors">
+                  <div className="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center flex-shrink-0 group-hover:bg-gray-800 transition-colors">
                     <MessageCircle className="w-6 h-6 text-white" strokeWidth={1.5} />
                   </div>
-                  <div className="text-left">
+                  <div className="text-left flex-1">
                     <div className="text-gray-800 font-medium text-base mb-1 flex items-center gap-2">
                       {language === 'nl' ? 'Begin gesprek' : 'Start conversation'}
                       <ChevronRight className="w-4 h-4 text-gray-600 group-hover:translate-x-1 transition-transform duration-300" />
@@ -130,8 +130,8 @@ const SupportPage: React.FC = () => {
                   </div>
                 </div>
                 
-                {/* Subtle glow effect */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 transform translate-x-[-100%] group-hover:translate-x-[100%] transition-all duration-1000 ease-in-out"></div>
+                {/* Glass shine effect */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transform -translate-x-full group-hover:translate-x-full transition-all duration-700 ease-out pointer-events-none"></div>
               </button>
             </div>
 
