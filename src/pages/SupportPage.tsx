@@ -65,13 +65,8 @@ const SupportPage: React.FC = () => {
         language={language}
       />
       <div className={`contact-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
-        {/* Professional dark gradient background */}
-        <div 
-          className="min-h-[var(--app-height)]" 
-          style={{ 
-            background: 'linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 50%, #0f0f0f 100%)'
-          }}
-        >
+        {/* Light theme background matching other pages */}
+        <div className="min-h-[var(--app-height)]" style={{ background: '#E4E5E0' }}>
           
           {/* Close button */}
           <PopupCloseButton onClose={handleClose} />
@@ -83,7 +78,7 @@ const SupportPage: React.FC = () => {
             <div className={`mb-8 transition-all duration-700 ease-out ${
               logoVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
             }`}>
-              <h1 className="text-3xl md:text-4xl font-light text-white tracking-wide">
+              <h1 className="text-3xl md:text-4xl font-light text-gray-700 tracking-wide">
                 GlobalHair
               </h1>
             </div>
@@ -92,10 +87,10 @@ const SupportPage: React.FC = () => {
             <div className={`text-center mb-12 md:mb-16 transition-all duration-700 ease-out delay-150 ${
               titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}>
-              <h2 className="text-xl md:text-2xl text-gray-300 font-light mb-2">
+              <h2 className="text-xl md:text-2xl text-gray-600 font-light mb-2">
                 {language === 'nl' ? 'We helpen u graag!' : 'We\'re happy to help you!'}
               </h2>
-              <p className="text-sm md:text-base text-gray-400 font-light">
+              <p className="text-sm md:text-base text-gray-500 font-light">
                 {language === 'nl' 
                   ? 'Stel uw vraag en ontvang direct antwoord'
                   : 'Ask your question and get an immediate answer'
@@ -114,20 +109,20 @@ const SupportPage: React.FC = () => {
                 <div 
                   className="flex items-center gap-4 px-8 py-4 rounded-2xl transition-all duration-300 group-hover:scale-105 group-active:scale-95"
                   style={{
-                    background: 'rgba(255, 255, 255, 0.12)',
+                    background: 'rgba(255, 255, 255, 0.7)',
                     backdropFilter: 'blur(20px)',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
-                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+                    border: '1px solid rgba(0, 0, 0, 0.1)',
+                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
                   }}
                 >
-                  <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center">
                     <MessageCircle className="w-6 h-6 text-white" strokeWidth={1.5} />
                   </div>
                   <div className="text-left">
-                    <div className="text-white font-medium text-base mb-1">
+                    <div className="text-gray-800 font-medium text-base mb-1">
                       {language === 'nl' ? 'Begin gesprek' : 'Start conversation'}
                     </div>
-                    <div className="text-gray-400 text-sm font-light">
+                    <div className="text-gray-600 text-sm font-light">
                       {language === 'nl' ? 'Krijg direct antwoord op uw vragen' : 'Get immediate answers to your questions'}
                     </div>
                   </div>
@@ -150,18 +145,18 @@ const SupportPage: React.FC = () => {
                     <button
                       key={index}
                       onClick={method.action}
-                      className="group flex flex-col items-center gap-3 p-4 hover:bg-white/5 rounded-xl transition-all duration-300"
+                      className="group flex flex-col items-center gap-3 p-4 hover:bg-white/50 rounded-xl transition-all duration-300"
                     >
                       <div 
                         className="w-12 h-12 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300"
                         style={{
-                          background: 'rgba(255, 255, 255, 0.08)',
-                          border: '1px solid rgba(255, 255, 255, 0.1)'
+                          background: 'rgba(255, 255, 255, 0.5)',
+                          border: '1px solid rgba(0, 0, 0, 0.1)'
                         }}
                       >
-                        <Icon className="w-5 h-5 text-gray-300" strokeWidth={1.5} />
+                        <Icon className="w-5 h-5 text-gray-600" strokeWidth={1.5} />
                       </div>
-                      <span className="text-xs text-gray-400 font-light">{method.label}</span>
+                      <span className="text-xs text-gray-500 font-light">{method.label}</span>
                     </button>
                   );
                 })}
