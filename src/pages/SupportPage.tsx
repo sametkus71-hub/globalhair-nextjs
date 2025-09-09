@@ -78,7 +78,7 @@ const SupportPage: React.FC = () => {
         
         /* Ensure our close button is above everything */
         .popup-close-button {
-          z-index: 999999 !important;
+          z-index: 2147483647 !important;
           position: fixed !important;
         }
       `;
@@ -108,7 +108,7 @@ const SupportPage: React.FC = () => {
         <div className="min-h-[var(--app-height)]" style={{ background: '#E4E5E0' }}>
           
           {/* JOUW eigen close-button (sluit chat en navigeer weg) */}
-          <PopupCloseButton onClose={handleClose} className="popup-close-button !z-[999999] !fixed" />
+          <PopupCloseButton onClose={handleClose} className="popup-close-button !z-[2147483647] !fixed" />
           
           {/* Chatbot Container - Full width and height with no padding/borders */}
           <div className="w-full h-[var(--app-height)] pt-16">
