@@ -10,8 +10,9 @@ const SupportPage: React.FC = () => {
   const { handlePopupClose } = usePopupClose();
   const navigate = useNavigate();
   const [isExiting, setIsExiting] = useState(false);
+  const [logoVisible, setLogoVisible] = useState(false);
   const [titleVisible, setTitleVisible] = useState(false);
-  const [mainButtonVisible, setMainButtonVisible] = useState(false);
+  const [chatButtonVisible, setChatButtonVisible] = useState(false);
   const [otherOptionsVisible, setOtherOptionsVisible] = useState(false);
 
   const handleClose = () => {
@@ -21,13 +22,15 @@ const SupportPage: React.FC = () => {
 
   // Staggered entrance animations
   useEffect(() => {
-    const titleTimer = setTimeout(() => setTitleVisible(true), 200);
-    const mainButtonTimer = setTimeout(() => setMainButtonVisible(true), 400);
+    const logoTimer = setTimeout(() => setLogoVisible(true), 150);
+    const titleTimer = setTimeout(() => setTitleVisible(true), 300);
+    const chatButtonTimer = setTimeout(() => setChatButtonVisible(true), 450);
     const otherOptionsTimer = setTimeout(() => setOtherOptionsVisible(true), 600);
     
     return () => {
+      clearTimeout(logoTimer);
       clearTimeout(titleTimer);
-      clearTimeout(mainButtonTimer);
+      clearTimeout(chatButtonTimer);
       clearTimeout(otherOptionsTimer);
     };
   }, []);
@@ -57,13 +60,18 @@ const SupportPage: React.FC = () => {
   return (
     <>
       <MetaHead
-        title={language === "nl" ? "Ondersteuning" : "Support"}
-        description={language === "nl" ? "Stel je vraag of neem contact op" : "Ask your question or get in touch"}
+        title={language === "nl" ? "Ondersteuning - GlobalHair" : "Support - GlobalHair"}
+        description={language === "nl" ? "We helpen u graag met al uw vragen" : "We're happy to help you with all your questions"}
         language={language}
       />
       <div className={`contact-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
-        {/* Dark background */}
-        <div className="min-h-[var(--app-height)]" style={{ background: '#0f0f0f' }}>
+        {/* Professional dark gradient background */}
+        <div 
+          className="min-h-[var(--app-height)]" 
+          style={{ 
+            background: 'linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 50%, #0f0f0f 100%)'
+          }}
+        >
           
           {/* Close button */}
           <PopupCloseButton onClose={handleClose} />
@@ -71,42 +79,68 @@ const SupportPage: React.FC = () => {
           {/* Content Container */}
           <div className="flex flex-col items-center justify-center min-h-[var(--app-height)] px-6 py-20">
             
-            {/* Title Section */}
-            <div className={`text-center mb-16 md:mb-20 transition-all duration-500 ease-out ${
-              titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            {/* Brand Logo Section */}
+            <div className={`mb-8 transition-all duration-700 ease-out ${
+              logoVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
             }`}>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 leading-[0.9] tracking-tight">
-                {language === 'nl' ? 'HOE KUNNEN WE' : 'HOW CAN WE'}
-                <br />
-                {language === 'nl' ? 'JE HELPEN?' : 'HELP YOU?'}
+              <h1 className="text-3xl md:text-4xl font-light text-white tracking-wide">
+                GlobalHair
               </h1>
-              <p className="text-base md:text-lg text-gray-400 font-normal">
+            </div>
+
+            {/* Professional Title */}
+            <div className={`text-center mb-12 md:mb-16 transition-all duration-700 ease-out delay-150 ${
+              titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}>
+              <h2 className="text-xl md:text-2xl text-gray-300 font-light mb-2">
+                {language === 'nl' ? 'We helpen u graag!' : 'We\'re happy to help you!'}
+              </h2>
+              <p className="text-sm md:text-base text-gray-400 font-light">
                 {language === 'nl' 
-                  ? 'Stel je vraag of neem contact op'
-                  : 'Ask your question or get in touch'
+                  ? 'Stel uw vraag en ontvang direct antwoord'
+                  : 'Ask your question and get an immediate answer'
                 }
               </p>
             </div>
 
-            {/* Main Chat Button */}
-            <div className={`mb-12 md:mb-16 transition-all duration-500 ease-out ${
-              mainButtonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            {/* Professional Chat Button */}
+            <div className={`mb-16 md:mb-20 transition-all duration-700 ease-out delay-300 ${
+              chatButtonVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95'
             }`}>
               <button
                 onClick={handleChatClick}
-                className="group py-4 px-12 bg-white text-black text-base font-medium rounded-xl hover:bg-gray-100 active:scale-[0.98] transition-all duration-300 ease-out flex items-center gap-3"
+                className="group relative overflow-hidden"
               >
-                <MessageCircle className="w-5 h-5" />
-                {language === 'nl' ? 'Stel je vraag' : 'Ask your question'}
+                <div 
+                  className="flex items-center gap-4 px-8 py-4 rounded-2xl transition-all duration-300 group-hover:scale-105 group-active:scale-95"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.12)',
+                    backdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+                  }}
+                >
+                  <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+                    <MessageCircle className="w-6 h-6 text-white" strokeWidth={1.5} />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-white font-medium text-base mb-1">
+                      {language === 'nl' ? 'Begin gesprek' : 'Start conversation'}
+                    </div>
+                    <div className="text-gray-400 text-sm font-light">
+                      {language === 'nl' ? 'Krijg direct antwoord op uw vragen' : 'Get immediate answers to your questions'}
+                    </div>
+                  </div>
+                </div>
               </button>
             </div>
 
-            {/* Other Contact Methods */}
-            <div className={`transition-all duration-500 ease-out ${
-              otherOptionsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            {/* Subtle Contact Methods */}
+            <div className={`transition-all duration-700 ease-out delay-500 ${
+              otherOptionsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}>
-              <p className="text-sm text-gray-500 text-center mb-6 font-normal">
-                {language === 'nl' ? 'Of neem contact op via:' : 'Or get in touch via:'}
+              <p className="text-xs text-gray-500 text-center mb-6 font-light tracking-wide uppercase">
+                {language === 'nl' ? 'Andere contactmogelijkheden' : 'Other ways to reach us'}
               </p>
               
               <div className="flex items-center justify-center gap-8">
@@ -116,12 +150,18 @@ const SupportPage: React.FC = () => {
                     <button
                       key={index}
                       onClick={method.action}
-                      className="group flex flex-col items-center gap-2 p-3 hover:bg-white/5 rounded-lg transition-all duration-200"
+                      className="group flex flex-col items-center gap-3 p-4 hover:bg-white/5 rounded-xl transition-all duration-300"
                     >
-                      <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                        <Icon className="w-5 h-5 text-white" />
+                      <div 
+                        className="w-12 h-12 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300"
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.08)',
+                          border: '1px solid rgba(255, 255, 255, 0.1)'
+                        }}
+                      >
+                        <Icon className="w-5 h-5 text-gray-300" strokeWidth={1.5} />
                       </div>
-                      <span className="text-xs text-gray-400 font-normal">{method.label}</span>
+                      <span className="text-xs text-gray-400 font-light">{method.label}</span>
                     </button>
                   );
                 })}
