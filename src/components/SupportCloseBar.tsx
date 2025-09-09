@@ -100,8 +100,8 @@ export function SupportCloseBar() {
       siq.chatwindow?.visible("hide");
       siq.floatwindow?.visible("hide");
     }
-    // go back to the correct localized haartransplantatie page
-    navigate(`/${language}/haartransplantatie`);
+    // go back to the support landing page
+    navigate(`/${language}/support`);
   }
 
   // Render to body to avoid any stacking context

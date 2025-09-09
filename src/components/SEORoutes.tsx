@@ -9,6 +9,7 @@ import InfoMethodPage from '@/pages/InfoMethodPage';
 import InfoTrajectoryPage from '@/pages/InfoTrajectoryPage';
 import MissionPage from '@/pages/MissionPage';
 import SupportPage from '@/pages/SupportPage';
+import SupportChatPage from '@/pages/SupportChatPage';
 import V6HairboostPage from '@/pages/V6HairboostPage';
 import ComingSoon1Page from '@/pages/ComingSoon1Page';
 import ComingSoon2Page from '@/pages/ComingSoon2Page';
@@ -41,6 +42,7 @@ export const SEORoutes = () => {
       <Route path="/nl/info/methode" element={<InfoMethodPage />} />
       <Route path="/nl/info/traject" element={<InfoTrajectoryPage />} />
       <Route path="/nl/support" element={<SupportPage />} />
+      <Route path="/nl/support/chat" element={<SupportChatPage />} />
       <Route path="/nl/contact" element={<ContactPage />} />
       
       {/* English routes */}
@@ -59,6 +61,7 @@ export const SEORoutes = () => {
       <Route path="/en/info/method" element={<InfoMethodPage />} />
       <Route path="/en/info/trajectory" element={<InfoTrajectoryPage />} />
       <Route path="/en/support" element={<SupportPage />} />
+      <Route path="/en/support/chat" element={<SupportChatPage />} />
       <Route path="/en/contact" element={<ContactPage />} />
       
       {/* Legacy support - maintain old item1 route */}
