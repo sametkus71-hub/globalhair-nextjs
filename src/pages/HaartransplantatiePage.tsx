@@ -115,7 +115,7 @@ const HaartransplantatiePage = () => {
             >
               <div 
                 className={`w-full h-full ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
-                style={{ animationDelay: comesFromHome ? '700ms' : '0ms' }}
+                style={{ animationDelay: comesFromHome ? '600ms' : '0ms' }}
               >
                 <BeforeAfterGrid />
               </div>

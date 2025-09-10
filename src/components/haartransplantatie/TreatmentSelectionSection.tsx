@@ -43,14 +43,17 @@ export const TreatmentSelectionSection = () => {
 
   // Staggered button entrance animation
   useEffect(() => {
-    const timers = [
-      setTimeout(() => setButtonsLoaded(prev => [true, prev[1], prev[2]]), 3200),
-      setTimeout(() => setButtonsLoaded(prev => [prev[0], true, prev[2]]), 3400),
-      setTimeout(() => setButtonsLoaded(prev => [prev[0], prev[1], true]), 3600),
-    ];
-    
-    return () => timers.forEach(clearTimeout);
-  }, []);
+    if (comesFromHome) {
+      const timers = [
+        setTimeout(() => setButtonsLoaded(prev => [true, prev[1]]), 2700), // 2400ms + 300ms
+        setTimeout(() => setButtonsLoaded(prev => [prev[0], true]), 2900), // 2700ms + 200ms
+      ];
+      
+      return () => timers.forEach(clearTimeout);
+    } else {
+      setButtonsLoaded([true, true]);
+    }
+  }, [comesFromHome]);
 
   const packages = [
     { 
@@ -136,7 +139,7 @@ export const TreatmentSelectionSection = () => {
             className={`font-lato text-[31px] font-normal text-black mb-2 uppercase ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
             style={{ 
               lineHeight: '0.97',
-              animationDelay: comesFromHome ? '1200ms' : '0ms' // 700ms (grid) + 500ms = 1200ms
+              animationDelay: comesFromHome ? '1000ms' : '0ms' // 600ms (grid) + 400ms = 1000ms
             }}
           >
             Time to start over
@@ -145,7 +148,7 @@ export const TreatmentSelectionSection = () => {
             className={`font-lato text-[13px] font-normal text-gray-700 ${spacing.text} ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
             style={{ 
               lineHeight: '0.97',
-              animationDelay: comesFromHome ? '1500ms' : '0ms' // 1200ms + 300ms = 1500ms
+              animationDelay: comesFromHome ? '1300ms' : '0ms' // 1000ms + 300ms = 1300ms
             }}
           >
             GHI Hairtransplant
@@ -157,7 +160,7 @@ export const TreatmentSelectionSection = () => {
           className={`flex justify-center ${spacing.country} relative ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
           style={{ 
             zIndex: 9999,
-            animationDelay: comesFromHome ? '1800ms' : '0ms' // 1500ms + 300ms = 1800ms
+            animationDelay: comesFromHome ? '1800ms' : '0ms' // 1300ms + 500ms = 1800ms
           }}
         >
           <div 
