@@ -11,7 +11,7 @@ interface VideoGridProps {
 }
 
 export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransition }: VideoGridProps) => {
-  const { profile } = useSession();
+  const { profile, setActiveRoute } = useSession();
   const { language } = useLanguage();
   const navigate = useNavigate();
   const [animationKey, setAnimationKey] = useState(0);
@@ -25,23 +25,25 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
   // Navigation handlers
   const handleHaartransplantatieClick = useCallback(() => {
     setNavigatingItem(0);
+    setActiveRoute('haartransplantatie');
     const targetPath = language === 'en' ? '/en/hair-transplant' : '/nl/haartransplantatie';
     if (startTransition) {
       startTransition(targetPath);
     } else {
       navigate(targetPath);
     }
-  }, [navigate, startTransition, language]);
+  }, [navigate, startTransition, language, setActiveRoute]);
 
   const handleV6HairboostClick = useCallback(() => {
     setNavigatingItem(1);
+    setActiveRoute('v6-hairboost');
     const targetPath = `/${language}/v6-hairboost`;
     if (startTransition) {
       startTransition(targetPath);
     } else {
       navigate(targetPath);
     }
-  }, [navigate, startTransition, language]);
+  }, [navigate, startTransition, language, setActiveRoute]);
 
   // Preview variations
   const previewVariations = {

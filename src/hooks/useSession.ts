@@ -8,6 +8,7 @@ export type Shaving = 'Met scheren' | 'Zonder scheren';
 export type Treatment = 'Normaal' | 'Stamcel';
 export type Language = 'nl' | 'en';
 export type Package = 'Standard' | 'Premium' | 'Advanced';
+export type ActiveRoute = 'haartransplantatie' | 'v6-hairboost' | null;
 
 export interface UserProfile {
   geslacht: Gender;
@@ -18,6 +19,7 @@ export interface UserProfile {
   behandeling: Treatment;
   language: Language;
   selectedPackage: Package;
+  activeRoute: ActiveRoute;
 }
 
 const defaultProfile: UserProfile = {
@@ -28,7 +30,8 @@ const defaultProfile: UserProfile = {
   scheren: 'Met scheren',
   behandeling: 'Normaal',
   language: 'nl',
-  selectedPackage: 'Premium'
+  selectedPackage: 'Premium',
+  activeRoute: null
 };
 
 export const useSession = () => {
@@ -51,6 +54,7 @@ export const useSession = () => {
       const savedScheren = sessionStorage.getItem('gh_scheren') as Shaving;
       const savedBehandeling = sessionStorage.getItem('gh_behandeling') as Treatment;
       const savedSelectedPackage = sessionStorage.getItem('gh_selectedPackage') as Package;
+      const savedActiveRoute = localStorage.getItem('gh_activeRoute') as ActiveRoute;
       
       // Language detection: prioritize sessionStorage, then localStorage, then browser
       const savedLanguageSession = sessionStorage.getItem('gh_language') as Language;
@@ -65,7 +69,8 @@ export const useSession = () => {
         scheren: savedScheren || defaultProfile.scheren,
         behandeling: savedBehandeling || defaultProfile.behandeling,
         language: detectedLanguage,
-        selectedPackage: savedSelectedPackage || defaultProfile.selectedPackage
+        selectedPackage: savedSelectedPackage || defaultProfile.selectedPackage,
+        activeRoute: savedActiveRoute || defaultProfile.activeRoute
       };
 
       setProfile(currentProfile);
@@ -78,6 +83,7 @@ export const useSession = () => {
       if (!savedScheren) sessionStorage.setItem('gh_scheren', currentProfile.scheren);
       if (!savedBehandeling) sessionStorage.setItem('gh_behandeling', currentProfile.behandeling);
       if (!savedSelectedPackage) sessionStorage.setItem('gh_selectedPackage', currentProfile.selectedPackage);
+      if (!savedActiveRoute) localStorage.setItem('gh_activeRoute', currentProfile.activeRoute || '');
       
       // Sync language in both storages
       sessionStorage.setItem('gh_language', currentProfile.language);
@@ -136,13 +142,14 @@ export const useSession = () => {
     const newProfile = { ...profile, [field]: value };
     setProfile(newProfile);
     
-    // Update sessionStorage (using special key for language)
-    const storageKey = field === 'language' ? 'gh_language' : `gh_${field}`;
-    sessionStorage.setItem(storageKey, value);
-    
-    // For language, also sync localStorage for URL routing compatibility
+    // Update sessionStorage (using special key for language and activeRoute)
     if (field === 'language') {
+      sessionStorage.setItem('gh_language', value);
       localStorage.setItem('gh_lang', value);
+    } else if (field === 'activeRoute') {
+      localStorage.setItem('gh_activeRoute', value);
+    } else {
+      sessionStorage.setItem(`gh_${field}`, value);
     }
     
     // Update body classes
@@ -168,12 +175,19 @@ export const useSession = () => {
     updateProfile('language', newLanguage);
   };
 
+  // Active route methods
+  const setActiveRoute = (route: ActiveRoute) => {
+    updateProfile('activeRoute', route || '');
+  };
+
   return {
     profile,
     updateProfile,
     updateLanguage,
+    setActiveRoute,
     matchesVideo,
     isProfileComplete: () => profile.geslacht && profile.haartype && profile.haarkleur,
-    language: profile.language
+    language: profile.language,
+    activeRoute: profile.activeRoute
   };
 };
