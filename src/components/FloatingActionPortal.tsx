@@ -127,18 +127,56 @@ export const FloatingActionPortal: React.FC = () => {
         {/* Plan Consultation Button */}
         <div className="flex flex-col items-center gap-1">
           <button
-            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full transition-all duration-300 ease-out flex items-center justify-center group hover:scale-105"
+            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full transition-all duration-300 ease-out flex items-center justify-center group relative overflow-hidden"
             style={{
-              background: 'rgba(255, 255, 255, 0.75)',
-              backdropFilter: 'blur(20px) saturate(180%)',
-              WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 0.4) inset, 0 1px 0px rgba(0, 0, 0, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
+              background: `linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.9) 0%, 
+                rgba(255, 255, 255, 0.7) 50%, 
+                rgba(255, 255, 255, 0.85) 100%
+              )`,
+              backdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
+              WebkitBackdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
+              boxShadow: `
+                0 8px 32px rgba(0, 0, 0, 0.12),
+                0 2px 8px rgba(0, 0, 0, 0.08),
+                inset 0 1px 2px rgba(255, 255, 255, 0.8),
+                inset 0 -1px 2px rgba(0, 0, 0, 0.05),
+                0 0 0 1px rgba(255, 255, 255, 0.4)
+              `,
+              border: 'none',
+              transform: 'translateZ(0)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.05) translateZ(0)';
+              e.currentTarget.style.boxShadow = `
+                0 12px 40px rgba(0, 0, 0, 0.15),
+                0 4px 12px rgba(0, 0, 0, 0.1),
+                inset 0 1px 3px rgba(255, 255, 255, 0.9),
+                inset 0 -1px 3px rgba(0, 0, 0, 0.08),
+                0 0 0 1px rgba(255, 255, 255, 0.5)
+              `;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1) translateZ(0)';
+              e.currentTarget.style.boxShadow = `
+                0 8px 32px rgba(0, 0, 0, 0.12),
+                0 2px 8px rgba(0, 0, 0, 0.08),
+                inset 0 1px 2px rgba(255, 255, 255, 0.8),
+                inset 0 -1px 2px rgba(0, 0, 0, 0.05),
+                0 0 0 1px rgba(255, 255, 255, 0.4)
+              `;
             }}
             onClick={() => setConsultModalOpen(true)}
             aria-label={language === 'nl' ? 'Plan Consult' : 'Plan Consultation'}
           >
-            <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors" />
+            <div 
+              className="absolute inset-0 rounded-full"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(255, 255, 255, 0.1) 100%)',
+                pointerEvents: 'none',
+              }}
+            />
+            <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors relative z-10" />
           </button>
           <span className="text-[9px] font-medium text-gray-800 text-center">
             {language === 'nl' ? 'Consult' : 'Consult'}
@@ -148,18 +186,56 @@ export const FloatingActionPortal: React.FC = () => {
         {/* Chat Support Button */}
         <div className="flex flex-col items-center gap-1">
           <button
-            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full transition-all duration-300 ease-out flex items-center justify-center group hover:scale-105"
+            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full transition-all duration-300 ease-out flex items-center justify-center group relative overflow-hidden"
             style={{
-              background: 'rgba(255, 255, 255, 0.75)',
-              backdropFilter: 'blur(20px) saturate(180%)',
-              WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 0.4) inset, 0 1px 0px rgba(0, 0, 0, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
+              background: `linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.9) 0%, 
+                rgba(255, 255, 255, 0.7) 50%, 
+                rgba(255, 255, 255, 0.85) 100%
+              )`,
+              backdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
+              WebkitBackdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
+              boxShadow: `
+                0 8px 32px rgba(0, 0, 0, 0.12),
+                0 2px 8px rgba(0, 0, 0, 0.08),
+                inset 0 1px 2px rgba(255, 255, 255, 0.8),
+                inset 0 -1px 2px rgba(0, 0, 0, 0.05),
+                0 0 0 1px rgba(255, 255, 255, 0.4)
+              `,
+              border: 'none',
+              transform: 'translateZ(0)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.05) translateZ(0)';
+              e.currentTarget.style.boxShadow = `
+                0 12px 40px rgba(0, 0, 0, 0.15),
+                0 4px 12px rgba(0, 0, 0, 0.1),
+                inset 0 1px 3px rgba(255, 255, 255, 0.9),
+                inset 0 -1px 3px rgba(0, 0, 0, 0.08),
+                0 0 0 1px rgba(255, 255, 255, 0.5)
+              `;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1) translateZ(0)';
+              e.currentTarget.style.boxShadow = `
+                0 8px 32px rgba(0, 0, 0, 0.12),
+                0 2px 8px rgba(0, 0, 0, 0.08),
+                inset 0 1px 2px rgba(255, 255, 255, 0.8),
+                inset 0 -1px 2px rgba(0, 0, 0, 0.05),
+                0 0 0 1px rgba(255, 255, 255, 0.4)
+              `;
             }}
             onClick={() => setChatOverlayOpen(true)}
             aria-label={language === 'nl' ? 'Chat Support' : 'Chat Support'}
           >
-            <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors" />
+            <div 
+              className="absolute inset-0 rounded-full"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(255, 255, 255, 0.1) 100%)',
+                pointerEvents: 'none',
+              }}
+            />
+            <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors relative z-10" />
           </button>
           <span className="text-[9px] font-medium text-gray-800 text-center">
             {language === 'nl' ? 'Chat' : 'Chat'}
@@ -169,18 +245,56 @@ export const FloatingActionPortal: React.FC = () => {
         {/* Scroll Navigation Button */}
         <div className="flex flex-col items-center gap-1">
           <button
-            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full transition-all duration-300 ease-out flex items-center justify-center group hover:scale-105"
+            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full transition-all duration-300 ease-out flex items-center justify-center group relative overflow-hidden"
             style={{
-              background: 'rgba(255, 255, 255, 0.75)',
-              backdropFilter: 'blur(20px) saturate(180%)',
-              WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), 0 1px 0px rgba(255, 255, 255, 0.4) inset, 0 1px 0px rgba(0, 0, 0, 0.05)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
+              background: `linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.9) 0%, 
+                rgba(255, 255, 255, 0.7) 50%, 
+                rgba(255, 255, 255, 0.85) 100%
+              )`,
+              backdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
+              WebkitBackdropFilter: 'blur(40px) saturate(200%) brightness(1.1)',
+              boxShadow: `
+                0 8px 32px rgba(0, 0, 0, 0.12),
+                0 2px 8px rgba(0, 0, 0, 0.08),
+                inset 0 1px 2px rgba(255, 255, 255, 0.8),
+                inset 0 -1px 2px rgba(0, 0, 0, 0.05),
+                0 0 0 1px rgba(255, 255, 255, 0.4)
+              `,
+              border: 'none',
+              transform: 'translateZ(0)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.05) translateZ(0)';
+              e.currentTarget.style.boxShadow = `
+                0 12px 40px rgba(0, 0, 0, 0.15),
+                0 4px 12px rgba(0, 0, 0, 0.1),
+                inset 0 1px 3px rgba(255, 255, 255, 0.9),
+                inset 0 -1px 3px rgba(0, 0, 0, 0.08),
+                0 0 0 1px rgba(255, 255, 255, 0.5)
+              `;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1) translateZ(0)';
+              e.currentTarget.style.boxShadow = `
+                0 8px 32px rgba(0, 0, 0, 0.12),
+                0 2px 8px rgba(0, 0, 0, 0.08),
+                inset 0 1px 2px rgba(255, 255, 255, 0.8),
+                inset 0 -1px 2px rgba(0, 0, 0, 0.05),
+                0 0 0 1px rgba(255, 255, 255, 0.4)
+              `;
             }}
             onClick={scrollToNextSection}
             aria-label={language === 'nl' ? 'Scroll naar beneden' : 'Scroll down'}
           >
-            <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors" />
+            <div 
+              className="absolute inset-0 rounded-full"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(255, 255, 255, 0.1) 100%)',
+                pointerEvents: 'none',
+              }}
+            />
+            <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-gray-900 transition-colors relative z-10" />
           </button>
         </div>
       </div>
