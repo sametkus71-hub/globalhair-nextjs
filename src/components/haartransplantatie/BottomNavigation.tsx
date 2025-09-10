@@ -197,11 +197,7 @@ export const BottomNavigation = () => {
               <div key={index} className="w-14 flex justify-center">
                 <button
                   onClick={item.onClick}
-                  className={`flex items-center justify-center transition-all duration-200 ${
-                    isBookButton 
-                      ? 'rounded-full w-14 h-14 shadow-xl backdrop-blur-md bg-gradient-to-br from-white/25 via-white/15 to-white/5 ring-1 ring-white/10 booking-button-glow' 
-                      : 'w-14 h-14'
-                  }`}
+                  className="flex items-center justify-center transition-all duration-200 w-14 h-14"
                 >
                   {isNavItemWithCustomIcon(item) ? (
                     <div className="w-20 h-20 flex items-center justify-center pt-4">
@@ -211,7 +207,7 @@ export const BottomNavigation = () => {
                     <img 
                       src={item.iconSrc}
                       alt={`${item.id} icon`}
-                      className={`brightness-0 invert ${isBookButton ? 'w-10 h-10' : 'w-5 h-5'}`}
+                      className="brightness-0 invert w-5 h-5"
                     />
                   )}
                 </button>
