@@ -183,7 +183,7 @@ export const TreatmentSelectionSection = () => {
               <button
                 key={country}
                 onClick={() => updateProfile('locatie', country)}
-                className={`px-2 py-1 rounded-lg font-lato text-[10px] font-medium transition-all duration-300 ease-out ${
+                className={`px-2 py-1 ${profile.locatie === country ? 'rounded-md' : 'rounded-lg'} font-lato text-[10px] font-medium transition-all duration-300 ease-out ${
                   profile.locatie === country
                     ? 'text-gray-900'
                     : 'text-white/80 hover:text-white'
@@ -221,7 +221,7 @@ export const TreatmentSelectionSection = () => {
                 )}
                 <button
                   onClick={() => updateProfile('selectedPackage', pkg.id)}
-                  className={`px-4 py-1.5 rounded-lg font-lato text-[12px] font-medium transition-all duration-300 ease-out ${
+                  className={`px-4 py-1.5 ${profile.selectedPackage === pkg.id ? 'rounded-md' : 'rounded-lg'} font-lato text-[12px] font-medium transition-all duration-300 ease-out ${
                     profile.selectedPackage === pkg.id
                       ? 'text-gray-900'
                       : 'text-white/80 hover:text-white'
