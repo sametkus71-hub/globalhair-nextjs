@@ -5,6 +5,7 @@ import { useTranslation } from '@/lib/translations';
 import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
 import { Carousel, CarouselContent, CarouselItem, CarouselApi } from '@/components/ui/carousel';
 import { MapPin, Phone, Mail, Clock, Instagram, MessageCircle } from 'lucide-react';
+import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 
 const ContactPage: React.FC = () => {
   const { language } = useLanguage();
@@ -400,6 +401,7 @@ const ContactPage: React.FC = () => {
           </div>
         </div>
       </div>
+      <BottomNavigationPortal />
     </>
   );
 };

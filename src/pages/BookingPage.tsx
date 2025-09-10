@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { MetaHead } from '@/components/MetaHead';
 import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
+import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 
 export const BookingPage = () => {
   const { language } = useLanguage();
@@ -94,6 +95,7 @@ export const BookingPage = () => {
 
         </div>
       </div>
+      <BottomNavigationPortal />
     </>
   );
 };

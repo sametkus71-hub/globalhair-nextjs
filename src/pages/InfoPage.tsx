@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
+import { useTranslation } from '@/lib/translations';
+import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
+import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 import { useNavigate } from 'react-router-dom';
 
 const InfoPage: React.FC = () => {
@@ -135,6 +138,7 @@ const InfoPage: React.FC = () => {
           </div>
         </div>
       </div>
+      <BottomNavigationPortal />
     </>
   );
 };

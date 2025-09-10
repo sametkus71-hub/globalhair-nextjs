@@ -4,6 +4,7 @@ import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useNavigate } from 'react-router-dom';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 
 const InfoMethodPage: React.FC = () => {
   const { language } = useLanguage();
@@ -202,6 +203,7 @@ const InfoMethodPage: React.FC = () => {
           </div>
         </div>
       </div>
+      <BottomNavigationPortal />
     </>
   );
 };

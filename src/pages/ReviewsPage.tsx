@@ -4,6 +4,7 @@ import { useTranslation } from '@/lib/translations';
 import { ReviewsGrid } from '@/components/reviews/ReviewsGrid';
 import { ReviewsTextArea } from '@/components/reviews/ReviewsTextArea';
 import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
+import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 
 export const ReviewsPage = () => {
   const { language } = useLanguage();
@@ -28,6 +29,7 @@ export const ReviewsPage = () => {
           <ReviewsGrid />
         </div>
       </div>
+      <BottomNavigationPortal />
     </>
   );
 };

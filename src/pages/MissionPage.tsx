@@ -4,6 +4,8 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
 import { useNavigate } from 'react-router-dom';
 import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
+import { MissionContent } from '@/components/mission/MissionContent';
+import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 
 const MissionPage: React.FC = () => {
   const { language } = useLanguage();
@@ -112,6 +114,7 @@ const MissionPage: React.FC = () => {
           </div>
         </div>
       </div>
+      <BottomNavigationPortal />
     </>
   );
 };

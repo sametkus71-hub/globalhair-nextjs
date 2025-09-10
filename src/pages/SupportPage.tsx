@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
-import { MessageCircle, Phone, Instagram, Mail, ChevronRight } from 'lucide-react';
 import { GlobalHairLogo } from '@/components/logos/GlobalHairLogo';
+import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
+import { MessageCircle, Phone, Instagram, Mail, ChevronRight } from 'lucide-react';
 
 const SupportPage: React.FC = () => {
   const { language } = useLanguage();
@@ -171,6 +172,7 @@ const SupportPage: React.FC = () => {
           </div>
         </div>
       </div>
+      <BottomNavigationPortal />
     </>
   );
 };

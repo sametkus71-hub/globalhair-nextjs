@@ -5,6 +5,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useNavigate } from 'react-router-dom';
 import { Carousel, CarouselContent, CarouselItem, CarouselApi } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
+import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 
 const InfoTrajectoryPage: React.FC = () => {
   const { language } = useLanguage();
@@ -235,6 +236,7 @@ const InfoTrajectoryPage: React.FC = () => {
           </div>
         </div>
       </div>
+      <BottomNavigationPortal />
     </>
   );
 };
