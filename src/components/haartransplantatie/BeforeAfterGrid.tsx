@@ -56,8 +56,8 @@ export const BeforeAfterGrid = () => {
             key={item.id}
             onClick={() => handleItemClick(item.id)}
             className={cn(
-              "w-full h-full relative cursor-pointer",
-              "min-h-0 flex-shrink-0 bg-muted"
+              "w-full aspect-square relative cursor-pointer",
+              "flex-shrink-0 bg-muted"
             )}
           >
             <ImageComponent
