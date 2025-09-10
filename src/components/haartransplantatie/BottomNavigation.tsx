@@ -117,8 +117,8 @@ export const BottomNavigation = () => {
     if (isOnMainPage()) {
       // Show back to intro icon on main pages
       return {
-        isCustomIcon: true,
-        iconComponent: BackIcon,
+        isCustomIcon: false,
+        iconSrc: '/lovable-uploads/44c091c7-1d26-4639-9646-99a6dc86cd14.png',
         onClick: handleHomeClick,
         id: 'home'
       };
