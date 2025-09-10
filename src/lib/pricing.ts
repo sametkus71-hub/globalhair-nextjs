@@ -1,23 +1,28 @@
 import { UserProfile, Package, Location } from '@/hooks/useSession';
 
-// Base package prices in euros
+// Base package prices in euros (Netherlands prices)
 const PACKAGE_PRICES: Record<Package, number> = {
-  'Standard': 8500,
-  'Premium': 12500,
-  'Advanced': 16000
+  'Standard': 8950,
+  'Premium': 15950,
+  'Advanced': 18950
 };
 
-// Location-based price adjustments
-const LOCATION_ADJUSTMENTS: Record<Location, number> = {
-  'Nederland': 0,
-  'Turkije': 3000
+// Turkey discounts per package
+const TURKEY_DISCOUNTS: Record<Package, number> = {
+  'Standard': -2000,
+  'Premium': -3500,
+  'Advanced': -4200
 };
 
 export const calculatePrice = (profile: UserProfile): number => {
   const basePrice = PACKAGE_PRICES[profile.selectedPackage] || PACKAGE_PRICES.Premium;
-  const locationAdjustment = LOCATION_ADJUSTMENTS[profile.locatie] || 0;
   
-  return basePrice + locationAdjustment;
+  if (profile.locatie === 'Turkije') {
+    const discount = TURKEY_DISCOUNTS[profile.selectedPackage] || TURKEY_DISCOUNTS.Premium;
+    return basePrice + discount;
+  }
+  
+  return basePrice;
 };
 
 export const formatPrice = (price: number): string => {
@@ -31,12 +36,12 @@ export const formatPrice = (price: number): string => {
 
 export const getPriceBreakdown = (profile: UserProfile) => {
   const basePrice = PACKAGE_PRICES[profile.selectedPackage] || PACKAGE_PRICES.Premium;
-  const locationAdjustment = LOCATION_ADJUSTMENTS[profile.locatie] || 0;
-  const totalPrice = basePrice + locationAdjustment;
+  const discount = profile.locatie === 'Turkije' ? (TURKEY_DISCOUNTS[profile.selectedPackage] || TURKEY_DISCOUNTS.Premium) : 0;
+  const totalPrice = basePrice + discount;
   
   return {
     basePrice,
-    locationAdjustment,
+    locationAdjustment: discount,
     totalPrice,
     packageName: profile.selectedPackage,
     location: profile.locatie

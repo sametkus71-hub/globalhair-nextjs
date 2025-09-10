@@ -74,25 +74,40 @@ export const TreatmentSelectionSection = () => {
   ];
 
   const packageContent = {
-    Standard: [
-      "Basis haartransplantatie procedure",
-      "Standaard FUE techniek",
-      "Lokale verdoving inclusief",
-      "2 jaar nacontrole garantie"
-    ],
-    Premium: [
-      "Sapphire FUE premium techniek",
-      "PRP bloedplaatjes therapie",
-      "VIP behandelkamer & service",
-      "3 jaar volledige garantie"
-    ],
-    Advanced: [
-      "DHI pen implantatie techniek",
-      "Stamceltherapie behandeling", 
-      "AI-gestuurde haarlijn design",
-      "Luxury suite & persoonlijke begeleiding",
-      "Levenslange service garantie"
-    ]
+    Standard: {
+      features: [
+        "FUE Saffier",
+        "GHI Precision Method ™",
+        "1 Year Personal Aftercare"
+      ],
+      separator: "————————————————————",
+      benefits: ["Natural growth"]
+    },
+    Premium: {
+      features: [
+        "FUE Saffier / DHI",
+        "Comfort Verdoving",
+        "V6 Hairboost ® - Pre-Treatment", 
+        "V6 Hairboost ® – 1 Year Subscription",
+        "GHI Precision Method ™",
+        "1 Year Personal Aftercare"
+      ],
+      separator: "————————————————————",
+      benefits: ["Recovery x2 faster", "More density & growth"]
+    },
+    Advanced: {
+      features: [
+        "FUE Saffier / DHI",
+        "HI Stemcell Repair ™",
+        "Comfort Verdoving",
+        "V6 Hairboost ® - Pre-Treatment",
+        "V6 Hairboost ® – 1 Year Subscription", 
+        "GHI Precision Method ™",
+        "1 Year Personal Aftercare"
+      ],
+      separator: undefined,
+      benefits: undefined
+    }
   };
 
   // Dynamic spacing based on viewport height breakpoints
@@ -142,7 +157,7 @@ export const TreatmentSelectionSection = () => {
               animationDelay: comesFromHome ? '1000ms' : '0ms' // 600ms (grid) + 400ms = 1000ms
             }}
           >
-            Time to start over
+            WHERE CONFIDENCE GROWS
           </h1>
           <p 
             className={`font-lato text-[13px] font-normal text-white/80 ${spacing.text} ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
@@ -236,7 +251,15 @@ export const TreatmentSelectionSection = () => {
           style={{ animationDelay: comesFromHome ? '2400ms' : '0ms' }} // 2100ms + 300ms = 2400ms
         >
           <div className="max-w-56 mx-auto">
-            {packageContent[profile.selectedPackage as keyof typeof packageContent]?.map((item, index) => (
+            {/* Package Title with Prices */}
+            <div className="mb-4">
+              <h3 className="font-lato text-[16px] font-medium text-white mb-1">
+                {profile.selectedPackage} – €{profile.selectedPackage === 'Standard' ? '8.950' : profile.selectedPackage === 'Premium' ? '15.950' : '18.950'} / €{profile.selectedPackage === 'Standard' ? '6.950' : profile.selectedPackage === 'Premium' ? '12.450' : '14.750'}
+              </h3>
+            </div>
+
+            {/* Features */}
+            {packageContent[profile.selectedPackage as keyof typeof packageContent]?.features?.map((item, index) => (
               <div key={index} className="flex items-center justify-start -mb-4 -mt-3 text-left relative" style={{ zIndex: 1 }}>
                 <div className="w-12 h-12 -mr-1 flex-shrink-0 pt-2 relative" style={{ zIndex: 1 }}>
                   <ShieldIcon className="w-full h-full [&_.cls-1]:fill-white" />
@@ -247,15 +270,28 @@ export const TreatmentSelectionSection = () => {
               </div>
             ))}
             
-            {/* Cost Display - moved inside content section */}
-            <div 
-              className={`text-center mt-4 ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
-              style={{ animationDelay: comesFromHome ? '2700ms' : '0ms' }} // 2400ms + 300ms = 2700ms
-            >
-              <p className={`font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal text-white/70 transition-all duration-300 ${
-                priceFlash ? 'bg-white/60 px-3 py-1 rounded-full shadow-sm' : ''
-              }`}>
-                Geschatte kosten: {formatPrice(totalPrice)}
+            {/* Separator */}
+            {packageContent[profile.selectedPackage as keyof typeof packageContent]?.separator && (
+              <div className="text-center my-3">
+                <p className="font-lato text-[10px] text-white/50" style={{ letterSpacing: '0.1em' }}>
+                  {packageContent[profile.selectedPackage as keyof typeof packageContent]?.separator}
+                </p>
+              </div>
+            )}
+            
+            {/* Benefits */}
+            {packageContent[profile.selectedPackage as keyof typeof packageContent]?.benefits?.map((benefit, index) => (
+              <div key={index} className="text-center mb-2">
+                <p className="font-lato text-[12px] font-light text-white" style={{ lineHeight: '1.1' }}>
+                  {benefit}
+                </p>
+              </div>
+            ))}
+            
+            {/* Package Separator */}
+            <div className="text-center mt-4 mb-2">
+              <p className="font-lato text-[12px] text-white/50">
+                ⸻
               </p>
             </div>
           </div>
