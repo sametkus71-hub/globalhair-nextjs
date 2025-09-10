@@ -136,7 +136,7 @@ export const TreatmentSelectionSection = () => {
         {/* Header */}
         <div className={`text-center ${spacing.header}`}>
           <h1 
-            className={`font-lato text-[31px] font-normal text-black mb-2 uppercase ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
+            className={`font-lato text-[31px] font-normal text-white mb-2 uppercase ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
             style={{ 
               lineHeight: '0.97',
               animationDelay: comesFromHome ? '1000ms' : '0ms' // 600ms (grid) + 400ms = 1000ms
@@ -145,7 +145,7 @@ export const TreatmentSelectionSection = () => {
             Time to start over
           </h1>
           <p 
-            className={`font-lato text-[13px] font-normal text-gray-700 ${spacing.text} ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
+            className={`font-lato text-[13px] font-normal text-white/80 ${spacing.text} ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
             style={{ 
               lineHeight: '0.97',
               animationDelay: comesFromHome ? '1300ms' : '0ms' // 1000ms + 300ms = 1300ms
@@ -255,7 +255,7 @@ export const TreatmentSelectionSection = () => {
                 <div className="w-12 h-12 -mr-1 flex-shrink-0 pt-2 relative" style={{ zIndex: 1 }}>
                   <ShieldIcon className="w-full h-full [&_.cls-1]:fill-black" />
                 </div>
-                <p className="font-lato text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] font-light text-gray-800" style={{ lineHeight: '1.1' }}>
+                <p className="font-lato text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] font-light text-white" style={{ lineHeight: '1.1' }}>
                   {item}
                 </p>
               </div>
@@ -266,7 +266,7 @@ export const TreatmentSelectionSection = () => {
               className={`text-center mt-4 ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
               style={{ animationDelay: comesFromHome ? '2700ms' : '0ms' }} // 2400ms + 300ms = 2700ms
             >
-              <p className={`font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal text-gray-600 transition-all duration-300 ${
+              <p className={`font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal text-white/70 transition-all duration-300 ${
                 priceFlash ? 'bg-white/60 px-3 py-1 rounded-full shadow-sm' : ''
               }`}>
                 Geschatte kosten: {formatPrice(totalPrice)}
