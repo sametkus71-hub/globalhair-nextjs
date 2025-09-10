@@ -55,12 +55,6 @@ const HaartransplantatiePage = () => {
     return () => window.removeEventListener('resize', detectPhoneSize);
   }, []);
 
-  // Dynamic logo positioning - calculated relative to grid size
-  const getLogoPosition = () => {
-    // Grid total height is 40vw (2 rows × 20vw each)
-    // Position logo at 50% of grid height minus half logo size (140px)
-    return 'calc(20vw - 140px)';
-  };
   
   // Disable scrolling on mount
   useLayoutEffect(() => {
@@ -95,19 +89,6 @@ const HaartransplantatiePage = () => {
               height: 'var(--app-height)'
             }}
           >
-            {/* Fading Central Logo - positioned with phone size detection */}
-            <div 
-              className={`absolute left-1/2 z-[100] pointer-events-none ${comesFromHome ? 'opacity-0 animate-logo-entrance' : 'opacity-100'}`}
-              style={{ 
-                top: getLogoPosition(), // Dynamic positioning based on phone size detection
-                ...(comesFromHome ? { animationDelay: '0ms' } : {})
-              }}
-            >
-              <div className="pointer-events-none" style={{ width: '280px', height: '280px' }}> {/* 280px */}
-                <ShieldIcon />
-              </div>
-            </div>
-            
             {/* Top Section - Before/After Grid - Auto Height */}
             <div className="relative z-20 flex-shrink-0">
               <div 
@@ -115,6 +96,19 @@ const HaartransplantatiePage = () => {
                 style={{ animationDelay: comesFromHome ? '600ms' : '0ms' }}
               >
                 <BeforeAfterGrid />
+              </div>
+            </div>
+
+            {/* Fading Central Logo - positioned with negative margin */}
+            <div 
+              className={`relative left-1/2 transform -translate-x-1/2 z-[100] pointer-events-none ${comesFromHome ? 'opacity-0 animate-logo-entrance' : 'opacity-100'}`}
+              style={{ 
+                marginTop: '-280px', // Pull logo up into grid area
+                ...(comesFromHome ? { animationDelay: '0ms' } : {})
+              }}
+            >
+              <div className="pointer-events-none" style={{ width: '280px', height: '280px' }}>
+                <ShieldIcon />
               </div>
             </div>
 
