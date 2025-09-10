@@ -3,6 +3,7 @@ import { usePopupTransition } from '@/hooks/usePopupTransition';
 import { useLocation } from 'react-router-dom';
 import { useSession } from '@/hooks/useSession';
 import { BackIcon } from '@/components/icons/BackIcon';
+import { ShieldIcon } from '@/components/logos/ShieldIcon';
 
 interface NavItemBase {
   onClick: () => void;
@@ -127,8 +128,13 @@ export const BottomNavigation = () => {
       let logoSrc = '/lovable-uploads/04aab7a8-e1ff-45f4-a726-51acc3e02a41.png';
       
       if (activeRoute === 'haartransplantatie') {
-        // Use haartransplantatie logo - we'll use the existing logo for now
-        logoSrc = '/assets/logo-shield.png';
+        // Use haartransplantatie shield icon (bigger, no text)
+        return {
+          isCustomIcon: true,
+          iconComponent: ShieldIcon,
+          onClick: handleHomeClick,
+          id: 'home'
+        };
       } else if (activeRoute === 'v6-hairboost') {
         // Use v6-hairboost logo - we'll use a placeholder for now
         logoSrc = '/lovable-uploads/04aab7a8-e1ff-45f4-a726-51acc3e02a41.png';
@@ -198,7 +204,7 @@ export const BottomNavigation = () => {
                   }`}
                 >
                   {isNavItemWithCustomIcon(item) ? (
-                    <item.iconComponent className="w-5 h-5 brightness-0 invert" />
+                    <item.iconComponent className={`brightness-0 invert ${isHomeButton ? 'w-8 h-8' : 'w-5 h-5'}`} />
                   ) : (
                     <img 
                       src={item.iconSrc}
