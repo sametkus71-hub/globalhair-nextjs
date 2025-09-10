@@ -204,7 +204,7 @@ export const BottomNavigation = () => {
                   }`}
                 >
                   {isNavItemWithCustomIcon(item) ? (
-                    <item.iconComponent className={`brightness-0 invert ${isHomeButton ? 'w-8 h-8' : 'w-5 h-5'}`} />
+                    <item.iconComponent className={`brightness-0 invert ${isHomeButton ? 'w-12 h-12' : 'w-5 h-5'}`} />
                   ) : (
                     <img 
                       src={item.iconSrc}
