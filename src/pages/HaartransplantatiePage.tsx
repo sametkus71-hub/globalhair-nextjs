@@ -103,8 +103,9 @@ const HaartransplantatiePage = () => {
             <div 
               className={`w-full relative z-[100] pointer-events-none ${comesFromHome ? 'opacity-0 animate-logo-entrance' : 'opacity-100'}`}
               style={{ 
-                marginTop: '-50px', // Pull logo up into grid area
+                marginTop: '-120px', // Pull logo up into grid area
                 marginLeft: '50vw',
+                marginBottom: '-70px', // Pull content up closer to logo
                 ...(comesFromHome ? { animationDelay: '0ms' } : {})
               }}
             >
