@@ -141,6 +141,16 @@ export default {
 						opacity: "1", 
 						transform: "translateY(0) scale(1)" 
 					}
+				},
+				'logo-entrance': {
+					"0%": { 
+						opacity: "0", 
+						transform: "scale(1.2)" 
+					},
+					"100%": { 
+						opacity: "1", 
+						transform: "scale(1)" 
+					}
 				}
 			},
 			animation: {
@@ -150,6 +160,7 @@ export default {
 				'slide-up': 'slideUp 0.3s ease-out',
 				'gradient-shift': 'gradient-shift 15s ease-in-out infinite',
 				'ios-entrance': 'ios-entrance 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+				'logo-entrance': 'logo-entrance 1s ease-out forwards',
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',

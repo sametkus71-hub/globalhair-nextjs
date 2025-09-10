@@ -16,6 +16,20 @@ const HaartransplantatiePage = () => {
   const { language } = useLanguage();
   const { height } = useViewportHeight();
   const [phoneSize, setPhoneSize] = useState<'small' | 'large'>('small');
+  
+  // Check if user comes from home page
+  const isFromHomePage = () => {
+    const referrer = document.referrer;
+    const currentHost = window.location.origin;
+    
+    // Check if referrer is from our home page
+    return referrer === `${currentHost}/` || 
+           referrer === `${currentHost}/nl` || 
+           referrer === `${currentHost}/en` ||
+           referrer.includes('/nl/') === false && referrer.includes('/en/') === false;
+  };
+  
+  const [comesFromHome] = useState(() => isFromHomePage());
 
   // Phone size detection for logo positioning - same as component
   useEffect(() => {
@@ -81,10 +95,10 @@ const HaartransplantatiePage = () => {
           >
             {/* Fading Central Logo - positioned with phone size detection */}
             <div 
-              className="absolute left-1/2 transform -translate-x-1/2 z-[100] pointer-events-none opacity-0 animate-ios-entrance"
+              className={`absolute left-1/2 -translate-x-1/2 z-[100] pointer-events-none ${comesFromHome ? 'opacity-0 animate-logo-entrance' : 'opacity-100'}`}
               style={{ 
                 top: getLogoPosition(), // Dynamic positioning based on phone size detection
-                animationDelay: '0ms'
+                ...(comesFromHome ? { animationDelay: '0ms' } : {})
               }}
             >
               <div className="pointer-events-none" style={{ width: '280px', height: '280px' }}> {/* 280px */}
@@ -100,8 +114,8 @@ const HaartransplantatiePage = () => {
               }}
             >
               <div 
-                className="w-full h-full opacity-0 animate-ios-entrance"
-                style={{ animationDelay: '600ms' }}
+                className={`w-full h-full ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
+                style={{ animationDelay: comesFromHome ? '700ms' : '0ms' }}
               >
                 <BeforeAfterGrid />
               </div>

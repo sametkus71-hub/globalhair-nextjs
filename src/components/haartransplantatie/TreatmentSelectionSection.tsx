@@ -15,6 +15,20 @@ export const TreatmentSelectionSection = () => {
   const [priceFlash, setPriceFlash] = useState(false);
   const [buttonsLoaded, setButtonsLoaded] = useState([false, false]);
   
+  // Check if user comes from home page
+  const isFromHomePage = () => {
+    const referrer = document.referrer;
+    const currentHost = window.location.origin;
+    
+    // Check if referrer is from our home page
+    return referrer === `${currentHost}/` || 
+           referrer === `${currentHost}/nl` || 
+           referrer === `${currentHost}/en` ||
+           referrer.includes('/nl/') === false && referrer.includes('/en/') === false;
+  };
+  
+  const [comesFromHome] = useState(() => isFromHomePage());
+  
   const totalPrice = calculatePrice(profile);
 
   // Force recompilation to clear cached version with spacing references - v3
@@ -119,19 +133,19 @@ export const TreatmentSelectionSection = () => {
         {/* Header */}
         <div className={`text-center ${spacing.header}`}>
           <h1 
-            className="font-lato text-[31px] font-normal text-black mb-2 uppercase opacity-0 animate-ios-entrance" 
+            className={`font-lato text-[31px] font-normal text-black mb-2 uppercase ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
             style={{ 
               lineHeight: '0.97',
-              animationDelay: '1100ms' // 600ms (grid) + 500ms = 1100ms
+              animationDelay: comesFromHome ? '1200ms' : '0ms' // 700ms (grid) + 500ms = 1200ms
             }}
           >
             Time to start over
           </h1>
           <p 
-            className={`font-lato text-[13px] font-normal text-gray-700 ${spacing.text} opacity-0 animate-ios-entrance`} 
+            className={`font-lato text-[13px] font-normal text-gray-700 ${spacing.text} ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
             style={{ 
               lineHeight: '0.97',
-              animationDelay: '1400ms' // 1100ms + 300ms = 1400ms
+              animationDelay: comesFromHome ? '1500ms' : '0ms' // 1200ms + 300ms = 1500ms
             }}
           >
             GHI Hairtransplant
@@ -140,10 +154,10 @@ export const TreatmentSelectionSection = () => {
 
         {/* Country Selection */}
         <div 
-          className={`flex justify-center ${spacing.country} relative opacity-0 animate-ios-entrance`} 
+          className={`flex justify-center ${spacing.country} relative ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
           style={{ 
             zIndex: 9999,
-            animationDelay: '1700ms' // 1400ms + 300ms = 1700ms
+            animationDelay: comesFromHome ? '1800ms' : '0ms' // 1500ms + 300ms = 1800ms
           }}
         >
           <div 
@@ -185,8 +199,8 @@ export const TreatmentSelectionSection = () => {
 
         {/* Package Selection */}
         <div 
-          className={`flex justify-center ${spacing.package} opacity-0 animate-ios-entrance`}
-          style={{ animationDelay: '2000ms' }} // 1700ms + 300ms = 2000ms
+          className={`flex justify-center ${spacing.package} ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
+          style={{ animationDelay: comesFromHome ? '2100ms' : '0ms' }} // 1800ms + 300ms = 2100ms
         >
           <div 
             className="rounded-lg p-0.5 sm:p-1"
@@ -229,8 +243,8 @@ export const TreatmentSelectionSection = () => {
 
         {/* Dynamic Package Content */}
         <div 
-          className={`text-center ${spacing.content} opacity-0 animate-ios-entrance`}
-          style={{ animationDelay: '2300ms' }} // 2000ms + 300ms = 2300ms
+          className={`text-center ${spacing.content} ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
+          style={{ animationDelay: comesFromHome ? '2400ms' : '0ms' }} // 2100ms + 300ms = 2400ms
         >
           <div className="max-w-56 mx-auto">
             {packageContent[profile.selectedPackage as keyof typeof packageContent]?.map((item, index) => (
@@ -246,8 +260,8 @@ export const TreatmentSelectionSection = () => {
             
             {/* Cost Display - moved inside content section */}
             <div 
-              className="text-center mt-4 opacity-0 animate-ios-entrance"
-              style={{ animationDelay: '2600ms' }} // 2300ms + 300ms = 2600ms
+              className={`text-center mt-4 ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
+              style={{ animationDelay: comesFromHome ? '2700ms' : '0ms' }} // 2400ms + 300ms = 2700ms
             >
               <p className={`font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal text-gray-600 transition-all duration-300 ${
                 priceFlash ? 'bg-white/60 px-3 py-1 rounded-full shadow-sm' : ''
