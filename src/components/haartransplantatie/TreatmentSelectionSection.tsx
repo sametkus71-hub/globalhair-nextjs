@@ -118,7 +118,7 @@ export const TreatmentSelectionSection = () => {
       {/* Video Background */}
       <VideoBackground />
       {/* Main Content - phone size specific spacing */}
-      <div className={`flex-1 flex flex-col justify-start px-4`}>
+      <div className={`flex-1 flex flex-col justify-start px-4 relative z-10`}>
         {/* Header */}
         <div className={`text-center ${spacing.header}`}>
           <h1 className="font-lato text-[31px] font-normal text-black mb-2 uppercase" style={{ lineHeight: '0.97' }}>
