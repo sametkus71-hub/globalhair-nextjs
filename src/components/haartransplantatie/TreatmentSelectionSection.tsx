@@ -75,23 +75,31 @@ export const TreatmentSelectionSection = () => {
 
   const packageContent = {
     Standard: [
-      "Basis haartransplantatie procedure",
-      "Standaard FUE techniek",
-      "Lokale verdoving inclusief",
-      "2 jaar nacontrole garantie"
+      "FUE Saffier",
+      "GHI Precision Method™",
+      "1 Year Personal Aftercare",
+      "————————————————————",
+      "🌱 Natural growth"
     ],
     Premium: [
-      "Sapphire FUE premium techniek",
-      "PRP bloedplaatjes therapie",
-      "VIP behandelkamer & service",
-      "3 jaar volledige garantie"
+      "FUE Saffier / DHI",
+      "Comfort Verdoving",
+      "V6 Hairboost® - Pre-Treatment",
+      "V6 Hairboost® – 1 Year Subscription",
+      "GHI Precision Method™",
+      "1 Year Personal Aftercare",
+      "————————————————————",
+      "Recovery x2 faster",
+      "🌱🌱 + More density & growth"
     ],
     Advanced: [
-      "DHI pen implantatie techniek",
-      "Stamceltherapie behandeling", 
-      "AI-gestuurde haarlijn design",
-      "Luxury suite & persoonlijke begeleiding",
-      "Levenslange service garantie"
+      "FUE Saffier / DHI",
+      "GHI Stemcell Repair™",
+      "Comfort Verdoving",
+      "V6 Hairboost® - Pre-Treatment",
+      "V6 Hairboost® – 1 Year Subscription",
+      "GHI Precision Method™",
+      "1 Year Personal Aftercare"
     ]
   };
 
@@ -142,7 +150,7 @@ export const TreatmentSelectionSection = () => {
               animationDelay: comesFromHome ? '1000ms' : '0ms' // 600ms (grid) + 400ms = 1000ms
             }}
           >
-            Time to start over
+            WHERE CONFIDENCE GROWS
           </h1>
           <p 
             className={`font-lato text-[13px] font-normal text-white/80 ${spacing.text} ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
