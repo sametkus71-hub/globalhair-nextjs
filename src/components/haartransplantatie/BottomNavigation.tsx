@@ -200,14 +200,14 @@ export const BottomNavigation = () => {
                   className="flex items-center justify-center transition-all duration-200 w-14 h-14"
                 >
                   {isNavItemWithCustomIcon(item) ? (
-                    <div className="w-20 h-20 flex items-center justify-center pt-4">
-                      <item.iconComponent className="brightness-0 invert w-20 h-20" />
+                    <div className="w-7 h-7 flex items-center justify-center pt-4">
+                      <item.iconComponent className="brightness-0 invert w-7 h-7" />
                     </div>
                   ) : (
                     <img 
                       src={item.iconSrc}
                       alt={`${item.id} icon`}
-                      className="brightness-0 invert w-5 h-5"
+                      className="brightness-0 invert w-7 h-7"
                     />
                   )}
                 </button>
