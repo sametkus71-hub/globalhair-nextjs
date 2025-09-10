@@ -269,11 +269,11 @@ export const TreatmentSelectionSection = () => {
               
               // Regular feature item with shield icon
               return (
-                <div key={index} className="flex items-center justify-start -mb-5 -mt-4 text-left relative" style={{ zIndex: 1 }}>
+                <div key={index} className="flex items-center justify-start -mb-6 -mt-5 text-left relative" style={{ zIndex: 1 }}>
                   <div className="w-12 h-12 -mr-1 flex-shrink-0 pt-2 relative" style={{ zIndex: 1 }}>
                     <ShieldIcon className="w-full h-full [&_.cls-1]:fill-white" />
                   </div>
-                  <p className="font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-light text-white" style={{ lineHeight: '1.0' }}>
+                  <p className="font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-light text-white" style={{ lineHeight: '0.9' }}>
                     {item}
                   </p>
                 </div>
