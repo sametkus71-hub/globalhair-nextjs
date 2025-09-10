@@ -148,8 +148,9 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           zIndex: 1,
           width: 'calc(100vw + 100px)',
           height: 'calc(100vh + 100px)',
-          left: '-50px',
-          top: '-50px'
+          left: '50%',
+          top: '-50px',
+          transform: 'translateX(-50%)'
         }}
         autoPlay
         muted
@@ -171,8 +172,9 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           zIndex: 1,
           width: 'calc(100vw + 100px)',
           height: 'calc(100vh + 100px)',
-          left: '-50px',
-          top: '-50px'
+          left: '50%',
+          top: '-50px',
+          transform: 'translateX(-50%)'
         }}
         autoPlay
         muted
@@ -194,8 +196,9 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           zIndex: 1,
           width: 'calc(100vw + 100px)',
           height: 'calc(100vh + 100px)',
-          left: '-50px',
-          top: '-50px'
+          left: '50%',
+          top: '-50px',
+          transform: 'translateX(-50%)'
         }}
         autoPlay
         muted
