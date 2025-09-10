@@ -6,7 +6,6 @@ import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { Info, BookOpen } from 'lucide-react';
 import { calculatePrice, formatPrice } from '@/lib/pricing';
 import { ShieldIcon } from '@/components/logos/ShieldIcon';
-import { VideoBackground } from './VideoBackground';
 
 export const TreatmentSelectionSection = () => {
   const { language } = useLanguage();
@@ -115,8 +114,6 @@ export const TreatmentSelectionSection = () => {
 
   return (
     <div className="w-full h-full relative flex flex-col">
-      {/* Video Background */}
-      <VideoBackground />
       {/* Main Content - phone size specific spacing */}
       <div className={`flex-1 flex flex-col justify-start px-4 relative z-10`}>
         {/* Header */}

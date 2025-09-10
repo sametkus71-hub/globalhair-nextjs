@@ -126,11 +126,11 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
   };
   
   return (
-    <div className={`absolute inset-0 overflow-hidden ${className}`} style={{ zIndex: -10 }}>
+    <div className={`fixed inset-0 overflow-hidden ${className}`} style={{ zIndex: -10 }}>
       {/* Fallback background during loading */}
       {!isLoaded && (
         <div 
-          className="absolute inset-0 transition-colors duration-500"
+          className="fixed inset-0 transition-colors duration-500"
           style={{ backgroundColor: getFallbackColor(), zIndex: -10 }}
         />
       )}
@@ -138,18 +138,18 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
       {/* Standard Package Video */}
       <video
         ref={standardVideoRef}
-        className={`absolute w-full h-full transition-opacity duration-500 ${
+        className={`fixed transition-opacity duration-500 ${
           activeVideo === 'standard' ? 'opacity-100' : 'opacity-0'
         }`}
         style={{ 
-          filter: 'blur(3px)',
+          filter: 'blur(5px)',
           objectFit: 'cover',
-          objectPosition: 'center bottom',
+          objectPosition: 'center center',
           zIndex: -9,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          top: 0
+          width: 'calc(100vw + 40px)',
+          height: 'calc(100vh + 40px)',
+          left: '-20px',
+          top: '-20px'
         }}
         autoPlay
         muted
@@ -161,18 +161,18 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
       {/* Premium Package Video */}
       <video
         ref={premiumVideoRef}
-        className={`absolute w-full h-full transition-opacity duration-500 ${
+        className={`fixed transition-opacity duration-500 ${
           activeVideo === 'premium' ? 'opacity-100' : 'opacity-0'
         }`}
         style={{ 
-          filter: 'blur(3px)',
+          filter: 'blur(5px)',
           objectFit: 'cover',
-          objectPosition: 'center bottom',
+          objectPosition: 'center center',
           zIndex: -8,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          top: 0
+          width: 'calc(100vw + 40px)',
+          height: 'calc(100vh + 40px)',
+          left: '-20px',
+          top: '-20px'
         }}
         autoPlay
         muted
@@ -184,18 +184,18 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
       {/* Advanced Package Video */}
       <video
         ref={advancedVideoRef}
-        className={`absolute w-full h-full transition-opacity duration-500 ${
+        className={`fixed transition-opacity duration-500 ${
           activeVideo === 'advanced' ? 'opacity-100' : 'opacity-0'
         }`}
         style={{ 
-          filter: 'blur(3px)',
+          filter: 'blur(5px)',
           objectFit: 'cover',
-          objectPosition: 'center bottom',
+          objectPosition: 'center center',
           zIndex: -7,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          top: 0
+          width: 'calc(100vw + 40px)',
+          height: 'calc(100vh + 40px)',
+          left: '-20px',
+          top: '-20px'
         }}
         autoPlay
         muted
