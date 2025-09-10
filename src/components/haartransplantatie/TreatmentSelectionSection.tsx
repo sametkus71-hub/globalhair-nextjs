@@ -125,7 +125,7 @@ export const TreatmentSelectionSection = () => {
     if (heightBreakpoint === 'small') {
       return {
         container: 'pt-0 pb-0', // Ultra compact for small height screens
-        header: '-mt-4 mb-0', // Move header up with negative margin
+        header: '-mt-8 mb-0', // Move header much closer to logo
         text: 'mb-2', // Tight space between subtitle and region switch
         country: 'mb-1', // Less gap between region and package switches
         package: isLargerMobile ? 'mb-3' : 'mb-1', // More space for larger mobile devices
@@ -134,7 +134,7 @@ export const TreatmentSelectionSection = () => {
     } else if (heightBreakpoint === 'medium') {
       return {
         container: 'pt-1 pb-1', // Moderate padding
-        header: '-mt-2 mb-2', // Move header up with negative margin
+        header: '-mt-6 mb-2', // Move header much closer to logo
         text: 'mb-5', // More breathing room between subtitle and location switch
         country: 'mb-3', // Moderate gap between region and package switches
         package: isLargerMobile ? 'mb-5' : 'mb-3', // More space for larger mobile devices
@@ -143,7 +143,7 @@ export const TreatmentSelectionSection = () => {
     } else {
       return {
         container: 'pt-2 pb-2', // Generous padding for large screens
-        header: '-mt-2 mb-3', // Move header up with negative margin
+        header: '-mt-4 mb-3', // Move header much closer to logo
         text: 'mb-6', // Maximum breathing room between subtitle and location switch
         country: 'mb-4', // Generous gap between region and package switches
         package: isLargerMobile ? 'mb-6' : 'mb-4', // More space for larger mobile devices
