@@ -64,7 +64,7 @@ export const TreatmentSelectionSection = () => {
     { 
       id: 'Premium', 
       label: 'Premium',
-      isNew: false
+      isNew: true
     },
     { 
       id: 'Advanced', 
@@ -72,6 +72,20 @@ export const TreatmentSelectionSection = () => {
       isNew: true
     }
   ];
+
+  // Dynamic "nieuw" label color based on selected package
+  const getLabelColor = () => {
+    switch (profile.selectedPackage) {
+      case 'Standard':
+        return '#18535A';
+      case 'Premium':
+        return '#385774';
+      case 'Advanced':
+        return '#3A181A';
+      default:
+        return '#385774';
+    }
+  };
 
   const packageContent = {
     Standard: [
@@ -215,7 +229,7 @@ export const TreatmentSelectionSection = () => {
             {packages.map((pkg) => (
               <div key={pkg.id} className="relative">
                 {pkg.isNew && (
-                  <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 z-10 px-2 py-0.5 rounded-lg font-lato text-[7px] font-normal text-white" style={{ background: 'rgba(76, 104, 125, 1)' }}>
+                  <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 z-10 px-2 py-0.5 rounded-lg font-lato text-[7px] font-normal text-white" style={{ background: getLabelColor() }}>
                     Nieuw
                   </div>
                 )}
