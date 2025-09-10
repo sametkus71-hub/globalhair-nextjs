@@ -99,15 +99,15 @@ const HaartransplantatiePage = () => {
               </div>
             </div>
 
-            {/* Fading Central Logo - positioned with transform-based centering */}
+            {/* Fading Central Logo - positioned with negative margin */}
             <div 
-              className={`w-full relative z-[100] pointer-events-none ${comesFromHome ? 'opacity-0 animate-logo-entrance' : 'opacity-100'}`}
+              className={`w-full flex justify-center relative z-[100] pointer-events-none ${comesFromHome ? 'opacity-0 animate-logo-entrance' : 'opacity-100'}`}
               style={{ 
                 marginTop: '-50px', // Pull logo up into grid area
                 ...(comesFromHome ? { animationDelay: '0ms' } : {})
               }}
             >
-              <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 w-60 h-60 md:w-[280px] md:h-[280px]">
+              <div className="pointer-events-none" style={{ width: '280px', height: '280px' }}>
                 <ShieldIcon />
               </div>
             </div>
