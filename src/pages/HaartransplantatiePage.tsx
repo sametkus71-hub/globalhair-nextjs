@@ -81,7 +81,7 @@ const HaartransplantatiePage = () => {
           >
             {/* Fading Central Logo - positioned with phone size detection */}
             <div 
-              className="absolute left-1/2 transform -translate-x-1/2 z-[50] pointer-events-none"
+              className="absolute left-1/2 transform -translate-x-1/2 z-[100] pointer-events-none"
               style={{ 
                 top: getLogoPosition() // Dynamic positioning based on phone size detection
               }}
@@ -93,7 +93,7 @@ const HaartransplantatiePage = () => {
             
             {/* Top Section - Before/After Grid - Fixed Height */}
             <div 
-              className="relative z-10 flex-shrink-0"
+              className="relative z-20 flex-shrink-0"
               style={{ 
                 height: '40vh'
               }}
@@ -107,7 +107,7 @@ const HaartransplantatiePage = () => {
             </div>
 
             {/* Bottom Section - Treatment Selection - Flex Grow */}
-            <div className="relative z-10 flex-1">
+            <div className="relative z-20 flex-1">
               <div 
                 className="page-entry-item page-entry-delay-2 w-full h-full"
                 data-page-entry="video"

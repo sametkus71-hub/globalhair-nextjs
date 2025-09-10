@@ -126,12 +126,12 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
   };
   
   return (
-    <div className={`fixed inset-0 overflow-hidden ${className}`} style={{ zIndex: -10 }}>
+    <div className={`fixed inset-0 overflow-hidden ${className}`} style={{ zIndex: 1 }}>
       {/* Fallback background during loading */}
       {!isLoaded && (
         <div 
           className="fixed inset-0 transition-colors duration-500"
-          style={{ backgroundColor: getFallbackColor(), zIndex: -10 }}
+          style={{ backgroundColor: getFallbackColor(), zIndex: 1 }}
         />
       )}
       
@@ -145,7 +145,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           filter: 'blur(5px)',
           objectFit: 'cover',
           objectPosition: 'center center',
-          zIndex: -9,
+          zIndex: 1,
           width: 'calc(100vw + 40px)',
           height: 'calc(100vh + 40px)',
           left: '-20px',
@@ -168,7 +168,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           filter: 'blur(5px)',
           objectFit: 'cover',
           objectPosition: 'center center',
-          zIndex: -8,
+          zIndex: 1,
           width: 'calc(100vw + 40px)',
           height: 'calc(100vh + 40px)',
           left: '-20px',
@@ -191,7 +191,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           filter: 'blur(5px)',
           objectFit: 'cover',
           objectPosition: 'center center',
-          zIndex: -7,
+          zIndex: 1,
           width: 'calc(100vw + 40px)',
           height: 'calc(100vh + 40px)',
           left: '-20px',
