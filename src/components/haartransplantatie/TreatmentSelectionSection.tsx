@@ -172,7 +172,7 @@ export const TreatmentSelectionSection = () => {
           }}
         >
           <div 
-            className="inline-flex p-1 rounded-full"
+            className="inline-flex p-1 rounded-lg"
             style={{
               background: 'rgba(255, 255, 255, 0.1)',
               backdropFilter: 'blur(20px)',
@@ -183,7 +183,7 @@ export const TreatmentSelectionSection = () => {
               <button
                 key={country}
                 onClick={() => updateProfile('locatie', country)}
-                className={`px-2 py-1 rounded-full font-lato text-[10px] font-medium transition-all duration-300 ease-out ${
+                className={`px-2 py-1 rounded-lg font-lato text-[10px] font-medium transition-all duration-300 ease-out ${
                   profile.locatie === country
                     ? 'text-gray-900'
                     : 'text-white/80 hover:text-white'
@@ -205,7 +205,7 @@ export const TreatmentSelectionSection = () => {
           style={{ animationDelay: comesFromHome ? '2100ms' : '0ms' }} // 1800ms + 300ms = 2100ms
         >
           <div 
-            className="inline-flex p-1 rounded-full"
+            className="inline-flex p-1 rounded-lg"
             style={{
               background: 'rgba(255, 255, 255, 0.1)',
               backdropFilter: 'blur(20px)',
@@ -215,13 +215,13 @@ export const TreatmentSelectionSection = () => {
             {packages.map((pkg) => (
               <div key={pkg.id} className="relative">
                 {pkg.isNew && (
-                  <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 z-10 px-2 py-0.5 rounded-full font-lato text-[7px] font-normal text-white" style={{ background: 'rgba(76, 104, 125, 1)' }}>
+                  <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 z-10 px-2 py-0.5 rounded-lg font-lato text-[7px] font-normal text-white" style={{ background: 'rgba(76, 104, 125, 1)' }}>
                     Nieuw
                   </div>
                 )}
                 <button
                   onClick={() => updateProfile('selectedPackage', pkg.id)}
-                  className={`px-4 py-1.5 rounded-full font-lato text-[12px] font-medium transition-all duration-300 ease-out ${
+                  className={`px-4 py-1.5 rounded-lg font-lato text-[12px] font-medium transition-all duration-300 ease-out ${
                     profile.selectedPackage === pkg.id
                       ? 'text-gray-900'
                       : 'text-white/80 hover:text-white'
