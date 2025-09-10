@@ -119,13 +119,16 @@ export const TreatmentSelectionSection = () => {
 
   // Dynamic spacing based on viewport height breakpoints
   const getSpacing = () => {
+    // Check for larger mobile devices (iPhone 14 Pro Max)
+    const isLargerMobile = window.innerWidth > 390 && window.innerWidth <= 480 && window.innerHeight > window.innerWidth;
+    
     if (heightBreakpoint === 'small') {
       return {
         container: 'pt-0 pb-0', // Ultra compact for small height screens
         header: '-mt-4 mb-0', // Move header up with negative margin
         text: 'mb-2', // Tight space between subtitle and region switch
         country: 'mb-1', // Less gap between region and package switches
-        package: 'mb-1', // Small space for content
+        package: isLargerMobile ? 'mb-3' : 'mb-1', // More space for larger mobile devices
         content: 'mb-3' // Less space between lorem ipsum and price
       };
     } else if (heightBreakpoint === 'medium') {
@@ -134,7 +137,7 @@ export const TreatmentSelectionSection = () => {
         header: '-mt-2 mb-2', // Move header up with negative margin
         text: 'mb-5', // More breathing room between subtitle and location switch
         country: 'mb-3', // Moderate gap between region and package switches
-        package: 'mb-3', // Moderate space for content
+        package: isLargerMobile ? 'mb-5' : 'mb-3', // More space for larger mobile devices
         content: 'mb-4' // Moderate content spacing
       };
     } else {
@@ -143,7 +146,7 @@ export const TreatmentSelectionSection = () => {
         header: '-mt-2 mb-3', // Move header up with negative margin
         text: 'mb-6', // Maximum breathing room between subtitle and location switch
         country: 'mb-4', // Generous gap between region and package switches
-        package: 'mb-4', // Generous space for content
+        package: isLargerMobile ? 'mb-6' : 'mb-4', // More space for larger mobile devices
         content: 'mb-5' // Generous content spacing
       };
     }
