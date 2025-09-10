@@ -55,9 +55,11 @@ const HaartransplantatiePage = () => {
     return () => window.removeEventListener('resize', detectPhoneSize);
   }, []);
 
-  // Dynamic logo positioning - overlapping with top grid
+  // Dynamic logo positioning - calculated relative to grid size
   const getLogoPosition = () => {
-    return '15vh'; // Even higher to overlap significantly with the top grid
+    // Grid total height is 40vw (2 rows × 20vw each)
+    // Position logo at 50% of grid height minus half logo size (140px)
+    return 'calc(20vw - 140px)';
   };
   
   // Disable scrolling on mount
@@ -106,15 +108,10 @@ const HaartransplantatiePage = () => {
               </div>
             </div>
             
-            {/* Top Section - Before/After Grid - Fixed Height */}
-            <div 
-              className="relative z-20 flex-shrink-0"
-              style={{ 
-                height: '40vh'
-              }}
-            >
+            {/* Top Section - Before/After Grid - Auto Height */}
+            <div className="relative z-20 flex-shrink-0">
               <div 
-                className={`w-full h-full ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
+                className={`w-full ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
                 style={{ animationDelay: comesFromHome ? '600ms' : '0ms' }}
               >
                 <BeforeAfterGrid />

@@ -43,12 +43,11 @@ export const BeforeAfterGrid = () => {
   };
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full">
       <div 
-        className="grid grid-cols-5 w-full h-full gap-0"
+        className="grid grid-cols-5 w-full gap-0"
         style={{ 
-          gridTemplateRows: '1fr 1fr',
-          height: '100%'
+          gridTemplateRows: '20vw 20vw'
         }}
       >
         {items.map((item) => (
@@ -56,9 +55,13 @@ export const BeforeAfterGrid = () => {
             key={item.id}
             onClick={() => handleItemClick(item.id)}
             className={cn(
-              "w-full aspect-square relative cursor-pointer",
-              "flex-shrink-0 bg-muted"
+              "relative cursor-pointer bg-muted",
+              "flex-shrink-0"
             )}
+            style={{ 
+              width: '20vw',
+              height: '20vw'
+            }}
           >
             <ImageComponent
               src={item.isAfter ? item.data.afterImage : item.data.beforeImage}
