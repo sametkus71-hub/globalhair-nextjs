@@ -101,7 +101,7 @@ const HaartransplantatiePage = () => {
 
             {/* Fading Central Logo - positioned with negative margin */}
             <div 
-              className={`w-full flex justify-center relative z-[100] pointer-events-none ${comesFromHome ? 'opacity-0 animate-logo-entrance' : 'opacity-100'}`}
+              className={`w-full flex justify-center items-center relative z-[100] pointer-events-none ${comesFromHome ? 'opacity-0 animate-logo-entrance' : 'opacity-100'}`}
               style={{ 
                 marginTop: '-50px', // Pull logo up into grid area
                 ...(comesFromHome ? { animationDelay: '0ms' } : {})
