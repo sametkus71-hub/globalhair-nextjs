@@ -204,8 +204,8 @@ export const BottomNavigation = () => {
                   }`}
                 >
                   {isNavItemWithCustomIcon(item) ? (
-                    <div className="w-16 h-16 flex items-center justify-center">
-                      <item.iconComponent className="brightness-0 invert w-16 h-16" />
+                    <div className="w-20 h-20 flex items-center justify-center">
+                      <item.iconComponent className="brightness-0 invert w-20 h-20" />
                     </div>
                   ) : (
                     <img 
