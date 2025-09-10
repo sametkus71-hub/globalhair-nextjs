@@ -127,6 +127,20 @@ export default {
 					'100%': { 
 						opacity: '0.2'
 					}
+				},
+				'ios-entrance': {
+					"0%": { 
+						opacity: "0", 
+						transform: "translateY(20px) scale(0.95)" 
+					},
+					"80%": { 
+						opacity: "1", 
+						transform: "translateY(-2px) scale(1.02)" 
+					},
+					"100%": { 
+						opacity: "1", 
+						transform: "translateY(0) scale(1)" 
+					}
 				}
 			},
 			animation: {
@@ -135,6 +149,7 @@ export default {
 				'fade-in': 'fadeIn 0.4s ease-out',
 				'slide-up': 'slideUp 0.3s ease-out',
 				'gradient-shift': 'gradient-shift 15s ease-in-out infinite',
+				'ios-entrance': 'ios-entrance 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',

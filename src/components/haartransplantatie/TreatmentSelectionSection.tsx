@@ -118,16 +118,34 @@ export const TreatmentSelectionSection = () => {
       <div className={`flex-1 flex flex-col justify-start px-4 relative z-10`}>
         {/* Header */}
         <div className={`text-center ${spacing.header}`}>
-          <h1 className="font-lato text-[31px] font-normal text-black mb-2 uppercase" style={{ lineHeight: '0.97' }}>
+          <h1 
+            className="font-lato text-[31px] font-normal text-black mb-2 uppercase opacity-0 animate-ios-entrance" 
+            style={{ 
+              lineHeight: '0.97',
+              animationDelay: '1100ms' // 600ms (grid) + 500ms = 1100ms
+            }}
+          >
             Time to start over
           </h1>
-          <p className={`font-lato text-[13px] font-normal text-gray-700 ${spacing.text}`} style={{ lineHeight: '0.97' }}>
+          <p 
+            className={`font-lato text-[13px] font-normal text-gray-700 ${spacing.text} opacity-0 animate-ios-entrance`} 
+            style={{ 
+              lineHeight: '0.97',
+              animationDelay: '1400ms' // 1100ms + 300ms = 1400ms
+            }}
+          >
             GHI Hairtransplant
           </p>
         </div>
 
         {/* Country Selection */}
-        <div className={`flex justify-center ${spacing.country} relative`} style={{ zIndex: 9999 }}>
+        <div 
+          className={`flex justify-center ${spacing.country} relative opacity-0 animate-ios-entrance`} 
+          style={{ 
+            zIndex: 9999,
+            animationDelay: '1700ms' // 1400ms + 300ms = 1700ms
+          }}
+        >
           <div 
             className="rounded-md p-0.5 relative"
             style={{
@@ -166,7 +184,10 @@ export const TreatmentSelectionSection = () => {
         </div>
 
         {/* Package Selection */}
-        <div className={`flex justify-center ${spacing.package}`}>
+        <div 
+          className={`flex justify-center ${spacing.package} opacity-0 animate-ios-entrance`}
+          style={{ animationDelay: '2000ms' }} // 1700ms + 300ms = 2000ms
+        >
           <div 
             className="rounded-lg p-0.5 sm:p-1"
             style={{
@@ -207,7 +228,10 @@ export const TreatmentSelectionSection = () => {
         </div>
 
         {/* Dynamic Package Content */}
-        <div className={`text-center ${spacing.content}`}>
+        <div 
+          className={`text-center ${spacing.content} opacity-0 animate-ios-entrance`}
+          style={{ animationDelay: '2300ms' }} // 2000ms + 300ms = 2300ms
+        >
           <div className="max-w-56 mx-auto">
             {packageContent[profile.selectedPackage as keyof typeof packageContent]?.map((item, index) => (
               <div key={index} className="flex items-center justify-start -mb-4 -mt-3 text-left relative" style={{ zIndex: 1 }}>
@@ -221,7 +245,10 @@ export const TreatmentSelectionSection = () => {
             ))}
             
             {/* Cost Display - moved inside content section */}
-            <div className="text-center mt-4">
+            <div 
+              className="text-center mt-4 opacity-0 animate-ios-entrance"
+              style={{ animationDelay: '2600ms' }} // 2300ms + 300ms = 2600ms
+            >
               <p className={`font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal text-gray-600 transition-all duration-300 ${
                 priceFlash ? 'bg-white/60 px-3 py-1 rounded-full shadow-sm' : ''
               }`}>

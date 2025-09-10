@@ -61,8 +61,11 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
     --shadow-medium: 0 8px 30px -5px hsl(var(--gray-400) / 0.4);
     --shadow-strong: 0 15px 40px -8px hsl(var(--primary) / 0.2);
     
-    /* Animations */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Animations */
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* iOS-style entrance animations */
+  --ios-entrance: cubic-bezier(0.175, 0.885, 0.32, 1.275);
     --transition-spring: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     
     /* Sidebar (for future use) */

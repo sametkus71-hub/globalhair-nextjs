@@ -81,9 +81,10 @@ const HaartransplantatiePage = () => {
           >
             {/* Fading Central Logo - positioned with phone size detection */}
             <div 
-              className="absolute left-1/2 transform -translate-x-1/2 z-[100] pointer-events-none"
+              className="absolute left-1/2 transform -translate-x-1/2 z-[100] pointer-events-none opacity-0 animate-ios-entrance"
               style={{ 
-                top: getLogoPosition() // Dynamic positioning based on phone size detection
+                top: getLogoPosition(), // Dynamic positioning based on phone size detection
+                animationDelay: '0ms'
               }}
             >
               <div className="pointer-events-none" style={{ width: '280px', height: '280px' }}> {/* 280px */}
@@ -99,8 +100,8 @@ const HaartransplantatiePage = () => {
               }}
             >
               <div 
-                className="page-entry-grid page-entry-delay-1 w-full h-full"
-                data-page-entry="grid"
+                className="w-full h-full opacity-0 animate-ios-entrance"
+                style={{ animationDelay: '600ms' }}
               >
                 <BeforeAfterGrid />
               </div>
