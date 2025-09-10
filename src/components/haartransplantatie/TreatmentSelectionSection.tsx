@@ -244,16 +244,41 @@ export const TreatmentSelectionSection = () => {
           style={{ animationDelay: comesFromHome ? '2400ms' : '0ms' }} // 2100ms + 300ms = 2400ms
         >
           <div className="max-w-56 mx-auto">
-            {packageContent[profile.selectedPackage as keyof typeof packageContent]?.map((item, index) => (
-              <div key={index} className="flex items-center justify-start -mb-4 -mt-3 text-left relative" style={{ zIndex: 1 }}>
-                <div className="w-12 h-12 -mr-1 flex-shrink-0 pt-2 relative" style={{ zIndex: 1 }}>
-                  <ShieldIcon className="w-full h-full [&_.cls-1]:fill-white" />
+            {packageContent[profile.selectedPackage as keyof typeof packageContent]?.map((item, index) => {
+              // Check if item is a separator
+              if (item.startsWith('————')) {
+                return (
+                  <div key={index} className="my-3 px-4">
+                    <div className="h-px bg-white/30 w-full"></div>
+                  </div>
+                );
+              }
+              
+              // Check if item is a benefit line (starts with emoji or contains emoji)
+              const isBenefitLine = /^[🌱💪⚡🎯]|Recovery x2|More density/.test(item);
+              
+              if (isBenefitLine) {
+                return (
+                  <div key={index} className="text-center my-2">
+                    <p className="font-lato text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] font-light text-white/90" style={{ lineHeight: '1.1' }}>
+                      {item}
+                    </p>
+                  </div>
+                );
+              }
+              
+              // Regular feature item with shield icon
+              return (
+                <div key={index} className="flex items-center justify-start -mb-4 -mt-3 text-left relative" style={{ zIndex: 1 }}>
+                  <div className="w-12 h-12 -mr-1 flex-shrink-0 pt-2 relative" style={{ zIndex: 1 }}>
+                    <ShieldIcon className="w-full h-full [&_.cls-1]:fill-white" />
+                  </div>
+                  <p className="font-lato text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] font-light text-white" style={{ lineHeight: '1.1' }}>
+                    {item}
+                  </p>
                 </div>
-                <p className="font-lato text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] font-light text-white" style={{ lineHeight: '1.1' }}>
-                  {item}
-                </p>
-              </div>
-            ))}
+              );
+            })}
             
             {/* Cost Display - moved inside content section */}
             <div 
