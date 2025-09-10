@@ -45,6 +45,28 @@ export const BottomNavigation = () => {
            location.pathname.includes('/v6-hairboost');
   };
 
+  // Check if we're on the main haartransplantatie page (not popup pages)
+  const isOnMainHaartransplantatiePage = () => {
+    return location.pathname === '/nl/haartransplantatie' || 
+           location.pathname === '/en/hair-transplant';
+  };
+
+  // Get opacity class based on current page and active state
+  const getOpacityClass = (itemId: string, isActive: boolean) => {
+    // Home button always gets full opacity
+    if (itemId === 'home') {
+      return 'opacity-100';
+    }
+    
+    // If on main haartransplantatie page, all items get full opacity
+    if (isOnMainHaartransplantatiePage()) {
+      return 'opacity-100';
+    }
+    
+    // If on popup pages, only active item gets full opacity, others dimmed
+    return isActive ? 'opacity-100' : 'opacity-50';
+  };
+
   // Get the target path for the active route
   const getActiveRoutePath = () => {
     if (activeRoute === 'haartransplantatie') {
@@ -200,14 +222,14 @@ export const BottomNavigation = () => {
                   className="flex items-center justify-center transition-all duration-200 w-14 h-14"
                 >
                   {isNavItemWithCustomIcon(item) ? (
-                    <div className="w-20 h-20 flex items-center justify-center pt-4">
+                    <div className={`w-20 h-20 flex items-center justify-center pt-4 transition-opacity duration-200 ${getOpacityClass(item.id, active)}`}>
                       <item.iconComponent className="brightness-0 invert w-20 h-20" />
                     </div>
                   ) : (
                     <img 
                       src={item.iconSrc}
                       alt={`${item.id} icon`}
-                      className={`brightness-0 invert ${isBookButton ? 'w-12 h-12' : 'w-5 h-5'}`}
+                      className={`brightness-0 invert transition-opacity duration-200 ${getOpacityClass(item.id, active)} ${isBookButton ? 'w-12 h-12' : 'w-5 h-5'}`}
                     />
                   )}
                 </button>
