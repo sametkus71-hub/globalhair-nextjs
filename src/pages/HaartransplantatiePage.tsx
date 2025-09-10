@@ -95,9 +95,11 @@ const HaartransplantatiePage = () => {
           >
             {/* Fading Central Logo - positioned with phone size detection */}
             <div 
-              className={`absolute left-1/2 -translate-x-1/2 z-[100] pointer-events-none ${comesFromHome ? 'opacity-0 animate-logo-entrance' : 'opacity-100'}`}
+              className={`absolute z-[100] pointer-events-none ${comesFromHome ? 'opacity-0 animate-logo-entrance' : 'opacity-100'}`}
               style={{ 
                 top: getLogoPosition(), // Dynamic positioning based on phone size detection
+                left: '50%',
+                transform: 'translateX(-50%)',
                 ...(comesFromHome ? { animationDelay: '0ms' } : {})
               }}
             >
