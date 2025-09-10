@@ -144,7 +144,7 @@ export const TreatmentSelectionSection = () => {
         {/* Header */}
         <div className={`text-center ${spacing.header}`}>
           <h1 
-            className={`font-lato text-[31px] font-normal text-white mb-2 uppercase ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
+            className={`font-lato text-[24px] font-normal text-white mb-2 uppercase ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
             style={{ 
               lineHeight: '0.97',
               animationDelay: comesFromHome ? '1000ms' : '0ms' // 600ms (grid) + 400ms = 1000ms
@@ -183,7 +183,7 @@ export const TreatmentSelectionSection = () => {
               <button
                 key={country}
                 onClick={() => updateProfile('locatie', country)}
-                className={`px-4 py-1.5 rounded-full font-lato text-[12px] font-medium transition-all duration-300 ease-out ${
+                className={`px-2 py-1 rounded-full font-lato text-[10px] font-medium transition-all duration-300 ease-out ${
                   profile.locatie === country
                     ? 'text-gray-900'
                     : 'text-white/80 hover:text-white'
