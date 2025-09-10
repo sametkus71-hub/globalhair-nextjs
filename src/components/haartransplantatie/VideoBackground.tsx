@@ -146,10 +146,10 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           objectFit: 'cover',
           objectPosition: 'center center',
           zIndex: 1,
-          width: 'calc(100vw + 40px)',
-          height: 'calc(100vh + 40px)',
-          left: '-20px',
-          top: '-20px'
+          width: 'calc(100vw + 100px)',
+          height: 'calc(100vh + 100px)',
+          left: '-50px',
+          top: '-50px'
         }}
         autoPlay
         muted
@@ -169,10 +169,10 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           objectFit: 'cover',
           objectPosition: 'center center',
           zIndex: 1,
-          width: 'calc(100vw + 40px)',
-          height: 'calc(100vh + 40px)',
-          left: '-20px',
-          top: '-20px'
+          width: 'calc(100vw + 100px)',
+          height: 'calc(100vh + 100px)',
+          left: '-50px',
+          top: '-50px'
         }}
         autoPlay
         muted
@@ -192,10 +192,10 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           objectFit: 'cover',
           objectPosition: 'center center',
           zIndex: 1,
-          width: 'calc(100vw + 40px)',
-          height: 'calc(100vh + 40px)',
-          left: '-20px',
-          top: '-20px'
+          width: 'calc(100vw + 100px)',
+          height: 'calc(100vh + 100px)',
+          left: '-50px',
+          top: '-50px'
         }}
         autoPlay
         muted
