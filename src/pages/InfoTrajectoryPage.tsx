@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { Carousel, CarouselContent, CarouselItem, CarouselApi } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
+import { AnimatedTrajectoryBackground } from '@/components/trajectory/AnimatedTrajectoryBackground';
 
 const InfoTrajectoryPage: React.FC = () => {
   const { language } = useLanguage();
@@ -126,8 +127,9 @@ const InfoTrajectoryPage: React.FC = () => {
         language={language}
       />
       <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'slide-exit-right' : 'slide-enter-left'}`}>
-        {/* Background matching parent */}
-        <div className="min-h-[var(--app-height)]" style={{ background: '#E4E5E0' }}>
+        {/* Animated Background */}
+        <div className="min-h-[var(--app-height)] relative">
+          <AnimatedTrajectoryBackground />
           
           {/* Back button */}
           <button
