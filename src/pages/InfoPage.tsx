@@ -96,15 +96,15 @@ const InfoPage: React.FC = () => {
             className="absolute inset-0 animate-gradient-flow"
             style={{ 
               background: `
-                radial-gradient(circle at 0% 0%, rgba(137, 179, 186, 0.35) 0%, rgba(137, 179, 186, 0.15) 35%, transparent 60%),
-                radial-gradient(circle at 100% 0%, rgba(182, 203, 177, 0.4) 0%, rgba(182, 203, 177, 0.2) 40%, transparent 70%),
-                radial-gradient(circle at 0% 100%, rgba(104, 170, 194, 0.35) 0%, rgba(104, 170, 194, 0.15) 35%, transparent 60%),
-                radial-gradient(circle at 100% 100%, rgba(3, 94, 171, 0.35) 0%, rgba(3, 94, 171, 0.15) 35%, transparent 60%)
+                radial-gradient(circle at 0% 0%, rgba(137, 179, 186, 0.6) 0%, rgba(137, 179, 186, 0.3) 25%, rgba(137, 179, 186, 0.1) 50%, transparent 75%),
+                radial-gradient(circle at 100% 0%, rgba(182, 203, 177, 0.7) 0%, rgba(182, 203, 177, 0.35) 30%, rgba(182, 203, 177, 0.15) 55%, transparent 80%),
+                radial-gradient(circle at 0% 100%, rgba(104, 170, 194, 0.6) 0%, rgba(104, 170, 194, 0.3) 25%, rgba(104, 170, 194, 0.1) 50%, transparent 75%),
+                radial-gradient(circle at 100% 100%, rgba(3, 94, 171, 0.6) 0%, rgba(3, 94, 171, 0.3) 25%, rgba(3, 94, 171, 0.1) 50%, transparent 75%)
               `,
-              backgroundSize: '140% 140%, 160% 160%, 150% 150%, 135% 135%',
+              backgroundSize: '200% 200%, 220% 220%, 210% 210%, 190% 190%',
               backgroundPosition: '15% 15%, 85% 15%, 15% 85%, 85% 85%',
-              filter: 'blur(1px)',
-              backdropFilter: 'blur(0.5px)'
+              filter: 'blur(4px)',
+              backdropFilter: 'blur(2px)'
             }}
           />
           
