@@ -87,12 +87,12 @@ const InfoPage: React.FC = () => {
           style={{ 
             background: `
               radial-gradient(circle at 0% 0%, #89B3BA 0%, rgba(137, 179, 186, 0.7) 35%, rgba(137, 179, 186, 0.3) 60%, transparent 80%),
-              radial-gradient(circle at 100% 0%, #848470 0%, rgba(132, 132, 112, 0.7) 35%, rgba(132, 132, 112, 0.3) 60%, transparent 80%),
+              radial-gradient(circle at 100% 0%, #B6CBB1 0%, rgba(182, 203, 177, 0.8) 40%, rgba(182, 203, 177, 0.4) 70%, transparent 85%),
               radial-gradient(circle at 0% 100%, #68AAC2 0%, rgba(104, 170, 194, 0.7) 35%, rgba(104, 170, 194, 0.3) 60%, transparent 80%),
               radial-gradient(circle at 100% 100%, #035EAB 0%, rgba(3, 94, 171, 0.7) 35%, rgba(3, 94, 171, 0.3) 60%, transparent 80%),
-              linear-gradient(135deg, rgba(137, 179, 186, 0.4) 0%, rgba(132, 132, 112, 0.3) 25%, rgba(104, 170, 194, 0.3) 50%, rgba(3, 94, 171, 0.4) 75%, rgba(137, 179, 186, 0.2) 100%)
+              linear-gradient(135deg, rgba(137, 179, 186, 0.4) 0%, rgba(182, 203, 177, 0.3) 25%, rgba(104, 170, 194, 0.3) 50%, rgba(3, 94, 171, 0.4) 75%, rgba(137, 179, 186, 0.2) 100%)
             `,
-            backgroundSize: '140% 140%, 130% 130%, 150% 150%, 135% 135%, 100% 100%',
+            backgroundSize: '140% 140%, 160% 160%, 150% 150%, 135% 135%, 100% 100%',
             backgroundPosition: '15% 15%, 85% 15%, 15% 85%, 85% 85%, center'
           }}
         >
