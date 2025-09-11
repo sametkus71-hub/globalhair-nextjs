@@ -125,32 +125,32 @@ const InfoPage: React.FC = () => {
           
           
           {/* Content Container */}
-          <div className="flex flex-col items-center justify-center min-h-[var(--app-height)] px-6 py-20">
+          <div className="flex flex-col items-center pt-20 px-6 min-h-[var(--app-height)]">
             
             {/* Title Section */}
-            <div className={`text-center mb-20 transition-all duration-500 ease-out ${
+            <div className={`text-center mb-16 transition-all duration-500 ease-out ${
               titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}>
-              <h1 className="font-lato text-5xl md:text-6xl lg:text-7xl font-black leading-[0.9] tracking-tight mb-6" style={{ color: '#5D4037' }}>
+              <h1 className="font-lato text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-4" style={{ color: '#4A2C2A' }}>
                 PRECISION IS
                 <br />
                 OUR MISSION
               </h1>
-              <p className="text-base md:text-lg font-normal" style={{ color: '#5D4037' }}>
+              <p className="text-sm md:text-base font-normal" style={{ color: '#4A2C2A' }}>
                 Choose your topic of interest
               </p>
             </div>
 
             {/* Buttons Container */}
-            <div className="w-full max-w-sm space-y-5">
+            <div className="w-full max-w-xs space-y-4">
               
               {/* How it works Button */}
               <button
                 onClick={handleMethodClick}
-                className={`w-full py-4 px-8 bg-white text-base font-medium rounded-full hover:bg-gray-50 active:scale-[0.98] transition-all duration-300 ease-out shadow-lg ${
+                className={`w-full py-3 px-6 bg-white text-sm font-medium rounded-full hover:bg-gray-50 active:scale-[0.98] transition-all duration-300 ease-out shadow-md ${
                   button1Visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
-                style={{ color: '#5D4037' }}
+                style={{ color: '#4A2C2A' }}
               >
                 {language === 'nl' ? 'Hoe werkt het' : 'How does it work'}
               </button>
@@ -158,10 +158,10 @@ const InfoPage: React.FC = () => {
               {/* How long does it take Button */}
               <button
                 onClick={handleTrajectClick}
-                className={`w-full py-4 px-8 bg-white text-base font-medium rounded-full hover:bg-gray-50 active:scale-[0.98] transition-all duration-300 ease-out shadow-lg ${
+                className={`w-full py-3 px-6 bg-white text-sm font-medium rounded-full hover:bg-gray-50 active:scale-[0.98] transition-all duration-300 ease-out shadow-md ${
                   button2Visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
-                style={{ color: '#5D4037' }}
+                style={{ color: '#4A2C2A' }}
               >
                 {language === 'nl' ? 'Hoe lang duurt het' : 'How long does it take'}
               </button>
