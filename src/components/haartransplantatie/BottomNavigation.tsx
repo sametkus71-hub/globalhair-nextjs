@@ -223,7 +223,7 @@ export const BottomNavigation = () => {
                 >
                   {isNavItemWithCustomIcon(item) ? (
                     <div className={`w-20 h-20 flex items-center justify-center pt-4 transition-opacity duration-200 ${getOpacityClass(item.id, active)}`}>
-                      <item.iconComponent className="brightness-0 invert w-20 h-20" />
+                      <item.iconComponent className={`brightness-0 invert ${item.id === 'mission' ? 'w-16 h-16' : 'w-20 h-20'}`} />
                     </div>
                   ) : (
                     <img 
