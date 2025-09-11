@@ -65,39 +65,51 @@ const InfoTrajectoryPage: React.FC = () => {
   }, []);
 
   const trajectData = language === 'nl' ? {
-    title: 'MORE THAN A TREATMENT',
-    subtitle: '300 gesprekken per maand. 50 worden behandeld',
-    methodButton: 'bekijk methodes',
+    title: 'WE GROW\nWITH YOU',
+    subtitle: '300 gesprekken per maand.\n50 worden behandeld',
+    methodButton: 'Bekijk methodes',
     slides: [
       {
-        title: 'VOORBEREIDINGSFASE',
-        description: 'Persoonlijke consultatie en voorbereiding voor uw haartransplantatie. Wij begeleiden u door elke stap van het proces.'
+        title: 'WE GROW\nWITH YOU',
+        subtitle: '300 gesprekken per maand.\n50 worden behandeld',
+        mainTitle: 'De beste nazorg',
+        description: 'Na de ingreep begeleiden we u stap voor stap in herstel en haargroei. We blijven betrokken tot de resultaten volledig zichtbaar en stabiel zijn.behandeling.'
       },
       {
-        title: 'BEHANDELING',
-        description: 'Professionele uitvoering van uw haartransplantatie door ervaren specialisten met de nieuwste technieken.'
+        title: 'WE GROW\nWITH YOU', 
+        subtitle: '300 gesprekken per maand.\n50 worden behandeld',
+        mainTitle: 'Professionele behandeling',
+        description: 'Ervaren specialisten voeren uw haartransplantatie uit met de nieuwste technieken voor optimale resultaten.'
       },
       {
-        title: 'DE BESTE NAZORG',
-        description: 'Uitgebreide nazorg en begeleiding tijdens het hele herstelproces. Wij blijven betrokken tot de resultaten volledig zichtbaar zijn.'
+        title: 'WE GROW\nWITH YOU',
+        subtitle: '300 gesprekken per maand.\n50 worden behandeld', 
+        mainTitle: 'Persoonlijke voorbereiding',
+        description: 'Een uitgebreide consultatie en zorgvuldige voorbereiding vormen de basis van uw succesvolle behandeling.'
       }
     ]
   } : {
-    title: 'MORE THAN A TREATMENT',
-    subtitle: '300 conversations per month. 50 get treated',
-    methodButton: 'view methods',
+    title: 'WE GROW\nWITH YOU',
+    subtitle: '300 conversations per month.\n50 get treated',
+    methodButton: 'View methods',
     slides: [
       {
-        title: 'PREPARATION PHASE',
-        description: 'Personal consultation and preparation for your hair transplant. We guide you through every step of the process.'
+        title: 'WE GROW\nWITH YOU',
+        subtitle: '300 conversations per month.\n50 get treated',
+        mainTitle: 'The best aftercare',
+        description: 'After the procedure, we guide you step by step through recovery and hair growth. We remain involved until results are fully visible and stable.'
       },
       {
-        title: 'TREATMENT',
-        description: 'Professional execution of your hair transplant by experienced specialists using the latest techniques.'
+        title: 'WE GROW\nWITH YOU',
+        subtitle: '300 conversations per month.\n50 get treated', 
+        mainTitle: 'Professional treatment',
+        description: 'Experienced specialists perform your hair transplant using the latest techniques for optimal results.'
       },
       {
-        title: 'THE BEST AFTERCARE',
-        description: 'Comprehensive aftercare and guidance throughout the entire recovery process. We remain involved until results are fully visible.'
+        title: 'WE GROW\nWITH YOU',
+        subtitle: '300 conversations per month.\n50 get treated',
+        mainTitle: 'Personal preparation', 
+        description: 'An extensive consultation and careful preparation form the foundation of your successful treatment.'
       }
     ]
   };
@@ -144,94 +156,93 @@ const InfoTrajectoryPage: React.FC = () => {
           <div className="pt-16 md:pt-20 pb-20 md:pb-32 px-6">
             <div className="max-w-2xl mx-auto min-h-[calc(var(--app-height)-8rem)] flex flex-col">
               
-              {/* Title Section */}
-              <div className={`text-center mb-8 md:mb-16 transition-all duration-500 ease-out ${
-                titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}>
-                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-gray-700 mb-3 md:mb-4 leading-[0.9] tracking-tight">
-                  {trajectData.title}
-                </h1>
-                <p className="text-base md:text-lg xl:text-xl text-gray-600 font-normal tracking-wide">
-                  {trajectData.subtitle}
-                </p>
-              </div>
-
-              {/* Central Content Area - Carousel */}
-              <div className={`flex-1 mb-8 md:mb-16 transition-all duration-500 ease-out ${
-                contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}>
-                
-                {/* Carousel Container */}
-                <div className="flex justify-center mb-8 md:mb-12">
-                  <div className="w-full max-w-sm">
-                    <Carousel 
-                      setApi={setApi}
-                      className="w-full"
-                      plugins={[
-                        Autoplay({
-                          delay: 10000,
-                        }),
-                      ]}
-                      opts={{
-                        align: "start",
-                        loop: true,
-                      }}
-                    >
-                      <CarouselContent>
-                        {trajectData.slides.map((slide, index) => (
-                          <CarouselItem key={index}>
-                            <div className="flex flex-col items-center text-center">
-                              {/* White Circle */}
-                              <div className="w-48 h-48 md:w-64 md:h-64 bg-white rounded-full shadow-lg flex items-center justify-center mb-8 md:mb-12">
-                                <div className="text-gray-400 text-xs font-medium">
-                                  {slide.title}
-                                </div>
-                              </div>
-                              
-                              {/* Slide Content */}
-                              <div className="px-4">
-                                <h2 className="text-xl md:text-2xl font-bold text-gray-700 mb-4 tracking-wide">
-                                  {slide.title}
-                                </h2>
-                                <p className="text-sm md:text-base text-gray-600 leading-relaxed max-w-lg mx-auto">
-                                  {slide.description}
-                                </p>
-                              </div>
+              {/* Carousel Container */}
+              <div className="flex justify-center">
+                <div className="w-full max-w-sm">
+                  <Carousel 
+                    setApi={setApi}
+                    className="w-full"
+                    plugins={[
+                      Autoplay({
+                        delay: 8000,
+                      }),
+                    ]}
+                    opts={{
+                      align: "start",
+                      loop: true,
+                    }}
+                  >
+                    <CarouselContent>
+                      {trajectData.slides.map((slide, index) => (
+                        <CarouselItem key={index}>
+                          <div className={`flex flex-col items-center text-center min-h-[calc(var(--app-height)-8rem)] px-6 transition-all duration-500 ease-out ${
+                            titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                          }`}>
+                            {/* Title Section */}
+                            <div className="mt-8 mb-12">
+                              <h1 
+                                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight tracking-tight whitespace-pre-line"
+                                style={{ color: '#ACD1C6' }}
+                              >
+                                {slide.title}
+                              </h1>
+                              <p 
+                                className="text-base md:text-lg leading-relaxed whitespace-pre-line"
+                                style={{ color: '#ACD1C6' }}
+                              >
+                                {slide.subtitle}
+                              </p>
                             </div>
-                          </CarouselItem>
-                        ))}
-                      </CarouselContent>
-                    </Carousel>
-                  </div>
-                </div>
 
-                {/* Clickable Navigation Dots */}
-                <div className="flex justify-center space-x-3">
-                  {trajectData.slides.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => scrollTo(index)}
-                      className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                        index === current 
-                          ? 'bg-gray-600 scale-110' 
-                          : 'bg-gray-400 hover:bg-gray-500'
-                      }`}
-                      aria-label={`Go to slide ${index + 1}`}
-                    />
-                  ))}
-                </div>
-              </div>
+                            {/* Large White Circle */}
+                            <div className="w-56 h-56 md:w-72 md:h-72 bg-white/90 rounded-full shadow-lg flex items-center justify-center mb-16">
+                            </div>
+                            
+                            {/* Bottom Content */}
+                            <div className="mt-auto mb-20">
+                              <h2 
+                                className="text-2xl md:text-3xl font-bold mb-6 tracking-wide"
+                                style={{ color: '#ACD1C6' }}
+                              >
+                                {slide.mainTitle}
+                              </h2>
+                              <p 
+                                className="text-sm md:text-base leading-relaxed max-w-xs mx-auto mb-12"
+                                style={{ color: '#ACD1C6' }}
+                              >
+                                {slide.description}
+                              </p>
+                              
+                              {/* Navigation Dots */}
+                              <div className="flex justify-center space-x-3 mb-8">
+                                {trajectData.slides.map((_, dotIndex) => (
+                                  <button
+                                    key={dotIndex}
+                                    onClick={() => scrollTo(dotIndex)}
+                                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                                      dotIndex === current 
+                                        ? 'bg-white scale-110' 
+                                        : 'bg-white/50 hover:bg-white/70'
+                                    }`}
+                                    aria-label={`Go to slide ${dotIndex + 1}`}
+                                  />
+                                ))}
+                              </div>
 
-              {/* Bottom Button */}
-              <div className={`text-center mt-auto pt-4 transition-all duration-500 ease-out ${
-                buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}>
-                <button
-                  onClick={handleMethodClick}
-                  className="py-2.5 md:py-3 px-6 md:px-8 bg-gray-600 text-white text-sm font-normal rounded-full hover:bg-gray-700 active:scale-[0.98] transition-all duration-300 ease-out"
-                >
-                  {trajectData.methodButton}
-                </button>
+                              {/* Bottom Button */}
+                              <button
+                                onClick={handleMethodClick}
+                                className="py-4 px-12 bg-red-900/80 text-white text-base font-medium rounded-full hover:bg-red-900 active:scale-[0.98] transition-all duration-300 ease-out"
+                              >
+                                {trajectData.methodButton}
+                              </button>
+                            </div>
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                  </Carousel>
+                </div>
               </div>
 
             </div>
