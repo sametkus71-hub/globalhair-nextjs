@@ -181,13 +181,13 @@ const InfoTrajectoryPage: React.FC = () => {
                             {/* Title Section */}
                             <div className="mt-8 mb-12">
                               <h1 
-                                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight tracking-tight whitespace-pre-line"
+                                className="text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-lato font-normal mb-6 leading-[0.9] tracking-tight whitespace-pre-line"
                                 style={{ color: '#ACD1C6' }}
                               >
                                 {slide.title}
                               </h1>
                               <p 
-                                className="text-base md:text-lg leading-relaxed whitespace-pre-line"
+                                className="text-sm md:text-lg xl:text-xl font-lato font-normal leading-relaxed whitespace-pre-line"
                                 style={{ color: '#ACD1C6' }}
                               >
                                 {slide.subtitle}
@@ -201,14 +201,12 @@ const InfoTrajectoryPage: React.FC = () => {
                             {/* Bottom Content */}
                             <div className="mt-auto mb-20">
                               <h2 
-                                className="text-2xl md:text-3xl font-bold mb-6 tracking-wide"
-                                style={{ color: '#ACD1C6' }}
+                                className="text-2xl md:text-3xl font-lato font-normal mb-6 tracking-wide text-white"
                               >
                                 {slide.mainTitle}
                               </h2>
                               <p 
-                                className="text-sm md:text-base leading-relaxed max-w-xs mx-auto mb-12"
-                                style={{ color: '#ACD1C6' }}
+                                className="text-sm md:text-base font-lato leading-relaxed max-w-xs mx-auto mb-12 text-white"
                               >
                                 {slide.description}
                               </p>
@@ -232,7 +230,7 @@ const InfoTrajectoryPage: React.FC = () => {
                               {/* Bottom Button */}
                               <button
                                 onClick={handleMethodClick}
-                                className="py-4 px-12 bg-red-900/80 text-white text-base font-medium rounded-full hover:bg-red-900 active:scale-[0.98] transition-all duration-300 ease-out"
+                                className="py-2 md:py-2.5 px-8 md:px-10 bg-[#492C3A] text-white text-sm font-lato font-normal rounded-full hover:bg-[#492C3A]/80 active:scale-[0.98] transition-all duration-300 ease-out"
                               >
                                 {trajectData.methodButton}
                               </button>
