@@ -119,7 +119,7 @@ const InfoMethodPage: React.FC = () => {
                 <h1 className="md:text-4xl lg:text-5xl xl:text-6xl font-lato text-[#ACD1C6] mb-3 md:mb-4 leading-[0.9] tracking-tight font-normal text-4xl">
                   {methodsData.title}
                 </h1>
-                <p className="text-base md:text-lg xl:text-xl text-[#ACD1C6]/80 font-lato font-normal tracking-wide">
+                <p className="md:text-lg xl:text-xl text-[#ACD1C6]/80 font-lato tracking-wide text-base font-normal">
                   {methodsData.subtitle}
                 </p>
               </div>
