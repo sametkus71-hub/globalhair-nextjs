@@ -96,13 +96,15 @@ const InfoPage: React.FC = () => {
             className="absolute inset-0 animate-gradient-flow"
             style={{ 
               background: `
-                radial-gradient(circle at 0% 0%, rgba(137, 179, 186, 0.15) 0%, rgba(137, 179, 186, 0.08) 35%, transparent 60%),
-                radial-gradient(circle at 100% 0%, rgba(182, 203, 177, 0.2) 0%, rgba(182, 203, 177, 0.1) 40%, transparent 70%),
-                radial-gradient(circle at 0% 100%, rgba(104, 170, 194, 0.15) 0%, rgba(104, 170, 194, 0.08) 35%, transparent 60%),
-                radial-gradient(circle at 100% 100%, rgba(3, 94, 171, 0.15) 0%, rgba(3, 94, 171, 0.08) 35%, transparent 60%)
+                radial-gradient(circle at 0% 0%, rgba(137, 179, 186, 0.35) 0%, rgba(137, 179, 186, 0.15) 35%, transparent 60%),
+                radial-gradient(circle at 100% 0%, rgba(182, 203, 177, 0.4) 0%, rgba(182, 203, 177, 0.2) 40%, transparent 70%),
+                radial-gradient(circle at 0% 100%, rgba(104, 170, 194, 0.35) 0%, rgba(104, 170, 194, 0.15) 35%, transparent 60%),
+                radial-gradient(circle at 100% 100%, rgba(3, 94, 171, 0.35) 0%, rgba(3, 94, 171, 0.15) 35%, transparent 60%)
               `,
               backgroundSize: '140% 140%, 160% 160%, 150% 150%, 135% 135%',
-              backgroundPosition: '15% 15%, 85% 15%, 15% 85%, 85% 85%'
+              backgroundPosition: '15% 15%, 85% 15%, 15% 85%, 85% 85%',
+              filter: 'blur(1px)',
+              backdropFilter: 'blur(0.5px)'
             }}
           />
           
