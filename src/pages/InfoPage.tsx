@@ -91,20 +91,35 @@ const InfoPage: React.FC = () => {
             backgroundRepeat: 'no-repeat'
           }}
         >
-          {/* Animated overlay blobs */}
+          {/* Animated overlay blobs - 3 distinct blobs */}
           <div 
             className="absolute inset-0 animate-gradient-flow"
             style={{ 
               background: `
-                radial-gradient(circle at 0% 0%, rgba(137, 179, 186, 0.6) 0%, rgba(137, 179, 186, 0.3) 25%, rgba(137, 179, 186, 0.1) 50%, transparent 75%),
-                radial-gradient(circle at 100% 0%, rgba(182, 203, 177, 0.7) 0%, rgba(182, 203, 177, 0.35) 30%, rgba(182, 203, 177, 0.15) 55%, transparent 80%),
-                radial-gradient(circle at 0% 100%, rgba(104, 170, 194, 0.6) 0%, rgba(104, 170, 194, 0.3) 25%, rgba(104, 170, 194, 0.1) 50%, transparent 75%),
-                radial-gradient(circle at 100% 100%, rgba(3, 94, 171, 0.6) 0%, rgba(3, 94, 171, 0.3) 25%, rgba(3, 94, 171, 0.1) 50%, transparent 75%)
+                radial-gradient(circle at 15% 20%, rgba(137, 179, 186, 0.4) 0%, rgba(137, 179, 186, 0.2) 30%, rgba(137, 179, 186, 0.08) 55%, transparent 80%),
+                radial-gradient(circle at 85% 15%, rgba(182, 203, 177, 0.5) 0%, rgba(182, 203, 177, 0.25) 35%, rgba(182, 203, 177, 0.1) 60%, transparent 85%),
+                radial-gradient(circle at 80% 85%, rgba(3, 94, 171, 0.6) 0%, rgba(3, 94, 171, 0.3) 25%, rgba(3, 94, 171, 0.12) 50%, rgba(3, 94, 171, 0.05) 70%, transparent 90%)
               `,
-              backgroundSize: '200% 200%, 220% 220%, 210% 210%, 190% 190%',
-              backgroundPosition: '15% 15%, 85% 15%, 15% 85%, 85% 85%',
-              filter: 'blur(4px)',
-              backdropFilter: 'blur(2px)'
+              backgroundSize: '120% 120%, 160% 160%, 220% 220%',
+              backgroundPosition: '15% 20%, 85% 15%, 80% 85%',
+              filter: 'blur(3px)',
+              backdropFilter: 'blur(1px)'
+            }}
+          />
+          
+          {/* Additional glassy effect layer */}
+          <div 
+            className="absolute inset-0 animate-gradient-flow"
+            style={{ 
+              background: `
+                radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 40%, transparent 70%),
+                radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 45%, transparent 75%),
+                radial-gradient(circle at 80% 85%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 30%, rgba(255, 255, 255, 0.05) 55%, transparent 80%)
+              `,
+              backgroundSize: '110% 110%, 150% 150%, 200% 200%',
+              backgroundPosition: '15% 20%, 85% 15%, 80% 85%',
+              filter: 'blur(1px)',
+              animationDelay: '2s'
             }}
           />
           
