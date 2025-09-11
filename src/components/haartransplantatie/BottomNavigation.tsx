@@ -5,6 +5,7 @@ import { useSession } from '@/hooks/useSession';
 import { BackIcon } from '@/components/icons/BackIcon';
 import { ShieldIcon } from '@/components/logos/ShieldIcon';
 import { MissionShieldIcon } from '@/components/logos/MissionShieldIcon';
+import { HaarTransplantFooterIcon } from '@/components/logos/HaarTransplantFooterIcon';
 
 interface NavItemBase {
   onClick: () => void;
@@ -154,7 +155,7 @@ export const BottomNavigation = () => {
         // Use haartransplantatie shield icon (bigger, no text)
         return {
           isCustomIcon: true,
-          iconComponent: ShieldIcon,
+          iconComponent: HaarTransplantFooterIcon,
           onClick: handleHomeClick,
           id: 'home'
         };
