@@ -39,14 +39,14 @@ export const AnimatedGradientBackground = () => {
         }}
       />
       
-      {/* Moving overlay blob 3 */}
+      {/* Moving overlay blob 3 - Black breathing blob for top darkening */}
       <div 
-        className="absolute w-64 h-64 rounded-full blur-xl opacity-10"
+        className="absolute w-80 h-80 rounded-full blur-2xl opacity-25"
         style={{
-          background: 'radial-gradient(circle, rgba(50, 50, 46, 0.2) 0%, transparent 70%)',
-          animation: 'blob-float-3 18s ease-in-out infinite',
+          background: 'radial-gradient(circle, rgba(0, 0, 0, 0.6) 0%, transparent 70%)',
+          animation: 'blob-breathe 6s ease-in-out infinite',
           left: '60%',
-          top: '30%'
+          top: '10%'
         }}
       />
       
@@ -92,6 +92,17 @@ export const AnimatedGradientBackground = () => {
           }
           50% {
             transform: translate(-15px, 25px) scale(1.1) rotate(180deg);
+          }
+        }
+        
+        @keyframes blob-breathe {
+          0%, 100% {
+            transform: translate(0, 0) scale(1);
+            opacity: 0.25;
+          }
+          50% {
+            transform: translate(-10px, 5px) scale(1.3);
+            opacity: 0.4;
           }
         }
       `}</style>
