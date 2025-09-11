@@ -205,12 +205,12 @@ const InfoTrajectoryPage: React.FC = () => {
                             {/* Middle Content */}
                             <div className="flex-1 flex flex-col justify-center">
                               <h2 
-                                className="text-2xl md:text-3xl font-lato font-normal mb-6 tracking-wide text-white"
+                                className="text-lg md:text-xl font-lato font-normal mb-3 tracking-wide text-white"
                               >
                                 {slide.mainTitle}
                               </h2>
                               <p 
-                                className="text-sm md:text-base font-lato leading-relaxed max-w-xs mx-auto text-white"
+                                className="text-xs md:text-sm font-lato leading-relaxed max-w-xs mx-auto text-white"
                               >
                                 {slide.description}
                               </p>
