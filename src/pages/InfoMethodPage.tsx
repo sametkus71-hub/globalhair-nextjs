@@ -153,7 +153,7 @@ const InfoMethodPage: React.FC = () => {
                           {method.content}
                         </p>
                         <div className="mt-4">
-                          <p className="text-sm md:text-base text-[#ACD1C6]/80 font-lato italic font-light">
+                          <p className="text-sm md:text-base text-[#ACD1C6]/80 font-lato italic font-extralight">
                             {method.tagline}
                           </p>
                         </div>
