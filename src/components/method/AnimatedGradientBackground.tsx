@@ -11,23 +11,23 @@ export const AnimatedGradientBackground = () => {
 
   return (
     <div className="absolute inset-0 overflow-hidden">
-      {/* Base dark background */}
+      {/* Base dark to green gradient background */}
       <div 
         className="absolute inset-0"
         style={{ 
-          backgroundColor: '#2A2B29',
+          background: 'linear-gradient(to bottom, #2A2B29 0%, #3A3B35 30%, #4A4D42 60%, #66857B 100%)',
           animation: 'subtle-breathe 8s ease-in-out infinite alternate'
         }}
       />
       
       {/* Subtle texture overlay */}
       <div 
-        className="absolute inset-0 w-full h-full opacity-5"
+        className="absolute inset-0 w-full h-full opacity-8"
         style={{
           background: `
-            radial-gradient(circle at 20% 80%, rgba(102, 133, 123, 0.3) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(102, 133, 123, 0.2) 0%, transparent 50%),
-            radial-gradient(circle at 40% 40%, rgba(102, 133, 123, 0.1) 0%, transparent 50%)
+            radial-gradient(circle at 20% 80%, rgba(102, 133, 123, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(102, 133, 123, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 40% 40%, rgba(102, 133, 123, 0.05) 0%, transparent 50%)
           `,
           animation: 'texture-float 20s ease-in-out infinite'
         }}
@@ -35,9 +35,9 @@ export const AnimatedGradientBackground = () => {
       
       {/* Very subtle moving texture */}
       <div 
-        className="absolute w-full h-full opacity-3 blur-3xl"
+        className="absolute w-full h-full opacity-6 blur-3xl"
         style={{
-          background: 'radial-gradient(circle, rgba(102, 133, 123, 0.1) 0%, transparent 60%)',
+          background: 'radial-gradient(circle, rgba(102, 133, 123, 0.2) 0%, transparent 60%)',
           animation: 'gentle-float 25s ease-in-out infinite',
           left: '30%',
           top: '60%'
@@ -48,16 +48,16 @@ export const AnimatedGradientBackground = () => {
       <div 
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.3) 30%, transparent 60%)',
+          background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 30%, transparent 60%)',
           animation: 'top-darken 15s ease-in-out infinite alternate'
         }}
       />
       
-      {/* Bottom subtle lightening */}
+      {/* Bottom green enhancement */}
       <div 
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(to top, rgba(102, 133, 123, 0.08) 0%, transparent 25%)'
+          background: 'linear-gradient(to top, rgba(102, 133, 123, 0.2) 0%, rgba(102, 133, 123, 0.1) 40%, transparent 70%)'
         }}
       />
       
