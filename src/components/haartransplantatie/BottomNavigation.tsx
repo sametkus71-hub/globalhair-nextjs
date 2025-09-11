@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useSession } from '@/hooks/useSession';
 import { BackIcon } from '@/components/icons/BackIcon';
 import { ShieldIcon } from '@/components/logos/ShieldIcon';
+import { MissionShieldIcon } from '@/components/logos/MissionShieldIcon';
 
 interface NavItemBase {
   onClick: () => void;
@@ -177,7 +178,7 @@ export const BottomNavigation = () => {
     homeButtonConfig,
     { 
       isCustomIcon: true,
-      iconComponent: ShieldIcon,
+      iconComponent: MissionShieldIcon,
       onClick: handleMissionNavigation,
       id: 'mission'
     },
