@@ -156,12 +156,32 @@ const InfoTrajectoryPage: React.FC = () => {
           <div className="pt-16 md:pt-20 pb-20 md:pb-32 px-6">
             <div className="max-w-2xl mx-auto min-h-[calc(var(--app-height)-8rem)] flex flex-col">
               
-              {/* Carousel Container */}
-              <div className="flex justify-center">
+              {/* Static Title Section */}
+              <div className={`text-center mb-12 transition-all duration-500 ease-out ${
+                titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}>
+                <div className="mt-8 mb-12">
+                  <h1 
+                    className="text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-lato font-normal mb-6 leading-[0.9] tracking-tight whitespace-pre-line"
+                    style={{ color: '#ACD1C6' }}
+                  >
+                    {trajectData.title}
+                  </h1>
+                  <p 
+                    className="text-sm md:text-lg xl:text-xl font-lato font-normal leading-relaxed whitespace-pre-line"
+                    style={{ color: '#ACD1C6' }}
+                  >
+                    {trajectData.subtitle}
+                  </p>
+                </div>
+              </div>
+
+              {/* Carousel Container - Only middle content */}
+              <div className="flex justify-center flex-1">
                 <div className="w-full max-w-sm">
                   <Carousel 
                     setApi={setApi}
-                    className="w-full"
+                    className="w-full h-full"
                     plugins={[
                       Autoplay({
                         delay: 8000,
@@ -172,68 +192,28 @@ const InfoTrajectoryPage: React.FC = () => {
                       loop: true,
                     }}
                   >
-                    <CarouselContent>
+                    <CarouselContent className="h-full">
                       {trajectData.slides.map((slide, index) => (
-                        <CarouselItem key={index}>
-                          <div className={`flex flex-col items-center text-center min-h-[calc(var(--app-height)-8rem)] px-6 transition-all duration-500 ease-out ${
-                            titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                        <CarouselItem key={index} className="h-full">
+                          <div className={`flex flex-col items-center text-center h-full px-6 transition-all duration-500 ease-out ${
+                            contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                           }`}>
-                            {/* Title Section */}
-                            <div className="mt-8 mb-12">
-                              <h1 
-                                className="text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-lato font-normal mb-6 leading-[0.9] tracking-tight whitespace-pre-line"
-                                style={{ color: '#ACD1C6' }}
-                              >
-                                {slide.title}
-                              </h1>
-                              <p 
-                                className="text-sm md:text-lg xl:text-xl font-lato font-normal leading-relaxed whitespace-pre-line"
-                                style={{ color: '#ACD1C6' }}
-                              >
-                                {slide.subtitle}
-                              </p>
-                            </div>
-
                             {/* Large White Circle */}
                             <div className="w-56 h-56 md:w-72 md:h-72 bg-white/90 rounded-full shadow-lg flex items-center justify-center mb-16">
                             </div>
                             
-                            {/* Bottom Content */}
-                            <div className="mt-auto mb-20">
+                            {/* Middle Content */}
+                            <div className="flex-1 flex flex-col justify-center">
                               <h2 
                                 className="text-2xl md:text-3xl font-lato font-normal mb-6 tracking-wide text-white"
                               >
                                 {slide.mainTitle}
                               </h2>
                               <p 
-                                className="text-sm md:text-base font-lato leading-relaxed max-w-xs mx-auto mb-12 text-white"
+                                className="text-sm md:text-base font-lato leading-relaxed max-w-xs mx-auto text-white"
                               >
                                 {slide.description}
                               </p>
-                              
-                              {/* Navigation Dots */}
-                              <div className="flex justify-center space-x-3 mb-8">
-                                {trajectData.slides.map((_, dotIndex) => (
-                                  <button
-                                    key={dotIndex}
-                                    onClick={() => scrollTo(dotIndex)}
-                                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                                      dotIndex === current 
-                                        ? 'bg-white scale-110' 
-                                        : 'bg-white/50 hover:bg-white/70'
-                                    }`}
-                                    aria-label={`Go to slide ${dotIndex + 1}`}
-                                  />
-                                ))}
-                              </div>
-
-                              {/* Bottom Button */}
-                              <button
-                                onClick={handleMethodClick}
-                                className="py-2 md:py-2.5 px-8 md:px-10 bg-[#492C3A] text-white text-sm font-lato font-normal rounded-full hover:bg-[#492C3A]/80 active:scale-[0.98] transition-all duration-300 ease-out"
-                              >
-                                {trajectData.methodButton}
-                              </button>
                             </div>
                           </div>
                         </CarouselItem>
@@ -241,6 +221,35 @@ const InfoTrajectoryPage: React.FC = () => {
                     </CarouselContent>
                   </Carousel>
                 </div>
+              </div>
+
+              {/* Static Bottom Section */}
+              <div className={`text-center mt-auto pt-8 transition-all duration-500 ease-out ${
+                buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}>
+                {/* Navigation Dots */}
+                <div className="flex justify-center space-x-3 mb-8">
+                  {trajectData.slides.map((_, dotIndex) => (
+                    <button
+                      key={dotIndex}
+                      onClick={() => scrollTo(dotIndex)}
+                      className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                        dotIndex === current 
+                          ? 'bg-white scale-110' 
+                          : 'bg-white/50 hover:bg-white/70'
+                      }`}
+                      aria-label={`Go to slide ${dotIndex + 1}`}
+                    />
+                  ))}
+                </div>
+
+                {/* Bottom Button */}
+                <button
+                  onClick={handleMethodClick}
+                  className="py-2 md:py-2.5 px-8 md:px-10 bg-[#492C3A] text-white text-sm font-lato font-normal rounded-full hover:bg-[#492C3A]/80 active:scale-[0.98] transition-all duration-300 ease-out"
+                >
+                  {trajectData.methodButton}
+                </button>
               </div>
 
             </div>
