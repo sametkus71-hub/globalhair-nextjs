@@ -5,6 +5,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useNavigate } from 'react-router-dom';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
+import { AnimatedGradientBackground } from '@/components/method/AnimatedGradientBackground';
 
 const InfoMethodPage: React.FC = () => {
   const { language } = useLanguage();
@@ -130,8 +131,9 @@ const InfoMethodPage: React.FC = () => {
         language={language}
       />
       <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'slide-exit-right' : 'slide-enter-left'}`}>
-        {/* Background matching parent */}
-        <div className="min-h-[var(--app-height)]" style={{ background: '#E4E5E0' }}>
+        {/* Animated Background */}
+        <div className="min-h-[var(--app-height)] relative">
+          <AnimatedGradientBackground />
           
           {/* Back button */}
           <button
