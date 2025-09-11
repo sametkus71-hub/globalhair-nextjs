@@ -81,21 +81,30 @@ const InfoPage: React.FC = () => {
         language={language}
       />
       <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
-        {/* Animated Gradient Background */}
+        {/* Background Image with Animated Overlay */}
         <div 
-          className="min-h-[var(--app-height)] animate-gradient-flow"
+          className="min-h-[var(--app-height)] relative"
           style={{ 
-            background: `
-              radial-gradient(circle at 0% 0%, #89B3BA 0%, rgba(137, 179, 186, 0.7) 35%, rgba(137, 179, 186, 0.3) 60%, transparent 80%),
-              radial-gradient(circle at 100% 0%, #B6CBB1 0%, rgba(182, 203, 177, 0.8) 40%, rgba(182, 203, 177, 0.4) 70%, transparent 85%),
-              radial-gradient(circle at 0% 100%, #68AAC2 0%, rgba(104, 170, 194, 0.7) 35%, rgba(104, 170, 194, 0.3) 60%, transparent 80%),
-              radial-gradient(circle at 100% 100%, #035EAB 0%, rgba(3, 94, 171, 0.7) 35%, rgba(3, 94, 171, 0.3) 60%, transparent 80%),
-              linear-gradient(135deg, rgba(137, 179, 186, 0.4) 0%, rgba(182, 203, 177, 0.3) 25%, rgba(104, 170, 194, 0.3) 50%, rgba(3, 94, 171, 0.4) 75%, rgba(137, 179, 186, 0.2) 100%)
-            `,
-            backgroundSize: '140% 140%, 160% 160%, 150% 150%, 135% 135%, 100% 100%',
-            backgroundPosition: '15% 15%, 85% 15%, 15% 85%, 85% 85%, center'
+            backgroundImage: `url('/lovable-uploads/096ed5af-55a0-4490-9d95-4203915c4ce2.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
           }}
         >
+          {/* Animated overlay blobs */}
+          <div 
+            className="absolute inset-0 animate-gradient-flow"
+            style={{ 
+              background: `
+                radial-gradient(circle at 0% 0%, rgba(137, 179, 186, 0.15) 0%, rgba(137, 179, 186, 0.08) 35%, transparent 60%),
+                radial-gradient(circle at 100% 0%, rgba(182, 203, 177, 0.2) 0%, rgba(182, 203, 177, 0.1) 40%, transparent 70%),
+                radial-gradient(circle at 0% 100%, rgba(104, 170, 194, 0.15) 0%, rgba(104, 170, 194, 0.08) 35%, transparent 60%),
+                radial-gradient(circle at 100% 100%, rgba(3, 94, 171, 0.15) 0%, rgba(3, 94, 171, 0.08) 35%, transparent 60%)
+              `,
+              backgroundSize: '140% 140%, 160% 160%, 150% 150%, 135% 135%',
+              backgroundPosition: '15% 15%, 85% 15%, 15% 85%, 85% 85%'
+            }}
+          />
           
           {/* Close button */}
           <button
