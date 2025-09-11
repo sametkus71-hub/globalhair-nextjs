@@ -112,7 +112,7 @@ const InfoPage: React.FC = () => {
               <h1 style={{
               color: '#4A2C2A',
               letterSpacing: '0.05em'
-            }} className="font-lato text-4xl md:text-5xl lg:text-6xl leading-none tracking-wide mb-2 font-medium">
+            }} className="font-lato md:text-5xl lg:text-6xl leading-none tracking-wide mb-2 font-semibold text-4xl">
                 PRECISION IS
                 <br />
                 OUR MISSION
