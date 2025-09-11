@@ -176,8 +176,8 @@ export const BottomNavigation = () => {
   const navItems: NavItem[] = [
     homeButtonConfig,
     { 
-      isCustomIcon: false,
-      iconSrc: '/lovable-uploads/75185e09-91f9-4292-90d7-fd4371d2ab23.png',
+      isCustomIcon: true,
+      iconComponent: ShieldIcon,
       onClick: handleMissionNavigation,
       id: 'mission'
     },
