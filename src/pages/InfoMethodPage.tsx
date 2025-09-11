@@ -61,23 +61,23 @@ const InfoMethodPage: React.FC = () => {
     subtitle: 'Haar | wenkbauwen | Baard',
     trajectoryButton: 'Bekijk het traject',
     methods: [{
-      title: 'FUE safer & DHI- laall',
-      content: 'Follicular Unit Extraction is een moderne methode waarbij individuele haarzakjes worden geëxtraheerd en getransplanteerd. Deze techniek zorgt voor natuurlijke resultaten met minimale littekens.'
+      title: 'FUE safer & DHI',
+      content: 'Onze haartransplantaties worden uitgevoerd met moderne extractietechnieken zoals FUE en DHI. Hierbij worden individuele haarzakjes nauwkeurig verplaatst voor een natuurlijk resultaat, met minimale littekens. Meer haar. Minder zichtbare sporen.'
     }, {
-      title: 'Stamcel - lala',
-      content: 'Stamceltherapie ter ondersteuning van haargezondheid en stimulatie van natuurlijke haargroei met regeneratieve eigenschappen.'
+      title: 'Stamceltherapie',
+      content: 'We ondersteunen je haargroei met regeneratieve stamceltherapie. Deze methode stimuleert de natuurlijke herstelkracht van je haar, voor zichtbaar gezondere haarzakjes en nieuwe groei. Activeren wat er al in je zit.'
     }, {
       title: 'Comfort behandeling',
-      content: 'Een comfortabele behandelervaring met minimale pijn en optimale zorg tijdens en na de procedure voor uw gemoedsrust.'
+      content: 'Een behandeling mag geen stressmoment zijn. Daarom zorgen we voor maximaal comfort, minimale pijn en volledige begeleiding tijdens én na je ingreep. Zorg die je voelt – maar dan in de goede zin.'
     }, {
-      title: 'V6 Hairboost® - lalal',
-      content: 'Onze exclusieve V6 Hairboost technologie voor verbeterde haargroei en optimale resultaten met geavanceerde methoden.'
+      title: 'V6 Hairboost®',
+      content: 'Onze exclusieve V6 Hairboost® technologie versnelt je herstel en stimuleert extra haargroei, zowel voor als na transplantatie. Ontwikkeld in ons eigen lab voor het beste resultaat. Je haar, een stap voor op zichzelf.'
     }, {
-      title: 'GHI precision method™',
-      content: 'Gepatenteerde precisie methode voor exacte plaatsing en natuurlijke resultaten met state-of-the-art technologie.'
+      title: 'GHI Precision Method™',
+      content: 'Onze gepatenteerde methode voor maximale precisie. Door technologie en ervaring te combineren, zorgen we voor exact de juiste plaatsing – voor natuurlijk ogende, blijvende resultaten. Omdat elk haar telt.'
     }, {
       title: '12-Point Precision Scan™',
-      content: 'Geavanceerde 12-punts precisie scan voor optimale analyse en planning van uw haartransplantatie behandeling.'
+      content: 'Elke behandeling start met inzicht. Onze geavanceerde scan brengt je hoofdhuid, haarzakjes en herstelpotentieel in kaart. Zo weten we precies wat kan – en wat werkt. We kijken niet alleen naar je haar. We kijken vooruit.'
     }]
   } : {
     title: 'MIGHTY METHOD',
