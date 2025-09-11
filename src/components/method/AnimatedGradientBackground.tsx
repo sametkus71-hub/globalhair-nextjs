@@ -50,6 +50,14 @@ export const AnimatedGradientBackground = () => {
         }}
       />
       
+      {/* Green bottom overlay */}
+      <div 
+        className="absolute inset-0 opacity-15"
+        style={{
+          background: `linear-gradient(to top, #8AB2A5 0%, transparent 60%)`
+        }}
+      />
+      
       <style>{`
         @keyframes blob-float-1 {
           0%, 100% {
