@@ -142,7 +142,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           activeVideo === 'standard' ? 'opacity-100' : 'opacity-0'
         }`}
         style={{ 
-          filter: 'blur(5px)',
+          filter: 'blur(8px) brightness(1.1) contrast(0.9)',
           objectFit: 'cover',
           objectPosition: 'center center',
           zIndex: 1,
@@ -150,7 +150,9 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           height: 'calc(100vh + 100px)',
           left: '50%',
           top: '-50px',
-          transform: 'translateX(-50%) scale(1.05)'
+          transform: 'translateX(-50%) scale(1.05)',
+          maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)'
         }}
         autoPlay
         muted
@@ -166,7 +168,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           activeVideo === 'premium' ? 'opacity-100' : 'opacity-0'
         }`}
         style={{ 
-          filter: 'blur(5px)',
+          filter: 'blur(8px) brightness(1.1) contrast(0.9)',
           objectFit: 'cover',
           objectPosition: 'center center',
           zIndex: 1,
@@ -174,7 +176,9 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           height: 'calc(100vh + 100px)',
           left: '50%',
           top: '-50px',
-          transform: 'translateX(-50%) scale(1.05)'
+          transform: 'translateX(-50%) scale(1.05)',
+          maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)'
         }}
         autoPlay
         muted
@@ -190,7 +194,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           activeVideo === 'advanced' ? 'opacity-100' : 'opacity-0'
         }`}
         style={{ 
-          filter: 'blur(5px)',
+          filter: 'blur(8px) brightness(1.1) contrast(0.9)',
           objectFit: 'cover',
           objectPosition: 'center center',
           zIndex: 1,
@@ -198,7 +202,9 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           height: 'calc(100vh + 100px)',
           left: '50%',
           top: '-50px',
-          transform: 'translateX(-50%) scale(1.05)'
+          transform: 'translateX(-50%) scale(1.05)',
+          maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)'
         }}
         autoPlay
         muted
