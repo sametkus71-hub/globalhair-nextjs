@@ -1,6 +1,5 @@
 import { useSession, HairColor } from '@/hooks/useSession';
 import { useSmoothColorTransition } from '@/hooks/useSmoothColorTransition';
-import { CachedImage } from '@/components/ImagePreloader';
 import { cn } from '@/lib/utils';
 
 interface ColorSelectorProps {
@@ -11,11 +10,27 @@ export const ColorSelector = ({ heightBreakpoint = 'large' }: ColorSelectorProps
   const { profile, updateProfile } = useSession();
   const { transitionToColor } = useSmoothColorTransition();
 
-  const colors: { value: HairColor; image: string; alt: string }[] = [
-    { value: 'Blond', image: '/lovable-uploads/aca001f8-e280-494a-b8a8-028265622a3c.png', alt: 'Blond haar textuur voor GlobalHair haartransplantatie behandeling' },
-    { value: 'Bruin', image: '/lovable-uploads/92fc5805-8251-412a-ae5f-da33d30a2dde.png', alt: 'Bruin haar textuur voor GlobalHair haartransplantatie behandeling' },
-    { value: 'Zwart', image: '/lovable-uploads/df4923b9-9a1c-4947-af38-2c39249664a4.png', alt: 'Zwart haar textuur voor GlobalHair haartransplantatie behandeling' },
-    { value: 'Wit', image: '/lovable-uploads/30181b08-9d4b-4553-98aa-04bd671930be.png', alt: 'Wit grijs haar textuur voor GlobalHair haartransplantatie behandeling' },
+  const colors: { value: HairColor; gradient: string; title: string }[] = [
+    { 
+      value: 'Blond', 
+      gradient: 'linear-gradient(135deg, hsl(47, 82%, 81%) 0%, hsl(45, 75%, 75%) 50%, hsl(50, 85%, 85%) 100%)',
+      title: 'Blond haar voor GlobalHair haartransplantatie behandeling'
+    },
+    { 
+      value: 'Bruin', 
+      gradient: 'linear-gradient(135deg, hsl(25, 45%, 35%) 0%, hsl(20, 40%, 30%) 50%, hsl(30, 50%, 40%) 100%)',
+      title: 'Bruin haar voor GlobalHair haartransplantatie behandeling'
+    },
+    { 
+      value: 'Zwart', 
+      gradient: 'linear-gradient(135deg, hsl(220, 15%, 8%) 0%, hsl(210, 10%, 12%) 50%, hsl(230, 20%, 6%) 100%)',
+      title: 'Zwart haar voor GlobalHair haartransplantatie behandeling'
+    },
+    { 
+      value: 'Wit', 
+      gradient: 'linear-gradient(135deg, hsl(0, 0%, 40%) 0%, hsl(0, 0%, 35%) 50%, hsl(0, 0%, 45%) 100%)',
+      title: 'Wit grijs haar voor GlobalHair haartransplantatie behandeling'
+    },
   ];
 
   const handleColorChange = (color: HairColor) => {
@@ -32,7 +47,7 @@ export const ColorSelector = ({ heightBreakpoint = 'large' }: ColorSelectorProps
       heightBreakpoint === 'medium' ? "space-x-2.5" :
       "space-x-3"
     )}>
-      {colors.map(({ value, image, alt }) => (
+      {colors.map(({ value, gradient, title }) => (
         <button
           key={value}
           onClick={() => handleColorChange(value)}
@@ -51,10 +66,12 @@ export const ColorSelector = ({ heightBreakpoint = 'large' }: ColorSelectorProps
           }}
           title={`Selecteer ${value.toLowerCase()} haar voor haartransplantatie - GlobalHair`}
         >
-          <CachedImage 
-            src={image} 
-            alt={alt}
-            className="w-full h-full object-cover"
+          <div 
+            className="w-full h-full"
+            style={{ 
+              background: gradient
+            }}
+            aria-label={title}
           />
         </button>
       ))}
