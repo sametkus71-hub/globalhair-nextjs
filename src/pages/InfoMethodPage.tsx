@@ -143,10 +143,10 @@ const InfoMethodPage: React.FC = () => {
               <div className={`text-center mb-8 md:mb-16 transition-all duration-500 ease-out ${
                 titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
-                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-lato font-black text-[#89B3BA] mb-3 md:mb-4 leading-[0.9] tracking-tight">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-lato font-black text-[#ACD1C6] mb-3 md:mb-4 leading-[0.9] tracking-tight">
                   {methodsData.title}
                 </h1>
-                <p className="text-base md:text-lg xl:text-xl text-[#89B3BA]/80 font-lato font-normal tracking-wide">
+                <p className="text-base md:text-lg xl:text-xl text-[#ACD1C6]/80 font-lato font-normal tracking-wide">
                   {methodsData.subtitle}
                 </p>
               </div>
@@ -160,18 +160,18 @@ const InfoMethodPage: React.FC = () => {
                     <AccordionItem
                       key={index}
                       value={`item-${index}`}
-                      className="border-b border-[#89B3BA]/30 last:border-b-0"
+                      className="border-b border-[#ACD1C6]/30 last:border-b-0"
                     >
                       <AccordionTrigger className="py-3 md:py-5 px-0 hover:no-underline group">
                         <div className="flex items-center justify-between w-full">
-                          <span className="text-left text-base md:text-lg font-lato font-normal text-[#89B3BA] group-hover:text-[#89B3BA]/80">
+                          <span className="text-left text-base md:text-lg font-lato font-normal text-[#ACD1C6] group-hover:text-[#ACD1C6]/80">
                             {method.title}
                           </span>
-                          <Plus className="w-4 md:w-5 h-4 md:h-5 text-[#89B3BA] transition-transform duration-200 shrink-0 group-data-[state=open]:rotate-45" />
+                          <Plus className="w-4 md:w-5 h-4 md:h-5 text-[#ACD1C6] transition-transform duration-200 shrink-0 group-data-[state=open]:rotate-45" />
                         </div>
                       </AccordionTrigger>
                       <AccordionContent className="px-0 pb-3 md:pb-5">
-                        <p className="text-sm md:text-base text-[#89B3BA]/70 font-lato leading-relaxed">
+                        <p className="text-sm md:text-base text-[#ACD1C6]/70 font-lato leading-relaxed">
                           {method.content}
                         </p>
                       </AccordionContent>
@@ -186,7 +186,7 @@ const InfoMethodPage: React.FC = () => {
               }`}>
                 <button
                   onClick={handleTrajectoryClick}
-                  className="py-2 md:py-2.5 px-8 md:px-10 bg-[#4A2C2A] text-white text-sm font-lato font-normal rounded-full hover:bg-[#4A2C2A]/80 active:scale-[0.98] transition-all duration-300 ease-out"
+                  className="py-2 md:py-2.5 px-8 md:px-10 bg-[#492C3A] text-white text-sm font-lato font-normal rounded-full hover:bg-[#492C3A]/80 active:scale-[0.98] transition-all duration-300 ease-out"
                 >
                   {methodsData.trajectoryButton}
                 </button>
