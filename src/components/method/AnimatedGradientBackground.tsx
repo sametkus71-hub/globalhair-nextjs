@@ -55,6 +55,17 @@ export const AnimatedGradientBackground = () => {
         }}
       />
       
+      {/* Additional #66857B color enhancement */}
+      <div 
+        className="absolute w-96 h-96 opacity-12 blur-3xl"
+        style={{
+          background: 'radial-gradient(circle, rgba(102, 133, 123, 0.5) 0%, rgba(102, 133, 123, 0.2) 50%, transparent 70%)',
+          animation: 'mid-green-float 18s ease-in-out infinite reverse',
+          left: '15%',
+          bottom: '20%'
+        }}
+      />
+      
       {/* Top darkening gradient with subtle movement */}
       <div 
         className="absolute inset-0"
@@ -64,11 +75,11 @@ export const AnimatedGradientBackground = () => {
         }}
       />
       
-      {/* Bottom green enhancement */}
+      {/* Bottom green enhancement with #66857B */}
       <div 
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(to top, rgba(116, 153, 142, 0.2) 0%, rgba(116, 153, 142, 0.1) 40%, transparent 70%)'
+          background: 'linear-gradient(to top, rgba(102, 133, 123, 0.25) 0%, rgba(116, 153, 142, 0.15) 30%, rgba(116, 153, 142, 0.08) 50%, transparent 70%)'
         }}
       />
       
@@ -131,6 +142,17 @@ export const AnimatedGradientBackground = () => {
           66% {
             transform: translate(8px, 6px) scale(0.98);
             opacity: 0.18;
+          }
+        }
+        
+        @keyframes mid-green-float {
+          0%, 100% {
+            transform: translate(0, 0) scale(1);
+            opacity: 0.12;
+          }
+          50% {
+            transform: translate(12px, -10px) scale(1.08);
+            opacity: 0.08;
           }
         }
       `}</style>
