@@ -139,46 +139,21 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
       <div className={`fixed inset-0 transition-opacity duration-500 ${
         activeVideo === 'standard' ? 'opacity-100' : 'opacity-0'
       }`}>
-        {/* Background layer - Heavy blur */}
+        {/* Main video with camera lens blur */}
         <video
           ref={standardVideoRef}
           className="fixed"
           style={{ 
-            filter: 'blur(12px) brightness(0.9) contrast(1.15) saturate(1.3) sepia(0.05) hue-rotate(2deg)',
+            filter: 'blur(8px) brightness(0.85) contrast(1.2) saturate(1.1)',
             objectFit: 'cover',
             objectPosition: 'center center',
             zIndex: 1,
-            width: 'calc(100vw + 120px)',
-            height: 'calc(100vh + 120px)',
-            left: '50%',
-            top: '-60px',
-            transform: 'translateX(-50%) scale(1.08)',
-            opacity: 0.7
-          }}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-        />
-        {/* Mid layer - Medium blur */}
-        <video
-          className="fixed"
-          style={{ 
-            filter: 'blur(6px) brightness(0.95) contrast(1.1) saturate(1.2) sepia(0.02)',
-            objectFit: 'cover',
-            objectPosition: 'center center',
-            zIndex: 2,
             width: 'calc(100vw + 100px)',
             height: 'calc(100vh + 100px)',
             left: '50%',
             top: '-50px',
-            transform: 'translateX(-50%) scale(1.05)',
-            opacity: 0.8,
-            maskImage: 'radial-gradient(ellipse at center, black 60%, transparent 100%)',
-            WebkitMaskImage: 'radial-gradient(ellipse at center, black 60%, transparent 100%)'
+            transform: 'translateX(-50%) scale(1.05)'
           }}
-          src={standardVideoRef.current?.src}
           autoPlay
           muted
           loop
@@ -191,46 +166,21 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
       <div className={`fixed inset-0 transition-opacity duration-500 ${
         activeVideo === 'premium' ? 'opacity-100' : 'opacity-0'
       }`}>
-        {/* Background layer - Heavy blur */}
+        {/* Main video with camera lens blur */}
         <video
           ref={premiumVideoRef}
           className="fixed"
           style={{ 
-            filter: 'blur(12px) brightness(0.9) contrast(1.15) saturate(1.3) sepia(0.05) hue-rotate(2deg)',
+            filter: 'blur(8px) brightness(0.85) contrast(1.2) saturate(1.1)',
             objectFit: 'cover',
             objectPosition: 'center center',
             zIndex: 1,
-            width: 'calc(100vw + 120px)',
-            height: 'calc(100vh + 120px)',
-            left: '50%',
-            top: '-60px',
-            transform: 'translateX(-50%) scale(1.08)',
-            opacity: 0.7
-          }}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-        />
-        {/* Mid layer - Medium blur */}
-        <video
-          className="fixed"
-          style={{ 
-            filter: 'blur(6px) brightness(0.95) contrast(1.1) saturate(1.2) sepia(0.02)',
-            objectFit: 'cover',
-            objectPosition: 'center center',
-            zIndex: 2,
             width: 'calc(100vw + 100px)',
             height: 'calc(100vh + 100px)',
             left: '50%',
             top: '-50px',
-            transform: 'translateX(-50%) scale(1.05)',
-            opacity: 0.8,
-            maskImage: 'radial-gradient(ellipse at center, black 60%, transparent 100%)',
-            WebkitMaskImage: 'radial-gradient(ellipse at center, black 60%, transparent 100%)'
+            transform: 'translateX(-50%) scale(1.05)'
           }}
-          src={premiumVideoRef.current?.src}
           autoPlay
           muted
           loop
@@ -243,46 +193,21 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
       <div className={`fixed inset-0 transition-opacity duration-500 ${
         activeVideo === 'advanced' ? 'opacity-100' : 'opacity-0'
       }`}>
-        {/* Background layer - Heavy blur */}
+        {/* Main video with camera lens blur */}
         <video
           ref={advancedVideoRef}
           className="fixed"
           style={{ 
-            filter: 'blur(12px) brightness(0.9) contrast(1.15) saturate(1.3) sepia(0.05) hue-rotate(2deg)',
+            filter: 'blur(8px) brightness(0.85) contrast(1.2) saturate(1.1)',
             objectFit: 'cover',
             objectPosition: 'center center',
             zIndex: 1,
-            width: 'calc(100vw + 120px)',
-            height: 'calc(100vh + 120px)',
-            left: '50%',
-            top: '-60px',
-            transform: 'translateX(-50%) scale(1.08)',
-            opacity: 0.7
-          }}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-        />
-        {/* Mid layer - Medium blur */}
-        <video
-          className="fixed"
-          style={{ 
-            filter: 'blur(6px) brightness(0.95) contrast(1.1) saturate(1.2) sepia(0.02)',
-            objectFit: 'cover',
-            objectPosition: 'center center',
-            zIndex: 2,
             width: 'calc(100vw + 100px)',
             height: 'calc(100vh + 100px)',
             left: '50%',
             top: '-50px',
-            transform: 'translateX(-50%) scale(1.05)',
-            opacity: 0.8,
-            maskImage: 'radial-gradient(ellipse at center, black 60%, transparent 100%)',
-            WebkitMaskImage: 'radial-gradient(ellipse at center, black 60%, transparent 100%)'
+            transform: 'translateX(-50%) scale(1.05)'
           }}
-          src={advancedVideoRef.current?.src}
           autoPlay
           muted
           loop
