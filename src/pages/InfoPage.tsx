@@ -131,7 +131,7 @@ const InfoPage: React.FC = () => {
             <div className={`text-center mb-16 transition-all duration-500 ease-out ${
               titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}>
-              <h1 className="font-lato text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-4" style={{ color: '#4A2C2A' }}>
+              <h1 className="font-lato text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-wide mb-4" style={{ color: '#4A2C2A', letterSpacing: '0.05em' }}>
                 PRECISION IS
                 <br />
                 OUR MISSION
@@ -142,15 +142,15 @@ const InfoPage: React.FC = () => {
             </div>
 
             {/* Buttons Container */}
-            <div className="w-full max-w-xs space-y-4">
+            <div className="flex flex-col items-center space-y-4">
               
               {/* How it works Button */}
               <button
                 onClick={handleMethodClick}
-                className={`w-full py-3 px-6 bg-white text-sm font-medium rounded-full hover:bg-gray-50 active:scale-[0.98] transition-all duration-300 ease-out shadow-md ${
+                className={`py-3 px-8 text-sm font-medium rounded-full hover:bg-white/90 active:scale-[0.98] transition-all duration-300 ease-out shadow-md ${
                   button1Visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
-                style={{ color: '#4A2C2A' }}
+                style={{ backgroundColor: 'rgba(255, 255, 255, 0.85)', color: '#4A2C2A' }}
               >
                 {language === 'nl' ? 'Hoe werkt het' : 'How does it work'}
               </button>
@@ -158,10 +158,10 @@ const InfoPage: React.FC = () => {
               {/* How long does it take Button */}
               <button
                 onClick={handleTrajectClick}
-                className={`w-full py-3 px-6 bg-white text-sm font-medium rounded-full hover:bg-gray-50 active:scale-[0.98] transition-all duration-300 ease-out shadow-md ${
+                className={`py-3 px-8 text-sm font-medium rounded-full hover:bg-white/90 active:scale-[0.98] transition-all duration-300 ease-out shadow-md ${
                   button2Visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
-                style={{ color: '#4A2C2A' }}
+                style={{ backgroundColor: 'rgba(255, 255, 255, 0.85)', color: '#4A2C2A' }}
               >
                 {language === 'nl' ? 'Hoe lang duurt het' : 'How long does it take'}
               </button>
