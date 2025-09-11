@@ -86,14 +86,14 @@ const InfoPage: React.FC = () => {
           className="min-h-[var(--app-height)] animate-gradient-flow"
           style={{ 
             background: `
-              radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.8) 0%, rgba(59, 130, 246, 0.2) 40%, transparent 70%),
-              radial-gradient(circle at 80% 10%, rgba(99, 102, 241, 0.7) 0%, rgba(99, 102, 241, 0.15) 35%, transparent 65%),
-              radial-gradient(circle at 10% 90%, rgba(16, 185, 129, 0.6) 0%, rgba(16, 185, 129, 0.1) 30%, transparent 60%),
-              radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.8) 0%, rgba(139, 92, 246, 0.2) 45%, transparent 75%),
-              linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 25%, #ecfdf5 50%, #f3e8ff 75%, #fef3c7 100%)
+              radial-gradient(circle at 0% 0%, #89B3BA 0%, rgba(137, 179, 186, 0.7) 35%, rgba(137, 179, 186, 0.3) 60%, transparent 80%),
+              radial-gradient(circle at 100% 0%, #848470 0%, rgba(132, 132, 112, 0.7) 35%, rgba(132, 132, 112, 0.3) 60%, transparent 80%),
+              radial-gradient(circle at 0% 100%, #68AAC2 0%, rgba(104, 170, 194, 0.7) 35%, rgba(104, 170, 194, 0.3) 60%, transparent 80%),
+              radial-gradient(circle at 100% 100%, #035EAB 0%, rgba(3, 94, 171, 0.7) 35%, rgba(3, 94, 171, 0.3) 60%, transparent 80%),
+              linear-gradient(135deg, rgba(137, 179, 186, 0.4) 0%, rgba(132, 132, 112, 0.3) 25%, rgba(104, 170, 194, 0.3) 50%, rgba(3, 94, 171, 0.4) 75%, rgba(137, 179, 186, 0.2) 100%)
             `,
-            backgroundSize: '120% 120%, 110% 110%, 130% 130%, 115% 115%, 100% 100%',
-            backgroundPosition: '0% 50%, 100% 50%, 0% 100%, 100% 0%, center'
+            backgroundSize: '140% 140%, 130% 130%, 150% 150%, 135% 135%, 100% 100%',
+            backgroundPosition: '15% 15%, 85% 15%, 15% 85%, 85% 85%, center'
           }}
         >
           

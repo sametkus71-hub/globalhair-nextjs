@@ -164,24 +164,24 @@ export default {
 				},
 				'gradient-flow': {
 					'0%': { 
-						backgroundPosition: '0% 50%, 100% 50%, 0% 100%, 100% 0%',
-						backgroundSize: '120% 120%, 110% 110%, 130% 130%, 115% 115%'
+						backgroundPosition: '15% 15%, 85% 15%, 85% 85%, 15% 85%',
+						backgroundSize: '140% 140%, 130% 130%, 150% 150%, 135% 135%'
 					},
 					'25%': { 
-						backgroundPosition: '25% 25%, 75% 75%, 10% 90%, 90% 10%',
-						backgroundSize: '125% 125%, 115% 115%, 125% 125%, 120% 120%'
+						backgroundPosition: '35% 5%, 95% 35%, 75% 95%, 5% 75%',
+						backgroundSize: '160% 160%, 145% 145%, 140% 140%, 155% 155%'
 					},
 					'50%': { 
-						backgroundPosition: '50% 0%, 50% 100%, 25% 75%, 75% 25%',
-						backgroundSize: '130% 130%, 120% 120%, 120% 120%, 125% 125%'
+						backgroundPosition: '25% 25%, 75% 5%, 95% 75%, 5% 95%',
+						backgroundSize: '150% 150%, 160% 160%, 130% 130%, 145% 145%'
 					},
 					'75%': { 
-						backgroundPosition: '75% 75%, 25% 25%, 90% 10%, 10% 90%',
-						backgroundSize: '115% 115%, 125% 125%, 135% 135%, 110% 110%'
+						backgroundPosition: '5% 35%, 65% 25%, 85% 65%, 25% 85%',
+						backgroundSize: '135% 135%, 140% 140%, 165% 165%, 130% 130%'
 					},
 					'100%': { 
-						backgroundPosition: '0% 50%, 100% 50%, 0% 100%, 100% 0%',
-						backgroundSize: '120% 120%, 110% 110%, 130% 130%, 115% 115%'
+						backgroundPosition: '15% 15%, 85% 15%, 85% 85%, 15% 85%',
+						backgroundSize: '140% 140%, 130% 130%, 150% 150%, 135% 135%'
 					}
 				}
 			},
@@ -194,7 +194,7 @@ export default {
 				'ios-entrance': 'ios-entrance 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
 				'logo-entrance': 'logo-entrance 1s ease-out forwards',
 				'fade-entrance': 'fade-entrance 0.3s ease-out forwards',
-				'gradient-flow': 'gradient-flow 25s ease-in-out infinite',
+				'gradient-flow': 'gradient-flow 20s ease-in-out infinite',
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
