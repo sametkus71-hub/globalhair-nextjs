@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft, Plus, Minus } from 'lucide-react';
+import { X, Plus, Minus } from 'lucide-react';
 import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useNavigate } from 'react-router-dom';
@@ -62,9 +62,9 @@ const InfoMethodPage: React.FC = () => {
   }, []);
 
   const methodsData = language === 'nl' ? {
-    title: 'MIGHTY METHOD',
+    title: 'SIGNATURE METHODES',
     subtitle: 'Haar | wenkbauwen | Baard',
-    trajectoryButton: 'bekijk het traject',
+    trajectoryButton: 'Bekijk het traject',
     methods: [
       {
         title: 'FUE safer & DHI- laall',
@@ -135,27 +135,27 @@ const InfoMethodPage: React.FC = () => {
         <div className="min-h-[var(--app-height)] relative">
           <AnimatedGradientBackground />
           
-          {/* Back button */}
+          {/* Close button */}
           <button
             onClick={handleBack}
-            className="fixed top-4 left-4 z-50 w-10 h-10 rounded-full bg-gray-400/60 hover:bg-gray-400/80 transition-colors flex items-center justify-center"
-            aria-label={language === 'nl' ? 'Terug' : 'Back'}
+            className="fixed top-4 left-4 z-50 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors flex items-center justify-center backdrop-blur-sm"
+            aria-label={language === 'nl' ? 'Sluiten' : 'Close'}
           >
-            <ArrowLeft className="w-5 h-5 text-white" />
+            <X className="w-5 h-5 text-white" />
           </button>
           
           {/* Scrollable Content */}
           <div className="pt-16 md:pt-20 pb-20 md:pb-32 px-6">
             <div className="max-w-2xl mx-auto min-h-[calc(var(--app-height)-8rem)] flex flex-col">
               
-              {/* Title Section */}
+               {/* Title Section */}
               <div className={`text-center mb-8 md:mb-16 transition-all duration-500 ease-out ${
                 titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
-                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-gray-700 mb-3 md:mb-4 leading-[0.9] tracking-tight">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-header font-black text-white mb-3 md:mb-4 leading-[0.9] tracking-tight">
                   {methodsData.title}
                 </h1>
-                <p className="text-base md:text-lg xl:text-xl text-gray-600 font-normal tracking-wide">
+                <p className="text-base md:text-lg xl:text-xl text-white/80 font-normal tracking-wide">
                   {methodsData.subtitle}
                 </p>
               </div>
@@ -169,18 +169,18 @@ const InfoMethodPage: React.FC = () => {
                     <AccordionItem
                       key={index}
                       value={`item-${index}`}
-                      className="border-b border-gray-400/30 last:border-b-0"
+                      className="border-b border-white/20 last:border-b-0"
                     >
                       <AccordionTrigger className="py-3 md:py-5 px-0 hover:no-underline group">
                         <div className="flex items-center justify-between w-full">
-                          <span className="text-left text-base md:text-lg font-normal text-gray-600 group-hover:text-gray-800">
+                          <span className="text-left text-base md:text-lg font-normal text-white/90 group-hover:text-white">
                             {method.title}
                           </span>
-                          <Plus className="w-4 md:w-5 h-4 md:h-5 text-gray-600 transition-transform duration-200 shrink-0 group-data-[state=open]:rotate-45" />
+                          <Plus className="w-4 md:w-5 h-4 md:h-5 text-white/80 transition-transform duration-200 shrink-0 group-data-[state=open]:rotate-45" />
                         </div>
                       </AccordionTrigger>
                       <AccordionContent className="px-0 pb-3 md:pb-5">
-                        <p className="text-sm md:text-base text-gray-600 leading-relaxed">
+                        <p className="text-sm md:text-base text-white/70 leading-relaxed">
                           {method.content}
                         </p>
                       </AccordionContent>
@@ -195,7 +195,7 @@ const InfoMethodPage: React.FC = () => {
               }`}>
                 <button
                   onClick={handleTrajectoryClick}
-                  className="py-2.5 md:py-3 px-6 md:px-8 bg-gray-600 text-white text-sm font-normal rounded-full hover:bg-gray-700 active:scale-[0.98] transition-all duration-300 ease-out"
+                  className="py-2 md:py-2.5 px-8 md:px-10 bg-red-900/80 text-white text-sm font-normal rounded-full hover:bg-red-900 active:scale-[0.98] transition-all duration-300 ease-out"
                 >
                   {methodsData.trajectoryButton}
                 </button>
