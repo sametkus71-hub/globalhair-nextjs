@@ -11,71 +11,79 @@ export const AnimatedGradientBackground = () => {
 
   return (
     <div className="absolute inset-0 overflow-hidden">
-      {/* Base gradient layer */}
+      {/* Base background image */}
       <div 
-        className="absolute inset-0"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          background: `radial-gradient(ellipse at bottom left, #A0C8BB 0%, transparent 50%),
-                       radial-gradient(ellipse at bottom right, #C9E5DD 0%, transparent 50%),
-                       linear-gradient(to bottom, #32322E 0%, #32322E 40%, transparent 100%)`
+          backgroundImage: `url('/lovable-uploads/7c931942-52e6-43f9-8268-058b6cd01860.png')`
         }}
       />
       
-      {/* First animated layer */}
+      {/* Moving overlay blob 1 */}
       <div 
-        className="absolute inset-0 animate-pulse"
+        className="absolute w-96 h-96 rounded-full blur-3xl opacity-20"
         style={{
-          background: `radial-gradient(ellipse 120% 80% at 30% 100%, rgba(160, 200, 187, 0.3) 0%, transparent 50%),
-                       radial-gradient(ellipse 100% 60% at 70% 100%, rgba(201, 229, 221, 0.2) 0%, transparent 50%)`,
-          animationDuration: '8s',
-          animationTimingFunction: 'ease-in-out'
+          background: 'radial-gradient(circle, rgba(160, 200, 187, 0.4) 0%, transparent 70%)',
+          animation: 'blob-float-1 12s ease-in-out infinite'
         }}
       />
       
-      {/* Second animated layer with slower timing */}
+      {/* Moving overlay blob 2 */}
       <div 
-        className="absolute inset-0"
+        className="absolute w-80 h-80 rounded-full blur-2xl opacity-15"
         style={{
-          background: `radial-gradient(ellipse 150% 100% at 20% 90%, rgba(160, 200, 187, 0.2) 0%, transparent 60%),
-                       radial-gradient(ellipse 130% 80% at 80% 90%, rgba(201, 229, 221, 0.15) 0%, transparent 60%)`,
-          animation: 'gradient-shift 12s ease-in-out infinite alternate'
+          background: 'radial-gradient(circle, rgba(201, 229, 221, 0.3) 0%, transparent 70%)',
+          animation: 'blob-float-2 15s ease-in-out infinite reverse',
+          right: '10%',
+          bottom: '20%'
         }}
       />
       
-      {/* Third layer for subtle movement */}
+      {/* Moving overlay blob 3 */}
       <div 
-        className="absolute inset-0"
+        className="absolute w-64 h-64 rounded-full blur-xl opacity-10"
         style={{
-          background: `linear-gradient(45deg, transparent 0%, rgba(50, 50, 46, 0.1) 30%, transparent 70%)`,
-          animation: 'gentle-sway 15s ease-in-out infinite alternate'
+          background: 'radial-gradient(circle, rgba(50, 50, 46, 0.2) 0%, transparent 70%)',
+          animation: 'blob-float-3 18s ease-in-out infinite',
+          left: '60%',
+          top: '30%'
         }}
       />
       
       <style>{`
-        @keyframes gradient-shift {
-          0% {
-            transform: translate(0, 0) scale(1);
-            opacity: 0.6;
+        @keyframes blob-float-1 {
+          0%, 100% {
+            transform: translate(-20px, -10px) scale(1);
+          }
+          25% {
+            transform: translate(10px, -30px) scale(1.05);
           }
           50% {
-            transform: translate(-10px, -5px) scale(1.02);
-            opacity: 0.8;
+            transform: translate(30px, 10px) scale(0.95);
           }
-          100% {
-            transform: translate(5px, -2px) scale(0.98);
-            opacity: 0.7;
+          75% {
+            transform: translate(-10px, 20px) scale(1.02);
           }
         }
         
-        @keyframes gentle-sway {
-          0% {
-            transform: rotate(0deg) translate(0, 0);
+        @keyframes blob-float-2 {
+          0%, 100% {
+            transform: translate(0, 0) scale(1);
+          }
+          33% {
+            transform: translate(-25px, -15px) scale(1.08);
+          }
+          66% {
+            transform: translate(15px, -25px) scale(0.92);
+          }
+        }
+        
+        @keyframes blob-float-3 {
+          0%, 100% {
+            transform: translate(0, 0) scale(1) rotate(0deg);
           }
           50% {
-            transform: rotate(0.5deg) translate(-2px, -1px);
-          }
-          100% {
-            transform: rotate(-0.3deg) translate(1px, -2px);
+            transform: translate(-15px, 25px) scale(1.1) rotate(180deg);
           }
         }
       `}</style>
