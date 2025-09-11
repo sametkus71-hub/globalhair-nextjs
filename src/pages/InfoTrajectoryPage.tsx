@@ -165,7 +165,7 @@ const InfoTrajectoryPage: React.FC = () => {
                     {trajectData.title}
                   </h1>
                   <p 
-                    className="text-sm md:text-lg xl:text-xl font-lato font-normal leading-relaxed whitespace-pre-line"
+                    className="text-sm md:text-lg xl:text-xl font-lato font-normal leading-tight whitespace-pre-line"
                     style={{ color: '#ACD1C6' }}
                   >
                     {trajectData.subtitle}
