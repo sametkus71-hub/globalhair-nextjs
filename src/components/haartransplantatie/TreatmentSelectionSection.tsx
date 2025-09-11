@@ -64,7 +64,7 @@ export const TreatmentSelectionSection = () => {
     { 
       id: 'Premium', 
       label: 'Premium',
-      isNew: true
+      isNew: false
     },
     { 
       id: 'Advanced', 
@@ -73,18 +73,9 @@ export const TreatmentSelectionSection = () => {
     }
   ];
 
-  // Dynamic "nieuw" label color based on selected package
+  // Red color for "nieuw" label (only shown on Advanced package)
   const getLabelColor = () => {
-    switch (profile.selectedPackage) {
-      case 'Standard':
-        return '#18535A';
-      case 'Premium':
-        return '#385774';
-      case 'Advanced':
-        return '#3A181A';
-      default:
-        return '#385774';
-    }
+    return '#FF0000'; // Always red since only Advanced shows "Nieuw"
   };
 
   const packageContent = {
