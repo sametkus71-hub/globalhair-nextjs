@@ -146,7 +146,7 @@ const InfoTrajectoryPage: React.FC = () => {
               <div className={`text-center mb-8 md:mb-16 transition-all duration-500 ease-out ${
                 titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
-                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-gray-700 mb-3 md:mb-4 leading-[0.9] tracking-tight">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-gray-700 mb-3 md:mb-4 leading-[0.9] tracking-tight">
                   {trajectData.title}
                 </h1>
                 <p className="text-base md:text-lg xl:text-xl text-gray-600 font-normal tracking-wide">
