@@ -72,20 +72,23 @@ const InfoTrajectoryPage: React.FC = () => {
       {
         title: 'WE GROW\nWITH YOU',
         subtitle: '300 gesprekken per maand.\n50 worden behandeld',
-        mainTitle: 'De beste nazorg',
-        description: 'Na de ingreep begeleiden we u stap voor stap in herstel en haargroei. We blijven betrokken tot de resultaten volledig zichtbaar en stabiel zijn.behandeling.'
+        mainTitle: 'Voorbehandeling',
+        description: 'Je traject start met een uitgebreide intake en onze 12-Point Precision Scan™. Zo krijgen we een compleet beeld van je hoofdhuid, haarzakjes en herstelmogelijkheden.',
+        slogan: 'We kijken niet alleen naar je haar. We kijken vooruit.'
       },
       {
         title: 'WE GROW\nWITH YOU', 
         subtitle: '300 gesprekken per maand.\n50 worden behandeld',
-        mainTitle: 'Professionele behandeling',
-        description: 'Ervaren specialisten voeren uw haartransplantatie uit met de nieuwste technieken voor optimale resultaten.'
+        mainTitle: 'Behandeling',
+        description: 'Je transplantatie wordt uitgevoerd met uiterste zorg en precisie, door een team van specialisten. We gebruiken de beste technieken én stemmen alles af op jouw unieke situatie.',
+        slogan: 'Geen standaardaanpak. Wel standaard het beste.'
       },
       {
         title: 'WE GROW\nWITH YOU',
         subtitle: '300 gesprekken per maand.\n50 worden behandeld', 
-        mainTitle: 'Persoonlijke voorbereiding',
-        description: 'Een uitgebreide consultatie en zorgvuldige voorbereiding vormen de basis van uw succesvolle behandeling.'
+        mainTitle: 'Nazorg',
+        description: 'Na de behandeling laten we je niet los. We begeleiden je in elke stap van je herstel en haargroei, tot 12 maanden na de ingreep.',
+        slogan: 'Want echte resultaten hebben tijd én aandacht nodig.'
       }
     ]
   } : {
@@ -96,20 +99,23 @@ const InfoTrajectoryPage: React.FC = () => {
       {
         title: 'WE GROW\nWITH YOU',
         subtitle: '300 conversations per month.\n50 get treated',
-        mainTitle: 'The best aftercare',
-        description: 'After the procedure, we guide you step by step through recovery and hair growth. We remain involved until results are fully visible and stable.'
+        mainTitle: 'Pre-treatment',
+        description: "Your journey starts with an extensive intake and our 12-Point Precision Scan™. This way we get a complete picture of your scalp, hair follicles and recovery possibilities.",
+        slogan: "We don't just look at your hair. We look ahead."
       },
       {
         title: 'WE GROW\nWITH YOU',
         subtitle: '300 conversations per month.\n50 get treated', 
-        mainTitle: 'Professional treatment',
-        description: 'Experienced specialists perform your hair transplant using the latest techniques for optimal results.'
+        mainTitle: 'Treatment',
+        description: 'Your transplant is performed with utmost care and precision, by a team of specialists. We use the best techniques and tailor everything to your unique situation.',
+        slogan: 'No standard approach. Always the standard best.'
       },
       {
         title: 'WE GROW\nWITH YOU',
         subtitle: '300 conversations per month.\n50 get treated',
-        mainTitle: 'Personal preparation', 
-        description: 'An extensive consultation and careful preparation form the foundation of your successful treatment.'
+        mainTitle: 'Aftercare', 
+        description: "After treatment, we don't let you go. We guide you through every step of your recovery and hair growth, up to 12 months after the procedure.",
+        slogan: 'Real results need time and attention.'
       }
     ]
   };
@@ -201,10 +207,17 @@ const InfoTrajectoryPage: React.FC = () => {
                                 {slide.mainTitle}
                               </h2>
                               <p 
-                                className="text-xs md:text-sm font-lato leading-relaxed max-w-xs mx-auto text-white"
+                                className="text-xs md:text-sm font-lato leading-relaxed max-w-xs mx-auto text-white mb-4"
                               >
                                 {slide.description}
                               </p>
+                              {slide.slogan && (
+                                <p 
+                                  className="text-xs md:text-sm font-lato leading-relaxed max-w-xs mx-auto text-white italic"
+                                >
+                                  {slide.slogan}
+                                </p>
+                              )}
                             </div>
                           </div>
                         </CarouselItem>
