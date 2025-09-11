@@ -135,77 +135,161 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
         />
       )}
       
-      {/* Standard Package Video */}
-      <video
-        ref={standardVideoRef}
-        className={`fixed transition-opacity duration-500 ${
-          activeVideo === 'standard' ? 'opacity-100' : 'opacity-0'
-        }`}
-        style={{ 
-          filter: 'blur(6px) brightness(0.95) contrast(1.1) saturate(1.2)',
-          objectFit: 'cover',
-          objectPosition: 'center center',
-          zIndex: 1,
-          width: 'calc(100vw + 100px)',
-          height: 'calc(100vh + 100px)',
-          left: '50%',
-          top: '-50px',
-          transform: 'translateX(-50%) scale(1.05)'
-        }}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-      />
+      {/* Standard Package Video - Multi-layer camera lens blur */}
+      <div className={`fixed inset-0 transition-opacity duration-500 ${
+        activeVideo === 'standard' ? 'opacity-100' : 'opacity-0'
+      }`}>
+        {/* Background layer - Heavy blur */}
+        <video
+          ref={standardVideoRef}
+          className="fixed"
+          style={{ 
+            filter: 'blur(12px) brightness(0.9) contrast(1.15) saturate(1.3) sepia(0.05) hue-rotate(2deg)',
+            objectFit: 'cover',
+            objectPosition: 'center center',
+            zIndex: 1,
+            width: 'calc(100vw + 120px)',
+            height: 'calc(100vh + 120px)',
+            left: '50%',
+            top: '-60px',
+            transform: 'translateX(-50%) scale(1.08)',
+            opacity: 0.7
+          }}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        />
+        {/* Mid layer - Medium blur */}
+        <video
+          className="fixed"
+          style={{ 
+            filter: 'blur(6px) brightness(0.95) contrast(1.1) saturate(1.2) sepia(0.02)',
+            objectFit: 'cover',
+            objectPosition: 'center center',
+            zIndex: 2,
+            width: 'calc(100vw + 100px)',
+            height: 'calc(100vh + 100px)',
+            left: '50%',
+            top: '-50px',
+            transform: 'translateX(-50%) scale(1.05)',
+            opacity: 0.8,
+            maskImage: 'radial-gradient(ellipse at center, black 60%, transparent 100%)',
+            WebkitMaskImage: 'radial-gradient(ellipse at center, black 60%, transparent 100%)'
+          }}
+          src={standardVideoRef.current?.src}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        />
+      </div>
       
-      {/* Premium Package Video */}
-      <video
-        ref={premiumVideoRef}
-        className={`fixed transition-opacity duration-500 ${
-          activeVideo === 'premium' ? 'opacity-100' : 'opacity-0'
-        }`}
-        style={{ 
-          filter: 'blur(6px) brightness(0.95) contrast(1.1) saturate(1.2)',
-          objectFit: 'cover',
-          objectPosition: 'center center',
-          zIndex: 1,
-          width: 'calc(100vw + 100px)',
-          height: 'calc(100vh + 100px)',
-          left: '50%',
-          top: '-50px',
-          transform: 'translateX(-50%) scale(1.05)'
-        }}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-      />
+      {/* Premium Package Video - Multi-layer camera lens blur */}
+      <div className={`fixed inset-0 transition-opacity duration-500 ${
+        activeVideo === 'premium' ? 'opacity-100' : 'opacity-0'
+      }`}>
+        {/* Background layer - Heavy blur */}
+        <video
+          ref={premiumVideoRef}
+          className="fixed"
+          style={{ 
+            filter: 'blur(12px) brightness(0.9) contrast(1.15) saturate(1.3) sepia(0.05) hue-rotate(2deg)',
+            objectFit: 'cover',
+            objectPosition: 'center center',
+            zIndex: 1,
+            width: 'calc(100vw + 120px)',
+            height: 'calc(100vh + 120px)',
+            left: '50%',
+            top: '-60px',
+            transform: 'translateX(-50%) scale(1.08)',
+            opacity: 0.7
+          }}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        />
+        {/* Mid layer - Medium blur */}
+        <video
+          className="fixed"
+          style={{ 
+            filter: 'blur(6px) brightness(0.95) contrast(1.1) saturate(1.2) sepia(0.02)',
+            objectFit: 'cover',
+            objectPosition: 'center center',
+            zIndex: 2,
+            width: 'calc(100vw + 100px)',
+            height: 'calc(100vh + 100px)',
+            left: '50%',
+            top: '-50px',
+            transform: 'translateX(-50%) scale(1.05)',
+            opacity: 0.8,
+            maskImage: 'radial-gradient(ellipse at center, black 60%, transparent 100%)',
+            WebkitMaskImage: 'radial-gradient(ellipse at center, black 60%, transparent 100%)'
+          }}
+          src={premiumVideoRef.current?.src}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        />
+      </div>
       
-      {/* Advanced Package Video */}
-      <video
-        ref={advancedVideoRef}
-        className={`fixed transition-opacity duration-500 ${
-          activeVideo === 'advanced' ? 'opacity-100' : 'opacity-0'
-        }`}
-        style={{ 
-          filter: 'blur(6px) brightness(0.95) contrast(1.1) saturate(1.2)',
-          objectFit: 'cover',
-          objectPosition: 'center center',
-          zIndex: 1,
-          width: 'calc(100vw + 100px)',
-          height: 'calc(100vh + 100px)',
-          left: '50%',
-          top: '-50px',
-          transform: 'translateX(-50%) scale(1.05)'
-        }}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-      />
+      {/* Advanced Package Video - Multi-layer camera lens blur */}
+      <div className={`fixed inset-0 transition-opacity duration-500 ${
+        activeVideo === 'advanced' ? 'opacity-100' : 'opacity-0'
+      }`}>
+        {/* Background layer - Heavy blur */}
+        <video
+          ref={advancedVideoRef}
+          className="fixed"
+          style={{ 
+            filter: 'blur(12px) brightness(0.9) contrast(1.15) saturate(1.3) sepia(0.05) hue-rotate(2deg)',
+            objectFit: 'cover',
+            objectPosition: 'center center',
+            zIndex: 1,
+            width: 'calc(100vw + 120px)',
+            height: 'calc(100vh + 120px)',
+            left: '50%',
+            top: '-60px',
+            transform: 'translateX(-50%) scale(1.08)',
+            opacity: 0.7
+          }}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        />
+        {/* Mid layer - Medium blur */}
+        <video
+          className="fixed"
+          style={{ 
+            filter: 'blur(6px) brightness(0.95) contrast(1.1) saturate(1.2) sepia(0.02)',
+            objectFit: 'cover',
+            objectPosition: 'center center',
+            zIndex: 2,
+            width: 'calc(100vw + 100px)',
+            height: 'calc(100vh + 100px)',
+            left: '50%',
+            top: '-50px',
+            transform: 'translateX(-50%) scale(1.05)',
+            opacity: 0.8,
+            maskImage: 'radial-gradient(ellipse at center, black 60%, transparent 100%)',
+            WebkitMaskImage: 'radial-gradient(ellipse at center, black 60%, transparent 100%)'
+          }}
+          src={advancedVideoRef.current?.src}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        />
+      </div>
     </div>
   );
 };
