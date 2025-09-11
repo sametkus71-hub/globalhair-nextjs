@@ -15,7 +15,7 @@ export const AnimatedGradientBackground = () => {
       <div 
         className="absolute inset-0"
         style={{ 
-          background: 'linear-gradient(to bottom, #2A2B29 0%, #3A3B35 30%, #4A4D42 60%, #66857B 100%)',
+          background: 'linear-gradient(to bottom, #2A2B29 0%, #3A3B35 30%, #5A615A 60%, #74998E 100%)',
           animation: 'subtle-breathe 8s ease-in-out infinite alternate'
         }}
       />
@@ -25,9 +25,9 @@ export const AnimatedGradientBackground = () => {
         className="absolute inset-0 w-full h-full opacity-8"
         style={{
           background: `
-            radial-gradient(circle at 20% 80%, rgba(102, 133, 123, 0.15) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(102, 133, 123, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 40% 40%, rgba(102, 133, 123, 0.05) 0%, transparent 50%)
+            radial-gradient(circle at 20% 80%, rgba(116, 153, 142, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(116, 153, 142, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 40% 40%, rgba(116, 153, 142, 0.05) 0%, transparent 50%)
           `,
           animation: 'texture-float 20s ease-in-out infinite'
         }}
@@ -37,7 +37,7 @@ export const AnimatedGradientBackground = () => {
       <div 
         className="absolute w-full h-full opacity-6 blur-3xl"
         style={{
-          background: 'radial-gradient(circle, rgba(102, 133, 123, 0.2) 0%, transparent 60%)',
+          background: 'radial-gradient(circle, rgba(116, 153, 142, 0.2) 0%, transparent 60%)',
           animation: 'gentle-float 25s ease-in-out infinite',
           left: '30%',
           top: '60%'
@@ -57,7 +57,7 @@ export const AnimatedGradientBackground = () => {
       <div 
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(to top, rgba(102, 133, 123, 0.2) 0%, rgba(102, 133, 123, 0.1) 40%, transparent 70%)'
+          background: 'linear-gradient(to top, rgba(116, 153, 142, 0.2) 0%, rgba(116, 153, 142, 0.1) 40%, transparent 70%)'
         }}
       />
       
