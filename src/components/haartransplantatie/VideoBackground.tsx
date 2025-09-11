@@ -142,7 +142,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           activeVideo === 'standard' ? 'opacity-100' : 'opacity-0'
         }`}
         style={{ 
-          filter: 'blur(8px) brightness(1.1) contrast(0.9)',
+          filter: 'blur(6px) brightness(0.95) contrast(1.1) saturate(1.2)',
           objectFit: 'cover',
           objectPosition: 'center center',
           zIndex: 1,
@@ -150,9 +150,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           height: 'calc(100vh + 100px)',
           left: '50%',
           top: '-50px',
-          transform: 'translateX(-50%) scale(1.05)',
-          maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)',
-          WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)'
+          transform: 'translateX(-50%) scale(1.05)'
         }}
         autoPlay
         muted
@@ -168,7 +166,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           activeVideo === 'premium' ? 'opacity-100' : 'opacity-0'
         }`}
         style={{ 
-          filter: 'blur(8px) brightness(1.1) contrast(0.9)',
+          filter: 'blur(6px) brightness(0.95) contrast(1.1) saturate(1.2)',
           objectFit: 'cover',
           objectPosition: 'center center',
           zIndex: 1,
@@ -176,9 +174,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           height: 'calc(100vh + 100px)',
           left: '50%',
           top: '-50px',
-          transform: 'translateX(-50%) scale(1.05)',
-          maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)',
-          WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)'
+          transform: 'translateX(-50%) scale(1.05)'
         }}
         autoPlay
         muted
@@ -194,7 +190,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           activeVideo === 'advanced' ? 'opacity-100' : 'opacity-0'
         }`}
         style={{ 
-          filter: 'blur(8px) brightness(1.1) contrast(0.9)',
+          filter: 'blur(6px) brightness(0.95) contrast(1.1) saturate(1.2)',
           objectFit: 'cover',
           objectPosition: 'center center',
           zIndex: 1,
@@ -202,9 +198,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           height: 'calc(100vh + 100px)',
           left: '50%',
           top: '-50px',
-          transform: 'translateX(-50%) scale(1.05)',
-          maskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)',
-          WebkitMaskImage: 'radial-gradient(ellipse at center, black 30%, transparent 80%)'
+          transform: 'translateX(-50%) scale(1.05)'
         }}
         autoPlay
         muted
