@@ -44,6 +44,17 @@ export const AnimatedGradientBackground = () => {
         }}
       />
       
+      {/* Bottom right green/teal blob */}
+      <div 
+        className="absolute w-80 h-80 opacity-15 blur-3xl"
+        style={{
+          background: 'radial-gradient(circle, rgba(116, 153, 142, 0.6) 0%, rgba(134, 173, 162, 0.4) 40%, transparent 70%)',
+          animation: 'bottom-green-float 22s ease-in-out infinite',
+          right: '5%',
+          bottom: '10%'
+        }}
+      />
+      
       {/* Top darkening gradient with subtle movement */}
       <div 
         className="absolute inset-0"
@@ -105,6 +116,21 @@ export const AnimatedGradientBackground = () => {
           50% {
             transform: translateY(-2px);
             opacity: 0.95;
+          }
+        }
+        
+        @keyframes bottom-green-float {
+          0%, 100% {
+            transform: translate(0, 0) scale(1);
+            opacity: 0.15;
+          }
+          33% {
+            transform: translate(-10px, -8px) scale(1.05);
+            opacity: 0.12;
+          }
+          66% {
+            transform: translate(8px, 6px) scale(0.98);
+            opacity: 0.18;
           }
         }
       `}</style>
