@@ -143,24 +143,15 @@ const InfoTrajectoryPage: React.FC = () => {
         <div className="min-h-[var(--app-height)] relative">
           <AnimatedTrajectoryBackground />
           
-          {/* Back button */}
-          <button
-            onClick={handleBack}
-            className="fixed top-4 left-4 z-50 w-10 h-10 rounded-full bg-gray-400/60 hover:bg-gray-400/80 transition-colors flex items-center justify-center"
-            aria-label={language === 'nl' ? 'Terug' : 'Back'}
-          >
-            <ArrowLeft className="w-5 h-5 text-white" />
-          </button>
-          
           {/* Scrollable Content */}
-          <div className="pt-16 md:pt-20 pb-20 md:pb-32 px-6">
+          <div className="pt-8 md:pt-12 pb-20 md:pb-32 px-6">
             <div className="max-w-2xl mx-auto min-h-[calc(var(--app-height)-8rem)] flex flex-col">
               
               {/* Static Title Section */}
-              <div className={`text-center mb-12 transition-all duration-500 ease-out ${
+              <div className={`text-center mb-8 transition-all duration-500 ease-out ${
                 titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
-                <div className="mt-8 mb-12">
+                <div className="mt-4 mb-8">
                   <h1 
                     className="text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-lato font-normal mb-6 leading-[0.9] tracking-tight whitespace-pre-line"
                     style={{ color: '#ACD1C6' }}
@@ -199,13 +190,13 @@ const InfoTrajectoryPage: React.FC = () => {
                             contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                           }`}>
                             {/* Large White Circle */}
-                            <div className="w-56 h-56 md:w-72 md:h-72 bg-white/90 rounded-full shadow-lg flex items-center justify-center mb-16">
+                            <div className="w-40 h-40 md:w-48 md:h-48 bg-white/90 rounded-full shadow-lg flex items-center justify-center mb-8">
                             </div>
                             
                             {/* Middle Content */}
                             <div className="flex-1 flex flex-col justify-center">
                               <h2 
-                                className="text-lg md:text-xl font-lato font-normal mb-3 tracking-wide text-white"
+                                className="text-lg md:text-xl font-lato font-normal mb-2 tracking-wide text-white"
                               >
                                 {slide.mainTitle}
                               </h2>
