@@ -161,6 +161,28 @@ export default {
 						opacity: "1", 
 						transform: "translateY(0)" 
 					}
+				},
+				'gradient-flow': {
+					'0%': { 
+						backgroundPosition: '0% 50%, 100% 50%, 0% 100%, 100% 0%',
+						backgroundSize: '120% 120%, 110% 110%, 130% 130%, 115% 115%'
+					},
+					'25%': { 
+						backgroundPosition: '25% 25%, 75% 75%, 10% 90%, 90% 10%',
+						backgroundSize: '125% 125%, 115% 115%, 125% 125%, 120% 120%'
+					},
+					'50%': { 
+						backgroundPosition: '50% 0%, 50% 100%, 25% 75%, 75% 25%',
+						backgroundSize: '130% 130%, 120% 120%, 120% 120%, 125% 125%'
+					},
+					'75%': { 
+						backgroundPosition: '75% 75%, 25% 25%, 90% 10%, 10% 90%',
+						backgroundSize: '115% 115%, 125% 125%, 135% 135%, 110% 110%'
+					},
+					'100%': { 
+						backgroundPosition: '0% 50%, 100% 50%, 0% 100%, 100% 0%',
+						backgroundSize: '120% 120%, 110% 110%, 130% 130%, 115% 115%'
+					}
 				}
 			},
 			animation: {
@@ -172,6 +194,7 @@ export default {
 				'ios-entrance': 'ios-entrance 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
 				'logo-entrance': 'logo-entrance 1s ease-out forwards',
 				'fade-entrance': 'fade-entrance 0.3s ease-out forwards',
+				'gradient-flow': 'gradient-flow 25s ease-in-out infinite',
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',

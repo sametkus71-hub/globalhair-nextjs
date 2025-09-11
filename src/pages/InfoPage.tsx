@@ -81,8 +81,21 @@ const InfoPage: React.FC = () => {
         language={language}
       />
       <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
-        {/* Background matching haartransplantatie page */}
-        <div className="min-h-[var(--app-height)]" style={{ background: '#E4E5E0' }}>
+        {/* Animated Gradient Background */}
+        <div 
+          className="min-h-[var(--app-height)] animate-gradient-flow"
+          style={{ 
+            background: `
+              radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.8) 0%, rgba(59, 130, 246, 0.2) 40%, transparent 70%),
+              radial-gradient(circle at 80% 10%, rgba(99, 102, 241, 0.7) 0%, rgba(99, 102, 241, 0.15) 35%, transparent 65%),
+              radial-gradient(circle at 10% 90%, rgba(16, 185, 129, 0.6) 0%, rgba(16, 185, 129, 0.1) 30%, transparent 60%),
+              radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.8) 0%, rgba(139, 92, 246, 0.2) 45%, transparent 75%),
+              linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 25%, #ecfdf5 50%, #f3e8ff 75%, #fef3c7 100%)
+            `,
+            backgroundSize: '120% 120%, 110% 110%, 130% 130%, 115% 115%, 100% 100%',
+            backgroundPosition: '0% 50%, 100% 50%, 0% 100%, 100% 0%, center'
+          }}
+        >
           
           {/* Close button */}
           <button
