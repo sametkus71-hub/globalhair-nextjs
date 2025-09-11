@@ -62,45 +62,57 @@ const InfoMethodPage: React.FC = () => {
     trajectoryButton: 'Bekijk het traject',
     methods: [{
       title: 'FUE safer & DHI',
-      content: 'Onze haartransplantaties worden uitgevoerd met moderne extractietechnieken zoals FUE en DHI. Hierbij worden individuele haarzakjes nauwkeurig verplaatst voor een natuurlijk resultaat, met minimale littekens. Meer haar. Minder zichtbare sporen.'
+      content: 'Onze haartransplantaties worden uitgevoerd met moderne extractietechnieken zoals FUE en DHI. Hierbij worden individuele haarzakjes nauwkeurig verplaatst voor een natuurlijk resultaat, met minimale littekens.',
+      tagline: 'Meer haar. Minder zichtbare sporen.'
     }, {
       title: 'Stamceltherapie',
-      content: 'We ondersteunen je haargroei met regeneratieve stamceltherapie. Deze methode stimuleert de natuurlijke herstelkracht van je haar, voor zichtbaar gezondere haarzakjes en nieuwe groei. Activeren wat er al in je zit.'
+      content: 'We ondersteunen je haargroei met regeneratieve stamceltherapie. Deze methode stimuleert de natuurlijke herstelkracht van je haar, voor zichtbaar gezondere haarzakjes en nieuwe groei.',
+      tagline: 'Activeren wat er al in je zit.'
     }, {
       title: 'Comfort behandeling',
-      content: 'Een behandeling mag geen stressmoment zijn. Daarom zorgen we voor maximaal comfort, minimale pijn en volledige begeleiding tijdens én na je ingreep. Zorg die je voelt – maar dan in de goede zin.'
+      content: 'Een behandeling mag geen stressmoment zijn. Daarom zorgen we voor maximaal comfort, minimale pijn en volledige begeleiding tijdens én na je ingreep.',
+      tagline: 'Zorg die je voelt – maar dan in de goede zin.'
     }, {
       title: 'V6 Hairboost®',
-      content: 'Onze exclusieve V6 Hairboost® technologie versnelt je herstel en stimuleert extra haargroei, zowel voor als na transplantatie. Ontwikkeld in ons eigen lab voor het beste resultaat. Je haar, een stap voor op zichzelf.'
+      content: 'Onze exclusieve V6 Hairboost® technologie versnelt je herstel en stimuleert extra haargroei, zowel voor als na transplantatie. Ontwikkeld in ons eigen lab voor het beste resultaat.',
+      tagline: 'Je haar, een stap voor op zichzelf.'
     }, {
       title: 'GHI Precision Method™',
-      content: 'Onze gepatenteerde methode voor maximale precisie. Door technologie en ervaring te combineren, zorgen we voor exact de juiste plaatsing – voor natuurlijk ogende, blijvende resultaten. Omdat elk haar telt.'
+      content: 'Onze gepatenteerde methode voor maximale precisie. Door technologie en ervaring te combineren, zorgen we voor exact de juiste plaatsing – voor natuurlijk ogende, blijvende resultaten.',
+      tagline: 'Omdat elk haar telt.'
     }, {
       title: '12-Point Precision Scan™',
-      content: 'Elke behandeling start met inzicht. Onze geavanceerde scan brengt je hoofdhuid, haarzakjes en herstelpotentieel in kaart. Zo weten we precies wat kan – en wat werkt. We kijken niet alleen naar je haar. We kijken vooruit.'
+      content: 'Elke behandeling start met inzicht. Onze geavanceerde scan brengt je hoofdhuid, haarzakjes en herstelpotentieel in kaart. Zo weten we precies wat kan – en wat werkt.',
+      tagline: 'We kijken niet alleen naar je haar. We kijken vooruit.'
     }]
   } : {
     title: 'MIGHTY METHOD',
     subtitle: 'Hair | eyebrows | Beard',
     trajectoryButton: 'view the trajectory',
     methods: [{
-      title: 'FUE safer & DHI- laall',
-      content: 'Follicular Unit Extraction is a modern method where individual hair follicles are extracted and transplanted. This technique ensures natural results with minimal scarring.'
+      title: 'FUE safer & DHI',
+      content: 'Our hair transplants are performed with modern extraction techniques such as FUE and DHI. Individual hair follicles are precisely moved for a natural result with minimal scarring.',
+      tagline: 'More hair. Less visible traces.'
     }, {
-      title: 'Stamcel - lala',
-      content: 'Stem cell therapy to support hair health and stimulate natural hair growth with regenerative properties.'
+      title: 'Stem cell therapy',
+      content: 'We support your hair growth with regenerative stem cell therapy. This method stimulates the natural healing power of your hair for visibly healthier follicles and new growth.',
+      tagline: 'Activating what is already within you.'
     }, {
       title: 'Comfort treatment',
-      content: 'A comfortable treatment experience with minimal pain and optimal care during and after the procedure for your peace of mind.'
+      content: 'A treatment should not be a stressful moment. That is why we provide maximum comfort, minimal pain and complete guidance during and after your procedure.',
+      tagline: 'Care you feel – but in the good way.'
     }, {
-      title: 'V6 Hairboost® - lalal',
-      content: 'Our exclusive V6 Hairboost technology for enhanced hair growth and optimal results with advanced methods.'
+      title: 'V6 Hairboost®',
+      content: 'Our exclusive V6 Hairboost® technology accelerates your recovery and stimulates extra hair growth, both before and after transplantation. Developed in our own lab for the best results.',
+      tagline: 'Your hair, one step ahead of itself.'
     }, {
-      title: 'GHI precision method™',
-      content: 'Patented precision method for exact placement and natural results with state-of-the-art technology.'
+      title: 'GHI Precision Method™',
+      content: 'Our patented method for maximum precision. By combining technology and experience, we ensure exactly the right placement – for natural-looking, lasting results.',
+      tagline: 'Because every hair counts.'
     }, {
       title: '12-Point Precision Scan™',
-      content: 'Advanced 12-point precision scan for optimal analysis and planning of your hair transplant treatment.'
+      content: 'Every treatment starts with insight. Our advanced scan maps your scalp, hair follicles and recovery potential. This way we know exactly what is possible – and what works.',
+      tagline: 'We do not just look at your hair. We look ahead.'
     }]
   };
   return <>
@@ -140,6 +152,11 @@ const InfoMethodPage: React.FC = () => {
                         <p className="text-sm md:text-base text-[#ACD1C6]/70 font-lato leading-relaxed">
                           {method.content}
                         </p>
+                        <div className="mt-4">
+                          <p className="text-sm md:text-base text-[#ACD1C6]/80 font-lato italic font-light">
+                            {method.tagline}
+                          </p>
+                        </div>
                       </AccordionContent>
                     </AccordionItem>)}
                 </Accordion>
