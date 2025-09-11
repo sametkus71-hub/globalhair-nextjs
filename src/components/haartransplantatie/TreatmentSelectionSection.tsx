@@ -45,8 +45,8 @@ export const TreatmentSelectionSection = () => {
   useEffect(() => {
     if (comesFromHome) {
       const timers = [
-        setTimeout(() => setButtonsLoaded(prev => [true, prev[1]]), 2700), // 2400ms + 300ms
-        setTimeout(() => setButtonsLoaded(prev => [prev[0], true]), 2900), // 2700ms + 200ms
+        setTimeout(() => setButtonsLoaded(prev => [true, prev[1]]), 2400), // Updated timing
+        setTimeout(() => setButtonsLoaded(prev => [prev[0], true]), 2500), // 100ms gap
       ];
       
       return () => timers.forEach(clearTimeout);
@@ -182,10 +182,10 @@ export const TreatmentSelectionSection = () => {
 
         {/* Country Selection */}
         <div 
-          className={`flex justify-center ${spacing.country} relative ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
+          className={`flex justify-center ${spacing.country} relative ${comesFromHome ? 'opacity-0 animate-fade-entrance' : 'opacity-100'}`}
           style={{ 
             zIndex: 9999,
-            animationDelay: comesFromHome ? '1800ms' : '0ms' // 1300ms + 500ms = 1800ms
+            animationDelay: comesFromHome ? '2000ms' : '0ms' // 1300ms + 700ms pause = 2000ms
           }}
         >
           <div 
@@ -218,8 +218,8 @@ export const TreatmentSelectionSection = () => {
 
         {/* Package Selection */}
         <div 
-          className={`flex justify-center ${spacing.package} ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
-          style={{ animationDelay: comesFromHome ? '2100ms' : '0ms' }} // 1800ms + 300ms = 2100ms
+          className={`flex justify-center ${spacing.package} ${comesFromHome ? 'opacity-0 animate-fade-entrance' : 'opacity-100'}`}
+          style={{ animationDelay: comesFromHome ? '2100ms' : '0ms' }} // 2000ms + 100ms = 2100ms
         >
           <div 
             className="inline-flex p-1 rounded-lg"
@@ -257,8 +257,8 @@ export const TreatmentSelectionSection = () => {
 
         {/* Dynamic Package Content */}
         <div 
-          className={`text-center ${spacing.content} ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
-          style={{ animationDelay: comesFromHome ? '2400ms' : '0ms' }} // 2100ms + 300ms = 2400ms
+          className={`text-center ${spacing.content} ${comesFromHome ? 'opacity-0 animate-fade-entrance' : 'opacity-100'}`}
+          style={{ animationDelay: comesFromHome ? '2200ms' : '0ms' }} // 2100ms + 100ms = 2200ms
         >
           <div className="max-w-56 mx-auto">
             {packageContent[profile.selectedPackage as keyof typeof packageContent]?.map((item, index) => {
@@ -299,8 +299,8 @@ export const TreatmentSelectionSection = () => {
             
             {/* Cost Display - moved inside content section */}
             <div 
-              className={`text-center mt-4 ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
-              style={{ animationDelay: comesFromHome ? '2700ms' : '0ms' }} // 2400ms + 300ms = 2700ms
+              className={`text-center mt-4 ${comesFromHome ? 'opacity-0 animate-fade-entrance' : 'opacity-100'}`}
+              style={{ animationDelay: comesFromHome ? '2300ms' : '0ms' }} // 2200ms + 100ms = 2300ms
             >
               <p className={`font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal text-white/70 transition-all duration-300 ${
                 priceFlash ? 'bg-white/60 px-3 py-1 rounded-full shadow-sm' : ''
