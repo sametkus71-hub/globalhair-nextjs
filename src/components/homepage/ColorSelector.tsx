@@ -7,6 +7,7 @@ interface ColorSelectorProps {
 }
 
 export const ColorSelector = ({ heightBreakpoint = 'large' }: ColorSelectorProps) => {
+  // Updated to use gradient colors instead of images
   const { profile, updateProfile } = useSession();
   const { transitionToColor } = useSmoothColorTransition();
 
