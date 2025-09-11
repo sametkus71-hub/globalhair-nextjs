@@ -11,66 +11,75 @@ export const AnimatedGradientBackground = () => {
 
   return (
     <div className="absolute inset-0 overflow-hidden">
-      {/* Base background image */}
+      {/* Base background color */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0"
+        style={{ backgroundColor: '#66857B' }}
+      />
+      
+      {/* Moving blob 1 */}
+      <div 
+        className="absolute w-96 h-96 rounded-full blur-3xl opacity-10"
         style={{
-          backgroundImage: `url('/lovable-uploads/7c931942-52e6-43f9-8268-058b6cd01860.png')`
+          background: 'radial-gradient(circle, rgba(160, 200, 187, 0.5) 0%, transparent 70%)',
+          animation: 'blob-float-1 14s ease-in-out infinite',
+          left: '10%',
+          top: '20%'
         }}
       />
       
-      {/* Moving overlay blob 1 */}
+      {/* Moving blob 2 */}
       <div 
-        className="absolute w-96 h-96 rounded-full blur-3xl opacity-20"
+        className="absolute w-80 h-80 rounded-full blur-3xl opacity-12"
         style={{
-          background: 'radial-gradient(circle, rgba(160, 200, 187, 0.4) 0%, transparent 70%)',
-          animation: 'blob-float-1 12s ease-in-out infinite'
+          background: 'radial-gradient(circle, rgba(201, 229, 221, 0.6) 0%, transparent 70%)',
+          animation: 'blob-float-2 18s ease-in-out infinite reverse',
+          right: '15%',
+          bottom: '30%'
         }}
       />
       
-      {/* Moving overlay blob 2 */}
+      {/* Moving blob 3 */}
       <div 
-        className="absolute w-80 h-80 rounded-full blur-2xl opacity-15"
+        className="absolute w-72 h-72 rounded-full blur-2xl opacity-8"
         style={{
-          background: 'radial-gradient(circle, rgba(201, 229, 221, 0.3) 0%, transparent 70%)',
-          animation: 'blob-float-2 15s ease-in-out infinite reverse',
-          right: '10%',
-          bottom: '20%'
+          background: 'radial-gradient(circle, rgba(138, 178, 165, 0.7) 0%, transparent 70%)',
+          animation: 'blob-float-3 16s ease-in-out infinite',
+          left: '50%',
+          top: '50%'
         }}
       />
       
-      {/* Moving overlay blob 3 - Black breathing blob for top darkening */}
+      {/* Top darkening gradient with movement */}
       <div 
-        className="absolute w-80 h-80 rounded-full blur-2xl opacity-25"
+        className="absolute inset-0"
         style={{
-          background: 'radial-gradient(circle, rgba(0, 0, 0, 0.6) 0%, transparent 70%)',
-          animation: 'blob-breathe 6s ease-in-out infinite',
-          left: '60%',
-          top: '10%'
+          background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, transparent 50%)',
+          animation: 'top-darken 12s ease-in-out infinite alternate'
         }}
       />
       
-      {/* Green bottom overlay */}
+      {/* Bottom lightening gradient */}
       <div 
-        className="absolute inset-0 opacity-15"
+        className="absolute inset-0"
         style={{
-          background: `linear-gradient(to top, #8AB2A5 0%, transparent 60%)`
+          background: 'linear-gradient(to top, rgba(160, 200, 187, 0.3) 0%, transparent 40%)'
         }}
       />
       
       <style>{`
         @keyframes blob-float-1 {
           0%, 100% {
-            transform: translate(-20px, -10px) scale(1);
+            transform: translate(0, 0) scale(1);
           }
           25% {
-            transform: translate(10px, -30px) scale(1.05);
+            transform: translate(-15px, -10px) scale(1.05);
           }
           50% {
-            transform: translate(30px, 10px) scale(0.95);
+            transform: translate(10px, 15px) scale(0.95);
           }
           75% {
-            transform: translate(-10px, 20px) scale(1.02);
+            transform: translate(-5px, -20px) scale(1.02);
           }
         }
         
@@ -79,30 +88,30 @@ export const AnimatedGradientBackground = () => {
             transform: translate(0, 0) scale(1);
           }
           33% {
-            transform: translate(-25px, -15px) scale(1.08);
+            transform: translate(20px, -10px) scale(1.08);
           }
           66% {
-            transform: translate(15px, -25px) scale(0.92);
+            transform: translate(-10px, 20px) scale(0.92);
           }
         }
         
         @keyframes blob-float-3 {
           0%, 100% {
-            transform: translate(0, 0) scale(1) rotate(0deg);
+            transform: translate(0, 0) scale(1);
           }
           50% {
-            transform: translate(-15px, 25px) scale(1.1) rotate(180deg);
+            transform: translate(15px, -15px) scale(1.1);
           }
         }
         
-        @keyframes blob-breathe {
+        @keyframes top-darken {
           0%, 100% {
-            transform: translate(0, 0) scale(1);
-            opacity: 0.25;
+            transform: translateY(0);
+            opacity: 1;
           }
           50% {
-            transform: translate(-10px, 5px) scale(1.3);
-            opacity: 0.4;
+            transform: translateY(-10px);
+            opacity: 0.9;
           }
         }
       `}</style>
