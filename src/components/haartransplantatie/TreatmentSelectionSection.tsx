@@ -75,7 +75,7 @@ export const TreatmentSelectionSection = () => {
 
   // Red color for "nieuw" label (only shown on Advanced package)
   const getLabelColor = () => {
-    return '#FF0000'; // Always red since only Advanced shows "Nieuw"
+    return '#69252C'; // Dark red color for "Nieuw" label
   };
 
   const packageContent = {
