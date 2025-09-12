@@ -23,7 +23,7 @@ const InfoMethodPage: React.FC = () => {
     // Wait for animation to complete before navigating
     setTimeout(() => {
       navigate(infoPath);
-    }, 300);
+    }, 350);
   };
   const handleTrajectoryClick = () => {
     // Store current path for back navigation
@@ -120,7 +120,7 @@ const InfoMethodPage: React.FC = () => {
       {/* Fixed Background - Outside page container */}
       <AnimatedGradientBackground />
       
-      <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'slide-exit-right' : 'slide-enter-left'}`}>
+      <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
         <div className="min-h-[var(--app-height)] relative">
           {/* Scrollable Content */}
           <div className="pt-16 md:pt-20 pb-20 md:pb-32 px-6 relative z-10">

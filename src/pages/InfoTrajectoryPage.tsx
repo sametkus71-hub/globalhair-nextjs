@@ -26,7 +26,7 @@ const InfoTrajectoryPage: React.FC = () => {
     // Wait for animation to complete before navigating
     setTimeout(() => {
       navigate(infoPath);
-    }, 300);
+    }, 350);
   };
 
   const handleMethodClick = () => {
@@ -147,7 +147,7 @@ const InfoTrajectoryPage: React.FC = () => {
       {/* Fixed Background - Outside page container */}
       <AnimatedTrajectoryBackground />
       
-      <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'slide-exit-right' : 'slide-enter-left'}`}>
+      <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
         <div className="min-h-[var(--app-height)] relative">
           {/* Scrollable Content */}
           <div className="pt-8 md:pt-12 pb-20 md:pb-32 px-6 relative z-10">

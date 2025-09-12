@@ -15,7 +15,7 @@ export const ReviewsPage = () => {
   // Navigate back to appropriate page
   const handleClose = () => {
     setIsExiting(true);
-    handlePopupClose(300);
+    handlePopupClose(350);
   };
 
   return (

@@ -458,23 +458,26 @@ body.s-wit {
     animation: ultra-massive-pulse 260s ease-in-out infinite;
   }
   
-  /* Reviews page animations */
+  /* iOS-Native Bottom Sheet Animations */
   .reviews-page-fullscreen,
   .info-page-fullscreen,
   .support-page-fullscreen {
     @apply fixed inset-0 z-50 bg-transparent;
-    animation: reviews-page-slide-up 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-    transform: translateY(100%) scale(0.98);
+    animation: iosBottomSheetEnter 0.4s cubic-bezier(0.2, 0.0, 0, 1.0) forwards;
+    transform: translateY(100%) scale(0.97);
+    will-change: transform, opacity;
   }
   
   .booking-page-fullscreen {
     @apply fixed inset-0 z-50 bg-black;
-    animation: reviews-page-slide-up 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-    transform: translateY(100%) scale(0.98);
+    animation: iosBottomSheetEnter 0.4s cubic-bezier(0.2, 0.0, 0, 1.0) forwards;
+    transform: translateY(100%) scale(0.97);
+    will-change: transform, opacity;
   }
   
-  .reviews-page-exit {
-    animation: reviews-page-slide-down 0.3s cubic-bezier(0.4, 0, 0.8, 0.2) forwards;
+  .reviews-page-exit,
+  .booking-page-exit {
+    animation: iosBottomSheetExit 0.35s cubic-bezier(0.4, 0.0, 1, 1.0) forwards;
   }
   
   .review-item-page-fullscreen {
@@ -588,14 +591,29 @@ body.s-wit {
   }
 }
 
-@keyframes reviews-page-slide-up {
-  from {
+@keyframes iosBottomSheetEnter {
+  0% {
+    transform: translateY(100%) scale(0.97);
     opacity: 0;
-    transform: translateY(100%) scale(0.98);
   }
-  to {
+  60% {
+    transform: translateY(-2%) scale(0.99);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(0%) scale(1);
     opacity: 1;
-    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes iosBottomSheetExit {
+  0% {
+    transform: translateY(0%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%) scale(0.97);
+    opacity: 0;
   }
 }
 

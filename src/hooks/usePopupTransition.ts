@@ -62,13 +62,13 @@ export const usePopupTransition = () => {
         direction: 'cross-fade'
       });
 
-      // Add exit animation to current popup
+      // Add iOS-native exit animation to current popup
       const currentPopupElement = document.querySelector('.reviews-page-fullscreen, .info-page-fullscreen, .support-page-fullscreen, .contact-page-fullscreen, .booking-page-fullscreen');
       if (currentPopupElement) {
-        currentPopupElement.classList.add('popup-cross-fade-exit');
+        currentPopupElement.classList.add('reviews-page-exit');
       }
 
-      // Navigate after a short delay
+      // Navigate with iOS timing
       setTimeout(() => {
         navigate(targetPath);
         
@@ -81,7 +81,7 @@ export const usePopupTransition = () => {
             direction: 'cross-fade'
           });
         }, 100);
-      }, 200);
+      }, 350);
     } else {
       // Direct navigation with original slide-up animation
       navigate(targetPath);

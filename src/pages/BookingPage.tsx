@@ -31,7 +31,7 @@ export const BookingPage = () => {
 
   const handleClose = () => {
     setIsExiting(true);
-    handlePopupClose(300);
+    handlePopupClose(350);
   };
 
   return (
@@ -42,7 +42,7 @@ export const BookingPage = () => {
         language={language}
       />
       
-      <div className={`booking-page-fullscreen ${isExiting ? 'booking-page-exit' : ''}`}>
+      <div className={`booking-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}>
         {/* Close button with maximum z-index to stay above iframe */}
         <PopupCloseButton 
           onClose={handleClose} 

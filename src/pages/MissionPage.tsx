@@ -19,7 +19,7 @@ const MissionPage: React.FC = () => {
 
   const handleClose = () => {
     setIsExiting(true);
-    handlePopupClose(300);
+    handlePopupClose(350);
   };
 
   const handleMethodsClick = () => {

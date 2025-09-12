@@ -30,7 +30,7 @@ const InfoPage: React.FC = () => {
       setTimeout(() => {
         sessionStorage.removeItem('skipPageAnimations');
       }, 100);
-    }, 200);
+    }, 350);
   };
   const handleMethodClick = () => {
     // Store current path and navigate to method subpage

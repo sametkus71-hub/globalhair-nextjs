@@ -37,7 +37,7 @@ const ContactPage: React.FC = () => {
     setIsExiting(true);
     setTimeout(() => {
       navigate(getActiveRoutePath());
-    }, 300);
+    }, 350);
   };
 
   // Handle ESC key
@@ -141,7 +141,7 @@ const ContactPage: React.FC = () => {
       {/* Fixed Background - Outside page container */}
       <AnimatedContactBackground />
       
-      <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'slide-exit-right' : 'slide-enter-left'}`}>
+      <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
         <div className="min-h-[var(--app-height)] relative">
           {/* Close Button */}
           <PopupCloseButton onClose={handleClose} />

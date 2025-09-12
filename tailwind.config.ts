@@ -142,6 +142,30 @@ export default {
 						transform: "translateY(0) scale(1)" 
 					}
 				},
+				'iosBottomSheetEnter': {
+					"0%": {
+						transform: "translateY(100%) scale(0.97)",
+						opacity: "0"
+					},
+					"60%": {
+						transform: "translateY(-2%) scale(0.99)",
+						opacity: "0.9"
+					},
+					"100%": {
+						transform: "translateY(0%) scale(1)",
+						opacity: "1"
+					}
+				},
+				'iosBottomSheetExit': {
+					"0%": {
+						transform: "translateY(0%) scale(1)",
+						opacity: "1"
+					},
+					"100%": {
+						transform: "translateY(100%) scale(0.97)",
+						opacity: "0"
+					}
+				},
 				'logo-entrance': {
 					"0%": { 
 						opacity: "0", 
@@ -195,6 +219,8 @@ export default {
 				'logo-entrance': 'logo-entrance 1s ease-out forwards',
 				'fade-entrance': 'fade-entrance 0.3s ease-out forwards',
 				'gradient-flow': 'gradient-flow 20s ease-in-out infinite',
+				'ios-bottom-sheet-enter': 'iosBottomSheetEnter 0.4s cubic-bezier(0.2, 0.0, 0, 1.0) forwards',
+				'ios-bottom-sheet-exit': 'iosBottomSheetExit 0.35s cubic-bezier(0.4, 0.0, 1, 1.0) forwards',
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
