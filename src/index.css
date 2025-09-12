@@ -1407,15 +1407,11 @@ html, body {
 @keyframes windmillBladesEntrance {
   0% { 
     opacity: 0;
-    transform: rotate(0deg) scale(0.9);
-  }
-  50% { 
-    opacity: 0.8;
-    transform: rotate(180deg) scale(1);
+    transform: scale(0.8);
   }
   100% { 
     opacity: 1;
-    transform: rotate(360deg) scale(1);
+    transform: scale(1);
   }
 }
 
@@ -1440,8 +1436,8 @@ html, body {
 
 .animate-windmill-blades {
   animation: 
-    windmillBladesEntrance 1.0s cubic-bezier(0.2, 0.0, 0, 1.0) 0.8s forwards,
-    windmillRotate 4s linear 1.8s infinite;
+    windmillBladesEntrance 0.8s cubic-bezier(0.2, 0.0, 0, 1.0) 0.8s forwards,
+    windmillRotate 4s linear 1.2s infinite;
   opacity: 0;
   transform-origin: 33px 25px;
 }
