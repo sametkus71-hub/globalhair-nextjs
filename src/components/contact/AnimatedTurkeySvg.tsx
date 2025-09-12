@@ -9,7 +9,7 @@ export const AnimatedTurkeySvg: React.FC<AnimatedTurkeySvgProps> = ({ isVisible 
     <div className={`flex justify-center mb-8 md:mb-12 transition-all duration-700 ease-out ${
       isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
     }`}>
-      <div className="w-20 h-16 md:w-24 md:h-20">
+      <div className="w-32 h-24 md:w-40 md:h-32 lg:w-48 lg:h-36">
         <svg 
           width="100%" 
           height="100%" 
