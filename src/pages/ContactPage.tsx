@@ -139,7 +139,7 @@ const ContactPage: React.FC = () => {
               
               {/* Title Section */}
               <div className={`text-center mb-8 md:mb-16 transition-all duration-500 ease-out ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                <h1 className="md:text-4xl lg:text-5xl xl:text-6xl font-lato text-[#ACD1C6] mb-3 md:mb-4 leading-[0.9] tracking-tight font-normal text-4xl">
+                <h1 className="md:text-4xl lg:text-5xl xl:text-6xl font-lato text-[#ACD1C6] mb-3 md:mb-4 leading-[0.9] tracking-tight font-normal text-4xl" style={{textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)'}}>
                   WHERE TO<br />FIND US
                 </h1>
               </div>
@@ -197,7 +197,7 @@ const ContactPage: React.FC = () => {
                     <AccordionItem key={`${selectedCountry}-${index}`} value={`item-${selectedCountry}-${index}`} className="border-b border-[#ACD1C6]/30 last:border-b-0">
                       <AccordionTrigger className="py-3 md:py-5 px-0 hover:no-underline group">
                         <div className="flex items-center justify-between w-full">
-                          <span className="text-left text-base md:text-lg font-lato font-normal text-[#ACD1C6] group-hover:text-[#ACD1C6]/80">
+                          <span className="text-left text-base md:text-lg font-lato font-normal text-[#ACD1C6] group-hover:text-[#ACD1C6]/80" style={{textShadow: '0 1px 4px rgba(0, 0, 0, 0.25)'}}>
                             {location.name}
                           </span>
                           <Plus className="w-4 md:w-5 h-4 md:h-5 text-[#ACD1C6] transition-transform duration-200 shrink-0 group-data-[state=open]:rotate-45" />
