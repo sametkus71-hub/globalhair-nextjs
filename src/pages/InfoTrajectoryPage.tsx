@@ -8,16 +8,21 @@ import Autoplay from 'embla-carousel-autoplay';
 import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 import { AnimatedTrajectoryBackground } from '@/components/trajectory/AnimatedTrajectoryBackground';
 import { PopupCloseButton } from '@/components/PopupCloseButton';
+import { useViewportHeight } from '@/hooks/useViewportHeight';
 
 const InfoTrajectoryPage: React.FC = () => {
   const { language } = useLanguage();
   const navigate = useNavigate();
+  const { heightBreakpoint } = useViewportHeight();
   const [isExiting, setIsExiting] = useState(false);
   const [titleVisible, setTitleVisible] = useState(false);
   const [contentVisible, setContentVisible] = useState(false);
   const [buttonVisible, setButtonVisible] = useState(false);
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  
+  // Height-responsive classes
+  const isSmallHeight = heightBreakpoint === 'small';
 
   const handleClose = () => {
     setIsExiting(true);
@@ -154,11 +159,11 @@ const InfoTrajectoryPage: React.FC = () => {
           <PopupCloseButton onClose={handleClose} isBackButton={true} />
           
           {/* Scrollable Content */}
-          <div className="pt-8 md:pt-12 pb-20 md:pb-24 px-6 relative z-10">
+          <div className={`${isSmallHeight ? 'pt-4' : 'pt-8'} md:pt-12 pb-20 md:pb-24 px-6 relative z-10`}>
             <div className="max-w-2xl mx-auto min-h-[calc(var(--app-height)-8rem)] flex flex-col">
               
               {/* Static Title Section */}
-              <div className={`text-center mb-8 transition-all duration-500 ease-out ${
+              <div className={`text-center ${isSmallHeight ? 'mb-4' : 'mb-8'} transition-all duration-500 ease-out ${
                 titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
                 <div className="mt-4 mb-8">
@@ -200,7 +205,7 @@ const InfoTrajectoryPage: React.FC = () => {
                             contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                           }`}>
                             {/* Large White Circle */}
-                            <div className="w-40 h-40 md:w-48 md:h-48 bg-white/90 rounded-full shadow-lg flex items-center justify-center mb-8">
+                            <div className={`${isSmallHeight ? 'w-32 h-32' : 'w-40 h-40'} md:w-48 md:h-48 bg-white/90 rounded-full shadow-lg flex items-center justify-center ${isSmallHeight ? 'mb-4' : 'mb-8'}`}>
                             </div>
                             
                             {/* Middle Content */}
@@ -232,11 +237,11 @@ const InfoTrajectoryPage: React.FC = () => {
               </div>
 
               {/* Static Bottom Section */}
-              <div className={`text-center mt-auto pt-8 pb-6 transition-all duration-500 ease-out ${
+              <div className={`text-center mt-auto ${isSmallHeight ? 'pt-4' : 'pt-8'} pb-6 transition-all duration-500 ease-out ${
                 buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
                 {/* Navigation Dots */}
-                <div className="flex justify-center space-x-3 mb-8">
+                <div className={`flex justify-center space-x-3 ${isSmallHeight ? 'mb-4' : 'mb-8'}`}>
                   {trajectData.slides.map((_, dotIndex) => (
                     <button
                       key={dotIndex}
