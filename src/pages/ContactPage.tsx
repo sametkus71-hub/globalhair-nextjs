@@ -145,24 +145,39 @@ const ContactPage: React.FC = () => {
 
               {/* Country Toggle Buttons */}
               <div className={`flex justify-center mb-8 md:mb-12 transition-all duration-500 ease-out ${toggleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                <div className="flex rounded-full bg-[#ACD1C6]/20 p-1">
+                <div 
+                  className="inline-flex p-1 rounded-lg"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    backdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(255, 255, 255, 0.18)',
+                  }}
+                >
                   <button
                     onClick={() => setSelectedCountry('nederland')}
-                    className={`px-6 py-2 rounded-full text-sm font-lato font-normal transition-all duration-300 ${
+                    className={`px-6 py-2 ${selectedCountry === 'nederland' ? 'rounded-sm' : 'rounded-lg'} font-lato text-sm font-medium transition-all duration-300 ease-out ${
                       selectedCountry === 'nederland'
-                        ? 'bg-[#492C3A] text-white'
-                        : 'text-[#ACD1C6] hover:text-[#ACD1C6]/80'
+                        ? 'text-white'
+                        : 'text-white/80 hover:text-white'
                     }`}
+                    style={selectedCountry === 'nederland' ? {
+                      backdropFilter: 'blur(40px)',
+                      background: 'rgba(255, 255, 255, 0.3)'
+                    } : {}}
                   >
                     {contactData.countryButtons.nederland}
                   </button>
                   <button
                     onClick={() => setSelectedCountry('turkije')}
-                    className={`px-6 py-2 rounded-full text-sm font-lato font-normal transition-all duration-300 ${
+                    className={`px-6 py-2 ${selectedCountry === 'turkije' ? 'rounded-sm' : 'rounded-lg'} font-lato text-sm font-medium transition-all duration-300 ease-out ${
                       selectedCountry === 'turkije'
-                        ? 'bg-[#492C3A] text-white'
-                        : 'text-[#ACD1C6] hover:text-[#ACD1C6]/80'
+                        ? 'text-white'
+                        : 'text-white/80 hover:text-white'
                     }`}
+                    style={selectedCountry === 'turkije' ? {
+                      backdropFilter: 'blur(40px)',
+                      background: 'rgba(255, 255, 255, 0.3)'
+                    } : {}}
                   >
                     {contactData.countryButtons.turkije}
                   </button>
