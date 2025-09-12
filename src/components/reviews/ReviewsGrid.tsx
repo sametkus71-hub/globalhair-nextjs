@@ -219,7 +219,7 @@ export const ReviewsGrid = () => {
               )}
               style={{
                 width: '33vw',
-                height: item.rowSpan === 2 ? '64vw' : '32vw',
+                height: item.rowSpan === 2 ? 'calc(64vw + 2px)' : '32vw',
                 '--delay': `${delay}ms`,
                 contain: 'content'
               } as React.CSSProperties}
