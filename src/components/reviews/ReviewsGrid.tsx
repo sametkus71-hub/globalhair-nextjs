@@ -6,7 +6,7 @@ import { generateRandomGrid, getBeforeAfterCyclingGroups, GridItem } from '@/lib
 import { QuoteImage } from '@/data/reviewsQuotes';
 import { BeforeAfterItem } from '@/data/reviewsBeforeAfter';
 import { VideoItem } from '@/data/reviewsVideos';
-import { Play } from 'lucide-react';
+import { VolumeX, Volume2 } from 'lucide-react';
 
 
 interface BeforeAfterState {
@@ -25,22 +25,51 @@ const QuoteCard = ({ quote }: { quote: QuoteImage }) => {
   );
 };
 
-const VideoCard = ({ video }: { video: VideoItem }) => (
-  <div className="w-full h-full relative overflow-hidden bg-black">
-    <video
-      src={video.videoUrl}
-      muted
-      autoPlay
-      loop
-      playsInline
-      className="w-full h-full object-cover"
-      poster={video.thumbnail}
-    />
-    <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
-      <Play className="w-8 h-8 text-white" />
+const VideoCard = ({ 
+  video, 
+  isMuted, 
+  onToggleMute 
+}: { 
+  video: VideoItem; 
+  isMuted: boolean; 
+  onToggleMute: () => void; 
+}) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = isMuted;
+    }
+  }, [isMuted]);
+
+  return (
+    <div className="w-full h-full relative overflow-hidden bg-black">
+      <video
+        ref={videoRef}
+        src={video.videoUrl}
+        muted={isMuted}
+        autoPlay
+        loop
+        playsInline
+        className="w-full h-full object-cover"
+        poster={video.thumbnail}
+      />
+      <div 
+        className="absolute top-2 right-2 bg-black/70 p-2 rounded-full cursor-pointer hover:bg-black/80 transition-colors"
+        onClick={(e) => {
+          e.stopPropagation();
+          onToggleMute();
+        }}
+      >
+        {isMuted ? (
+          <VolumeX className="w-4 h-4 text-white" />
+        ) : (
+          <Volume2 className="w-4 h-4 text-white" />
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const BeforeAfterCard = ({ item, isAfter }: { item: BeforeAfterItem; isAfter: boolean }) => (
   <div className="w-full h-full relative overflow-hidden">
@@ -64,6 +93,9 @@ export const ReviewsGrid = () => {
   
   // State for before/after transitions  
   const [beforeAfterStates, setBeforeAfterStates] = useState<Map<string, BeforeAfterState>>(new Map());
+  
+  // State for video muting - track which video is currently unmuted (if any)
+  const [unmutedVideoId, setUnmutedVideoId] = useState<string | null>(null);
 
   // Handle click to navigate to item page with slide animation
   const handleItemClick = (item: GridItem) => {
@@ -73,11 +105,13 @@ export const ReviewsGrid = () => {
       const slug = item.data.slug;
       const itemRoute = language === 'nl' ? `/nl/reviews/${slug}` : `/en/reviews/${slug}`;
       slideToItem(itemRoute);
-    } else if (item.type === 'video') {
-      // Navigate to video full screen
-      const itemRoute = language === 'nl' ? `/nl/reviews/video-${item.data.id}` : `/en/reviews/video-${item.data.id}`;
-      slideToItem(itemRoute);
     }
+    // Videos no longer navigate - they handle mute/unmute via their own click handler
+  };
+
+  // Handle video mute/unmute toggle
+  const handleVideoToggleMute = (videoId: string) => {
+    setUnmutedVideoId(prevId => prevId === videoId ? null : videoId);
   };
 
   useEffect(() => {
@@ -155,7 +189,11 @@ export const ReviewsGrid = () => {
                 <QuoteCard quote={item.data} />
               )}
               {item.type === 'video' && (
-                <VideoCard video={item.data} />
+                <VideoCard 
+                  video={item.data} 
+                  isMuted={unmutedVideoId !== item.id}
+                  onToggleMute={() => handleVideoToggleMute(item.id)}
+                />
               )}
               {item.type === 'before-after' && beforeAfterState && (
                 <BeforeAfterCard item={item.data} isAfter={beforeAfterState.isAfter} />
