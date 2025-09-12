@@ -127,7 +127,7 @@ const InfoMethodPage: React.FC = () => {
           <PopupCloseButton onClose={handleClose} isBackButton={true} />
           
           {/* Scrollable Content */}
-          <div className="pt-16 md:pt-20 pb-32 md:pb-40 px-6 relative z-10">
+          <div className="pt-16 md:pt-20 pb-20 md:pb-24 px-6 relative z-10">
             <div className="max-w-2xl mx-auto min-h-[calc(var(--app-height)-8rem)] flex flex-col">
               
                {/* Title Section */}
@@ -167,7 +167,7 @@ const InfoMethodPage: React.FC = () => {
               </div>
 
               {/* Bottom Button */}
-              <div className={`text-center mt-auto pt-4 transition-all duration-500 ease-out ${buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+              <div className={`text-center mt-auto pt-4 pb-6 transition-all duration-500 ease-out ${buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                 <button onClick={handleTrajectoryClick} className="py-2 md:py-2.5 px-8 md:px-10 bg-[#492C3A] text-white text-sm font-lato font-normal rounded-full hover:bg-[#492C3A]/80 active:scale-[0.98] transition-all duration-300 ease-out">
                   {methodsData.trajectoryButton}
                 </button>
