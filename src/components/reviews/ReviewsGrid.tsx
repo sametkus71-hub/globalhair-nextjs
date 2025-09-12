@@ -13,6 +13,11 @@ interface BeforeAfterState {
   isAfter: boolean;
 }
 
+interface AnimationState {
+  isVisible: boolean;
+  delay: number;
+}
+
 const QuoteCard = ({ quote }: { quote: QuoteImage }) => {
   return (
     <div className="w-full h-full relative overflow-hidden">
@@ -94,6 +99,24 @@ export const ReviewsGrid = () => {
   // State for video muting - track which video is currently unmuted (if any)
   const [unmutedVideoId, setUnmutedVideoId] = useState<string | null>(null);
 
+  // State for grid animation
+  const [animationStates, setAnimationStates] = useState<Map<string, AnimationState>>(new Map());
+  const [animationsTriggered, setAnimationsTriggered] = useState(false);
+
+  // Calculate animation delay based on grid position
+  const calculateAnimationDelay = (index: number): number => {
+    const columnsPerRow = 3;
+    const row = Math.floor(index / columnsPerRow);
+    const col = index % columnsPerRow;
+    const baseDelay = (row * columnsPerRow + col) * 50; // 50ms between items
+    
+    // Tall items (2x row span) get slightly earlier timing
+    const item = gridItems[index];
+    const tallItemBonus = item?.rowSpan === 2 ? -25 : 0;
+    
+    return baseDelay + tallItemBonus;
+  };
+
   // Handle click to navigate to item page with slide animation
   const handleItemClick = (item: GridItem) => {
     if (item.type === 'quote') return; // Quotes are not clickable
@@ -153,6 +176,48 @@ export const ReviewsGrid = () => {
     };
   }, [gridItems]);
 
+  // Initialize animation states and trigger entrance animations
+  useEffect(() => {
+    const initialAnimationStates = new Map<string, AnimationState>();
+    
+    gridItems.forEach((item, index) => {
+      const delay = calculateAnimationDelay(index);
+      initialAnimationStates.set(item.id, { 
+        isVisible: false, 
+        delay 
+      });
+    });
+    
+    setAnimationStates(initialAnimationStates);
+    
+    // Trigger animations after a short delay to ensure component is mounted
+    const triggerTimer = setTimeout(() => {
+      setAnimationsTriggered(true);
+      
+      // Trigger each item's animation based on its calculated delay
+      gridItems.forEach((item, index) => {
+        const delay = calculateAnimationDelay(index);
+        setTimeout(() => {
+          setAnimationStates(prevStates => {
+            const newStates = new Map(prevStates);
+            const currentState = newStates.get(item.id);
+            if (currentState) {
+              newStates.set(item.id, { 
+                ...currentState, 
+                isVisible: true 
+              });
+            }
+            return newStates;
+          });
+        }, delay);
+      });
+    }, 100); // Small initial delay to ensure DOM is ready
+
+    return () => {
+      clearTimeout(triggerTimer);
+    };
+  }, [gridItems, calculateAnimationDelay]);
+
   return (
     <div className="w-full h-full overflow-auto -mt-[37px] pb-32">
       <div
@@ -165,8 +230,9 @@ export const ReviewsGrid = () => {
           backgroundColor: '#ffffff'
         }}
       >
-        {gridItems.map((item) => {
+        {gridItems.map((item, index) => {
           const beforeAfterState = beforeAfterStates.get(item.id);
+          const animationState = animationStates.get(item.id);
           
           return (
             <div
@@ -174,13 +240,18 @@ export const ReviewsGrid = () => {
               onClick={item.type === 'video' ? undefined : () => handleItemClick(item)}
               className={cn(
                 "transition-opacity duration-200",
+                // Animation classes
+                "grid-item-entrance",
+                animationState?.isVisible ? "grid-item-entrance-visible" : "",
+                // Original classes
                 item.type === 'quote' ? "cursor-default" : 
                 item.type === 'video' ? "" : "cursor-pointer hover:opacity-90",
                 item.rowSpan === 2 ? "row-span-2" : "row-span-1"
               )}
               style={{
                 width: '33vw', // Fixed width based on viewport
-                height: item.rowSpan === 2 ? '64vw' : '32vw' // Fixed height maintaining aspect ratio
+                height: item.rowSpan === 2 ? '64vw' : '32vw', // Fixed height maintaining aspect ratio
+                animationDelay: animationState ? `${animationState.delay}ms` : '0ms'
               }}
             >
               {item.type === 'quote' && (
