@@ -43,7 +43,10 @@ const VideoCard = ({
   }, [isMuted]);
 
   return (
-    <div className="w-full h-full relative overflow-hidden bg-black">
+    <div 
+      className="w-full h-full relative overflow-hidden bg-black cursor-pointer"
+      onClick={onToggleMute}
+    >
       <video
         ref={videoRef}
         src={video.videoUrl}
@@ -54,13 +57,7 @@ const VideoCard = ({
         className="w-full h-full object-cover"
         poster={video.thumbnail}
       />
-      <div 
-        className="absolute top-2 right-2 bg-black/70 p-2 rounded-full cursor-pointer hover:bg-black/80 transition-colors"
-        onClick={(e) => {
-          e.stopPropagation();
-          onToggleMute();
-        }}
-      >
+      <div className="absolute top-2 right-2 bg-black/70 p-2 rounded-full pointer-events-none">
         {isMuted ? (
           <VolumeX className="w-4 h-4 text-white" />
         ) : (
@@ -174,10 +171,11 @@ export const ReviewsGrid = () => {
           return (
             <div
               key={item.id}
-              onClick={() => handleItemClick(item)}
+              onClick={item.type === 'video' ? undefined : () => handleItemClick(item)}
               className={cn(
                 "transition-opacity duration-200",
-                item.type === 'quote' ? "cursor-default" : "cursor-pointer hover:opacity-90",
+                item.type === 'quote' ? "cursor-default" : 
+                item.type === 'video' ? "" : "cursor-pointer hover:opacity-90",
                 item.rowSpan === 2 ? "row-span-2" : "row-span-1"
               )}
               style={{
