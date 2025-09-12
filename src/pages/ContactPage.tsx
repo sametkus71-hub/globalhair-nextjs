@@ -219,14 +219,22 @@ const ContactPage: React.FC = () => {
                       <AccordionContent className="px-0 pb-3 md:pb-5">
                         <div className="space-y-3">
                           <div>
-                            <p className="text-sm md:text-base text-[#ACD1C6]/70 font-lato leading-relaxed whitespace-pre-line">
+                            <a 
+                              href={`https://maps.google.com/?q=${encodeURIComponent(location.address.replace(/\n/g, ' '))}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-sm md:text-base text-[#ACD1C6]/70 font-lato leading-relaxed whitespace-pre-line hover:text-[#ACD1C6] transition-colors duration-200 border-b border-dotted border-[#ACD1C6]/30 hover:border-[#ACD1C6]/60 cursor-pointer block"
+                            >
                               {location.address}
-                            </p>
+                            </a>
                           </div>
                           <div>
-                            <p className="text-sm md:text-base text-[#ACD1C6]/70 font-lato leading-relaxed">
+                            <a 
+                              href={`tel:${location.phone.replace(/\s/g, '')}`}
+                              className="text-sm md:text-base text-[#ACD1C6]/70 font-lato leading-relaxed hover:text-[#ACD1C6] transition-colors duration-200 border-b border-dotted border-[#ACD1C6]/30 hover:border-[#ACD1C6]/60 cursor-pointer inline-block"
+                            >
                               {location.phone}
-                            </p>
+                            </a>
                           </div>
                           <div>
                             <p className="text-xs md:text-sm text-[#ACD1C6]/60 font-lato leading-relaxed whitespace-pre-line">
