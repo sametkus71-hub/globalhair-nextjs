@@ -2,7 +2,7 @@ import React from 'react';
 
 export const AnimatedContactBackground = () => {
   return (
-    <div className="fixed inset-0 w-full h-full overflow-hidden">
+    <div className="absolute inset-0 w-full h-full overflow-hidden">
       {/* Layer 1: Static gradient background for color tones */}
       <div 
         className="absolute inset-0 w-full h-full"
