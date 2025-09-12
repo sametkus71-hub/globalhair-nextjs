@@ -144,13 +144,13 @@ const InfoTrajectoryPage: React.FC = () => {
         description={language === 'nl' ? 'Informatie over behandeltrajecten' : 'Information about treatment trajectories'}
         language={language}
       />
+      {/* Fixed Background - Outside page container */}
+      <AnimatedTrajectoryBackground />
+      
       <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'slide-exit-right' : 'slide-enter-left'}`}>
-        {/* Animated Background */}
         <div className="min-h-[var(--app-height)] relative">
-          <AnimatedTrajectoryBackground />
-          
           {/* Scrollable Content */}
-          <div className="pt-8 md:pt-12 pb-20 md:pb-32 px-6">
+          <div className="pt-8 md:pt-12 pb-20 md:pb-32 px-6 relative z-10">
             <div className="max-w-2xl mx-auto min-h-[calc(var(--app-height)-8rem)] flex flex-col">
               
               {/* Static Title Section */}

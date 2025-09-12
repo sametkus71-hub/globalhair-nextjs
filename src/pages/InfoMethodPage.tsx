@@ -117,13 +117,13 @@ const InfoMethodPage: React.FC = () => {
   };
   return <>
       <MetaHead title={language === 'nl' ? 'Behandel Methode' : 'Treatment Method'} description={language === 'nl' ? 'Informatie over behandelmethoden' : 'Information about treatment methods'} language={language} />
+      {/* Fixed Background - Outside page container */}
+      <AnimatedGradientBackground />
+      
       <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'slide-exit-right' : 'slide-enter-left'}`}>
-        {/* Animated Background */}
         <div className="min-h-[var(--app-height)] relative">
-          <AnimatedGradientBackground />
-          
           {/* Scrollable Content */}
-          <div className="pt-16 md:pt-20 pb-20 md:pb-32 px-6">
+          <div className="pt-16 md:pt-20 pb-20 md:pb-32 px-6 relative z-10">
             <div className="max-w-2xl mx-auto min-h-[calc(var(--app-height)-8rem)] flex flex-col">
               
                {/* Title Section */}

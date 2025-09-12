@@ -10,7 +10,7 @@ export const AnimatedTrajectoryBackground = () => {
   if (!mounted) return null;
 
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div className="fixed inset-0 w-full h-screen overflow-hidden z-0">
       {/* Base gradient background using uploaded image */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"

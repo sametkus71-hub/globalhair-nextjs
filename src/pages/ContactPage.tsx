@@ -138,17 +138,15 @@ const ContactPage: React.FC = () => {
         description={language === 'nl' ? 'Neem contact met ons op' : 'Get in touch with us'}
         language={language}
       />
+      {/* Fixed Background - Outside page container */}
+      <AnimatedContactBackground />
+      
       <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'slide-exit-right' : 'slide-enter-left'}`}>
         <div className="min-h-[var(--app-height)] relative">
-          {/* Fixed Background - Inside page container but fixed position */}
-          <div className="absolute inset-0 w-full h-full z-0">
-            <AnimatedContactBackground />
-          </div>
-          
           {/* Close Button */}
           <PopupCloseButton onClose={handleClose} />
           
-          {/* Scrollable Content - Higher z-index */}
+          {/* Scrollable Content */}
           <div className="pt-16 md:pt-20 pb-20 md:pb-32 px-6 relative z-10">
             <div className="max-w-2xl mx-auto min-h-[calc(var(--app-height)-8rem)] flex flex-col">
               

@@ -69,16 +69,18 @@ const InfoPage: React.FC = () => {
   }, []);
   return <>
       <MetaHead title={language === 'nl' ? 'Hoe kunnen wij u helpen?' : 'How can we help you?'} description={language === 'nl' ? 'Kies uw gebied en methode' : 'Choose your area and method'} language={language} />
-      <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
-        {/* Background Image with Animated Overlay */}
-        <div className="min-h-[var(--app-height)] relative" style={{
-        backgroundImage: `url('/lovable-uploads/096ed5af-55a0-4490-9d95-4203915c4ce2.png')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
-      }}>
-          {/* Animated overlay blobs - 3 distinct blobs */}
-          <div className="absolute inset-0 animate-gradient-flow" style={{
+      {/* Fixed Background - Outside page container */}
+      <div 
+        className="fixed inset-0 w-full h-screen overflow-hidden z-0"
+        style={{
+          backgroundImage: `url('/lovable-uploads/096ed5af-55a0-4490-9d95-4203915c4ce2.png')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        {/* Animated overlay blobs - 3 distinct blobs */}
+        <div className="absolute inset-0 animate-gradient-flow" style={{
           background: `
                 radial-gradient(circle at 15% 20%, rgba(137, 179, 186, 0.4) 0%, rgba(137, 179, 186, 0.2) 30%, rgba(137, 179, 186, 0.08) 55%, transparent 80%),
                 radial-gradient(circle at 85% 15%, rgba(182, 203, 177, 0.5) 0%, rgba(182, 203, 177, 0.25) 35%, rgba(182, 203, 177, 0.1) 60%, transparent 85%),
@@ -89,9 +91,9 @@ const InfoPage: React.FC = () => {
           filter: 'blur(3px)',
           backdropFilter: 'blur(1px)'
         }} />
-          
-          {/* Additional glassy effect layer */}
-          <div className="absolute inset-0 animate-gradient-flow" style={{
+        
+        {/* Additional glassy effect layer */}
+        <div className="absolute inset-0 animate-gradient-flow" style={{
           background: `
                 radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 40%, transparent 70%),
                 radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 45%, transparent 75%),
@@ -102,10 +104,12 @@ const InfoPage: React.FC = () => {
           filter: 'blur(1px)',
           animationDelay: '2s'
         }} />
-          
-          
+      </div>
+      
+      <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
+        <div className="min-h-[var(--app-height)] relative">
           {/* Content Container */}
-          <div className="flex flex-col items-center pt-20 px-6 min-h-[var(--app-height)]">
+          <div className="flex flex-col items-center pt-20 px-6 min-h-[var(--app-height)] relative z-10">
             
             {/* Title Section */}
             <div className={`text-center mb-16 transition-all duration-500 ease-out ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
