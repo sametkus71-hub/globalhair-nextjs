@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useSlideTransition } from '@/hooks/useSlideTransition';
 import { cn } from '@/lib/utils';
@@ -101,10 +101,11 @@ export const ReviewsGrid = () => {
 
   // State for grid animation
   const [animationStates, setAnimationStates] = useState<Map<string, AnimationState>>(new Map());
-  const [animationsTriggered, setAnimationsTriggered] = useState(false);
+  // Track timeouts to clean up on unmount
+  const animationTimeoutsRef = useRef<number[]>([]);
 
   // Calculate animation delay based on grid position
-  const calculateAnimationDelay = (index: number): number => {
+  const calculateAnimationDelay = useCallback((index: number): number => {
     const columnsPerRow = 3;
     const row = Math.floor(index / columnsPerRow);
     const col = index % columnsPerRow;
@@ -115,7 +116,7 @@ export const ReviewsGrid = () => {
     const tallItemBonus = item?.rowSpan === 2 ? -25 : 0;
     
     return baseDelay + tallItemBonus;
-  };
+  }, [gridItems]);
 
   // Handle click to navigate to item page with slide animation
   const handleItemClick = (item: GridItem) => {
@@ -178,6 +179,10 @@ export const ReviewsGrid = () => {
 
   // Initialize animation states and trigger entrance animations
   useEffect(() => {
+    // Clear any existing timeouts
+    animationTimeoutsRef.current.forEach((t) => clearTimeout(t));
+    animationTimeoutsRef.current = [];
+
     const initialAnimationStates = new Map<string, AnimationState>();
     
     gridItems.forEach((item, index) => {
@@ -191,13 +196,11 @@ export const ReviewsGrid = () => {
     setAnimationStates(initialAnimationStates);
     
     // Trigger animations after a short delay to ensure component is mounted
-    const triggerTimer = setTimeout(() => {
-      setAnimationsTriggered(true);
-      
+    const triggerTimer = window.setTimeout(() => {
       // Trigger each item's animation based on its calculated delay
       gridItems.forEach((item, index) => {
         const delay = calculateAnimationDelay(index);
-        setTimeout(() => {
+        const timeoutId = window.setTimeout(() => {
           setAnimationStates(prevStates => {
             const newStates = new Map(prevStates);
             const currentState = newStates.get(item.id);
@@ -210,11 +213,14 @@ export const ReviewsGrid = () => {
             return newStates;
           });
         }, delay);
+        animationTimeoutsRef.current.push(timeoutId);
       });
     }, 100); // Small initial delay to ensure DOM is ready
+    animationTimeoutsRef.current.push(triggerTimer);
 
     return () => {
-      clearTimeout(triggerTimer);
+      animationTimeoutsRef.current.forEach((t) => clearTimeout(t));
+      animationTimeoutsRef.current = [];
     };
   }, [gridItems, calculateAnimationDelay]);
 
