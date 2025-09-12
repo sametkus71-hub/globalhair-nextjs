@@ -7,6 +7,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselApi } from '@/componen
 import Autoplay from 'embla-carousel-autoplay';
 import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 import { AnimatedTrajectoryBackground } from '@/components/trajectory/AnimatedTrajectoryBackground';
+import { PopupCloseButton } from '@/components/PopupCloseButton';
 
 const InfoTrajectoryPage: React.FC = () => {
   const { language } = useLanguage();
@@ -18,7 +19,7 @@ const InfoTrajectoryPage: React.FC = () => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
 
-  const handleBack = () => {
+  const handleClose = () => {
     setIsExiting(true);
     // Always go back to info page
     const infoPath = language === 'nl' ? '/nl/info' : '/en/info';
@@ -40,7 +41,7 @@ const InfoTrajectoryPage: React.FC = () => {
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        handleBack();
+        handleClose();
       }
     };
     
@@ -149,6 +150,9 @@ const InfoTrajectoryPage: React.FC = () => {
       
       <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
         <div className="min-h-[var(--app-height)] relative">
+          {/* Close Button */}
+          <PopupCloseButton onClose={handleClose} />
+          
           {/* Scrollable Content */}
           <div className="pt-8 md:pt-12 pb-20 md:pb-32 px-6 relative z-10">
             <div className="max-w-2xl mx-auto min-h-[calc(var(--app-height)-8rem)] flex flex-col">

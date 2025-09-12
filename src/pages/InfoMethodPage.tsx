@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 import { AnimatedGradientBackground } from '@/components/method/AnimatedGradientBackground';
+import { PopupCloseButton } from '@/components/PopupCloseButton';
 const InfoMethodPage: React.FC = () => {
   const {
     language
@@ -15,7 +16,7 @@ const InfoMethodPage: React.FC = () => {
   const [titleVisible, setTitleVisible] = useState(false);
   const [accordionVisible, setAccordionVisible] = useState(false);
   const [buttonVisible, setButtonVisible] = useState(false);
-  const handleBack = () => {
+  const handleClose = () => {
     setIsExiting(true);
     // Always go back to info page
     const infoPath = language === 'nl' ? '/nl/info' : '/en/info';
@@ -36,7 +37,7 @@ const InfoMethodPage: React.FC = () => {
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        handleBack();
+        handleClose();
       }
     };
     document.addEventListener('keydown', handleEsc);
@@ -122,6 +123,9 @@ const InfoMethodPage: React.FC = () => {
       
       <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
         <div className="min-h-[var(--app-height)] relative">
+          {/* Close Button */}
+          <PopupCloseButton onClose={handleClose} />
+          
           {/* Scrollable Content */}
           <div className="pt-16 md:pt-20 pb-20 md:pb-32 px-6 relative z-10">
             <div className="max-w-2xl mx-auto min-h-[calc(var(--app-height)-8rem)] flex flex-col">

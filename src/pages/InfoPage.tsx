@@ -108,6 +108,9 @@ const InfoPage: React.FC = () => {
       
       <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
         <div className="min-h-[var(--app-height)] relative">
+          {/* Close Button */}
+          <PopupCloseButton onClose={handleClose} />
+          
           {/* Content Container */}
           <div className="flex flex-col items-center pt-20 px-6 min-h-[var(--app-height)] relative z-10">
             
