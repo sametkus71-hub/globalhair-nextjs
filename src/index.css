@@ -468,18 +468,21 @@ body.s-wit {
     will-change: transform, opacity;
   }
 
-  /* Grid Item Entrance Animation */
+  /* Grid Item Entrance Animation - Pure CSS with staggered delays */
   .grid-item-entrance {
     opacity: 0;
-    transform: translateY(20px) scale(0.95);
-    transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    will-change: opacity, transform;
+    transform: translateY(14px) scale(0.98);
+    will-change: transform, opacity;
   }
 
-  .grid-item-entrance-visible {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+  .grid-animate .grid-item-entrance {
+    animation: fade-in 0.28s ease-out both, scale-in 0.28s ease-out both;
+    animation-delay: var(--delay);
+  }
+  
+  /* Remove will-change after animation completes to save memory */
+  .grid-animate .grid-item-entrance {
+    animation-fill-mode: both;
   }
   
   /* Slide-in from right animations for sub-pages */

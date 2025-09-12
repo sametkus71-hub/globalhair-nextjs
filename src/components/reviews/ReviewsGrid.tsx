@@ -1,22 +1,17 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useSlideTransition } from '@/hooks/useSlideTransition';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { useIntersection } from '@/hooks/useIntersection';
 import { cn } from '@/lib/utils';
-import { generateRandomGrid, getBeforeAfterCyclingGroups, GridItem } from '@/lib/reviewsRandomizer';
+import { generateRandomGrid, GridItem } from '@/lib/reviewsRandomizer';
 import { QuoteImage } from '@/data/reviewsQuotes';
 import { BeforeAfterItem } from '@/data/reviewsBeforeAfter';
 import { VideoItem } from '@/data/reviewsVideos';
 import { VolumeX, Volume2 } from 'lucide-react';
 
 
-interface BeforeAfterState {
-  isAfter: boolean;
-}
-
-interface AnimationState {
-  isVisible: boolean;
-  delay: number;
-}
+// Remove interfaces - no longer needed for static implementation
 
 const QuoteCard = ({ quote }: { quote: QuoteImage }) => {
   return (
@@ -33,19 +28,44 @@ const QuoteCard = ({ quote }: { quote: QuoteImage }) => {
 const VideoCard = ({ 
   video, 
   isMuted, 
-  onToggleMute 
+  onToggleMute,
+  shouldLoad = false
 }: { 
   video: VideoItem; 
   isMuted: boolean; 
-  onToggleMute: () => void; 
+  onToggleMute: () => void;
+  shouldLoad?: boolean;
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (videoRef.current) {
+    if (videoRef.current && shouldLoad) {
       videoRef.current.muted = isMuted;
+      // Ensure video plays when loaded
+      videoRef.current.play().catch(() => {
+        // Ignore autoplay failures - common on mobile
+      });
     }
-  }, [isMuted]);
+  }, [isMuted, shouldLoad]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (videoRef.current) {
+        videoRef.current.pause();
+        videoRef.current.src = '';
+      }
+    };
+  }, []);
+
+  if (!shouldLoad) {
+    // Lightweight placeholder while not loaded
+    return (
+      <div className="w-full h-full bg-black flex items-center justify-center">
+        <VolumeX className="w-8 h-8 text-white/50" />
+      </div>
+    );
+  }
 
   return (
     <div 
@@ -59,8 +79,8 @@ const VideoCard = ({
         autoPlay
         loop
         playsInline
+        preload="metadata"
         className="w-full h-full object-cover"
-        poster={video.thumbnail}
       />
       <div className="absolute top-2 right-2 bg-black/70 p-2 rounded-full pointer-events-none">
         {isMuted ? (
@@ -73,15 +93,17 @@ const VideoCard = ({
   );
 };
 
-const BeforeAfterCard = ({ item, isAfter }: { item: BeforeAfterItem; isAfter: boolean }) => (
+const BeforeAfterCard = ({ item }: { item: BeforeAfterItem }) => (
   <div className="w-full h-full relative overflow-hidden">
     <img 
-      src={isAfter ? item.afterImage : item.beforeImage}
-      alt={`${item.patientName} - ${isAfter ? 'After' : 'Before'} ${item.treatmentType}`}
-      className="w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
+      src={item.beforeImage}
+      alt={`${item.patientName} - Before ${item.treatmentType}`}
+      className="w-full h-full object-cover"
+      loading="lazy"
+      decoding="async"
     />
     <div className="absolute bottom-2 left-2 bg-black/70 text-white px-2 py-1 rounded text-xs">
-      {isAfter ? 'After' : 'Before'}
+      Before
     </div>
   </div>
 );
@@ -89,34 +111,31 @@ const BeforeAfterCard = ({ item, isAfter }: { item: BeforeAfterItem; isAfter: bo
 export const ReviewsGrid = () => {
   const { language } = useLanguage();
   const { slideToItem } = useSlideTransition();
+  const isMobile = useIsMobile();
   
   // Generate random grid on component mount
   const [gridItems] = useState<GridItem[]>(() => generateRandomGrid());
   
-  // State for before/after transitions  
-  const [beforeAfterStates, setBeforeAfterStates] = useState<Map<string, BeforeAfterState>>(new Map());
+  // Progressive loading state
+  const [visibleItemCount, setVisibleItemCount] = useState(() => 
+    isMobile ? 12 : gridItems.length
+  );
   
   // State for video muting - track which video is currently unmuted (if any)
   const [unmutedVideoId, setUnmutedVideoId] = useState<string | null>(null);
+  
+  // Grid animation state - single boolean for triggering CSS animation
+  const [isGridAnimated, setIsGridAnimated] = useState(false);
+  
+  // Intersection observer for progressive loading
+  const { isIntersecting: shouldLoadMore, elementRef: loadMoreRef } = useIntersection<HTMLDivElement>({
+    threshold: 0.1,
+    rootMargin: '100px'
+  });
 
-  // State for grid animation
-  const [animationStates, setAnimationStates] = useState<Map<string, AnimationState>>(new Map());
-  // Track timeouts to clean up on unmount
-  const animationTimeoutsRef = useRef<number[]>([]);
-
-  // Calculate animation delay based on grid position
-  const calculateAnimationDelay = useCallback((index: number): number => {
-    const columnsPerRow = 3;
-    const row = Math.floor(index / columnsPerRow);
-    const col = index % columnsPerRow;
-    const baseDelay = (row * columnsPerRow + col) * 50; // 50ms between items
-    
-    // Tall items (2x row span) get slightly earlier timing
-    const item = gridItems[index];
-    const tallItemBonus = item?.rowSpan === 2 ? -25 : 0;
-    
-    return baseDelay + tallItemBonus;
-  }, [gridItems]);
+  // Find video items to determine which should autoplay
+  const videoItems = gridItems.filter(item => item.type === 'video').slice(0, 3);
+  const videoItemIds = new Set(videoItems.map(item => item.id));
 
   // Handle click to navigate to item page with slide animation
   const handleItemClick = (item: GridItem) => {
@@ -127,138 +146,80 @@ export const ReviewsGrid = () => {
       const itemRoute = language === 'nl' ? `/nl/reviews/${slug}` : `/en/reviews/${slug}`;
       slideToItem(itemRoute);
     }
-    // Videos no longer navigate - they handle mute/unmute via their own click handler
   };
 
-  // Handle video mute/unmute toggle
+  // Handle video mute/unmute toggle - only one video can be unmuted at a time
   const handleVideoToggleMute = (videoId: string) => {
     setUnmutedVideoId(prevId => prevId === videoId ? null : videoId);
   };
 
+  // Progressive loading effect
   useEffect(() => {
-    const intervals: NodeJS.Timeout[] = [];
-    
-    // Get before/after cycling groups
-    const beforeAfterCyclingGroups = getBeforeAfterCyclingGroups(gridItems);
+    if (isMobile && shouldLoadMore && visibleItemCount < gridItems.length) {
+      const loadNextBatch = () => {
+        setVisibleItemCount(prev => Math.min(prev + 6, gridItems.length));
+      };
+      
+      // Small delay to prevent rapid loading
+      const timeoutId = setTimeout(loadNextBatch, 150);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [shouldLoadMore, visibleItemCount, gridItems.length, isMobile]);
 
-    // Initialize before/after states only
-    const initialBeforeAfterStates = new Map<string, BeforeAfterState>();
-
-    gridItems.forEach(item => {
-      if (item.type === 'before-after') {
-        initialBeforeAfterStates.set(item.id, { isAfter: false });
-      }
-    });
-
-    setBeforeAfterStates(initialBeforeAfterStates);
-
-    // Set up before/after cycling (every 4 seconds, groups of 2)
-    beforeAfterCyclingGroups.forEach((group, groupIndex) => {
-      const interval = setInterval(() => {
-        setBeforeAfterStates(prevStates => {
-          const newStates = new Map(prevStates);
-          group.forEach(itemIndex => {
-            const item = gridItems[itemIndex];
-            if (item.type === 'before-after') {
-              const currentState = newStates.get(item.id);
-              if (currentState) {
-                newStates.set(item.id, { isAfter: !currentState.isAfter });
-              }
-            }
-          });
-          return newStates;
-        });
-      }, 4000);
-      intervals.push(interval);
-    });
-
-    return () => {
-      intervals.forEach(interval => clearInterval(interval));
-    };
-  }, [gridItems]);
-
-  // Initialize animation states and trigger entrance animations
+  // Trigger grid animation on mount
   useEffect(() => {
-    // Clear any existing timeouts
-    animationTimeoutsRef.current.forEach((t) => clearTimeout(t));
-    animationTimeoutsRef.current = [];
+    const timer = setTimeout(() => {
+      setIsGridAnimated(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
-    const initialAnimationStates = new Map<string, AnimationState>();
-    
-    gridItems.forEach((item, index) => {
-      const delay = calculateAnimationDelay(index);
-      initialAnimationStates.set(item.id, { 
-        isVisible: false, 
-        delay 
-      });
-    });
-    
-    setAnimationStates(initialAnimationStates);
-    
-    // Trigger animations after a short delay to ensure component is mounted
-    const triggerTimer = window.setTimeout(() => {
-      // Trigger each item's animation based on its calculated delay
-      gridItems.forEach((item, index) => {
-        const delay = calculateAnimationDelay(index);
-        const timeoutId = window.setTimeout(() => {
-          setAnimationStates(prevStates => {
-            const newStates = new Map(prevStates);
-            const currentState = newStates.get(item.id);
-            if (currentState) {
-              newStates.set(item.id, { 
-                ...currentState, 
-                isVisible: true 
-              });
-            }
-            return newStates;
-          });
-        }, delay);
-        animationTimeoutsRef.current.push(timeoutId);
-      });
-    }, 100); // Small initial delay to ensure DOM is ready
-    animationTimeoutsRef.current.push(triggerTimer);
-
+  // Cleanup videos on unmount
+  useEffect(() => {
     return () => {
-      animationTimeoutsRef.current.forEach((t) => clearTimeout(t));
-      animationTimeoutsRef.current = [];
+      // Pause all videos and clear unmuted state
+      setUnmutedVideoId(null);
     };
-  }, [gridItems, calculateAnimationDelay]);
+  }, []);
+
+  // Get the items to render based on progressive loading
+  const itemsToRender = gridItems.slice(0, visibleItemCount);
 
   return (
     <div className="w-full h-full overflow-auto -mt-[37px] pb-32">
       <div
-        className="grid grid-cols-3"
+        className={cn(
+          "grid grid-cols-3",
+          isGridAnimated && "grid-animate"
+        )}
         style={{
           width: '100vw',
           minHeight: '100vh',
-          gridAutoRows: '32vw', // Fixed row height based on viewport width
+          gridAutoRows: '32vw',
           gap: '2px',
           backgroundColor: '#ffffff'
         }}
       >
-        {gridItems.map((item, index) => {
-          const beforeAfterState = beforeAfterStates.get(item.id);
-          const animationState = animationStates.get(item.id);
+        {itemsToRender.map((item, index) => {
+          const delay = index * 50; // Staggered delay for CSS animation
+          const isVideoSlot = videoItemIds.has(item.id);
           
           return (
             <div
               key={item.id}
               onClick={item.type === 'video' ? undefined : () => handleItemClick(item)}
               className={cn(
-                "transition-opacity duration-200",
-                // Animation classes
                 "grid-item-entrance",
-                animationState?.isVisible ? "grid-item-entrance-visible" : "",
-                // Original classes
                 item.type === 'quote' ? "cursor-default" : 
                 item.type === 'video' ? "" : "cursor-pointer hover:opacity-90",
                 item.rowSpan === 2 ? "row-span-2" : "row-span-1"
               )}
               style={{
-                width: '33vw', // Fixed width based on viewport
-                height: item.rowSpan === 2 ? '64vw' : '32vw', // Fixed height maintaining aspect ratio
-                animationDelay: animationState ? `${animationState.delay}ms` : '0ms'
-              }}
+                width: '33vw',
+                height: item.rowSpan === 2 ? '64vw' : '32vw',
+                '--delay': `${delay}ms`,
+                contain: 'content'
+              } as React.CSSProperties}
             >
               {item.type === 'quote' && (
                 <QuoteCard quote={item.data} />
@@ -268,14 +229,25 @@ export const ReviewsGrid = () => {
                   video={item.data} 
                   isMuted={unmutedVideoId !== item.id}
                   onToggleMute={() => handleVideoToggleMute(item.id)}
+                  shouldLoad={isVideoSlot}
                 />
               )}
-              {item.type === 'before-after' && beforeAfterState && (
-                <BeforeAfterCard item={item.data} isAfter={beforeAfterState.isAfter} />
+              {item.type === 'before-after' && (
+                <BeforeAfterCard item={item.data} />
               )}
             </div>
           );
         })}
+        
+        {/* Load more trigger for mobile */}
+        {isMobile && visibleItemCount < gridItems.length && (
+          <div
+            ref={loadMoreRef}
+            className="col-span-3 h-4 flex items-center justify-center"
+          >
+            <div className="w-2 h-2 bg-gray-300 rounded-full animate-pulse" />
+          </div>
+        )}
       </div>
     </div>
   );
