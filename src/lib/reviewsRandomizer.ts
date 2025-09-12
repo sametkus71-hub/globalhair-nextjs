@@ -50,50 +50,51 @@ export const generateRandomGrid = (): GridItem[] => {
   const shuffledQuotes = shuffleArray(QUOTES);
   const shuffledBeforeAfter = shuffleArray(BEFORE_AFTER_ITEMS);
   const shuffledVideos = shuffleArray(VIDEOS);
-  
-  // Fixed content distribution for new layout
-  const totalItems = 18;
-  const numVideos = 3; // Exactly 3 videos for the 3 vertical slots
-  const maxQuotes = 4; // Maximum 4 quotes
-  const numQuotes = Math.min(maxQuotes, Math.floor(Math.random() * 3) + 2); // 2-4 quotes
-  const numBeforeAfter = totalItems - numVideos - numQuotes; // Remaining are before/after items
-  
-  // Create content pools for this grid
-  const gridVideos = shuffledVideos.slice(0, numVideos);
-  const gridBeforeAfter = shuffledBeforeAfter.slice(0, numBeforeAfter);
-  const gridQuotes = shuffledQuotes.slice(0, numQuotes);
-  
-  // Separate content by type restrictions
-  const videoContent = gridVideos.map(video => ({ type: 'video' as ContentType, data: video }));
-  const smallContent = [
-    ...gridBeforeAfter.map(item => ({ type: 'before-after' as ContentType, data: item })),
-    ...gridQuotes.map(quote => ({ type: 'quote' as ContentType, data: quote }))
+
+  // Layout slot counts
+  const videoSlots = GRID_LAYOUT.filter(l => l.contentType === 'video-only').length; // 3
+  const smallSlots = GRID_LAYOUT.length - videoSlots; // 15
+
+  // Content distribution
+  const maxQuotes = Math.min(4, shuffledQuotes.length, smallSlots); // cap at 4
+  const minQuotes = Math.min(2, maxQuotes); // 0-2 when not enough
+  const numQuotes = maxQuotes === 0 ? 0 : Math.max(minQuotes, Math.min(maxQuotes, 2 + Math.floor(Math.random() * (maxQuotes - 2 + 1))));
+
+  // Select content
+  const selectedQuotes = shuffledQuotes.slice(0, numQuotes);
+  const remainingSmall = Math.max(0, smallSlots - selectedQuotes.length);
+  const selectedBeforeAfter = shuffledBeforeAfter.slice(0, remainingSmall);
+
+  // Build small content pool and fill to required length (repeat if needed)
+  const smallPool: { type: ContentType; data: any }[] = [
+    ...selectedBeforeAfter.map(item => ({ type: 'before-after' as ContentType, data: item })),
+    ...selectedQuotes.map(quote => ({ type: 'quote' as ContentType, data: quote }))
   ];
-  
-  // Shuffle small content
-  const shuffledSmallContent = shuffleArray(smallContent);
-  
+
+  const smallFilled: { type: ContentType; data: any }[] = smallPool.length >= smallSlots
+    ? shuffleArray(smallPool).slice(0, smallSlots)
+    : Array.from({ length: smallSlots }, (_, i) => smallPool[i % Math.max(1, smallPool.length)]);
+
+  // Build video content and fill video slots (repeat if needed, fallback to small content if no videos)
+  const selectedVideos = shuffledVideos.slice(0, Math.max(1, Math.min(videoSlots, shuffledVideos.length || 1)));
+  const videoFilled: { type: ContentType; data: any }[] = shuffledVideos.length > 0
+    ? Array.from({ length: videoSlots }, (_, i) => ({ type: 'video' as ContentType, data: selectedVideos[i % selectedVideos.length] }))
+    : Array.from({ length: videoSlots }, (_, i) => smallFilled[i % smallFilled.length]);
+
   // Map to grid items based on content restrictions
   let videoIndex = 0;
   let smallIndex = 0;
-  
+
   const gridItems: GridItem[] = GRID_LAYOUT.map((layout, index) => {
-    let content;
-    
-    if (layout.contentType === 'video-only') {
-      content = videoContent[videoIndex++];
-    } else {
-      content = shuffledSmallContent[smallIndex++];
-    }
-    
+    const content = layout.contentType === 'video-only' ? videoFilled[videoIndex++] : smallFilled[smallIndex++];
     return {
-      id: `item-${index}-${content.data.id}`,
+      id: `item-${index}-${content?.data?.id ?? index}`,
       type: content.type,
       rowSpan: layout.rowSpan,
       data: content.data
     };
   });
-  
+
   return gridItems;
 };
 

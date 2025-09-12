@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useSlideTransition } from '@/hooks/useSlideTransition';
 import { cn } from '@/lib/utils';
@@ -73,6 +73,9 @@ export const ReviewsGrid = () => {
   // State for before/after transitions  
   const [beforeAfterStates, setBeforeAfterStates] = useState<Map<string, BeforeAfterState>>(new Map());
 
+  // Stable reference to all quotes for cycling
+  const allQuotesRef = useRef(QUOTES);
+
   // Handle click to navigate to item page with slide animation
   const handleItemClick = (item: GridItem) => {
     if (item.type === 'quote') return; // Quotes are not clickable
@@ -121,9 +124,11 @@ export const ReviewsGrid = () => {
               const currentState = newStates.get(item.id);
               if (currentState) {
                 // Cycle through all available quotes
-                const allQuotes = QUOTES;
-                const nextIndex = (currentState.currentIndex + 1) % allQuotes.length;
-                newStates.set(item.id, { currentIndex: nextIndex });
+                const allQuotes = allQuotesRef.current || [];
+                if (allQuotes.length > 0) {
+                  const nextIndex = (currentState.currentIndex + 1) % allQuotes.length;
+                  newStates.set(item.id, { currentIndex: nextIndex });
+                }
               }
             }
           });
