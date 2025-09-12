@@ -489,10 +489,10 @@ body.s-wit {
     animation: iosBottomSheetExit 0.35s cubic-bezier(0.4, 0.0, 1, 1.0) forwards;
   }
   
-  /* Slide-out to left animations for sub-pages */
+  /* Slide-out to right animations for sub-pages */
   .info-method-page-exit,
   .info-trajectory-page-exit {
-    animation: slideOutToLeft 0.3s cubic-bezier(0.4, 0.0, 1, 1.0) forwards;
+    animation: slideOutToRight 0.3s cubic-bezier(0.4, 0.0, 1, 1.0) forwards;
   }
   
   .review-item-page-fullscreen {
@@ -643,13 +643,13 @@ body.s-wit {
   }
 }
 
-@keyframes slideOutToLeft {
+@keyframes slideOutToRight {
   0% {
     transform: translateX(0%);
     opacity: 1;
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(100%);
     opacity: 0.8;
   }
 }
