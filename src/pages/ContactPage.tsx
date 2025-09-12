@@ -139,7 +139,7 @@ const ContactPage: React.FC = () => {
               
               {/* Title Section */}
               <div className={`text-center mb-8 md:mb-16 transition-all duration-500 ease-out ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                <h1 className="md:text-4xl lg:text-5xl xl:text-6xl font-lato text-[#ACD1C6] mb-3 md:mb-4 leading-[0.9] tracking-tight font-normal text-4xl" style={{textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)'}}>
+                <h1 className="md:text-4xl lg:text-5xl xl:text-6xl font-lato text-[#ACD1C6] mb-3 md:mb-4 leading-[0.9] tracking-tight font-normal text-4xl" style={{textShadow: '0 2px 6px rgba(0, 0, 0, 0.2)'}}>
                   WHERE TO<br />FIND US
                 </h1>
               </div>
