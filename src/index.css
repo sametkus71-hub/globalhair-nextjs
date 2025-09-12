@@ -1365,3 +1365,83 @@ html, body {
   opacity: 0;
   transform: scaleY(0) translateY(15px);
 }
+
+/* Netherlands Windmill Animations */
+@keyframes netherlandsEntrance {
+  0% { 
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  60% { 
+    opacity: 0.8;
+    transform: scale(1.02) translateY(-5px);
+  }
+  100% { 
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes netherlandsBuilding {
+  0% { 
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  100% { 
+    opacity: 0.5;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes netherlandsHouse {
+  0% { 
+    opacity: 0;
+    transform: scale(0.92) translateY(8px);
+  }
+  100% { 
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes windmillBladesEntrance {
+  0% { 
+    opacity: 0;
+    transform: rotate(0deg) scale(0.9);
+  }
+  50% { 
+    opacity: 0.8;
+    transform: rotate(180deg) scale(1);
+  }
+  100% { 
+    opacity: 1;
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes windmillRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-netherlands-entrance {
+  animation: netherlandsEntrance 0.8s cubic-bezier(0.2, 0.0, 0, 1.0) 0.2s forwards;
+}
+
+.animate-netherlands-building {
+  animation: netherlandsBuilding 0.6s cubic-bezier(0.2, 0.0, 0, 1.0) 0.4s forwards;
+  opacity: 0;
+}
+
+.animate-netherlands-house {
+  animation: netherlandsHouse 0.7s cubic-bezier(0.2, 0.0, 0, 1.0) 0.6s forwards;
+  opacity: 0;
+}
+
+.animate-windmill-blades {
+  animation: 
+    windmillBladesEntrance 1.0s cubic-bezier(0.2, 0.0, 0, 1.0) 0.8s forwards,
+    windmillRotate 4s linear 1.8s infinite;
+  opacity: 0;
+  transform-origin: center;
+}

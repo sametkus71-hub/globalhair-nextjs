@@ -7,6 +7,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 import { AnimatedContactBackground } from '@/components/contact/AnimatedContactBackground';
 import { AnimatedTurkeySvg } from '@/components/contact/AnimatedTurkeySvg';
+import { AnimatedNetherlandsSvg } from '@/components/contact/AnimatedNetherlandsSvg';
 import { PopupCloseButton } from '@/components/PopupCloseButton';
 import { Mail, MessageCircle, Instagram, Plus } from 'lucide-react';
 
@@ -198,9 +199,12 @@ const ContactPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Turkey SVG - Only visible when Turkey is selected */}
+              {/* Country-specific SVGs */}
               {selectedCountry === 'turkije' && (
                 <AnimatedTurkeySvg isVisible={toggleVisible} />
+              )}
+              {selectedCountry === 'nederland' && (
+                <AnimatedNetherlandsSvg isVisible={toggleVisible} />
               )}
 
               {/* Accordion Section */}
