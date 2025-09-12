@@ -8,66 +8,56 @@ export interface QuoteImage {
   alt: string;
 }
 
-// Placeholder quotes - user will upload real quote images
+// Real patient testimonial quotes
 export const QUOTES: QuoteImage[] = [
   {
-    id: 'quote-1',
-    src: '/placeholder.svg',
-    alt: 'Patient testimonial quote 1'
+    id: 'quote-bram-klein-gunnewiek',
+    src: '/assets/quotes/quote-bram-klein-gunnewiek.jpg',
+    alt: 'Patient testimonial from Bram Klein Gunnewiek about hair transplant decision'
   },
   {
-    id: 'quote-2', 
-    src: '/placeholder.svg',
-    alt: 'Patient testimonial quote 2'
+    id: 'quote-bram-mommens',
+    src: '/assets/quotes/quote-bram-mommens.jpg',
+    alt: 'Patient testimonial from Bram Mommens about regret not doing it earlier'
   },
   {
-    id: 'quote-3',
-    src: '/placeholder.svg',
-    alt: 'Patient testimonial quote 3'
+    id: 'quote-daniel-sulkers',
+    src: '/assets/quotes/quote-daniel-sulkers.jpg',
+    alt: 'Patient testimonial from Daniel Sulkers about GlobalHair expertise'
   },
   {
-    id: 'quote-4',
-    src: '/placeholder.svg',
-    alt: 'Patient testimonial quote 4'
+    id: 'quote-ivo-teunissen',
+    src: '/assets/quotes/quote-ivo-teunissen.jpg',
+    alt: 'Patient testimonial from Ivo Teunissen about excellent results'
   },
   {
-    id: 'quote-5',
-    src: '/placeholder.svg',
-    alt: 'Patient testimonial quote 5'
+    id: 'quote-jay-herman-1',
+    src: '/assets/quotes/quote-jay-herman-1.jpg',
+    alt: 'Patient testimonial from Jay Herman about pride in decision and results'
   },
   {
-    id: 'quote-6',
-    src: '/placeholder.svg',
-    alt: 'Patient testimonial quote 6'
+    id: 'quote-jay-herman-2',
+    src: '/assets/quotes/quote-jay-herman-2.jpg',
+    alt: 'Patient testimonial from Jay Herman about increased happiness'
   },
   {
-    id: 'quote-7',
-    src: '/placeholder.svg',
-    alt: 'Patient testimonial quote 7'
+    id: 'quote-marijn-kuller',
+    src: '/assets/quotes/quote-marijn-kuller.jpg',
+    alt: 'Patient testimonial from Marijn Kuller about quality results'
   },
   {
-    id: 'quote-8',
-    src: '/placeholder.svg',
-    alt: 'Patient testimonial quote 8'
+    id: 'quote-glenn-van-den-bosch-1',
+    src: '/assets/quotes/quote-glenn-van-den-bosch-1.jpg',
+    alt: 'Patient testimonial from Glenn van den Bosch about service and results'
   },
   {
-    id: 'quote-9',
-    src: '/placeholder.svg',
-    alt: 'Patient testimonial quote 9'
+    id: 'quote-glenn-van-den-bosch-2',
+    src: '/assets/quotes/quote-glenn-van-den-bosch-2.jpg',
+    alt: 'Patient testimonial from Glenn van den Bosch about honest communication'
   },
   {
-    id: 'quote-10',
-    src: '/placeholder.svg',
-    alt: 'Patient testimonial quote 10'
-  },
-  {
-    id: 'quote-11',
-    src: '/placeholder.svg',
-    alt: 'Patient testimonial quote 11'
-  },
-  {
-    id: 'quote-12',
-    src: '/placeholder.svg',
-    alt: 'Patient testimonial quote 12'
+    id: 'quote-erik-jan-van-der-kooij',
+    src: '/assets/quotes/quote-erik-jan-van-der-kooij.jpg',
+    alt: 'Patient testimonial from Erik Jan van der Kooij about referrals'
   }
 ];
