@@ -54,24 +54,25 @@ export const ReviewItemPage = () => {
   return (
     <>
       <div className={`review-item-page-fullscreen ${isExiting ? 'slide-exit-right' : 'slide-enter-left'}`}>
-        {/* Back button */}
+        {/* Clean back button */}
         <button
           onClick={handleBack}
-          className="fixed top-4 left-4 z-50 p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors transform hover:scale-105 active:scale-95"
+          className="fixed top-6 left-6 z-50 p-3 rounded-full bg-black/20 backdrop-blur-sm text-white hover:bg-black/40 transition-all duration-200"
           aria-label="Go back"
         >
-          <ArrowLeft className="w-5 h-5 text-gray-600" />
+          <ArrowLeft className="w-6 h-6" />
         </button>
 
         {isVideo && 'videoUrl' in item ? (
-          // Video full screen view
+          // Video full screen view with no controls
           <div className="w-full h-[var(--app-height)] bg-black flex items-center justify-center">
             <video
               src={item.videoUrl}
-              controls
               autoPlay
-              className="max-w-full max-h-full"
-              poster={item.thumbnail}
+              loop
+              muted={false}
+              playsInline
+              className="max-w-full max-h-full object-contain"
             />
           </div>
         ) : !isVideo && 'beforeImage' in item ? (
