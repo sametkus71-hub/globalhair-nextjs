@@ -16,47 +16,25 @@ export const AnimatedContactBackground = () => {
 
       {/* Layer 2: Animated gradient blobs */}
       <div className="absolute inset-0 w-full h-full">
-        {/* Blob 1 */}
+        {/* Blob 1 - Top Right */}
         <div 
-          className="absolute w-96 h-96 rounded-full opacity-20 animate-contact-blob-1"
+          className="absolute w-[500px] h-[500px] rounded-full opacity-60 animate-contact-blob-breathing-1"
           style={{
-            background: 'radial-gradient(circle, rgba(172, 209, 198, 0.6) 0%, rgba(172, 209, 198, 0.2) 50%, transparent 100%)',
-            filter: 'blur(40px)',
-            top: '10%',
-            left: '15%',
+            background: 'radial-gradient(circle, rgba(172, 209, 198, 0.8) 0%, rgba(172, 209, 198, 0.4) 50%, transparent 100%)',
+            filter: 'blur(80px)',
+            top: '5%',
+            right: '10%',
           }}
         />
         
-        {/* Blob 2 */}
+        {/* Blob 2 - Bottom Left */}
         <div 
-          className="absolute w-80 h-80 rounded-full opacity-15 animate-contact-blob-2"
+          className="absolute w-[450px] h-[450px] rounded-full opacity-50 animate-contact-blob-breathing-2"
           style={{
-            background: 'radial-gradient(circle, rgba(73, 44, 58, 0.5) 0%, rgba(73, 44, 58, 0.2) 50%, transparent 100%)',
-            filter: 'blur(60px)',
-            top: '60%',
-            right: '20%',
-          }}
-        />
-        
-        {/* Blob 3 */}
-        <div 
-          className="absolute w-72 h-72 rounded-full opacity-25 animate-contact-blob-3"
-          style={{
-            background: 'radial-gradient(circle, rgba(172, 209, 198, 0.4) 0%, rgba(172, 209, 198, 0.1) 50%, transparent 100%)',
-            filter: 'blur(50px)',
-            bottom: '15%',
-            left: '25%',
-          }}
-        />
-        
-        {/* Blob 4 */}
-        <div 
-          className="absolute w-64 h-64 rounded-full opacity-20 animate-contact-blob-4"
-          style={{
-            background: 'radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%)',
-            filter: 'blur(45px)',
-            top: '40%',
-            left: '60%',
+            background: 'radial-gradient(circle, rgba(255, 182, 193, 0.7) 0%, rgba(255, 182, 193, 0.3) 50%, transparent 100%)',
+            filter: 'blur(70px)',
+            bottom: '10%',
+            left: '5%',
           }}
         />
       </div>
