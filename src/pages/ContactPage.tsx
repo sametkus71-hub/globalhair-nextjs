@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
+import { useSession } from '@/hooks/useSession';
 import { useNavigate } from 'react-router-dom';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
@@ -11,6 +12,7 @@ import { Mail, MessageCircle, Instagram, Plus } from 'lucide-react';
 
 const ContactPage: React.FC = () => {
   const { language } = useLanguage();
+  const { activeRoute } = useSession();
   const navigate = useNavigate();
   const [isExiting, setIsExiting] = useState(false);
   const [titleVisible, setTitleVisible] = useState(false);
@@ -19,11 +21,22 @@ const ContactPage: React.FC = () => {
   const [iconsVisible, setIconsVisible] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState<'nederland' | 'turkije'>('nederland');
 
+  // Get the target path for the active route
+  const getActiveRoutePath = () => {
+    if (activeRoute === 'haartransplantatie') {
+      return language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
+    }
+    if (activeRoute === 'v6-hairboost') {
+      return `/${language}/v6-hairboost`;
+    }
+    // Default fallback to haartransplantatie
+    return language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
+  };
+
   const handleClose = () => {
     setIsExiting(true);
-    const homePath = language === 'nl' ? '/nl' : '/en';
     setTimeout(() => {
-      navigate(homePath);
+      navigate(getActiveRoutePath());
     }, 300);
   };
 

@@ -31,7 +31,7 @@ const defaultProfile: UserProfile = {
   behandeling: 'Normaal',
   language: 'nl',
   selectedPackage: 'Premium',
-  activeRoute: null
+  activeRoute: 'haartransplantatie'
 };
 
 export const useSession = () => {
