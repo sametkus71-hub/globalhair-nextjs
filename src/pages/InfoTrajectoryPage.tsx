@@ -154,7 +154,7 @@ const InfoTrajectoryPage: React.FC = () => {
           <PopupCloseButton onClose={handleClose} isBackButton={true} />
           
           {/* Scrollable Content */}
-          <div className="pt-8 md:pt-12 pb-20 md:pb-32 px-6 relative z-10">
+          <div className="pt-8 md:pt-12 pb-32 md:pb-40 px-6 relative z-10">
             <div className="max-w-2xl mx-auto min-h-[calc(var(--app-height)-8rem)] flex flex-col">
               
               {/* Static Title Section */}
