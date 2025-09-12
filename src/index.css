@@ -1443,5 +1443,5 @@ html, body {
     windmillBladesEntrance 1.0s cubic-bezier(0.2, 0.0, 0, 1.0) 0.8s forwards,
     windmillRotate 4s linear 1.8s infinite;
   opacity: 0;
-  transform-origin: center;
+  transform-origin: 33px 25px;
 }

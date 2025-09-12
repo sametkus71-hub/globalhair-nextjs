@@ -7,14 +7,15 @@ interface AnimatedNetherlandsSvgProps {
 export const AnimatedNetherlandsSvg: React.FC<AnimatedNetherlandsSvgProps> = ({ isVisible }) => {
   return (
     <div className={`flex justify-center items-center mb-8 md:mb-12 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-      <svg 
-        width="57" 
-        height="59" 
-        viewBox="0 0 57 59" 
-        fill="none" 
-        xmlns="http://www.w3.org/2000/svg"
-        className={`w-16 h-16 md:w-20 md:h-20 ${isVisible ? 'animate-netherlands-entrance' : ''}`}
-      >
+      <div className="w-32 h-24 md:w-40 md:h-32 lg:w-48 lg:h-36">
+        <svg 
+          width="100%" 
+          height="100%" 
+          viewBox="0 0 57 59" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg"
+          className={`${isVisible ? 'animate-netherlands-entrance' : ''}`}
+        >
         {/* Windmill building structure */}
         <path 
           opacity="0.5" 
@@ -36,9 +37,11 @@ export const AnimatedNetherlandsSvg: React.FC<AnimatedNetherlandsSvgProps> = ({ 
             d="M30.4467 19.8081L30.4566 19.8055L31.3443 23.1171L24.2941 25.0061L23.7138 22.8402L12.5462 25.8326L13.7073 30.1647L30.7167 25.6067L30.7111 25.5856L34.0225 24.6983L35.9118 31.748L33.7978 32.3145L36.7931 43.4933L41.125 42.3326L36.2466 24.1249L54.4539 19.2463L53.2931 14.9144L35.0859 19.7931L30.2073 1.58583L25.875 2.74631L30.4467 19.8081Z" 
             fill="#CFCFCF"
             className={`${isVisible ? 'animate-windmill-blades' : ''}`}
+            style={{ transformOrigin: '33px 25px' }}
           />
         </g>
-      </svg>
+        </svg>
+      </div>
     </div>
   );
 };
