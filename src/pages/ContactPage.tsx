@@ -4,7 +4,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useNavigate } from 'react-router-dom';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
-import { AnimatedGradientBackground } from '@/components/method/AnimatedGradientBackground';
+import { AnimatedContactBackground } from '@/components/contact/AnimatedContactBackground';
 import { PopupCloseButton } from '@/components/PopupCloseButton';
 import { Mail, MessageCircle, Instagram, Plus } from 'lucide-react';
 
@@ -127,7 +127,7 @@ const ContactPage: React.FC = () => {
       <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'slide-exit-right' : 'slide-enter-left'}`}>
         {/* Animated Background */}
         <div className="min-h-[var(--app-height)] relative">
-          <AnimatedGradientBackground />
+          <AnimatedContactBackground />
           
           {/* Close Button */}
           <PopupCloseButton onClose={handleClose} />
