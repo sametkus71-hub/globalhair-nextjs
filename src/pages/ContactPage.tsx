@@ -139,7 +139,7 @@ const ContactPage: React.FC = () => {
               {/* Title Section */}
               <div className={`text-center mb-8 md:mb-16 transition-all duration-500 ease-out ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                 <h1 className="md:text-4xl lg:text-5xl xl:text-6xl font-lato text-[#ACD1C6] mb-3 md:mb-4 leading-[0.9] tracking-tight font-normal text-4xl">
-                  {contactData.title}
+                  WHERE TO<br />FIND US
                 </h1>
               </div>
 
@@ -225,16 +225,16 @@ const ContactPage: React.FC = () => {
               </div>
 
               {/* Social Media Icons */}
-              <div className={`text-center mt-auto pt-4 transition-all duration-500 ease-out ${iconsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+              <div className={`text-center mt-auto pt-4 pb-8 md:pb-12 transition-all duration-500 ease-out ${iconsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                 <div className="flex justify-center space-x-6">
-                  <button className="w-12 h-12 rounded-full bg-[#492C3A] flex items-center justify-center hover:bg-[#492C3A]/80 active:scale-[0.98] transition-all duration-300 ease-out">
-                    <Mail className="w-5 h-5 text-white" />
+                  <button className="w-10 h-10 rounded-full bg-[#492C3A] flex items-center justify-center hover:bg-[#492C3A]/80 active:scale-[0.98] transition-all duration-300 ease-out">
+                    <Mail className="w-4 h-4 text-white" />
                   </button>
-                  <button className="w-12 h-12 rounded-full bg-[#492C3A] flex items-center justify-center hover:bg-[#492C3A]/80 active:scale-[0.98] transition-all duration-300 ease-out">
-                    <MessageCircle className="w-5 h-5 text-white" />
+                  <button className="w-14 h-14 rounded-full bg-[#492C3A] flex items-center justify-center hover:bg-[#492C3A]/80 active:scale-[0.98] transition-all duration-300 ease-out">
+                    <MessageCircle className="w-6 h-6 text-white" />
                   </button>
-                  <button className="w-12 h-12 rounded-full bg-[#492C3A] flex items-center justify-center hover:bg-[#492C3A]/80 active:scale-[0.98] transition-all duration-300 ease-out">
-                    <Instagram className="w-5 h-5 text-white" />
+                  <button className="w-10 h-10 rounded-full bg-[#492C3A] flex items-center justify-center hover:bg-[#492C3A]/80 active:scale-[0.98] transition-all duration-300 ease-out">
+                    <Instagram className="w-4 h-4 text-white" />
                   </button>
                 </div>
               </div>
