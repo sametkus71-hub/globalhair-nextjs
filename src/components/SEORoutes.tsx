@@ -37,7 +37,7 @@ export const SEORoutes = () => {
       <Route path="/nl/dashboard" element={<DashboardPage />} />
       <Route path="/nl/form" element={<FormPage />} />
       <Route path="/nl/reviews" element={<ReviewsPage />} />
-      <Route path="/nl/reviews/:id" element={<ReviewItemPage />} />
+      <Route path="/nl/reviews/:slug" element={<ReviewItemPage />} />
       <Route path="/nl/missie" element={<MissionPage />} />
       <Route path="/nl/info" element={<InfoPage />} />
       <Route path="/nl/info/methode" element={<InfoMethodPage />} />
@@ -57,7 +57,7 @@ export const SEORoutes = () => {
       <Route path="/en/dashboard" element={<DashboardPage />} />
       <Route path="/en/form" element={<FormPage />} />
       <Route path="/en/reviews" element={<ReviewsPage />} />
-      <Route path="/en/reviews/:id" element={<ReviewItemPage />} />
+      <Route path="/en/reviews/:slug" element={<ReviewItemPage />} />
       <Route path="/en/mission" element={<MissionPage />} />
       <Route path="/en/info" element={<InfoPage />} />
       <Route path="/en/info/method" element={<InfoMethodPage />} />
