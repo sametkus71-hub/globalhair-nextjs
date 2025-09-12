@@ -11,8 +11,8 @@ export interface GridItem {
   data: any; // Will be typed based on content type
 }
 
-// Improved grid layout structure (18 items total)
-// 3 vertical items (1x2) for videos only, positioned vertically spaced
+// Grid layout structure (18 items total)
+// 3 vertical videos: left (rows 2-3), right (rows 3-4), left (rows 5-6)
 const GRID_LAYOUT: Array<{ rowSpan: 1 | 2; contentType?: 'video-only' | 'small-only' }> = [
   { rowSpan: 1, contentType: 'small-only' }, // Item 1 - Row 1, Col 1
   { rowSpan: 1, contentType: 'small-only' }, // Item 2 - Row 1, Col 2
@@ -21,17 +21,17 @@ const GRID_LAYOUT: Array<{ rowSpan: 1 | 2; contentType?: 'video-only' | 'small-o
   { rowSpan: 1, contentType: 'small-only' }, // Item 5 - Row 2, Col 2
   { rowSpan: 1, contentType: 'small-only' }, // Item 6 - Row 2, Col 3
   { rowSpan: 1, contentType: 'small-only' }, // Item 7 - Row 3, Col 2
-  { rowSpan: 1, contentType: 'small-only' }, // Item 8 - Row 3, Col 3
-  { rowSpan: 2, contentType: 'video-only' }, // Item 9 - Rows 3-4, Col 3 (right)
-  { rowSpan: 1, contentType: 'small-only' }, // Item 10 - Row 4, Col 1
-  { rowSpan: 1, contentType: 'small-only' }, // Item 11 - Row 4, Col 2
-  { rowSpan: 1, contentType: 'small-only' }, // Item 12 - Row 5, Col 1
+  { rowSpan: 2, contentType: 'video-only' }, // Item 8 - Rows 3-4, Col 3 (right)
+  { rowSpan: 1, contentType: 'small-only' }, // Item 9 - Row 4, Col 1
+  { rowSpan: 1, contentType: 'small-only' }, // Item 10 - Row 4, Col 2
+  { rowSpan: 2, contentType: 'video-only' }, // Item 11 - Rows 5-6, Col 1 (left)
+  { rowSpan: 1, contentType: 'small-only' }, // Item 12 - Row 5, Col 2
   { rowSpan: 1, contentType: 'small-only' }, // Item 13 - Row 5, Col 3
-  { rowSpan: 2, contentType: 'video-only' }, // Item 14 - Rows 5-6, Col 2 (center)
-  { rowSpan: 1, contentType: 'small-only' }, // Item 15 - Row 6, Col 1
-  { rowSpan: 1, contentType: 'small-only' }, // Item 16 - Row 6, Col 3
-  { rowSpan: 1, contentType: 'small-only' }, // Item 17 - Row 7, Col 1
-  { rowSpan: 1, contentType: 'small-only' }  // Item 18 - Row 7, Col 2
+  { rowSpan: 1, contentType: 'small-only' }, // Item 14 - Row 6, Col 2
+  { rowSpan: 1, contentType: 'small-only' }, // Item 15 - Row 6, Col 3
+  { rowSpan: 1, contentType: 'small-only' }, // Item 16 - Row 7, Col 1
+  { rowSpan: 1, contentType: 'small-only' }, // Item 17 - Row 7, Col 2
+  { rowSpan: 1, contentType: 'small-only' }  // Item 18 - Row 7, Col 3
 ];
 
 // Shuffle array utility
