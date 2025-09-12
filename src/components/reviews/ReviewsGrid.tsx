@@ -3,7 +3,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useSlideTransition } from '@/hooks/useSlideTransition';
 import { cn } from '@/lib/utils';
 import { generateRandomGrid, getQuoteCyclingGroups, getBeforeAfterCyclingGroups, GridItem } from '@/lib/reviewsRandomizer';
-import { QuoteImage } from '@/data/reviewsQuotes';
+import { QuoteImage, QUOTES } from '@/data/reviewsQuotes';
 import { BeforeAfterItem } from '@/data/reviewsBeforeAfter';
 import { VideoItem } from '@/data/reviewsVideos';
 import { Play } from 'lucide-react';
@@ -120,8 +120,9 @@ export const ReviewsGrid = () => {
             if (item.type === 'quote') {
               const currentState = newStates.get(item.id);
               if (currentState) {
-                const quotePool = [item.data]; // Will be expanded with more quotes per position
-                const nextIndex = (currentState.currentIndex + 1) % quotePool.length;
+                // Cycle through all available quotes
+                const allQuotes = QUOTES;
+                const nextIndex = (currentState.currentIndex + 1) % allQuotes.length;
                 newStates.set(item.id, { currentIndex: nextIndex });
               }
             }
@@ -188,7 +189,7 @@ export const ReviewsGrid = () => {
               }}
             >
               {item.type === 'quote' && quoteState && (
-                <QuoteCard quotes={[item.data]} currentIndex={quoteState.currentIndex} />
+                <QuoteCard quotes={QUOTES} currentIndex={quoteState.currentIndex} />
               )}
               {item.type === 'video' && (
                 <VideoCard video={item.data} />
