@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 import { AnimatedContactBackground } from '@/components/contact/AnimatedContactBackground';
+import { AnimatedTurkeySvg } from '@/components/contact/AnimatedTurkeySvg';
 import { PopupCloseButton } from '@/components/PopupCloseButton';
 import { Mail, MessageCircle, Instagram, Plus } from 'lucide-react';
 
@@ -183,6 +184,11 @@ const ContactPage: React.FC = () => {
                   </button>
                 </div>
               </div>
+
+              {/* Turkey SVG - Only visible when Turkey is selected */}
+              {selectedCountry === 'turkije' && (
+                <AnimatedTurkeySvg isVisible={toggleVisible} />
+              )}
 
               {/* Accordion Section */}
               <div className={`flex-1 mb-8 md:mb-16 transition-all duration-500 ease-out ${accordionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
