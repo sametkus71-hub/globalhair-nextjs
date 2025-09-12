@@ -225,7 +225,7 @@ const ContactPage: React.FC = () => {
               </div>
 
               {/* Social Media Icons */}
-              <div className={`text-center mt-auto pt-4 pb-8 md:pb-12 transition-all duration-500 ease-out ${iconsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+              <div className={`text-center mt-auto pt-4 pb-16 md:pb-20 transition-all duration-500 ease-out ${iconsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                 <div className="flex justify-center items-center space-x-3">
                   <button className="w-10 h-10 rounded-full bg-[#492C3A] flex items-center justify-center hover:bg-[#492C3A]/80 active:scale-[0.98] transition-all duration-300 ease-out">
                     <Mail className="w-4 h-4 text-white" />
