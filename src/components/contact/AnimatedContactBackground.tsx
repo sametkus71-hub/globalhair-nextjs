@@ -18,23 +18,23 @@ export const AnimatedContactBackground = () => {
       <div className="absolute inset-0 w-full h-full">
         {/* Blob 1 - Top Right */}
         <div 
-          className="absolute w-[500px] h-[500px] rounded-full opacity-60 animate-contact-blob-breathing-1"
+          className="absolute w-[600px] h-[600px] rounded-full animate-contact-blob-breathing-1"
           style={{
-            background: 'radial-gradient(circle, rgba(172, 209, 198, 0.8) 0%, rgba(172, 209, 198, 0.4) 50%, transparent 100%)',
-            filter: 'blur(80px)',
-            top: '5%',
-            right: '10%',
+            background: 'radial-gradient(circle, rgba(0, 200, 255, 0.4) 0%, rgba(0, 150, 255, 0.2) 40%, rgba(0, 100, 255, 0.1) 70%, transparent 100%)',
+            filter: 'blur(30px)',
+            top: '-5%',
+            right: '-5%',
           }}
         />
         
         {/* Blob 2 - Bottom Left */}
         <div 
-          className="absolute w-[450px] h-[450px] rounded-full opacity-50 animate-contact-blob-breathing-2"
+          className="absolute w-[550px] h-[550px] rounded-full animate-contact-blob-breathing-2"
           style={{
-            background: 'radial-gradient(circle, rgba(255, 182, 193, 0.7) 0%, rgba(255, 182, 193, 0.3) 50%, transparent 100%)',
-            filter: 'blur(70px)',
-            bottom: '10%',
-            left: '5%',
+            background: 'radial-gradient(circle, rgba(255, 100, 150, 0.4) 0%, rgba(255, 50, 100, 0.2) 40%, rgba(255, 0, 80, 0.1) 70%, transparent 100%)',
+            filter: 'blur(25px)',
+            bottom: '-5%',
+            left: '-10%',
           }}
         />
       </div>
