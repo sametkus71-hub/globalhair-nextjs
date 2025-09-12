@@ -226,12 +226,16 @@ const ContactPage: React.FC = () => {
 
               {/* Social Media Icons */}
               <div className={`text-center mt-auto pt-4 pb-8 md:pb-12 transition-all duration-500 ease-out ${iconsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                <div className="flex justify-center space-x-6">
+                <div className="flex justify-center items-center space-x-3">
                   <button className="w-10 h-10 rounded-full bg-[#492C3A] flex items-center justify-center hover:bg-[#492C3A]/80 active:scale-[0.98] transition-all duration-300 ease-out">
                     <Mail className="w-4 h-4 text-white" />
                   </button>
-                  <button className="w-14 h-14 rounded-full bg-[#492C3A] flex items-center justify-center hover:bg-[#492C3A]/80 active:scale-[0.98] transition-all duration-300 ease-out">
-                    <MessageCircle className="w-6 h-6 text-white" />
+                  <button className="w-12 h-12 rounded-full bg-[#492C3A] flex items-center justify-center hover:bg-[#492C3A]/80 active:scale-[0.98] transition-all duration-300 ease-out">
+                    <img 
+                      src="/lovable-uploads/ab33be36-7b2a-41af-b438-bdb3de43ec5d.png" 
+                      alt="WhatsApp" 
+                      className="w-5 h-5"
+                    />
                   </button>
                   <button className="w-10 h-10 rounded-full bg-[#492C3A] flex items-center justify-center hover:bg-[#492C3A]/80 active:scale-[0.98] transition-all duration-300 ease-out">
                     <Instagram className="w-4 h-4 text-white" />
