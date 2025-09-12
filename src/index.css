@@ -1237,7 +1237,7 @@ html, body {
 @keyframes turkeyEntrance {
   0% { 
     opacity: 0;
-    transform: translateY(-20px) scale(0.9);
+    transform: translateY(-15px) scale(0.95);
   }
   100% { 
     opacity: 1;
@@ -1247,16 +1247,28 @@ html, body {
 
 @keyframes turkeyDoorSlideIn {
   0% { 
+    transform: translateX(-12px);
+  }
+  50% {
+    transform: translateX(-6px);
+  }
+  80% { 
+    transform: translateX(0);
+  }
+  100% { 
+    transform: translateX(0);
+  }
+}
+
+@keyframes turkeyDoorFadeIn {
+  0% { 
     opacity: 0;
-    transform: translateX(-30px);
   }
   60% {
-    opacity: 0.3;
-    transform: translateX(-15px);
+    opacity: 0;
   }
   100% { 
     opacity: 0.5;
-    transform: translateX(0);
   }
 }
 
@@ -1305,38 +1317,40 @@ html, body {
 }
 
 .animate-turkey-entrance {
-  animation: turkeyEntrance 0.8s ease-out forwards;
+  animation: turkeyEntrance 0.5s ease-out forwards;
 }
 
 .animate-turkey-door {
-  animation: turkeyDoorSlideIn 1.2s ease-out 0.3s forwards;
+  animation: 
+    turkeyDoorSlideIn 1.0s ease-out 2.2s forwards,
+    turkeyDoorFadeIn 0.8s ease-out 2.5s forwards;
   opacity: 0;
   transform-origin: center;
 }
 
 .animate-turkey-minaret-left {
-  animation: turkeyMinaretGrowLeft 0.9s ease-out 0.5s forwards;
+  animation: turkeyMinaretGrowLeft 0.9s ease-out 1.5s forwards;
   transform-origin: bottom;
   opacity: 0;
   transform: scaleY(0) translateY(20px);
 }
 
 .animate-turkey-minaret-right {
-  animation: turkeyMinaretGrowRight 0.9s ease-out 0.6s forwards;
+  animation: turkeyMinaretGrowRight 0.9s ease-out 1.6s forwards;
   transform-origin: bottom;
   opacity: 0;
   transform: scaleY(0) translateY(20px);
 }
 
 .animate-turkey-minaret-inner-left {
-  animation: turkeyMinaretInnerGrowLeft 0.8s ease-out 0.7s forwards;
+  animation: turkeyMinaretInnerGrowLeft 0.8s ease-out 1.7s forwards;
   transform-origin: bottom;
   opacity: 0;
   transform: scaleY(0) translateY(15px);
 }
 
 .animate-turkey-minaret-inner-right {
-  animation: turkeyMinaretInnerGrowRight 0.8s ease-out 0.8s forwards;
+  animation: turkeyMinaretInnerGrowRight 0.8s ease-out 1.8s forwards;
   transform-origin: bottom;
   opacity: 0;
   transform: scaleY(0) translateY(15px);
