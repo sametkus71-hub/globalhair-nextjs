@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X } from 'lucide-react';
+import { X, ArrowLeft } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,12 +7,14 @@ interface PopupCloseButtonProps {
   onClose: () => void;
   className?: string;
   style?: React.CSSProperties;
+  isBackButton?: boolean;
 }
 
 export const PopupCloseButton: React.FC<PopupCloseButtonProps> = ({ 
   onClose, 
   className = "",
-  style
+  style,
+  isBackButton = false
 }) => {
   const { language } = useLanguage();
 
@@ -36,9 +38,13 @@ export const PopupCloseButton: React.FC<PopupCloseButtonProps> = ({
       onClick={onClose}
       className={`fixed top-4 left-4 z-50 w-10 h-10 rounded-full bg-black/25 backdrop-blur-md border border-white/50 hover:bg-black/35 transition-all duration-200 flex items-center justify-center overflow-hidden glass-shine ${className}`}
       style={style}
-      aria-label={language === 'nl' ? 'Sluiten' : 'Close'}
+      aria-label={isBackButton ? (language === 'nl' ? 'Terug' : 'Back') : (language === 'nl' ? 'Sluiten' : 'Close')}
     >
-      <X className="w-5 h-5 text-white" />
+      {isBackButton ? (
+        <ArrowLeft className="w-5 h-5 text-white" />
+      ) : (
+        <X className="w-5 h-5 text-white" />
+      )}
     </button>
   );
 };

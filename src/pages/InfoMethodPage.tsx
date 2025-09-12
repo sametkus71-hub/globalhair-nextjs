@@ -121,10 +121,10 @@ const InfoMethodPage: React.FC = () => {
       {/* Fixed Background - Outside page container */}
       <AnimatedGradientBackground />
       
-      <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
+      <div className={`info-method-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'info-method-page-exit' : ''}`}>
         <div className="min-h-[var(--app-height)] relative">
           {/* Close Button */}
-          <PopupCloseButton onClose={handleClose} />
+          <PopupCloseButton onClose={handleClose} isBackButton={true} />
           
           {/* Scrollable Content */}
           <div className="pt-16 md:pt-20 pb-20 md:pb-32 px-6 relative z-10">

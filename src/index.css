@@ -468,6 +468,15 @@ body.s-wit {
     will-change: transform, opacity;
   }
   
+  /* Slide-in from right animations for sub-pages */
+  .info-method-page-fullscreen,
+  .info-trajectory-page-fullscreen {
+    @apply fixed inset-0 z-50 bg-transparent;
+    animation: slideInFromRight 0.3s cubic-bezier(0.2, 0.0, 0, 1.0) forwards;
+    transform: translateX(100%);
+    will-change: transform;
+  }
+  
   .booking-page-fullscreen {
     @apply fixed inset-0 z-50 bg-black;
     animation: iosBottomSheetEnter 0.4s cubic-bezier(0.2, 0.0, 0, 1.0) forwards;
@@ -478,6 +487,12 @@ body.s-wit {
   .reviews-page-exit,
   .booking-page-exit {
     animation: iosBottomSheetExit 0.35s cubic-bezier(0.4, 0.0, 1, 1.0) forwards;
+  }
+  
+  /* Slide-out to left animations for sub-pages */
+  .info-method-page-exit,
+  .info-trajectory-page-exit {
+    animation: slideOutToLeft 0.3s cubic-bezier(0.4, 0.0, 1, 1.0) forwards;
   }
   
   .review-item-page-fullscreen {
@@ -614,6 +629,28 @@ body.s-wit {
   100% {
     transform: translateY(100%) scale(0.97);
     opacity: 0;
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToLeft {
+  0% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0.8;
   }
 }
 
