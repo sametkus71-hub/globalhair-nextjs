@@ -20,7 +20,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
   // Video sources mapping
   const videoSources = {
     Standard: 'https://vz-104aba77-1e1.b-cdn.net/daaa1c28-4f86-4ddf-8b04-751b69ff1de5/playlist.m3u8',
-    Premium: 'https://vz-104aba77-1e1.b-cdn.net/6b07484c-4e59-4bf3-af4a-709d75c6c45a/playlist.m3u8',
+    Premium: 'https://vz-104aba77-1e1.b-cdn.net/33e4f009-52fb-48fa-86fe-f48c4e8e1ad9/playlist.m3u8',
     Advanced: 'https://vz-104aba77-1e1.b-cdn.net/7c5056c5-8d47-47a2-9b7b-6fcc6f9fde1f/playlist.m3u8'
   };
   
