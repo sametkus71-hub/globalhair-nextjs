@@ -65,7 +65,7 @@ export const ReviewItemPage = () => {
 
         {isVideo && 'videoUrl' in item ? (
           // Video full screen view with no controls
-          <div className="w-full h-[var(--app-height)] bg-black flex items-center justify-center">
+          <div className="w-full h-[var(--app-height)] bg-black flex items-center justify-center pb-20">
             <video
               src={item.videoUrl}
               autoPlay
