@@ -51,40 +51,57 @@ export const generateRandomGrid = (): GridItem[] => {
   const shuffledBeforeAfter = shuffleArray(BEFORE_AFTER_ITEMS);
   const shuffledVideos = shuffleArray(VIDEOS);
 
-  // Layout slot counts
-  const videoSlots = GRID_LAYOUT.filter(l => l.contentType === 'video-only').length; // 3
-  const smallSlots = GRID_LAYOUT.length - videoSlots; // 15
+  // Find all 1x1 positions (small-only slots)
+  const smallPositions = GRID_LAYOUT
+    .map((layout, index) => ({ layout, index }))
+    .filter(({ layout }) => layout.contentType === 'small-only')
+    .map(({ index }) => index);
 
-  // Content distribution - always use exactly 4 quotes if available
-  const numQuotes = Math.min(4, shuffledQuotes.length, smallSlots);
+  // Randomly select 4 positions for quotes
+  const shuffledPositions = shuffleArray(smallPositions);
+  const quotePositions = new Set(shuffledPositions.slice(0, Math.min(4, shuffledQuotes.length)));
+  const beforeAfterPositions = shuffledPositions.slice(Math.min(4, shuffledQuotes.length));
 
   // Select content
-  const selectedQuotes = shuffledQuotes.slice(0, numQuotes);
-  const remainingSmall = Math.max(0, smallSlots - selectedQuotes.length);
-  const selectedBeforeAfter = shuffledBeforeAfter.slice(0, remainingSmall);
+  const selectedQuotes = shuffledQuotes.slice(0, Math.min(4, shuffledQuotes.length));
+  const selectedBeforeAfter = shuffleArray(shuffledBeforeAfter);
+  const selectedVideos = shuffleArray(shuffledVideos);
 
-  // Build small content pool and fill to required length (repeat if needed)
-  const smallPool: { type: ContentType; data: any }[] = [
-    ...selectedBeforeAfter.map(item => ({ type: 'before-after' as ContentType, data: item })),
-    ...selectedQuotes.map(quote => ({ type: 'quote' as ContentType, data: quote }))
-  ];
-
-  const smallFilled: { type: ContentType; data: any }[] = smallPool.length >= smallSlots
-    ? shuffleArray(smallPool).slice(0, smallSlots)
-    : Array.from({ length: smallSlots }, (_, i) => smallPool[i % Math.max(1, smallPool.length)]);
-
-  // Build video content and fill video slots (repeat if needed, fallback to small content if no videos)
-  const selectedVideos = shuffledVideos.slice(0, Math.max(1, Math.min(videoSlots, shuffledVideos.length || 1)));
-  const videoFilled: { type: ContentType; data: any }[] = shuffledVideos.length > 0
-    ? Array.from({ length: videoSlots }, (_, i) => ({ type: 'video' as ContentType, data: selectedVideos[i % selectedVideos.length] }))
-    : Array.from({ length: videoSlots }, (_, i) => smallFilled[i % smallFilled.length]);
-
-  // Map to grid items based on content restrictions
+  // Build grid items with position-specific assignment
+  let quoteIndex = 0;
+  let beforeAfterIndex = 0;
   let videoIndex = 0;
-  let smallIndex = 0;
 
   const gridItems: GridItem[] = GRID_LAYOUT.map((layout, index) => {
-    const content = layout.contentType === 'video-only' ? videoFilled[videoIndex++] : smallFilled[smallIndex++];
+    let content: { type: ContentType; data: any };
+
+    if (layout.contentType === 'video-only') {
+      // Video slot
+      const videoData = selectedVideos.length > 0 
+        ? selectedVideos[videoIndex % selectedVideos.length]
+        : selectedBeforeAfter[beforeAfterIndex % Math.max(1, selectedBeforeAfter.length)];
+      
+      content = {
+        type: selectedVideos.length > 0 ? 'video' : 'before-after',
+        data: videoData
+      };
+      videoIndex++;
+    } else if (quotePositions.has(index)) {
+      // Quote position
+      content = {
+        type: 'quote',
+        data: selectedQuotes[quoteIndex % selectedQuotes.length]
+      };
+      quoteIndex++;
+    } else {
+      // Before/after position
+      content = {
+        type: 'before-after',
+        data: selectedBeforeAfter[beforeAfterIndex % Math.max(1, selectedBeforeAfter.length)]
+      };
+      beforeAfterIndex++;
+    }
+
     return {
       id: `item-${index}-${content?.data?.id ?? index}`,
       type: content.type,
