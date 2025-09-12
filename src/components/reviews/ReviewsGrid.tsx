@@ -201,6 +201,9 @@ export const ReviewsGrid = () => {
         }}
       >
         {itemsToRender.map((item, index) => {
+          // Guard against undefined data
+          if (!item?.data) return null;
+          
           const delay = index * 50; // Staggered delay for CSS animation
           const isVideoSlot = videoItemIds.has(item.id);
           
