@@ -61,15 +61,17 @@ export const AnimatedContactBackground = () => {
         />
       </div>
 
-      {/* Layer 3: Static topographic pattern overlay */}
+      {/* Layer 3: Static topographic pattern overlay with gradient fade */}
       <div 
-        className="absolute inset-0 w-full h-full opacity-30"
+        className="absolute inset-0 w-full h-full opacity-10"
         style={{
           backgroundImage: `url('/lovable-uploads/89206142-6b0c-4e53-85bc-304567882660.png')`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: 'left center',
           backgroundRepeat: 'repeat',
-          mixBlendMode: 'overlay'
+          mixBlendMode: 'overlay',
+          mask: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+          WebkitMask: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)'
         }}
       />
     </div>
