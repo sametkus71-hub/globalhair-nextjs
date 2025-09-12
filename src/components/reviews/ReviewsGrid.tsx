@@ -123,8 +123,8 @@ export const ReviewsGrid = () => {
   }, [gridItems]);
 
   return (
-    <div className="w-full h-full overflow-auto -mt-16">
-      <div 
+    <div className="w-full h-full overflow-auto -mt-8">
+      <div
         className="grid grid-cols-3"
         style={{
           width: '100vw',
