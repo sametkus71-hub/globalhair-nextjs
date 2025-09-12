@@ -12,26 +12,26 @@ export interface GridItem {
 }
 
 // Improved grid layout structure (18 items total)
-// 3 vertical items (1x2) for videos only, positioned: left, right, center
+// 3 vertical items (1x2) for videos only, positioned vertically spaced
 const GRID_LAYOUT: Array<{ rowSpan: 1 | 2; contentType?: 'video-only' | 'small-only' }> = [
-  { rowSpan: 1, contentType: 'small-only' }, // Item 1
-  { rowSpan: 1, contentType: 'small-only' }, // Item 2  
-  { rowSpan: 1, contentType: 'small-only' }, // Item 3
-  { rowSpan: 2, contentType: 'video-only' }, // Item 4 (vertical - left)
-  { rowSpan: 1, contentType: 'small-only' }, // Item 5
-  { rowSpan: 2, contentType: 'video-only' }, // Item 6 (vertical - right)
-  { rowSpan: 1, contentType: 'small-only' }, // Item 7
-  { rowSpan: 1, contentType: 'small-only' }, // Item 8
-  { rowSpan: 1, contentType: 'small-only' }, // Item 9
-  { rowSpan: 1, contentType: 'small-only' }, // Item 10
-  { rowSpan: 1, contentType: 'small-only' }, // Item 11
-  { rowSpan: 1, contentType: 'small-only' }, // Item 12
-  { rowSpan: 2, contentType: 'video-only' }, // Item 13 (vertical - center)
-  { rowSpan: 1, contentType: 'small-only' }, // Item 14
-  { rowSpan: 1, contentType: 'small-only' }, // Item 15
-  { rowSpan: 1, contentType: 'small-only' }, // Item 16
-  { rowSpan: 1, contentType: 'small-only' }, // Item 17
-  { rowSpan: 1, contentType: 'small-only' }  // Item 18
+  { rowSpan: 1, contentType: 'small-only' }, // Item 1 - Row 1, Col 1
+  { rowSpan: 1, contentType: 'small-only' }, // Item 2 - Row 1, Col 2
+  { rowSpan: 1, contentType: 'small-only' }, // Item 3 - Row 1, Col 3
+  { rowSpan: 2, contentType: 'video-only' }, // Item 4 - Rows 2-3, Col 1 (left)
+  { rowSpan: 1, contentType: 'small-only' }, // Item 5 - Row 2, Col 2
+  { rowSpan: 1, contentType: 'small-only' }, // Item 6 - Row 2, Col 3
+  { rowSpan: 1, contentType: 'small-only' }, // Item 7 - Row 3, Col 2
+  { rowSpan: 1, contentType: 'small-only' }, // Item 8 - Row 3, Col 3
+  { rowSpan: 2, contentType: 'video-only' }, // Item 9 - Rows 3-4, Col 3 (right)
+  { rowSpan: 1, contentType: 'small-only' }, // Item 10 - Row 4, Col 1
+  { rowSpan: 1, contentType: 'small-only' }, // Item 11 - Row 4, Col 2
+  { rowSpan: 1, contentType: 'small-only' }, // Item 12 - Row 5, Col 1
+  { rowSpan: 1, contentType: 'small-only' }, // Item 13 - Row 5, Col 3
+  { rowSpan: 2, contentType: 'video-only' }, // Item 14 - Rows 5-6, Col 2 (center)
+  { rowSpan: 1, contentType: 'small-only' }, // Item 15 - Row 6, Col 1
+  { rowSpan: 1, contentType: 'small-only' }, // Item 16 - Row 6, Col 3
+  { rowSpan: 1, contentType: 'small-only' }, // Item 17 - Row 7, Col 1
+  { rowSpan: 1, contentType: 'small-only' }  // Item 18 - Row 7, Col 2
 ];
 
 // Shuffle array utility
@@ -55,10 +55,8 @@ export const generateRandomGrid = (): GridItem[] => {
   const videoSlots = GRID_LAYOUT.filter(l => l.contentType === 'video-only').length; // 3
   const smallSlots = GRID_LAYOUT.length - videoSlots; // 15
 
-  // Content distribution
-  const maxQuotes = Math.min(4, shuffledQuotes.length, smallSlots); // cap at 4
-  const minQuotes = Math.min(2, maxQuotes); // 0-2 when not enough
-  const numQuotes = maxQuotes === 0 ? 0 : Math.max(minQuotes, Math.min(maxQuotes, 2 + Math.floor(Math.random() * (maxQuotes - 2 + 1))));
+  // Content distribution - always use exactly 4 quotes if available
+  const numQuotes = Math.min(4, shuffledQuotes.length, smallSlots);
 
   // Select content
   const selectedQuotes = shuffledQuotes.slice(0, numQuotes);
@@ -98,29 +96,6 @@ export const generateRandomGrid = (): GridItem[] => {
   return gridItems;
 };
 
-// Get cycling groups for quotes (groups of 2-3)
-export const getQuoteCyclingGroups = (gridItems: GridItem[]): number[][] => {
-  const quoteIndices = gridItems
-    .map((item, index) => ({ item, index }))
-    .filter(({ item }) => item.type === 'quote')
-    .map(({ index }) => index);
-  
-  const groups: number[][] = [];
-  let currentGroup: number[] = [];
-  
-  quoteIndices.forEach((index, i) => {
-    currentGroup.push(index);
-    
-    // Create groups of 2-3 items
-    const groupSize = Math.random() > 0.5 ? 2 : 3;
-    if (currentGroup.length >= groupSize || i === quoteIndices.length - 1) {
-      groups.push([...currentGroup]);
-      currentGroup = [];
-    }
-  });
-  
-  return groups;
-};
 
 // Get cycling groups for before/after items (groups of 2)
 export const getBeforeAfterCyclingGroups = (gridItems: GridItem[]): number[][] => {

@@ -2,29 +2,24 @@ import { useEffect, useState, useRef } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useSlideTransition } from '@/hooks/useSlideTransition';
 import { cn } from '@/lib/utils';
-import { generateRandomGrid, getQuoteCyclingGroups, getBeforeAfterCyclingGroups, GridItem } from '@/lib/reviewsRandomizer';
-import { QuoteImage, QUOTES } from '@/data/reviewsQuotes';
+import { generateRandomGrid, getBeforeAfterCyclingGroups, GridItem } from '@/lib/reviewsRandomizer';
+import { QuoteImage } from '@/data/reviewsQuotes';
 import { BeforeAfterItem } from '@/data/reviewsBeforeAfter';
 import { VideoItem } from '@/data/reviewsVideos';
 import { Play } from 'lucide-react';
 
-interface QuoteState {
-  currentIndex: number;
-}
 
 interface BeforeAfterState {
   isAfter: boolean;
 }
 
-const QuoteCard = ({ quotes, currentIndex }: { quotes: QuoteImage[]; currentIndex: number }) => {
-  const currentQuote = quotes[currentIndex];
-  
+const QuoteCard = ({ quote }: { quote: QuoteImage }) => {
   return (
     <div className="w-full h-full relative overflow-hidden">
       <img 
-        src={currentQuote.src} 
-        alt={currentQuote.alt}
-        className="w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
+        src={quote.src} 
+        alt={quote.alt}
+        className="w-full h-full object-cover"
       />
     </div>
   );
@@ -67,14 +62,8 @@ export const ReviewsGrid = () => {
   // Generate random grid on component mount
   const [gridItems] = useState<GridItem[]>(() => generateRandomGrid());
   
-  // State for cycling quotes
-  const [quoteStates, setQuoteStates] = useState<Map<string, QuoteState>>(new Map());
-  
   // State for before/after transitions  
   const [beforeAfterStates, setBeforeAfterStates] = useState<Map<string, BeforeAfterState>>(new Map());
-
-  // Stable reference to all quotes for cycling
-  const allQuotesRef = useRef(QUOTES);
 
   // Handle click to navigate to item page with slide animation
   const handleItemClick = (item: GridItem) => {
@@ -94,49 +83,19 @@ export const ReviewsGrid = () => {
   useEffect(() => {
     const intervals: NodeJS.Timeout[] = [];
     
-    // Get cycling groups
-    const quoteCyclingGroups = getQuoteCyclingGroups(gridItems);
+    // Get before/after cycling groups
     const beforeAfterCyclingGroups = getBeforeAfterCyclingGroups(gridItems);
 
-    // Initialize states
-    const initialQuoteStates = new Map<string, QuoteState>();
+    // Initialize before/after states only
     const initialBeforeAfterStates = new Map<string, BeforeAfterState>();
 
     gridItems.forEach(item => {
-      if (item.type === 'quote') {
-        initialQuoteStates.set(item.id, { currentIndex: 0 });
-      } else if (item.type === 'before-after') {
+      if (item.type === 'before-after') {
         initialBeforeAfterStates.set(item.id, { isAfter: false });
       }
     });
 
-    setQuoteStates(initialQuoteStates);
     setBeforeAfterStates(initialBeforeAfterStates);
-
-    // Set up quote cycling (every 4 seconds, groups of 2-3)
-    quoteCyclingGroups.forEach((group, groupIndex) => {
-      const interval = setInterval(() => {
-        setQuoteStates(prevStates => {
-          const newStates = new Map(prevStates);
-          group.forEach(itemIndex => {
-            const item = gridItems[itemIndex];
-            if (item.type === 'quote') {
-              const currentState = newStates.get(item.id);
-              if (currentState) {
-                // Cycle through all available quotes
-                const allQuotes = allQuotesRef.current || [];
-                if (allQuotes.length > 0) {
-                  const nextIndex = (currentState.currentIndex + 1) % allQuotes.length;
-                  newStates.set(item.id, { currentIndex: nextIndex });
-                }
-              }
-            }
-          });
-          return newStates;
-        });
-      }, 4000);
-      intervals.push(interval);
-    });
 
     // Set up before/after cycling (every 4 seconds, groups of 2)
     beforeAfterCyclingGroups.forEach((group, groupIndex) => {
@@ -176,7 +135,6 @@ export const ReviewsGrid = () => {
         }}
       >
         {gridItems.map((item) => {
-          const quoteState = quoteStates.get(item.id);
           const beforeAfterState = beforeAfterStates.get(item.id);
           
           return (
@@ -193,8 +151,8 @@ export const ReviewsGrid = () => {
                 height: item.rowSpan === 2 ? '64vw' : '32vw' // Fixed height maintaining aspect ratio
               }}
             >
-              {item.type === 'quote' && quoteState && (
-                <QuoteCard quotes={QUOTES} currentIndex={quoteState.currentIndex} />
+              {item.type === 'quote' && (
+                <QuoteCard quote={item.data} />
               )}
               {item.type === 'video' && (
                 <VideoCard video={item.data} />
