@@ -167,7 +167,7 @@ const InfoMethodPage: React.FC = () => {
               </div>
 
               {/* Bottom Button */}
-              <div className={`text-center mt-auto pt-4 pb-6 transition-all duration-500 ease-out ${buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+              <div className={`text-center mt-auto pt-4 pb-20 transition-all duration-500 ease-out ${buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                 <button onClick={handleTrajectoryClick} className="py-2 md:py-2.5 px-8 md:px-10 bg-[#492C3A] text-white text-sm font-lato font-normal rounded-full hover:bg-[#492C3A]/80 active:scale-[0.98] transition-all duration-300 ease-out">
                   {methodsData.trajectoryButton}
                 </button>
