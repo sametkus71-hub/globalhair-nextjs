@@ -26,7 +26,7 @@ export const GlobalCentralLogo = () => {
           transitionState.logoScaleUp && "logo-scale-up-smooth"
         )}
         style={{
-          top: '50%',
+          top: '55%',
           left: '50%',
           transform: 'translate(-50%, -50%)'
         }}
@@ -43,7 +43,10 @@ export const GlobalCentralLogo = () => {
   }
 
   return (
-    <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] pointer-events-none">
+    <div 
+      className="fixed left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] pointer-events-none"
+      style={{ top: '55%' }}
+    >
       <div>
         <CentralLogo size="large" />
       </div>
