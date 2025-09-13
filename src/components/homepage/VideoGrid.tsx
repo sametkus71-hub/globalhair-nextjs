@@ -64,6 +64,11 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
     'Vrouw-Grijs-Stijl': { previewCode: 'VGS014', pattern: 'medium', contentIndex: 13, baseDarkness: 0.8 },
     'Vrouw-Grijs-Krul': { previewCode: 'VGK015', pattern: 'curly', contentIndex: 14, baseDarkness: 0.85 },
     'Vrouw-Grijs-Kroes': { previewCode: 'VGR016', pattern: 'textured', contentIndex: 15, baseDarkness: 0.9 },
+    // Added missing Rood (Red) combinations for Vrouw
+    'Vrouw-Rood-Fijn': { previewCode: 'VRF033', pattern: 'light', contentIndex: 32, baseDarkness: 0.2 },
+    'Vrouw-Rood-Stijl': { previewCode: 'VRS034', pattern: 'medium', contentIndex: 33, baseDarkness: 0.25 },
+    'Vrouw-Rood-Krul': { previewCode: 'VRK035', pattern: 'curly', contentIndex: 34, baseDarkness: 0.3 },
+    'Vrouw-Rood-Kroes': { previewCode: 'VRR036', pattern: 'textured', contentIndex: 35, baseDarkness: 0.35 },
     'Man-Blond-Fijn': { previewCode: 'MBF017', pattern: 'light', contentIndex: 16, baseDarkness: 0.15 },
     'Man-Blond-Stijl': { previewCode: 'MBS018', pattern: 'medium', contentIndex: 17, baseDarkness: 0.2 },
     'Man-Blond-Krul': { previewCode: 'MBK019', pattern: 'curly', contentIndex: 18, baseDarkness: 0.25 },
@@ -80,6 +85,11 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
     'Man-Grijs-Stijl': { previewCode: 'MGS030', pattern: 'medium', contentIndex: 29, baseDarkness: 0.8 },
     'Man-Grijs-Krul': { previewCode: 'MGK031', pattern: 'curly', contentIndex: 30, baseDarkness: 0.85 },
     'Man-Grijs-Kroes': { previewCode: 'MGR032', pattern: 'textured', contentIndex: 31, baseDarkness: 0.9 },
+    // Added missing Rood (Red) combinations for Man - these have actual videos
+    'Man-Rood-Fijn': { previewCode: 'MRF037', pattern: 'light', contentIndex: 36, baseDarkness: 0.2 },
+    'Man-Rood-Stijl': { previewCode: 'MRS038', pattern: 'medium', contentIndex: 37, baseDarkness: 0.25 },
+    'Man-Rood-Krul': { previewCode: 'MRK039', pattern: 'curly', contentIndex: 38, baseDarkness: 0.3 },
+    'Man-Rood-Kroes': { previewCode: 'MRR040', pattern: 'textured', contentIndex: 39, baseDarkness: 0.35 },
   };
 
   // Function to get variation based on profile and grid position

@@ -45,7 +45,6 @@ export const VideoGridItem = ({
   const [videoPlaying, setVideoPlaying] = useState(false);
   
   const shouldShowVideo = isVideoAvailable() && title === "HAAR TRANSPLANTATIE";
-  const selectionInfo = `${profile.geslacht} • ${profile.haarkleur} • ${profile.haartype}`;
   
   // Mount video element when available
   useEffect(() => {
@@ -170,13 +169,15 @@ export const VideoGridItem = ({
           {title}
         </h3>
         
-        {/* Selection info */}
-        <div className={cn(
-          "text-xs sm:text-sm opacity-75 text-center mb-4 font-medium",
-          shouldShowVideo && videoPlaying && "drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
-        )}>
-          {selectionInfo}
-        </div>
+        {/* Profile info - only show when video is not playing */}
+        {!videoPlaying && (
+          <div className={cn(
+            "text-xs sm:text-sm opacity-75 text-center mb-4 font-medium",
+            shouldShowVideo && "drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
+          )}>
+            {profile.geslacht} • {profile.haarkleur} • {profile.haartype}
+          </div>
+        )}
         
         {/* Preview code */}
         <div className={cn(

@@ -110,21 +110,34 @@ export const useHaartransplantatieVideos = () => {
     video.loop = true;
     video.playsInline = true;
     video.preload = 'auto';
+    video.crossOrigin = 'anonymous';
     
     videoRefs.current[videoKey] = video;
     
     if (Hls.isSupported()) {
       const hls = new Hls({
-        enableWorker: false,
+        debug: false,
+        enableWorker: true,
         lowLatencyMode: false,
         backBufferLength: 30,
-        maxBufferLength: 60
+        maxBufferLength: 60,
+        maxBufferSize: 60 * 1000 * 1000,
+        maxBufferHole: 0.5,
+        manifestLoadingTimeOut: 10000,
+        manifestLoadingMaxRetry: 3,
+        manifestLoadingRetryDelay: 1000,
+        levelLoadingTimeOut: 10000,
+        fragLoadingTimeOut: 20000,
+        xhrSetup: function (xhr, url) {
+          xhr.withCredentials = false;
+        }
       });
       
       hls.loadSource(videoUrl);
       hls.attachMedia(video);
       
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        console.log(`Video loaded successfully: ${videoKey}`);
         setVideoCache(prev => ({
           ...prev,
           [videoKey]: {
@@ -141,6 +154,22 @@ export const useHaartransplantatieVideos = () => {
       
       hls.on(Hls.Events.ERROR, (event, data) => {
         console.error(`HLS Error for ${videoKey}:`, data);
+        if (data.fatal) {
+          switch (data.type) {
+            case Hls.ErrorTypes.NETWORK_ERROR:
+              console.log('Network error, trying to recover...');
+              hls.startLoad();
+              break;
+            case Hls.ErrorTypes.MEDIA_ERROR:
+              console.log('Media error, trying to recover...');
+              hls.recoverMediaError();
+              break;
+            default:
+              console.log('Fatal error, destroying HLS instance');
+              hls.destroy();
+              break;
+          }
+        }
         setVideoCache(prev => ({
           ...prev,
           [videoKey]: {
