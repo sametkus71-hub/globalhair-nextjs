@@ -1,7 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
+import Hls from 'hls.js';
 
 interface VideoState {
   video: HTMLVideoElement | null;
+  hls: Hls | null;
   loading: boolean;
   error: string | null;
   ready: boolean;
@@ -10,6 +12,7 @@ interface VideoState {
 export const useSimpleVideo = (profile: any) => {
   const [videoState, setVideoState] = useState<VideoState>({
     video: null,
+    hls: null,
     loading: false,
     error: null,
     ready: false
@@ -73,7 +76,7 @@ export const useSimpleVideo = (profile: any) => {
     
     if (!videoKey || !VIDEO_MAPPING[videoKey]) {
       console.log('No video available for this profile');
-      setVideoState({ video: null, loading: false, error: 'No video available', ready: false });
+      setVideoState({ video: null, hls: null, loading: false, error: 'No video available', ready: false });
       return;
     }
 
@@ -89,28 +92,75 @@ export const useSimpleVideo = (profile: any) => {
     const videoUrl = VIDEO_MAPPING[videoKey];
     console.log('Loading video URL:', videoUrl);
     
-    video.addEventListener('loadeddata', () => {
-      console.log('Video loaded and ready to play');
-      setVideoState({
-        video,
-        loading: false,
-        error: null,
-        ready: true
+    // Check if HLS is supported
+    if (Hls.isSupported()) {
+      const hls = new Hls({
+        enableWorker: true,
+        lowLatencyMode: false,
       });
-    });
 
-    video.addEventListener('error', (e) => {
-      console.error('Video error:', e);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        console.log('HLS manifest parsed, video ready');
+        setVideoState({
+          video,
+          hls,
+          loading: false,
+          error: null,
+          ready: true
+        });
+      });
+
+      hls.on(Hls.Events.ERROR, (event, data) => {
+        console.error('HLS error:', data);
+        hls.destroy();
+        setVideoState({
+          video: null,
+          hls: null,
+          loading: false,
+          error: 'Failed to load video',
+          ready: false
+        });
+      });
+
+      hls.loadSource(videoUrl);
+      hls.attachMedia(video);
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      // Safari native HLS support
+      video.src = videoUrl;
+      
+      video.addEventListener('loadeddata', () => {
+        console.log('Video loaded and ready to play (Safari)');
+        setVideoState({
+          video,
+          hls: null,
+          loading: false,
+          error: null,
+          ready: true
+        });
+      });
+
+      video.addEventListener('error', (e) => {
+        console.error('Video error:', e);
+        setVideoState({
+          video: null,
+          hls: null,
+          loading: false,
+          error: 'Failed to load video',
+          ready: false
+        });
+      });
+
+      video.load();
+    } else {
+      console.error('HLS not supported');
       setVideoState({
         video: null,
+        hls: null,
         loading: false,
-        error: 'Failed to load video',
+        error: 'HLS not supported',
         ready: false
       });
-    });
-
-    video.src = videoUrl;
-    video.load();
+    }
   }, [getVideoKey, profile]);
 
   // Create video when profile changes
@@ -118,6 +168,9 @@ export const useSimpleVideo = (profile: any) => {
     createVideo();
     
     return () => {
+      if (videoState.hls) {
+        videoState.hls.destroy();
+      }
       if (videoState.video) {
         videoState.video.pause();
         videoState.video.src = '';
