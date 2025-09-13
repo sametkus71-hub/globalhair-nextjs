@@ -18,10 +18,8 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
   const [animationKey, setAnimationKey] = useState(0);
   const [navigatingItem, setNavigatingItem] = useState<number | null>(null);
 
-  // Re-animate when profile details change
-  useEffect(() => {
-    setAnimationKey(prev => prev + 1);
-  }, [profile.geslacht, profile.haarkleur, profile.haartype]);
+  // Note: Removed animationKey increment to prevent component remounting
+  // Video transitions are now handled internally by VideoGridItem
 
   // Navigation handlers
   const handleHaartransplantatieClick = useCallback(() => {
@@ -126,14 +124,13 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
     if (!isStatic && variation) {
       return (
         <VideoGridItem
-          key={`${gridIndex}-${animationKey}`}
+          key={gridIndex}
           title={title}
           gridIndex={gridIndex}
           isActive={isActive}
           onClick={onClick}
           variation={variation}
           profile={profile}
-          animationKey={animationKey}
           navigatingItem={navigatingItem}
         />
       );

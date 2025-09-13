@@ -8,7 +8,7 @@ interface VideoGridItemProps {
   gridIndex: number;
   isActive: boolean;
   onClick?: () => void;
-  variation: {
+  variation?: {
     baseDarkness: number;
     patternType: string;
     contentVariation: number;
@@ -19,7 +19,6 @@ interface VideoGridItemProps {
     haarkleur: string;
     haartype: string;
   };
-  animationKey: number;
   navigatingItem: number | null;
 }
 
@@ -30,36 +29,25 @@ export const VideoGridItem = ({
   onClick,
   variation,
   profile,
-  animationKey,
   navigatingItem
 }: VideoGridItemProps) => {
   const { videoSrc, loading, hasVideo } = useSimpleVideo(profile);
   const currentVideoRef = useRef<HTMLVideoElement>(null);
   const nextVideoRef = useRef<HTMLVideoElement>(null);
-  const currentHlsRef = useRef<Hls | null>(null);
-  const nextHlsRef = useRef<Hls | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [videoReady, setVideoReady] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [currentVideoSrc, setCurrentVideoSrc] = useState<string | null>(null);
   const [nextVideoSrc, setNextVideoSrc] = useState<string | null>(null);
   const [showNext, setShowNext] = useState(false);
   
   const shouldShowVideo = hasVideo && title === "HAAR TRANSPLANTATIE" && profile.geslacht === "Man";
+  const baseDarkness = variation?.baseDarkness || 0.5;
 
-  // Helper function to setup HLS for a video element
-  const setupHLS = (video: HTMLVideoElement, src: string, hlsRef: React.MutableRefObject<Hls | null>, onReady: () => void) => {
+  // Helper function to setup HLS
+  const setupHLS = (video: HTMLVideoElement, src: string): Hls | null => {
     if (Hls.isSupported()) {
       const hls = new Hls({
         enableWorker: true,
         lowLatencyMode: false,
-      });
-
-      hlsRef.current = hls;
-
-      hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        console.log('HLS manifest parsed, video ready');
-        onReady();
       });
 
       hls.on(Hls.Events.ERROR, (event, data) => {
@@ -68,264 +56,224 @@ export const VideoGridItem = ({
 
       hls.loadSource(src);
       hls.attachMedia(video);
+      return hls;
     } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
       // Safari native HLS support
       video.src = src;
-      
-      video.addEventListener('loadeddata', () => {
-        console.log('Video loaded and ready to play (Safari)');
-        onReady();
-      });
-
       video.load();
+      return null;
     }
+    return null;
   };
 
-  // Handle video source changes with crossfade transition
+  // Initialize video source
   useEffect(() => {
     if (!shouldShowVideo || !videoSrc) {
-      // Reset everything if no video should be shown
       setCurrentVideoSrc(null);
       setNextVideoSrc(null);
-      setIsPlaying(false);
-      setVideoReady(false);
       return;
     }
 
-    // If this is the first video or no current video
     if (!currentVideoSrc) {
       setCurrentVideoSrc(videoSrc);
       return;
     }
 
-    // If video source changed, start crossfade transition
-    if (videoSrc !== currentVideoSrc && !isTransitioning) {
-      console.log('Starting crossfade transition from', currentVideoSrc, 'to', videoSrc);
-      setIsTransitioning(true);
+    if (videoSrc !== currentVideoSrc) {
+      console.log('🎬 Starting seamless video transition from', currentVideoSrc, 'to', videoSrc);
       setNextVideoSrc(videoSrc);
+      setIsTransitioning(true);
     }
-  }, [shouldShowVideo, videoSrc, currentVideoSrc, isTransitioning]);
+  }, [shouldShowVideo, videoSrc, currentVideoSrc]);
 
-  // Initialize current video
+  // Setup and play current video
   useEffect(() => {
-    if (!shouldShowVideo || !currentVideoSrc || !currentVideoRef.current) {
-      return;
-    }
-
     const video = currentVideoRef.current;
-    console.log('Initializing current video:', currentVideoSrc);
-    
-    // Clean up previous HLS instance
-    if (currentHlsRef.current) {
-      currentHlsRef.current.destroy();
-      currentHlsRef.current = null;
-    }
+    if (!video || !currentVideoSrc) return;
 
-    setupHLS(video, currentVideoSrc, currentHlsRef, () => {
-      setVideoReady(true);
+    let hls: Hls | null = null;
+
+    const initializeVideo = async () => {
+      console.log('🎥 Initializing current video:', currentVideoSrc);
       
-      // Auto-play the video
-      video.play().then(() => {
-        console.log('Current video is now playing');
-        setIsPlaying(true);
-      }).catch((error) => {
-        console.error('Current video play failed:', error);
-      });
-    });
+      if (currentVideoSrc.includes('.m3u8')) {
+        hls = setupHLS(video, currentVideoSrc);
+      } else {
+        video.src = currentVideoSrc;
+      }
 
-    return () => {
-      if (currentHlsRef.current) {
-        currentHlsRef.current.destroy();
-        currentHlsRef.current = null;
+      try {
+        await video.play();
+        console.log('▶️ Current video playing successfully');
+      } catch (error) {
+        console.log('⏸️ Current video autoplay prevented');
       }
     };
-  }, [shouldShowVideo, currentVideoSrc]);
 
-  // Initialize next video for crossfade
+    initializeVideo();
+
+    return () => {
+      if (hls) {
+        hls.destroy();
+      }
+    };
+  }, [currentVideoSrc]);
+
+  // Setup and play next video, then crossfade - optimized for smoothness
   useEffect(() => {
-    if (!shouldShowVideo || !nextVideoSrc || !nextVideoRef.current || !isTransitioning) {
-      return;
-    }
-
     const video = nextVideoRef.current;
-    console.log('Initializing next video for crossfade:', nextVideoSrc);
-    
-    // Clean up previous HLS instance
-    if (nextHlsRef.current) {
-      nextHlsRef.current.destroy();
-      nextHlsRef.current = null;
-    }
+    if (!video || !nextVideoSrc || !isTransitioning) return;
 
-    setupHLS(video, nextVideoSrc, nextHlsRef, () => {
-      // Start crossfade when next video is ready
-      video.play().then(() => {
-        console.log('Next video loaded, starting crossfade');
-        setShowNext(true);
+    let hls: Hls | null = null;
+
+    const initializeNextVideo = async () => {
+      console.log('🎥 Preparing next video for seamless transition:', nextVideoSrc);
+      
+      if (nextVideoSrc.includes('.m3u8')) {
+        hls = setupHLS(video, nextVideoSrc);
+      } else {
+        video.src = nextVideoSrc;
+      }
+
+      try {
+        await video.play();
+        console.log('▶️ Next video ready, starting smooth crossfade');
         
-        // Complete transition after animation
+        // Small delay to ensure video is stable, then start crossfade
+        setTimeout(() => {
+          setShowNext(true);
+        }, 50);
+        
+        // Complete transition after optimized duration
         setTimeout(() => {
           setCurrentVideoSrc(nextVideoSrc);
           setNextVideoSrc(null);
           setIsTransitioning(false);
           setShowNext(false);
-          
-          // Clean up current video HLS
-          if (currentHlsRef.current) {
-            currentHlsRef.current.destroy();
-            currentHlsRef.current = null;
-          }
-        }, 800); // Match transition duration
-      }).catch((error) => {
-        console.error('Next video play failed:', error);
-        setIsTransitioning(false);
+          console.log('✨ Seamless video transition complete');
+        }, 600); // Reduced from 800ms for snappier feel
+      } catch (error) {
+        console.log('⏸️ Next video autoplay prevented, completing transition');
+        // Immediate fallback without delay
+        setCurrentVideoSrc(nextVideoSrc);
         setNextVideoSrc(null);
-      });
-    });
+        setIsTransitioning(false);
+        setShowNext(false);
+      }
+    };
+
+    initializeNextVideo();
 
     return () => {
-      if (nextHlsRef.current) {
-        nextHlsRef.current.destroy();
-        nextHlsRef.current = null;
+      if (hls) {
+        hls.destroy();
       }
     };
-  }, [shouldShowVideo, nextVideoSrc, isTransitioning]);
-  
-  // Handle visibility changes
+  }, [nextVideoSrc, isTransitioning]);
+
+  // Pause videos when document becomes hidden
   useEffect(() => {
-    if (!currentVideoRef.current || !isPlaying) return;
-    
-    const video = currentVideoRef.current;
-    
     const handleVisibilityChange = () => {
+      const currentVideo = currentVideoRef.current;
+      const nextVideo = nextVideoRef.current;
+      
       if (document.hidden) {
-        video.pause();
-        setIsPlaying(false);
+        currentVideo?.pause();
+        nextVideo?.pause();
       } else {
-        video.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+        currentVideo?.play().catch(() => {});
+        nextVideo?.play().catch(() => {});
       }
     };
-    
+
     document.addEventListener('visibilitychange', handleVisibilityChange);
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
-  }, [isPlaying]);
+  }, []);
   
   return (
     <div
-      key={`${gridIndex}-${animationKey}`}
       data-grid-item={gridIndex}
       className={cn(
-        "relative w-full h-full overflow-hidden transition-all duration-500 ease-out",
-        isActive ? "cursor-pointer hover:scale-[1.01] group" : "cursor-not-allowed",
-        "animate-fade-in"
+        "relative w-full h-full overflow-hidden transition-all duration-500 ease-in-out",
+        isActive ? "cursor-pointer hover:scale-[1.02] hover:brightness-110" : "cursor-not-allowed"
       )}
+      onClick={onClick}
       style={{
-        // Fallback gradient background
         background: `linear-gradient(135deg, 
-          hsla(${Math.round(variation.baseDarkness * 360)}, 30%, ${20 + variation.baseDarkness * 15}%, 0.9), 
-          hsla(${Math.round(variation.baseDarkness * 360)}, 25%, ${15 + variation.baseDarkness * 10}%, 0.95)
-        )`,
-        // Bring to front during navigation
-        ...(navigatingItem === gridIndex && { position: 'relative', zIndex: 50 })
+          rgba(${Math.round(baseDarkness * 255)}, ${Math.round(baseDarkness * 255)}, ${Math.round(baseDarkness * 255)}, 0.3), 
+          rgba(${Math.round(baseDarkness * 200)}, ${Math.round(baseDarkness * 200)}, ${Math.round(baseDarkness * 200)}, 0.7)
+        )`
       }}
-      onClick={isActive ? onClick : undefined}
     >
       {/* Current Video */}
-      {shouldShowVideo && currentVideoSrc && (
+      <video
+        ref={currentVideoRef}
+        className={cn(
+          "absolute inset-0 w-full h-full object-cover transition-all duration-600 ease-in-out",
+          showNext ? "opacity-0 scale-105" : "opacity-100 scale-100"
+        )}
+        playsInline
+        muted
+        loop
+        preload="metadata"
+      />
+
+      {/* Next Video (for transitions) */}
+      {nextVideoSrc && (
         <video
-          ref={currentVideoRef}
-          className="absolute inset-0 w-full h-full object-cover transition-all duration-[800ms] ease-out"
-          style={{ 
-            filter: 'brightness(0.7) contrast(1.1)',
-            opacity: isPlaying && !showNext ? 1 : 0,
-            transform: showNext ? 'scale(1.05)' : 'scale(1)',
-            zIndex: showNext ? 1 : 2
-          }}
+          ref={nextVideoRef}
+          className={cn(
+            "absolute inset-0 w-full h-full object-cover transition-all duration-600 ease-in-out",
+            showNext ? "opacity-100 scale-100" : "opacity-0 scale-95"
+          )}
+          playsInline
           muted
           loop
-          playsInline
-          crossOrigin="anonymous"
+          preload="metadata"
         />
       )}
 
-      {/* Next Video - for crossfade transition */}
-      {shouldShowVideo && nextVideoSrc && isTransitioning && (
-        <video
-          ref={nextVideoRef}
-          className="absolute inset-0 w-full h-full object-cover transition-all duration-[800ms] ease-out"
-          style={{ 
-            filter: 'brightness(0.7) contrast(1.1)',
-            opacity: showNext ? 1 : 0,
-            transform: showNext ? 'scale(1)' : 'scale(0.95)',
-            zIndex: showNext ? 2 : 1
+      {/* Loading indicator - only show for initial load, hide during transitions */}
+      {(loading || (!currentVideoSrc && !nextVideoSrc)) && !isTransitioning && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black/20 z-10">
+          <div className="w-8 h-8 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+        </div>
+      )}
+
+      {/* Wireframe pattern background - show when no video */}
+      {!hasVideo && !loading && (
+        <div 
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage: `
+              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px),
+              linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '20px 20px'
           }}
-          muted
-          loop
-          playsInline
-          crossOrigin="anonymous"
         />
       )}
       
-      {/* Video loading indicator */}
-      {shouldShowVideo && (loading || !videoReady || isTransitioning) && (
-        <div className="absolute inset-0 flex items-center justify-center z-10">
-          <div className="w-8 h-8 border-2 border-white/30 border-t-white/80 rounded-full animate-spin" />
-        </div>
-      )}
-      
-      {/* Wireframe pattern - hidden when video is playing */}
-      {(!shouldShowVideo || (!isPlaying && !isTransitioning)) && (
-        <div className="absolute inset-0 opacity-25">
-          <svg className="w-full h-full" viewBox="0 0 100 80" preserveAspectRatio="none">
-            <defs>
-              <pattern id={`grid-${gridIndex}`} width="10" height="10" patternUnits="userSpaceOnUse">
-                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.5"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill={`url(#grid-${gridIndex})`} />
-          </svg>
-        </div>
-      )}
-      
-      {/* Content overlay */}
+      {/* Content overlay - hide profile info during transitions for cleaner effect */}
       <div className="absolute inset-0 flex flex-col justify-center items-center p-4 text-white z-20">
-        {/* Title with text shadow for video readability */}
-        <h3 className={cn(
-          "font-bold text-center leading-tight",
-          "text-lg sm:text-xl md:text-2xl mb-3 tracking-wide",
-          // Enhanced text shadow for video backgrounds
-          shouldShowVideo && isPlaying && "drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] text-shadow-lg"
-        )}
-        style={{
-          textShadow: shouldShowVideo && isPlaying 
-            ? '2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)' 
-            : undefined
-        }}>
+        <h3 className="text-2xl sm:text-3xl md:text-4xl text-white font-light tracking-[0.2em] uppercase font-bold text-center leading-tight mb-4">
           {title}
         </h3>
         
-        {/* Profile info - only show when video is not playing */}
-        {(!isPlaying || isTransitioning) && (
+        {variation && !isTransitioning && (
           <div className={cn(
-            "text-xs sm:text-sm opacity-75 text-center mb-4 font-medium",
-            shouldShowVideo && "drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
+            "text-center space-y-1 text-white/80 transition-opacity duration-300",
+            isTransitioning ? "opacity-0" : "opacity-100"
           )}>
-            {profile.geslacht} • {profile.haarkleur} • {profile.haartype}
+            <p className="text-sm font-medium">
+              {profile.geslacht} • {profile.haarkleur} • {profile.haartype}
+            </p>
+            <p className="text-xs opacity-70">
+              Preview: {variation.previewCode}
+            </p>
           </div>
         )}
-        
-        {/* Preview code */}
-        <div className={cn(
-          "text-[10px] sm:text-xs opacity-50 font-mono tracking-wider",
-          shouldShowVideo && (isPlaying || isTransitioning) && "drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
-        )}>
-          {variation.previewCode}
-        </div>
       </div>
-      
-      {/* Hover effect overlay */}
-      {isActive && (
-        <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30" />
-      )}
     </div>
   );
 };
