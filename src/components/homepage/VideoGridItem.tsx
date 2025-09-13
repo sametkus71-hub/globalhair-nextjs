@@ -34,28 +34,21 @@ export const VideoGridItem = ({
   navigatingItem
 }: VideoGridItemProps) => {
   const { videoSrc, loading, hasVideo } = useSimpleVideo(profile);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const hlsRef = useRef<Hls | null>(null);
+  const currentVideoRef = useRef<HTMLVideoElement>(null);
+  const nextVideoRef = useRef<HTMLVideoElement>(null);
+  const currentHlsRef = useRef<Hls | null>(null);
+  const nextHlsRef = useRef<Hls | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [currentVideoSrc, setCurrentVideoSrc] = useState<string | null>(null);
+  const [nextVideoSrc, setNextVideoSrc] = useState<string | null>(null);
+  const [showNext, setShowNext] = useState(false);
   
   const shouldShowVideo = hasVideo && title === "HAAR TRANSPLANTATIE" && profile.geslacht === "Man";
-  
-  // Initialize HLS when video source is available
-  useEffect(() => {
-    if (!shouldShowVideo || !videoSrc || !videoRef.current) {
-      return;
-    }
 
-    const video = videoRef.current;
-    console.log('Initializing video for profile:', profile, 'videoSrc:', videoSrc);
-    
-    // Clean up previous HLS instance
-    if (hlsRef.current) {
-      hlsRef.current.destroy();
-      hlsRef.current = null;
-    }
-
+  // Helper function to setup HLS for a video element
+  const setupHLS = (video: HTMLVideoElement, src: string, hlsRef: React.MutableRefObject<Hls | null>, onReady: () => void) => {
     if (Hls.isSupported()) {
       const hls = new Hls({
         enableWorker: true,
@@ -66,58 +59,142 @@ export const VideoGridItem = ({
 
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
         console.log('HLS manifest parsed, video ready');
-        setVideoReady(true);
-        
-        // Auto-play the video
-        video.play().then(() => {
-          console.log('Video is now playing');
-          setIsPlaying(true);
-        }).catch((error) => {
-          console.error('Video play failed:', error);
-        });
+        onReady();
       });
 
       hls.on(Hls.Events.ERROR, (event, data) => {
         console.error('HLS error:', data);
-        setVideoReady(false);
       });
 
-      hls.loadSource(videoSrc);
+      hls.loadSource(src);
       hls.attachMedia(video);
     } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
       // Safari native HLS support
-      video.src = videoSrc;
+      video.src = src;
       
       video.addEventListener('loadeddata', () => {
         console.log('Video loaded and ready to play (Safari)');
-        setVideoReady(true);
-        
-        video.play().then(() => {
-          console.log('Video is now playing');
-          setIsPlaying(true);
-        }).catch((error) => {
-          console.error('Video play failed:', error);
-        });
+        onReady();
       });
 
       video.load();
     }
+  };
+
+  // Handle video source changes with crossfade transition
+  useEffect(() => {
+    if (!shouldShowVideo || !videoSrc) {
+      // Reset everything if no video should be shown
+      setCurrentVideoSrc(null);
+      setNextVideoSrc(null);
+      setIsPlaying(false);
+      setVideoReady(false);
+      return;
+    }
+
+    // If this is the first video or no current video
+    if (!currentVideoSrc) {
+      setCurrentVideoSrc(videoSrc);
+      return;
+    }
+
+    // If video source changed, start crossfade transition
+    if (videoSrc !== currentVideoSrc && !isTransitioning) {
+      console.log('Starting crossfade transition from', currentVideoSrc, 'to', videoSrc);
+      setIsTransitioning(true);
+      setNextVideoSrc(videoSrc);
+    }
+  }, [shouldShowVideo, videoSrc, currentVideoSrc, isTransitioning]);
+
+  // Initialize current video
+  useEffect(() => {
+    if (!shouldShowVideo || !currentVideoSrc || !currentVideoRef.current) {
+      return;
+    }
+
+    const video = currentVideoRef.current;
+    console.log('Initializing current video:', currentVideoSrc);
+    
+    // Clean up previous HLS instance
+    if (currentHlsRef.current) {
+      currentHlsRef.current.destroy();
+      currentHlsRef.current = null;
+    }
+
+    setupHLS(video, currentVideoSrc, currentHlsRef, () => {
+      setVideoReady(true);
+      
+      // Auto-play the video
+      video.play().then(() => {
+        console.log('Current video is now playing');
+        setIsPlaying(true);
+      }).catch((error) => {
+        console.error('Current video play failed:', error);
+      });
+    });
 
     return () => {
-      if (hlsRef.current) {
-        hlsRef.current.destroy();
-        hlsRef.current = null;
+      if (currentHlsRef.current) {
+        currentHlsRef.current.destroy();
+        currentHlsRef.current = null;
       }
-      setVideoReady(false);
-      setIsPlaying(false);
     };
-  }, [shouldShowVideo, videoSrc, profile]);
+  }, [shouldShowVideo, currentVideoSrc]);
+
+  // Initialize next video for crossfade
+  useEffect(() => {
+    if (!shouldShowVideo || !nextVideoSrc || !nextVideoRef.current || !isTransitioning) {
+      return;
+    }
+
+    const video = nextVideoRef.current;
+    console.log('Initializing next video for crossfade:', nextVideoSrc);
+    
+    // Clean up previous HLS instance
+    if (nextHlsRef.current) {
+      nextHlsRef.current.destroy();
+      nextHlsRef.current = null;
+    }
+
+    setupHLS(video, nextVideoSrc, nextHlsRef, () => {
+      // Start crossfade when next video is ready
+      video.play().then(() => {
+        console.log('Next video loaded, starting crossfade');
+        setShowNext(true);
+        
+        // Complete transition after animation
+        setTimeout(() => {
+          setCurrentVideoSrc(nextVideoSrc);
+          setNextVideoSrc(null);
+          setIsTransitioning(false);
+          setShowNext(false);
+          
+          // Clean up current video HLS
+          if (currentHlsRef.current) {
+            currentHlsRef.current.destroy();
+            currentHlsRef.current = null;
+          }
+        }, 800); // Match transition duration
+      }).catch((error) => {
+        console.error('Next video play failed:', error);
+        setIsTransitioning(false);
+        setNextVideoSrc(null);
+      });
+    });
+
+    return () => {
+      if (nextHlsRef.current) {
+        nextHlsRef.current.destroy();
+        nextHlsRef.current = null;
+      }
+    };
+  }, [shouldShowVideo, nextVideoSrc, isTransitioning]);
   
   // Handle visibility changes
   useEffect(() => {
-    if (!videoRef.current || !isPlaying) return;
+    if (!currentVideoRef.current || !isPlaying) return;
     
-    const video = videoRef.current;
+    const video = currentVideoRef.current;
     
     const handleVisibilityChange = () => {
       if (document.hidden) {
@@ -152,15 +229,34 @@ export const VideoGridItem = ({
       }}
       onClick={isActive ? onClick : undefined}
     >
-      {/* Video element - directly managed by React */}
-      {shouldShowVideo && videoSrc && (
+      {/* Current Video */}
+      {shouldShowVideo && currentVideoSrc && (
         <video
-          ref={videoRef}
-          className="absolute inset-0 w-full h-full object-cover"
+          ref={currentVideoRef}
+          className="absolute inset-0 w-full h-full object-cover transition-all duration-[800ms] ease-out"
           style={{ 
             filter: 'brightness(0.7) contrast(1.1)',
-            opacity: isPlaying ? 1 : 0,
-            transition: 'opacity 0.3s ease-in-out'
+            opacity: isPlaying && !showNext ? 1 : 0,
+            transform: showNext ? 'scale(1.05)' : 'scale(1)',
+            zIndex: showNext ? 1 : 2
+          }}
+          muted
+          loop
+          playsInline
+          crossOrigin="anonymous"
+        />
+      )}
+
+      {/* Next Video - for crossfade transition */}
+      {shouldShowVideo && nextVideoSrc && isTransitioning && (
+        <video
+          ref={nextVideoRef}
+          className="absolute inset-0 w-full h-full object-cover transition-all duration-[800ms] ease-out"
+          style={{ 
+            filter: 'brightness(0.7) contrast(1.1)',
+            opacity: showNext ? 1 : 0,
+            transform: showNext ? 'scale(1)' : 'scale(0.95)',
+            zIndex: showNext ? 2 : 1
           }}
           muted
           loop
@@ -170,14 +266,14 @@ export const VideoGridItem = ({
       )}
       
       {/* Video loading indicator */}
-      {shouldShowVideo && (loading || !videoReady) && (
+      {shouldShowVideo && (loading || !videoReady || isTransitioning) && (
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <div className="w-8 h-8 border-2 border-white/30 border-t-white/80 rounded-full animate-spin" />
         </div>
       )}
       
       {/* Wireframe pattern - hidden when video is playing */}
-      {(!shouldShowVideo || !isPlaying) && (
+      {(!shouldShowVideo || (!isPlaying && !isTransitioning)) && (
         <div className="absolute inset-0 opacity-25">
           <svg className="w-full h-full" viewBox="0 0 100 80" preserveAspectRatio="none">
             <defs>
@@ -208,7 +304,7 @@ export const VideoGridItem = ({
         </h3>
         
         {/* Profile info - only show when video is not playing */}
-        {!isPlaying && (
+        {(!isPlaying || isTransitioning) && (
           <div className={cn(
             "text-xs sm:text-sm opacity-75 text-center mb-4 font-medium",
             shouldShowVideo && "drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
@@ -220,7 +316,7 @@ export const VideoGridItem = ({
         {/* Preview code */}
         <div className={cn(
           "text-[10px] sm:text-xs opacity-50 font-mono tracking-wider",
-          shouldShowVideo && isPlaying && "drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
+          shouldShowVideo && (isPlaying || isTransitioning) && "drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
         )}>
           {variation.previewCode}
         </div>
