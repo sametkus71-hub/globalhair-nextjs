@@ -19,8 +19,26 @@ export const useHaartransplantatieVideos = () => {
   const [currentVideoKey, setCurrentVideoKey] = useState<string>('');
   const videoRefs = useRef<{ [key: string]: HTMLVideoElement }>({});
   
-  // Base CDN URL - same as other media
-  const baseVideoUrl = 'https://vz-104aba77-1e1.b-cdn.net';
+  // Direct video URL mapping - easy to edit and add new videos
+  const VIDEO_MAPPING: { [key: string]: string } = {
+    // Male hair transplant videos
+    'man-blond-krul': 'https://vz-104aba77-1e1.b-cdn.net/5fa33fc8-7e8d-4f37-a253-dc0b4cd0f69e/playlist.m3u8', // CURLY-BLONDE
+    'man-rood-kroes': 'https://vz-104aba77-1e1.b-cdn.net/4c9e38e9-efb3-4b53-a267-85554d52f015/playlist.m3u8', // AFRO-RED
+    'man-zwart-kroes': 'https://vz-104aba77-1e1.b-cdn.net/ae8e6512-fc65-4672-9988-1ecdfacd8861/playlist.m3u8', // AFRO-BLACK
+    'man-blond-kroes': 'https://vz-104aba77-1e1.b-cdn.net/b86b3917-ecfe-45a0-8222-ef562d2fb9bc/playlist.m3u8', // AFRO-BLONDE
+    'man-bruin-kroes': 'https://vz-104aba77-1e1.b-cdn.net/02c61fc1-d278-4e9d-bc2d-76bdaef4fb50/playlist.m3u8', // AFRO-BROWN
+    'man-blond-fijn': 'https://vz-104aba77-1e1.b-cdn.net/9b2664bb-7c67-411e-99d4-b4d298b818c9/playlist.m3u8', // WAVY-BLONDE
+    'man-bruin-fijn': 'https://vz-104aba77-1e1.b-cdn.net/8eef8635-9b77-4cc0-b179-5a47fa78622b/playlist.m3u8', // WAVY-BROWN
+    'man-rood-fijn': 'https://vz-104aba77-1e1.b-cdn.net/813fd306-87ea-4e7e-b87e-79a981df5773/playlist.m3u8', // WAVY-RED
+    'man-zwart-fijn': 'https://vz-104aba77-1e1.b-cdn.net/c8b1aad2-1f9b-484b-8980-3fca4160e87e/playlist.m3u8', // WAVY-BLACK
+    'man-bruin-stijl': 'https://vz-104aba77-1e1.b-cdn.net/d829df6a-c9ce-41a6-9821-de296a376cde/playlist.m3u8', // STRAIGHT-BROWN
+    'man-rood-stijl': 'https://vz-104aba77-1e1.b-cdn.net/264753f1-30e2-450e-b171-4d0675c9245c/playlist.m3u8', // STRAIGHT-RED
+    'man-zwart-stijl': 'https://vz-104aba77-1e1.b-cdn.net/587c883d-f472-49e2-a836-d64f13c97b01/playlist.m3u8', // STRAIGHT-BLACK
+    'man-blond-stijl': 'https://vz-104aba77-1e1.b-cdn.net/62b595a1-ec85-471b-b320-07d28fc5ef68/playlist.m3u8', // STRAIGHT-BLONDE
+    'man-bruin-krul': 'https://vz-104aba77-1e1.b-cdn.net/21f4fecc-474d-4fcb-b492-40276efce27d/playlist.m3u8', // CURLY-BROWN
+    'man-zwart-krul': 'https://vz-104aba77-1e1.b-cdn.net/dbe87704-2c19-48cb-a0c9-9dd530d9ae4e/playlist.m3u8', // CURLY-BLACK
+    'man-rood-krul': 'https://vz-104aba77-1e1.b-cdn.net/313353ce-fee9-4323-a872-6ee47ee458b0/playlist.m3u8', // CURLY-RED
+  };
   
   // Generate video URL from profile
   const generateVideoUrl = useCallback((geslacht: string, haarkleur: string, haartype: string) => {
@@ -29,19 +47,20 @@ export const useHaartransplantatieVideos = () => {
       return null;
     }
     
-    // Convert to lowercase kebab-case for URL
+    // Map hair colors to URL format (including RED as new option)
     const hairColorMap: { [key: string]: string } = {
       'Blond': 'blond',
       'Bruin': 'bruin', 
       'Zwart': 'zwart',
-      'Grijs': 'grijs'
+      'Grijs': 'grijs',
+      'Rood': 'rood' // Added RED color option
     };
     
     const hairTypeMap: { [key: string]: string } = {
-      'Fijn': 'fijn',
-      'Stijl': 'stijl',
-      'Krul': 'krul',
-      'Kroes': 'kroes'
+      'Fijn': 'fijn',     // WAVY videos
+      'Stijl': 'stijl',   // STRAIGHT videos  
+      'Krul': 'krul',     // CURLY videos
+      'Kroes': 'kroes'    // AFRO videos
     };
     
     const colorKey = hairColorMap[haarkleur];
@@ -51,13 +70,18 @@ export const useHaartransplantatieVideos = () => {
       return null;
     }
     
-    // Generate video key and URL
+    // Generate video key
     const videoKey = `man-${colorKey}-${typeKey}`;
-    // For now, use placeholder URLs - these will be replaced with actual video URLs
-    const videoUrl = `${baseVideoUrl}/haartransplantatie/${videoKey}/playlist.m3u8`;
+    
+    // Get video URL from mapping
+    const videoUrl = VIDEO_MAPPING[videoKey];
+    
+    if (!videoUrl) {
+      return null;
+    }
     
     return { videoKey, videoUrl };
-  }, [baseVideoUrl]);
+  }, []);
   
   // Get current video info
   const getCurrentVideoInfo = useCallback(() => {
