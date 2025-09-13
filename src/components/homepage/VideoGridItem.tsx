@@ -32,158 +32,101 @@ export const VideoGridItem = ({
   navigatingItem
 }: VideoGridItemProps) => {
   const { videoSrc, loading, hasVideo } = useSimpleVideo(profile);
-  const currentVideoRef = useRef<HTMLVideoElement>(null);
-  const nextVideoRef = useRef<HTMLVideoElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const hlsRef = useRef<Hls | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [currentVideoSrc, setCurrentVideoSrc] = useState<string | null>(null);
-  const [nextVideoSrc, setNextVideoSrc] = useState<string | null>(null);
-  const [showNext, setShowNext] = useState(false);
-  const [swapVideos, setSwapVideos] = useState(false); // New state to swap video elements
   
   const shouldShowVideo = hasVideo && title === "HAAR TRANSPLANTATIE" && profile.geslacht === "Man";
   const baseDarkness = variation?.baseDarkness || 0.5;
 
-  // Helper function to setup HLS
-  const setupHLS = (video: HTMLVideoElement, src: string): Hls | null => {
-    if (Hls.isSupported()) {
-      const hls = new Hls({
-        enableWorker: true,
-        lowLatencyMode: false,
-      });
-
-      hls.on(Hls.Events.ERROR, (event, data) => {
-        console.error('HLS error:', data);
-      });
-
-      hls.loadSource(src);
-      hls.attachMedia(video);
-      return hls;
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      // Safari native HLS support
-      video.src = src;
-      video.load();
-      return null;
-    }
-    return null;
-  };
-
-  // Initialize video source
+  // Initialize and change video sources seamlessly
   useEffect(() => {
-    if (!shouldShowVideo || !videoSrc) {
+    const video = videoRef.current;
+    if (!video || !shouldShowVideo || !videoSrc) {
       setCurrentVideoSrc(null);
-      setNextVideoSrc(null);
       return;
     }
 
+    // First time initialization
     if (!currentVideoSrc) {
+      console.log('🎥 Initial video setup:', videoSrc);
       setCurrentVideoSrc(videoSrc);
+      
+      if (videoSrc.includes('.m3u8')) {
+        if (Hls.isSupported()) {
+          hlsRef.current = new Hls({
+            enableWorker: true,
+            lowLatencyMode: false,
+            startLevel: -1,
+          });
+          
+          hlsRef.current.on(Hls.Events.ERROR, (event, data) => {
+            console.error('HLS error:', data);
+          });
+          
+          hlsRef.current.loadSource(videoSrc);
+          hlsRef.current.attachMedia(video);
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+          video.src = videoSrc;
+        }
+      } else {
+        video.src = videoSrc;
+      }
+      
+      video.play().catch(() => console.log('Autoplay prevented'));
       return;
     }
 
+    // Seamless source change for existing video
     if (videoSrc !== currentVideoSrc) {
-      console.log('🎬 Starting seamless video transition from', currentVideoSrc, 'to', videoSrc);
-      setNextVideoSrc(videoSrc);
+      console.log('🔄 Seamless source change from', currentVideoSrc, 'to', videoSrc);
       setIsTransitioning(true);
+      
+      if (videoSrc.includes('.m3u8') && hlsRef.current) {
+        // Use HLS loadSource for seamless transition
+        hlsRef.current.loadSource(videoSrc);
+        
+        // Brief crossfade effect
+        setTimeout(() => {
+          setCurrentVideoSrc(videoSrc);
+          setIsTransitioning(false);
+          console.log('✨ Source changed seamlessly');
+        }, 300);
+      } else {
+        // For non-HLS, still change source but with brief transition
+        video.src = videoSrc;
+        video.load();
+        video.play().catch(() => {});
+        
+        setTimeout(() => {
+          setCurrentVideoSrc(videoSrc);
+          setIsTransitioning(false);
+        }, 300);
+      }
     }
   }, [shouldShowVideo, videoSrc, currentVideoSrc]);
 
-  // Setup and play current video
+  // Cleanup HLS on unmount
   useEffect(() => {
-    const video = currentVideoRef.current;
-    if (!video || !currentVideoSrc) return;
-
-    let hls: Hls | null = null;
-
-    const initializeVideo = async () => {
-      console.log('🎥 Initializing current video:', currentVideoSrc);
-      
-      if (currentVideoSrc.includes('.m3u8')) {
-        hls = setupHLS(video, currentVideoSrc);
-      } else {
-        video.src = currentVideoSrc;
-      }
-
-      try {
-        await video.play();
-        console.log('▶️ Current video playing successfully');
-      } catch (error) {
-        console.log('⏸️ Current video autoplay prevented');
-      }
-    };
-
-    initializeVideo();
-
     return () => {
-      if (hls) {
-        hls.destroy();
+      if (hlsRef.current) {
+        hlsRef.current.destroy();
+        hlsRef.current = null;
       }
     };
-  }, [currentVideoSrc]);
+  }, []);
 
-  // Setup and play next video, then crossfade - true seamless transition
-  useEffect(() => {
-    const video = nextVideoRef.current;
-    if (!video || !nextVideoSrc || !isTransitioning) return;
-
-    let hls: Hls | null = null;
-
-    const initializeNextVideo = async () => {
-      console.log('🎥 Preparing next video for seamless transition:', nextVideoSrc);
-      
-      if (nextVideoSrc.includes('.m3u8')) {
-        hls = setupHLS(video, nextVideoSrc);
-      } else {
-        video.src = nextVideoSrc;
-      }
-
-      try {
-        await video.play();
-        console.log('▶️ Next video ready, starting smooth crossfade');
-        
-        // Start crossfade immediately when video is ready
-        setShowNext(true);
-        
-        // Complete transition by swapping video elements - no source change!
-        setTimeout(() => {
-          // Instead of changing sources, we swap which video is "current"
-          setSwapVideos(!swapVideos); // Toggle swap state
-          setCurrentVideoSrc(nextVideoSrc); // Update state but don't touch video src
-          setNextVideoSrc(null);
-          setIsTransitioning(false);
-          setShowNext(false);
-          console.log('✨ Seamless video transition complete - video continues playing');
-        }, 450); // Even faster transition
-      } catch (error) {
-        console.log('⏸️ Next video autoplay prevented, completing transition');
-        setSwapVideos(!swapVideos);
-        setCurrentVideoSrc(nextVideoSrc);
-        setNextVideoSrc(null);
-        setIsTransitioning(false);
-        setShowNext(false);
-      }
-    };
-
-    initializeNextVideo();
-
-    return () => {
-      if (hls) {
-        hls.destroy();
-      }
-    };
-  }, [nextVideoSrc, isTransitioning, swapVideos]);
-
-  // Pause videos when document becomes hidden
+  // Handle document visibility changes
   useEffect(() => {
     const handleVisibilityChange = () => {
-      const currentVideo = currentVideoRef.current;
-      const nextVideo = nextVideoRef.current;
+      const video = videoRef.current;
+      if (!video) return;
       
       if (document.hidden) {
-        currentVideo?.pause();
-        nextVideo?.pause();
+        video.pause();
       } else {
-        currentVideo?.play().catch(() => {});
-        nextVideo?.play().catch(() => {});
+        video.play().catch(() => {});
       }
     };
 
@@ -206,12 +149,12 @@ export const VideoGridItem = ({
         )`
       }}
     >
-      {/* Current Video - conditionally swap which element is "current" */}
+      {/* Single Video Element */}
       <video
-        ref={swapVideos ? nextVideoRef : currentVideoRef}
+        ref={videoRef}
         className={cn(
-          "absolute inset-0 w-full h-full object-cover transition-all duration-450 ease-in-out",
-          showNext ? "opacity-0 scale-105" : "opacity-100 scale-100"
+          "absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ease-in-out",
+          isTransitioning ? "opacity-90" : "opacity-100"
         )}
         playsInline
         muted
@@ -219,23 +162,8 @@ export const VideoGridItem = ({
         preload="metadata"
       />
 
-      {/* Next Video (for transitions) - conditionally swap which element is "next" */}
-      {nextVideoSrc && (
-        <video
-          ref={swapVideos ? currentVideoRef : nextVideoRef}
-          className={cn(
-            "absolute inset-0 w-full h-full object-cover transition-all duration-450 ease-in-out",
-            showNext ? "opacity-100 scale-100" : "opacity-0 scale-95"
-          )}
-          playsInline
-          muted
-          loop
-          preload="metadata"
-        />
-      )}
-
-      {/* Loading indicator - only show for initial load, hide during transitions */}
-      {(loading || (!currentVideoSrc && !nextVideoSrc)) && !isTransitioning && (
+      {/* Loading indicator */}
+      {loading && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/20 z-10">
           <div className="w-8 h-8 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
         </div>
@@ -255,7 +183,7 @@ export const VideoGridItem = ({
         />
       )}
       
-      {/* Content overlay - only show title, hide profile info completely during video playback */}
+      {/* Content overlay */}
       <div className="absolute inset-0 flex flex-col justify-center items-center p-4 text-white z-20">
         <h3 className="text-2xl sm:text-3xl md:text-4xl text-white font-light tracking-[0.2em] uppercase font-bold text-center leading-tight">
           {title}
