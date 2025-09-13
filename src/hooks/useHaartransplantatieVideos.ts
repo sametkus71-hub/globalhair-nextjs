@@ -12,8 +12,9 @@ interface VideoCache {
   };
 }
 
-export const useHaartransplantatieVideos = () => {
-  const { profile } = useSession();
+export const useHaartransplantatieVideos = (targetProfile?: any) => {
+  const { profile: sessionProfile } = useSession();
+  const profile = targetProfile || sessionProfile;
   const isMobile = useIsMobile();
   const [videoCache, setVideoCache] = useState<VideoCache>({});
   const [currentVideoKey, setCurrentVideoKey] = useState<string>('');
@@ -83,16 +84,27 @@ export const useHaartransplantatieVideos = () => {
     return { videoKey, videoUrl };
   }, []);
   
+  // Get video info for any profile
+  const getVideoInfoForProfile = useCallback((targetProfile: any = profile) => {
+    return generateVideoUrl(targetProfile.geslacht, targetProfile.haarkleur, targetProfile.haartype);
+  }, [generateVideoUrl, profile]);
+  
   // Get current video info
   const getCurrentVideoInfo = useCallback(() => {
-    return generateVideoUrl(profile.geslacht, profile.haarkleur, profile.haartype);
-  }, [profile.geslacht, profile.haarkleur, profile.haartype, generateVideoUrl]);
+    return getVideoInfoForProfile(profile);
+  }, [getVideoInfoForProfile, profile]);
   
   // Check if video is available for current profile
   const isVideoAvailable = useCallback(() => {
     const videoInfo = getCurrentVideoInfo();
     return videoInfo !== null;
   }, [getCurrentVideoInfo]);
+  
+  // Check if video is available for any profile
+  const isVideoAvailableForProfile = useCallback((targetProfile: any) => {
+    const videoInfo = getVideoInfoForProfile(targetProfile);
+    return videoInfo !== null;
+  }, [getVideoInfoForProfile]);
   
   // Load video with HLS
   const loadVideo = useCallback((videoKey: string, videoUrl: string) => {
@@ -270,27 +282,49 @@ export const useHaartransplantatieVideos = () => {
     };
   }, []);
   
-  // Get video element for current profile
-  const getCurrentVideo = useCallback(() => {
-    const info = getCurrentVideoInfo();
+  // Get video element for any profile
+  const getVideoForProfile = useCallback((targetProfile: any = profile) => {
+    const info = getVideoInfoForProfile(targetProfile);
     if (!info) return null;
     
     const cache = videoCache[info.videoKey];
     return cache?.loaded ? cache.video : null;
-  }, [getCurrentVideoInfo, videoCache]);
+  }, [getVideoInfoForProfile, videoCache, profile]);
   
-  // Check if current video is loaded
-  const isCurrentVideoLoaded = useCallback(() => {
-    const info = getCurrentVideoInfo();
+  // Check if video is loaded for any profile
+  const isVideoLoadedForProfile = useCallback((targetProfile: any = profile) => {
+    const info = getVideoInfoForProfile(targetProfile);
     if (!info) return false;
     
     return videoCache[info.videoKey]?.loaded || false;
-  }, [getCurrentVideoInfo, videoCache]);
+  }, [getVideoInfoForProfile, videoCache, profile]);
+  
+  // Check if video is loading for any profile
+  const isVideoLoadingForProfile = useCallback((targetProfile: any = profile) => {
+    const info = getVideoInfoForProfile(targetProfile);
+    if (!info) return false;
+    
+    return videoCache[info.videoKey]?.loading || false;
+  }, [getVideoInfoForProfile, videoCache, profile]);
+  
+  // Get video element for current profile
+  const getCurrentVideo = useCallback(() => {
+    return getVideoForProfile(profile);
+  }, [getVideoForProfile, profile]);
+  
+  // Check if current video is loaded
+  const isCurrentVideoLoaded = useCallback(() => {
+    return isVideoLoadedForProfile(profile);
+  }, [isVideoLoadedForProfile, profile]);
   
   return {
     isVideoAvailable,
+    isVideoAvailableForProfile,
     getCurrentVideo,
+    getVideoForProfile,
     isCurrentVideoLoaded,
+    isVideoLoadedForProfile,
+    isVideoLoadingForProfile,
     currentVideoKey,
     videoCache
   };

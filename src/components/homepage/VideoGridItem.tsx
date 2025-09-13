@@ -33,10 +33,10 @@ export const VideoGridItem = ({
   navigatingItem
 }: VideoGridItemProps) => {
   const {
-    isVideoAvailable,
-    getCurrentVideo,
-    isCurrentVideoLoaded,
-    currentVideoKey
+    isVideoAvailableForProfile,
+    getVideoForProfile,
+    isVideoLoadedForProfile,
+    isVideoLoadingForProfile
   } = useHaartransplantatieVideos();
   
   const containerRef = useRef<HTMLDivElement>(null);
@@ -44,14 +44,14 @@ export const VideoGridItem = ({
   const [videoMounted, setVideoMounted] = useState(false);
   const [videoPlaying, setVideoPlaying] = useState(false);
   
-  const shouldShowVideo = isVideoAvailable() && title === "HAAR TRANSPLANTATIE";
+  const shouldShowVideo = isVideoAvailableForProfile(profile) && title === "HAAR TRANSPLANTATIE" && profile.geslacht === "Man";
   
   // Mount video element when available
   useEffect(() => {
     if (!shouldShowVideo || !containerRef.current) return;
     
-    const video = getCurrentVideo();
-    if (video && video !== videoElementRef.current && isCurrentVideoLoaded()) {
+    const video = getVideoForProfile(profile);
+    if (video && video !== videoElementRef.current && isVideoLoadedForProfile(profile)) {
       // Clean up previous video
       if (videoElementRef.current) {
         videoElementRef.current.pause();
@@ -95,7 +95,7 @@ export const VideoGridItem = ({
         }
       }, 100);
     }
-  }, [shouldShowVideo, getCurrentVideo, currentVideoKey, isCurrentVideoLoaded]);
+  }, [shouldShowVideo, getVideoForProfile, profile, isVideoLoadedForProfile]);
   
   // Clean up on unmount
   useEffect(() => {
@@ -150,8 +150,8 @@ export const VideoGridItem = ({
       }}
       onClick={isActive ? onClick : undefined}
     >
-      {/* Video loading indicator */}
-      {shouldShowVideo && !isCurrentVideoLoaded() && (
+      {/* Video loading indicator - only show when actively loading */}
+      {shouldShowVideo && isVideoLoadingForProfile(profile) && !isVideoLoadedForProfile(profile) && (
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <div className="w-8 h-8 border-2 border-white/30 border-t-white/80 rounded-full animate-spin" />
         </div>
