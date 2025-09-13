@@ -138,17 +138,21 @@ export const useHaartransplantatieVideos = () => {
       
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
         console.log(`Video loaded successfully: ${videoKey}`);
-        setVideoCache(prev => ({
-          ...prev,
-          [videoKey]: {
-            hls,
-            video,
-            loaded: true,
-            loading: false
-          }
-        }));
         
-        // Preload video
+        // Wait for video to be ready before marking as loaded
+        video.addEventListener('loadeddata', () => {
+          setVideoCache(prev => ({
+            ...prev,
+            [videoKey]: {
+              hls,
+              video,
+              loaded: true,
+              loading: false
+            }
+          }));
+        }, { once: true });
+        
+        // Start loading the video
         video.load();
       });
       
@@ -223,6 +227,7 @@ export const useHaartransplantatieVideos = () => {
       { geslacht: 'Man', haarkleur: 'Bruin', haartype: profile.haartype },
       { geslacht: 'Man', haarkleur: 'Zwart', haartype: profile.haartype },
       { geslacht: 'Man', haarkleur: 'Grijs', haartype: profile.haartype },
+      { geslacht: 'Man', haarkleur: 'Rood', haartype: profile.haartype },
       // Same hair color, different types  
       { geslacht: 'Man', haarkleur: profile.haarkleur, haartype: 'Fijn' },
       { geslacht: 'Man', haarkleur: profile.haarkleur, haartype: 'Stijl' },

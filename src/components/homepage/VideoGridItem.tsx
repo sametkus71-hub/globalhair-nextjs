@@ -51,7 +51,7 @@ export const VideoGridItem = ({
     if (!shouldShowVideo || !containerRef.current) return;
     
     const video = getCurrentVideo();
-    if (video && video !== videoElementRef.current) {
+    if (video && video !== videoElementRef.current && isCurrentVideoLoaded()) {
       // Clean up previous video
       if (videoElementRef.current) {
         videoElementRef.current.pause();
@@ -64,19 +64,38 @@ export const VideoGridItem = ({
       videoElementRef.current = video;
       video.className = "absolute inset-0 w-full h-full object-cover";
       video.style.filter = 'brightness(0.7) contrast(1.1)';
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
       
       containerRef.current.appendChild(video);
       setVideoMounted(true);
       
-      // Start playing
-      video.play().then(() => {
-        setVideoPlaying(true);
-      }).catch((error) => {
-        console.warn('Video autoplay failed:', error);
-        setVideoPlaying(false);
-      });
+      // Wait a moment for the video to be ready, then try to play
+      setTimeout(() => {
+        if (video.readyState >= 2) { // HAVE_CURRENT_DATA or higher
+          video.play().then(() => {
+            console.log('Video started playing successfully');
+            setVideoPlaying(true);
+          }).catch((error) => {
+            console.warn('Video autoplay failed:', error);
+            setVideoPlaying(false);
+          });
+        } else {
+          // If not ready, wait for loadeddata event
+          video.addEventListener('loadeddata', () => {
+            video.play().then(() => {
+              console.log('Video started playing after loadeddata');
+              setVideoPlaying(true);
+            }).catch((error) => {
+              console.warn('Video autoplay failed after loadeddata:', error);
+              setVideoPlaying(false);
+            });
+          }, { once: true });
+        }
+      }, 100);
     }
-  }, [shouldShowVideo, getCurrentVideo, currentVideoKey]);
+  }, [shouldShowVideo, getCurrentVideo, currentVideoKey, isCurrentVideoLoaded]);
   
   // Clean up on unmount
   useEffect(() => {
