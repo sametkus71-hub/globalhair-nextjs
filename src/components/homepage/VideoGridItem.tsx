@@ -61,6 +61,11 @@ export const VideoGridItem = ({
             startLevel: -1,
           });
           
+          hlsRef.current.on(Hls.Events.MANIFEST_PARSED, () => {
+            console.log('🎬 HLS manifest parsed, starting playback');
+            video.play().catch(() => console.log('Autoplay prevented'));
+          });
+          
           hlsRef.current.on(Hls.Events.ERROR, (event, data) => {
             console.error('HLS error:', data);
           });
@@ -69,12 +74,16 @@ export const VideoGridItem = ({
           hlsRef.current.attachMedia(video);
         } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
           video.src = videoSrc;
+          video.addEventListener('loadedmetadata', () => {
+            video.play().catch(() => console.log('Autoplay prevented'));
+          });
         }
       } else {
         video.src = videoSrc;
+        video.addEventListener('loadedmetadata', () => {
+          video.play().catch(() => console.log('Autoplay prevented'));
+        });
       }
-      
-      video.play().catch(() => console.log('Autoplay prevented'));
       return;
     }
 
@@ -87,6 +96,14 @@ export const VideoGridItem = ({
         // Use HLS loadSource for seamless transition
         hlsRef.current.loadSource(videoSrc);
         
+        // Ensure video plays after source change
+        const onManifestParsed = () => {
+          console.log('🎬 New source loaded, resuming playback');
+          video.play().catch(() => console.log('Autoplay prevented during transition'));
+          hlsRef.current?.off(Hls.Events.MANIFEST_PARSED, onManifestParsed);
+        };
+        hlsRef.current.on(Hls.Events.MANIFEST_PARSED, onManifestParsed);
+        
         // Brief crossfade effect
         setTimeout(() => {
           setCurrentVideoSrc(videoSrc);
@@ -96,8 +113,12 @@ export const VideoGridItem = ({
       } else {
         // For non-HLS, still change source but with brief transition
         video.src = videoSrc;
+        const onLoadedMetadata = () => {
+          video.play().catch(() => {});
+          video.removeEventListener('loadedmetadata', onLoadedMetadata);
+        };
+        video.addEventListener('loadedmetadata', onLoadedMetadata);
         video.load();
-        video.play().catch(() => {});
         
         setTimeout(() => {
           setCurrentVideoSrc(videoSrc);
