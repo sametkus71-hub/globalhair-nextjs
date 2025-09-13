@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useSession } from '@/hooks/useSession';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
+import { VideoGridItem } from './VideoGridItem';
 import { cn } from '@/lib/utils';
 
 interface VideoGridProps {
@@ -108,118 +109,80 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
   };
 
   // Render individual grid item
-  const renderPlaceholderItem = (title: string, gridIndex: number, isActive: boolean, isStatic?: boolean, onClick?: () => void) => {
+  const renderGridItem = (title: string, gridIndex: number, isActive: boolean, isStatic?: boolean, onClick?: () => void) => {
     const variation = isStatic ? null : getItemVariation(gridIndex);
     
-    const previewCode = isStatic ? null : variation!.previewCode;
-    const selectionInfo = isStatic ? null : `${profile.geslacht} • ${profile.haarkleur} • ${profile.haartype}`;
+    // Use VideoGridItem for active items, fallback for static items
+    if (!isStatic && variation) {
+      return (
+        <VideoGridItem
+          key={`${gridIndex}-${animationKey}`}
+          title={title}
+          gridIndex={gridIndex}
+          isActive={isActive}
+          onClick={onClick}
+          variation={variation}
+          profile={profile}
+          animationKey={animationKey}
+          navigatingItem={navigatingItem}
+        />
+      );
+    }
     
+    // Static "Coming Soon" items
     return (
       <div 
-        key={isStatic ? `static-${gridIndex}` : `${gridIndex}-${animationKey}`}
+        key={`static-${gridIndex}`}
         data-grid-item={gridIndex}
         className={cn(
           "relative w-full h-full overflow-hidden transition-all duration-500 ease-out",
-          isActive ? "cursor-pointer hover:scale-[1.01] group" : "cursor-not-allowed",
-          !isStatic && "animate-fade-in"
+          "cursor-not-allowed"
         )}
         style={{
-          background: isStatic 
-            ? 'linear-gradient(135deg, rgba(60,60,60,0.8), rgba(40,40,40,0.9))'
-            : `linear-gradient(135deg, 
-                hsla(${Math.round(variation!.baseDarkness * 360)}, 30%, ${20 + variation!.baseDarkness * 15}%, 0.9), 
-                hsla(${Math.round(variation!.baseDarkness * 360)}, 25%, ${15 + variation!.baseDarkness * 10}%, 0.95)
-              )`,
-          // Bring to front during navigation
-          ...(navigatingItem === gridIndex && { position: 'relative', zIndex: 50 })
+          background: 'linear-gradient(135deg, rgba(60,60,60,0.8), rgba(40,40,40,0.9))'
         }}
-        onClick={isActive ? onClick : undefined}
       >
-        {/* Hard overlay for coming soon items - your brand color with subtle shine */}
-        {isStatic && (
-          <>
-            {/* Base overlay using darker brand color with vertical gradient */}
-            <div 
-              className="absolute inset-0 z-10"
-              style={{
-                background: `linear-gradient(135deg, #002a3f 0%, #001a26 100%)`,
-              }}
-            />
-            
-            {/* Additional vertical darkening overlay - darker towards bottom */}
-            <div 
-              className="absolute inset-0 z-10"
-              style={{
-                background: `linear-gradient(to bottom, 
-                  rgba(0, 0, 0, 0.1) 0%, 
-                  rgba(0, 0, 0, 0.3) 70%, 
-                  rgba(0, 0, 0, 0.5) 100%
-                )`
-              }}
-            />
-            
-            {/* Very subtle shine-through effect */}
-            <div 
-              className="absolute inset-0 z-10 animate-gradient-shift"
-              style={{
-                background: `linear-gradient(135deg, 
-                  rgba(1, 51, 76, 0.8) 0%, 
-                  rgba(1, 51, 76, 0.6) 50%, 
-                  rgba(1, 51, 76, 0.8) 100%
-                )`
-              }}
-            />
-          </>
-        )}
+        {/* Hard overlay for coming soon items */}
+        <>
+          {/* Base overlay using darker brand color with vertical gradient */}
+          <div 
+            className="absolute inset-0 z-10"
+            style={{
+              background: `linear-gradient(135deg, #002a3f 0%, #001a26 100%)`,
+            }}
+          />
+          
+          {/* Additional vertical darkening overlay - darker towards bottom */}
+          <div 
+            className="absolute inset-0 z-10"
+            style={{
+              background: `linear-gradient(to bottom, 
+                rgba(0, 0, 0, 0.1) 0%, 
+                rgba(0, 0, 0, 0.3) 70%, 
+                rgba(0, 0, 0, 0.5) 100%
+              )`
+            }}
+          />
+          
+          {/* Very subtle shine-through effect */}
+          <div 
+            className="absolute inset-0 z-10 animate-gradient-shift"
+            style={{
+              background: `linear-gradient(135deg, 
+                rgba(1, 51, 76, 0.8) 0%, 
+                rgba(1, 51, 76, 0.6) 50%, 
+                rgba(1, 51, 76, 0.8) 100%
+              )`
+            }}
+          />
+        </>
 
-        {/* Simple, consistent wireframe pattern - hidden for coming soon items */}
-        {!isStatic && (
-          <div className="absolute inset-0 opacity-25">
-            <svg className="w-full h-full" viewBox="0 0 100 80" preserveAspectRatio="none">
-              <defs>
-                <pattern id={`grid-${gridIndex}`} width="10" height="10" patternUnits="userSpaceOnUse">
-                  <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.5"/>
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill={`url(#grid-${gridIndex})`} />
-            </svg>
-          </div>
-        )}
-
-        {/* Content overlay with improved spacing and sizing */}
-        <div className={cn(
-          "absolute inset-0 flex flex-col justify-center items-center p-4 text-white",
-          isStatic && "z-20"
-        )}>
-          {/* Title */}
-          <h3 className={cn(
-            "font-bold text-center leading-tight",
-            isStatic 
-              ? "text-2xl sm:text-3xl md:text-4xl text-white/40 font-light tracking-[0.2em] uppercase" 
-              : "text-lg sm:text-xl md:text-2xl mb-3 tracking-wide"
-          )}>
+        {/* Content overlay */}
+        <div className="absolute inset-0 flex flex-col justify-center items-center p-4 text-white z-20">
+          <h3 className="text-2xl sm:text-3xl md:text-4xl text-white/40 font-light tracking-[0.2em] uppercase font-bold text-center leading-tight">
             {title}
           </h3>
-          
-          {/* Selection info - only for active items */}
-          {!isStatic && selectionInfo && (
-            <div className="text-xs sm:text-sm opacity-75 text-center mb-4 font-medium">
-              {selectionInfo}
-            </div>
-          )}
-          
-          {/* Preview code - only for active items */}
-          {!isStatic && previewCode && (
-            <div className="text-[10px] sm:text-xs opacity-50 font-mono tracking-wider">
-              {previewCode}
-            </div>
-          )}
         </div>
-
-        {/* Hover effect overlay - only for active items */}
-        {isActive && (
-          <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        )}
       </div>
     );
   };
@@ -236,14 +199,14 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
       }}
     >
       {/* Haartransplantatie - Top Left */}
-      {renderPlaceholderItem("HAAR TRANSPLANTATIE", 0, true, false, handleHaartransplantatieClick)}
+      {renderGridItem("HAAR TRANSPLANTATIE", 0, true, false, handleHaartransplantatieClick)}
       
       {/* V6 Hairboost - Top Right */}
-      {renderPlaceholderItem("V6 HAIRBOOST", 1, true, false, handleV6HairboostClick)}
+      {renderGridItem("V6 HAIRBOOST", 1, true, false, handleV6HairboostClick)}
       
       {/* Coming Soon items - Bottom */}
-      {renderPlaceholderItem("COMING SOON", 2, false, true)}
-      {renderPlaceholderItem("COMING SOON", 3, false, true)}
+      {renderGridItem("COMING SOON", 2, false, true)}
+      {renderGridItem("COMING SOON", 3, false, true)}
     </div>
   );
 };
