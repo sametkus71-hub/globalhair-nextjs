@@ -34,7 +34,6 @@ export const VideoGridItem = ({
   const { videoSrc, loading, hasVideo } = useSimpleVideo(profile);
   const videoRef = useRef<HTMLVideoElement>(null);
   const hlsRef = useRef<Hls | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const [currentVideoSrc, setCurrentVideoSrc] = useState<string | null>(null);
   
   const shouldShowVideo = hasVideo && title === "HAAR TRANSPLANTATIE" && profile.geslacht === "Man";
@@ -89,41 +88,30 @@ export const VideoGridItem = ({
 
     // Seamless source change for existing video
     if (videoSrc !== currentVideoSrc) {
-      console.log('🔄 Seamless source change from', currentVideoSrc, 'to', videoSrc);
-      setIsTransitioning(true);
+      console.log('🔄 Instant source change from', currentVideoSrc, 'to', videoSrc);
       
       if (videoSrc.includes('.m3u8') && hlsRef.current) {
         // Use HLS loadSource for seamless transition
         hlsRef.current.loadSource(videoSrc);
         
-        // Ensure video plays after source change
+        // Update state immediately when manifest is parsed
         const onManifestParsed = () => {
           console.log('🎬 New source loaded, resuming playback');
           video.play().catch(() => console.log('Autoplay prevented during transition'));
+          setCurrentVideoSrc(videoSrc);
           hlsRef.current?.off(Hls.Events.MANIFEST_PARSED, onManifestParsed);
         };
         hlsRef.current.on(Hls.Events.MANIFEST_PARSED, onManifestParsed);
-        
-        // Brief crossfade effect
-        setTimeout(() => {
-          setCurrentVideoSrc(videoSrc);
-          setIsTransitioning(false);
-          console.log('✨ Source changed seamlessly');
-        }, 300);
       } else {
-        // For non-HLS, still change source but with brief transition
+        // For non-HLS, update immediately after metadata loads
         video.src = videoSrc;
         const onLoadedMetadata = () => {
           video.play().catch(() => {});
+          setCurrentVideoSrc(videoSrc);
           video.removeEventListener('loadedmetadata', onLoadedMetadata);
         };
         video.addEventListener('loadedmetadata', onLoadedMetadata);
         video.load();
-        
-        setTimeout(() => {
-          setCurrentVideoSrc(videoSrc);
-          setIsTransitioning(false);
-        }, 300);
       }
     }
   }, [shouldShowVideo, videoSrc, currentVideoSrc]);
@@ -173,10 +161,7 @@ export const VideoGridItem = ({
       {/* Single Video Element */}
       <video
         ref={videoRef}
-        className={cn(
-          "absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ease-in-out",
-          isTransitioning ? "opacity-90" : "opacity-100"
-        )}
+        className="absolute inset-0 w-full h-full object-cover"
         playsInline
         muted
         loop
