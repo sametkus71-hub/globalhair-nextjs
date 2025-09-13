@@ -28,9 +28,9 @@ export const ColorSelector = ({ heightBreakpoint = 'large' }: ColorSelectorProps
       title: 'Zwart haar voor GlobalHair haartransplantatie behandeling'
     },
     { 
-      value: 'Wit', 
-      gradient: 'linear-gradient(135deg, hsl(0, 0%, 40%) 0%, hsl(0, 0%, 35%) 50%, hsl(0, 0%, 45%) 100%)',
-      title: 'Wit grijs haar voor GlobalHair haartransplantatie behandeling'
+      value: 'Rood', 
+      gradient: 'linear-gradient(135deg, hsl(0, 60%, 40%) 0%, hsl(0, 55%, 35%) 50%, hsl(0, 65%, 45%) 100%)',
+      title: 'Rood haar voor GlobalHair haartransplantatie behandeling'
     },
   ];
 

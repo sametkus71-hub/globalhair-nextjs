@@ -146,7 +146,7 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
   body.s-zwart { --user-haircolor: 'zwart'; }
   body.s-bruin { --user-haircolor: 'bruin'; }
   body.s-blond { --user-haircolor: 'blond'; }
-  body.s-wit { --user-haircolor: 'wit'; }
+  body.s-rood { --user-haircolor: 'rood'; }
   
   /* Fullscreen utilities for homepage */
   .fullscreen-no-scroll {
@@ -253,11 +253,11 @@ body.s-zwart {
   --texture-filter: hue-rotate(0deg) saturate(0.3) brightness(0.4);
 }
 
-body.s-wit {
-  --blob-color-primary: #666666;
-  --blob-color-secondary: #555555;
-  --blob-color-accent: #444444;
-  --texture-filter: hue-rotate(0deg) saturate(0.2) brightness(0.5);
+body.s-rood {
+  --blob-color-primary: hsl(0, 60%, 40%);
+  --blob-color-secondary: hsl(0, 55%, 35%);
+  --blob-color-accent: hsl(0, 65%, 45%);
+  --texture-filter: hue-rotate(-20deg) saturate(0.8) brightness(0.6);
 }
 
 @layer components {

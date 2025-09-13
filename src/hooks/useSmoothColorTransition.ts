@@ -27,11 +27,11 @@ const colorThemes: Record<HairColor, ColorTheme> = {
     accent: 'hsl(230, 20%, 6%)',
     textureFilter: 'hue-rotate(0deg) saturate(0.3) brightness(0.4)'
   },
-  'Wit': {
-    primary: 'hsl(0, 0%, 40%)',
-    secondary: 'hsl(0, 0%, 35%)',
-    accent: 'hsl(0, 0%, 45%)',
-    textureFilter: 'hue-rotate(0deg) saturate(0.2) brightness(0.5)'
+  'Rood': {
+    primary: 'hsl(0, 60%, 40%)',
+    secondary: 'hsl(0, 55%, 35%)',
+    accent: 'hsl(0, 65%, 45%)',
+    textureFilter: 'hue-rotate(-20deg) saturate(0.8) brightness(0.6)'
   }
 };
 
@@ -106,7 +106,7 @@ export const useSmoothColorTransition = () => {
         // Transition complete - update current theme, body class, and session
         currentThemeRef.current = targetTheme;
         document.body.className = document.body.className.replace(
-          /\b(blond|bruin|zwart|wit)-hair\b/g, 
+          /\b(blond|bruin|zwart|rood)-hair\b/g, 
           ''
         );
         document.body.classList.add(`${targetColor.toLowerCase()}-hair`);

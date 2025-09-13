@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 export type Gender = 'Man' | 'Vrouw';
 export type HairType = 'Fijn' | 'Stijl' | 'Krul' | 'Kroes';
-export type HairColor = 'Zwart' | 'Bruin' | 'Blond' | 'Wit';
+export type HairColor = 'Zwart' | 'Bruin' | 'Blond' | 'Rood';
 export type Location = 'Nederland' | 'Turkije';
 export type Shaving = 'Met scheren' | 'Zonder scheren';
 export type Treatment = 'Normaal' | 'Stamcel';
@@ -25,7 +25,7 @@ export interface UserProfile {
 const defaultProfile: UserProfile = {
   geslacht: 'Man',
   haartype: 'Fijn',
-  haarkleur: 'Zwart',
+  haarkleur: 'Rood',
   locatie: 'Nederland',
   scheren: 'Met scheren',
   behandeling: 'Normaal',
@@ -61,10 +61,17 @@ export const useSession = () => {
       const savedLanguageLocal = localStorage.getItem('gh_lang') as Language;
       const detectedLanguage = savedLanguageSession || savedLanguageLocal || detectBrowserLanguage();
 
+      // Migration: Convert 'Wit' to 'Rood' for existing users
+      let migratedHaarkleur = savedHaarkleur;
+      if (savedHaarkleur === 'Wit' as any) {
+        migratedHaarkleur = 'Rood';
+        sessionStorage.setItem('gh_haarkleur', 'Rood');
+      }
+      
       const currentProfile = {
         geslacht: savedGeslacht || defaultProfile.geslacht,
         haartype: savedHaartype || defaultProfile.haartype,
-        haarkleur: savedHaarkleur || defaultProfile.haarkleur,
+        haarkleur: migratedHaarkleur || defaultProfile.haarkleur,
         locatie: savedLocatie || defaultProfile.locatie,
         scheren: savedScheren || defaultProfile.scheren,
         behandeling: savedBehandeling || defaultProfile.behandeling,
@@ -122,7 +129,7 @@ export const useSession = () => {
     const body = document.body;
     
     // Remove existing classes
-    body.className = body.className.replace(/s-(man|vrouw|fijn|stijl|krul|kroes|zwart|bruin|blond|wit|nederland|turkije|met-scheren|zonder-scheren|normaal|stamcel|nl|en|standard|premium|advanced)/g, '').trim();
+    body.className = body.className.replace(/s-(man|vrouw|fijn|stijl|krul|kroes|zwart|bruin|blond|rood|nederland|turkije|met-scheren|zonder-scheren|normaal|stamcel|nl|en|standard|premium|advanced)/g, '').trim();
     
     // Add new classes
     const geslachtClass = `s-${newProfile.geslacht.toLowerCase()}`;
