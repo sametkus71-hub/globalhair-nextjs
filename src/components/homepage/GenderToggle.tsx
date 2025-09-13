@@ -22,7 +22,7 @@ export const GenderToggle = () => {
         className={cn(
           "relative px-4 py-1.5 rounded-full font-header text-[12px] font-medium transition-all duration-300 ease-out",
           profile.geslacht === 'Man'
-            ? "text-white glass-shine"
+            ? "text-white premium-glow"
             : "text-white/80 hover:text-white"
         )}
         style={profile.geslacht === 'Man' ? {
@@ -37,7 +37,7 @@ export const GenderToggle = () => {
         className={cn(
           "relative px-4 py-1.5 rounded-full font-header text-[12px] font-medium transition-all duration-300 ease-out",
           profile.geslacht === 'Vrouw'
-            ? "text-white glass-shine"
+            ? "text-white premium-glow"
             : "text-white/80 hover:text-white"
         )}
         style={profile.geslacht === 'Vrouw' ? {
