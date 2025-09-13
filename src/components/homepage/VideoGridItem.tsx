@@ -245,7 +245,7 @@ export const VideoGridItem = ({
       
       {/* Content overlay */}
       <div className="absolute inset-0 flex flex-col justify-center items-center p-4 text-white z-20">
-        <h3 className="text-2xl sm:text-3xl md:text-4xl text-white font-light tracking-[0.2em] uppercase font-bold text-center leading-tight">
+        <h3 className="text-lg sm:text-xl md:text-2xl text-white font-medium tracking-[0.15em] uppercase text-center leading-tight drop-shadow-lg" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0px 0px 8px rgba(0,0,0,0.3)' }}>
           {title}
         </h3>
       </div>
