@@ -38,7 +38,7 @@ export const HairTypeSelector = ({ heightBreakpoint = 'large' }: HairTypeSelecto
             heightBreakpoint === 'medium' ? "px-3.5 py-1.5 text-[11px]" :
             "px-4 py-1.5 text-[12px]",
             profile.haartype === value
-              ? "text-gray-900"
+              ? "text-white glass-shine"
               : "text-white/80 hover:text-white"
           )}
           style={profile.haartype === value ? {
