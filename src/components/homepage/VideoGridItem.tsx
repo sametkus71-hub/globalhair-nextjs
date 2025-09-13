@@ -38,6 +38,7 @@ export const VideoGridItem = ({
   const [currentVideoSrc, setCurrentVideoSrc] = useState<string | null>(null);
   const [nextVideoSrc, setNextVideoSrc] = useState<string | null>(null);
   const [showNext, setShowNext] = useState(false);
+  const [swapVideos, setSwapVideos] = useState(false); // New state to swap video elements
   
   const shouldShowVideo = hasVideo && title === "HAAR TRANSPLANTATIE" && profile.geslacht === "Man";
   const baseDarkness = variation?.baseDarkness || 0.5;
@@ -119,7 +120,7 @@ export const VideoGridItem = ({
     };
   }, [currentVideoSrc]);
 
-  // Setup and play next video, then crossfade - optimized for smoothness
+  // Setup and play next video, then crossfade - true seamless transition
   useEffect(() => {
     const video = nextVideoRef.current;
     if (!video || !nextVideoSrc || !isTransitioning) return;
@@ -139,22 +140,22 @@ export const VideoGridItem = ({
         await video.play();
         console.log('▶️ Next video ready, starting smooth crossfade');
         
-        // Small delay to ensure video is stable, then start crossfade
-        setTimeout(() => {
-          setShowNext(true);
-        }, 50);
+        // Start crossfade immediately when video is ready
+        setShowNext(true);
         
-        // Complete transition after optimized duration
+        // Complete transition by swapping video elements - no source change!
         setTimeout(() => {
-          setCurrentVideoSrc(nextVideoSrc);
+          // Instead of changing sources, we swap which video is "current"
+          setSwapVideos(!swapVideos); // Toggle swap state
+          setCurrentVideoSrc(nextVideoSrc); // Update state but don't touch video src
           setNextVideoSrc(null);
           setIsTransitioning(false);
           setShowNext(false);
-          console.log('✨ Seamless video transition complete');
-        }, 600); // Reduced from 800ms for snappier feel
+          console.log('✨ Seamless video transition complete - video continues playing');
+        }, 450); // Even faster transition
       } catch (error) {
         console.log('⏸️ Next video autoplay prevented, completing transition');
-        // Immediate fallback without delay
+        setSwapVideos(!swapVideos);
         setCurrentVideoSrc(nextVideoSrc);
         setNextVideoSrc(null);
         setIsTransitioning(false);
@@ -169,7 +170,7 @@ export const VideoGridItem = ({
         hls.destroy();
       }
     };
-  }, [nextVideoSrc, isTransitioning]);
+  }, [nextVideoSrc, isTransitioning, swapVideos]);
 
   // Pause videos when document becomes hidden
   useEffect(() => {
@@ -205,11 +206,11 @@ export const VideoGridItem = ({
         )`
       }}
     >
-      {/* Current Video */}
+      {/* Current Video - conditionally swap which element is "current" */}
       <video
-        ref={currentVideoRef}
+        ref={swapVideos ? nextVideoRef : currentVideoRef}
         className={cn(
-          "absolute inset-0 w-full h-full object-cover transition-all duration-600 ease-in-out",
+          "absolute inset-0 w-full h-full object-cover transition-all duration-450 ease-in-out",
           showNext ? "opacity-0 scale-105" : "opacity-100 scale-100"
         )}
         playsInline
@@ -218,12 +219,12 @@ export const VideoGridItem = ({
         preload="metadata"
       />
 
-      {/* Next Video (for transitions) */}
+      {/* Next Video (for transitions) - conditionally swap which element is "next" */}
       {nextVideoSrc && (
         <video
-          ref={nextVideoRef}
+          ref={swapVideos ? currentVideoRef : nextVideoRef}
           className={cn(
-            "absolute inset-0 w-full h-full object-cover transition-all duration-600 ease-in-out",
+            "absolute inset-0 w-full h-full object-cover transition-all duration-450 ease-in-out",
             showNext ? "opacity-100 scale-100" : "opacity-0 scale-95"
           )}
           playsInline
@@ -254,25 +255,11 @@ export const VideoGridItem = ({
         />
       )}
       
-      {/* Content overlay - hide profile info during transitions for cleaner effect */}
+      {/* Content overlay - only show title, hide profile info completely during video playback */}
       <div className="absolute inset-0 flex flex-col justify-center items-center p-4 text-white z-20">
-        <h3 className="text-2xl sm:text-3xl md:text-4xl text-white font-light tracking-[0.2em] uppercase font-bold text-center leading-tight mb-4">
+        <h3 className="text-2xl sm:text-3xl md:text-4xl text-white font-light tracking-[0.2em] uppercase font-bold text-center leading-tight">
           {title}
         </h3>
-        
-        {variation && !isTransitioning && (
-          <div className={cn(
-            "text-center space-y-1 text-white/80 transition-opacity duration-300",
-            isTransitioning ? "opacity-0" : "opacity-100"
-          )}>
-            <p className="text-sm font-medium">
-              {profile.geslacht} • {profile.haarkleur} • {profile.haartype}
-            </p>
-            <p className="text-xs opacity-70">
-              Preview: {variation.previewCode}
-            </p>
-          </div>
-        )}
       </div>
     </div>
   );
