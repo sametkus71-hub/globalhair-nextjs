@@ -1273,6 +1273,7 @@ html, body {
 /* Premium subtle selection glow */
 .premium-glow {
   position: relative;
+  overflow: hidden;
 }
 
 .premium-glow::before {
@@ -1289,6 +1290,23 @@ html, body {
   pointer-events: none;
 }
 
+.premium-glow::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: premiumShine 2.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
 @keyframes premiumPulse {
   0%, 100% {
     box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.15);
@@ -1297,6 +1315,21 @@ html, body {
   50% {
     box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.25);
     background: rgba(255, 255, 255, 0.15);
+  }
+}
+
+@keyframes premiumShine {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+  50% {
+    left: 100%;
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
   }
 }
 
