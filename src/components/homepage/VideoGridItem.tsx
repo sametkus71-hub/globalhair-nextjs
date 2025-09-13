@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSimpleVideo } from '@/hooks/useSimpleVideo';
 import { cn } from '@/lib/utils';
+import Hls from 'hls.js';
 
 interface VideoGridItemProps {
   title: string;
@@ -32,62 +33,107 @@ export const VideoGridItem = ({
   animationKey,
   navigatingItem
 }: VideoGridItemProps) => {
-  const { video, loading, ready, hasVideo, playVideo } = useSimpleVideo(profile);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const { videoSrc, loading, hasVideo } = useSimpleVideo(profile);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const hlsRef = useRef<Hls | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
   
   const shouldShowVideo = hasVideo && title === "HAAR TRANSPLANTATIE" && profile.geslacht === "Man";
   
-  // Mount and play video when ready
+  // Initialize HLS when video source is available
   useEffect(() => {
-    if (!shouldShowVideo || !video || !ready || !containerRef.current) return;
+    if (!shouldShowVideo || !videoSrc || !videoRef.current) {
+      return;
+    }
+
+    const video = videoRef.current;
+    console.log('Initializing video for profile:', profile, 'videoSrc:', videoSrc);
     
-    console.log('Mounting video for profile:', profile);
-    
-    // Style the video
-    video.className = "absolute inset-0 w-full h-full object-cover";
-    video.style.filter = 'brightness(0.7) contrast(1.1)';
-    
-    // Clear container and add video
-    containerRef.current.innerHTML = '';
-    containerRef.current.appendChild(video);
-    
-    // Play the video
-    playVideo().then((success) => {
-      setIsPlaying(success);
-      if (success) {
-        console.log('Video is now playing');
-      }
-    });
-    
+    // Clean up previous HLS instance
+    if (hlsRef.current) {
+      hlsRef.current.destroy();
+      hlsRef.current = null;
+    }
+
+    if (Hls.isSupported()) {
+      const hls = new Hls({
+        enableWorker: true,
+        lowLatencyMode: false,
+      });
+
+      hlsRef.current = hls;
+
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        console.log('HLS manifest parsed, video ready');
+        setVideoReady(true);
+        
+        // Auto-play the video
+        video.play().then(() => {
+          console.log('Video is now playing');
+          setIsPlaying(true);
+        }).catch((error) => {
+          console.error('Video play failed:', error);
+        });
+      });
+
+      hls.on(Hls.Events.ERROR, (event, data) => {
+        console.error('HLS error:', data);
+        setVideoReady(false);
+      });
+
+      hls.loadSource(videoSrc);
+      hls.attachMedia(video);
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      // Safari native HLS support
+      video.src = videoSrc;
+      
+      video.addEventListener('loadeddata', () => {
+        console.log('Video loaded and ready to play (Safari)');
+        setVideoReady(true);
+        
+        video.play().then(() => {
+          console.log('Video is now playing');
+          setIsPlaying(true);
+        }).catch((error) => {
+          console.error('Video play failed:', error);
+        });
+      });
+
+      video.load();
+    }
+
     return () => {
-      if (video && containerRef.current?.contains(video)) {
-        video.pause();
-        setIsPlaying(false);
+      if (hlsRef.current) {
+        hlsRef.current.destroy();
+        hlsRef.current = null;
       }
+      setVideoReady(false);
+      setIsPlaying(false);
     };
-  }, [shouldShowVideo, video, ready, playVideo, profile]);
+  }, [shouldShowVideo, videoSrc, profile]);
   
   // Handle visibility changes
   useEffect(() => {
-    if (!video || !isPlaying) return;
+    if (!videoRef.current || !isPlaying) return;
+    
+    const video = videoRef.current;
     
     const handleVisibilityChange = () => {
       if (document.hidden) {
         video.pause();
         setIsPlaying(false);
       } else {
-        playVideo().then(setIsPlaying);
+        video.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
       }
     };
     
     document.addEventListener('visibilitychange', handleVisibilityChange);
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
-  }, [video, isPlaying, playVideo]);
+  }, [isPlaying]);
   
   return (
     <div
-      ref={containerRef}
       key={`${gridIndex}-${animationKey}`}
       data-grid-item={gridIndex}
       className={cn(
@@ -106,8 +152,25 @@ export const VideoGridItem = ({
       }}
       onClick={isActive ? onClick : undefined}
     >
+      {/* Video element - directly managed by React */}
+      {shouldShowVideo && videoSrc && (
+        <video
+          ref={videoRef}
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ 
+            filter: 'brightness(0.7) contrast(1.1)',
+            opacity: isPlaying ? 1 : 0,
+            transition: 'opacity 0.3s ease-in-out'
+          }}
+          muted
+          loop
+          playsInline
+          crossOrigin="anonymous"
+        />
+      )}
+      
       {/* Video loading indicator */}
-      {shouldShowVideo && loading && (
+      {shouldShowVideo && (loading || !videoReady) && (
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <div className="w-8 h-8 border-2 border-white/30 border-t-white/80 rounded-full animate-spin" />
         </div>

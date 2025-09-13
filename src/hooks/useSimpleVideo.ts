@@ -1,22 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
-import Hls from 'hls.js';
-
-interface VideoState {
-  video: HTMLVideoElement | null;
-  hls: Hls | null;
-  loading: boolean;
-  error: string | null;
-  ready: boolean;
-}
 
 export const useSimpleVideo = (profile: any) => {
-  const [videoState, setVideoState] = useState<VideoState>({
-    video: null,
-    hls: null,
-    loading: false,
-    error: null,
-    ready: false
-  });
+  const [videoSrc, setVideoSrc] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // Video URL mapping
   const VIDEO_MAPPING: { [key: string]: string } = {
@@ -40,7 +27,7 @@ export const useSimpleVideo = (profile: any) => {
 
   // Generate video key from profile
   const getVideoKey = useCallback(() => {
-    if (profile.geslacht.toLowerCase() !== 'man') {
+    if (profile.geslacht?.toLowerCase() !== 'man') {
       return null;
     }
 
@@ -69,132 +56,34 @@ export const useSimpleVideo = (profile: any) => {
     return `man-${colorKey}-${typeKey}`;
   }, [profile]);
 
-  // Create and load video
-  const createVideo = useCallback(() => {
+  // Update video source when profile changes
+  useEffect(() => {
     const videoKey = getVideoKey();
-    console.log('Creating video for profile:', profile, 'videoKey:', videoKey);
+    console.log('Getting video for profile:', profile, 'videoKey:', videoKey);
     
     if (!videoKey || !VIDEO_MAPPING[videoKey]) {
       console.log('No video available for this profile');
-      setVideoState({ video: null, hls: null, loading: false, error: 'No video available', ready: false });
+      setVideoSrc(null);
+      setError('No video available');
+      setLoading(false);
       return;
     }
 
-    setVideoState(prev => ({ ...prev, loading: true, error: null }));
-
-    const video = document.createElement('video');
-    video.muted = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.crossOrigin = 'anonymous';
-    video.preload = 'auto';
+    setLoading(true);
+    setError(null);
     
     const videoUrl = VIDEO_MAPPING[videoKey];
-    console.log('Loading video URL:', videoUrl);
-    
-    // Check if HLS is supported
-    if (Hls.isSupported()) {
-      const hls = new Hls({
-        enableWorker: true,
-        lowLatencyMode: false,
-      });
-
-      hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        console.log('HLS manifest parsed, video ready');
-        setVideoState({
-          video,
-          hls,
-          loading: false,
-          error: null,
-          ready: true
-        });
-      });
-
-      hls.on(Hls.Events.ERROR, (event, data) => {
-        console.error('HLS error:', data);
-        hls.destroy();
-        setVideoState({
-          video: null,
-          hls: null,
-          loading: false,
-          error: 'Failed to load video',
-          ready: false
-        });
-      });
-
-      hls.loadSource(videoUrl);
-      hls.attachMedia(video);
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      // Safari native HLS support
-      video.src = videoUrl;
-      
-      video.addEventListener('loadeddata', () => {
-        console.log('Video loaded and ready to play (Safari)');
-        setVideoState({
-          video,
-          hls: null,
-          loading: false,
-          error: null,
-          ready: true
-        });
-      });
-
-      video.addEventListener('error', (e) => {
-        console.error('Video error:', e);
-        setVideoState({
-          video: null,
-          hls: null,
-          loading: false,
-          error: 'Failed to load video',
-          ready: false
-        });
-      });
-
-      video.load();
-    } else {
-      console.error('HLS not supported');
-      setVideoState({
-        video: null,
-        hls: null,
-        loading: false,
-        error: 'HLS not supported',
-        ready: false
-      });
-    }
+    console.log('Setting video URL:', videoUrl);
+    setVideoSrc(videoUrl);
+    setLoading(false);
   }, [getVideoKey, profile]);
 
-  // Create video when profile changes
-  useEffect(() => {
-    createVideo();
-    
-    return () => {
-      if (videoState.hls) {
-        videoState.hls.destroy();
-      }
-      if (videoState.video) {
-        videoState.video.pause();
-        videoState.video.src = '';
-      }
-    };
-  }, [createVideo]);
-
-  const playVideo = useCallback(() => {
-    if (videoState.video && videoState.ready) {
-      console.log('Attempting to play video');
-      return videoState.video.play().then(() => {
-        console.log('Video playing successfully');
-        return true;
-      }).catch((error) => {
-        console.error('Video play failed:', error);
-        return false;
-      });
-    }
-    return Promise.resolve(false);
-  }, [videoState.video, videoState.ready]);
+  const hasVideo = !!getVideoKey() && !!VIDEO_MAPPING[getVideoKey() || ''];
 
   return {
-    ...videoState,
-    playVideo,
-    hasVideo: !!getVideoKey() && !!VIDEO_MAPPING[getVideoKey() || '']
+    videoSrc,
+    loading,
+    error,
+    hasVideo
   };
 };
