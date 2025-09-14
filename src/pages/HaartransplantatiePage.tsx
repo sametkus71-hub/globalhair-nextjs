@@ -9,7 +9,7 @@ import { BeforeAfterGrid } from '@/components/haartransplantatie/BeforeAfterGrid
 import { TreatmentSelectionSection } from '@/components/haartransplantatie/TreatmentSelectionSection';
 import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
-import { VideoBackground } from '@/components/haartransplantatie/VideoBackground';
+import { VideoBackgroundMP4 } from '@/components/haartransplantatie/VideoBackgroundMP4';
 
 
 const HaartransplantatiePage = () => {
@@ -79,8 +79,8 @@ const HaartransplantatiePage = () => {
       <MetaHead language={language} page="haartransplantatie" />
       <DesktopContainer>
         <PageTransition isNewPage={true}>
-          {/* Full Page Video Background */}
-          <VideoBackground />
+          {/* Full Page Video Background - MP4 Optimized */}
+          <VideoBackgroundMP4 />
           
           {/* Hero Section - Flex container for stacked items */}
           <section 
