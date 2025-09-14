@@ -2,11 +2,10 @@ import { cn } from '@/lib/utils';
 
 interface BookIconProps {
   className?: string;
-  isGlowing?: boolean;
   animationPhase?: 'idle' | 'entrance' | 'hold' | 'exit';
 }
 
-export const BookIcon = ({ className, isGlowing = false, animationPhase = 'idle' }: BookIconProps) => {
+export const BookIcon = ({ className, animationPhase = 'idle' }: BookIconProps) => {
   const getScaleClass = () => {
     switch (animationPhase) {
       case 'entrance':
@@ -43,7 +42,7 @@ export const BookIcon = ({ className, isGlowing = false, animationPhase = 'idle'
           <feOffset/>
           <feGaussianBlur stdDeviation="3.94275"/>
           <feComposite in2="hardAlpha" operator="out"/>
-          <feColorMatrix type="matrix" values={`0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 ${isGlowing ? '0.52' : '0'} 0`} className="transition-all duration-400"/>
+          <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0"/>
           <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_36_1121"/>
           <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_36_1121" result="shape"/>
         </filter>

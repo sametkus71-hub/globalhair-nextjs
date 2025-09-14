@@ -40,14 +40,14 @@ export const BottomNavigation = () => {
 
   // Get opacity class based on current page and active state
   const getOpacityClass = (itemId: string, isActive: boolean, isBookAnimating: boolean = false) => {
-    // If on main haartransplantatie page, all items get full opacity (page-based logic has precedence)
-    if (isOnMainHaartransplantatiePage()) {
-      return 'opacity-100';
+    // If book animation is active, dim other items (not book) for better attention
+    if (isBookAnimating && itemId !== 'book') {
+      return 'opacity-30';
     }
     
-    // Only apply book animation dimming on non-main pages and when actually animating
-    if (isBookAnimating && itemId !== 'book' && !isOnMainHaartransplantatiePage()) {
-      return 'opacity-60';
+    // If on main haartransplantatie page, all items get full opacity when not animating
+    if (isOnMainHaartransplantatiePage()) {
+      return 'opacity-100';
     }
     
     // If on popup pages, only active item gets full opacity, others dimmed
