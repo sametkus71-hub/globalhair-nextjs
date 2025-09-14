@@ -194,7 +194,7 @@ export const TreatmentSelectionSection = () => {
                 onClick={() => updateProfile('locatie', country)}
                 className={`px-3 py-2 rounded-full font-lato text-[11px] font-medium transition-all duration-300 ease-out ${
                   profile.locatie === country
-                    ? 'text-gray-900'
+                    ? 'text-white'
                     : 'text-white/80 hover:text-white'
                 }`}
                 style={profile.locatie === country ? {
@@ -233,7 +233,7 @@ export const TreatmentSelectionSection = () => {
                   onClick={() => updateProfile('selectedPackage', pkg.id)}
                   className={`px-3 py-2.5 rounded-full font-lato text-[13px] font-medium transition-all duration-300 ease-out ${
                     profile.selectedPackage === pkg.id
-                      ? 'text-gray-900'
+                      ? 'text-white'
                       : 'text-white/80 hover:text-white'
                   }`}
                   style={profile.selectedPackage === pkg.id ? {
