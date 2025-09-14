@@ -305,6 +305,12 @@ body.s-rood {
     will-change: auto;
   }
 
+  /* Premium layered video fade-out for haartransplantatie page */
+  .video-fade-out-smooth {
+    animation: video-fade-out-premium 800ms cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+    will-change: opacity, filter, transform;
+  }
+
   /* Desktop layout utilities */
   .desktop-container {
     @apply w-full lg:max-w-[500px] lg:mx-auto;
@@ -837,6 +843,30 @@ body.s-rood {
   }
   66% { 
     transform: translateY(10px) translateX(-15px); 
+  }
+}
+
+/* Premium video transition keyframes for haartransplantatie */
+@keyframes video-fade-out-premium {
+  0% {
+    opacity: 1;
+    filter: blur(8px) brightness(0.85) contrast(1.2) saturate(1.1);
+    transform: translateX(-50%) scale(1.05) translate3d(0, 0, 0);
+  }
+  30% {
+    opacity: 0.8;
+    filter: blur(9px) brightness(0.8) contrast(1.18) saturate(1.08);
+    transform: translateX(-50%) scale(1.03) translate3d(0, 0, 0);
+  }
+  70% {
+    opacity: 0.3;
+    filter: blur(11px) brightness(0.7) contrast(1.15) saturate(1.03);
+    transform: translateX(-50%) scale(1.01) translate3d(0, 0, 0);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(12px) brightness(0.6) contrast(1.1) saturate(1.0);
+    transform: translateX(-50%) scale(1.0) translate3d(0, 0, 0);
   }
 }
 
