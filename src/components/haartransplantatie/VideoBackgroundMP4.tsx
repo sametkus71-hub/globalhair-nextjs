@@ -188,7 +188,7 @@ export const VideoBackgroundMP4 = ({ className = '' }: VideoBackgroundMP4Props) 
       <video
         ref={currentVideoRef}
         className={cn(
-          "fixed inset-0 w-full h-full object-cover",
+          "fixed inset-0 w-full h-full object-cover transition-opacity duration-700 ease-out",
           isCurrentVisible ? "opacity-100" : "opacity-0",
           isTransitioning && isCurrentVisible && "video-fade-out-phase"
         )}
@@ -216,7 +216,7 @@ export const VideoBackgroundMP4 = ({ className = '' }: VideoBackgroundMP4Props) 
       <video
         ref={nextVideoRef}
         className={cn(
-          "fixed inset-0 w-full h-full object-cover",
+          "fixed inset-0 w-full h-full object-cover transition-opacity duration-700 ease-out",
           isCurrentVisible ? "opacity-0" : "opacity-100",
           isTransitioning && !isCurrentVisible && "video-fade-in-phase"
         )}
