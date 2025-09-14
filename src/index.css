@@ -64,11 +64,11 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
   /* Animations */
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   
-  /* Enhanced Video Transition System */
+  /* Enhanced Video Transition System - Optimized for mobile */
   --video-crossfade-timing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --video-blend-timing: cubic-bezier(0.23, 1, 0.32, 1);
-  --video-transition-duration: 750ms;
-  --video-stagger-delay: 100ms;
+  --video-transition-duration: 350ms; /* Much faster for smooth mobile experience */
+  --video-stagger-delay: 50ms; /* Reduced stagger for snappier feel */
   
   /* iOS-style entrance animations */
   --ios-entrance: cubic-bezier(0.175, 0.885, 0.32, 1.275);

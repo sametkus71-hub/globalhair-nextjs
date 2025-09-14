@@ -12,28 +12,33 @@ export const useTimeSyncedVideo = (config: TimeSyncedVideoConfig = {}) => {
   const [currentTime, setCurrentTime] = useState(0);
   const transitionTimeRef = useRef<number>(0);
 
-  // Enhanced HLS configuration for better buffering and performance
+  // Mobile-optimized HLS configuration for faster, smoother playback
   const createHlsInstance = useCallback(() => {
     if (!Hls.isSupported()) return null;
     
+    // Detect mobile device for optimized settings
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
     return new Hls({
       enableWorker: true,
-      lowLatencyMode: false,
-      startLevel: -1,
-      maxBufferLength: 30,
-      maxBufferSize: 60 * 1000 * 1000,
-      maxBufferHole: 0.5,
-      backBufferLength: 10,
-      manifestLoadingTimeOut: 10000,
-      manifestLoadingMaxRetry: 3,
-      manifestLoadingRetryDelay: 500,
-      levelLoadingTimeOut: 10000,
-      fragLoadingTimeOut: 20000,
-      // Optimize for smooth playback
-      nudgeOffset: 0.1,
-      nudgeMaxRetry: 3,
-      maxMaxBufferLength: 600,
+      lowLatencyMode: true, // Enable for faster startup
+      startLevel: isMobile ? 0 : -1, // Start with lowest quality on mobile
+      maxBufferLength: isMobile ? 10 : 20, // Reduced buffer for mobile
+      maxBufferSize: isMobile ? 20 * 1000 * 1000 : 40 * 1000 * 1000, // Smaller buffer size
+      maxBufferHole: 0.3, // More aggressive hole filling
+      backBufferLength: isMobile ? 5 : 8, // Reduced back buffer
+      manifestLoadingTimeOut: 5000, // Faster timeout
+      manifestLoadingMaxRetry: 2, // Fewer retries for speed
+      manifestLoadingRetryDelay: 200, // Shorter retry delay
+      levelLoadingTimeOut: 5000,
+      fragLoadingTimeOut: 8000,
+      // Optimize for immediate playback
+      nudgeOffset: 0.05,
+      nudgeMaxRetry: 2,
+      maxMaxBufferLength: isMobile ? 60 : 120, // Much smaller max buffer
       startFragPrefetch: true,
+      // Mobile-specific optimizations
+      maxLoadingDelay: isMobile ? 2 : 4,
     });
   }, []);
 
@@ -202,10 +207,10 @@ export const useTimeSyncedVideo = (config: TimeSyncedVideoConfig = {}) => {
       // Fallback to regular crossfade
       onComplete();
     } finally {
-      // Reset transition state after animation completes
+      // Reset transition state after animation completes - much faster
       setTimeout(() => {
         setIsTransitioning(false);
-      }, 800); // Allow extra time for CSS transitions
+      }, 400); // Faster transition for smoother feel
     }
   }, [isTransitioning, loadVideoWithTimeSync]);
 

@@ -153,25 +153,25 @@ export const VideoGridItem = ({
           setIsCurrentVisible(!isCurrentVisible);
           
           // Update state after animation completes
-          setTimeout(() => {
-            setCurrentVideoSrc(videoSrc);
-            
-            // Start time tracking on the new current video
-            if (nextVideo) {
-              trackVideoTime(nextVideo);
-            }
-            
-            // Clean up GPU acceleration hints for memory optimization
-            const videos = [currentVideoRef.current, nextVideoRef.current];
-            videos.forEach(video => {
-              if (video) {
-                video.classList.add('video-animation-complete');
-                video.classList.remove('video-fade-out-phase', 'video-fade-in-phase');
+            setTimeout(() => {
+              setCurrentVideoSrc(videoSrc);
+              
+              // Start time tracking on the new current video
+              if (nextVideo) {
+                trackVideoTime(nextVideo);
               }
-            });
-            
-            console.log('🎬 Time-synced crossfade completed with GPU cleanup');
-          }, 750); // Match CSS transition duration exactly
+              
+              // Clean up GPU acceleration hints for memory optimization
+              const videos = [currentVideoRef.current, nextVideoRef.current];
+              videos.forEach(video => {
+                if (video) {
+                  video.classList.add('video-animation-complete');
+                  video.classList.remove('video-fade-out-phase', 'video-fade-in-phase');
+                }
+              });
+              
+              console.log('🎬 Time-synced crossfade completed with GPU cleanup');
+            }, 350); // Much faster transition for smooth mobile experience
         }
       );
     }
@@ -232,8 +232,8 @@ export const VideoGridItem = ({
     <div
       data-grid-item={gridIndex}
       className={cn(
-        "relative w-full h-full overflow-hidden transition-all duration-500 ease-in-out",
-        isActive ? "cursor-pointer hover:scale-[1.02] hover:brightness-110" : "cursor-not-allowed"
+        "relative w-full h-full overflow-hidden transition-all duration-300 ease-out",
+        isActive ? "cursor-pointer hover:scale-[1.01] hover:brightness-105" : "cursor-not-allowed"
       )}
       onClick={onClick}
       style={{
