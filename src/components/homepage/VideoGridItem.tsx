@@ -43,22 +43,79 @@ export const VideoGridItem = ({
   const [currentVideoSrc, setCurrentVideoSrc] = useState<string | null>(null);
   const [isCurrentVisible, setIsCurrentVisible] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [previousShouldShowVideo, setPreviousShouldShowVideo] = useState<boolean | null>(null);
   
   const shouldShowVideo = hasVideo && title === "HAAR TRANSPLANTATIE" && profile.geslacht === "Man";
   const baseDarkness = variation?.baseDarkness || 0.5;
 
+  // Reset video state when shouldShowVideo changes from true to false or vice versa
+  useEffect(() => {
+    console.log('📱 shouldShowVideo changed:', { 
+      previous: previousShouldShowVideo, 
+      current: shouldShowVideo, 
+      currentVideoSrc,
+      videoSrc,
+      profile: profile.geslacht 
+    });
+
+    // When switching away from video (Man -> Vrouw)
+    if (previousShouldShowVideo === true && shouldShowVideo === false) {
+      console.log('🚫 Switching away from video - resetting state');
+      setCurrentVideoSrc(null);
+      setIsTransitioning(false);
+      setIsCurrentVisible(true);
+      
+      // Clean up video elements and HLS instances
+      if (currentVideoRef.current) {
+        currentVideoRef.current.src = '';
+        currentVideoRef.current.load();
+      }
+      if (nextVideoRef.current) {
+        nextVideoRef.current.src = '';
+        nextVideoRef.current.load();
+      }
+      if (currentHlsRef.current) {
+        currentHlsRef.current.destroy();
+        currentHlsRef.current = null;
+      }
+      if (nextHlsRef.current) {
+        nextHlsRef.current.destroy();
+        nextHlsRef.current = null;
+      }
+    }
+
+    // When switching back to video (Vrouw -> Man)
+    if (previousShouldShowVideo === false && shouldShowVideo === true) {
+      console.log('✅ Switching back to video - forcing reload');
+      setCurrentVideoSrc(null);
+      setIsTransitioning(false);
+      setIsCurrentVisible(true);
+    }
+
+    setPreviousShouldShowVideo(shouldShowVideo);
+  }, [shouldShowVideo, previousShouldShowVideo]);
+
   // Initialize video or handle smooth crossfade transitions
   useEffect(() => {
+    console.log('🎥 Video effect triggered:', { 
+      shouldShowVideo, 
+      videoSrc, 
+      currentVideoSrc, 
+      isTransitioning,
+      hasVideo 
+    });
+
     if (!shouldShowVideo || !videoSrc) {
-      setCurrentVideoSrc(null);
+      console.log('❌ Video should not show or no videoSrc');
       return;
     }
 
-    // First time initialization
+    // First time initialization or force reload after state reset
     if (!currentVideoSrc) {
-      console.log('🎥 Initial video setup:', videoSrc);
+      console.log('🎬 Initial video setup:', videoSrc);
       loadVideoIntoElement(currentVideoRef.current, currentHlsRef, videoSrc, () => {
         setCurrentVideoSrc(videoSrc);
+        console.log('✅ Initial video loaded successfully');
       });
       return;
     }
