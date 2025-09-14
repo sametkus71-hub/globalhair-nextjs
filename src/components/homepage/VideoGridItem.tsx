@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSimpleVideo } from '@/hooks/useSimpleVideo';
+import { useTimeSyncedVideo } from '@/hooks/useTimeSyncedVideo';
 import { cn } from '@/lib/utils';
 import Hls from 'hls.js';
 
@@ -33,6 +34,25 @@ export const VideoGridItem = ({
 }: VideoGridItemProps) => {
   const { videoSrc, loading, hasVideo } = useSimpleVideo(profile);
   
+  // Enhanced time-synced video system
+  const {
+    loadVideoWithTimeSync,
+    trackVideoTime,
+    startTimeSyncedCrossfade,
+    getCurrentTime,
+    isTransitioning: isCrossfading
+  } = useTimeSyncedVideo({
+    onTimeUpdate: (time) => {
+      // Optional: Track video progress for analytics
+    },
+    onVideoReady: () => {
+      console.log('✅ Video ready for playback');
+    },
+    onError: (error) => {
+      console.error('❌ Video error:', error);
+    }
+  });
+  
   // Dual video system for smooth crossfades
   const currentVideoRef = useRef<HTMLVideoElement>(null);
   const nextVideoRef = useRef<HTMLVideoElement>(null);
@@ -42,7 +62,6 @@ export const VideoGridItem = ({
   // State for managing video transitions
   const [currentVideoSrc, setCurrentVideoSrc] = useState<string | null>(null);
   const [isCurrentVisible, setIsCurrentVisible] = useState(true);
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const [previousShouldShowVideo, setPreviousShouldShowVideo] = useState<boolean | null>(null);
   
   const shouldShowVideo = hasVideo && title === "HAAR TRANSPLANTATIE" && profile.geslacht === "Man";
@@ -62,46 +81,30 @@ export const VideoGridItem = ({
     if (previousShouldShowVideo === true && shouldShowVideo === false) {
       console.log('🚫 Switching away from video - resetting state');
       setCurrentVideoSrc(null);
-      setIsTransitioning(false);
       setIsCurrentVisible(true);
       
       // Clean up video elements and HLS instances
-      if (currentVideoRef.current) {
-        currentVideoRef.current.src = '';
-        currentVideoRef.current.load();
-      }
-      if (nextVideoRef.current) {
-        nextVideoRef.current.src = '';
-        nextVideoRef.current.load();
-      }
-      if (currentHlsRef.current) {
-        currentHlsRef.current.destroy();
-        currentHlsRef.current = null;
-      }
-      if (nextHlsRef.current) {
-        nextHlsRef.current.destroy();
-        nextHlsRef.current = null;
-      }
+      cleanupVideo(currentVideoRef.current, currentHlsRef);
+      cleanupVideo(nextVideoRef.current, nextHlsRef);
     }
 
     // When switching back to video (Vrouw -> Man)
     if (previousShouldShowVideo === false && shouldShowVideo === true) {
       console.log('✅ Switching back to video - forcing reload');
       setCurrentVideoSrc(null);
-      setIsTransitioning(false);
       setIsCurrentVisible(true);
     }
 
     setPreviousShouldShowVideo(shouldShowVideo);
   }, [shouldShowVideo, previousShouldShowVideo]);
 
-  // Initialize video or handle smooth crossfade transitions
+  // Initialize video with time tracking or handle smooth crossfade transitions
   useEffect(() => {
     console.log('🎥 Video effect triggered:', { 
       shouldShowVideo, 
       videoSrc, 
       currentVideoSrc, 
-      isTransitioning,
+      isCrossfading,
       hasVideo 
     });
 
@@ -112,102 +115,94 @@ export const VideoGridItem = ({
 
     // First time initialization or force reload after state reset
     if (!currentVideoSrc) {
-      console.log('🎬 Initial video setup:', videoSrc);
-      loadVideoIntoElement(currentVideoRef.current, currentHlsRef, videoSrc, () => {
-        setCurrentVideoSrc(videoSrc);
-        console.log('✅ Initial video loaded successfully');
-      });
+      console.log('🎬 Initial video setup with time tracking:', videoSrc);
+      
+      loadVideoWithTimeSync(currentVideoRef.current, currentHlsRef, videoSrc, 0)
+        .then(() => {
+          setCurrentVideoSrc(videoSrc);
+          
+          // Start time tracking on the current video
+          if (currentVideoRef.current) {
+            trackVideoTime(currentVideoRef.current);
+            currentVideoRef.current.play().catch(console.warn);
+          }
+          
+          console.log('✅ Initial video loaded with time sync');
+        })
+        .catch((error) => {
+          console.error('❌ Failed to load initial video:', error);
+        });
       return;
     }
 
-    // Start crossfade transition for source change
-    if (videoSrc !== currentVideoSrc && !isTransitioning) {
-      console.log('🔄 Starting smooth crossfade from', currentVideoSrc, 'to', videoSrc);
-      setIsTransitioning(true);
-
+    // Start time-synchronized crossfade transition for source change
+    if (videoSrc !== currentVideoSrc && !isCrossfading) {
+      console.log('🔄 Starting time-synced crossfade from', currentVideoSrc, 'to', videoSrc);
+      
+      const currentVideo = isCurrentVisible ? currentVideoRef.current : nextVideoRef.current;
       const nextVideo = isCurrentVisible ? nextVideoRef.current : currentVideoRef.current;
       const nextHls = isCurrentVisible ? nextHlsRef : currentHlsRef;
 
-      // Preload the next video
-      loadVideoIntoElement(nextVideo, nextHls, videoSrc, () => {
-        console.log('✨ Next video ready, starting crossfade');
-        startCrossfade();
-      });
-    }
-  }, [shouldShowVideo, videoSrc, currentVideoSrc, isTransitioning, isCurrentVisible]);
-
-  // Load video into specified element with HLS support
-  const loadVideoIntoElement = (
-    video: HTMLVideoElement | null, 
-    hlsRef: React.MutableRefObject<Hls | null>, 
-    src: string, 
-    onReady: () => void
-  ) => {
-    if (!video) return;
-
-    if (src.includes('.m3u8')) {
-      if (Hls.isSupported()) {
-        // Clean up existing HLS instance
-        if (hlsRef.current) {
-          hlsRef.current.destroy();
+      startTimeSyncedCrossfade(
+        currentVideo,
+        nextVideo,
+        nextHls,
+        videoSrc,
+        () => {
+          // Start visual crossfade after videos are synchronized
+          setIsCurrentVisible(!isCurrentVisible);
+          
+          // Update state after animation completes
+          setTimeout(() => {
+            setCurrentVideoSrc(videoSrc);
+            
+            // Start time tracking on the new current video
+            if (nextVideo) {
+              trackVideoTime(nextVideo);
+            }
+            
+            // Clean up GPU acceleration hints for memory optimization
+            const videos = [currentVideoRef.current, nextVideoRef.current];
+            videos.forEach(video => {
+              if (video) {
+                video.classList.add('video-animation-complete');
+                video.classList.remove('video-fade-out-phase', 'video-fade-in-phase');
+              }
+            });
+            
+            console.log('🎬 Time-synced crossfade completed with GPU cleanup');
+          }, 750); // Match CSS transition duration exactly
         }
+      );
+    }
+  }, [shouldShowVideo, videoSrc, currentVideoSrc, isCrossfading, isCurrentVisible, loadVideoWithTimeSync, trackVideoTime, startTimeSyncedCrossfade]);
 
-        hlsRef.current = new Hls({
-          enableWorker: true,
-          lowLatencyMode: false,
-          startLevel: -1,
-        });
-        
-        hlsRef.current.on(Hls.Events.MANIFEST_PARSED, () => {
-          console.log('🎬 HLS manifest parsed');
-          video.play().catch(() => console.log('Autoplay prevented'));
-          onReady();
-        });
-        
-        hlsRef.current.on(Hls.Events.ERROR, (event, data) => {
-          console.error('HLS error:', data);
-        });
-        
-        hlsRef.current.loadSource(src);
-        hlsRef.current.attachMedia(video);
-      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = src;
-        video.addEventListener('canplay', onReady, { once: true });
-        video.load();
-      }
-    } else {
-      video.src = src;
-      video.addEventListener('canplay', onReady, { once: true });
+  // Enhanced cleanup with better error handling
+  const cleanupVideo = (
+    video: HTMLVideoElement | null,
+    hlsRef: React.MutableRefObject<Hls | null>
+  ) => {
+    if (video) {
+      video.pause();
+      video.src = '';
       video.load();
     }
+    
+    if (hlsRef.current) {
+      try {
+        hlsRef.current.destroy();
+      } catch (error) {
+        console.warn('HLS cleanup warning:', error);
+      }
+      hlsRef.current = null;
+    }
   };
 
-  // Start smooth crossfade animation
-  const startCrossfade = () => {
-    requestAnimationFrame(() => {
-      // Start crossfade by toggling visibility
-      setIsCurrentVisible(!isCurrentVisible);
-      
-      // After transition completes, update state and cleanup
-      setTimeout(() => {
-        setCurrentVideoSrc(videoSrc);
-        setIsTransitioning(false);
-        console.log('🎬 Crossfade completed');
-      }, 600); // Match CSS transition duration
-    });
-  };
-
-  // Cleanup HLS instances on unmount
+  // Enhanced cleanup on unmount
   useEffect(() => {
     return () => {
-      if (currentHlsRef.current) {
-        currentHlsRef.current.destroy();
-        currentHlsRef.current = null;
-      }
-      if (nextHlsRef.current) {
-        nextHlsRef.current.destroy();
-        nextHlsRef.current = null;
-      }
+      cleanupVideo(currentVideoRef.current, currentHlsRef);
+      cleanupVideo(nextVideoRef.current, nextHlsRef);
     };
   }, []);
 
@@ -251,30 +246,42 @@ export const VideoGridItem = ({
       {/* Dual Video System for Smooth Crossfades */}
       {shouldShowVideo && (
         <>
-          {/* Current Video */}
+          {/* Current Video - Enhanced with GPU acceleration and blend modes */}
           <video
             ref={currentVideoRef}
             className={cn(
-              "absolute inset-0 w-full h-full object-cover transition-opacity duration-600 ease-in-out",
-              isCurrentVisible ? "opacity-100" : "opacity-0"
+              "absolute inset-0 w-full h-full object-cover video-crossfade-current",
+              isCurrentVisible ? "opacity-100" : "opacity-0",
+              isCrossfading && isCurrentVisible && "video-fade-out-phase"
             )}
             playsInline
             muted
             loop
-            preload="metadata"
+            preload="auto"
+            style={{
+              transform: 'translate3d(0, 0, 0)',
+              isolation: 'isolate',
+              mixBlendMode: 'normal'
+            }}
           />
           
-          {/* Next Video (for transitions) */}
+          {/* Next Video - Enhanced with staggered timing */}
           <video
             ref={nextVideoRef}
             className={cn(
-              "absolute inset-0 w-full h-full object-cover transition-opacity duration-600 ease-in-out",
-              isCurrentVisible ? "opacity-0" : "opacity-100"
+              "absolute inset-0 w-full h-full object-cover video-crossfade-next",
+              isCurrentVisible ? "opacity-0" : "opacity-100",
+              isCrossfading && !isCurrentVisible && "video-fade-in-phase"
             )}
             playsInline
             muted
             loop
-            preload="metadata"
+            preload="auto"
+            style={{
+              transform: 'translate3d(0, 0, 0)',
+              isolation: 'isolate',
+              mixBlendMode: 'normal'
+            }}
           />
         </>
       )}
