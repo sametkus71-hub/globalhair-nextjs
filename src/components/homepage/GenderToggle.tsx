@@ -27,12 +27,15 @@ export const GenderToggle = () => {
       {/* Sliding background */}
       {activeIndex >= 0 && (
         <div
-          className="absolute top-1 bottom-1 rounded-full transition-transform duration-300 ease-out"
+          className="absolute rounded-full transition-transform duration-300 ease-out"
           style={{
-            width: '50%',
+            width: 'calc(50% - 2px)',
+            height: 'calc(100% - 8px)',
+            top: '4px',
+            left: '4px',
             backdropFilter: 'blur(40px)',
             background: 'rgba(255, 255, 255, 0.3)',
-            transform: `translateX(${activeIndex * 100}%)`,
+            transform: `translateX(${activeIndex * (100 + 4)}%)`,
             boxShadow: 'inset 0 1px 2px rgba(255, 255, 255, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1)',
           }}
         />
@@ -43,7 +46,7 @@ export const GenderToggle = () => {
           key={value}
           onClick={() => handleGenderChange(value)}
           className={cn(
-            "relative z-10 px-4 py-1.5 rounded-full font-header text-[12px] font-medium transition-colors duration-200",
+            "relative z-10 px-4 py-1.5 rounded-full font-header text-[12px] font-medium transition-colors duration-200 flex items-center justify-center",
             profile.geslacht === value
               ? "text-white"
               : "text-white/80 hover:text-white"
