@@ -35,13 +35,13 @@ export const HairTypeSelector = ({ heightBreakpoint = 'large' }: HairTypeSelecto
         <div
           className="absolute rounded-full transition-transform duration-300 ease-out"
           style={{
-            width: 'calc(25% - 2px)',
+            width: 'calc(25% - 4px)',
             height: 'calc(100% - 8px)',
             top: '4px',
             left: '4px',
             backdropFilter: 'blur(40px)',
             background: 'rgba(255, 255, 255, 0.3)',
-            transform: `translateX(${activeIndex * (100 + 4)}%)`,
+            transform: `translateX(${activeIndex * 100}%)`,
             boxShadow: 'inset 0 1px 2px rgba(255, 255, 255, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1)',
           }}
         />
