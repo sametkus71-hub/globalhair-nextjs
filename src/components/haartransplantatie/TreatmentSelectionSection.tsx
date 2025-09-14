@@ -180,12 +180,11 @@ export const TreatmentSelectionSection = () => {
           }}
         >
           <div 
-            className="inline-flex p-3 rounded-2xl"
+            className="inline-flex p-1 rounded-full"
             style={{
               background: 'rgba(228, 229, 224, 0.1)',
               backdropFilter: 'blur(30px)',
-              border: '1px solid',
-              borderImage: 'linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.6) 100%) 1',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
               boxShadow: '0px 0px 8.4px 1px rgba(255, 255, 255, 0.25) inset',
             }}
           >
@@ -193,14 +192,13 @@ export const TreatmentSelectionSection = () => {
               <button
                 key={country}
                 onClick={() => updateProfile('locatie', country)}
-                className={`px-4 py-2 ${profile.locatie === country ? 'rounded-xl' : 'rounded-2xl'} font-lato text-[10px] font-medium transition-all duration-300 ease-out ${
+                className={`px-6 py-2 rounded-full font-lato text-[11px] font-medium transition-all duration-300 ease-out ${
                   profile.locatie === country
-                    ? 'text-white'
+                    ? 'text-gray-900'
                     : 'text-white/80 hover:text-white'
                 }`}
                 style={profile.locatie === country ? {
-                  backdropFilter: 'blur(40px)',
-                  background: 'rgba(255, 255, 255, 0.3)',
+                  background: 'rgba(255, 255, 255, 0.9)',
                   boxShadow: '6px 1px 9.5px 0px rgba(0, 0, 0, 0.25)'
                 } : {}}
               >
@@ -216,32 +214,30 @@ export const TreatmentSelectionSection = () => {
           style={{ animationDelay: comesFromHome ? '2100ms' : '0ms' }} // 2000ms + 100ms = 2100ms
         >
           <div 
-            className="inline-flex p-3 rounded-2xl"
+            className="inline-flex p-1 rounded-full relative"
             style={{
               background: 'rgba(228, 229, 224, 0.1)',
               backdropFilter: 'blur(30px)',
-              border: '1px solid',
-              borderImage: 'linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.6) 100%) 1',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
               boxShadow: '0px 0px 8.4px 1px rgba(255, 255, 255, 0.25) inset',
             }}
           >
             {packages.map((pkg) => (
               <div key={pkg.id} className="relative">
                 {pkg.isNew && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10 px-2 py-0.5 rounded-lg font-lato text-[7px] font-normal text-white" style={{ background: getLabelColor() }}>
+                  <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-10 px-3 py-1 rounded-full font-lato text-[9px] font-medium text-white border border-white/30" style={{ background: 'rgba(100, 100, 100, 0.8)', backdropFilter: 'blur(10px)' }}>
                     Nieuw
                   </div>
                 )}
                 <button
                   onClick={() => updateProfile('selectedPackage', pkg.id)}
-                  className={`px-5 py-2.5 ${profile.selectedPackage === pkg.id ? 'rounded-xl' : 'rounded-2xl'} font-lato text-[12px] font-medium transition-all duration-300 ease-out ${
+                  className={`px-6 py-2.5 rounded-full font-lato text-[12px] font-medium transition-all duration-300 ease-out ${
                     profile.selectedPackage === pkg.id
-                      ? 'text-white'
+                      ? 'text-gray-900'
                       : 'text-white/80 hover:text-white'
                   }`}
                   style={profile.selectedPackage === pkg.id ? {
-                    backdropFilter: 'blur(40px)',
-                    background: 'rgba(255, 255, 255, 0.3)',
+                    background: 'rgba(255, 255, 255, 0.9)',
                     boxShadow: '6px 1px 9.5px 0px rgba(0, 0, 0, 0.25)'
                   } : {}}
                 >
