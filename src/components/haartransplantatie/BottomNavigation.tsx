@@ -211,7 +211,7 @@ export const BottomNavigation = () => {
                     <item.iconComponent 
                       {...(item.id === 'book' ? { isGlowing, animationPhase } : {})}
                       className={`brightness-0 invert transition-opacity duration-200 ${getOpacityClass(item.id, active, isGlowing)} ${
-                        item.id === 'home' ? 'w-6 h-6' :
+                        item.id === 'home' ? 'w-5 h-5' :
                         item.id === 'haarscan' ? 'w-7 h-7' :
                         item.id === 'book' ? 'w-6 h-6 scale-[2.25]' :
                         item.id === 'reviews' ? 'w-7 h-7' :
