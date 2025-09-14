@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSession } from '@/hooks/useSession';
+import { useTimeSyncedVideo } from '@/hooks/useTimeSyncedVideo';
 import { cn } from '@/lib/utils';
+import Hls from 'hls.js';
 
 interface VideoBackgroundMP4Props {
   className?: string;
@@ -9,15 +11,32 @@ interface VideoBackgroundMP4Props {
 export const VideoBackgroundMP4 = ({ className = '' }: VideoBackgroundMP4Props) => {
   const { profile } = useSession();
   
+  // Enhanced time-synced video system
+  const {
+    loadVideoWithTimeSync,
+    trackVideoTime,
+    startTimeSyncedCrossfade,
+    getCurrentTime,
+    isTransitioning
+  } = useTimeSyncedVideo({
+    onVideoReady: () => {
+      console.log('✅ Background video ready');
+    },
+    onError: (error) => {
+      console.error('❌ Background video error:', error);
+    }
+  });
+  
   // Dual video system refs for smooth crossfades
   const currentVideoRef = useRef<HTMLVideoElement>(null);
   const nextVideoRef = useRef<HTMLVideoElement>(null);
+  const currentHlsRef = useRef<Hls | null>(null);
+  const nextHlsRef = useRef<Hls | null>(null);
   
-  // State management for layered transitions
+  // Simplified state management
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentPackage, setCurrentPackage] = useState<string>(profile.selectedPackage || 'Standard');
-  const [foregroundVideoRef, setForegroundVideoRef] = useState<'current' | 'next'>('current');
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isCurrentVisible, setIsCurrentVisible] = useState(true);
   
   // MP4 video sources mapping - Bunny CDN MP4 links
   const videoSources = {
@@ -26,84 +45,24 @@ export const VideoBackgroundMP4 = ({ className = '' }: VideoBackgroundMP4Props) 
     Advanced: 'https://GlobalHair.b-cdn.net/haartransplantatie%20bg/Verticaal%20Advanced%20V0%20(1).mp4'
   };
   
-  // Load video with optimized settings
-  const loadVideo = async (videoElement: HTMLVideoElement, src: string, seekTime: number = 0) => {
-    return new Promise<void>((resolve, reject) => {
-      if (!videoElement) {
-        reject(new Error('No video element'));
-        return;
-      }
-      
-      const handleLoad = () => {
-        // Seek to sync time if needed
-        if (seekTime > 0) {
-          videoElement.currentTime = seekTime;
-        }
-        
-        videoElement.removeEventListener('loadeddata', handleLoad);
-        videoElement.removeEventListener('error', handleError);
-        resolve();
-      };
-      
-      const handleError = (error: any) => {
-        console.error('Video load error:', error);
-        videoElement.removeEventListener('loadeddata', handleLoad);
-        videoElement.removeEventListener('error', handleError);
-        reject(error);
-      };
-      
-      videoElement.addEventListener('loadeddata', handleLoad);
-      videoElement.addEventListener('error', handleError);
-      
-      videoElement.preload = 'auto';
-      videoElement.src = src;
-    });
-  };
-  
-  // Enhanced layered transition - new video behind, fade out foreground only
-  const startLayeredTransition = async (newPackage: string) => {
-    if (isTransitioning || newPackage === currentPackage) return;
-    
-    setIsTransitioning(true);
-    
-    // Get current foreground video and background video
-    const foregroundVideo = foregroundVideoRef === 'current' ? currentVideoRef.current : nextVideoRef.current;
-    const backgroundVideo = foregroundVideoRef === 'current' ? nextVideoRef.current : currentVideoRef.current;
-    
-    if (!foregroundVideo || !backgroundVideo) {
-      setIsTransitioning(false);
-      return;
+  // Enhanced cleanup function
+  const cleanupVideo = (
+    video: HTMLVideoElement | null,
+    hlsRef: React.MutableRefObject<Hls | null>
+  ) => {
+    if (video) {
+      video.pause();
+      video.src = '';
+      video.load();
     }
     
-    try {
-      // Get current playback time for perfect synchronization
-      const currentTime = foregroundVideo.currentTime || 0;
-      
-      // Load new video in background synchronized to current time
-      await loadVideo(backgroundVideo, videoSources[newPackage as keyof typeof videoSources], currentTime);
-      
-      // Start playing background video (behind foreground)
-      await backgroundVideo.play();
-      
-      // Only fade out the foreground video - background stays visible
-      foregroundVideo.classList.add('video-fade-out-smooth');
-      
-      // Complete transition after smooth fade
-      setTimeout(() => {
-        // Swap video refs - background becomes new foreground
-        setForegroundVideoRef(foregroundVideoRef === 'current' ? 'next' : 'current');
-        setCurrentPackage(newPackage);
-        
-        // Clean up and reset
-        foregroundVideo.classList.remove('video-fade-out-smooth');
-        foregroundVideo.pause(); // Save resources
-        
-        setIsTransitioning(false);
-      }, 800); // Smooth transition timing
-      
-    } catch (error) {
-      console.error('Layered transition failed:', error);
-      setIsTransitioning(false);
+    if (hlsRef.current) {
+      try {
+        hlsRef.current.destroy();
+      } catch (error) {
+        console.warn('HLS cleanup warning:', error);
+      }
+      hlsRef.current = null;
     }
   };
   
@@ -114,44 +73,90 @@ export const VideoBackgroundMP4 = ({ className = '' }: VideoBackgroundMP4Props) 
     
     const selectedPackage = profile.selectedPackage || 'Standard';
     
-    loadVideo(initialVideo, videoSources[selectedPackage as keyof typeof videoSources])
+    console.log('🎬 Initializing background video:', selectedPackage);
+    
+    loadVideoWithTimeSync(initialVideo, currentHlsRef, videoSources[selectedPackage as keyof typeof videoSources], 0)
       .then(() => {
         setCurrentPackage(selectedPackage);
         setIsLoaded(true);
+        
+        // Start time tracking and playback
+        trackVideoTime(initialVideo);
         return initialVideo.play();
       })
       .catch((error) => {
         console.error('Initial video load failed:', error);
         setIsLoaded(true); // Still mark as loaded to prevent blocking
       });
-  }, [profile.selectedPackage]);
+  }, [loadVideoWithTimeSync, trackVideoTime]);
   
-  // Handle package changes with smooth transitions
+  // Handle package changes with time-synced transitions
   useEffect(() => {
     if (!isLoaded) return;
     
     const selectedPackage = profile.selectedPackage || 'Standard';
     
-    if (selectedPackage !== currentPackage) {
-      startLayeredTransition(selectedPackage);
+    if (selectedPackage !== currentPackage && !isTransitioning) {
+      console.log('🔄 Starting background time-synced transition from', currentPackage, 'to', selectedPackage);
+      
+      const currentVideo = isCurrentVisible ? currentVideoRef.current : nextVideoRef.current;
+      const nextVideo = isCurrentVisible ? nextVideoRef.current : currentVideoRef.current;
+      const nextHls = isCurrentVisible ? nextHlsRef : currentHlsRef;
+      
+      startTimeSyncedCrossfade(
+        currentVideo,
+        nextVideo,
+        nextHls,
+        videoSources[selectedPackage as keyof typeof videoSources],
+        () => {
+          // Start visual crossfade after videos are synchronized
+          setIsCurrentVisible(!isCurrentVisible);
+          
+          // Update state after animation completes
+          setTimeout(() => {
+            setCurrentPackage(selectedPackage);
+            
+            // Start time tracking on the new current video
+            if (nextVideo) {
+              trackVideoTime(nextVideo);
+            }
+            
+            console.log('✅ Background crossfade completed');
+          }, 750); // Match CSS transition duration
+        }
+      );
     }
-  }, [profile.selectedPackage, currentPackage, isLoaded]);
+  }, [profile.selectedPackage, currentPackage, isLoaded, isTransitioning, isCurrentVisible, startTimeSyncedCrossfade, trackVideoTime]);
   
-  // Handle document visibility changes for active video
+  // Handle document visibility changes for both videos
   useEffect(() => {
     const handleVisibilityChange = () => {
-      const activeVideo = foregroundVideoRef === 'current' ? currentVideoRef.current : nextVideoRef.current;
+      const currentVideo = currentVideoRef.current;
+      const nextVideo = nextVideoRef.current;
       
       if (document.hidden) {
-        activeVideo?.pause();
+        currentVideo?.pause();
+        nextVideo?.pause();
       } else {
-        activeVideo?.play().catch(() => {});
+        if (isCurrentVisible) {
+          currentVideo?.play().catch(() => {});
+        } else {
+          nextVideo?.play().catch(() => {});
+        }
       }
     };
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
-  }, [foregroundVideoRef]);
+  }, [isCurrentVisible]);
+  
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      cleanupVideo(currentVideoRef.current, currentHlsRef);
+      cleanupVideo(nextVideoRef.current, nextHlsRef);
+    };
+  }, []);
   
   // Fallback color for loading state
   const getFallbackColor = () => {
@@ -177,33 +182,16 @@ export const VideoBackgroundMP4 = ({ className = '' }: VideoBackgroundMP4Props) 
         />
       )}
       
-      {/* Background Video - Always behind (z-index: 1) */}
-      <video
-        ref={nextVideoRef}
-        className="fixed inset-0 w-full h-full object-cover"
-        style={{ 
-          filter: 'blur(8px) brightness(0.85) contrast(1.2) saturate(1.1)',
-          objectFit: 'cover',
-          objectPosition: 'center center',
-          zIndex: 1,
-          width: 'calc(100vw + 100px)',
-          height: 'calc(100vh + 100px)',
-          left: '50%',
-          top: '-50px',
-          transform: 'translateX(-50%) scale(1.05) translate3d(0, 0, 0)',
-          isolation: 'isolate',
-          mixBlendMode: 'normal'
-        }}
-        muted
-        loop
-        playsInline
-        preload="auto"
-      />
+      {/* Dual Video System for Smooth Time-Synced Crossfades */}
       
-      {/* Foreground Video - Always on top (z-index: 2) */}
+      {/* Current Video - GPU accelerated with conditional visibility */}
       <video
         ref={currentVideoRef}
-        className="fixed inset-0 w-full h-full object-cover"
+        className={cn(
+          "fixed inset-0 w-full h-full object-cover",
+          isCurrentVisible ? "opacity-100" : "opacity-0",
+          isTransitioning && isCurrentVisible && "video-fade-out-phase"
+        )}
         style={{ 
           filter: 'blur(8px) brightness(0.85) contrast(1.2) saturate(1.1)',
           objectFit: 'cover',
@@ -218,6 +206,33 @@ export const VideoBackgroundMP4 = ({ className = '' }: VideoBackgroundMP4Props) 
           mixBlendMode: 'normal'
         }}
         autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+      />
+      
+      {/* Next Video - Enhanced with staggered timing */}
+      <video
+        ref={nextVideoRef}
+        className={cn(
+          "fixed inset-0 w-full h-full object-cover",
+          isCurrentVisible ? "opacity-0" : "opacity-100",
+          isTransitioning && !isCurrentVisible && "video-fade-in-phase"
+        )}
+        style={{ 
+          filter: 'blur(8px) brightness(0.85) contrast(1.2) saturate(1.1)',
+          objectFit: 'cover',
+          objectPosition: 'center center',
+          zIndex: 1,
+          width: 'calc(100vw + 100px)',
+          height: 'calc(100vh + 100px)',
+          left: '50%',
+          top: '-50px',
+          transform: 'translateX(-50%) scale(1.05) translate3d(0, 0, 0)',
+          isolation: 'isolate',
+          mixBlendMode: 'normal'
+        }}
         muted
         loop
         playsInline
