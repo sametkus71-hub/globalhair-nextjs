@@ -161,8 +161,17 @@ export const VideoGridItem = ({
               trackVideoTime(nextVideo);
             }
             
-            console.log('🎬 Time-synced crossfade completed');
-          }, 800); // Match CSS transition duration + buffer
+            // Clean up GPU acceleration hints for memory optimization
+            const videos = [currentVideoRef.current, nextVideoRef.current];
+            videos.forEach(video => {
+              if (video) {
+                video.classList.add('video-animation-complete');
+                video.classList.remove('video-fade-out-phase', 'video-fade-in-phase');
+              }
+            });
+            
+            console.log('🎬 Time-synced crossfade completed with GPU cleanup');
+          }, 750); // Match CSS transition duration exactly
         }
       );
     }
@@ -237,30 +246,42 @@ export const VideoGridItem = ({
       {/* Dual Video System for Smooth Crossfades */}
       {shouldShowVideo && (
         <>
-          {/* Current Video */}
+          {/* Current Video - Enhanced with GPU acceleration and blend modes */}
           <video
             ref={currentVideoRef}
             className={cn(
-              "absolute inset-0 w-full h-full object-cover transition-opacity duration-800 ease-in-out",
-              isCurrentVisible ? "opacity-100" : "opacity-0"
+              "absolute inset-0 w-full h-full object-cover video-crossfade-current",
+              isCurrentVisible ? "opacity-100" : "opacity-0",
+              isCrossfading && isCurrentVisible && "video-fade-out-phase"
             )}
             playsInline
             muted
             loop
             preload="auto"
+            style={{
+              transform: 'translate3d(0, 0, 0)',
+              isolation: 'isolate',
+              mixBlendMode: 'normal'
+            }}
           />
           
-          {/* Next Video (for transitions) */}
+          {/* Next Video - Enhanced with staggered timing */}
           <video
             ref={nextVideoRef}
             className={cn(
-              "absolute inset-0 w-full h-full object-cover transition-opacity duration-800 ease-in-out",
-              isCurrentVisible ? "opacity-0" : "opacity-100"
+              "absolute inset-0 w-full h-full object-cover video-crossfade-next",
+              isCurrentVisible ? "opacity-0" : "opacity-100",
+              isCrossfading && !isCurrentVisible && "video-fade-in-phase"
             )}
             playsInline
             muted
             loop
             preload="auto"
+            style={{
+              transform: 'translate3d(0, 0, 0)',
+              isolation: 'isolate',
+              mixBlendMode: 'normal'
+            }}
           />
         </>
       )}
