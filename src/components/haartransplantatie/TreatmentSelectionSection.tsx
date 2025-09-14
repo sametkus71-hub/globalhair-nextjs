@@ -184,7 +184,7 @@ export const TreatmentSelectionSection = () => {
             style={{
               background: 'rgba(228, 229, 224, 0.1)',
               backdropFilter: 'blur(30px)',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
+              border: '1px solid rgba(255, 255, 255, 0.5)',
               boxShadow: '0px 0px 8.4px 1px rgba(255, 255, 255, 0.25) inset',
             }}
           >
@@ -192,14 +192,14 @@ export const TreatmentSelectionSection = () => {
               <button
                 key={country}
                 onClick={() => updateProfile('locatie', country)}
-                className={`px-6 py-2 rounded-full font-lato text-[11px] font-medium transition-all duration-300 ease-out ${
+                className={`px-4 py-2 rounded-full font-lato text-[11px] font-medium transition-all duration-300 ease-out ${
                   profile.locatie === country
                     ? 'text-gray-900'
                     : 'text-white/80 hover:text-white'
                 }`}
                 style={profile.locatie === country ? {
-                  background: 'rgba(255, 255, 255, 0.9)',
-                  boxShadow: '6px 1px 9.5px 0px rgba(0, 0, 0, 0.25)'
+                  background: 'rgba(255, 255, 255, 0.7)',
+                  boxShadow: '8px 2px 12px 0px rgba(0, 0, 0, 0.35)'
                 } : {}}
               >
                 {country}
@@ -218,27 +218,27 @@ export const TreatmentSelectionSection = () => {
             style={{
               background: 'rgba(228, 229, 224, 0.1)',
               backdropFilter: 'blur(30px)',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
+              border: '1px solid rgba(255, 255, 255, 0.5)',
               boxShadow: '0px 0px 8.4px 1px rgba(255, 255, 255, 0.25) inset',
             }}
           >
             {packages.map((pkg) => (
               <div key={pkg.id} className="relative">
                 {pkg.isNew && (
-                  <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-10 px-3 py-1 rounded-full font-lato text-[9px] font-medium text-white border border-white/30" style={{ background: 'rgba(100, 100, 100, 0.8)', backdropFilter: 'blur(10px)' }}>
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10 px-1.5 py-0.5 rounded-full font-lato text-[6px] font-medium text-white border border-white/30" style={{ background: 'rgba(100, 100, 100, 0.8)', backdropFilter: 'blur(10px)' }}>
                     Nieuw
                   </div>
                 )}
                 <button
                   onClick={() => updateProfile('selectedPackage', pkg.id)}
-                  className={`px-6 py-2.5 rounded-full font-lato text-[12px] font-medium transition-all duration-300 ease-out ${
+                  className={`px-4 py-2.5 rounded-full font-lato text-[13px] font-medium transition-all duration-300 ease-out ${
                     profile.selectedPackage === pkg.id
                       ? 'text-gray-900'
                       : 'text-white/80 hover:text-white'
                   }`}
                   style={profile.selectedPackage === pkg.id ? {
-                    background: 'rgba(255, 255, 255, 0.9)',
-                    boxShadow: '6px 1px 9.5px 0px rgba(0, 0, 0, 0.25)'
+                    background: 'rgba(255, 255, 255, 0.7)',
+                    boxShadow: '8px 2px 12px 0px rgba(0, 0, 0, 0.35)'
                   } : {}}
                 >
                   {pkg.label}
