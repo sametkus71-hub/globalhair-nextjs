@@ -6,6 +6,7 @@ import { HomeIcon } from '@/components/icons/HomeIcon';
 import { GridIcon } from '@/components/icons/GridIcon';
 import { HaarscanIcon } from '@/components/icons/HaarscanIcon';
 import { BookIcon } from '@/components/icons/BookIcon';
+import { ReviewIcon } from '@/components/icons/ReviewIcon';
 import { ContactIcon } from '@/components/icons/ContactIcon';
 
 interface NavItem {
@@ -157,7 +158,7 @@ export const BottomNavigation = () => {
       labelKey: 'book'
     },
     { 
-      iconComponent: ContactIcon,
+      iconComponent: ReviewIcon,
       onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/reviews' : '/en/reviews'),
       id: 'reviews',
       labelKey: 'review'
@@ -199,8 +200,8 @@ export const BottomNavigation = () => {
                   onClick={item.onClick}
                   className="flex flex-col items-center justify-center transition-all duration-200 py-1 px-2"
                 >
-                  <div className={`w-4 h-4 flex items-center justify-center transition-opacity duration-200 ${getOpacityClass(item.id, active)}`}>
-                    <item.iconComponent className="brightness-0 invert w-4 h-4" />
+                  <div className={`w-6 h-6 flex items-center justify-center transition-opacity duration-200 ${getOpacityClass(item.id, active)}`}>
+                    <item.iconComponent className="brightness-0 invert w-6 h-6" />
                   </div>
                   <span 
                     className={`transition-opacity duration-200 ${getOpacityClass(item.id, active)}`}
