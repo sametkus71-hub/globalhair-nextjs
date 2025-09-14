@@ -66,11 +66,6 @@ export const useBookIconAnimation = () => {
       return;
     }
 
-    // Skip if currently navigating to prevent false triggers
-    if (isNavigatingRef.current) {
-      return;
-    }
-
     // Use deep value comparison to prevent false triggers from reference changes
     const currentValues = {
       selectedPackage: profile.selectedPackage,
@@ -83,21 +78,27 @@ export const useBookIconAnimation = () => {
     const hasActuallyChanged = 
       JSON.stringify(previousValues) !== JSON.stringify(currentValues);
 
-    if (hasActuallyChanged && (
-      previousValues.selectedPackage !== currentValues.selectedPackage ||
-      previousValues.locatie !== currentValues.locatie
-    )) {
+    if (hasActuallyChanged) {
+      console.log('Profile change detected:', { previousValues, currentValues, isNavigating: isNavigatingRef.current });
+      
       // Clear any existing debounce
       if (debounceTimeoutRef.current) {
         clearTimeout(debounceTimeoutRef.current);
       }
 
-      // Debounce the animation trigger to prevent rapid successive calls
+      // Only skip animation during navigation, but allow same-page changes
+      if (isNavigatingRef.current) {
+        console.log('Skipping animation due to navigation');
+        // Update previous values even if we skip animation
+        previousProfileRef.current = currentValues;
+        return;
+      }
+
+      // Reduced debounce for faster response to user interactions
       debounceTimeoutRef.current = setTimeout(() => {
-        if (!isNavigatingRef.current) {
-          triggerGlowAnimation();
-        }
-      }, 100);
+        console.log('Triggering glow animation');
+        triggerGlowAnimation();
+      }, 50);
     }
 
     // Update previous values
