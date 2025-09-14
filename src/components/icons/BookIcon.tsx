@@ -3,9 +3,23 @@ import { cn } from '@/lib/utils';
 interface BookIconProps {
   className?: string;
   isGlowing?: boolean;
+  animationPhase?: 'idle' | 'entrance' | 'hold' | 'exit';
 }
 
-export const BookIcon = ({ className, isGlowing = false }: BookIconProps) => {
+export const BookIcon = ({ className, isGlowing = false, animationPhase = 'idle' }: BookIconProps) => {
+  const getScaleClass = () => {
+    switch (animationPhase) {
+      case 'entrance':
+        return 'scale-105';
+      case 'hold':
+        return 'scale-105';
+      case 'exit':
+        return 'scale-110';
+      default:
+        return 'scale-100';
+    }
+  };
+
   return (
     <svg 
       width="29" 
@@ -15,7 +29,7 @@ export const BookIcon = ({ className, isGlowing = false }: BookIconProps) => {
       xmlns="http://www.w3.org/2000/svg"
       className={cn(
         "w-full h-full transition-transform duration-400 ease-out",
-        isGlowing ? "scale-105" : "scale-100",
+        getScaleClass(),
         className
       )}
     >

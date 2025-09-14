@@ -20,7 +20,7 @@ interface NavItem {
 export const BottomNavigation = () => {
   const { language } = useLanguage();
   const { activeRoute } = useSession();
-  const { isGlowing } = useBookIconAnimation();
+  const { isGlowing, animationPhase } = useBookIconAnimation();
   
   const location = useLocation();
   const { startPopupTransition, directNavigate, isOnPopupPage } = usePopupTransition();
@@ -204,7 +204,7 @@ export const BottomNavigation = () => {
                 >
                   <div className="w-7 h-7 flex items-center justify-center transition-opacity duration-200">
                     <item.iconComponent 
-                      {...(item.id === 'book' ? { isGlowing } : {})}
+                      {...(item.id === 'book' ? { isGlowing, animationPhase } : {})}
                       className={`brightness-0 invert transition-opacity duration-200 ${getOpacityClass(item.id, active)} ${
                         item.id === 'home' ? 'w-6 h-6' :
                         item.id === 'haarscan' ? 'w-7 h-7' :
