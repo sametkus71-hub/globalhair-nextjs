@@ -39,7 +39,12 @@ export const BottomNavigation = () => {
   };
 
   // Get opacity class based on current page and active state
-  const getOpacityClass = (itemId: string, isActive: boolean) => {
+  const getOpacityClass = (itemId: string, isActive: boolean, isBookAnimating: boolean = false) => {
+    // Dim other icons when book is animating
+    if (isBookAnimating && itemId !== 'book') {
+      return 'opacity-80';
+    }
+    
     // Home button always gets full opacity
     if (itemId === 'home') {
       return 'opacity-100';
@@ -205,7 +210,7 @@ export const BottomNavigation = () => {
                   <div className="w-7 h-7 flex items-center justify-center transition-opacity duration-200">
                     <item.iconComponent 
                       {...(item.id === 'book' ? { isGlowing, animationPhase } : {})}
-                      className={`brightness-0 invert transition-opacity duration-200 ${getOpacityClass(item.id, active)} ${
+                      className={`brightness-0 invert transition-opacity duration-200 ${getOpacityClass(item.id, active, isGlowing)} ${
                         item.id === 'home' ? 'w-6 h-6' :
                         item.id === 'haarscan' ? 'w-7 h-7' :
                         item.id === 'book' ? 'w-6 h-6 scale-[2.25]' :
@@ -215,7 +220,7 @@ export const BottomNavigation = () => {
                     />
                   </div>
                   <span 
-                    className={`transition-opacity duration-200 ${getOpacityClass(item.id, active)}`}
+                    className={`transition-opacity duration-200 ${getOpacityClass(item.id, active, isGlowing)}`}
                     style={{
                       color: 'rgba(189, 189, 189, 1)',
                       fontFamily: 'Lato',
