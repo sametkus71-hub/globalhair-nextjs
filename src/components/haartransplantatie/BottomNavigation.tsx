@@ -163,7 +163,7 @@ export const BottomNavigation = () => {
       iconComponent: ReviewIcon,
       onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/reviews' : '/en/reviews'),
       id: 'reviews',
-      labelKey: 'review'
+      labelKey: 'reviews'
     },
     { 
       iconComponent: ContactIcon,
@@ -178,7 +178,7 @@ export const BottomNavigation = () => {
       home: language === 'nl' ? 'Home' : 'Home',
       haarscan: language === 'nl' ? 'Haarscan' : 'Haarscan',
       book: language === 'nl' ? 'Book' : 'Book',
-      review: language === 'nl' ? 'Review' : 'Review',
+      reviews: language === 'nl' ? 'Reviews' : 'Reviews',
       contact: language === 'nl' ? 'Contact' : 'Contact'
     };
     return labels[labelKey as keyof typeof labels] || labelKey;
