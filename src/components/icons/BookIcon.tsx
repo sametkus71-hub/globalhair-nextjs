@@ -28,7 +28,7 @@ export const BookIcon = ({ className, isGlowing = false, animationPhase = 'idle'
       fill="none" 
       xmlns="http://www.w3.org/2000/svg"
       className={cn(
-        "w-full h-full transition-transform duration-400 ease-out",
+        "w-full h-full transition-transform duration-400 ease-out origin-center will-change-transform",
         getScaleClass(),
         className
       )}

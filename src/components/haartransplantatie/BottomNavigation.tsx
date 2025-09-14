@@ -207,7 +207,7 @@ export const BottomNavigation = () => {
                   onClick={item.onClick}
                   className="flex flex-col items-center justify-center transition-all duration-200 py-1 px-2 w-full"
                 >
-                  <div className="w-7 h-7 flex items-center justify-center transition-opacity duration-200">
+                  <div className="w-7 h-7 flex items-center justify-center transition-opacity duration-200 overflow-hidden">
                     <item.iconComponent 
                       {...(item.id === 'book' ? { isGlowing, animationPhase } : {})}
                       className={`brightness-0 invert transition-opacity duration-200 ${getOpacityClass(item.id, active, isGlowing)} ${
