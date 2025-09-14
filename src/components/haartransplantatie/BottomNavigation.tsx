@@ -204,7 +204,7 @@ export const BottomNavigation = () => {
                     <item.iconComponent className={`brightness-0 invert transition-opacity duration-200 ${
                       item.id === 'home' ? 'w-5 h-5' :
                       item.id === 'haarscan' ? 'w-7 h-7' :
-                      item.id === 'book' ? 'w-8 h-8' :
+                      item.id === 'book' ? 'w-12 h-12' :
                       item.id === 'reviews' ? 'w-7 h-7' :
                       'w-6 h-6'
                     }`} />
