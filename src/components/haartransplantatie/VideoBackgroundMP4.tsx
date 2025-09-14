@@ -14,11 +14,11 @@ export const VideoBackgroundMP4 = ({ className = '' }: VideoBackgroundMP4Props) 
   const premiumVideoRef = useRef<HTMLVideoElement>(null);
   const advancedVideoRef = useRef<HTMLVideoElement>(null);
   
-  // MP4 video sources mapping - Update these URLs with your new Bunny CDN MP4 links
+  // MP4 video sources mapping - Bunny CDN MP4 links
   const videoSources = {
-    Standard: 'https://vz-104aba77-1e1.b-cdn.net/standard-package.mp4', // Replace with actual URL
-    Premium: 'https://vz-104aba77-1e1.b-cdn.net/premium-package.mp4',   // Replace with actual URL
-    Advanced: 'https://vz-104aba77-1e1.b-cdn.net/advanced-package.mp4'  // Replace with actual URL
+    Standard: 'https://GlobalHair.b-cdn.net/haartransplantatie%20bg/Verticaal%20Standard%20V0%20(1).mp4',
+    Premium: 'https://GlobalHair.b-cdn.net/haartransplantatie%20bg/Verticaal%20Premium%20V0%20(1).mp4',
+    Advanced: 'https://GlobalHair.b-cdn.net/haartransplantatie%20bg/Verticaal%20Advanced%20V0%20(1).mp4'
   };
   
   // Initialize MP4 videos with intelligent preloading
