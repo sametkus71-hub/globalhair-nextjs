@@ -42,7 +42,7 @@ export const BottomNavigation = () => {
   const getOpacityClass = (itemId: string, isActive: boolean, isBookAnimating: boolean = false) => {
     // If book animation is active, dim other items (not book) for better attention
     if (isBookAnimating && itemId !== 'book') {
-      return 'opacity-30';
+      return 'opacity-60';
     }
     
     // If on main haartransplantatie page, all items get full opacity when not animating
@@ -216,7 +216,7 @@ export const BottomNavigation = () => {
                   </div>
                   <span 
                     className={`transition-opacity duration-200 ${getOpacityClass(item.id, active, isGlowing)} ${
-                      item.id === 'book' && isGlowing ? 'relative animate-text-shine' : ''
+                      item.id === 'book' && isGlowing ? 'relative overflow-hidden' : ''
                     }`}
                     style={{
                       color: 'rgba(189, 189, 189, 1)',
@@ -225,16 +225,20 @@ export const BottomNavigation = () => {
                       fontSize: '8px',
                       lineHeight: '100%',
                       letterSpacing: '-2%',
-                      marginTop: '2px',
-                      ...(item.id === 'book' && isGlowing && {
-                        background: 'linear-gradient(90deg, transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 70%)',
-                        backgroundSize: '200% 100%',
-                        backgroundClip: 'text',
-                        WebkitBackgroundClip: 'text'
-                      })
+                      marginTop: '2px'
                     }}
                   >
                     {getLabel(item.labelKey)}
+                    {item.id === 'book' && isGlowing && (
+                      <div 
+                        className="absolute inset-0 animate-text-shine pointer-events-none"
+                        style={{
+                          background: 'linear-gradient(90deg, transparent 20%, rgba(255, 255, 255, 0.6) 50%, transparent 80%)',
+                          backgroundSize: '200% 100%',
+                          backgroundPosition: '-100% 0'
+                        }}
+                      />
+                    )}
                   </span>
                 </button>
               </div>
