@@ -192,7 +192,7 @@ export const BottomNavigation = () => {
           paddingBottom: 'calc(env(safe-area-inset-bottom) + 0.25rem)'
         }}
       >
-        <div className="flex items-center justify-between w-full max-w-sm px-1">
+        <div className="flex items-center justify-around w-full">
           {navItems.map((item, index) => {
             const active = isActive(item.id);
             
