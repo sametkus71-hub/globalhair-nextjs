@@ -45,11 +45,6 @@ export const BottomNavigation = () => {
       return 'opacity-80';
     }
     
-    // Home button always gets full opacity
-    if (itemId === 'home') {
-      return 'opacity-100';
-    }
-    
     // If on main haartransplantatie page, all items get full opacity
     if (isOnMainHaartransplantatiePage()) {
       return 'opacity-100';
