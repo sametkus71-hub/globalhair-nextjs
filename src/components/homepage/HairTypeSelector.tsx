@@ -33,12 +33,13 @@ export const HairTypeSelector = ({ heightBreakpoint = 'large' }: HairTypeSelecto
       {/* Sliding background */}
       {activeIndex >= 0 && (
         <div
-          className="absolute top-1 bottom-1 rounded-full transition-transform duration-300 ease-out premium-glow"
+          className="absolute top-1 bottom-1 rounded-full transition-transform duration-300 ease-out"
           style={{
             width: '25%',
             backdropFilter: 'blur(40px)',
             background: 'rgba(255, 255, 255, 0.3)',
             transform: `translateX(${activeIndex * 100}%)`,
+            boxShadow: 'inset 0 1px 2px rgba(255, 255, 255, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1)',
           }}
         />
       )}
