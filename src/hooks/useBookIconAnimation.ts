@@ -3,23 +3,39 @@ import { useSession } from '@/hooks/useSession';
 
 export const useBookIconAnimation = () => {
   const [isGlowing, setIsGlowing] = useState(false);
+  const [animationPhase, setAnimationPhase] = useState<'idle' | 'entrance' | 'hold' | 'exit'>('idle');
   const { profile } = useSession();
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const exitTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const previousProfileRef = useRef<{ selectedPackage: string; locatie: string } | null>(null);
 
   const triggerGlowAnimation = () => {
-    // Clear any existing timeout
+    // Clear any existing timeouts
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
+    if (exitTimeoutRef.current) {
+      clearTimeout(exitTimeoutRef.current);
+    }
 
-    // Start glow effect
+    // Start entrance phase
+    setAnimationPhase('entrance');
     setIsGlowing(true);
 
-    // Schedule glow removal after total duration (400ms fade in + 1000ms hold + 400ms fade out)
+    // Enter hold phase after 400ms
     timeoutRef.current = setTimeout(() => {
-      setIsGlowing(false);
-    }, 1400);
+      setAnimationPhase('hold');
+    }, 400);
+
+    // Enter exit phase after 1000ms (400ms entrance + 600ms hold)
+    exitTimeoutRef.current = setTimeout(() => {
+      setAnimationPhase('exit');
+      // End animation after total 1400ms
+      setTimeout(() => {
+        setIsGlowing(false);
+        setAnimationPhase('idle');
+      }, 400);
+    }, 1000);
   };
 
   useEffect(() => {
@@ -75,14 +91,17 @@ export const useBookIconAnimation = () => {
     return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
-  // Cleanup timeout on unmount
+  // Cleanup timeouts on unmount
   useEffect(() => {
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
+      if (exitTimeoutRef.current) {
+        clearTimeout(exitTimeoutRef.current);
+      }
     };
   }, []);
 
-  return { isGlowing };
+  return { isGlowing, animationPhase };
 };
