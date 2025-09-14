@@ -199,10 +199,21 @@ export const BottomNavigation = () => {
                   onClick={item.onClick}
                   className="flex flex-col items-center justify-center transition-all duration-200 py-1 px-2"
                 >
-                  <div className={`w-5 h-5 flex items-center justify-center transition-opacity duration-200 ${getOpacityClass(item.id, active)}`}>
-                    <item.iconComponent className="brightness-0 invert w-full h-full" />
+                  <div className={`w-4 h-4 flex items-center justify-center transition-opacity duration-200 ${getOpacityClass(item.id, active)}`}>
+                    <item.iconComponent className="brightness-0 invert w-4 h-4" />
                   </div>
-                  <span className={`text-white text-[10px] mt-0.5 transition-opacity duration-200 ${getOpacityClass(item.id, active)}`}>
+                  <span 
+                    className={`transition-opacity duration-200 ${getOpacityClass(item.id, active)}`}
+                    style={{
+                      color: 'rgba(189, 189, 189, 1)',
+                      fontFamily: 'Lato',
+                      fontWeight: 500,
+                      fontSize: '8px',
+                      lineHeight: '100%',
+                      letterSpacing: '-2%',
+                      marginTop: '2px'
+                    }}
+                  >
                     {getLabel(item.labelKey)}
                   </span>
                 </button>
