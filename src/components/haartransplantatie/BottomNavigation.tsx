@@ -202,11 +202,11 @@ export const BottomNavigation = () => {
                 >
                   <div className="w-6 h-6 flex items-center justify-center transition-opacity duration-200">
                     <item.iconComponent className={`brightness-0 invert transition-opacity duration-200 ${getOpacityClass(item.id, active)} ${
-                      item.id === 'home' ? 'w-4 h-4' :
-                      item.id === 'haarscan' ? 'w-5 h-5' :
-                      item.id === 'book' ? 'w-5 h-5' :
-                      item.id === 'reviews' ? 'w-5 h-5' :
-                      'w-5 h-5'
+                      item.id === 'home' ? 'w-5 h-5' :
+                      item.id === 'haarscan' ? 'w-6 h-6' :
+                      item.id === 'book' ? 'w-6 h-6' :
+                      item.id === 'reviews' ? 'w-6 h-6' :
+                      'w-6 h-6'
                     }`} />
                   </div>
                   <span 
