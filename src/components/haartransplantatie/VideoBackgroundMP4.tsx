@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSession } from '@/hooks/useSession';
+import { cn } from '@/lib/utils';
 
 interface VideoBackgroundMP4Props {
   className?: string;
@@ -7,12 +8,16 @@ interface VideoBackgroundMP4Props {
 
 export const VideoBackgroundMP4 = ({ className = '' }: VideoBackgroundMP4Props) => {
   const { profile } = useSession();
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [loadedCount, setLoadedCount] = useState(0);
   
-  const standardVideoRef = useRef<HTMLVideoElement>(null);
-  const premiumVideoRef = useRef<HTMLVideoElement>(null);
-  const advancedVideoRef = useRef<HTMLVideoElement>(null);
+  // Dual video system refs for smooth crossfades
+  const currentVideoRef = useRef<HTMLVideoElement>(null);
+  const nextVideoRef = useRef<HTMLVideoElement>(null);
+  
+  // State management for smooth transitions
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [currentPackage, setCurrentPackage] = useState<string>(profile.selectedPackage || 'Standard');
+  const [isCurrentVisible, setIsCurrentVisible] = useState(true);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   
   // MP4 video sources mapping - Bunny CDN MP4 links
   const videoSources = {
@@ -21,153 +26,153 @@ export const VideoBackgroundMP4 = ({ className = '' }: VideoBackgroundMP4Props) 
     Advanced: 'https://GlobalHair.b-cdn.net/haartransplantatie%20bg/Verticaal%20Advanced%20V0%20(1).mp4'
   };
   
-  // Initialize MP4 videos with intelligent preloading
-  useEffect(() => {
-    const videos = [
-      { ref: standardVideoRef, src: videoSources.Standard, package: 'Standard' },
-      { ref: premiumVideoRef, src: videoSources.Premium, package: 'Premium' },
-      { ref: advancedVideoRef, src: videoSources.Advanced, package: 'Advanced' }
-    ];
-    
-    let loadedVideos = 0;
-    
-    // Preload the selected package video first, then others
-    const selectedPackage = profile.selectedPackage || 'Standard';
-    const priorityVideo = videos.find(v => v.package === selectedPackage);
-    const otherVideos = videos.filter(v => v.package !== selectedPackage);
-    
-    const loadVideo = (video: typeof videos[0], priority: boolean = false) => {
-      if (video.ref.current) {
-        const videoElement = video.ref.current;
-        
-        // Set preload strategy based on priority
-        videoElement.preload = priority ? 'auto' : 'metadata';
-        videoElement.src = video.src;
-        
-        const handleLoad = () => {
-          loadedVideos++;
-          setLoadedCount(loadedVideos);
-          
-          if (loadedVideos === 3) {
-            setIsLoaded(true);
-          }
-          
-          // Auto-play the current selected video
-          if (video.package === profile.selectedPackage) {
-            videoElement.play().catch(() => {
-              // Autoplay might be blocked, that's ok
-            });
-          }
-        };
-        
-        const handleError = (error: any) => {
-          console.error(`MP4 Video Error for ${video.package}:`, error);
-          // Still count as loaded to prevent blocking
-          loadedVideos++;
-          setLoadedCount(loadedVideos);
-          
-          if (loadedVideos === 3) {
-            setIsLoaded(true);
-          }
-        };
-        
-        videoElement.addEventListener('loadeddata', handleLoad);
-        videoElement.addEventListener('error', handleError);
-        
-        // Cleanup event listeners
-        return () => {
-          videoElement.removeEventListener('loadeddata', handleLoad);
-          videoElement.removeEventListener('error', handleError);
-        };
+  // Load video with optimized settings
+  const loadVideo = async (videoElement: HTMLVideoElement, src: string, seekTime: number = 0) => {
+    return new Promise<void>((resolve, reject) => {
+      if (!videoElement) {
+        reject(new Error('No video element'));
+        return;
       }
-    };
-    
-    // Load priority video first
-    const cleanupFunctions: (() => void)[] = [];
-    
-    if (priorityVideo) {
-      const cleanup = loadVideo(priorityVideo, true);
-      if (cleanup) cleanupFunctions.push(cleanup);
-    }
-    
-    // Load other videos with slight delay for better performance
-    setTimeout(() => {
-      otherVideos.forEach(video => {
-        const cleanup = loadVideo(video, false);
-        if (cleanup) cleanupFunctions.push(cleanup);
-      });
-    }, 100);
-    
-    return () => {
-      cleanupFunctions.forEach(cleanup => cleanup());
-    };
-  }, [profile.selectedPackage]);
-  
-  // Smart video switching with enhanced CSS animations
-  useEffect(() => {
-    const videos = [standardVideoRef, premiumVideoRef, advancedVideoRef];
-    const activeIndex = getActiveVideoIndex();
-    
-    videos.forEach((videoRef, index) => {
-      if (videoRef.current) {
-        if (index === activeIndex) {
-          // Play active video
-          videoRef.current.play().catch(() => {
-            // Autoplay might be blocked
-          });
-        } else {
-          // Pause inactive videos to save resources
-          videoRef.current.pause();
+      
+      const handleLoad = () => {
+        // Seek to sync time if needed
+        if (seekTime > 0) {
+          videoElement.currentTime = seekTime;
         }
-      }
+        
+        videoElement.removeEventListener('loadeddata', handleLoad);
+        videoElement.removeEventListener('error', handleError);
+        resolve();
+      };
+      
+      const handleError = (error: any) => {
+        console.error('Video load error:', error);
+        videoElement.removeEventListener('loadeddata', handleLoad);
+        videoElement.removeEventListener('error', handleError);
+        reject(error);
+      };
+      
+      videoElement.addEventListener('loadeddata', handleLoad);
+      videoElement.addEventListener('error', handleError);
+      
+      videoElement.preload = 'auto';
+      videoElement.src = src;
     });
+  };
+  
+  // Start smooth crossfade transition
+  const startSmoothTransition = async (newPackage: string) => {
+    if (isTransitioning || newPackage === currentPackage) return;
+    
+    setIsTransitioning(true);
+    
+    const currentVideo = isCurrentVisible ? currentVideoRef.current : nextVideoRef.current;
+    const nextVideo = isCurrentVisible ? nextVideoRef.current : currentVideoRef.current;
+    
+    if (!currentVideo || !nextVideo) {
+      setIsTransitioning(false);
+      return;
+    }
+    
+    try {
+      // Get current playback time for synchronization
+      const currentTime = currentVideo.currentTime || 0;
+      
+      // Load new video synchronized to current time
+      await loadVideo(nextVideo, videoSources[newPackage as keyof typeof videoSources], currentTime);
+      
+      // Start playing the new video
+      await nextVideo.play();
+      
+      // Add transition classes for smooth fade
+      currentVideo.classList.add('video-fade-out-phase');
+      nextVideo.classList.add('video-fade-in-phase');
+      
+      // Switch visibility for crossfade effect
+      setIsCurrentVisible(!isCurrentVisible);
+      
+      // Complete transition after animation
+      setTimeout(() => {
+        setCurrentPackage(newPackage);
+        
+        // Clean up transition classes
+        currentVideo.classList.remove('video-fade-out-phase');
+        nextVideo.classList.remove('video-fade-in-phase');
+        
+        // Pause the old video to save resources
+        currentVideo.pause();
+        
+        setIsTransitioning(false);
+      }, 750); // Match CSS transition duration
+      
+    } catch (error) {
+      console.error('Smooth transition failed:', error);
+      setIsTransitioning(false);
+    }
+  };
+  
+  // Initialize first video on mount
+  useEffect(() => {
+    const initialVideo = currentVideoRef.current;
+    if (!initialVideo || isLoaded) return;
+    
+    const selectedPackage = profile.selectedPackage || 'Standard';
+    
+    loadVideo(initialVideo, videoSources[selectedPackage as keyof typeof videoSources])
+      .then(() => {
+        setCurrentPackage(selectedPackage);
+        setIsLoaded(true);
+        return initialVideo.play();
+      })
+      .catch((error) => {
+        console.error('Initial video load failed:', error);
+        setIsLoaded(true); // Still mark as loaded to prevent blocking
+      });
   }, [profile.selectedPackage]);
   
-  // Get the active video based on selected package
-  const getActiveVideo = () => {
-    switch (profile.selectedPackage) {
-      case 'Standard':
-        return 'standard';
-      case 'Premium':
-        return 'premium';
-      case 'Advanced':
-        return 'advanced';
-      default:
-        return 'standard';
+  // Handle package changes with smooth transitions
+  useEffect(() => {
+    if (!isLoaded) return;
+    
+    const selectedPackage = profile.selectedPackage || 'Standard';
+    
+    if (selectedPackage !== currentPackage) {
+      startSmoothTransition(selectedPackage);
     }
-  };
+  }, [profile.selectedPackage, currentPackage, isLoaded]);
   
-  const getActiveVideoIndex = () => {
-    switch (profile.selectedPackage) {
-      case 'Standard':
-        return 0;
-      case 'Premium':
-        return 1;
-      case 'Advanced':
-        return 2;
-      default:
-        return 0;
-    }
-  };
+  // Handle document visibility changes
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      const currentVideo = isCurrentVisible ? currentVideoRef.current : nextVideoRef.current;
+      
+      if (document.hidden) {
+        currentVideo?.pause();
+      } else {
+        currentVideo?.play().catch(() => {});
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, [isCurrentVisible]);
   
-  const activeVideo = getActiveVideo();
-  
-  // Fallback colors for each package during loading
+  // Fallback color for loading state
   const getFallbackColor = () => {
-    switch (profile.selectedPackage) {
+    switch (currentPackage) {
       case 'Standard':
-        return '#E4E5E0'; // Current background color
+        return '#E4E5E0';
       case 'Premium':
-        return '#E8E4E0'; // Slightly warmer
+        return '#E8E4E0';
       case 'Advanced':
-        return '#E0E8E4'; // Slightly cooler
+        return '#E0E8E4';
       default:
         return '#E4E5E0';
     }
   };
   
   return (
-    <div className={`fixed inset-0 overflow-hidden ${className}`} style={{ zIndex: 1 }}>
+    <div className={cn("fixed inset-0 overflow-hidden", className)} style={{ zIndex: 1 }}>
       {/* Fallback background during loading */}
       {!isLoaded && (
         <div 
@@ -176,83 +181,58 @@ export const VideoBackgroundMP4 = ({ className = '' }: VideoBackgroundMP4Props) 
         />
       )}
       
-      {/* Standard Package Video - Enhanced transitions */}
-      <div className={`fixed inset-0 video-crossfade-current ${
-        activeVideo === 'standard' ? 'opacity-100' : 'opacity-0'
-      }`}>
-        <video
-          ref={standardVideoRef}
-          className="fixed"
-          style={{ 
-            filter: 'blur(8px) brightness(0.85) contrast(1.2) saturate(1.1)',
-            objectFit: 'cover',
-            objectPosition: 'center center',
-            zIndex: 1,
-            width: 'calc(100vw + 100px)',
-            height: 'calc(100vh + 100px)',
-            left: '50%',
-            top: '-50px',
-            transform: 'translateX(-50%) scale(1.05)'
-          }}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-        />
-      </div>
+      {/* Current Video - Enhanced with GPU acceleration */}
+      <video
+        ref={currentVideoRef}
+        className={cn(
+          "fixed inset-0 w-full h-full object-cover video-crossfade-current",
+          isCurrentVisible ? "opacity-100" : "opacity-0"
+        )}
+        style={{ 
+          filter: 'blur(8px) brightness(0.85) contrast(1.2) saturate(1.1)',
+          objectFit: 'cover',
+          objectPosition: 'center center',
+          zIndex: 1,
+          width: 'calc(100vw + 100px)',
+          height: 'calc(100vh + 100px)',
+          left: '50%',
+          top: '-50px',
+          transform: 'translateX(-50%) scale(1.05) translate3d(0, 0, 0)',
+          isolation: 'isolate',
+          mixBlendMode: 'normal'
+        }}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+      />
       
-      {/* Premium Package Video - Enhanced transitions */}
-      <div className={`fixed inset-0 video-crossfade-next ${
-        activeVideo === 'premium' ? 'opacity-100' : 'opacity-0'
-      }`}>
-        <video
-          ref={premiumVideoRef}
-          className="fixed"
-          style={{ 
-            filter: 'blur(8px) brightness(0.85) contrast(1.2) saturate(1.1)',
-            objectFit: 'cover',
-            objectPosition: 'center center',
-            zIndex: 1,
-            width: 'calc(100vw + 100px)',
-            height: 'calc(100vh + 100px)',
-            left: '50%',
-            top: '-50px',
-            transform: 'translateX(-50%) scale(1.05)'
-          }}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-        />
-      </div>
-      
-      {/* Advanced Package Video - Enhanced transitions */}
-      <div className={`fixed inset-0 video-crossfade-current ${
-        activeVideo === 'advanced' ? 'opacity-100' : 'opacity-0'
-      }`}>
-        <video
-          ref={advancedVideoRef}
-          className="fixed"
-          style={{ 
-            filter: 'blur(8px) brightness(0.85) contrast(1.2) saturate(1.1)',
-            objectFit: 'cover',
-            objectPosition: 'center center',
-            zIndex: 1,
-            width: 'calc(100vw + 100px)',
-            height: 'calc(100vh + 100px)',
-            left: '50%',
-            top: '-50px',
-            transform: 'translateX(-50%) scale(1.05)'
-          }}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-        />
-      </div>
+      {/* Next Video - Enhanced with staggered timing */}
+      <video
+        ref={nextVideoRef}
+        className={cn(
+          "fixed inset-0 w-full h-full object-cover video-crossfade-next",
+          isCurrentVisible ? "opacity-0" : "opacity-100"
+        )}
+        style={{ 
+          filter: 'blur(8px) brightness(0.85) contrast(1.2) saturate(1.1)',
+          objectFit: 'cover',
+          objectPosition: 'center center',
+          zIndex: 1,
+          width: 'calc(100vw + 100px)',
+          height: 'calc(100vh + 100px)',
+          left: '50%',
+          top: '-50px',
+          transform: 'translateX(-50%) scale(1.05) translate3d(0, 0, 0)',
+          isolation: 'isolate',
+          mixBlendMode: 'normal'
+        }}
+        muted
+        loop
+        playsInline
+        preload="auto"
+      />
     </div>
   );
 };
