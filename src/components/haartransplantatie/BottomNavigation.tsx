@@ -200,11 +200,11 @@ export const BottomNavigation = () => {
                   onClick={item.onClick}
                   className="flex flex-col items-center justify-center transition-all duration-200 py-1 px-2 w-full"
                 >
-                  <div className="w-6 h-6 flex items-center justify-center transition-opacity duration-200">
+                  <div className="w-7 h-7 flex items-center justify-center transition-opacity duration-200">
                     <item.iconComponent className={`brightness-0 invert transition-opacity duration-200 ${getOpacityClass(item.id, active)} ${
                       item.id === 'home' ? 'w-6 h-6' :
                       item.id === 'haarscan' ? 'w-7 h-7' :
-                      item.id === 'book' ? 'w-8 h-8' :
+                      item.id === 'book' ? 'w-6 h-6 scale-150' :
                       item.id === 'reviews' ? 'w-7 h-7' :
                       'w-7 h-7'
                     }`} />
