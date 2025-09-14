@@ -269,22 +269,24 @@ body.s-rood {
 @layer components {
   /* Enhanced Video Animation System - GPU Accelerated Crossfades */
   .video-crossfade-current {
-    @apply transition-all will-change-transform will-change-opacity;
+    @apply transition-all;
     transition-duration: var(--video-transition-duration);
     transition-timing-function: var(--video-crossfade-timing);
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     perspective: 1000px;
+    will-change: transform, opacity;
   }
   
   .video-crossfade-next {
-    @apply transition-all will-change-transform will-change-opacity;
+    @apply transition-all;
     transition-duration: var(--video-transition-duration);
     transition-timing-function: var(--video-blend-timing);
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     perspective: 1000px;
     transition-delay: var(--video-stagger-delay);
+    will-change: transform, opacity;
   }
   
   .video-fade-out-phase {
