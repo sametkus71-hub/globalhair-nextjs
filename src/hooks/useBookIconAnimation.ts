@@ -27,20 +27,20 @@ export const useBookIconAnimation = () => {
     setAnimationPhase('entrance');
     setIsGlowing(true);
 
-    // Enter hold phase after 400ms
+    // Enter hold phase after 200ms
     timeoutRef.current = setTimeout(() => {
       setAnimationPhase('hold');
-    }, 400);
+    }, 200);
 
-    // Enter exit phase after 1000ms (400ms entrance + 600ms hold)
+    // Enter exit phase after 500ms (200ms entrance + 300ms hold)
     exitTimeoutRef.current = setTimeout(() => {
       setAnimationPhase('exit');
-      // End animation after total 1400ms
+      // End animation after total 700ms
       setTimeout(() => {
         setIsGlowing(false);
         setAnimationPhase('idle');
-      }, 400);
-    }, 1000);
+      }, 200);
+    }, 500);
   };
 
   // Track navigation changes to prevent false animation triggers

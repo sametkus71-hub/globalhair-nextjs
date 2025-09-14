@@ -265,7 +265,7 @@ export default {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'text-shine': 'text-shine 0.6s ease-out',
+				'text-shine': 'text-shine 0.4s ease-out',
 				'fade-in': 'fadeIn 0.4s ease-out',
 				'slide-up': 'slideUp 0.3s ease-out',
 				'gradient-shift': 'gradient-shift 15s ease-in-out infinite',

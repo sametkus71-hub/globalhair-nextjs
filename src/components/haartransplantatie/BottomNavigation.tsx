@@ -233,7 +233,7 @@ export const BottomNavigation = () => {
                       <div 
                         className="absolute inset-0 animate-text-shine pointer-events-none"
                         style={{
-                          background: 'linear-gradient(90deg, transparent 20%, rgba(255, 255, 255, 0.6) 50%, transparent 80%)',
+                          background: 'linear-gradient(90deg, transparent 40%, rgba(255, 255, 255, 0.2) 50%, transparent 60%)',
                           backgroundSize: '200% 100%',
                           backgroundPosition: '-100% 0'
                         }}
