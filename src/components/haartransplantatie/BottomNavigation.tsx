@@ -2,6 +2,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { usePopupTransition } from '@/hooks/usePopupTransition';
 import { useLocation } from 'react-router-dom';
 import { useSession } from '@/hooks/useSession';
+import { useBookIconAnimation } from '@/hooks/useBookIconAnimation';
 import { HomeIcon } from '@/components/icons/HomeIcon';
 import { GridIcon } from '@/components/icons/GridIcon';
 import { HaarscanIcon } from '@/components/icons/HaarscanIcon';
@@ -12,13 +13,14 @@ import { ContactIcon } from '@/components/icons/ContactIcon';
 interface NavItem {
   onClick: () => void;
   id: string;
-  iconComponent: React.ComponentType<{ className?: string }>;
+  iconComponent: React.ComponentType<any>;
   labelKey: string;
 }
 
 export const BottomNavigation = () => {
   const { language } = useLanguage();
   const { activeRoute } = useSession();
+  const { isGlowing } = useBookIconAnimation();
   
   const location = useLocation();
   const { startPopupTransition, directNavigate, isOnPopupPage } = usePopupTransition();
@@ -201,13 +203,16 @@ export const BottomNavigation = () => {
                   className="flex flex-col items-center justify-center transition-all duration-200 py-1 px-2 w-full"
                 >
                   <div className="w-7 h-7 flex items-center justify-center transition-opacity duration-200">
-                    <item.iconComponent className={`brightness-0 invert transition-opacity duration-200 ${getOpacityClass(item.id, active)} ${
-                      item.id === 'home' ? 'w-6 h-6' :
-                      item.id === 'haarscan' ? 'w-7 h-7' :
-                      item.id === 'book' ? 'w-6 h-6 scale-[2.25]' :
-                      item.id === 'reviews' ? 'w-7 h-7' :
-                      'w-7 h-7'
-                    }`} />
+                    <item.iconComponent 
+                      {...(item.id === 'book' ? { isGlowing } : {})}
+                      className={`brightness-0 invert transition-opacity duration-200 ${getOpacityClass(item.id, active)} ${
+                        item.id === 'home' ? 'w-6 h-6' :
+                        item.id === 'haarscan' ? 'w-7 h-7' :
+                        item.id === 'book' ? 'w-6 h-6 scale-[2.25]' :
+                        item.id === 'reviews' ? 'w-7 h-7' :
+                        'w-7 h-7'
+                      }`} 
+                    />
                   </div>
                   <span 
                     className={`transition-opacity duration-200 ${getOpacityClass(item.id, active)}`}

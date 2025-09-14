@@ -2,9 +2,10 @@ import { cn } from '@/lib/utils';
 
 interface BookIconProps {
   className?: string;
+  isGlowing?: boolean;
 }
 
-export const BookIcon = ({ className }: BookIconProps) => {
+export const BookIcon = ({ className, isGlowing = false }: BookIconProps) => {
   return (
     <svg 
       width="29" 
@@ -24,7 +25,7 @@ export const BookIcon = ({ className }: BookIconProps) => {
           <feOffset/>
           <feGaussianBlur stdDeviation="3.94275"/>
           <feComposite in2="hardAlpha" operator="out"/>
-          <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.52 0"/>
+          <feColorMatrix type="matrix" values={`0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 ${isGlowing ? '0.52' : '0'} 0`} className="transition-all duration-400"/>
           <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_36_1121"/>
           <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_36_1121" result="shape"/>
         </filter>
