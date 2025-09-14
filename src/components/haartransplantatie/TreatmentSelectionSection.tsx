@@ -180,7 +180,7 @@ export const TreatmentSelectionSection = () => {
           }}
         >
           <div 
-            className="inline-flex p-1 rounded-full"
+            className="inline-flex p-0.5 rounded-full"
             style={{
               background: 'rgba(228, 229, 224, 0.1)',
               backdropFilter: 'blur(30px)',
@@ -214,7 +214,7 @@ export const TreatmentSelectionSection = () => {
           style={{ animationDelay: comesFromHome ? '2100ms' : '0ms' }} // 2000ms + 100ms = 2100ms
         >
           <div 
-            className="inline-flex p-1 rounded-full relative"
+            className="inline-flex p-0.5 rounded-full relative"
             style={{
               background: 'rgba(228, 229, 224, 0.1)',
               backdropFilter: 'blur(30px)',
