@@ -15,9 +15,7 @@ export const VideoBackgroundMP4 = ({ className = '' }: VideoBackgroundMP4Props) 
   const {
     loadVideoWithTimeSync,
     trackVideoTime,
-    startTimeSyncedCrossfade,
-    getCurrentTime,
-    isTransitioning
+    getCurrentTime
   } = useTimeSyncedVideo({
     onVideoReady: () => {
       console.log('✅ Background video ready');
@@ -36,7 +34,7 @@ export const VideoBackgroundMP4 = ({ className = '' }: VideoBackgroundMP4Props) 
   // Simplified state management
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentPackage, setCurrentPackage] = useState<string>(profile.selectedPackage || 'Standard');
-  const [isCurrentVisible, setIsCurrentVisible] = useState(true);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   
   // MP4 video sources mapping - Bunny CDN MP4 links
   const videoSources = {
@@ -90,43 +88,67 @@ export const VideoBackgroundMP4 = ({ className = '' }: VideoBackgroundMP4Props) 
       });
   }, [loadVideoWithTimeSync, trackVideoTime]);
   
-  // Handle package changes with time-synced transitions
+  // Handle package changes with simplified transitions
   useEffect(() => {
     if (!isLoaded) return;
     
     const selectedPackage = profile.selectedPackage || 'Standard';
     
     if (selectedPackage !== currentPackage && !isTransitioning) {
-      console.log('🔄 Starting background time-synced transition from', currentPackage, 'to', selectedPackage);
+      console.log('🔄 Starting background transition from', currentPackage, 'to', selectedPackage);
       
-      const currentVideo = isCurrentVisible ? currentVideoRef.current : nextVideoRef.current;
-      const nextVideo = isCurrentVisible ? nextVideoRef.current : currentVideoRef.current;
-      const nextHls = isCurrentVisible ? nextHlsRef : currentHlsRef;
+      setIsTransitioning(true);
       
-      startTimeSyncedCrossfade(
-        currentVideo,
-        nextVideo,
-        nextHls,
-        videoSources[selectedPackage as keyof typeof videoSources],
-        () => {
-          // Start visual crossfade after videos are synchronized
-          setIsCurrentVisible(!isCurrentVisible);
-          
-          // Update state after animation completes
-          setTimeout(() => {
-            setCurrentPackage(selectedPackage);
+      // Load new video in background (nextVideoRef) 
+      const backgroundVideo = nextVideoRef.current;
+      
+      if (backgroundVideo) {
+        loadVideoWithTimeSync(backgroundVideo, nextHlsRef, videoSources[selectedPackage as keyof typeof videoSources], getCurrentTime())
+          .then(() => {
+            // Start background video
+            trackVideoTime(backgroundVideo);
+            backgroundVideo.play();
             
-            // Start time tracking on the new current video
-            if (nextVideo) {
-              trackVideoTime(nextVideo);
+            // Start fade out of current video
+            const foregroundVideo = currentVideoRef.current;
+            if (foregroundVideo) {
+              foregroundVideo.classList.add('video-fade-out-phase');
             }
             
-            console.log('✅ Background crossfade completed');
-          }, 750); // Match CSS transition duration
-        }
-      );
+            // Complete transition after fade
+            setTimeout(() => {
+              // Swap video refs - background becomes foreground
+              const tempVideo = currentVideoRef.current;
+              const tempHls = currentHlsRef.current;
+              
+              if (tempVideo && foregroundVideo) {
+                // Move background video to foreground position
+                currentVideoRef.current = backgroundVideo;
+                currentHlsRef.current = nextHlsRef.current;
+                
+                // Move old foreground to background and clean up
+                nextVideoRef.current = tempVideo;
+                nextHlsRef.current = tempHls;
+                
+                // Clean up old video
+                cleanupVideo(tempVideo, { current: tempHls });
+                
+                // Remove fade class and reset states
+                foregroundVideo.classList.remove('video-fade-out-phase');
+                setCurrentPackage(selectedPackage);
+                setIsTransitioning(false);
+                
+                console.log('✅ Background transition completed');
+              }
+            }, 400); // Fast 400ms transition
+          })
+          .catch((error) => {
+            console.error('Background video load failed:', error);
+            setIsTransitioning(false);
+          });
+      }
     }
-  }, [profile.selectedPackage, currentPackage, isLoaded, isTransitioning, isCurrentVisible, startTimeSyncedCrossfade, trackVideoTime]);
+  }, [profile.selectedPackage, currentPackage, isLoaded, isTransitioning, loadVideoWithTimeSync, trackVideoTime, getCurrentTime]);
   
   // Handle document visibility changes for both videos
   useEffect(() => {
@@ -138,9 +160,8 @@ export const VideoBackgroundMP4 = ({ className = '' }: VideoBackgroundMP4Props) 
         currentVideo?.pause();
         nextVideo?.pause();
       } else {
-        if (isCurrentVisible) {
-          currentVideo?.play().catch(() => {});
-        } else {
+        currentVideo?.play().catch(() => {});
+        if (!isTransitioning) {
           nextVideo?.play().catch(() => {});
         }
       }
@@ -148,7 +169,7 @@ export const VideoBackgroundMP4 = ({ className = '' }: VideoBackgroundMP4Props) 
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
-  }, [isCurrentVisible]);
+  }, [isTransitioning]);
   
   // Cleanup on unmount
   useEffect(() => {
@@ -182,16 +203,12 @@ export const VideoBackgroundMP4 = ({ className = '' }: VideoBackgroundMP4Props) 
         />
       )}
       
-      {/* Dual Video System for Smooth Time-Synced Crossfades */}
+      {/* Simplified Dual Video System */}
       
-      {/* Current Video - GPU accelerated with conditional visibility */}
+      {/* Foreground Video - Fades out during transitions */}
       <video
         ref={currentVideoRef}
-        className={cn(
-          "fixed inset-0 w-full h-full object-cover transition-opacity duration-700 ease-out",
-          isCurrentVisible ? "opacity-100" : "opacity-0",
-          isTransitioning && isCurrentVisible && "video-fade-out-phase"
-        )}
+        className="fixed inset-0 w-full h-full object-cover transition-opacity duration-400 ease-out"
         style={{ 
           filter: 'blur(8px) brightness(0.85) contrast(1.2) saturate(1.1)',
           objectFit: 'cover',
@@ -212,14 +229,10 @@ export const VideoBackgroundMP4 = ({ className = '' }: VideoBackgroundMP4Props) 
         preload="auto"
       />
       
-      {/* Next Video - Enhanced with staggered timing */}
+      {/* Background Video - Always visible behind foreground */}
       <video
         ref={nextVideoRef}
-        className={cn(
-          "fixed inset-0 w-full h-full object-cover transition-opacity duration-700 ease-out",
-          isCurrentVisible ? "opacity-0" : "opacity-100",
-          isTransitioning && !isCurrentVisible && "video-fade-in-phase"
-        )}
+        className="fixed inset-0 w-full h-full object-cover opacity-100"
         style={{ 
           filter: 'blur(8px) brightness(0.85) contrast(1.2) saturate(1.1)',
           objectFit: 'cover',
