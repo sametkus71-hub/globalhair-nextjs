@@ -231,13 +231,18 @@ export const BottomNavigation = () => {
                     {getLabel(item.labelKey)}
                     {item.id === 'book' && isGlowing && (
                       <div 
-                        className="absolute inset-0 animate-text-shine pointer-events-none"
-                        style={{
-                          background: 'linear-gradient(90deg, transparent 40%, rgba(255, 255, 255, 0.2) 50%, transparent 60%)',
-                          backgroundSize: '200% 100%',
-                          backgroundPosition: '-100% 0'
-                        }}
-                      />
+                        className="absolute inset-0 pointer-events-none overflow-hidden"
+                      >
+                        <div 
+                          className="absolute inset-0 animate-text-shine"
+                          style={{
+                            background: 'rgba(255, 255, 255, 0.15)',
+                            width: '50%',
+                            height: '100%',
+                            transform: 'translateX(-100%)'
+                          }}
+                        />
+                      </div>
                     )}
                   </span>
                 </button>

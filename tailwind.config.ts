@@ -130,10 +130,15 @@ export default {
 				},
 				'text-shine': {
 					'0%': { 
-						'background-position': '-100% 0' 
+						transform: 'translateX(-100%)',
+						opacity: '0'
+					},
+					'50%': {
+						opacity: '1'
 					},
 					'100%': { 
-						'background-position': '200% 0' 
+						transform: 'translateX(100%)',
+						opacity: '0'
 					}
 				},
 				// Enhanced Video Transition Keyframes
@@ -265,7 +270,7 @@ export default {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'text-shine': 'text-shine 0.4s ease-out',
+				'text-shine': 'text-shine 0.5s ease-out forwards',
 				'fade-in': 'fadeIn 0.4s ease-out',
 				'slide-up': 'slideUp 0.3s ease-out',
 				'gradient-shift': 'gradient-shift 15s ease-in-out infinite',
