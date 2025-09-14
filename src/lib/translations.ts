@@ -37,6 +37,7 @@ export const translations = {
     'meta.home.description': 'Ontdek de meest geavanceerde haartransplantatie technieken en V6 Hairboost behandelingen bij GlobalHair.',
     'meta.haartransplantatie.description': 'Professionele haartransplantatie met de nieuwste technieken en jarenlange ervaring.',
     'meta.v6hairboost.description': 'V6 Hairboost - revolutionaire haargroei behandeling voor optimale resultaten.',
+    'meta.behandelopties.description': 'Ontdek gedetailleerde informatie over onze haartransplantatie pakketten en kies de beste behandeling voor u.',
     
     // Pages
     'page.haartransplantatie.title': 'Haartransplantatie',
@@ -138,6 +139,7 @@ export const translations = {
     'meta.home.description': 'Discover the most advanced hair transplant techniques and V6 Hairboost treatments at GlobalHair.',
     'meta.haartransplantatie.description': 'Professional hair transplant with the latest techniques and years of experience.',
     'meta.v6hairboost.description': 'V6 Hairboost - revolutionary hair growth treatment for optimal results.',
+    'meta.treatment-options.description': 'Discover detailed information about our hair transplant packages and choose the best treatment for you.',
     
     // Pages
     'page.haartransplantatie.title': 'Hair Transplant',
