@@ -2,36 +2,18 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { usePopupTransition } from '@/hooks/usePopupTransition';
 import { useLocation } from 'react-router-dom';
 import { useSession } from '@/hooks/useSession';
-import { BackIcon } from '@/components/icons/BackIcon';
-import { ShieldIcon } from '@/components/logos/ShieldIcon';
-import { MissionShieldIcon } from '@/components/logos/MissionShieldIcon';
-import { HaarTransplantFooterIcon } from '@/components/logos/HaarTransplantFooterIcon';
+import { HomeIcon } from '@/components/icons/HomeIcon';
+import { GridIcon } from '@/components/icons/GridIcon';
+import { HaarscanIcon } from '@/components/icons/HaarscanIcon';
+import { BookIcon } from '@/components/icons/BookIcon';
+import { ContactIcon } from '@/components/icons/ContactIcon';
 
-interface NavItemBase {
+interface NavItem {
   onClick: () => void;
   id: string;
-}
-
-interface NavItemWithIcon extends NavItemBase {
-  isCustomIcon: false;
-  iconSrc: string;
-}
-
-interface NavItemWithCustomIcon extends NavItemBase {
-  isCustomIcon: true;
   iconComponent: React.ComponentType<{ className?: string }>;
+  labelKey: string;
 }
-
-type NavItem = NavItemWithIcon | NavItemWithCustomIcon;
-
-// Type guard functions
-const isNavItemWithIcon = (item: NavItem): item is NavItemWithIcon => {
-  return !item.isCustomIcon;
-};
-
-const isNavItemWithCustomIcon = (item: NavItem): item is NavItemWithCustomIcon => {
-  return item.isCustomIcon;
-};
 
 export const BottomNavigation = () => {
   const { language } = useLanguage();
@@ -106,8 +88,8 @@ export const BottomNavigation = () => {
     }
   };
 
-  const handleMissionNavigation = () => {
-    // Store current page before navigating to mission
+  const handleHaarscanNavigation = () => {
+    // Store current page before navigating to haarscan
     sessionStorage.setItem('previousPage', location.pathname);
     handlePopupNavigation(language === 'nl' ? '/nl/missie' : '/en/mission');
   };
@@ -122,7 +104,7 @@ export const BottomNavigation = () => {
     if (path === 'home') {
       return location.pathname === '/nl' || location.pathname === '/en' || location.pathname === '/';
     }
-    if (path === 'mission') {
+    if (path === 'haarscan') {
       return location.pathname === '/nl/missie' || location.pathname === '/en/mission';
     }
     if (path === 'reviews') {
@@ -140,35 +122,20 @@ export const BottomNavigation = () => {
   // Get home button configuration
   const getHomeButtonConfig = (): NavItem => {
     if (isOnMainPage()) {
-      // Show back to intro icon on main pages
+      // Show grid icon on main pages
       return {
-        isCustomIcon: false,
-        iconSrc: '/lovable-uploads/a52a13c1-8ed7-42d9-a898-ed591ddac684.png',
+        iconComponent: GridIcon,
         onClick: handleHomeClick,
-        id: 'home'
+        id: 'home',
+        labelKey: 'home'
       };
     } else {
-      // Show active route logo or default home icon
-      let logoSrc = '/lovable-uploads/04aab7a8-e1ff-45f4-a726-51acc3e02a41.png';
-      
-      if (activeRoute === 'haartransplantatie') {
-        // Use haartransplantatie shield icon (bigger, no text)
-        return {
-          isCustomIcon: true,
-          iconComponent: HaarTransplantFooterIcon,
-          onClick: handleHomeClick,
-          id: 'home'
-        };
-      } else if (activeRoute === 'v6-hairboost') {
-        // Use v6-hairboost logo - we'll use a placeholder for now
-        logoSrc = '/lovable-uploads/04aab7a8-e1ff-45f4-a726-51acc3e02a41.png';
-      }
-      
+      // Show home icon on other pages
       return {
-        isCustomIcon: false,
-        iconSrc: logoSrc,
+        iconComponent: HomeIcon,
         onClick: handleHomeClick,
-        id: 'home'
+        id: 'home',
+        labelKey: 'home'
       };
     }
   };
@@ -178,62 +145,66 @@ export const BottomNavigation = () => {
   const navItems: NavItem[] = [
     homeButtonConfig,
     { 
-      isCustomIcon: true,
-      iconComponent: MissionShieldIcon,
-      onClick: handleMissionNavigation,
-      id: 'mission'
+      iconComponent: HaarscanIcon,
+      onClick: handleHaarscanNavigation,
+      id: 'haarscan',
+      labelKey: 'haarscan'
     },
     { 
-      isCustomIcon: false,
-      iconSrc: '/lovable-uploads/4f77654b-737b-493a-a695-ad8360dbeb0d.png',
+      iconComponent: BookIcon,
       onClick: handleBookingNavigation,
-      id: 'book'
+      id: 'book',
+      labelKey: 'book'
     },
     { 
-      isCustomIcon: false,
-      iconSrc: '/lovable-uploads/49617091-42a9-4433-bd8b-df560cd352ac.png',
+      iconComponent: ContactIcon,
       onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/reviews' : '/en/reviews'),
-      id: 'reviews'
+      id: 'reviews',
+      labelKey: 'review'
     },
     { 
-      isCustomIcon: false,
-      iconSrc: '/lovable-uploads/b5004700-4ebf-4a8d-9f10-fcddc2176942.png',
+      iconComponent: ContactIcon,
       onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/contact' : '/en/contact'),
-      id: 'contact'
+      id: 'contact',
+      labelKey: 'contact'
     }
   ];
 
+  const getLabel = (labelKey: string) => {
+    const labels = {
+      home: language === 'nl' ? 'Home' : 'Home',
+      haarscan: language === 'nl' ? 'Haarscan' : 'Haarscan',
+      book: language === 'nl' ? 'Book' : 'Book',
+      review: language === 'nl' ? 'Review' : 'Review',
+      contact: language === 'nl' ? 'Contact' : 'Contact'
+    };
+    return labels[labelKey as keyof typeof labels] || labelKey;
+  };
+
   return (
-    <div className="fixed bottom-0 left-0 w-full z-[10000] h-14">
+    <div className="fixed bottom-0 left-0 w-full z-[10000] h-16">
       <div 
-        className="bg-black h-full flex items-center justify-center px-2 pb-2"
+        className="bg-black h-full flex items-center justify-center px-2 pb-1"
         style={{ 
-          paddingBottom: 'calc(env(safe-area-inset-bottom) + 0.5rem)'
+          paddingBottom: 'calc(env(safe-area-inset-bottom) + 0.25rem)'
         }}
       >
         <div className="flex items-center justify-between w-full max-w-sm px-1">
           {navItems.map((item, index) => {
             const active = isActive(item.id);
-            const isBookButton = item.id === 'book';
-            const isHomeButton = item.id === 'home';
             
             return (
-              <div key={index} className="w-14 flex justify-center">
+              <div key={index} className="flex-1 flex justify-center">
                 <button
                   onClick={item.onClick}
-                  className="flex items-center justify-center transition-all duration-200 w-14 h-14"
+                  className="flex flex-col items-center justify-center transition-all duration-200 py-1 px-2"
                 >
-                  {isNavItemWithCustomIcon(item) ? (
-                    <div className={`w-20 h-20 flex items-center justify-center pt-4 transition-opacity duration-200 ${getOpacityClass(item.id, active)}`}>
-                      <item.iconComponent className={`brightness-0 invert ${item.id === 'mission' ? 'w-16 h-16' : 'w-20 h-20'}`} />
-                    </div>
-                  ) : (
-                    <img 
-                      src={item.iconSrc}
-                      alt={`${item.id} icon`}
-                      className={`brightness-0 invert transition-opacity duration-200 ${getOpacityClass(item.id, active)} ${isBookButton ? 'w-12 h-12' : 'w-5 h-5'}`}
-                    />
-                  )}
+                  <div className={`w-5 h-5 flex items-center justify-center transition-opacity duration-200 ${getOpacityClass(item.id, active)}`}>
+                    <item.iconComponent className="brightness-0 invert w-full h-full" />
+                  </div>
+                  <span className={`text-white text-[10px] mt-0.5 transition-opacity duration-200 ${getOpacityClass(item.id, active)}`}>
+                    {getLabel(item.labelKey)}
+                  </span>
                 </button>
               </div>
             );
