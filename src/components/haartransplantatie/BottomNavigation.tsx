@@ -215,7 +215,9 @@ export const BottomNavigation = () => {
                     />
                   </div>
                   <span 
-                    className={`transition-opacity duration-200 ${getOpacityClass(item.id, active, isGlowing)}`}
+                    className={`transition-opacity duration-200 ${getOpacityClass(item.id, active, isGlowing)} ${
+                      item.id === 'book' && isGlowing ? 'relative animate-text-shine' : ''
+                    }`}
                     style={{
                       color: 'rgba(189, 189, 189, 1)',
                       fontFamily: 'Lato',
@@ -223,7 +225,13 @@ export const BottomNavigation = () => {
                       fontSize: '8px',
                       lineHeight: '100%',
                       letterSpacing: '-2%',
-                      marginTop: '2px'
+                      marginTop: '2px',
+                      ...(item.id === 'book' && isGlowing && {
+                        background: 'linear-gradient(90deg, transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 70%)',
+                        backgroundSize: '200% 100%',
+                        backgroundClip: 'text',
+                        WebkitBackgroundClip: 'text'
+                      })
                     }}
                   >
                     {getLabel(item.labelKey)}
