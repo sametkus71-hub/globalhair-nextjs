@@ -25,16 +25,17 @@ export const GenderToggle = () => {
       }}
     >
       {/* Sliding background */}
-      <div
-        className="absolute top-1 bottom-1 rounded-full transition-transform duration-300 ease-out premium-glow"
-        style={{
-          width: 'calc(50% - 4px)',
-          backdropFilter: 'blur(40px)',
-          background: 'rgba(255, 255, 255, 0.3)',
-          transform: `translateX(${activeIndex * 100}%)`,
-          left: '4px',
-        }}
-      />
+      {activeIndex >= 0 && (
+        <div
+          className="absolute top-1 bottom-1 rounded-full transition-transform duration-300 ease-out premium-glow"
+          style={{
+            width: '50%',
+            backdropFilter: 'blur(40px)',
+            background: 'rgba(255, 255, 255, 0.3)',
+            transform: `translateX(${activeIndex * 100}%)`,
+          }}
+        />
+      )}
       
       {genders.map(({ value, label }) => (
         <button

@@ -31,15 +31,17 @@ export const HairTypeSelector = ({ heightBreakpoint = 'large' }: HairTypeSelecto
       }}
     >
       {/* Sliding background */}
-      <div
-        className="absolute top-1 bottom-1 rounded-full transition-transform duration-300 ease-out premium-glow"
-        style={{
-          width: '25%',
-          backdropFilter: 'blur(40px)',
-          background: 'rgba(255, 255, 255, 0.3)',
-          transform: `translateX(${activeIndex * 100}%)`,
-        }}
-      />
+      {activeIndex >= 0 && (
+        <div
+          className="absolute top-1 bottom-1 rounded-full transition-transform duration-300 ease-out premium-glow"
+          style={{
+            width: '25%',
+            backdropFilter: 'blur(40px)',
+            background: 'rgba(255, 255, 255, 0.3)',
+            transform: `translateX(${activeIndex * 100}%)`,
+          }}
+        />
+      )}
       
       {hairTypes.map(({ value, label }) => (
         <button
