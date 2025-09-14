@@ -64,12 +64,6 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
   /* Animations */
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   
-  /* Enhanced Video Transition System */
-  --video-crossfade-timing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --video-blend-timing: cubic-bezier(0.23, 1, 0.32, 1);
-  --video-transition-duration: 750ms;
-  --video-stagger-delay: 100ms;
-  
   /* iOS-style entrance animations */
   --ios-entrance: cubic-bezier(0.175, 0.885, 0.32, 1.275);
     --transition-spring: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -267,50 +261,6 @@ body.s-rood {
 }
 
 @layer components {
-  /* Enhanced Video Animation System - GPU Accelerated Crossfades */
-  .video-crossfade-current {
-    @apply transition-all;
-    transition-duration: var(--video-transition-duration);
-    transition-timing-function: var(--video-crossfade-timing);
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
-    perspective: 1000px;
-    will-change: transform, opacity;
-  }
-  
-  .video-crossfade-next {
-    @apply transition-all;
-    transition-duration: var(--video-transition-duration);
-    transition-timing-function: var(--video-blend-timing);
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
-    perspective: 1000px;
-    transition-delay: var(--video-stagger-delay);
-    will-change: transform, opacity;
-  }
-  
-  .video-fade-out-phase {
-    animation: video-fade-out-smooth var(--video-transition-duration) var(--video-crossfade-timing) forwards;
-    will-change: opacity, filter, transform;
-  }
-  
-  .video-fade-in-phase {
-    animation: video-fade-in-smooth var(--video-transition-duration) var(--video-blend-timing) forwards;
-    animation-delay: var(--video-stagger-delay);
-    will-change: opacity, filter, transform;
-  }
-  
-  /* Memory optimization - remove will-change after animations */
-  .video-animation-complete {
-    will-change: auto;
-  }
-
-  /* Premium layered video fade-out for haartransplantatie page */
-  .video-fade-out-smooth {
-    animation: video-fade-out-premium 800ms cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
-    will-change: opacity, filter, transform;
-  }
-
   /* Desktop layout utilities */
   .desktop-container {
     @apply w-full lg:max-w-[500px] lg:mx-auto;
@@ -843,39 +793,6 @@ body.s-rood {
   }
   66% { 
     transform: translateY(10px) translateX(-15px); 
-  }
-}
-
-/* Premium video transition keyframes for haartransplantatie */
-@keyframes video-fade-out-phase {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes video-fade-out-premium {
-  0% {
-    opacity: 1;
-    filter: blur(8px) brightness(0.85) contrast(1.2) saturate(1.1);
-    transform: translateX(-50%) scale(1.05) translate3d(0, 0, 0);
-  }
-  30% {
-    opacity: 0.8;
-    filter: blur(9px) brightness(0.8) contrast(1.18) saturate(1.08);
-    transform: translateX(-50%) scale(1.03) translate3d(0, 0, 0);
-  }
-  70% {
-    opacity: 0.3;
-    filter: blur(11px) brightness(0.7) contrast(1.15) saturate(1.03);
-    transform: translateX(-50%) scale(1.01) translate3d(0, 0, 0);
-  }
-  100% {
-    opacity: 0;
-    filter: blur(12px) brightness(0.6) contrast(1.1) saturate(1.0);
-    transform: translateX(-50%) scale(1.0) translate3d(0, 0, 0);
   }
 }
 

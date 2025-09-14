@@ -128,51 +128,6 @@ export default {
 						opacity: '0.2'
 					}
 				},
-				// Enhanced Video Transition Keyframes
-				'video-fade-out-smooth': {
-					'0%': { 
-						opacity: '1',
-						filter: 'blur(0px) brightness(1)',
-						transform: 'translate3d(0, 0, 0) scale(1)'
-					},
-					'30%': { 
-						opacity: '0.8',
-						filter: 'blur(0.5px) brightness(0.95)',
-						transform: 'translate3d(0, 0, 0) scale(1.005)'
-					},
-					'70%': { 
-						opacity: '0.3',
-						filter: 'blur(1px) brightness(0.9)',
-						transform: 'translate3d(0, 0, 0) scale(1.01)'
-					},
-					'100%': { 
-						opacity: '0',
-						filter: 'blur(1.5px) brightness(0.85)',
-						transform: 'translate3d(0, 0, 0) scale(1.015)'
-					}
-				},
-				'video-fade-in-smooth': {
-					'0%': { 
-						opacity: '0',
-						filter: 'blur(1.5px) brightness(0.85)',
-						transform: 'translate3d(0, 0, 0) scale(0.985)'
-					},
-					'30%': { 
-						opacity: '0.3',
-						filter: 'blur(1px) brightness(0.9)',
-						transform: 'translate3d(0, 0, 0) scale(0.99)'
-					},
-					'70%': { 
-						opacity: '0.8',
-						filter: 'blur(0.5px) brightness(0.95)',
-						transform: 'translate3d(0, 0, 0) scale(0.995)'
-					},
-					'100%': { 
-						opacity: '1',
-						filter: 'blur(0px) brightness(1)',
-						transform: 'translate3d(0, 0, 0) scale(1)'
-					}
-				},
 				'ios-entrance': {
 					"0%": { 
 						opacity: "0", 
@@ -266,9 +221,6 @@ export default {
 				'gradient-flow': 'gradient-flow 20s ease-in-out infinite',
 				'ios-bottom-sheet-enter': 'iosBottomSheetEnter 0.4s cubic-bezier(0.2, 0.0, 0, 1.0) forwards',
 				'ios-bottom-sheet-exit': 'iosBottomSheetExit 0.35s cubic-bezier(0.4, 0.0, 1, 1.0) forwards',
-				// Enhanced Video Transitions with Staggered Timing
-				'video-fade-out-smooth': 'video-fade-out-smooth 750ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
-				'video-fade-in-smooth': 'video-fade-in-smooth 750ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
@@ -283,8 +235,6 @@ export default {
 			transitionTimingFunction: {
 				'smooth': 'var(--transition-smooth)',
 				'spring': 'var(--transition-spring)',
-				'video-crossfade': 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-				'video-blend': 'cubic-bezier(0.23, 1, 0.32, 1)',
 			}
 		}
 	},
