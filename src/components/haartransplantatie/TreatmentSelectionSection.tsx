@@ -45,8 +45,8 @@ export const TreatmentSelectionSection = () => {
   useEffect(() => {
     if (comesFromHome) {
       const timers = [
-        setTimeout(() => setButtonsLoaded(prev => [true, prev[1]]), 1700),
-        setTimeout(() => setButtonsLoaded(prev => [prev[0], true]), 1800), // 100ms gap
+        setTimeout(() => setButtonsLoaded(prev => [true, prev[1]]), 1950),
+        setTimeout(() => setButtonsLoaded(prev => [prev[0], true]), 2000), // 50ms gap
       ];
       
       return () => timers.forEach(clearTimeout);
@@ -177,7 +177,7 @@ export const TreatmentSelectionSection = () => {
         <div 
           className={`flex justify-center ${spacing.country} relative ${comesFromHome ? 'opacity-0 animate-fade-entrance' : 'opacity-100'}`}
           style={{ 
-            animationDelay: comesFromHome ? '1200ms' : '0ms'
+            animationDelay: comesFromHome ? '1700ms' : '0ms'
           }}
         >
           <p className="font-lato text-[13px] font-normal text-white/90">
@@ -188,7 +188,7 @@ export const TreatmentSelectionSection = () => {
         {/* Package Selection */}
         <div 
           className={`flex justify-center ${spacing.package} ${comesFromHome ? 'opacity-0 animate-fade-entrance' : 'opacity-100'}`}
-          style={{ animationDelay: comesFromHome ? '1300ms' : '0ms' }}
+          style={{ animationDelay: comesFromHome ? '1750ms' : '0ms' }}
         >
           <div 
             className="inline-flex p-0.5 rounded-full relative"
@@ -228,7 +228,7 @@ export const TreatmentSelectionSection = () => {
         {/* Dynamic Package Content */}
         <div 
           className={`text-center ${spacing.content} ${comesFromHome ? 'opacity-0 animate-fade-entrance' : 'opacity-100'}`}
-          style={{ animationDelay: comesFromHome ? '1400ms' : '0ms' }}
+          style={{ animationDelay: comesFromHome ? '1800ms' : '0ms' }}
         >
           <div className="max-w-56 mx-auto">
             {packageContent[profile.selectedPackage as keyof typeof packageContent]?.map((item, index) => {
@@ -270,7 +270,7 @@ export const TreatmentSelectionSection = () => {
             {/* Cost Display - moved inside content section */}
             <div 
               className={`text-center mt-4 ${comesFromHome ? 'opacity-0 animate-fade-entrance' : 'opacity-100'}`}
-              style={{ animationDelay: comesFromHome ? '1500ms' : '0ms' }}
+              style={{ animationDelay: comesFromHome ? '1850ms' : '0ms' }}
             >
               <p className={`font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal text-white/70 transition-all duration-300 ${
                 priceFlash ? 'bg-white/60 px-3 py-1 rounded-full shadow-sm' : ''
@@ -282,7 +282,7 @@ export const TreatmentSelectionSection = () => {
             {/* More Details Button */}
             <div 
               className={`text-center mt-6 ${comesFromHome ? 'opacity-0 animate-fade-entrance' : 'opacity-100'}`}
-              style={{ animationDelay: comesFromHome ? '1600ms' : '0ms' }}
+              style={{ animationDelay: comesFromHome ? '1900ms' : '0ms' }}
             >
               <button 
                 className="px-6 py-3 rounded-full font-lato text-[12px] font-medium text-white border border-white/50 hover:border-white/70 hover:bg-white/10 transition-all duration-300"
