@@ -4,7 +4,7 @@ import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { MetaHead } from '@/components/MetaHead';
 import { PageTransition } from '@/components/PageTransition';
 import { ScrollFadeLogo } from '@/components/ScrollFadeLogo';
-import { ShieldIcon } from '@/components/logos/ShieldIcon';
+import { VideoShieldIcon } from '@/components/logos/VideoShieldIcon';
 import { TreatmentSelectionSection } from '@/components/haartransplantatie/TreatmentSelectionSection';
 import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
@@ -107,7 +107,7 @@ const HaartransplantatiePage = () => {
                   transform: 'translateX(-50%)'
                 }}
               >
-                <ShieldIcon />
+                <VideoShieldIcon />
               </div>
             </div>
 
