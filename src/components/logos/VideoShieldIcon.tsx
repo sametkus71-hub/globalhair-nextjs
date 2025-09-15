@@ -28,7 +28,7 @@ export const VideoShieldIcon = ({ className }: VideoShieldIconProps) => {
         height: '100%',
       }}
     >
-      <source src="https://GlobalHair.b-cdn.net/Logo/GlobalHair_0010_v003.mp4" type="video/mp4" />
+      <source src="https://GlobalHair.b-cdn.net/Logo/Ontwerp%20zonder%20titel%20(2).gif" type="image/gif" />
       {/* Fallback content for browsers that don't support video */}
       <ShieldIcon className={className} />
     </video>
