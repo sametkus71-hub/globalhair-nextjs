@@ -171,41 +171,16 @@ export const TreatmentSelectionSection = () => {
           </p>
         </div>
 
-        {/* Country Selection */}
+        {/* Country Text */}
         <div 
           className={`flex justify-center ${spacing.country} relative ${comesFromHome ? 'opacity-0 animate-fade-entrance' : 'opacity-100'}`}
           style={{ 
-            zIndex: 9999,
             animationDelay: comesFromHome ? '2000ms' : '0ms' // 1300ms + 700ms pause = 2000ms
           }}
         >
-          <div 
-            className="inline-flex p-0.5 rounded-full"
-            style={{
-              background: 'rgba(228, 229, 224, 0.1)',
-              backdropFilter: 'blur(30px)',
-              border: '1px solid rgba(255, 255, 255, 0.5)',
-              boxShadow: '0px 0px 8.4px 1px rgba(255, 255, 255, 0.25) inset',
-            }}
-          >
-            {['Nederland', 'Turkije'].map((country) => (
-              <button
-                key={country}
-                onClick={() => updateProfile('locatie', country)}
-                className={`px-3 py-2 rounded-full font-lato text-[11px] font-medium transition-all duration-300 ease-out ${
-                  profile.locatie === country
-                    ? 'text-white'
-                    : 'text-white/80 hover:text-white'
-                }`}
-                style={profile.locatie === country ? {
-                  background: 'rgba(255, 255, 255, 0.5)',
-                  boxShadow: '10px 3px 15px 0px rgba(0, 0, 0, 0.4)'
-                } : {}}
-              >
-                {country}
-              </button>
-            ))}
-          </div>
+          <p className="font-lato text-[13px] font-normal text-white/90">
+            Nederland | Turkije
+          </p>
         </div>
 
         {/* Package Selection */}
