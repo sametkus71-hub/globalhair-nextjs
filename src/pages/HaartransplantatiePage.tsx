@@ -90,7 +90,7 @@ const HaartransplantatiePage = () => {
           >
             {/* Central Logo at top */}
             <div 
-              className={`w-full relative z-[100] pointer-events-none -mt-4 ${comesFromHome ? 'opacity-0 animate-logo-entrance' : 'opacity-100'}`}
+              className={`w-full relative z-[100] pointer-events-none -mt-8 ${comesFromHome ? 'opacity-0 animate-logo-entrance' : 'opacity-100'}`}
               style={{ 
                 marginLeft: '50vw',
                 paddingTop: '8px',
