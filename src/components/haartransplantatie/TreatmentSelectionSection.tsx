@@ -43,12 +43,12 @@ export const TreatmentSelectionSection = () => {
   const packages = [
     { 
       id: 'Standard', 
-      label: 'Basic',
+      label: 'Standard',
       isNew: false
     },
     { 
       id: 'Premium', 
-      label: 'Plus',
+      label: 'Premium',
       isNew: false
     },
     { 
