@@ -103,7 +103,7 @@ export const NewPackageContent = () => {
       </div>
 
       {/* Separator */}
-      <div className={`px-6 ${heightBreakpoint === 'small' ? '-mt-2 -mb-2' : 'mt-3'}`}>
+      <div className={`px-6 -mt-4 -mb-4 ${heightBreakpoint === 'small' ? '' : 'mt-3'}`}>
         <Separator className="bg-white/20" />
       </div>
 
