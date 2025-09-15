@@ -81,10 +81,9 @@ export const NewPackageContent = () => {
       </div>
 
       {/* More Details Button */}
-      <div className="flex justify-center mt-4">
+      <div className="flex justify-center -mt-2 -mb-3">
         <ShinyButton 
           onClick={() => console.log('More information clicked')}
-          className="scale-75 transform origin-center"
         >
           {language === 'nl' ? 'Meer informatie' : 'More information'}
         </ShinyButton>
