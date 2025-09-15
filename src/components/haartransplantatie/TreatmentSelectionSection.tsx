@@ -307,14 +307,11 @@ export const TreatmentSelectionSection = () => {
               className={`text-center mt-6 ${comesFromHome ? 'opacity-0 animate-fade-entrance' : 'opacity-100'}`}
               style={{ animationDelay: comesFromHome ? '2400ms' : '0ms' }} // 2300ms + 100ms = 2400ms
             >
-              <button
-                onClick={() => {
-                  sessionStorage.setItem('previousPath', window.location.pathname);
-                  navigate(language === 'nl' ? '/nl/behandelopties' : '/en/treatment-options');
-                }}
-                className="px-6 py-3 rounded-full font-lato text-[12px] font-medium text-white border border-white/50 hover:border-white/70 hover:bg-white/10 transition-all duration-300"
+              <button 
+                disabled
+                className="px-6 py-3 rounded-full font-lato text-[12px] font-medium text-white/50 border border-white/30 cursor-not-allowed opacity-50 transition-all duration-300"
                 style={{
-                  background: 'rgba(255, 255, 255, 0.05)',
+                  background: 'rgba(255, 255, 255, 0.02)',
                   backdropFilter: 'blur(20px)'
                 }}
               >
