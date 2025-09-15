@@ -49,7 +49,18 @@ const shuffleArray = <T>(array: T[]): T[] => {
 export const generateRandomGrid = (): GridItem[] => {
   // Shuffle all content pools
   const shuffledQuotes = shuffleArray(QUOTES);
-  const shuffledBeforeAfter = shuffleArray(BEFORE_AFTER_ITEMS);
+  
+  // Ensure FD after.jpg always appears by placing it first
+  const priorityImage = BEFORE_AFTER_ITEMS.find(item => 
+    item.image.includes('FD%20after.jpg')
+  );
+  const otherImages = BEFORE_AFTER_ITEMS.filter(item => 
+    !item.image.includes('FD%20after.jpg')
+  );
+  const shuffledBeforeAfter = priorityImage 
+    ? [priorityImage, ...shuffleArray(otherImages)]
+    : shuffleArray(BEFORE_AFTER_ITEMS);
+  
   const shuffledPatientVideos = shuffleArray(VIDEOS); // Patient testimonials
   const shuffledBerkantVideos = shuffleArray(BERKANT_VIDEOS); // Berkant videos
 

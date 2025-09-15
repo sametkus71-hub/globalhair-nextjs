@@ -197,8 +197,4 @@ export const BEFORE_AFTER_ITEMS: BeforeAfterItem[] = [
     id: 'before-after-47',
     image: 'https://GlobalHair.b-cdn.net/reviews%20-%20before-after/Items%20aangeleverd%20door%20Peter/FD%20after.jpg'
   },
-  {
-    id: 'before-after-48',
-    image: 'https://GlobalHair.b-cdn.net/reviews%20-%20before-after/Items%20aangeleverd%20door%20Peter/Frans%20duitjs%20Before.jpg'
-  }
 ];
