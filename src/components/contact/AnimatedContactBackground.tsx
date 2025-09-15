@@ -1,44 +1,25 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 
 export const AnimatedContactBackground = () => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
     <div className="fixed inset-0 w-full h-screen overflow-hidden z-0">
-      {/* Layer 1: Static gradient background for color tones */}
+      {/* Base dark to green gradient background */}
       <div 
-        className="absolute inset-0 w-full h-full"
-        style={{
-          backgroundImage: `url('/lovable-uploads/86cb639c-d2f7-42bd-9923-1441196d2ca2.png')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
+        className="absolute inset-0"
+        style={{ 
+          background: 'linear-gradient(to bottom, #2A2B29 0%, #3A3B35 30%, #5A615A 60%, #74998E 100%)',
+          animation: 'subtle-breathe 8s ease-in-out infinite alternate'
         }}
       />
-
-      {/* Layer 2: Animated gradient blobs */}
-      <div className="absolute inset-0 w-full h-full">
-        {/* Blob 1 - Top Right */}
-        <div 
-          className="absolute w-[600px] h-[600px] rounded-full animate-contact-blob-breathing-1"
-          style={{
-            background: 'radial-gradient(circle, rgba(0, 200, 255, 0.4) 0%, rgba(0, 150, 255, 0.2) 40%, rgba(0, 100, 255, 0.1) 70%, transparent 100%)',
-            filter: 'blur(30px)',
-            top: '-5%',
-            right: '-5%',
-          }}
-        />
-        
-        {/* Blob 2 - Bottom Left */}
-        <div 
-          className="absolute w-[550px] h-[550px] rounded-full animate-contact-blob-breathing-2"
-          style={{
-            background: 'radial-gradient(circle, rgba(255, 100, 150, 0.4) 0%, rgba(255, 50, 100, 0.2) 40%, rgba(255, 0, 80, 0.1) 70%, transparent 100%)',
-            filter: 'blur(25px)',
-            bottom: '-5%',
-            left: '-10%',
-          }}
-        />
-      </div>
-
+      
       {/* Layer 3: Static topographic pattern overlay with gradient fade */}
       <div 
         className="absolute inset-0 w-full h-full opacity-10"
@@ -52,6 +33,19 @@ export const AnimatedContactBackground = () => {
           WebkitMask: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)'
         }}
       />
+      
+      <style>{`
+        @keyframes subtle-breathe {
+          0%, 100% {
+            transform: scale(1);
+            opacity: 1;
+          }
+          50% {
+            transform: scale(1.002);
+            opacity: 0.98;
+          }
+        }
+      `}</style>
     </div>
   );
 };
