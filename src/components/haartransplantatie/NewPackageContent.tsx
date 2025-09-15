@@ -79,7 +79,7 @@ export const NewPackageContent = () => {
     <div className="space-y-6">
       {/* Package Items */}
       <div className="flex flex-col items-center">
-        <div className="space-y-1 w-48 ml-12">
+        <div className="space-y-1 w-48 ml-16">
           {content.items.map((item, index) => (
             <div key={index} className="flex items-center justify-start space-x-2 w-full">
               <div className="w-5 flex justify-center">
