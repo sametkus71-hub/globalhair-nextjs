@@ -109,7 +109,7 @@ export const NewPackageContent = () => {
 
       {/* Strength Meter */}
       <div className="px-2">
-        <StrengthMeter package={profile.selectedPackage} className="-mt-6" />
+        <StrengthMeter package={profile.selectedPackage} className="-mt-4" />
       </div>
     </div>
   );
