@@ -16,7 +16,7 @@ export const AnimatedLogoGif = ({ className }: AnimatedLogoGifProps) => {
 
   return (
     <img
-      src="https://GlobalHair.b-cdn.net/Logo/Ontwerp%20zonder%20titel%20(2).gif"
+      src="https://GlobalHair.b-cdn.net/Logo/Ontwerp%20zonder%20titel%20(3).gif"
       alt="Global Hair Logo"
       className={cn("w-full h-full object-contain", className)}
       onError={() => setGifError(true)}
