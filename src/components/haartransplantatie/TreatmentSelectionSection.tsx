@@ -3,16 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useSession } from '@/hooks/useSession';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
-import { Info, BookOpen } from 'lucide-react';
-import { calculatePrice, formatPrice } from '@/lib/pricing';
-import { ShieldIcon } from '@/components/logos/ShieldIcon';
+import { NewPackageContent } from './NewPackageContent';
 
 export const TreatmentSelectionSection = () => {
   const { language } = useLanguage();
   const { profile, updateProfile } = useSession();
   const { heightBreakpoint } = useViewportHeight();
   const navigate = useNavigate();
-  const [priceFlash, setPriceFlash] = useState(false);
   const [buttonsLoaded, setButtonsLoaded] = useState([false, false]);
   
   // Check if user comes from home page
@@ -28,18 +25,6 @@ export const TreatmentSelectionSection = () => {
   };
   
   const [comesFromHome] = useState(() => isFromHomePage());
-  
-  const totalPrice = calculatePrice(profile);
-
-  // Force recompilation to clear cached version with spacing references - v3
-  console.log('TreatmentSelectionSection3 loaded successfully - height-based spacing active');
-
-  // Flash effect when price changes
-  useEffect(() => {
-    setPriceFlash(true);
-    const timer = setTimeout(() => setPriceFlash(false), 300);
-    return () => clearTimeout(timer);
-  }, [totalPrice]);
 
   // Staggered button entrance animation
   useEffect(() => {
@@ -73,40 +58,6 @@ export const TreatmentSelectionSection = () => {
     }
   ];
 
-  // Red color for "nieuw" label (only shown on Advanced package)
-  const getLabelColor = () => {
-    return '#69252C'; // Dark red color for "Nieuw" label
-  };
-
-  const packageContent = {
-    Standard: [
-      "FUE Saffier",
-      "GHI Precision Method™",
-      "1 Year Personal Aftercare",
-      "————————————————————",
-      "🌱 Natural growth"
-    ],
-    Premium: [
-      "FUE Saffier / DHI",
-      "Comfort Verdoving",
-      "V6 Hairboost® - Pre-Treatment",
-      "V6 Hairboost® – 1 Year Subscription",
-      "GHI Precision Method™",
-      "1 Year Personal Aftercare",
-      "————————————————————",
-      "Recovery x2 faster",
-      "🌱🌱 + More density & growth"
-    ],
-    Advanced: [
-      "FUE Saffier / DHI",
-      "GHI Stemcell Repair™",
-      "Comfort Verdoving",
-      "V6 Hairboost® - Pre-Treatment",
-      "V6 Hairboost® – 1 Year Subscription",
-      "GHI Precision Method™",
-      "1 Year Personal Aftercare"
-    ]
-  };
 
   // Dynamic spacing based on viewport height breakpoints
   const getSpacing = () => {
@@ -225,75 +176,13 @@ export const TreatmentSelectionSection = () => {
           </div>
         </div>
 
-        {/* Dynamic Package Content */}
+        {/* New Package Content */}
         <div 
           className={`text-center ${spacing.content} ${comesFromHome ? 'opacity-0 animate-fade-entrance' : 'opacity-100'}`}
           style={{ animationDelay: comesFromHome ? '1800ms' : '0ms' }}
         >
           <div className="max-w-56 mx-auto">
-            {packageContent[profile.selectedPackage as keyof typeof packageContent]?.map((item, index) => {
-              // Check if item is a separator
-              if (item.startsWith('————')) {
-                return (
-                  <div key={index} className="my-3 px-4">
-                    <div className="h-px bg-white/30 w-full"></div>
-                  </div>
-                );
-              }
-              
-              // Check if item is a benefit line (starts with emoji or contains emoji)
-              const isBenefitLine = /^[🌱💪⚡🎯]|Recovery x2|More density/.test(item);
-              
-              if (isBenefitLine) {
-                return (
-                  <div key={index} className="text-center my-2">
-                    <p className="font-lato text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] font-light text-white/90" style={{ lineHeight: '1.1' }}>
-                      {item}
-                    </p>
-                  </div>
-                );
-              }
-              
-              // Regular feature item with shield icon
-              return (
-                <div key={index} className="flex items-center justify-start -mb-6 -mt-5 text-left relative" style={{ zIndex: 1 }}>
-                  <div className="w-12 h-12 -mr-1 flex-shrink-0 pt-2 relative" style={{ zIndex: 1 }}>
-                    <ShieldIcon className="w-full h-full [&_.cls-1]:fill-white" />
-                  </div>
-                  <p className="font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-light text-white" style={{ lineHeight: '0.9' }}>
-                    {item}
-                  </p>
-                </div>
-              );
-            })}
-            
-            {/* Cost Display - moved inside content section */}
-            <div 
-              className={`text-center mt-4 ${comesFromHome ? 'opacity-0 animate-fade-entrance' : 'opacity-100'}`}
-              style={{ animationDelay: comesFromHome ? '1850ms' : '0ms' }}
-            >
-              <p className={`font-lato text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] font-normal text-white/70 transition-all duration-300 ${
-                priceFlash ? 'bg-white/60 px-3 py-1 rounded-full shadow-sm' : ''
-              }`}>
-                Geschatte kosten: {formatPrice(totalPrice)}
-              </p>
-            </div>
-
-            {/* More Details Button */}
-            <div 
-              className={`text-center mt-6 ${comesFromHome ? 'opacity-0 animate-fade-entrance' : 'opacity-100'}`}
-              style={{ animationDelay: comesFromHome ? '1900ms' : '0ms' }}
-            >
-              <button 
-                className="px-6 py-3 rounded-full font-lato text-[12px] font-medium text-white border border-white/50 hover:border-white/70 hover:bg-white/10 transition-all duration-300"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  backdropFilter: 'blur(20px)'
-                }}
-              >
-                {language === 'nl' ? 'Meer details' : 'More details'}
-              </button>
-            </div>
+            <NewPackageContent />
           </div>
         </div>
       </div>
