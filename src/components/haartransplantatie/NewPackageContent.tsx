@@ -81,7 +81,7 @@ export const NewPackageContent = () => {
       </div>
 
       {/* More Details Button */}
-      <div className="flex justify-center -mt-2 -mb-3">
+      <div className="flex justify-center -mt-2 -mb-8">
         <ShinyButton 
           onClick={() => console.log('More information clicked')}
         >

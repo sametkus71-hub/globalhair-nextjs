@@ -40,9 +40,9 @@ export function ShinyButton({ children, onClick, className = "" }: ShinyButtonPr
         }
 
         .shiny-cta {
-          --shiny-cta-bg: rgba(0, 0, 0, 0.3);
-          --shiny-cta-bg-subtle: rgba(26, 24, 24, 0.4);
-          --shiny-cta-fg: #ffffff;
+          --shiny-cta-bg: rgba(255, 255, 255, 0.95);
+          --shiny-cta-bg-subtle: rgba(240, 240, 240, 0.8);
+          --shiny-cta-fg: #000000;
           --shiny-cta-highlight: blue;
           --shiny-cta-highlight-subtle: #8484ff;
           --animation: gradient-angle linear infinite;
@@ -55,7 +55,7 @@ export function ShinyButton({ children, onClick, className = "" }: ShinyButtonPr
           overflow: hidden;
           cursor: pointer;
           outline-offset: 4px;
-          padding: 0.75rem 1.5rem;
+          padding: 0.75rem 2rem;
           font-family: var(--font-body), -apple-system, BlinkMacSystemFont, sans-serif;
           font-size: 0.75rem;
           line-height: 1.2;
