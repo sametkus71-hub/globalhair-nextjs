@@ -27,12 +27,22 @@ export const AnimatedRecoveryIcon = ({ level, className }: AnimatedRecoveryIconP
     };
   }, [level]);
 
+  const getOpacityForElement = (elementIndex: number) => {
+    if (elementIndex === level) return 1.0; // Last active element is always fully white
+    if (elementIndex < level) {
+      // Previous elements have graduated opacity
+      if (level === 2) return 0.5;
+      if (level === 3) return elementIndex === 1 ? 0.5 : 0.75;
+    }
+    return 0.2; // Ghost elements
+  };
+
   const recoveryElements = [
     // First recovery arrow (leftmost)
     {
       svg: (
         <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2.53646 0.396885C1.13567 -0.533975 0 0.228597 0 2.09878V15.8999C0 17.7719 1.13567 18.5335 2.53646 17.6035L12.9491 10.6856C14.3503 9.75437 14.3503 8.24571 12.9491 7.31474L2.53646 0.396885Z" fill="white" fillOpacity="0.5"/>
+          <path d="M2.53646 0.396885C1.13567 -0.533975 0 0.228597 0 2.09878V15.8999C0 17.7719 1.13567 18.5335 2.53646 17.6035L12.9491 10.6856C14.3503 9.75437 14.3503 8.24571 12.9491 7.31474L2.53646 0.396885Z" fill="white"/>
         </svg>
       ),
       position: 'left-0'
@@ -41,7 +51,7 @@ export const AnimatedRecoveryIcon = ({ level, className }: AnimatedRecoveryIconP
     {
       svg: (
         <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2.53646 0.396885C1.13567 -0.533975 0 0.228597 0 2.09878V15.8999C0 17.7719 1.13567 18.5335 2.53646 17.6035L12.9491 10.6856C14.3503 9.75437 14.3503 8.24571 12.9491 7.31474L2.53646 0.396885Z" fill="white" fillOpacity="0.75"/>
+          <path d="M2.53646 0.396885C1.13567 -0.533975 0 0.228597 0 2.09878V15.8999C0 17.7719 1.13567 18.5335 2.53646 17.6035L12.9491 10.6856C14.3503 9.75437 14.3503 8.24571 12.9491 7.31474L2.53646 0.396885Z" fill="white"/>
         </svg>
       ),
       position: 'left-3'
@@ -63,7 +73,7 @@ export const AnimatedRecoveryIcon = ({ level, className }: AnimatedRecoveryIconP
         const elementIndex = index + 1;
         const isActive = elementIndex <= level;
         const hasAnimated = elementIndex <= animationPhase;
-        const isGhost = elementIndex > level;
+        const elementOpacity = getOpacityForElement(elementIndex);
         
         return (
           <div
@@ -71,11 +81,14 @@ export const AnimatedRecoveryIcon = ({ level, className }: AnimatedRecoveryIconP
             className={cn(
               "absolute transition-all duration-300 ease-out",
               element.position,
-              isActive && hasAnimated ? "opacity-100 translate-x-0" : 
-              isActive ? "opacity-0 -translate-x-2" :
-              "opacity-20" // Ghost state
+              isActive && hasAnimated ? "translate-x-0" : 
+              isActive ? "-translate-x-2" :
+              ""
             )}
             style={{
+              opacity: isActive && hasAnimated ? elementOpacity : 
+                      isActive ? 0 :
+                      elementOpacity,
               transitionDelay: `${index * 200}ms`
             }}
           >
