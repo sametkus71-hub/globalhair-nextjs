@@ -138,29 +138,36 @@ export const TreatmentSelectionSection = () => {
           <div 
             className="inline-flex p-0.5 rounded-full relative"
             style={{
-              background: 'rgba(228, 229, 224, 0.1)',
-              backdropFilter: 'blur(30px)',
-              border: '1px solid rgba(255, 255, 255, 0.5)',
-              boxShadow: '0px 0px 8.4px 1px rgba(255, 255, 255, 0.25) inset',
+              background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.25), rgba(40, 40, 40, 0.15))',
+              backdropFilter: 'blur(40px)',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
+              boxShadow: '0 0 20px rgba(255, 255, 255, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.2), inset 0 -1px 2px rgba(0, 0, 0, 0.1)',
             }}
           >
             {packages.map((pkg) => (
               <div key={pkg.id} className="relative">
                 {pkg.isNew && (
-                  <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 z-10 px-1.5 py-0.5 rounded-full font-lato text-[6px] font-medium text-white" style={{ background: '#692126', backdropFilter: 'blur(10px)' }}>
+                  <div 
+                    className="absolute -top-2 left-1/2 transform -translate-x-1/2 z-10 px-1.5 py-0.5 rounded-full font-lato text-[6px] font-medium text-white"
+                    style={{ 
+                      background: 'linear-gradient(135deg, #8B2635, #692126)',
+                      backdropFilter: 'blur(10px)',
+                      boxShadow: '0 2px 8px rgba(139, 38, 53, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.2)'
+                    }}
+                  >
                     Nieuw
                   </div>
                 )}
                 <button
                   onClick={() => updateProfile('selectedPackage', pkg.id)}
-                  className={`px-3 py-2.5 rounded-full font-lato text-[13px] font-medium transition-all duration-300 ease-out ${
+                  className={`px-3 py-2.5 rounded-full font-lato text-[13px] font-medium transition-all duration-300 ease-out relative overflow-hidden ${
                     profile.selectedPackage === pkg.id
-                      ? 'text-white'
-                      : 'text-white/80 hover:text-white'
+                      ? 'text-white premium-glow'
+                      : 'text-white/80 hover:text-white hover:bg-white/5'
                   }`}
                   style={profile.selectedPackage === pkg.id ? {
-                    background: 'rgba(255, 255, 255, 0.5)',
-                    boxShadow: '10px 3px 15px 0px rgba(0, 0, 0, 0.4)'
+                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.4))',
+                    boxShadow: '0 8px 25px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.3), inset 0 -1px 2px rgba(0, 0, 0, 0.1)'
                   } : {}}
                 >
                   {pkg.label}
