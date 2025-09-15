@@ -63,6 +63,212 @@ const MissionPage: React.FC = () => {
   }, [berkantVideo]);
   return <>
       <MetaHead title={t('mission.page.title')} description={t('mission.page.description')} language={language} />
+      
+      <style dangerouslySetInnerHTML={{
+        __html: `
+        @property --gradient-opacity {
+          syntax: "<number>";
+          initial-value: 1;
+          inherits: false;
+        }
+
+        @property --gradient-angle {
+          syntax: "<angle>";
+          initial-value: 0deg;
+          inherits: false;
+        }
+
+        @property --gradient-angle-offset {
+          syntax: "<angle>";
+          initial-value: 0deg;
+          inherits: false;
+        }
+
+        @property --gradient-percent {
+          syntax: "<percentage>";
+          initial-value: 5%;
+          inherits: false;
+        }
+
+        @property --gradient-shine {
+          syntax: "<color>";
+          initial-value: white;
+          inherits: false;
+        }
+
+        .shiny-cta {
+          --shiny-cta-bg: rgba(255, 255, 255, 0.95);
+          --shiny-cta-bg-subtle: rgba(240, 240, 240, 0.8);
+          --shiny-cta-fg: #000000;
+          --shiny-cta-highlight: #395A7C;
+          --shiny-cta-highlight-subtle: #4A6B8D;
+          --animation: gradient-angle linear infinite;
+          --duration: 6s;
+          --shadow-size: 2px;
+          --transition: 800ms cubic-bezier(0.25, 1, 0.5, 1);
+          
+          isolation: isolate;
+          position: relative;
+          overflow: hidden;
+          cursor: pointer;
+          outline-offset: 4px;
+          padding: 0.75rem 3rem;
+          font-family: var(--font-body), -apple-system, BlinkMacSystemFont, sans-serif;
+          font-size: 0.75rem;
+          line-height: 1.2;
+          font-weight: 400;
+          letter-spacing: 0.025em;
+          border: 1px solid transparent;
+          border-radius: 360px;
+          color: var(--shiny-cta-fg);
+          background: linear-gradient(var(--shiny-cta-bg), var(--shiny-cta-bg)) padding-box,
+            conic-gradient(
+              from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
+              transparent,
+              color-mix(in srgb, var(--shiny-cta-highlight) calc(var(--gradient-opacity) * 100%), transparent) var(--gradient-percent),
+              color-mix(in srgb, var(--gradient-shine) calc(var(--gradient-opacity) * 100%), transparent) calc(var(--gradient-percent) * 2),
+              color-mix(in srgb, var(--shiny-cta-highlight) calc(var(--gradient-opacity) * 100%), transparent) calc(var(--gradient-percent) * 3),
+              transparent calc(var(--gradient-percent) * 4)
+            ) border-box;
+          box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          transition: var(--transition);
+          transition-property: --gradient-angle-offset, --gradient-percent, --gradient-shine;
+        }
+
+        .shiny-cta::before,
+        .shiny-cta::after,
+        .shiny-cta span::before {
+          content: "";
+          pointer-events: none;
+          position: absolute;
+          inset-inline-start: 50%;
+          inset-block-start: 50%;
+          translate: -50% -50%;
+          z-index: -1;
+        }
+
+        .shiny-cta:active {
+          translate: 0 1px;
+        }
+
+        .shiny-cta::before {
+          --size: calc(100% - var(--shadow-size) * 3);
+          --position: 2px;
+          --space: calc(var(--position) * 2);
+          width: var(--size);
+          height: var(--size);
+          background: radial-gradient(
+            circle at var(--position) var(--position),
+            white calc(var(--position) / 4),
+            transparent 0
+          ) padding-box;
+          background-size: var(--space) var(--space);
+          background-repeat: space;
+          mask-image: conic-gradient(
+            from calc(var(--gradient-angle) + 45deg),
+            black,
+            transparent 10% 90%,
+            black
+          );
+          border-radius: inherit;
+          opacity: 0.4;
+          z-index: -1;
+        }
+
+        .shiny-cta::after {
+          --animation: shimmer linear infinite;
+          width: 100%;
+          aspect-ratio: 1;
+          background: linear-gradient(
+            -50deg,
+            transparent,
+            var(--shiny-cta-highlight),
+            transparent
+          );
+          mask-image: radial-gradient(circle at bottom, transparent 40%, black);
+          opacity: 0.6;
+        }
+
+        .shiny-cta span {
+          z-index: 1;
+        }
+
+        .shiny-cta span::before {
+          --size: calc(100% + 1rem);
+          width: var(--size);
+          height: var(--size);
+          box-shadow: inset 0 -1ex 2rem 4px var(--shiny-cta-highlight);
+          opacity: 0;
+          transition: opacity var(--transition);
+          animation: calc(var(--duration) * 1.5) breathe linear infinite;
+        }
+
+        .shiny-cta,
+        .shiny-cta::before,
+        .shiny-cta::after {
+          animation: var(--animation) var(--duration),
+            var(--animation) calc(var(--duration) / 0.4) reverse paused;
+          animation-composition: add;
+        }
+
+        .shiny-cta:is(:hover, :focus-visible) {
+          --gradient-percent: 20%;
+          --gradient-angle-offset: 95deg;
+          --gradient-shine: var(--shiny-cta-highlight-subtle);
+        }
+
+        .shiny-cta:is(:hover, :focus-visible),
+        .shiny-cta:is(:hover, :focus-visible)::before,
+        .shiny-cta:is(:hover, :focus-visible)::after {
+          animation-play-state: running;
+        }
+
+        .shiny-cta:is(:hover, :focus-visible) span::before {
+          opacity: 1;
+        }
+
+        @keyframes gradient-angle {
+          0% {
+            --gradient-angle: 0deg;
+            --gradient-opacity: 0.6;
+          }
+          25% {
+            --gradient-angle: 90deg;
+            --gradient-opacity: 0.2;
+          }
+          50% {
+            --gradient-angle: 180deg;
+            --gradient-opacity: 0.1;
+          }
+          75% {
+            --gradient-angle: 270deg;
+            --gradient-opacity: 0.2;
+          }
+          100% {
+            --gradient-angle: 360deg;
+            --gradient-opacity: 0.6;
+          }
+        }
+
+        @keyframes shimmer {
+          to {
+            rotate: 360deg;
+          }
+        }
+
+        @keyframes breathe {
+          from, to {
+            scale: 1;
+          }
+          50% {
+            scale: 1.2;
+          }
+        }
+        `
+      }} />
+      
       <div className={`fixed inset-0 w-full h-full overflow-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
         {berkantVideo ?
       // Berkant Video Background
@@ -77,7 +283,7 @@ const MissionPage: React.FC = () => {
         <PopupCloseButton onClose={handleClose} />
         
         {/* Content overlay - split into top and bottom containers */}
-        <div className="relative z-10 w-full h-full flex flex-col justify-between px-6 py-8 pb-40">
+        <div className="relative z-10 w-full h-full flex flex-col justify-between px-6 py-8 pb-20">
           {/* Top container - Title */}
           <div className={`pt-6 text-center transition-all duration-500 ease-out ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-white leading-[0.85] tracking-wide">
@@ -91,15 +297,18 @@ const MissionPage: React.FC = () => {
           {/* Bottom container - Description and Button */}
           <div className="space-y-6">
             <div className={`max-w-md transition-all duration-500 ease-out ${contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              <p className="text-xs md:text-sm text-white/80 leading-tight font-light text-left">
+              <p className="text-xs leading-snug font-light text-left text-white/90">
                 {language === 'nl' ? 'Founder & Medisch Directeur, Berkant Dural, zag al op jonge leeftijd wat erfelijk haarverlies met zijn vader deed en hij was ervan overtuigd dat dit voorkomen kon worden. Na jaren onderzoek en samenwerkingen met Tricho artsen ontwikkelde hij een werkwijze niet alleen voor zijn.' : 'Founder & Medical Director, Berkant Dural, saw at a young age what hereditary hair loss did to his father and he was convinced that this could be prevented. After years of research and collaborations with Tricho doctors, he developed a method not only for his own hair.'}
               </p>
             </div>
 
             {/* Bottom Button */}
             <div className={`transition-all duration-500 ease-out ${buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              <button onClick={handleMethodsClick} className="py-3 px-8 bg-white/20 backdrop-blur-sm border border-white/30 text-white text-sm font-normal rounded-full hover:bg-white/30 active:scale-[0.98] transition-all duration-300 ease-out">
-                {language === 'nl' ? 'Bekijk methodes' : 'View methods'}
+              <button 
+                onClick={handleMethodsClick} 
+                className="shiny-cta"
+              >
+                <span>{language === 'nl' ? 'Bekijk methodes' : 'View methods'}</span>
               </button>
             </div>
           </div>
