@@ -21,9 +21,9 @@ export const StrengthMeter = ({ package: packageName, className }: StrengthMeter
   const levels = strengthLevels[packageName];
 
   const renderMeterRow = (label: string, level: number, icon: React.ReactNode) => (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between max-w-[140px] mx-auto">
       <span className="font-body text-[11px] font-light text-white/80">{label}</span>
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-1.5">
         <div className="flex space-x-1">
           {[1, 2, 3].map((dot) => (
             <div
@@ -41,14 +41,14 @@ export const StrengthMeter = ({ package: packageName, className }: StrengthMeter
   );
 
   return (
-    <div className={cn("space-y-3", className)}>
+    <div className={cn("space-y-2.5", className)}>
       {renderMeterRow(
-        language === 'nl' ? 'Groei' : 'Growth',
+        'Growth',
         levels.growth,
         <LeafIcon className="w-3 h-3" />
       )}
       {renderMeterRow(
-        language === 'nl' ? 'Herstel' : 'Recovery',
+        'Recovery',
         levels.recovery,
         <PlayButtonIcon className="w-3 h-3" />
       )}

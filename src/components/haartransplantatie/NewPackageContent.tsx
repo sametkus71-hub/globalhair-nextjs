@@ -63,19 +63,21 @@ export const NewPackageContent = () => {
   return (
     <div className="space-y-6">
       {/* Package Items */}
-      <div className="space-y-3 flex flex-col items-center">
-        {content.items.map((item, index) => (
-          <div key={index} className="flex items-center space-x-3">
-            {item.icon}
-            <span className="font-body text-[12px] font-light text-white/90">
-              {item.name}
-            </span>
-          </div>
-        ))}
+      <div className="flex flex-col items-center">
+        <div className="space-y-1.5">
+          {content.items.map((item, index) => (
+            <div key={index} className="flex items-center justify-start space-x-3 w-full">
+              {item.icon}
+              <span className="font-body text-[12px] font-light text-white/90 text-left">
+                {item.name}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* More Details Button */}
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-4">
         <button className="px-4 py-1.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm">
           <span className="font-body text-[10px] font-light text-white/90">
             {language === 'nl' ? 'Meer informatie' : 'More information'}
@@ -84,12 +86,12 @@ export const NewPackageContent = () => {
       </div>
 
       {/* Separator */}
-      <div className="px-6">
+      <div className="px-6 mt-3">
         <Separator className="bg-white/20" />
       </div>
 
       {/* Strength Meter */}
-      <div className="px-2">
+      <div className="px-2 mt-3">
         <StrengthMeter package={profile.selectedPackage} />
       </div>
     </div>
