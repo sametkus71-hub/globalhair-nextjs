@@ -147,7 +147,7 @@ const MissionPage: React.FC = () => {
           color: var(--shiny-cta-fg);
           background: var(--shiny-cta-bg) padding-box,
             conic-gradient(
-              from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
+              from calc(var(--gradient-angle) - var(--gradient-angle-offset)) at center center,
               transparent,
               color-mix(in srgb, var(--shiny-cta-highlight) calc(var(--gradient-opacity) * 3%), transparent) var(--gradient-percent),
               color-mix(in srgb, var(--gradient-shine) calc(var(--gradient-opacity) * 5%), transparent) calc(var(--gradient-percent) * 2),
