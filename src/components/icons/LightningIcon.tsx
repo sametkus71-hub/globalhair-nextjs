@@ -6,7 +6,7 @@ interface LightningIconProps {
 
 export const LightningIcon = ({ className }: LightningIconProps) => {
   return (
-    <svg width="17" height="25" viewBox="0 0 28 42" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(10)" className={className}>
+    <svg width="20" height="25" viewBox="0 0 28 42" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(10)" className={className}>
       <g filter="url(#filter0_d_36_1230)">
         <path d="M23.115 18.2681H14.0106L16.1555 4L4.10608 23.569H13.2105L11.0655 37.8383L23.115 18.2681Z" fill="white"/>
       </g>
