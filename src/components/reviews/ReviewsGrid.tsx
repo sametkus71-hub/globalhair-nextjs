@@ -96,15 +96,12 @@ const VideoCard = ({
 const BeforeAfterCard = ({ item }: { item: BeforeAfterItem }) => (
   <div className="w-full h-full relative overflow-hidden">
     <img 
-      src={item.beforeImage}
-      alt={`${item.patientName} - Before ${item.treatmentType}`}
+      src={item.image}
+      alt="Hair transplant before/after result"
       className="w-full h-full object-cover"
       loading="lazy"
       decoding="async"
     />
-    <div className="absolute bottom-2 left-2 bg-black/70 text-white px-2 py-1 rounded text-xs">
-      Before
-    </div>
   </div>
 );
 
@@ -137,15 +134,11 @@ export const ReviewsGrid = () => {
   const videoItems = gridItems.filter(item => item.type === 'video').slice(0, 3);
   const videoItemIds = new Set(videoItems.map(item => item.id));
 
-  // Handle click to navigate to item page with slide animation
+  // Handle click to navigate to item page with slide animation - only for videos now
   const handleItemClick = (item: GridItem) => {
-    if (item.type === 'quote') return; // Quotes are not clickable
-    
-    if (item.type === 'before-after') {
-      const slug = item.data.slug;
-      const itemRoute = language === 'nl' ? `/nl/reviews/${slug}` : `/en/reviews/${slug}`;
-      slideToItem(itemRoute);
-    }
+    // Only quotes and before-after items are not clickable
+    // Videos are handled by their own click handler
+    return;
   };
 
   // Handle video mute/unmute toggle - only one video can be unmuted at a time
@@ -210,11 +203,8 @@ export const ReviewsGrid = () => {
           return (
             <div
               key={item.id}
-              onClick={item.type === 'video' ? undefined : () => handleItemClick(item)}
               className={cn(
-                "grid-item-entrance",
-                item.type === 'quote' ? "cursor-default" : 
-                item.type === 'video' ? "" : "cursor-pointer hover:opacity-90",
+                "grid-item-entrance cursor-default",
                 item.rowSpan === 2 ? "row-span-2" : "row-span-1"
               )}
               style={{
