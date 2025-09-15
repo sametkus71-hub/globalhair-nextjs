@@ -73,7 +73,7 @@ export const PackageLocationSelector = () => {
           {packages.map((pkg) => (
             <div key={pkg.id} className="relative">
               {pkg.isNew && (
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10 px-1.5 py-0.5 rounded-full font-lato text-[6px] font-medium text-white" style={{ background: '#692126', backdropFilter: 'blur(10px)' }}>
+                <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 z-10 px-1.5 py-0.5 rounded-full font-lato text-[6px] font-medium text-white" style={{ background: '#692126', backdropFilter: 'blur(10px)' }}>
                   {language === 'nl' ? 'Nieuw' : 'New'}
                 </div>
               )}
