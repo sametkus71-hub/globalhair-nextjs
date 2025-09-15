@@ -1,5 +1,6 @@
 import { useSession } from '@/hooks/useSession';
 import { useLanguage } from '@/hooks/useLanguage';
+import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { calculatePrice, formatPrice } from '@/lib/pricing';
 import { PenIcon } from '@/components/icons/PenIcon';
 import { LightningIcon } from '@/components/icons/LightningIcon';
@@ -11,6 +12,7 @@ import { ShinyButton } from '@/components/ui/shiny-button';
 export const NewPackageContent = () => {
   const { language } = useLanguage();
   const { profile } = useSession();
+  const { heightBreakpoint } = useViewportHeight();
   const totalPrice = calculatePrice(profile);
 
   // Define simplified package content
@@ -90,7 +92,7 @@ export const NewPackageContent = () => {
       </div>
 
       {/* Separator */}
-      <div className="px-6 mt-3">
+      <div className={`px-6 ${heightBreakpoint === 'small' ? '-mt-2 -mb-2' : 'mt-3'}`}>
         <Separator className="bg-white/20" />
       </div>
 
