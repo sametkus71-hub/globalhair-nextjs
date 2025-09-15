@@ -22,12 +22,54 @@ export const StaticImageGrid = () => {
 
   return (
     <div className="w-full relative">
-      {/* Animated background container */}
-      <div className="absolute inset-0">
-        {/* Animated gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/15 to-accent/10 animate-pulse" />
-        {/* Subtle moving overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-background/5 to-transparent animate-[slide-in-right_8s_ease-in-out_infinite_alternate]" />
+      {/* Multi-layered animated background system */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Base layer - Rich gradient foundation */}
+        <div 
+          className="absolute inset-0 opacity-90"
+          style={{
+            background: `
+              radial-gradient(circle at 20% 30%, hsl(var(--primary) / 0.25) 0%, transparent 50%),
+              radial-gradient(circle at 80% 70%, hsl(var(--secondary) / 0.20) 0%, transparent 50%),
+              radial-gradient(circle at 40% 90%, hsl(var(--accent) / 0.15) 0%, transparent 50%),
+              linear-gradient(135deg, hsl(var(--primary) / 0.12), hsl(var(--secondary) / 0.08))
+            `
+          }}
+        />
+        
+        {/* Flowing gradient overlay */}
+        <div 
+          className="absolute inset-0 opacity-60 animate-gradient-flow"
+          style={{
+            background: `
+              linear-gradient(45deg, hsl(var(--primary) / 0.15), transparent, hsl(var(--secondary) / 0.12)),
+              linear-gradient(135deg, transparent, hsl(var(--accent) / 0.10), transparent),
+              linear-gradient(225deg, hsl(var(--primary-glow) / 0.08), transparent, hsl(var(--primary) / 0.12))
+            `,
+            backgroundSize: '150% 150%, 200% 200%, 180% 180%'
+          }}
+        />
+        
+        {/* Subtle texture overlay */}
+        <div 
+          className="absolute inset-0 opacity-30"
+          style={{
+            background: `
+              radial-gradient(circle at 60% 20%, hsl(var(--foreground) / 0.03) 0%, transparent 40%),
+              radial-gradient(circle at 30% 80%, hsl(var(--foreground) / 0.02) 0%, transparent 40%)
+            `,
+            animation: 'gradient-shift 25s ease-in-out infinite'
+          }}
+        />
+        
+        {/* Dynamic moving accent */}
+        <div 
+          className="absolute inset-0 opacity-40"
+          style={{
+            background: `linear-gradient(90deg, transparent, hsl(var(--primary-glow) / 0.08), transparent)`,
+            animation: 'slide-in-right 12s ease-in-out infinite alternate'
+          }}
+        />
       </div>
       
       {/* Grid container - 5x2 for 10 images */}
@@ -40,18 +82,24 @@ export const StaticImageGrid = () => {
         {shuffledImages.map((image, index) => (
           <div
             key={image.id}
-            className="relative"
+            className="relative group"
             style={{ 
               width: '20vw',
               height: '20vw'
             }}
           >
-            <StaticGridImage
-              src={image.src}
-              alt={image.alt}
-              animationDelay={index * 100}
-              className="w-full h-full"
-            />
+            {/* Image container with subtle styling */}
+            <div className="absolute inset-0 bg-background/10 backdrop-blur-[1px] rounded-sm border border-white/10">
+              <StaticGridImage
+                src={image.src}
+                alt={image.alt}
+                animationDelay={index * 100}
+                className="w-full h-full rounded-sm"
+              />
+            </div>
+            
+            {/* Subtle hover enhancement */}
+            <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-sm" />
           </div>
         ))}
       </div>
