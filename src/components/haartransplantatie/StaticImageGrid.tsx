@@ -27,7 +27,7 @@ export const StaticImageGrid = () => {
         className="grid grid-cols-5 w-full gap-0 relative"
         style={{ 
           gridTemplateRows: 'repeat(2, 20vw)',
-          background: `linear-gradient(45deg, #003C53, #4E7B90, #003C53, #4E7B90)`,
+          background: `linear-gradient(45deg, rgba(0, 60, 83, 0.85), rgba(78, 123, 144, 0.85), rgba(0, 60, 83, 0.85), rgba(78, 123, 144, 0.85))`,
           backgroundSize: '400% 400%',
           animation: 'gradient-flow 6s ease-in-out infinite'
         }}
