@@ -31,12 +31,14 @@ const VideoCard = ({
   video, 
   isMuted, 
   onToggleMute,
+  onMuteButtonClick,
   shouldLoad = false,
   isBerkantVideo = false
 }: { 
   video: VideoItem | BerkantVideoItem; 
   isMuted: boolean; 
   onToggleMute: () => void;
+  onMuteButtonClick: () => void;
   shouldLoad?: boolean;
   isBerkantVideo?: boolean;
 }) => {
@@ -92,13 +94,19 @@ const VideoCard = ({
           Berkant
         </div>
       )}
-      <div className="absolute top-2 right-2 bg-black/70 p-2 rounded-full pointer-events-none">
+      <button 
+        className="absolute top-2 right-2 bg-black/70 p-2 rounded-full cursor-pointer hover:bg-black/80 transition-colors"
+        onClick={(e) => {
+          e.stopPropagation();
+          onMuteButtonClick();
+        }}
+      >
         {isMuted ? (
           <VolumeX className="w-4 h-4 text-white" />
         ) : (
           <Volume2 className="w-4 h-4 text-white" />
         )}
-      </div>
+      </button>
     </div>
   );
 };
@@ -152,7 +160,7 @@ export const ReviewsGrid = () => {
     return;
   };
 
-  // Handle video mute/unmute toggle - only one video can be unmuted at a time
+  // Handle video area click (background) - navigate for Berkant videos, toggle mute for regular videos
   const handleVideoToggleMute = (videoId: string, item?: GridItem) => {
     // Check if this is a Berkant video
     if (item && item.type === 'berkant-video') {
@@ -163,6 +171,11 @@ export const ReviewsGrid = () => {
       // Regular video - toggle mute
       setUnmutedVideoId(prevId => prevId === videoId ? null : videoId);
     }
+  };
+
+  // Handle mute button click - always toggle mute for all video types
+  const handleMuteButtonClick = (videoId: string) => {
+    setUnmutedVideoId(prevId => prevId === videoId ? null : videoId);
   };
 
   // Progressive loading effect
@@ -241,6 +254,7 @@ export const ReviewsGrid = () => {
                   video={item.data} 
                   isMuted={unmutedVideoId !== item.id}
                   onToggleMute={() => handleVideoToggleMute(item.id, item)}
+                  onMuteButtonClick={() => handleMuteButtonClick(item.id)}
                   shouldLoad={isVideoSlot}
                   isBerkantVideo={item.type === 'berkant-video'}
                 />
