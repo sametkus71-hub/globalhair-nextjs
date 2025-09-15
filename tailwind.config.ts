@@ -265,6 +265,10 @@ export default {
 						backgroundPosition: '15% 15%, 85% 15%, 85% 85%, 15% 85%',
 						backgroundSize: '140% 140%, 130% 130%, 150% 150%, 135% 135%'
 					}
+				},
+				'shine': {
+					'0%': { 'background-position': '100%' },
+					'100%': { 'background-position': '-100%' },
 				}
 			},
 			animation: {
@@ -278,6 +282,8 @@ export default {
 				'logo-entrance': 'logo-entrance 1s ease-out forwards',
 				'fade-entrance': 'fade-entrance 0.3s ease-out forwards',
 				'gradient-flow': 'gradient-flow 20s ease-in-out infinite',
+				'shine': 'shine 3s linear infinite',
+				'shine': 'shine 3s linear infinite',
 				'ios-bottom-sheet-enter': 'iosBottomSheetEnter 0.4s cubic-bezier(0.2, 0.0, 0, 1.0) forwards',
 				'ios-bottom-sheet-exit': 'iosBottomSheetExit 0.35s cubic-bezier(0.4, 0.0, 1, 1.0) forwards',
 				// Enhanced Video Transitions with Staggered Timing

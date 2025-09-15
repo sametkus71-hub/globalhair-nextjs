@@ -3,6 +3,7 @@ import { usePopupTransition } from '@/hooks/usePopupTransition';
 import { useLocation } from 'react-router-dom';
 import { useSession } from '@/hooks/useSession';
 import { useBookIconAnimation } from '@/hooks/useBookIconAnimation';
+import ShinyText from '@/components/ui/ShinyText';
 import { HomeIcon } from '@/components/icons/HomeIcon';
 import { GridIcon } from '@/components/icons/GridIcon';
 import { HaarscanIcon } from '@/components/icons/HaarscanIcon';
@@ -214,37 +215,29 @@ export const BottomNavigation = () => {
                       }`} 
                     />
                   </div>
-                  <span 
-                    className={`transition-opacity duration-200 ${getOpacityClass(item.id, active, isGlowing)} ${
-                      item.id === 'book' && isGlowing ? 'relative overflow-hidden' : ''
-                    }`}
-                    style={{
-                      color: 'rgba(189, 189, 189, 1)',
-                      fontFamily: 'Lato',
-                      fontWeight: 500,
-                      fontSize: '8px',
-                      lineHeight: '100%',
-                      letterSpacing: '-2%',
-                      marginTop: '2px'
-                    }}
-                  >
-                    {getLabel(item.labelKey)}
-                    {item.id === 'book' && isGlowing && (
-                      <div 
-                        className="absolute inset-0 pointer-events-none overflow-hidden"
-                      >
-                        <div 
-                          className="absolute inset-0 animate-text-shine"
-                          style={{
-                            background: 'rgba(255, 255, 255, 0.15)',
-                            width: '50%',
-                            height: '100%',
-                            transform: 'translateX(-100%)'
-                          }}
-                        />
-                      </div>
-                    )}
-                  </span>
+                  {item.id === 'book' ? (
+                    <ShinyText
+                      text={getLabel(item.labelKey)}
+                      disabled={!isGlowing}
+                      speed={2}
+                      className={`transition-opacity duration-200 ${getOpacityClass(item.id, active, isGlowing)}`}
+                    />
+                  ) : (
+                    <span 
+                      className={`transition-opacity duration-200 ${getOpacityClass(item.id, active, isGlowing)}`}
+                      style={{
+                        color: 'rgba(189, 189, 189, 1)',
+                        fontFamily: 'Lato',
+                        fontWeight: 500,
+                        fontSize: '8px',
+                        lineHeight: '100%',
+                        letterSpacing: '-2%',
+                        marginTop: '2px'
+                      }}
+                    >
+                      {getLabel(item.labelKey)}
+                    </span>
+                  )}
                 </button>
               </div>
             );
