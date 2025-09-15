@@ -261,14 +261,14 @@ const ContactPage: React.FC = () => {
               {/* Social Media Icons */}
               <div className={`text-center mt-auto pt-4 pb-16 md:pb-20 transition-all duration-500 ease-out ${iconsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                 <div className="flex justify-center items-center space-x-3">
-                  <button className="w-10 h-10 rounded-full bg-[#492C3A] flex items-center justify-center hover:bg-[#492C3A]/80 active:scale-[0.98] transition-all duration-300 ease-out">
-                    <CustomMailIcon className="w-10 h-10" />
+                  <button className="active:scale-[0.98] transition-all duration-300 ease-out">
+                    <CustomMailIcon className="w-10 h-12" />
                   </button>
-                  <button className="w-12 h-12 rounded-full bg-[#492C3A] flex items-center justify-center hover:bg-[#492C3A]/80 active:scale-[0.98] transition-all duration-300 ease-out">
-                    <CustomWhatsAppIcon className="w-12 h-12" />
+                  <button className="active:scale-[0.98] transition-all duration-300 ease-out">
+                    <CustomWhatsAppIcon className="w-12 h-14" />
                   </button>
-                  <button className="w-10 h-10 rounded-full bg-[#492C3A] flex items-center justify-center hover:bg-[#492C3A]/80 active:scale-[0.98] transition-all duration-300 ease-out">
-                    <CustomInstagramIcon className="w-10 h-10" />
+                  <button className="active:scale-[0.98] transition-all duration-300 ease-out">
+                    <CustomInstagramIcon className="w-10 h-12" />
                   </button>
                 </div>
               </div>
