@@ -144,5 +144,61 @@ export const BEFORE_AFTER_ITEMS: BeforeAfterItem[] = [
   {
     id: 'before-after-34',
     image: 'https://GlobalHair.b-cdn.net/reviews%20-%20before-after/GHI_TEMPLATE_BEFOR%26AFTER_34.png'
+  },
+  {
+    id: 'before-after-35',
+    image: 'https://GlobalHair.b-cdn.net/reviews%20-%20before-after/Items%20aangeleverd%20door%20Peter/1.jpg'
+  },
+  {
+    id: 'before-after-36',
+    image: 'https://GlobalHair.b-cdn.net/reviews%20-%20before-after/Items%20aangeleverd%20door%20Peter/10.jpg'
+  },
+  {
+    id: 'before-after-37',
+    image: 'https://GlobalHair.b-cdn.net/reviews%20-%20before-after/Items%20aangeleverd%20door%20Peter/11.jpg'
+  },
+  {
+    id: 'before-after-38',
+    image: 'https://GlobalHair.b-cdn.net/reviews%20-%20before-after/Items%20aangeleverd%20door%20Peter/12.jpg'
+  },
+  {
+    id: 'before-after-39',
+    image: 'https://GlobalHair.b-cdn.net/reviews%20-%20before-after/Items%20aangeleverd%20door%20Peter/2.jpg'
+  },
+  {
+    id: 'before-after-40',
+    image: 'https://GlobalHair.b-cdn.net/reviews%20-%20before-after/Items%20aangeleverd%20door%20Peter/3.jpg'
+  },
+  {
+    id: 'before-after-41',
+    image: 'https://GlobalHair.b-cdn.net/reviews%20-%20before-after/Items%20aangeleverd%20door%20Peter/4.jpg'
+  },
+  {
+    id: 'before-after-42',
+    image: 'https://GlobalHair.b-cdn.net/reviews%20-%20before-after/Items%20aangeleverd%20door%20Peter/5.jpg'
+  },
+  {
+    id: 'before-after-43',
+    image: 'https://GlobalHair.b-cdn.net/reviews%20-%20before-after/Items%20aangeleverd%20door%20Peter/6.jpg'
+  },
+  {
+    id: 'before-after-44',
+    image: 'https://GlobalHair.b-cdn.net/reviews%20-%20before-after/Items%20aangeleverd%20door%20Peter/7.jpg'
+  },
+  {
+    id: 'before-after-45',
+    image: 'https://GlobalHair.b-cdn.net/reviews%20-%20before-after/Items%20aangeleverd%20door%20Peter/8.jpg'
+  },
+  {
+    id: 'before-after-46',
+    image: 'https://GlobalHair.b-cdn.net/reviews%20-%20before-after/Items%20aangeleverd%20door%20Peter/9.jpg'
+  },
+  {
+    id: 'before-after-47',
+    image: 'https://GlobalHair.b-cdn.net/reviews%20-%20before-after/Items%20aangeleverd%20door%20Peter/FD%20after.jpg'
+  },
+  {
+    id: 'before-after-48',
+    image: 'https://GlobalHair.b-cdn.net/reviews%20-%20before-after/Items%20aangeleverd%20door%20Peter/Frans%20duitjs%20Before.jpg'
   }
 ];
