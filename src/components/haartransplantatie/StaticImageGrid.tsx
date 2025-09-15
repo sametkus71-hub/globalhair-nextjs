@@ -27,12 +27,15 @@ export const StaticImageGrid = () => {
         className="grid grid-cols-5 w-full gap-0 animate-gradient-flow relative"
         style={{ 
           gridTemplateRows: 'repeat(2, 20vw)',
-          background: `linear-gradient(135deg, 
-            hsl(var(--primary) / 0.25), 
-            hsl(var(--secondary) / 0.20), 
-            hsl(var(--accent) / 0.15), 
-            hsl(var(--primary-glow) / 0.12)
-          )`
+          backgroundColor: 'hsl(220, 40%, 15%)',
+          background: `
+            hsl(220, 40%, 15%),
+            linear-gradient(135deg, 
+              hsl(var(--primary) / 0.4), 
+              hsl(var(--secondary) / 0.3), 
+              hsl(var(--accent) / 0.25), 
+              hsl(var(--primary-glow) / 0.2)
+            )`
         }}
       >
         {shuffledImages.map((image, index) => (
