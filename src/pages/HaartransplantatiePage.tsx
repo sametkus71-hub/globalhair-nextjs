@@ -5,7 +5,6 @@ import { MetaHead } from '@/components/MetaHead';
 import { PageTransition } from '@/components/PageTransition';
 import { ScrollFadeLogo } from '@/components/ScrollFadeLogo';
 import { ShieldIcon } from '@/components/logos/ShieldIcon';
-import { StaticImageGrid } from '@/components/haartransplantatie/StaticImageGrid';
 import { TreatmentSelectionSection } from '@/components/haartransplantatie/TreatmentSelectionSection';
 import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
@@ -82,30 +81,17 @@ const HaartransplantatiePage = () => {
           {/* Full Page Video Background */}
           <VideoBackground />
           
-          {/* Hero Section - Flex container for stacked items */}
+          {/* Hero Section - Flex container for logo and content */}
           <section 
             className="w-full relative overflow-hidden flex flex-col"
             style={{ 
               height: 'var(--app-height)'
             }}
           >
-            {/* Top Section - Before/After Grid - Auto Height */}
-            <div className="relative z-20 flex-shrink-0">
-              <div 
-                className={`w-full ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
-                style={{ animationDelay: comesFromHome ? '600ms' : '0ms' }}
-              >
-                <StaticImageGrid />
-              </div>
-            </div>
-
-            {/* Fading Central Logo - positioned with negative margin */}
+            {/* Central Logo at top */}
             <div 
-              className={`w-full relative z-[100] pointer-events-none ${comesFromHome ? 'opacity-0 animate-logo-entrance' : 'opacity-100'}`}
+              className={`w-full relative z-[100] pointer-events-none flex justify-center pt-8 ${comesFromHome ? 'opacity-0 animate-logo-entrance' : 'opacity-100'}`}
               style={{ 
-                marginTop: '-100px', // Pull logo up into grid area (less negative margin)
-                marginLeft: '50vw',
-                marginBottom: '-50px', // Pull content closer to logo
                 ...(comesFromHome ? { animationDelay: '0ms' } : {})
               }}
             >
@@ -113,16 +99,14 @@ const HaartransplantatiePage = () => {
                 className="pointer-events-none" 
                 style={{ 
                   width: '280px', 
-                  height: '280px',
-                  marginLeft: '50vw',
-                  transform: 'translateX(-50%)'
+                  height: '280px'
                 }}
               >
                 <ShieldIcon />
               </div>
             </div>
 
-            {/* Bottom Section - Treatment Selection - Flex Grow */}
+            {/* Treatment Selection Section - Flex Grow */}
             <div className="relative z-20 flex-1">
               <div 
                 className="page-entry-item page-entry-delay-2 w-full h-full"
