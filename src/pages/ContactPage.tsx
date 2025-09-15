@@ -10,7 +10,9 @@ import { AnimatedTurkeySvg } from '@/components/contact/AnimatedTurkeySvg';
 import { AnimatedNetherlandsSvg } from '@/components/contact/AnimatedNetherlandsSvg';
 import { PopupCloseButton } from '@/components/PopupCloseButton';
 import { CustomMailIcon } from '@/components/icons/CustomMailIcon';
-import { MessageCircle, Instagram, Plus } from 'lucide-react';
+import { CustomWhatsAppIcon } from '@/components/icons/CustomWhatsAppIcon';
+import { CustomInstagramIcon } from '@/components/icons/CustomInstagramIcon';
+import { Plus } from 'lucide-react';
 
 const ContactPage: React.FC = () => {
   const { language } = useLanguage();
@@ -263,14 +265,10 @@ const ContactPage: React.FC = () => {
                     <CustomMailIcon className="w-10 h-10" />
                   </button>
                   <button className="w-12 h-12 rounded-full bg-[#492C3A] flex items-center justify-center hover:bg-[#492C3A]/80 active:scale-[0.98] transition-all duration-300 ease-out">
-                    <img 
-                      src="/lovable-uploads/ab33be36-7b2a-41af-b438-bdb3de43ec5d.png" 
-                      alt="WhatsApp" 
-                      className="w-5 h-5"
-                    />
+                    <CustomWhatsAppIcon className="w-12 h-12" />
                   </button>
                   <button className="w-10 h-10 rounded-full bg-[#492C3A] flex items-center justify-center hover:bg-[#492C3A]/80 active:scale-[0.98] transition-all duration-300 ease-out">
-                    <Instagram className="w-4 h-4 text-white" />
+                    <CustomInstagramIcon className="w-10 h-10" />
                   </button>
                 </div>
               </div>
