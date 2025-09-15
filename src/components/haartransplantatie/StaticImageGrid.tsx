@@ -24,21 +24,21 @@ export const StaticImageGrid = () => {
     <div className="w-full relative">
       {/* Grid container with animated breathing gradient background - 5x2 for 10 images */}
       <div 
-        className="grid grid-cols-5 w-full gap-0 animate-gradient-flow"
+        className="grid grid-cols-5 w-full gap-0 animate-gradient-flow relative"
         style={{ 
           gridTemplateRows: 'repeat(2, 20vw)',
           background: `linear-gradient(135deg, 
-            hsl(var(--primary) / 0.15), 
-            hsl(var(--secondary) / 0.12), 
-            hsl(var(--accent) / 0.10), 
-            hsl(var(--primary-glow) / 0.08)
+            hsl(var(--primary) / 0.25), 
+            hsl(var(--secondary) / 0.20), 
+            hsl(var(--accent) / 0.15), 
+            hsl(var(--primary-glow) / 0.12)
           )`
         }}
       >
         {shuffledImages.map((image, index) => (
           <div
             key={image.id}
-            className="relative border border-white/10"
+            className="relative border-r border-b border-white/5 last:border-r-0 [&:nth-child(5)]:border-r-0"
             style={{ 
               width: '20vw',
               height: '20vw'
