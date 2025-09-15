@@ -18,7 +18,7 @@ export const VideoShieldIcon = ({ className }: VideoShieldIconProps) => {
     <img
       src="https://GlobalHair.b-cdn.net/Logo/Ontwerp%20zonder%20titel%20(2).gif"
       alt="Global Hair Logo"
-      className={cn("w-full h-full object-contain scale-[0.7]", className)}
+      className={cn("w-full h-full object-contain scale-[0.6] -translate-y-4", className)}
       onError={() => setVideoError(true)}
       style={{
         width: '100%',
