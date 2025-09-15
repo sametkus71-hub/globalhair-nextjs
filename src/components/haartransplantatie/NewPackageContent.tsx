@@ -3,6 +3,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { calculatePrice, formatPrice } from '@/lib/pricing';
 import { PenIcon } from '@/components/icons/PenIcon';
 import { LightningIcon } from '@/components/icons/LightningIcon';
+import { StemcellIcon } from '@/components/icons/StemcellIcon';
 import { StrengthMeter } from './StrengthMeter';
 import { Separator } from '@/components/ui/separator';
 
@@ -44,14 +45,14 @@ export const NewPackageContent = () => {
         items: [
           { name: 'FUE Saffier / DHI', icon: <PenIcon /> },
           { name: 'V6 Hairboost®', icon: <LightningIcon /> },
-          { name: 'GHI Stamcell Repair™', icon: <div className="w-6 h-6 bg-white rounded-full"></div> }
+          { name: 'GHI Stamcell Repair™', icon: <StemcellIcon /> }
         ]
       },
       en: {
         items: [
           { name: 'FUE Sapphire / DHI', icon: <PenIcon /> },
           { name: 'V6 Hairboost®', icon: <LightningIcon /> },
-          { name: 'GHI Stemcell Repair™', icon: <div className="w-6 h-6 bg-white rounded-full"></div> }
+          { name: 'GHI Stemcell Repair™', icon: <StemcellIcon /> }
         ]
       }
     }
