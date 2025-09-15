@@ -28,13 +28,13 @@ export const StaticImageGrid = ({ selectedPackage = 'Premium' }: StaticImageGrid
   const getGradientColors = (packageType: string) => {
     switch (packageType) {
       case 'Standard':
-        return 'linear-gradient(45deg, rgba(0, 56, 65, 0.85), rgba(19, 142, 142, 0.85), rgba(0, 56, 65, 0.85), rgba(19, 142, 142, 0.85))';
+        return 'linear-gradient(45deg, rgba(0, 56, 65, 0.5), rgba(19, 142, 142, 0.5), rgba(0, 56, 65, 0.5), rgba(19, 142, 142, 0.5))';
       case 'Premium':
-        return 'linear-gradient(45deg, rgba(2, 41, 74, 0.85), rgba(63, 122, 167, 0.85), rgba(2, 41, 74, 0.85), rgba(63, 122, 167, 0.85))';
+        return 'linear-gradient(45deg, rgba(2, 41, 74, 0.5), rgba(63, 122, 167, 0.5), rgba(2, 41, 74, 0.5), rgba(63, 122, 167, 0.5))';
       case 'Advanced':
-        return 'linear-gradient(45deg, rgba(53, 4, 13, 0.85), rgba(4, 0, 0, 0.85), rgba(53, 4, 13, 0.85), rgba(4, 0, 0, 0.85))';
+        return 'linear-gradient(45deg, rgba(53, 4, 13, 0.5), rgba(4, 0, 0, 0.5), rgba(53, 4, 13, 0.5), rgba(4, 0, 0, 0.5))';
       default:
-        return 'linear-gradient(45deg, rgba(2, 41, 74, 0.85), rgba(63, 122, 167, 0.85), rgba(2, 41, 74, 0.85), rgba(63, 122, 167, 0.85))';
+        return 'linear-gradient(45deg, rgba(2, 41, 74, 0.5), rgba(63, 122, 167, 0.5), rgba(2, 41, 74, 0.5), rgba(63, 122, 167, 0.5))';
     }
   };
 
@@ -50,6 +50,13 @@ export const StaticImageGrid = ({ selectedPackage = 'Premium' }: StaticImageGrid
           animation: 'gradient-flow 6s ease-in-out infinite'
         }}
       >
+        {/* Opacity gradient overlay - stronger at top, lighter at bottom */}
+        <div 
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.05) 100%)'
+          }}
+        />
         {shuffledImages.map((image, index) => (
           <div
             key={image.id}
