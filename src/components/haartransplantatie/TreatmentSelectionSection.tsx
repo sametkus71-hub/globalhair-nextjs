@@ -151,24 +151,24 @@ export const TreatmentSelectionSection = () => {
       <div className={`flex-1 flex flex-col justify-start px-4 relative z-10`}>
         {/* Header */}
         <div className={`text-center ${spacing.header}`}>
-          <h1 
-            className={`font-lato text-[24px] font-normal text-white mb-2 uppercase -mt-12 ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
+          <p 
+            className={`font-lato text-[13px] font-normal text-white/80 ${spacing.text} ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
             style={{ 
               lineHeight: '0.97',
               animationDelay: comesFromHome ? '600ms' : '0ms'
             }}
           >
-            WHERE CONFIDENCE GROWS
-          </h1>
-          <p 
-            className={`font-lato text-[13px] font-normal text-white/80 ${spacing.text} ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
+            GHI Hairtransplant
+          </p>
+          <h1 
+            className={`font-lato text-[24px] font-normal text-white mb-2 uppercase -mt-16 ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
             style={{ 
               lineHeight: '0.97',
               animationDelay: comesFromHome ? '900ms' : '0ms'
             }}
           >
-            GHI Hairtransplant
-          </p>
+            WHERE CONFIDENCE GROWS
+          </h1>
         </div>
 
         {/* Country Text */}
