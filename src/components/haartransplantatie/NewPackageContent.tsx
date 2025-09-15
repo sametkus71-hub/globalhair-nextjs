@@ -15,14 +15,14 @@ export const NewPackageContent = () => {
   const { heightBreakpoint } = useViewportHeight();
   const totalPrice = calculatePrice(profile);
 
-  // Dynamic spacing for the CTA button based on viewport height
-  const getButtonSpacing = () => {
+  // Dynamic spacing based on viewport height
+  const getContainerSpacing = () => {
     if (heightBreakpoint === 'small') {
-      return '-mt-4 -mb-4'; // Much tighter spacing for small screens
+      return 'space-y-2'; // Tighter spacing for small screens
     } else if (heightBreakpoint === 'medium') {
-      return '-mt-2 -mb-6'; // Moderate spacing for medium screens
+      return 'space-y-4'; // Moderate spacing for medium screens
     } else {
-      return 'mt-0 -mb-8'; // More generous spacing for large screens
+      return 'space-y-6'; // More generous spacing for large screens
     }
   };
 
@@ -76,7 +76,7 @@ export const NewPackageContent = () => {
   const content = currentPackage[language as keyof typeof currentPackage];
 
   return (
-    <div className="space-y-6">
+    <div className={getContainerSpacing()}>
       {/* Package Items */}
       <div className="flex flex-col items-center">
         <div className="space-y-1 w-48 ml-16">
@@ -94,7 +94,7 @@ export const NewPackageContent = () => {
       </div>
 
       {/* More Details Button */}
-      <div className={`flex justify-center ${getButtonSpacing()}`}>
+      <div className="flex justify-center">
         <ShinyButton 
           onClick={() => console.log('More information clicked')}
         >
@@ -103,13 +103,13 @@ export const NewPackageContent = () => {
       </div>
 
       {/* Separator */}
-      <div className={`px-6 -mt-4 -mb-4 ${heightBreakpoint === 'small' ? '' : 'mt-3'}`}>
+      <div className="px-6">
         <Separator className="bg-white/20" />
       </div>
 
       {/* Strength Meter */}
       <div className="px-2">
-        <StrengthMeter package={profile.selectedPackage} className="-mt-4" />
+        <StrengthMeter package={profile.selectedPackage} />
       </div>
     </div>
   );
