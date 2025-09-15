@@ -1,6 +1,5 @@
 import { useLayoutEffect, useState, useEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
-import { useSession } from '@/hooks/useSession';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { MetaHead } from '@/components/MetaHead';
 import { PageTransition } from '@/components/PageTransition';
@@ -15,7 +14,6 @@ import { VideoBackground } from '@/components/haartransplantatie/VideoBackground
 
 const HaartransplantatiePage = () => {
   const { language } = useLanguage();
-  const { profile } = useSession();
   const { height } = useViewportHeight();
   const [phoneSize, setPhoneSize] = useState<'small' | 'large'>('small');
   
@@ -97,7 +95,7 @@ const HaartransplantatiePage = () => {
                 className={`w-full ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
                 style={{ animationDelay: comesFromHome ? '600ms' : '0ms' }}
               >
-                <StaticImageGrid selectedPackage={profile.selectedPackage} />
+                <StaticImageGrid />
               </div>
             </div>
 

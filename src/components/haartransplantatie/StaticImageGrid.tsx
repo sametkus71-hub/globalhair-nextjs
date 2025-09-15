@@ -4,11 +4,7 @@ import { GRID_IMAGES, getAllImagePaths, shuffleArray } from '@/data/gridImages';
 import { StaticGridImage } from './StaticGridImage';
 import { useImageCache } from '@/hooks/useImageCache';
 
-interface StaticImageGridProps {
-  selectedPackage?: string;
-}
-
-export const StaticImageGrid = ({ selectedPackage = 'Premium' }: StaticImageGridProps) => {
+export const StaticImageGrid = () => {
   // Preload all images
   const { allImagesLoaded } = useImageCache(getAllImagePaths());
   
@@ -24,20 +20,6 @@ export const StaticImageGrid = ({ selectedPackage = 'Premium' }: StaticImageGrid
     setShuffledImages(shuffleArray(shuffled.slice(0, 10)));
   }, []);
 
-  // Get gradient colors based on selected package
-  const getGradientColors = (packageType: string) => {
-    switch (packageType) {
-      case 'Standard':
-        return 'linear-gradient(45deg, rgba(0, 56, 65, 0.5), rgba(19, 142, 142, 0.5), rgba(0, 56, 65, 0.5), rgba(19, 142, 142, 0.5))';
-      case 'Premium':
-        return 'linear-gradient(45deg, rgba(2, 41, 74, 0.5), rgba(63, 122, 167, 0.5), rgba(2, 41, 74, 0.5), rgba(63, 122, 167, 0.5))';
-      case 'Advanced':
-        return 'linear-gradient(45deg, rgba(53, 4, 13, 0.5), rgba(4, 0, 0, 0.5), rgba(53, 4, 13, 0.5), rgba(4, 0, 0, 0.5))';
-      default:
-        return 'linear-gradient(45deg, rgba(2, 41, 74, 0.5), rgba(63, 122, 167, 0.5), rgba(2, 41, 74, 0.5), rgba(63, 122, 167, 0.5))';
-    }
-  };
-
   return (
     <div className="w-full relative">
       {/* Grid container with breathing animated gradient background - 5x2 for 10 images */}
@@ -45,18 +27,11 @@ export const StaticImageGrid = ({ selectedPackage = 'Premium' }: StaticImageGrid
         className="grid grid-cols-5 w-full gap-0 relative"
         style={{ 
           gridTemplateRows: 'repeat(2, 20vw)',
-          background: getGradientColors(selectedPackage),
+          background: `linear-gradient(45deg, rgba(0, 60, 83, 0.85), rgba(78, 123, 144, 0.85), rgba(0, 60, 83, 0.85), rgba(78, 123, 144, 0.85))`,
           backgroundSize: '400% 400%',
           animation: 'gradient-flow 6s ease-in-out infinite'
         }}
       >
-        {/* Opacity gradient overlay - stronger at top, lighter at bottom */}
-        <div 
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.05) 100%)'
-          }}
-        />
         {shuffledImages.map((image, index) => (
           <div
             key={image.id}
