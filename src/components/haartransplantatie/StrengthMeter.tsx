@@ -20,22 +20,22 @@ export const StrengthMeter = ({ package: packageName, className }: StrengthMeter
 
   const levels = strengthLevels[packageName];
 
-  const renderMeterRow = (icon: React.ReactNode, label: string, level: number) => (
+  const renderMeterRow = (label: string, level: number, icon: React.ReactNode) => (
     <div className="flex items-center justify-between">
+      <span className="font-body text-[11px] font-light text-white/80">{label}</span>
       <div className="flex items-center space-x-2">
+        <div className="flex space-x-1">
+          {[1, 2, 3].map((dot) => (
+            <div
+              key={dot}
+              className={cn(
+                "w-2 h-2 rounded-full",
+                dot <= level ? "bg-white" : "bg-white/20"
+              )}
+            />
+          ))}
+        </div>
         {icon}
-        <span className="font-lato text-[12px] text-white/90">{label}</span>
-      </div>
-      <div className="flex space-x-1">
-        {[1, 2, 3].map((dot) => (
-          <div
-            key={dot}
-            className={cn(
-              "w-2 h-2 rounded-full",
-              dot <= level ? "bg-white" : "bg-white/20"
-            )}
-          />
-        ))}
       </div>
     </div>
   );
@@ -43,14 +43,14 @@ export const StrengthMeter = ({ package: packageName, className }: StrengthMeter
   return (
     <div className={cn("space-y-3", className)}>
       {renderMeterRow(
-        <LeafIcon className="w-4 h-4" />, 
-        language === 'nl' ? 'Groei' : 'Growth', 
-        levels.growth
+        language === 'nl' ? 'Groei' : 'Growth',
+        levels.growth,
+        <LeafIcon className="w-3 h-3" />
       )}
       {renderMeterRow(
-        <PlayButtonIcon className="w-4 h-4" />, 
-        language === 'nl' ? 'Herstel' : 'Recovery', 
-        levels.recovery
+        language === 'nl' ? 'Herstel' : 'Recovery',
+        levels.recovery,
+        <PlayButtonIcon className="w-3 h-3" />
       )}
     </div>
   );
