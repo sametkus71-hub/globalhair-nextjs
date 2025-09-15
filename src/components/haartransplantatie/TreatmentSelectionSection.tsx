@@ -308,7 +308,17 @@ export const TreatmentSelectionSection = () => {
             buttonsLoaded[0] ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
           }`}
         >
-          <Info className="w-6 h-6 sm:w-7 sm:h-7 text-white/90" />
+          <svg 
+            width="24" 
+            height="24" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-6 h-6 sm:w-7 sm:h-7 text-white/90"
+          >
+            <circle cx="12" cy="12" r="11.6" stroke="white" strokeWidth="0.8"/>
+            <path d="M12 5V12L17 17" stroke="white" strokeWidth="0.8"/>
+          </svg>
         </button>
         <button 
           onClick={() => {
