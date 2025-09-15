@@ -7,6 +7,7 @@ import { Info, BookOpen } from 'lucide-react';
 import { calculatePrice, formatPrice } from '@/lib/pricing';
 import { ShieldIcon } from '@/components/logos/ShieldIcon';
 import { LiquidButton } from '@/components/ui/liquid-glass-button';
+import { GlassButton } from '@/components/ui/glass-button';
 
 export const TreatmentSelectionSection = () => {
   const { language } = useLanguage();
@@ -283,15 +284,13 @@ export const TreatmentSelectionSection = () => {
               className={`text-center mt-6 ${comesFromHome ? 'opacity-0 animate-fade-entrance' : 'opacity-100'}`}
               style={{ animationDelay: comesFromHome ? '2400ms' : '0ms' }} // 2300ms + 100ms = 2400ms
             >
-              <button 
-                className="px-6 py-3 rounded-full font-lato text-[12px] font-medium text-white border border-white/50 hover:border-white/70 hover:bg-white/10 transition-all duration-300"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  backdropFilter: 'blur(20px)'
-                }}
+              <GlassButton 
+                size="sm"
+                className="text-white"
+                contentClassName="text-[12px] font-lato font-medium"
               >
                 {language === 'nl' ? 'Meer details' : 'More details'}
-              </button>
+              </GlassButton>
             </div>
           </div>
         </div>
