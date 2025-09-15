@@ -127,7 +127,7 @@ const MissionPage: React.FC = () => {
           --shiny-cta-highlight: #ffffff;
           --shiny-cta-highlight-subtle: #ffffff;
           --animation: gradient-angle linear infinite;
-          --duration: 6s;
+          --duration: 10s;
           --shadow-size: 2px;
           --transition: 800ms cubic-bezier(0.25, 1, 0.5, 1);
           
@@ -188,9 +188,9 @@ const MissionPage: React.FC = () => {
           );
           mask-image: radial-gradient(circle at bottom, transparent 40%, black);
           opacity: 0.6;
-          inset-inline-start: 45%;
-          inset-block-start: 45%;
-          translate: -45% -45%;
+          inset-inline-start: 30%;
+          inset-block-start: 30%;
+          translate: -30% -30%;
         }
 
         .shiny-cta span {
