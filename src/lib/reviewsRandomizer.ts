@@ -76,7 +76,7 @@ export const generateRandomGrid = (): GridItem[] => {
 
   // Select content
   const selectedQuotes = shuffledQuotes.slice(0, Math.min(4, shuffledQuotes.length));
-  const selectedBeforeAfter = shuffleArray(shuffledBeforeAfter);
+  const selectedBeforeAfter = shuffledBeforeAfter;
 
   // Build grid items with position-specific assignment
   let quoteIndex = 0;
