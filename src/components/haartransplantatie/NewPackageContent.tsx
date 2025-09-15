@@ -6,6 +6,7 @@ import { LightningIcon } from '@/components/icons/LightningIcon';
 import { StemcellIcon } from '@/components/icons/StemcellIcon';
 import { StrengthMeter } from './StrengthMeter';
 import { Separator } from '@/components/ui/separator';
+import { ShinyButton } from '@/components/ui/shiny-button';
 
 export const NewPackageContent = () => {
   const { language } = useLanguage();
@@ -81,11 +82,12 @@ export const NewPackageContent = () => {
 
       {/* More Details Button */}
       <div className="flex justify-center mt-4">
-        <button className="px-4 py-1.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm">
-          <span className="font-body text-[10px] font-light text-white/90">
-            {language === 'nl' ? 'Meer informatie' : 'More information'}
-          </span>
-        </button>
+        <ShinyButton 
+          onClick={() => console.log('More information clicked')}
+          className="scale-75 transform origin-center"
+        >
+          {language === 'nl' ? 'Meer informatie' : 'More information'}
+        </ShinyButton>
       </div>
 
       {/* Separator */}

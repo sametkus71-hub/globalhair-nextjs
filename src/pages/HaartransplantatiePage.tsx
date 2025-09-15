@@ -120,13 +120,6 @@ const HaartransplantatiePage = () => {
                 <TreatmentSelectionSection />
               </div>
             </div>
-
-            {/* Temporary ShinyButton placement */}
-            <div className="absolute bottom-4 left-4 z-30">
-              <ShinyButton onClick={() => console.log('Shiny button clicked!')}>
-                Get unlimited access
-              </ShinyButton>
-            </div>
           </section>
 
           {/* Bottom Navigation - rendered via portal */}
