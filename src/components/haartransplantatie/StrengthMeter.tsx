@@ -1,6 +1,4 @@
 import { cn } from '@/lib/utils';
-import { LeafIcon } from '@/components/icons/LeafIcon';
-import { PlayButtonIcon } from '@/components/icons/PlayButtonIcon';
 import { useLanguage } from '@/hooks/useLanguage';
 
 interface StrengthMeterProps {
@@ -20,19 +18,16 @@ export const StrengthMeter = ({ package: packageName, className }: StrengthMeter
 
   const levels = strengthLevels[packageName];
 
-  const renderMeterRow = (icon: React.ReactNode, label: string, level: number) => (
+  const renderMeterRow = (label: string, level: number) => (
     <div className="flex items-center justify-between">
-      <div className="flex items-center space-x-2">
-        {icon}
-        <span className="font-lato text-[12px] text-white/90">{label}</span>
-      </div>
-      <div className="flex space-x-1">
+      <span className="font-inter text-[13px] font-light text-white/90">{label}</span>
+      <div className="flex space-x-2">
         {[1, 2, 3].map((dot) => (
           <div
             key={dot}
             className={cn(
-              "w-2 h-2 rounded-full",
-              dot <= level ? "bg-white" : "bg-white/20"
+              "w-3 h-3 rounded-full",
+              dot <= level ? "bg-white" : "bg-white/30"
             )}
           />
         ))}
@@ -41,15 +36,13 @@ export const StrengthMeter = ({ package: packageName, className }: StrengthMeter
   );
 
   return (
-    <div className={cn("space-y-3", className)}>
+    <div className={cn("space-y-4", className)}>
       {renderMeterRow(
-        <LeafIcon className="w-4 h-4" />, 
-        language === 'nl' ? 'Groei' : 'Growth', 
+        language === 'nl' ? 'Growth' : 'Growth', 
         levels.growth
       )}
       {renderMeterRow(
-        <PlayButtonIcon className="w-4 h-4" />, 
-        language === 'nl' ? 'Herstel' : 'Recovery', 
+        language === 'nl' ? 'Recovery' : 'Recovery', 
         levels.recovery
       )}
     </div>

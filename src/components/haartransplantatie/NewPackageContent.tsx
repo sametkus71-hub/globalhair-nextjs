@@ -1,6 +1,5 @@
 import { useSession } from '@/hooks/useSession';
 import { useLanguage } from '@/hooks/useLanguage';
-import { calculatePrice, formatPrice } from '@/lib/pricing';
 import { PenIcon } from '@/components/icons/PenIcon';
 import { LightningIcon } from '@/components/icons/LightningIcon';
 import { StrengthMeter } from './StrengthMeter';
@@ -9,7 +8,6 @@ import { Separator } from '@/components/ui/separator';
 export const NewPackageContent = () => {
   const { language } = useLanguage();
   const { profile } = useSession();
-  const totalPrice = calculatePrice(profile);
 
   // Define simplified package content
   const packageContent = {
@@ -29,13 +27,13 @@ export const NewPackageContent = () => {
       nl: {
         items: [
           { name: 'FUE Saffier / DHI', icon: <PenIcon /> },
-          { name: 'V6 Hairboost®', icon: <LightningIcon /> }
+          { name: 'V6 Hairboost', icon: <LightningIcon /> }
         ]
       },
       en: {
         items: [
           { name: 'FUE Sapphire / DHI', icon: <PenIcon /> },
-          { name: 'V6 Hairboost®', icon: <LightningIcon /> }
+          { name: 'V6 Hairboost', icon: <LightningIcon /> }
         ]
       }
     },
@@ -43,14 +41,14 @@ export const NewPackageContent = () => {
       nl: {
         items: [
           { name: 'FUE Saffier / DHI', icon: <PenIcon /> },
-          { name: 'V6 Hairboost®', icon: <LightningIcon /> },
+          { name: 'V6 Hairboost', icon: <LightningIcon /> },
           { name: 'GHI Stamcell Repair™', icon: <div className="w-6 h-6 bg-white rounded-full"></div> }
         ]
       },
       en: {
         items: [
           { name: 'FUE Sapphire / DHI', icon: <PenIcon /> },
-          { name: 'V6 Hairboost®', icon: <LightningIcon /> },
+          { name: 'V6 Hairboost', icon: <LightningIcon /> },
           { name: 'GHI Stemcell Repair™', icon: <div className="w-6 h-6 bg-white rounded-full"></div> }
         ]
       }
@@ -61,45 +59,36 @@ export const NewPackageContent = () => {
   const content = currentPackage[language as keyof typeof currentPackage];
 
   return (
-    <div className="space-y-6">
-      {/* Package Items */}
-      <div className="space-y-4">
+    <div className="flex flex-col items-center space-y-6">
+      {/* Package Items - Centered */}
+      <div className="space-y-3">
         {content.items.map((item, index) => (
-          <div key={index} className="flex items-center space-x-3">
+          <div key={index} className="flex items-center justify-center space-x-3">
             {item.icon}
-            <span className="font-lato text-[14px] text-white font-medium">
+            <span className="font-inter text-[13px] text-white font-light">
               {item.name}
             </span>
           </div>
         ))}
       </div>
 
-      {/* More Details Button */}
+      {/* More Information Button */}
       <div className="flex justify-center">
-        <button className="px-6 py-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm">
-          <span className="font-lato text-[12px] text-white">
-            {language === 'nl' ? 'Meer informatie' : 'More information'}
+        <button className="px-8 py-3 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm">
+          <span className="font-inter text-[13px] text-white font-light">
+            {language === 'nl' ? 'More information' : 'More information'}
           </span>
         </button>
       </div>
 
       {/* Separator */}
-      <div className="px-4">
-        <Separator className="bg-white/20" />
+      <div className="w-full px-4">
+        <Separator className="bg-white/30" />
       </div>
 
       {/* Strength Meter */}
-      <div className="px-2">
+      <div className="w-full max-w-[180px]">
         <StrengthMeter package={profile.selectedPackage} />
-      </div>
-
-      {/* Price Display */}
-      <div className="text-center pt-4">
-        <div className="inline-block px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
-          <span className="font-lato text-[16px] font-bold text-white">
-            {formatPrice(totalPrice)}
-          </span>
-        </div>
       </div>
     </div>
   );
