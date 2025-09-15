@@ -44,11 +44,11 @@ export const AnimatedRecoveryIcon = ({ level, className }: AnimatedRecoveryIconP
     </svg>
   );
 
-  // Positions with slight stacking offset - increased spacing
+  // Positions with slight stacking offset - more spacing
   const stackPositions = [
     { x: 'left-0', z: 10 },    // Bottom layer
-    { x: 'left-2', z: 20 },    // Middle layer
-    { x: 'left-4', z: 30 }     // Top layer (rightmost on top)
+    { x: 'left-3', z: 20 },    // Middle layer
+    { x: 'left-6', z: 30 }     // Top layer (rightmost on top)
   ];
 
   return (
