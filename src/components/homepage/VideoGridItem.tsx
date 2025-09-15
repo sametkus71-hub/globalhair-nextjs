@@ -64,7 +64,7 @@ export const VideoGridItem = ({
   const [isCurrentVisible, setIsCurrentVisible] = useState(true);
   const [previousShouldShowVideo, setPreviousShouldShowVideo] = useState<boolean | null>(null);
   
-  const shouldShowVideo = hasVideo && title === "HAAR TRANSPLANTATIE" && profile.geslacht === "Man";
+  const shouldShowVideo = hasVideo && title === "HAAR TRANSPLANTATIE" && (profile.geslacht === "Man" || profile.geslacht === "Vrouw");
   const baseDarkness = variation?.baseDarkness || 0.5;
 
   // Reset video state when shouldShowVideo changes from true to false or vice versa

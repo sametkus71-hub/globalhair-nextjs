@@ -7,6 +7,7 @@ export const useSimpleVideo = (profile: any) => {
 
   // Video URL mapping
   const VIDEO_MAPPING: { [key: string]: string } = {
+    // Men videos
     'man-blond-krul': 'https://vz-104aba77-1e1.b-cdn.net/5fa33fc8-7e8d-4f37-a253-dc0b4cd0f69e/playlist.m3u8',
     'man-rood-kroes': 'https://vz-104aba77-1e1.b-cdn.net/4c9e38e9-efb3-4b53-a267-85554d52f015/playlist.m3u8',
     'man-zwart-kroes': 'https://vz-104aba77-1e1.b-cdn.net/ae8e6512-fc65-4672-9988-1ecdfacd8861/playlist.m3u8',
@@ -23,11 +24,14 @@ export const useSimpleVideo = (profile: any) => {
     'man-bruin-krul': 'https://vz-104aba77-1e1.b-cdn.net/21f4fecc-474d-4fcb-b492-40276efce27d/playlist.m3u8',
     'man-zwart-krul': 'https://vz-104aba77-1e1.b-cdn.net/dbe87704-2c19-48cb-a0c9-9dd530d9ae4e/playlist.m3u8',
     'man-rood-krul': 'https://vz-104aba77-1e1.b-cdn.net/313353ce-fee9-4323-a872-6ee47ee458b0/playlist.m3u8',
+    // Women videos
+    'vrouw-bruin-krul': 'https://vz-104aba77-1e1.b-cdn.net/528f9b3c-0eff-4bc4-b416-d8bbdb6e0bd8/playlist.m3u8',
   };
 
   // Generate video key from profile
   const getVideoKey = useCallback(() => {
-    if (profile.geslacht?.toLowerCase() !== 'man') {
+    const geslacht = profile.geslacht?.toLowerCase();
+    if (!geslacht || (geslacht !== 'man' && geslacht !== 'vrouw')) {
       return null;
     }
 
@@ -53,7 +57,7 @@ export const useSimpleVideo = (profile: any) => {
       return null;
     }
     
-    return `man-${colorKey}-${typeKey}`;
+    return `${geslacht}-${colorKey}-${typeKey}`;
   }, [profile]);
 
   // Update video source when profile changes
