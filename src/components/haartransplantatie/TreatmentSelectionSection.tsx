@@ -298,37 +298,55 @@ export const TreatmentSelectionSection = () => {
       </div>
 
       {/* Right Side Icons */}
-      <div className="fixed right-3 sm:right-4 md:right-5 lg:right-6 bottom-20 sm:bottom-24 md:bottom-28 lg:bottom-32 xl:bottom-36 space-y-3 z-50">
-        <LiquidButton 
-          onClick={() => {
-            // Store current path before navigating to popup
-            sessionStorage.setItem('previousPath', window.location.pathname);
-            navigate(language === 'nl' ? '/nl/info' : '/en/info');
-          }}
-          size="icon"
-          className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full transition-all duration-700 ease-in-out ${
-            buttonsLoaded[0] ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
-          }`}
-        >
-          <Info className="w-6 h-6 sm:w-7 sm:h-7 text-white/90" />
-        </LiquidButton>
-        <LiquidButton 
-          onClick={() => {
-            // Store current path before navigating to popup
-            sessionStorage.setItem('previousPath', window.location.pathname);
-            navigate(language === 'nl' ? '/nl/support' : '/en/support');
-          }}
-          size="icon"
-          className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full transition-all duration-700 ease-in-out ${
-            buttonsLoaded[1] ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
-          }`}
-        >
-          <img 
-            src="/lovable-uploads/61372204-ad34-421b-877a-e61ca6adf93e.png" 
-            alt="Support icon" 
-            className="w-6 h-6 sm:w-7 sm:h-7 opacity-90"
-          />
-        </LiquidButton>
+      <div className="fixed right-3 sm:right-4 md:right-5 lg:right-6 bottom-20 sm:bottom-24 md:bottom-28 lg:bottom-32 xl:bottom-36 flex flex-col space-y-3 z-50">
+        <div className={`transition-all duration-700 ease-in-out ${
+          buttonsLoaded[0] ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+        }`}>
+          <LiquidButton 
+            onClick={() => {
+              // Store current path before navigating to popup
+              sessionStorage.setItem('previousPath', window.location.pathname);
+              navigate(language === 'nl' ? '/nl/info' : '/en/info');
+            }}
+            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full p-0 min-h-0"
+            style={{
+              width: 'clamp(48px, 4vw, 56px)',
+              height: 'clamp(48px, 4vw, 56px)',
+              minWidth: '48px',
+              minHeight: '48px',
+              maxWidth: '56px',
+              maxHeight: '56px',
+            }}
+          >
+            <Info className="w-6 h-6 sm:w-7 sm:h-7 text-white/90" />
+          </LiquidButton>
+        </div>
+        <div className={`transition-all duration-700 ease-in-out ${
+          buttonsLoaded[1] ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
+        }`}>
+          <LiquidButton 
+            onClick={() => {
+              // Store current path before navigating to popup
+              sessionStorage.setItem('previousPath', window.location.pathname);
+              navigate(language === 'nl' ? '/nl/support' : '/en/support');
+            }}
+            className="w-12 h-12 sm:w-14 sm:h-14 rounded-full p-0 min-h-0"
+            style={{
+              width: 'clamp(48px, 4vw, 56px)',
+              height: 'clamp(48px, 4vw, 56px)',
+              minWidth: '48px',
+              minHeight: '48px',
+              maxWidth: '56px',
+              maxHeight: '56px',
+            }}
+          >
+            <img 
+              src="/lovable-uploads/61372204-ad34-421b-877a-e61ca6adf93e.png" 
+              alt="Support icon" 
+              className="w-6 h-6 sm:w-7 sm:h-7 opacity-90"
+            />
+          </LiquidButton>
+        </div>
       </div>
     </div>
   );
