@@ -50,17 +50,7 @@ export const generateRandomGrid = (): GridItem[] => {
   // Shuffle all content pools
   const shuffledQuotes = shuffleArray(QUOTES);
   
-  // Ensure FD after.jpg always appears by placing it first
-  const priorityImage = BEFORE_AFTER_ITEMS.find(item => 
-    item.image.includes('FD%20after.jpg')
-  );
-  const otherImages = BEFORE_AFTER_ITEMS.filter(item => 
-    !item.image.includes('FD%20after.jpg')
-  );
-  const shuffledBeforeAfter = priorityImage 
-    ? [priorityImage, ...shuffleArray(otherImages)]
-    : shuffleArray(BEFORE_AFTER_ITEMS);
-  
+  // Shuffle all content except priority before/after image
   const shuffledPatientVideos = shuffleArray(VIDEOS); // Patient testimonials
   const shuffledBerkantVideos = shuffleArray(BERKANT_VIDEOS); // Berkant videos
 
@@ -76,7 +66,24 @@ export const generateRandomGrid = (): GridItem[] => {
 
   // Select content
   const selectedQuotes = shuffledQuotes.slice(0, Math.min(4, shuffledQuotes.length));
-  const selectedBeforeAfter = shuffledBeforeAfter;
+  
+  // Calculate how many before/after images we need
+  const beforeAfterSlots = GRID_LAYOUT.length - 3 - Math.min(4, shuffledQuotes.length); // 3 video slots, up to 4 quote slots
+  
+  // Ensure priority image is included, then fill with random others
+  const priorityImage = BEFORE_AFTER_ITEMS.find(item => 
+    item.image.includes('FD%20after.jpg')
+  );
+  const otherImages = shuffleArray(BEFORE_AFTER_ITEMS.filter(item => 
+    !item.image.includes('FD%20after.jpg')
+  ));
+  
+  // Create selection pool: priority image + random others, then shuffle all
+  const beforeAfterPool = priorityImage 
+    ? [priorityImage, ...otherImages.slice(0, Math.max(0, beforeAfterSlots - 1))]
+    : otherImages.slice(0, beforeAfterSlots);
+  
+  const selectedBeforeAfter = shuffleArray(beforeAfterPool);
 
   // Build grid items with position-specific assignment
   let quoteIndex = 0;
