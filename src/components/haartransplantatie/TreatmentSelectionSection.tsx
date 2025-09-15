@@ -307,16 +307,16 @@ export const TreatmentSelectionSection = () => {
               sessionStorage.setItem('previousPath', window.location.pathname);
               navigate(language === 'nl' ? '/nl/info' : '/en/info');
             }}
-            className="!w-12 !h-12 sm:!w-14 sm:!h-14 !min-w-[48px] !min-h-[48px] !max-w-[56px] !max-h-[56px] !rounded-full !p-0 !aspect-square flex items-center justify-center"
+            className="!w-12 !h-12 sm:!w-14 sm:!h-14 !rounded-full !p-0 !overflow-hidden !shadow-none"
             style={{
               width: '48px',
               height: '48px',
               borderRadius: '50%',
-              background: 'rgba(255, 255, 255, 0.1)',
-              backdropFilter: 'blur(20px) saturate(1.8)',
-              WebkitBackdropFilter: 'blur(20px) saturate(1.8)',
-              border: '1px solid rgba(255, 255, 255, 0.5)',
-              boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.1), inset 0 1px 0 0 rgba(255, 255, 255, 0.3)'
+              background: 'rgba(255, 255, 255, 0.05)',
+              backdropFilter: 'blur(30px) saturate(1.2)',
+              WebkitBackdropFilter: 'blur(30px) saturate(1.2)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: 'none'
             }}
           >
             <Info className="w-6 h-6 sm:w-7 sm:h-7 text-white/90" />
@@ -331,16 +331,16 @@ export const TreatmentSelectionSection = () => {
               sessionStorage.setItem('previousPath', window.location.pathname);
               navigate(language === 'nl' ? '/nl/support' : '/en/support');
             }}
-            className="!w-12 !h-12 sm:!w-14 sm:!h-14 !min-w-[48px] !min-h-[48px] !max-w-[56px] !max-h-[56px] !rounded-full !p-0 !aspect-square flex items-center justify-center"
+            className="!w-12 !h-12 sm:!w-14 sm:!h-14 !rounded-full !p-0 !overflow-hidden !shadow-none"
             style={{
               width: '48px',
               height: '48px',
               borderRadius: '50%',
-              background: 'rgba(255, 255, 255, 0.1)',
-              backdropFilter: 'blur(20px) saturate(1.8)',
-              WebkitBackdropFilter: 'blur(20px) saturate(1.8)',
-              border: '1px solid rgba(255, 255, 255, 0.5)',
-              boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.1), inset 0 1px 0 0 rgba(255, 255, 255, 0.3)'
+              background: 'rgba(255, 255, 255, 0.05)',
+              backdropFilter: 'blur(30px) saturate(1.2)',
+              WebkitBackdropFilter: 'blur(30px) saturate(1.2)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: 'none'
             }}
           >
             <img 
