@@ -67,21 +67,21 @@ export const TreatmentSelectionSection = () => {
     if (heightBreakpoint === 'small') {
       return {
         container: 'pt-0 pb-0', // Ultra compact for small height screens
-        country: '-mt-2 mb-2', // Fixed spacing between country and packages
+        country: '-mt-1 mb-2', // Less top margin for small screens
         package: isLargerMobile ? 'mb-3' : 'mb-1', // More space for larger mobile devices
         content: 'mb-3' // Less space between lorem ipsum and price
       };
     } else if (heightBreakpoint === 'medium') {
       return {
         container: 'pt-1 pb-1', // Moderate padding
-        country: '-mt-2 mb-2', // Fixed spacing between country and packages
+        country: '-mt-3 mb-2', // More top margin for medium screens
         package: isLargerMobile ? 'mb-5' : 'mb-3', // More space for larger mobile devices
         content: 'mb-4' // Moderate content spacing
       };
     } else {
       return {
         container: 'pt-2 pb-2', // Generous padding for large screens
-        country: '-mt-2 mb-2', // Fixed spacing between country and packages
+        country: '-mt-5 mb-2', // Maximum top margin for large screens
         package: isLargerMobile ? 'mb-6' : 'mb-4', // More space for larger mobile devices
         content: 'mb-5' // Generous content spacing
       };
