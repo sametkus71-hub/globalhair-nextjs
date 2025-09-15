@@ -162,7 +162,6 @@ const MissionPage: React.FC = () => {
         }
 
         .shiny-cta::before,
-        .shiny-cta::after,
         .shiny-cta span::before {
           content: "";
           pointer-events: none;
@@ -173,35 +172,11 @@ const MissionPage: React.FC = () => {
           z-index: -1;
         }
 
-        .shiny-cta:active {
-          translate: 0 1px;
-        }
-
-        .shiny-cta::before {
-          --size: calc(100% - var(--shadow-size) * 3);
-          --position: 2px;
-          --space: calc(var(--position) * 2);
-          width: var(--size);
-          height: var(--size);
-          background: radial-gradient(
-            circle at var(--position) var(--position),
-            white calc(var(--position) / 4),
-            transparent 0
-          ) padding-box;
-          background-size: var(--space) var(--space);
-          background-repeat: space;
-          mask-image: conic-gradient(
-            from calc(var(--gradient-angle) + 45deg),
-            black,
-            transparent 10% 90%,
-            black
-          );
-          border-radius: inherit;
-          opacity: 0.4;
-          z-index: -1;
-        }
-
         .shiny-cta::after {
+          content: "";
+          pointer-events: none;
+          position: absolute;
+          z-index: -1;
           --animation: shimmer linear infinite;
           width: 100%;
           aspect-ratio: 1;
@@ -213,6 +188,9 @@ const MissionPage: React.FC = () => {
           );
           mask-image: radial-gradient(circle at bottom, transparent 40%, black);
           opacity: 0.6;
+          inset-inline-start: 45%;
+          inset-block-start: 45%;
+          translate: -45% -45%;
         }
 
         .shiny-cta span {
