@@ -22,10 +22,11 @@ export const StaticImageGrid = () => {
 
   return (
     <div className="w-full relative">
-      {/* Fixed solid gradient animated background */}
+      {/* Grid container with animated breathing gradient background - 5x2 for 10 images */}
       <div 
-        className="absolute inset-0 animate-gradient-flow"
-        style={{
+        className="grid grid-cols-5 w-full gap-0 animate-gradient-flow"
+        style={{ 
+          gridTemplateRows: 'repeat(2, 20vw)',
           background: `linear-gradient(135deg, 
             hsl(var(--primary) / 0.15), 
             hsl(var(--secondary) / 0.12), 
@@ -33,33 +34,22 @@ export const StaticImageGrid = () => {
             hsl(var(--primary-glow) / 0.08)
           )`
         }}
-      />
-      
-      {/* Grid container - 5x2 for 10 images */}
-      <div 
-        className="grid grid-cols-5 w-full gap-0 relative z-10"
-        style={{ 
-          gridTemplateRows: 'repeat(2, 20vw)'
-        }}
       >
         {shuffledImages.map((image, index) => (
           <div
             key={image.id}
-            className="relative p-0.5"
+            className="relative border border-white/10"
             style={{ 
               width: '20vw',
               height: '20vw'
             }}
           >
-            {/* Image with subtle border */}
-            <div className="w-full h-full border border-white/20 rounded-sm overflow-hidden bg-background/5">
-              <StaticGridImage
-                src={image.src}
-                alt={image.alt}
-                animationDelay={index * 100}
-                className="w-full h-full"
-              />
-            </div>
+            <StaticGridImage
+              src={image.src}
+              alt={image.alt}
+              animationDelay={index * 100}
+              className="w-full h-full"
+            />
           </div>
         ))}
       </div>
