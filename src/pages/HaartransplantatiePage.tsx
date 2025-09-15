@@ -90,8 +90,10 @@ const HaartransplantatiePage = () => {
           >
             {/* Central Logo at top */}
             <div 
-              className={`w-full relative z-[100] pointer-events-none flex justify-center pt-8 ${comesFromHome ? 'opacity-0 animate-logo-entrance' : 'opacity-100'}`}
+              className={`w-full relative z-[100] pointer-events-none ${comesFromHome ? 'opacity-0 animate-logo-entrance' : 'opacity-100'}`}
               style={{ 
+                marginLeft: '50vw',
+                paddingTop: '32px',
                 ...(comesFromHome ? { animationDelay: '0ms' } : {})
               }}
             >
@@ -99,7 +101,9 @@ const HaartransplantatiePage = () => {
                 className="pointer-events-none" 
                 style={{ 
                   width: '280px', 
-                  height: '280px'
+                  height: '280px',
+                  marginLeft: '50vw',
+                  transform: 'translateX(-50%)'
                 }}
               >
                 <ShieldIcon />
