@@ -69,7 +69,7 @@ export const TreatmentSelectionSection = () => {
         container: 'pt-0 pb-0', // Ultra compact for small height screens
         header: '-mt-8 mb-2', // Move header closer to logo with more space between title/subtitle
         text: 'mb-2', // Tight space between subtitle and region switch
-        country: '-mt-2 mb-1', // Pull location up closer to header with negative margin
+        country: '-mt-2 mb-2', // Fixed spacing between country and packages
         package: isLargerMobile ? 'mb-3' : 'mb-1', // More space for larger mobile devices
         content: 'mb-3' // Less space between lorem ipsum and price
       };
@@ -78,7 +78,7 @@ export const TreatmentSelectionSection = () => {
         container: 'pt-1 pb-1', // Moderate padding
         header: '-mt-6 mb-2', // Move header much closer to logo
         text: 'mb-5', // More breathing room between subtitle and location switch
-        country: 'mb-3', // Moderate gap between region and package switches
+        country: '-mt-2 mb-2', // Fixed spacing between country and packages
         package: isLargerMobile ? 'mb-5' : 'mb-3', // More space for larger mobile devices
         content: 'mb-4' // Moderate content spacing
       };
@@ -87,7 +87,7 @@ export const TreatmentSelectionSection = () => {
         container: 'pt-2 pb-2', // Generous padding for large screens
         header: '-mt-4 mb-3', // Move header much closer to logo
         text: 'mb-6', // Maximum breathing room between subtitle and location switch
-        country: 'mb-4', // Generous gap between region and package switches
+        country: '-mt-2 mb-2', // Fixed spacing between country and packages
         package: isLargerMobile ? 'mb-6' : 'mb-4', // More space for larger mobile devices
         content: 'mb-5' // Generous content spacing
       };
