@@ -9,6 +9,7 @@ import { TreatmentSelectionSection } from '@/components/haartransplantatie/Treat
 import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
 import { VideoBackground } from '@/components/haartransplantatie/VideoBackground';
+import { ShinyButton } from '@/components/ui/shiny-button';
 
 
 const HaartransplantatiePage = () => {
@@ -118,6 +119,13 @@ const HaartransplantatiePage = () => {
               >
                 <TreatmentSelectionSection />
               </div>
+            </div>
+
+            {/* Temporary ShinyButton placement */}
+            <div className="absolute bottom-4 left-4 z-30">
+              <ShinyButton onClick={() => console.log('Shiny button clicked!')}>
+                Get unlimited access
+              </ShinyButton>
             </div>
           </section>
 
