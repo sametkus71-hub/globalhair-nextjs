@@ -6,7 +6,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
 import { MissionContent } from '@/components/mission/MissionContent';
 import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
-import { getBerkantVideoById } from '@/data/berkantVideos';
+import { getBerkantVideoById, BERKANT_VIDEOS } from '@/data/berkantVideos';
 const MissionPage: React.FC = () => {
   const {
     language
@@ -18,16 +18,37 @@ const MissionPage: React.FC = () => {
   const {
     handlePopupClose
   } = usePopupClose();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isExiting, setIsExiting] = useState(false);
   const [titleVisible, setTitleVisible] = useState(false);
   const [contentVisible, setContentVisible] = useState(false);
   const [buttonVisible, setButtonVisible] = useState(false);
+  const [nextButtonVisible, setNextButtonVisible] = useState(false);
 
   // Get video from URL parameters
   const videoId = searchParams.get('video');
   const berkantVideo = videoId ? getBerkantVideoById(videoId) : null;
+
+  // Get next video ID for cycling through videos
+  const getNextVideoId = () => {
+    if (!videoId) return 'berkant-1';
+    
+    const currentIndex = BERKANT_VIDEOS.findIndex(video => video.id === videoId);
+    const nextIndex = (currentIndex + 1) % BERKANT_VIDEOS.length;
+    return BERKANT_VIDEOS[nextIndex].id;
+  };
+
+  // Handle next video navigation
+  const handleNextVideo = () => {
+    const nextVideoId = getNextVideoId();
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set('video', nextVideoId);
+    setSearchParams(newParams);
+    
+    // Reset next button visibility for new video
+    setNextButtonVisible(false);
+  };
   const handleClose = () => {
     setIsExiting(true);
     // Navigate back to reviews page instead of using popup close
@@ -48,6 +69,7 @@ const MissionPage: React.FC = () => {
     const timer1 = setTimeout(() => setTitleVisible(true), 100);
     const timer2 = setTimeout(() => setContentVisible(true), 300);
     const timer3 = setTimeout(() => setButtonVisible(true), 500);
+    const timer4 = setTimeout(() => setNextButtonVisible(true), 8000); // Show next button after 8 seconds
 
     // Auto-play video if available
     if (berkantVideo && videoRef.current) {
@@ -59,6 +81,7 @@ const MissionPage: React.FC = () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
       clearTimeout(timer3);
+      clearTimeout(timer4);
     };
   }, [berkantVideo]);
   return <>
@@ -266,6 +289,43 @@ const MissionPage: React.FC = () => {
             scale: 1.2;
           }
         }
+
+        .ghost-next-btn {
+          isolation: isolate;
+          position: relative;
+          overflow: hidden;
+          cursor: pointer;
+          outline-offset: 4px;
+          padding: 0.75rem 1.5rem;
+          font-family: var(--font-body), -apple-system, BlinkMacSystemFont, sans-serif;
+          font-size: 0.7rem;
+          line-height: 1.2;
+          font-weight: 300;
+          letter-spacing: 0.025em;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          border-radius: 360px;
+          color: rgba(255, 255, 255, 0.9);
+          background: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          transition: all 300ms cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .ghost-next-btn:hover {
+          border-color: rgba(255, 255, 255, 0.5);
+          background: rgba(255, 255, 255, 0.1);
+          color: rgba(255, 255, 255, 1);
+          transform: translateY(-1px);
+        }
+
+        .ghost-next-btn:active {
+          transform: translateY(0);
+        }
+
+        .ghost-next-btn span {
+          z-index: 1;
+          position: relative;
+        }
         `
       }} />
       
@@ -302,13 +362,21 @@ const MissionPage: React.FC = () => {
               </p>
             </div>
 
-            {/* Bottom Button */}
-            <div className={`transition-all duration-500 ease-out ${buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            {/* Bottom Buttons */}
+            <div className={`flex flex-row items-center gap-4 transition-all duration-500 ease-out ${buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <button 
                 onClick={handleMethodsClick} 
                 className="shiny-cta"
               >
                 <span>{language === 'nl' ? 'Bekijk methodes' : 'View methods'}</span>
+              </button>
+
+              {/* Next Video Button */}
+              <button
+                onClick={handleNextVideo}
+                className={`ghost-next-btn transition-all duration-700 ease-out ${nextButtonVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'}`}
+              >
+                <span>{language === 'nl' ? 'Volgende video' : 'Next video'}</span>
               </button>
             </div>
           </div>
