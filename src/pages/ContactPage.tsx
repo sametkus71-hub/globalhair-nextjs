@@ -264,7 +264,7 @@ const ContactPage: React.FC = () => {
                   <button className="active:scale-[0.98] transition-all duration-300 ease-out">
                     <CustomMailIcon className="w-12 h-15" />
                   </button>
-                  <button className="active:scale-[0.98] transition-all duration-300 ease-out">
+                  <button className="active:scale-[0.98] transition-all duration-300 ease-out -mt-2">
                     <CustomWhatsAppIcon className="w-16 h-20" />
                   </button>
                   <button className="active:scale-[0.98] transition-all duration-300 ease-out">
