@@ -15,6 +15,17 @@ export const NewPackageContent = () => {
   const { heightBreakpoint } = useViewportHeight();
   const totalPrice = calculatePrice(profile);
 
+  // Dynamic spacing for the CTA button based on viewport height
+  const getButtonSpacing = () => {
+    if (heightBreakpoint === 'small') {
+      return '-mt-3 -mb-6'; // Tighter spacing for small screens
+    } else if (heightBreakpoint === 'medium') {
+      return '-mt-2 -mb-7'; // Moderate spacing for medium screens
+    } else {
+      return '-mt-1 -mb-8'; // More generous spacing for large screens
+    }
+  };
+
   // Define simplified package content
   const packageContent = {
     Standard: {
@@ -83,7 +94,7 @@ export const NewPackageContent = () => {
       </div>
 
       {/* More Details Button */}
-      <div className="flex justify-center -mt-2 -mb-8">
+      <div className={`flex justify-center ${getButtonSpacing()}`}>
         <ShinyButton 
           onClick={() => console.log('More information clicked')}
         >
