@@ -7,6 +7,7 @@ import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
 import { MissionContent } from '@/components/mission/MissionContent';
 import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 import { getBerkantVideoById, BERKANT_VIDEOS } from '@/data/berkantVideos';
+import { ChevronRight } from 'lucide-react';
 const MissionPage: React.FC = () => {
   const {
     language
@@ -289,43 +290,6 @@ const MissionPage: React.FC = () => {
             scale: 1.2;
           }
         }
-
-        .ghost-next-btn {
-          isolation: isolate;
-          position: relative;
-          overflow: hidden;
-          cursor: pointer;
-          outline-offset: 4px;
-          padding: 0.75rem 1.5rem;
-          font-family: var(--font-body), -apple-system, BlinkMacSystemFont, sans-serif;
-          font-size: 0.7rem;
-          line-height: 1.2;
-          font-weight: 300;
-          letter-spacing: 0.025em;
-          border: 1px solid rgba(255, 255, 255, 0.3);
-          border-radius: 360px;
-          color: rgba(255, 255, 255, 0.9);
-          background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          transition: all 300ms cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .ghost-next-btn:hover {
-          border-color: rgba(255, 255, 255, 0.5);
-          background: rgba(255, 255, 255, 0.1);
-          color: rgba(255, 255, 255, 1);
-          transform: translateY(-1px);
-        }
-
-        .ghost-next-btn:active {
-          transform: translateY(0);
-        }
-
-        .ghost-next-btn span {
-          z-index: 1;
-          position: relative;
-        }
         `
       }} />
       
@@ -363,21 +327,30 @@ const MissionPage: React.FC = () => {
             </div>
 
             {/* Bottom Buttons */}
-            <div className={`flex flex-row items-center gap-4 transition-all duration-500 ease-out ${buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              <button 
-                onClick={handleMethodsClick} 
-                className="shiny-cta"
-              >
-                <span>{language === 'nl' ? 'Bekijk methodes' : 'View methods'}</span>
-              </button>
+            <div className={`transition-all duration-500 ease-out ${buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+              <div className="flex flex-col items-start gap-4">
+                <button 
+                  onClick={handleMethodsClick} 
+                  className="shiny-cta"
+                >
+                  <span>{language === 'nl' ? 'Bekijk methodes' : 'View methods'}</span>
+                </button>
 
-              {/* Next Video Button */}
-              <button
-                onClick={handleNextVideo}
-                className={`ghost-next-btn transition-all duration-700 ease-out ${nextButtonVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'}`}
-              >
-                <span>{language === 'nl' ? 'Volgende video' : 'Next video'}</span>
-              </button>
+                {/* Next Video Control */}
+                {nextButtonVisible && (
+                  <div
+                    onClick={handleNextVideo}
+                    className="cursor-pointer flex items-center gap-2 text-white/50 hover:text-white/90 transition-all duration-300 group ml-2"
+                    style={{
+                      opacity: nextButtonVisible ? 1 : 0,
+                      transform: nextButtonVisible ? 'translateY(0)' : 'translateY(10px)'
+                    }}
+                  >
+                    <ChevronRight size={14} className="group-hover:translate-x-0.5 transition-transform duration-200" />
+                    <span className="text-xs font-light">{language === 'nl' ? 'Volgende video' : 'Next video'}</span>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
