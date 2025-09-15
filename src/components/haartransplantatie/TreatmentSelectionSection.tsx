@@ -319,25 +319,7 @@ export const TreatmentSelectionSection = () => {
               boxShadow: 'none'
             }}
           >
-            <svg width="24" height="24" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <foreignObject x="-4.14638" y="-4.14638" width="54.2928" height="54.2928">
-                <div style={{backdropFilter:'blur(2.07px)', clipPath:'url(#bgblur_0_36_1062_clip_path)', height:'100%', width:'100%'}}></div>
-              </foreignObject>
-              <rect data-figma-bg-blur-radius="4.14638" x="0.5" y="45.5" width="45" height="45" rx="22.5" transform="rotate(-90 0.5 45.5)" fill="url(#paint0_linear_36_1062)" fillOpacity="0.1" stroke="url(#paint1_linear_36_1062)"/>
-              <defs>
-                <clipPath id="bgblur_0_36_1062_clip_path" transform="translate(4.14638 4.14638)">
-                  <rect x="0.5" y="45.5" width="45" height="45" rx="22.5" transform="rotate(-90 0.5 45.5)"/>
-                </clipPath>
-                <linearGradient id="paint0_linear_36_1062" x1="0" y1="69" x2="46" y2="69" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="white" stopOpacity="0.49"/>
-                  <stop offset="1" stopColor="white" stopOpacity="0.2"/>
-                </linearGradient>
-                <linearGradient id="paint1_linear_36_1062" x1="0" y1="69" x2="46" y2="69" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="white" stopOpacity="0.25"/>
-                  <stop offset="1" stopColor="white" stopOpacity="0.6"/>
-                </linearGradient>
-              </defs>
-            </svg>
+            <Info className="w-6 h-6 sm:w-7 sm:h-7 text-white/90" />
           </LiquidButton>
         </div>
         <div className={`transition-all duration-700 ease-in-out ${
@@ -361,21 +343,11 @@ export const TreatmentSelectionSection = () => {
               boxShadow: 'none'
             }}
           >
-            <svg width="24" height="24" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <foreignObject x="-4.14638" y="-4.14638" width="54.2928" height="54.2928">
-                <div style={{backdropFilter:'blur(2.07px)', clipPath:'url(#bgblur_0_36_1060_clip_path)', height:'100%', width:'100%'}}></div>
-              </foreignObject>
-              <rect data-figma-bg-blur-radius="4.14638" x="0.5" y="0.5" width="45" height="45" rx="22.5" fill="white" fillOpacity="0.1" stroke="url(#paint0_linear_36_1060)"/>
-              <defs>
-                <clipPath id="bgblur_0_36_1060_clip_path" transform="translate(4.14638 4.14638)">
-                  <rect x="0.5" y="0.5" width="45" height="45" rx="22.5"/>
-                </clipPath>
-                <linearGradient id="paint0_linear_36_1060" x1="0" y1="23" x2="46" y2="23" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="white" stopOpacity="0.25"/>
-                  <stop offset="1" stopColor="white" stopOpacity="0.6"/>
-                </linearGradient>
-              </defs>
-            </svg>
+            <img 
+              src="/lovable-uploads/61372204-ad34-421b-877a-e61ca6adf93e.png" 
+              alt="Support icon" 
+              className="w-6 h-6 sm:w-7 sm:h-7 opacity-90"
+            />
           </LiquidButton>
         </div>
       </div>
