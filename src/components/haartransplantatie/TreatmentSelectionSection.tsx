@@ -125,7 +125,7 @@ export const TreatmentSelectionSection = () => {
             animationDelay: comesFromHome ? '1700ms' : '0ms'
           }}
         >
-          <p className="font-lato text-[14px] font-normal text-white">
+          <p className="font-lato text-[14px] font-normal text-white pb-2">
             Nederland | Turkije
           </p>
         </div>
