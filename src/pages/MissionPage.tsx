@@ -277,7 +277,7 @@ const MissionPage: React.FC = () => {
       <div className="absolute inset-0 w-full h-full bg-gray-900"></div>}
         
         {/* Gradient overlay for video quality */}
-        <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-black/10 via-black/20 to-black/40"></div>
+        <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-black/10 via-black/30 to-black/60"></div>
         
         {/* Close button */}
         <PopupCloseButton onClose={handleClose} />
