@@ -265,7 +265,7 @@ const ContactPage: React.FC = () => {
                     <CustomMailIcon className="w-12 h-15" />
                   </button>
                   <button className="active:scale-[0.98] transition-all duration-300 ease-out">
-                    <CustomWhatsAppIcon className="w-12 h-12 -mt-1" />
+                    <CustomWhatsAppIcon className="w-12 h-12 -mt-3" />
                   </button>
                   <button className="active:scale-[0.98] transition-all duration-300 ease-out">
                     <CustomInstagramIcon className="w-12 h-15" />
