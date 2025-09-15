@@ -88,8 +88,8 @@ const VideoCard = ({
       />
       {/* Berkant badge */}
       {isBerkantVideo && (
-        <div className="absolute top-2 left-2 bg-black/80 px-2 py-1 rounded text-xs text-white font-medium pointer-events-none">
-          Founder
+        <div className="absolute top-3 left-3 bg-white/20 backdrop-blur-sm border border-white/30 px-3 py-1 rounded-full text-[10px] text-white font-light tracking-wide pointer-events-none">
+          Berkant Dural
         </div>
       )}
       <div className="absolute top-2 right-2 bg-black/70 p-2 rounded-full pointer-events-none">
