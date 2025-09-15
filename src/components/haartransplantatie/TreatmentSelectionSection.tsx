@@ -152,16 +152,17 @@ export const TreatmentSelectionSection = () => {
         {/* Header */}
         <div className={`text-center ${spacing.header}`}>
           <p 
-            className={`font-lato text-[13px] font-normal text-white/80 ${spacing.text} ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
+            className={`font-lato text-[13px] font-normal text-white/80 mb-1 ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
             style={{ 
               lineHeight: '0.97',
+              marginTop: '-20px',
               animationDelay: comesFromHome ? '600ms' : '0ms'
             }}
           >
             GHI Hairtransplant
           </p>
           <h1 
-            className={`font-lato text-[24px] font-normal text-white mb-2 uppercase -mt-16 ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
+            className={`font-lato text-[24px] font-normal text-white uppercase ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
             style={{ 
               lineHeight: '0.97',
               animationDelay: comesFromHome ? '900ms' : '0ms'
