@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
-import { GrowthIcon } from '@/components/icons/GrowthIcon';
-import { RecoveryIcon } from '@/components/icons/RecoveryIcon';
+import { AnimatedGrowthIcon } from '@/components/icons/AnimatedGrowthIcon';
+import { AnimatedRecoveryIcon } from '@/components/icons/AnimatedRecoveryIcon';
 import { useLanguage } from '@/hooks/useLanguage';
 
 interface StrengthMeterProps {
@@ -34,12 +34,12 @@ export const StrengthMeter = ({ package: packageName, className }: StrengthMeter
       {renderMeterRow(
         'Growth',
         levels.growth,
-        <GrowthIcon level={levels.growth as 1 | 2 | 3} />
+        <AnimatedGrowthIcon level={levels.growth as 1 | 2 | 3} />
       )}
       {renderMeterRow(
         'Recovery',
         levels.recovery,
-        <RecoveryIcon level={levels.recovery as 1 | 2 | 3} />
+        <AnimatedRecoveryIcon level={levels.recovery as 1 | 2 | 3} />
       )}
     </div>
   );
