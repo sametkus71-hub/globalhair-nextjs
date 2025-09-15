@@ -18,11 +18,11 @@ export const NewPackageContent = () => {
   // Dynamic spacing for the CTA button based on viewport height
   const getButtonSpacing = () => {
     if (heightBreakpoint === 'small') {
-      return '-mt-3 -mb-6'; // Tighter spacing for small screens
+      return '-mt-4 -mb-4'; // Much tighter spacing for small screens
     } else if (heightBreakpoint === 'medium') {
-      return '-mt-2 -mb-7'; // Moderate spacing for medium screens
+      return '-mt-2 -mb-6'; // Moderate spacing for medium screens
     } else {
-      return '-mt-1 -mb-8'; // More generous spacing for large screens
+      return 'mt-0 -mb-8'; // More generous spacing for large screens
     }
   };
 
