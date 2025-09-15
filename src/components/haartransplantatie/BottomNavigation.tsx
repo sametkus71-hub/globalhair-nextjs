@@ -93,9 +93,8 @@ export const BottomNavigation = () => {
   };
 
   const handleHaarscanNavigation = () => {
-    // Store current page before navigating to haarscan
-    sessionStorage.setItem('previousPage', location.pathname);
-    handlePopupNavigation(language === 'nl' ? '/nl/missie' : '/en/mission');
+    // Open external haarscan page in new tab
+    window.open('https://scan.globalhair.nl', '_blank', 'noopener,noreferrer');
   };
 
   const handleBookingNavigation = () => {
@@ -109,7 +108,7 @@ export const BottomNavigation = () => {
       return location.pathname === '/nl' || location.pathname === '/en' || location.pathname === '/';
     }
     if (path === 'haarscan') {
-      return location.pathname === '/nl/missie' || location.pathname === '/en/mission';
+      return false; // External link, never active
     }
     if (path === 'reviews') {
       return location.pathname.startsWith('/nl/reviews') || location.pathname.startsWith('/en/reviews');
