@@ -24,8 +24,8 @@ export interface UserProfile {
 
 const defaultProfile: UserProfile = {
   geslacht: 'Man',
-  haartype: 'Fijn',
-  haarkleur: 'Rood',
+  haartype: 'Krul',
+  haarkleur: 'Bruin',
   locatie: 'Nederland',
   scheren: 'Met scheren',
   behandeling: 'Normaal',
