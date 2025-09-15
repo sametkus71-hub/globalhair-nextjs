@@ -312,14 +312,14 @@ export const TreatmentSelectionSection = () => {
               width: '48px',
               height: '48px',
               borderRadius: '50%',
-              background: 'rgba(255, 255, 255, 0.05)',
+              background: 'rgba(255, 255, 255, 0.15)',
               backdropFilter: 'blur(30px) saturate(1.2)',
               WebkitBackdropFilter: 'blur(30px) saturate(1.2)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
+              border: '1px solid rgba(255, 255, 255, 0.6)',
               boxShadow: 'none'
             }}
           >
-            <Info className="w-6 h-6 sm:w-7 sm:h-7 text-white/90" />
+            <Info className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
           </LiquidButton>
         </div>
         <div className={`transition-all duration-700 ease-in-out ${
@@ -336,14 +336,14 @@ export const TreatmentSelectionSection = () => {
               width: '48px',
               height: '48px',
               borderRadius: '50%',
-              background: 'rgba(255, 255, 255, 0.05)',
+              background: 'rgba(255, 255, 255, 0.15)',
               backdropFilter: 'blur(30px) saturate(1.2)',
               WebkitBackdropFilter: 'blur(30px) saturate(1.2)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
+              border: '1px solid rgba(255, 255, 255, 0.6)',
               boxShadow: 'none'
             }}
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 sm:w-7 sm:h-7 opacity-90">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 sm:w-8 sm:h-8">
               <g clipPath="url(#clip0_36_1064)">
                 <path d="M4.00001 10.186H9.20001C9.42121 10.186 9.60001 10.0068 9.60001 9.78599C9.60001 9.56519 9.42121 9.38599 9.20001 9.38599H4.00001C3.77881 9.38599 3.60001 9.56519 3.60001 9.78599C3.60001 10.0068 3.77881 10.186 4.00001 10.186Z" fill="white"/>
                 <path d="M14.4 11.786H4.00001C3.77881 11.786 3.60001 11.9652 3.60001 12.186C3.60001 12.4068 3.77881 12.586 4.00001 12.586H14.4C14.6212 12.586 14.8 12.4068 14.8 12.186C14.8 11.9652 14.6212 11.786 14.4 11.786Z" fill="white"/>
