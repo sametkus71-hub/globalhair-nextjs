@@ -232,23 +232,23 @@ const MissionPage: React.FC = () => {
         @keyframes gradient-angle {
           0% {
             --gradient-angle: 0deg;
-            --gradient-opacity: 0.6;
+            --gradient-opacity: 0.1;
           }
           25% {
             --gradient-angle: 90deg;
-            --gradient-opacity: 0.2;
+            --gradient-opacity: 0.05;
           }
           50% {
             --gradient-angle: 180deg;
-            --gradient-opacity: 0.1;
+            --gradient-opacity: 0.02;
           }
           75% {
             --gradient-angle: 270deg;
-            --gradient-opacity: 0.2;
+            --gradient-opacity: 0.05;
           }
           100% {
             --gradient-angle: 360deg;
-            --gradient-opacity: 0.6;
+            --gradient-opacity: 0.1;
           }
         }
 
