@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
-import { LeafIcon } from '@/components/icons/LeafIcon';
-import { PlayButtonIcon } from '@/components/icons/PlayButtonIcon';
+import { GrowthIcon } from '@/components/icons/GrowthIcon';
+import { RecoveryIcon } from '@/components/icons/RecoveryIcon';
 import { useLanguage } from '@/hooks/useLanguage';
 
 interface StrengthMeterProps {
@@ -23,18 +23,7 @@ export const StrengthMeter = ({ package: packageName, className }: StrengthMeter
   const renderMeterRow = (label: string, level: number, icon: React.ReactNode) => (
     <div className="flex items-center justify-between max-w-[140px] mx-auto">
       <span className="font-body text-[11px] font-light text-white/80">{label}</span>
-      <div className="flex items-center space-x-1.5">
-        <div className="flex space-x-1">
-          {[1, 2, 3].map((dot) => (
-            <div
-              key={dot}
-              className={cn(
-                "w-2 h-2 rounded-full",
-                dot <= level ? "bg-white" : "bg-white/20"
-              )}
-            />
-          ))}
-        </div>
+      <div className="flex items-center justify-end">
         {icon}
       </div>
     </div>
@@ -45,12 +34,12 @@ export const StrengthMeter = ({ package: packageName, className }: StrengthMeter
       {renderMeterRow(
         'Growth',
         levels.growth,
-        <LeafIcon className="w-3 h-3" />
+        <GrowthIcon level={levels.growth as 1 | 2 | 3} className="w-3 h-3" />
       )}
       {renderMeterRow(
         'Recovery',
         levels.recovery,
-        <PlayButtonIcon className="w-3 h-3" />
+        <RecoveryIcon level={levels.recovery as 1 | 2 | 3} className="w-3 h-3" />
       )}
     </div>
   );
