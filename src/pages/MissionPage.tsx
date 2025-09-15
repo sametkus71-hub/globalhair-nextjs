@@ -178,7 +178,7 @@ const MissionPage: React.FC = () => {
           position: absolute;
           z-index: -1;
           --animation: shimmer linear infinite;
-          width: 100%;
+          width: 150%;
           aspect-ratio: 1;
           background: linear-gradient(
             -50deg,
