@@ -194,7 +194,7 @@ export const TreatmentSelectionSection = () => {
           onClick={() => {
             // Store current path before navigating to popup
             sessionStorage.setItem('previousPath', window.location.pathname);
-            navigate(language === 'nl' ? '/nl/info' : '/en/info');
+            navigate(language === 'nl' ? '/nl/info/traject' : '/en/info/trajectory');
           }}
           className={`w-12 h-12 sm:w-14 sm:h-14 bg-black/18 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/22 transition-all duration-700 ease-in-out cursor-pointer ${
             buttonsLoaded[0] ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
