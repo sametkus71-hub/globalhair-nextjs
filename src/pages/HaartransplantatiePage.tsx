@@ -5,7 +5,7 @@ import { MetaHead } from '@/components/MetaHead';
 import { PageTransition } from '@/components/PageTransition';
 import { ScrollFadeLogo } from '@/components/ScrollFadeLogo';
 import { ShieldIcon } from '@/components/logos/ShieldIcon';
-import { BeforeAfterGrid } from '@/components/haartransplantatie/BeforeAfterGrid';
+import { StaticImageGrid } from '@/components/haartransplantatie/StaticImageGrid';
 import { TreatmentSelectionSection } from '@/components/haartransplantatie/TreatmentSelectionSection';
 import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
@@ -95,7 +95,7 @@ const HaartransplantatiePage = () => {
                 className={`w-full ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
                 style={{ animationDelay: comesFromHome ? '600ms' : '0ms' }}
               >
-                <BeforeAfterGrid />
+                <StaticImageGrid />
               </div>
             </div>
 
