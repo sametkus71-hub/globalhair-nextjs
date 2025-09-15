@@ -1,8 +1,9 @@
 import { QUOTES } from '@/data/reviewsQuotes';
 import { BEFORE_AFTER_ITEMS } from '@/data/reviewsBeforeAfter';
 import { VIDEOS } from '@/data/reviewsVideos';
+import { BERKANT_VIDEOS } from '@/data/berkantVideos';
 
-export type ContentType = 'quote' | 'before-after' | 'video';
+export type ContentType = 'quote' | 'before-after' | 'video' | 'berkant-video';
 
 export interface GridItem {
   id: string;
@@ -49,7 +50,8 @@ export const generateRandomGrid = (): GridItem[] => {
   // Shuffle all content pools
   const shuffledQuotes = shuffleArray(QUOTES);
   const shuffledBeforeAfter = shuffleArray(BEFORE_AFTER_ITEMS);
-  const shuffledVideos = shuffleArray(VIDEOS);
+  const shuffledPatientVideos = shuffleArray(VIDEOS); // Patient testimonials
+  const shuffledBerkantVideos = shuffleArray(BERKANT_VIDEOS); // Berkant videos
 
   // Find all 1x1 positions (small-only slots)
   const smallPositions = GRID_LAYOUT
@@ -60,32 +62,44 @@ export const generateRandomGrid = (): GridItem[] => {
   // Randomly select 4 positions for quotes
   const shuffledPositions = shuffleArray(smallPositions);
   const quotePositions = new Set(shuffledPositions.slice(0, Math.min(4, shuffledQuotes.length)));
-  const beforeAfterPositions = shuffledPositions.slice(Math.min(4, shuffledQuotes.length));
 
   // Select content
   const selectedQuotes = shuffledQuotes.slice(0, Math.min(4, shuffledQuotes.length));
   const selectedBeforeAfter = shuffleArray(shuffledBeforeAfter);
-  const selectedVideos = shuffleArray(shuffledVideos);
 
   // Build grid items with position-specific assignment
   let quoteIndex = 0;
   let beforeAfterIndex = 0;
-  let videoIndex = 0;
+  let patientVideoIndex = 0;
 
   const gridItems: GridItem[] = GRID_LAYOUT.map((layout, index) => {
     let content: { type: ContentType; data: any };
 
     if (layout.contentType === 'video-only') {
-      // Video slot
-      const videoData = selectedVideos.length > 0 
-        ? selectedVideos[videoIndex % selectedVideos.length]
-        : selectedBeforeAfter[beforeAfterIndex % Math.max(1, selectedBeforeAfter.length)];
-      
-      content = {
-        type: selectedVideos.length > 0 ? 'video' : 'before-after',
-        data: videoData
-      };
-      videoIndex++;
+      // Video slot - First slot (position 4) always gets Berkant video
+      if (index === 3) { // Position 4 (0-indexed = 3)
+        const berkantVideo = shuffledBerkantVideos[0]; // Pick first shuffled Berkant video
+        content = {
+          type: 'berkant-video',
+          data: {
+            ...berkantVideo,
+            // Use subbed version for reviews grid
+            videoUrl: berkantVideo.subbedUrl,
+            thumbnail: berkantVideo.thumbnail
+          }
+        };
+      } else {
+        // Other video slots use patient testimonials
+        const videoData = shuffledPatientVideos.length > 0 
+          ? shuffledPatientVideos[patientVideoIndex % shuffledPatientVideos.length]
+          : selectedBeforeAfter[beforeAfterIndex % Math.max(1, selectedBeforeAfter.length)];
+        
+        content = {
+          type: shuffledPatientVideos.length > 0 ? 'video' : 'before-after',
+          data: videoData
+        };
+        patientVideoIndex++;
+      }
     } else if (quotePositions.has(index)) {
       // Quote position
       content = {

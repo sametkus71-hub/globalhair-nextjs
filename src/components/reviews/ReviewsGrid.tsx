@@ -8,7 +8,9 @@ import { generateRandomGrid, GridItem } from '@/lib/reviewsRandomizer';
 import { QuoteImage } from '@/data/reviewsQuotes';
 import { BeforeAfterItem } from '@/data/reviewsBeforeAfter';
 import { VideoItem } from '@/data/reviewsVideos';
+import { BerkantVideoItem } from '@/data/berkantVideos';
 import { VolumeX, Volume2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 
 // Remove interfaces - no longer needed for static implementation
@@ -29,12 +31,14 @@ const VideoCard = ({
   video, 
   isMuted, 
   onToggleMute,
-  shouldLoad = false
+  shouldLoad = false,
+  isBerkantVideo = false
 }: { 
-  video: VideoItem; 
+  video: VideoItem | BerkantVideoItem; 
   isMuted: boolean; 
   onToggleMute: () => void;
   shouldLoad?: boolean;
+  isBerkantVideo?: boolean;
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -74,7 +78,7 @@ const VideoCard = ({
     >
       <video
         ref={videoRef}
-        src={video.videoUrl}
+        src={'videoUrl' in video ? video.videoUrl : video.subbedUrl}
         muted={isMuted}
         autoPlay
         loop
@@ -82,6 +86,12 @@ const VideoCard = ({
         preload="metadata"
         className="w-full h-full object-cover"
       />
+      {/* Berkant badge */}
+      {isBerkantVideo && (
+        <div className="absolute top-2 left-2 bg-black/80 px-2 py-1 rounded text-xs text-white font-medium pointer-events-none">
+          Founder
+        </div>
+      )}
       <div className="absolute top-2 right-2 bg-black/70 p-2 rounded-full pointer-events-none">
         {isMuted ? (
           <VolumeX className="w-4 h-4 text-white" />
@@ -109,6 +119,7 @@ export const ReviewsGrid = () => {
   const { language } = useLanguage();
   const { slideToItem } = useSlideTransition();
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
   
   // Generate random grid on component mount
   const [gridItems] = useState<GridItem[]>(() => generateRandomGrid());
@@ -131,7 +142,7 @@ export const ReviewsGrid = () => {
   });
 
   // Find video items to determine which should autoplay
-  const videoItems = gridItems.filter(item => item.type === 'video').slice(0, 3);
+  const videoItems = gridItems.filter(item => item.type === 'video' || item.type === 'berkant-video').slice(0, 3);
   const videoItemIds = new Set(videoItems.map(item => item.id));
 
   // Handle click to navigate to item page with slide animation - only for videos now
@@ -142,8 +153,16 @@ export const ReviewsGrid = () => {
   };
 
   // Handle video mute/unmute toggle - only one video can be unmuted at a time
-  const handleVideoToggleMute = (videoId: string) => {
-    setUnmutedVideoId(prevId => prevId === videoId ? null : videoId);
+  const handleVideoToggleMute = (videoId: string, item?: GridItem) => {
+    // Check if this is a Berkant video
+    if (item && item.type === 'berkant-video') {
+      // Navigate to mission page with video parameter
+      const missionPath = language === 'nl' ? `/nl/missie?video=${item.data.id}` : `/en/mission?video=${item.data.id}`;
+      navigate(missionPath);
+    } else {
+      // Regular video - toggle mute
+      setUnmutedVideoId(prevId => prevId === videoId ? null : videoId);
+    }
   };
 
   // Progressive loading effect
@@ -217,12 +236,13 @@ export const ReviewsGrid = () => {
               {item.type === 'quote' && (
                 <QuoteCard quote={item.data} />
               )}
-              {item.type === 'video' && (
+              {(item.type === 'video' || item.type === 'berkant-video') && (
                 <VideoCard 
                   video={item.data} 
                   isMuted={unmutedVideoId !== item.id}
-                  onToggleMute={() => handleVideoToggleMute(item.id)}
+                  onToggleMute={() => handleVideoToggleMute(item.id, item)}
                   shouldLoad={isVideoSlot}
+                  isBerkantVideo={item.type === 'berkant-video'}
                 />
               )}
               {item.type === 'before-after' && (

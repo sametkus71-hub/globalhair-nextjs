@@ -1,21 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
 import { MissionContent } from '@/components/mission/MissionContent';
 import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
+import { getBerkantVideoById } from '@/data/berkantVideos';
 
 const MissionPage: React.FC = () => {
   const { language } = useLanguage();
   const { t } = useTranslation(language);
   const navigate = useNavigate();
   const { handlePopupClose } = usePopupClose();
+  const [searchParams] = useSearchParams();
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [isExiting, setIsExiting] = useState(false);
   const [titleVisible, setTitleVisible] = useState(false);
   const [contentVisible, setContentVisible] = useState(false);
   const [buttonVisible, setButtonVisible] = useState(false);
+  
+  // Get video from URL parameters
+  const videoId = searchParams.get('video');
+  const berkantVideo = videoId ? getBerkantVideoById(videoId) : null;
 
   const handleClose = () => {
     setIsExiting(true);
@@ -29,18 +36,25 @@ const MissionPage: React.FC = () => {
     navigate(methodPath);
   };
 
-  // Handle ESC key and staggered entrance animations
+  // Handle video loading and staggered entrance animations
   useEffect(() => {
     const timer1 = setTimeout(() => setTitleVisible(true), 100);
     const timer2 = setTimeout(() => setContentVisible(true), 300);
     const timer3 = setTimeout(() => setButtonVisible(true), 500);
+    
+    // Auto-play video if available
+    if (berkantVideo && videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // Ignore autoplay failures
+      });
+    }
     
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
       clearTimeout(timer3);
     };
-  }, []);
+  }, [berkantVideo]);
 
   return (
     <>
@@ -77,14 +91,30 @@ const MissionPage: React.FC = () => {
                 contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
                 <div className="w-full flex items-center justify-center min-h-[300px] md:min-h-[400px]">
-                  {/* Video Placeholder */}
-                  <div className="w-full max-w-md aspect-video bg-white/10 rounded-xl flex items-center justify-center border border-gray-300/20">
-                    <div className="w-16 h-16 rounded-full bg-gray-400/40 flex items-center justify-center">
-                      <svg className="w-8 h-8 text-gray-600 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z"/>
-                      </svg>
+                  {berkantVideo ? (
+                    // Berkant Video Player
+                    <div className="w-full max-w-md aspect-video bg-black rounded-xl overflow-hidden relative">
+                      <video
+                        ref={videoRef}
+                        src={berkantVideo.unsubbedUrl}
+                        autoPlay
+                        loop
+                        controls
+                        playsInline
+                        preload="metadata"
+                        className="w-full h-full object-cover"
+                      />
                     </div>
-                  </div>
+                  ) : (
+                    // Video Placeholder
+                    <div className="w-full max-w-md aspect-video bg-white/10 rounded-xl flex items-center justify-center border border-gray-300/20">
+                      <div className="w-16 h-16 rounded-full bg-gray-400/40 flex items-center justify-center">
+                        <svg className="w-8 h-8 text-gray-600 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z"/>
+                        </svg>
+                      </div>
+                    </div>
+                  )}
                 </div>
                 
                 {/* Founder Text */}
