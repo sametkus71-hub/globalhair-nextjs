@@ -34,7 +34,6 @@ const MissionPage: React.FC = () => {
   // Get next video ID for cycling through videos
   const getNextVideoId = () => {
     if (!videoId) return 'berkant-1';
-    
     const currentIndex = BERKANT_VIDEOS.findIndex(video => video.id === videoId);
     const nextIndex = (currentIndex + 1) % BERKANT_VIDEOS.length;
     return BERKANT_VIDEOS[nextIndex].id;
@@ -46,7 +45,7 @@ const MissionPage: React.FC = () => {
     const newParams = new URLSearchParams(searchParams);
     newParams.set('video', nextVideoId);
     setSearchParams(newParams);
-    
+
     // Reset next button visibility for new video
     setNextButtonVisible(false);
   };
@@ -89,7 +88,7 @@ const MissionPage: React.FC = () => {
       <MetaHead title={t('mission.page.title')} description={t('mission.page.description')} language={language} />
       
       <style dangerouslySetInnerHTML={{
-        __html: `
+      __html: `
         @property --gradient-opacity {
           syntax: "<number>";
           initial-value: 1;
@@ -269,7 +268,7 @@ const MissionPage: React.FC = () => {
           }
         }
         `
-      }} />
+    }} />
       
       <div className={`fixed inset-0 w-full h-full overflow-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
         {berkantVideo ?
@@ -307,27 +306,18 @@ const MissionPage: React.FC = () => {
             {/* Bottom Buttons */}
             <div className={`transition-all duration-500 ease-out ${buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <div className="flex flex-col items-start gap-4">
-                <button 
-                  onClick={handleMethodsClick} 
-                  className="shiny-cta"
-                >
-                  <span>{language === 'nl' ? 'Bekijk methodes' : 'View methods'}</span>
+                <button onClick={handleMethodsClick} className="shiny-cta">
+                  <span className="font-light">{language === 'nl' ? 'Bekijk methodes' : 'View methods'}</span>
                 </button>
 
                 {/* Next Video Control */}
-                {nextButtonVisible && (
-                  <div
-                    onClick={handleNextVideo}
-                    className="cursor-pointer flex items-center gap-2 text-white/50 hover:text-white/90 transition-all duration-300 group ml-2"
-                    style={{
-                      opacity: nextButtonVisible ? 1 : 0,
-                      transform: nextButtonVisible ? 'translateY(0)' : 'translateY(10px)'
-                    }}
-                  >
+                {nextButtonVisible && <div onClick={handleNextVideo} className="cursor-pointer flex items-center gap-2 text-white/50 hover:text-white/90 transition-all duration-300 group ml-2" style={{
+                opacity: nextButtonVisible ? 1 : 0,
+                transform: nextButtonVisible ? 'translateY(0)' : 'translateY(10px)'
+              }}>
                     <ChevronRight size={14} className="group-hover:translate-x-0.5 transition-transform duration-200" />
                     <span className="text-xs font-light">{language === 'nl' ? 'Volgende video' : 'Next video'}</span>
-                  </div>
-                )}
+                  </div>}
               </div>
             </div>
           </div>
