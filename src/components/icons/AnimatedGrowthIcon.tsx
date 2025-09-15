@@ -37,41 +37,20 @@ export const AnimatedGrowthIcon = ({ level, className }: AnimatedGrowthIconProps
     return 0.2; // Ghost elements
   };
 
-  const growthElements = [
-    // First growth element (leftmost)
-    {
-      svg: (
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M17.1912 0.454528C16.7813 4.73101 18.0004 10.5544 13.7551 14.7997C9.90214 18.6524 5.33595 17.2279 3.01111 15.7271L13.7924 4.62673L13.1005 3.93482L1.95942 14.6961C0.44423 12.3911 -1.04093 7.77796 2.84607 3.89062C7.09132 -0.354624 12.9148 0.86437 17.1912 0.454528Z" fill="white"/>
-        </svg>
-      ),
-      position: 'left-0'
-    },
-    // Second growth element
-    {
-      svg: (
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M17.1912 0.454528C16.7813 4.73101 18.0004 10.5544 13.7551 14.7997C9.90214 18.6524 5.33595 17.2279 3.01111 15.7271L13.7924 4.62673L13.1005 3.93482L1.95942 14.6961C0.44423 12.3911 -1.04093 7.77796 2.84607 3.89062C7.09132 -0.354624 12.9148 0.86437 17.1912 0.454528Z" fill="white"/>
-        </svg>
-      ),
-      position: 'left-5'
-    },
-    // Third growth element
-    {
-      svg: (
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M17.1912 0.454528C16.7813 4.73101 18.0004 10.5544 13.7551 14.7997C9.90214 18.6524 5.33595 17.2279 3.01111 15.7271L13.7924 4.62673L13.1005 3.93482L1.95942 14.6961C0.44423 12.3911 -1.04093 7.77796 2.84607 3.89062C7.09132 -0.354624 12.9148 0.86437 17.1912 0.454528Z" fill="white"/>
-        </svg>
-      ),
-      position: 'left-10'
-    }
-  ];
+  // Base leaf SVG - single element repeated
+  const baseSvg = (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.1912 0.454528C16.7813 4.73101 18.0004 10.5544 13.7551 14.7997C9.90214 18.6524 5.33595 17.2279 3.01111 15.7271L13.7924 4.62673L13.1005 3.93482L1.95942 14.6961C0.44423 12.3911 -1.04093 7.77796 2.84607 3.89062C7.09132 -0.354624 12.9148 0.86437 17.1912 0.454528Z" fill="white"/>
+    </svg>
+  );
+
+  const positions = ['left-0', 'left-5', 'left-10'];
 
 
   return (
     <div className={cn("relative w-16 h-5", className)}>
-      {/* Growth elements */}
-      {growthElements.map((element, index) => {
+      {/* Render 3 leaf elements next to each other */}
+      {positions.map((position, index) => {
         const elementIndex = index + 1;
         const isActive = elementIndex <= level;
         const hasAnimated = elementIndex <= animationPhase;
@@ -82,7 +61,7 @@ export const AnimatedGrowthIcon = ({ level, className }: AnimatedGrowthIconProps
             key={`growth-${index}`}
             className={cn(
               "absolute transition-all duration-300 ease-out",
-              element.position,
+              position,
               isActive && hasAnimated ? "translate-x-0" : 
               isActive ? "-translate-x-2" :
               ""
@@ -93,7 +72,7 @@ export const AnimatedGrowthIcon = ({ level, className }: AnimatedGrowthIconProps
                       elementOpacity
             }}
           >
-            {element.svg}
+            {baseSvg}
           </div>
         );
       })}
