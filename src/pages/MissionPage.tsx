@@ -121,7 +121,7 @@ const MissionPage: React.FC = () => {
         }
 
         .shiny-cta {
-          --shiny-cta-bg: rgba(255, 255, 255, 0.15);
+          --shiny-cta-bg: linear-gradient(135deg, rgba(98, 145, 186, 0.3), rgba(105, 135, 159, 0.3));
           --shiny-cta-bg-subtle: rgba(240, 240, 240, 0.1);
           --shiny-cta-fg: #ffffff;
           --shiny-cta-highlight: #ffffff;
@@ -145,7 +145,7 @@ const MissionPage: React.FC = () => {
           border: 1px solid rgba(255, 255, 255, 0.2);
           border-radius: 360px;
           color: var(--shiny-cta-fg);
-          background: linear-gradient(var(--shiny-cta-bg), var(--shiny-cta-bg)) padding-box,
+          background: var(--shiny-cta-bg) padding-box,
             conic-gradient(
               from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
               transparent,
