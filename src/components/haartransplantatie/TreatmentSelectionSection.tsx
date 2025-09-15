@@ -303,15 +303,14 @@ export const TreatmentSelectionSection = () => {
           width={56}
           height={56}
           borderRadius={28}
-          brightness={60}
-          opacity={0.8}
-          blur={12}
-          backgroundOpacity={0.3}
-          displace={5}
+          displace={15}
           distortionScale={-150}
           redOffset={5}
-          greenOffset={10}
-          blueOffset={15}
+          greenOffset={15}
+          blueOffset={25}
+          brightness={60}
+          opacity={0.8}
+          mixBlendMode="screen"
           className={`cursor-pointer hover:scale-110 active:scale-95 transition-all duration-700 ease-in-out ${
             buttonsLoaded[0] ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
           }`}
@@ -332,15 +331,14 @@ export const TreatmentSelectionSection = () => {
           width={56}
           height={56}
           borderRadius={28}
-          brightness={60}
-          opacity={0.8}
-          blur={12}
-          backgroundOpacity={0.3}
-          displace={5}
+          displace={15}
           distortionScale={-150}
           redOffset={5}
-          greenOffset={10}
-          blueOffset={15}
+          greenOffset={15}
+          blueOffset={25}
+          brightness={60}
+          opacity={0.8}
+          mixBlendMode="screen"
           className={`cursor-pointer hover:scale-110 active:scale-95 transition-all duration-700 ease-in-out ${
             buttonsLoaded[1] ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
           }`}
