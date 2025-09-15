@@ -53,13 +53,18 @@ export const FloatingActionZone: React.FC<FloatingActionZoneProps> = ({ classNam
           return (
             <GlassSurface
               key={button.id}
-              width={56}
-              height={56}
-              borderRadius={28}
-              brightness={120}
-              opacity={0.15}
-              blur={8}
-              backgroundOpacity={0.2}
+              width={window.innerWidth >= 640 ? 64 : 56}
+              height={window.innerWidth >= 640 ? 64 : 56}
+              borderRadius={window.innerWidth >= 640 ? 32 : 28}
+              brightness={60}
+              opacity={0.8}
+              blur={12}
+              backgroundOpacity={0.3}
+              displace={5}
+              distortionScale={-150}
+              redOffset={5}
+              greenOffset={10}
+              blueOffset={15}
               className={cn(
                 "transition-all duration-300 ease-out",
                 isVisible 
@@ -68,9 +73,6 @@ export const FloatingActionZone: React.FC<FloatingActionZoneProps> = ({ classNam
               )}
               style={{
                 transitionDelay: isVisible ? `${button.delay}ms` : '0ms',
-                width: window.innerWidth >= 640 ? '64px' : '56px',
-                height: window.innerWidth >= 640 ? '64px' : '56px',
-                borderRadius: window.innerWidth >= 640 ? '32px' : '28px'
               }}
             >
               <button
@@ -78,7 +80,7 @@ export const FloatingActionZone: React.FC<FloatingActionZoneProps> = ({ classNam
                 aria-label={button.label}
                 className="w-full h-full flex items-center justify-center cursor-pointer hover:scale-110 active:scale-95 transition-transform duration-200"
               >
-                <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 text-primary-foreground" />
+                <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
               </button>
             </GlassSurface>
           );
