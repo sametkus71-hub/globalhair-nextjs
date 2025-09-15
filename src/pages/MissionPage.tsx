@@ -89,29 +89,43 @@ const MissionPage: React.FC = () => {
         <PopupCloseButton onClose={handleClose} />
         
         {/* Content overlay - split into top and bottom containers */}
-        <div className="relative z-10 w-full h-full flex flex-col justify-between px-6 py-8 pb-32">
+        <div className="relative z-10 w-full h-full flex flex-col justify-between px-6 py-8 pb-40">
           {/* Top container - Title */}
-          <div className={`pt-16 transition-all duration-500 ease-out ${
+          <div className={`pt-20 text-center transition-all duration-500 ease-out ${
             titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[0.85] tracking-wider text-left">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-white leading-[0.85] tracking-wider">
               BERKANT
             </h1>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[0.85] tracking-wider text-left">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-white leading-[0.85] tracking-wider">
               DURAL
             </h1>
           </div>
 
-          {/* Bottom container - Description */}
-          <div className={`max-w-md transition-all duration-500 ease-out ${
-            contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}>
-            <p className="text-sm md:text-base text-white/80 leading-relaxed font-light text-left">
-              {language === 'nl' 
-                ? 'Founder & Medisch Directeur, Berkant Dural, zag al op jonge leeftijd wat erfelijk haarverlies met zijn vader deed en hij was ervan overtuigd dat dit voorkomen kon worden. Na jaren onderzoek en samenwerkingen met Tricho artsen ontwikkelde hij een werkwijze niet alleen voor zijn.'
-                : 'Founder & Medical Director, Berkant Dural, saw at a young age what hereditary hair loss did to his father and he was convinced that this could be prevented. After years of research and collaborations with Tricho doctors, he developed a method not only for his own hair.'
-              }
-            </p>
+          {/* Bottom container - Description and Button */}
+          <div className="space-y-6">
+            <div className={`max-w-md transition-all duration-500 ease-out ${
+              contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}>
+              <p className="text-xs md:text-sm text-white/80 leading-tight font-light text-left">
+                {language === 'nl' 
+                  ? 'Founder & Medisch Directeur, Berkant Dural, zag al op jonge leeftijd wat erfelijk haarverlies met zijn vader deed en hij was ervan overtuigd dat dit voorkomen kon worden. Na jaren onderzoek en samenwerkingen met Tricho artsen ontwikkelde hij een werkwijze niet alleen voor zijn.'
+                  : 'Founder & Medical Director, Berkant Dural, saw at a young age what hereditary hair loss did to his father and he was convinced that this could be prevented. After years of research and collaborations with Tricho doctors, he developed a method not only for his own hair.'
+                }
+              </p>
+            </div>
+
+            {/* Bottom Button */}
+            <div className={`transition-all duration-500 ease-out ${
+              buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}>
+              <button
+                onClick={handleMethodsClick}
+                className="py-3 px-8 bg-white/20 backdrop-blur-sm border border-white/30 text-white text-sm font-normal rounded-full hover:bg-white/30 active:scale-[0.98] transition-all duration-300 ease-out"
+              >
+                {language === 'nl' ? 'Bekijk methodes' : 'View methods'}
+              </button>
+            </div>
           </div>
         </div>
       </div>
