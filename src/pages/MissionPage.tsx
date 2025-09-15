@@ -125,9 +125,9 @@ const MissionPage: React.FC = () => {
             conic-gradient(
               from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
               transparent,
-              color-mix(in srgb, var(--shiny-cta-highlight) calc(var(--gradient-opacity) * 20%), transparent) var(--gradient-percent),
-              color-mix(in srgb, var(--gradient-shine) calc(var(--gradient-opacity) * 30%), transparent) calc(var(--gradient-percent) * 2),
-              color-mix(in srgb, var(--shiny-cta-highlight) calc(var(--gradient-opacity) * 20%), transparent) calc(var(--gradient-percent) * 3),
+              color-mix(in srgb, var(--shiny-cta-highlight) calc(var(--gradient-opacity) * 3%), transparent) var(--gradient-percent),
+              color-mix(in srgb, var(--gradient-shine) calc(var(--gradient-opacity) * 5%), transparent) calc(var(--gradient-percent) * 2),
+              color-mix(in srgb, var(--shiny-cta-highlight) calc(var(--gradient-opacity) * 3%), transparent) calc(var(--gradient-percent) * 3),
               transparent calc(var(--gradient-percent) * 4)
             ) border-box;
           box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle);
