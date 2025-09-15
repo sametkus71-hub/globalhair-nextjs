@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, MessageCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
+import GlassSurface from '@/components/ui/GlassSurface';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useNavigate } from 'react-router-dom';
 
@@ -51,39 +51,36 @@ export const FloatingActionZone: React.FC<FloatingActionZoneProps> = ({ classNam
         {buttons.map((button, index) => {
           const IconComponent = button.icon;
           return (
-            <Button
+            <GlassSurface
               key={button.id}
-              size="icon"
+              width={56}
+              height={56}
+              borderRadius={28}
+              brightness={120}
+              opacity={0.15}
+              blur={8}
+              backgroundOpacity={0.2}
               className={cn(
-                // Size and shape
-                "w-14 h-14 rounded-full",
-                "sm:w-16 sm:h-16",
-                
-                // Styling with design system colors
-                "bg-primary text-primary-foreground",
-                "hover:bg-primary/90 hover:scale-110",
-                "active:scale-95",
-                
-                // Shadow and effects
-                "shadow-strong backdrop-blur-sm",
-                "border-2 border-white/20",
-                
-                // Animation
                 "transition-all duration-300 ease-out",
-                
-                // Initial state and entrance animation
                 isVisible 
                   ? "opacity-100 translate-x-0 scale-100" 
                   : "opacity-0 translate-x-12 scale-90"
               )}
               style={{
                 transitionDelay: isVisible ? `${button.delay}ms` : '0ms',
+                width: window.innerWidth >= 640 ? '64px' : '56px',
+                height: window.innerWidth >= 640 ? '64px' : '56px',
+                borderRadius: window.innerWidth >= 640 ? '32px' : '28px'
               }}
-              onClick={button.onClick}
-              aria-label={button.label}
             >
-              <IconComponent className="w-6 h-6 sm:w-7 sm:h-7" />
-            </Button>
+              <button
+                onClick={button.onClick}
+                aria-label={button.label}
+                className="w-full h-full flex items-center justify-center cursor-pointer hover:scale-110 active:scale-95 transition-transform duration-200"
+              >
+                <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 text-primary-foreground" />
+              </button>
+            </GlassSurface>
           );
         })}
       </div>
