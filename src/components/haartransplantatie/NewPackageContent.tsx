@@ -71,7 +71,7 @@ export const NewPackageContent = () => {
               <div className="w-5 flex justify-center">
                 {item.icon}
               </div>
-              <span className="font-body text-[12px] font-light text-white/90 text-left">
+              <span className="font-body text-[10px] font-light text-white/90 text-left">
                 {item.name}
               </span>
             </div>
