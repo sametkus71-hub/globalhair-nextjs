@@ -208,8 +208,8 @@ export const VideoGrid = ({ className, heightBreakpoint = 'large', startTransiti
       {/* Haartransplantatie - Top Left */}
       {renderGridItem("HAAR TRANSPLANTATIE", 0, true, false, handleHaartransplantatieClick)}
       
-      {/* V6 Hairboost - Top Right */}
-      {renderGridItem("V6 HAIRBOOST", 1, true, false, handleV6HairboostClick)}
+      {/* V6 Hairboost - Top Right - Coming Soon */}
+      {renderGridItem("V6 HAIRBOOST", 1, false, true)}
       
       {/* Coming Soon items - Bottom */}
       {renderGridItem("COMING SOON", 2, false, true)}
