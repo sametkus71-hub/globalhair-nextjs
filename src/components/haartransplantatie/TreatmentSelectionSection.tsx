@@ -100,7 +100,7 @@ export const TreatmentSelectionSection = () => {
             className={`font-lato text-[13px] font-normal text-white/80 mb-1 ${comesFromHome ? 'opacity-0 animate-ios-entrance' : 'opacity-100'}`}
             style={{ 
               lineHeight: '0.97',
-              marginTop: '-80px',
+              marginTop: '-90px',
               paddingBottom: '10px',
               animationDelay: comesFromHome ? '600ms' : '0ms'
             }}
