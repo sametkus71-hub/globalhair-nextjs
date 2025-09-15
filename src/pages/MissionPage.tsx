@@ -97,11 +97,11 @@ const MissionPage: React.FC = () => {
         }
 
         .shiny-cta {
-          --shiny-cta-bg: rgba(255, 255, 255, 0.95);
-          --shiny-cta-bg-subtle: rgba(240, 240, 240, 0.8);
-          --shiny-cta-fg: #000000;
-          --shiny-cta-highlight: #395A7C;
-          --shiny-cta-highlight-subtle: #4A6B8D;
+          --shiny-cta-bg: rgba(255, 255, 255, 0.15);
+          --shiny-cta-bg-subtle: rgba(240, 240, 240, 0.1);
+          --shiny-cta-fg: #ffffff;
+          --shiny-cta-highlight: #ffffff;
+          --shiny-cta-highlight-subtle: #ffffff;
           --animation: gradient-angle linear infinite;
           --duration: 6s;
           --shadow-size: 2px;
@@ -118,21 +118,21 @@ const MissionPage: React.FC = () => {
           line-height: 1.2;
           font-weight: 400;
           letter-spacing: 0.025em;
-          border: 1px solid transparent;
+          border: 1px solid rgba(255, 255, 255, 0.2);
           border-radius: 360px;
           color: var(--shiny-cta-fg);
           background: linear-gradient(var(--shiny-cta-bg), var(--shiny-cta-bg)) padding-box,
             conic-gradient(
               from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
               transparent,
-              color-mix(in srgb, var(--shiny-cta-highlight) calc(var(--gradient-opacity) * 100%), transparent) var(--gradient-percent),
-              color-mix(in srgb, var(--gradient-shine) calc(var(--gradient-opacity) * 100%), transparent) calc(var(--gradient-percent) * 2),
-              color-mix(in srgb, var(--shiny-cta-highlight) calc(var(--gradient-opacity) * 100%), transparent) calc(var(--gradient-percent) * 3),
+              color-mix(in srgb, var(--shiny-cta-highlight) calc(var(--gradient-opacity) * 20%), transparent) var(--gradient-percent),
+              color-mix(in srgb, var(--gradient-shine) calc(var(--gradient-opacity) * 30%), transparent) calc(var(--gradient-percent) * 2),
+              color-mix(in srgb, var(--shiny-cta-highlight) calc(var(--gradient-opacity) * 20%), transparent) calc(var(--gradient-percent) * 3),
               transparent calc(var(--gradient-percent) * 4)
             ) border-box;
           box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle);
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
           transition: var(--transition);
           transition-property: --gradient-angle-offset, --gradient-percent, --gradient-shine;
         }
