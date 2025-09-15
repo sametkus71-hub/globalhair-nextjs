@@ -6,6 +6,7 @@ import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { Info, BookOpen } from 'lucide-react';
 import { calculatePrice, formatPrice } from '@/lib/pricing';
 import { ShieldIcon } from '@/components/logos/ShieldIcon';
+import { LiquidButton } from '@/components/ui/liquid-glass-button';
 
 export const TreatmentSelectionSection = () => {
   const { language } = useLanguage();
@@ -298,25 +299,27 @@ export const TreatmentSelectionSection = () => {
 
       {/* Right Side Icons */}
       <div className="fixed right-3 sm:right-4 md:right-5 lg:right-6 bottom-20 sm:bottom-24 md:bottom-28 lg:bottom-32 xl:bottom-36 space-y-3 z-50">
-        <button 
+        <LiquidButton 
           onClick={() => {
             // Store current path before navigating to popup
             sessionStorage.setItem('previousPath', window.location.pathname);
             navigate(language === 'nl' ? '/nl/info' : '/en/info');
           }}
-          className={`w-12 h-12 sm:w-14 sm:h-14 bg-black/18 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/22 transition-all duration-700 ease-in-out cursor-pointer ${
+          size="icon"
+          className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full transition-all duration-700 ease-in-out ${
             buttonsLoaded[0] ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
           }`}
         >
           <Info className="w-6 h-6 sm:w-7 sm:h-7 text-white/90" />
-        </button>
-        <button 
+        </LiquidButton>
+        <LiquidButton 
           onClick={() => {
             // Store current path before navigating to popup
             sessionStorage.setItem('previousPath', window.location.pathname);
             navigate(language === 'nl' ? '/nl/support' : '/en/support');
           }}
-          className={`w-12 h-12 sm:w-14 sm:h-14 bg-black/18 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 hover:border-white/70 hover:bg-black/22 transition-all duration-700 ease-in-out cursor-pointer ${
+          size="icon"
+          className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full transition-all duration-700 ease-in-out ${
             buttonsLoaded[1] ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
           }`}
         >
@@ -325,7 +328,7 @@ export const TreatmentSelectionSection = () => {
             alt="Support icon" 
             className="w-6 h-6 sm:w-7 sm:h-7 opacity-90"
           />
-        </button>
+        </LiquidButton>
       </div>
     </div>
   );
