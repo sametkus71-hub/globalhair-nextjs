@@ -308,10 +308,9 @@ export const TreatmentSelectionSection = () => {
               style={{ animationDelay: comesFromHome ? '2400ms' : '0ms' }} // 2300ms + 100ms = 2400ms
             >
               <button 
-                disabled
-                className="px-6 py-3 rounded-full font-lato text-[12px] font-medium text-white/50 border border-white/30 cursor-not-allowed opacity-50 transition-all duration-300"
+                className="px-6 py-3 rounded-full font-lato text-[12px] font-medium text-white border border-white/50 hover:border-white/70 hover:bg-white/10 transition-all duration-300"
                 style={{
-                  background: 'rgba(255, 255, 255, 0.02)',
+                  background: 'rgba(255, 255, 255, 0.05)',
                   backdropFilter: 'blur(20px)'
                 }}
               >
