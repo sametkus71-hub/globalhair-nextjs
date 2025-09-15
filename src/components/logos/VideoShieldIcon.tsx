@@ -15,22 +15,15 @@ export const VideoShieldIcon = ({ className }: VideoShieldIconProps) => {
   }
 
   return (
-    <video
+    <img
+      src="https://GlobalHair.b-cdn.net/Logo/Ontwerp%20zonder%20titel%20(2).gif"
+      alt="Global Hair Logo"
       className={cn("w-full h-full object-contain", className)}
-      autoPlay
-      muted
-      loop
-      playsInline
-      preload="metadata"
       onError={() => setVideoError(true)}
       style={{
         width: '100%',
         height: '100%',
       }}
-    >
-      <source src="https://GlobalHair.b-cdn.net/Logo/Ontwerp%20zonder%20titel%20(2).gif" type="image/gif" />
-      {/* Fallback content for browsers that don't support video */}
-      <ShieldIcon className={className} />
-    </video>
+    />
   );
 };
