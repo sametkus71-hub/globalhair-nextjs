@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, MessageCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import GlassSurface from '@/components/ui/GlassSurface';
+import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useNavigate } from 'react-router-dom';
 
@@ -51,22 +51,27 @@ export const FloatingActionZone: React.FC<FloatingActionZoneProps> = ({ classNam
         {buttons.map((button, index) => {
           const IconComponent = button.icon;
           return (
-            <GlassSurface
+            <Button
               key={button.id}
-              width={window.innerWidth >= 640 ? 64 : 56}
-              height={window.innerWidth >= 640 ? 64 : 56}
-              borderRadius={window.innerWidth >= 640 ? 32 : 28}
-              brightness={60}
-              opacity={0.8}
-              blur={12}
-              backgroundOpacity={0.3}
-              displace={5}
-              distortionScale={-150}
-              redOffset={5}
-              greenOffset={10}
-              blueOffset={15}
+              size="icon"
               className={cn(
+                // Size and shape
+                "w-14 h-14 rounded-full",
+                "sm:w-16 sm:h-16",
+                
+                // Styling with design system colors
+                "bg-primary text-primary-foreground",
+                "hover:bg-primary/90 hover:scale-110",
+                "active:scale-95",
+                
+                // Shadow and effects
+                "shadow-strong backdrop-blur-sm",
+                "border-2 border-white/20",
+                
+                // Animation
                 "transition-all duration-300 ease-out",
+                
+                // Initial state and entrance animation
                 isVisible 
                   ? "opacity-100 translate-x-0 scale-100" 
                   : "opacity-0 translate-x-12 scale-90"
@@ -74,15 +79,11 @@ export const FloatingActionZone: React.FC<FloatingActionZoneProps> = ({ classNam
               style={{
                 transitionDelay: isVisible ? `${button.delay}ms` : '0ms',
               }}
+              onClick={button.onClick}
+              aria-label={button.label}
             >
-              <button
-                onClick={button.onClick}
-                aria-label={button.label}
-                className="w-full h-full flex items-center justify-center cursor-pointer hover:scale-110 active:scale-95 transition-transform duration-200"
-              >
-                <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
-              </button>
-            </GlassSurface>
+              <IconComponent className="w-6 h-6 sm:w-7 sm:h-7" />
+            </Button>
           );
         })}
       </div>
