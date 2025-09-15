@@ -68,7 +68,9 @@ export const NewPackageContent = () => {
         <div className="space-y-1.5 w-48 ml-8">
           {content.items.map((item, index) => (
             <div key={index} className="flex items-center justify-start space-x-3 w-full">
-              {item.icon}
+              <div className="w-5 flex justify-center">
+                {item.icon}
+              </div>
               <span className="font-body text-[12px] font-light text-white/90 text-left">
                 {item.name}
               </span>
