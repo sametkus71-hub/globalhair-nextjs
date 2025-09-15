@@ -26,12 +26,12 @@ const InfoTrajectoryPage: React.FC = () => {
 
   const handleClose = () => {
     setIsExiting(true);
-    // Always go back to info page
-    const infoPath = language === 'nl' ? '/nl/info' : '/en/info';
+    // Navigate to haartransplantatie page
+    const haartransplantatePath = language === 'nl' ? '/nl/haartransplantatie' : '/en/haartransplantatie';
     
     // Wait for animation to complete before navigating
     setTimeout(() => {
-      navigate(infoPath);
+      navigate(haartransplantatePath);
     }, 350);
   };
 
@@ -156,7 +156,7 @@ const InfoTrajectoryPage: React.FC = () => {
       <div className={`info-trajectory-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'info-trajectory-page-exit' : ''}`}>
         <div className="min-h-[var(--app-height)] relative">
           {/* Close Button */}
-          <PopupCloseButton onClose={handleClose} isBackButton={true} />
+          <PopupCloseButton onClose={handleClose} />
           
           {/* Scrollable Content */}
           <div className={`${isSmallHeight ? 'pt-4' : 'pt-8'} md:pt-12 pb-20 md:pb-24 px-6 relative z-10`}>
