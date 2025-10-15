@@ -1,0 +1,184 @@
+import { useState } from 'react';
+import { ArrowUpRight, MessageCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '@/hooks/useLanguage';
+
+export const FooterCTAGlass = () => {
+  const navigate = useNavigate();
+  const { language } = useLanguage();
+  const [showChat, setShowChat] = useState(false);
+
+  return (
+    <>
+      <div
+        className="fixed bottom-0 left-0 right-0 z-40 px-4 pb-6"
+        style={{
+          paddingBottom: 'calc(env(safe-area-inset-bottom) + 1.5rem)',
+          animation: 'fade-up 0.6s ease-out 1.4s both',
+        }}
+      >
+        <div className="flex items-center justify-between space-x-3">
+          {/* Book a consult button */}
+          <button
+            onClick={() => navigate(language === 'nl' ? '/nl/boek' : '/en/book')}
+            className="flex-1 flex items-center justify-center space-x-3 py-4 px-6 rounded-full transition-all duration-200"
+            style={{
+              background: 'rgba(255, 255, 255, 0.12)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.30)',
+              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.16)';
+              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.40)';
+              e.currentTarget.style.transform = 'scale(1.02)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
+              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.30)';
+              e.currentTarget.style.transform = 'scale(1)';
+            }}
+          >
+            <span
+              className="text-white font-semibold text-lg"
+              style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
+            >
+              {language === 'nl' ? 'Boek een consult' : 'Book a consult'}
+            </span>
+            <div
+              className="w-10 h-10 rounded-full flex items-center justify-center"
+              style={{
+                background: 'rgba(255, 255, 255, 0.15)',
+                border: '1px solid rgba(255, 255, 255, 0.25)',
+              }}
+            >
+              <ArrowUpRight className="w-5 h-5 text-white" strokeWidth={2} />
+            </div>
+          </button>
+
+          {/* Chat button */}
+          <button
+            onClick={() => setShowChat(true)}
+            className="w-14 h-14 rounded-full flex items-center justify-center transition-all duration-200"
+            style={{
+              background: 'rgba(255, 255, 255, 0.12)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.30)',
+              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.16)';
+              e.currentTarget.style.transform = 'scale(1.05)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
+              e.currentTarget.style.transform = 'scale(1)';
+            }}
+          >
+            <MessageCircle className="w-6 h-6 text-white" strokeWidth={1.5} />
+          </button>
+        </div>
+      </div>
+
+      {/* Chat Modal */}
+      {showChat && (
+        <div
+          className="fixed inset-0 z-50 flex items-end justify-center p-4"
+          style={{
+            background: 'rgba(0, 0, 0, 0.6)',
+            backdropFilter: 'blur(8px)',
+            animation: 'fade-in 0.3s ease-out',
+          }}
+          onClick={() => setShowChat(false)}
+        >
+          <div
+            className="w-full max-w-md rounded-3xl p-6"
+            style={{
+              background: 'rgba(255, 255, 255, 0.12)',
+              backdropFilter: 'blur(30px)',
+              border: '1px solid rgba(255, 255, 255, 0.30)',
+              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)',
+              animation: 'slide-up 0.3s ease-out',
+              marginBottom: 'calc(env(safe-area-inset-bottom) + 1rem)',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-4">
+              <h3
+                className="text-white text-xl font-semibold"
+                style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
+              >
+                {language === 'nl' ? 'Chat met ons' : 'Chat with us'}
+              </h3>
+              <button
+                onClick={() => setShowChat(false)}
+                className="text-white/60 hover:text-white transition-colors"
+              >
+                ✕
+              </button>
+            </div>
+            
+            <p
+              className="text-white/80 mb-4"
+              style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
+            >
+              {language === 'nl' 
+                ? 'Onze experts staan klaar om je te helpen.' 
+                : 'Our experts are ready to help you.'}
+            </p>
+
+            <div className="space-y-2">
+              <button
+                className="w-full py-3 px-4 rounded-2xl text-left transition-all duration-200"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.10)',
+                  border: '1px solid rgba(255, 255, 255, 0.20)',
+                  color: 'white',
+                  fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.14)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.10)';
+                }}
+              >
+                {language === 'nl' ? 'Ik heb een vraag over prijzen' : 'I have a question about pricing'}
+              </button>
+              <button
+                className="w-full py-3 px-4 rounded-2xl text-left transition-all duration-200"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.10)',
+                  border: '1px solid rgba(255, 255, 255, 0.20)',
+                  color: 'white',
+                  fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.14)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.10)';
+                }}
+              >
+                {language === 'nl' ? 'Wat is de beste behandeling voor mij?' : 'What is the best treatment for me?'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes slide-up {
+          from {
+            opacity: 0;
+            transform: translateY(100px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
+    </>
+  );
+};
