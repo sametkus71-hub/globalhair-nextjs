@@ -20,51 +20,48 @@ export const AnimatedHeadHero = () => {
 
   return (
     <div 
-      className="relative flex items-center justify-center px-4 pt-3 pb-2"
+      className="relative flex items-center justify-between px-4 pt-3 pb-2"
       style={{
         animation: 'fade-up 0.8s ease-out 0.2s both',
       }}
     >
-      {/* Container for head and button */}
-      <div className="relative">
-        {/* 3D Head Image */}
-        <div 
-          className="relative flex items-center justify-center"
-          style={{
-            width: '140px',
-            height: '215px',
-            animation: 'fade-up 0.8s ease-out 0.3s both',
-          }}
-        >
-          <img
-            src="/assets/placeholder-head.png"
-            alt="3D head model"
-            className="w-full h-full object-contain"
-            style={{
-              filter: 'drop-shadow(0 0 30px rgba(99, 179, 237, 0.4))',
-            }}
-          />
-        </div>
+      {/* Primary CTA - Analyze my hair (Left side) */}
+      <label
+        className="cursor-pointer group transition-transform duration-250 hover:scale-105 z-10"
+        style={{
+          animation: 'fade-up 0.8s ease-out 0.4s both',
+        }}
+      >
+        <input
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={handleFileUpload}
+        />
+        <img 
+          src="/assets/analyze-button.svg" 
+          alt={language === 'nl' ? 'Analyseer mijn haar' : 'Analyze my hair'}
+          className="h-14"
+        />
+      </label>
 
-        {/* Primary CTA - Analyze my hair (Bottom left of head) */}
-        <label
-          className="absolute bottom-2 left-0 cursor-pointer group transition-transform duration-250 hover:scale-105"
+      {/* 3D Head Image (Right side) - Much larger */}
+      <div 
+        className="relative flex items-center justify-center"
+        style={{
+          width: '320px',
+          height: '400px',
+          animation: 'fade-up 0.8s ease-out 0.3s both',
+        }}
+      >
+        <img
+          src="/assets/placeholder-head.png"
+          alt="3D head model"
+          className="w-full h-full object-contain"
           style={{
-            animation: 'fade-up 0.8s ease-out 0.4s both',
+            filter: 'drop-shadow(0 0 30px rgba(99, 179, 237, 0.4))',
           }}
-        >
-          <input
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={handleFileUpload}
-          />
-          <img 
-            src="/assets/analyze-button.svg" 
-            alt={language === 'nl' ? 'Analyseer mijn haar' : 'Analyze my hair'}
-            className="h-12"
-          />
-        </label>
+        />
       </div>
 
       <style>{`
