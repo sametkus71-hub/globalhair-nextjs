@@ -20,7 +20,7 @@ export const AnimatedHeadHero = () => {
 
   return (
     <div 
-      className="relative flex items-center justify-between px-8 h-[60vh]"
+      className="relative flex items-center justify-between px-8 pt-6 pb-4"
       style={{
         animation: 'fade-up 0.8s ease-out 0.2s both',
       }}
@@ -39,7 +39,7 @@ export const AnimatedHeadHero = () => {
           onChange={handleFileUpload}
         />
         <div
-          className="flex items-center space-x-4 px-10 py-5 rounded-full transition-all duration-250"
+          className="flex items-center space-x-3 px-8 py-4 rounded-full transition-all duration-250"
           style={{
             background: 'rgba(255, 255, 255, 0.10)',
             backdropFilter: 'blur(20px)',
@@ -58,42 +58,38 @@ export const AnimatedHeadHero = () => {
           }}
         >
           <span 
-            className="text-white font-medium text-2xl"
+            className="text-white font-medium text-xl"
             style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
           >
             {language === 'nl' ? 'Analyseer mijn haar' : 'Analyze my hair'}
           </span>
           <div 
-            className="w-14 h-14 rounded-full flex items-center justify-center"
+            className="w-12 h-12 rounded-full flex items-center justify-center"
             style={{
               background: 'rgba(255, 255, 255, 0.15)',
               border: '1px solid rgba(255, 255, 255, 0.3)',
             }}
           >
-            <Camera className="w-7 h-7 text-white" strokeWidth={1.5} />
+            <Camera className="w-6 h-6 text-white" strokeWidth={1.5} />
           </div>
         </div>
       </label>
 
-      {/* 3D Head Video (Right side) */}
+      {/* 3D Head Image (Right side) */}
       <div 
-        className="relative w-96 h-96"
+        className="relative w-72 h-72 flex items-center justify-center"
         style={{
           animation: 'fade-up 0.8s ease-out 0.3s both',
         }}
       >
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
+        <img
+          src="/assets/placeholder-head.png"
+          alt="3D head model"
           className="w-full h-full object-contain"
           style={{
             filter: 'drop-shadow(0 0 40px rgba(99, 179, 237, 0.4))',
           }}
-        >
-          <source src="/assets/head-rotation.mp4" type="video/mp4" />
-        </video>
+        />
       </div>
 
       <style>{`
