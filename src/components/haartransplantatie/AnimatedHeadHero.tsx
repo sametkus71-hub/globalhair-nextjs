@@ -27,7 +27,7 @@ export const AnimatedHeadHero = () => {
     >
       {/* Primary CTA - Analyze my hair (Left side) */}
       <label
-        className="relative cursor-pointer group"
+        className="relative cursor-pointer group transition-transform duration-250 hover:scale-105"
         style={{
           animation: 'fade-up 0.8s ease-out 0.4s both',
         }}
@@ -38,41 +38,11 @@ export const AnimatedHeadHero = () => {
           className="hidden"
           onChange={handleFileUpload}
         />
-        <div
-          className="flex items-center space-x-3 px-8 py-4 rounded-full transition-all duration-250"
-          style={{
-            background: 'rgba(255, 255, 255, 0.10)',
-            backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255, 255, 255, 0.25)',
-            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.35)',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.14)';
-            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.35)';
-            e.currentTarget.style.transform = 'scale(1.02)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.10)';
-            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.25)';
-            e.currentTarget.style.transform = 'scale(1)';
-          }}
-        >
-          <span 
-            className="text-white font-medium text-xl"
-            style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
-          >
-            {language === 'nl' ? 'Analyseer mijn haar' : 'Analyze my hair'}
-          </span>
-          <div 
-            className="w-12 h-12 rounded-full flex items-center justify-center"
-            style={{
-              background: 'rgba(255, 255, 255, 0.15)',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
-            }}
-          >
-            <Camera className="w-6 h-6 text-white" strokeWidth={1.5} />
-          </div>
-        </div>
+        <img 
+          src="/assets/analyze-button.svg" 
+          alt={language === 'nl' ? 'Analyseer mijn haar' : 'Analyze my hair'}
+          className="h-14"
+        />
       </label>
 
       {/* 3D Head Image (Right side) */}
