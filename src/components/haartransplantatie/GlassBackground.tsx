@@ -11,11 +11,23 @@ export const GlassBackground = () => {
 
   return (
     <div className="fixed inset-0 w-full h-screen overflow-hidden z-0">
-      {/* Base dark blue gradient */}
+      {/* Background video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ opacity: 0.8 }}
+      >
+        <source src="/assets/background-animation.mp4" type="video/mp4" />
+      </video>
+      
+      {/* Dark overlay for contrast */}
       <div 
         className="absolute inset-0"
-        style={{ 
-          background: 'linear-gradient(to bottom, #0e2030 0%, #0a1623 100%)',
+        style={{
+          background: 'linear-gradient(to bottom, rgba(14, 32, 48, 0.6) 0%, rgba(10, 22, 35, 0.7) 100%)',
         }}
       />
       
@@ -27,39 +39,6 @@ export const GlassBackground = () => {
           backgroundRepeat: 'repeat',
         }}
       />
-      
-      {/* Soft light streaks */}
-      <div 
-        className="absolute w-full h-full opacity-20"
-        style={{
-          background: `
-            radial-gradient(ellipse at 20% 30%, rgba(99, 179, 237, 0.15) 0%, transparent 50%),
-            radial-gradient(ellipse at 80% 70%, rgba(59, 130, 246, 0.12) 0%, transparent 50%)
-          `,
-          animation: 'gentle-float 25s ease-in-out infinite'
-        }}
-      />
-      
-      {/* Depth layer */}
-      <div 
-        className="absolute inset-0"
-        style={{
-          background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.4) 100%)',
-        }}
-      />
-      
-      <style>{`
-        @keyframes gentle-float {
-          0%, 100% {
-            transform: translate(0, 0) scale(1);
-            opacity: 0.2;
-          }
-          50% {
-            transform: translate(10px, -10px) scale(1.05);
-            opacity: 0.15;
-          }
-        }
-      `}</style>
     </div>
   );
 };

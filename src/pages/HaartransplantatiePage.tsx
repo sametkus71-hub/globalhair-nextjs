@@ -47,18 +47,20 @@ const HaartransplantatiePage = () => {
           {/* Glass Header */}
           <GlassHeader />
 
-          {/* Main Content - Scrollable */}
-          <div className="relative z-10 pt-16 pb-32 overflow-y-auto" style={{ minHeight: '100vh' }}>
+          {/* Main Content - Single Screen */}
+          <div className="relative z-10 flex flex-col h-screen overflow-hidden">
             {/* Animated Head Hero */}
             <AnimatedHeadHero />
 
             {/* Tabs */}
-            <GlassTabs activeTab={activeTab} onTabChange={setActiveTab} />
+            <div className="px-4">
+              <GlassTabs activeTab={activeTab} onTabChange={setActiveTab} />
+            </div>
 
             {/* Tab Content */}
-            <div className="relative">
+            <div className="relative flex-1 px-4 pb-24 overflow-hidden">
               {activeTab === 'Packages' && (
-                <div>
+                <div className="h-full flex flex-col">
                   {/* Package Tier Switcher */}
                   <PackageTierSwitcher 
                     activePackage={activePackage} 
@@ -66,7 +68,9 @@ const HaartransplantatiePage = () => {
                   />
 
                   {/* Package Card */}
-                  <PackageCardGlass package={activePackage} />
+                  <div className="flex-1 overflow-hidden">
+                    <PackageCardGlass package={activePackage} />
+                  </div>
                 </div>
               )}
 
@@ -74,9 +78,6 @@ const HaartransplantatiePage = () => {
               {activeTab === 'Mission' && <PlaceholderContent type="Mission" />}
               {activeTab === 'Contact' && <PlaceholderContent type="Contact" />}
             </div>
-
-            {/* Reviews Section */}
-            <ReviewsSectionGlass />
           </div>
 
           {/* Footer CTA (replaces bottom nav) */}
