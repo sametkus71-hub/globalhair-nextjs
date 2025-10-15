@@ -23,11 +23,12 @@ export const GlassBackground = () => {
         <source src="/assets/background-animation.mp4" type="video/mp4" />
       </video>
       
-      {/* Dark overlay for contrast */}
+      {/* Gradient overlay */}
       <div 
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(to bottom, rgba(14, 32, 48, 0.6) 0%, rgba(10, 22, 35, 0.7) 100%)',
+          background: 'linear-gradient(180deg, #040E15 0%, #333D46 100%)',
+          opacity: 0.85,
         }}
       />
       
