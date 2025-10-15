@@ -11,17 +11,17 @@ export const FooterCTAGlass = () => {
   return (
     <>
       <div
-        className="fixed bottom-0 left-0 right-0 z-40 px-4 pb-6"
+        className="fixed bottom-0 left-0 right-0 z-40 px-3 pb-4"
         style={{
-          paddingBottom: 'calc(env(safe-area-inset-bottom) + 1.5rem)',
+          paddingBottom: 'calc(env(safe-area-inset-bottom) + 1rem)',
           animation: 'fade-up 0.6s ease-out 1.4s both',
         }}
       >
-        <div className="flex items-center justify-between space-x-3">
+        <div className="flex items-center justify-between space-x-2">
           {/* Book a consult button */}
           <button
             onClick={() => navigate(language === 'nl' ? '/nl/boek' : '/en/book')}
-            className="flex-1 flex items-center justify-center space-x-3 py-4 px-6 rounded-full transition-all duration-200"
+            className="flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-full transition-all duration-200"
             style={{
               background: 'rgba(255, 255, 255, 0.12)',
               backdropFilter: 'blur(20px)',
@@ -40,26 +40,26 @@ export const FooterCTAGlass = () => {
             }}
           >
             <span
-              className="text-white font-semibold text-lg"
+              className="text-white font-semibold text-sm"
               style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
             >
               {language === 'nl' ? 'Boek een consult' : 'Book a consult'}
             </span>
             <div
-              className="w-10 h-10 rounded-full flex items-center justify-center"
+              className="w-8 h-8 rounded-full flex items-center justify-center"
               style={{
                 background: 'rgba(255, 255, 255, 0.15)',
                 border: '1px solid rgba(255, 255, 255, 0.25)',
               }}
             >
-              <ArrowUpRight className="w-5 h-5 text-white" strokeWidth={2} />
+              <ArrowUpRight className="w-4 h-4 text-white" strokeWidth={2} />
             </div>
           </button>
 
           {/* Chat button */}
           <button
             onClick={() => setShowChat(true)}
-            className="w-14 h-14 rounded-full flex items-center justify-center transition-all duration-200"
+            className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200"
             style={{
               background: 'rgba(255, 255, 255, 0.12)',
               backdropFilter: 'blur(20px)',
@@ -75,7 +75,7 @@ export const FooterCTAGlass = () => {
               e.currentTarget.style.transform = 'scale(1)';
             }}
           >
-            <MessageCircle className="w-6 h-6 text-white" strokeWidth={1.5} />
+            <MessageCircle className="w-5 h-5 text-white" strokeWidth={1.5} />
           </button>
         </div>
       </div>

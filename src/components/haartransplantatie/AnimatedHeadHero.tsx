@@ -20,7 +20,7 @@ export const AnimatedHeadHero = () => {
 
   return (
     <div 
-      className="relative flex items-center justify-between px-8 pt-6 pb-4"
+      className="relative flex items-center justify-between px-4 pt-3 pb-2"
       style={{
         animation: 'fade-up 0.8s ease-out 0.2s both',
       }}
@@ -41,13 +41,13 @@ export const AnimatedHeadHero = () => {
         <img 
           src="/assets/analyze-button.svg" 
           alt={language === 'nl' ? 'Analyseer mijn haar' : 'Analyze my hair'}
-          className="h-14"
+          className="h-12"
         />
       </label>
 
       {/* 3D Head Image (Right side) */}
       <div 
-        className="relative w-72 h-72 flex items-center justify-center"
+        className="relative w-32 h-32 flex items-center justify-center"
         style={{
           animation: 'fade-up 0.8s ease-out 0.3s both',
         }}
@@ -57,7 +57,7 @@ export const AnimatedHeadHero = () => {
           alt="3D head model"
           className="w-full h-full object-contain"
           style={{
-            filter: 'drop-shadow(0 0 40px rgba(99, 179, 237, 0.4))',
+            filter: 'drop-shadow(0 0 30px rgba(99, 179, 237, 0.4))',
           }}
         />
       </div>

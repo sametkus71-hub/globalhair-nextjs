@@ -74,7 +74,7 @@ export const PackageCardGlass = ({ package: pkg }: PackageCardGlassProps) => {
 
   return (
     <div
-      className="mx-4 my-6 p-6 rounded-3xl transition-all duration-500"
+      className="mx-2 mt-2 p-4 rounded-3xl transition-all duration-500"
       style={{
         background: 'rgba(255, 255, 255, 0.10)',
         backdropFilter: 'blur(20px)',
@@ -84,22 +84,22 @@ export const PackageCardGlass = ({ package: pkg }: PackageCardGlassProps) => {
       }}
     >
       {/* Icons row */}
-      <div className="flex justify-center space-x-4 mb-6">
+      <div className="flex justify-center space-x-3 mb-3">
         {/* Growth indicator */}
         <div
-          className="flex items-center space-x-2 px-4 py-2 rounded-2xl"
+          className="flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
           style={{
             background: 'rgba(255, 255, 255, 0.08)',
             border: '1px solid rgba(255, 255, 255, 0.15)',
           }}
         >
-          <ChevronRight className="w-5 h-5 text-white/60" strokeWidth={1.5} />
+          <ChevronRight className="w-4 h-4 text-white/60" strokeWidth={1.5} />
           {renderLeaves(data.growth)}
         </div>
 
         {/* Recovery indicator */}
         <div
-          className="flex items-center space-x-2 px-4 py-2 rounded-2xl"
+          className="flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
           style={{
             background: 'rgba(255, 255, 255, 0.08)',
             border: '1px solid rgba(255, 255, 255, 0.15)',
@@ -111,7 +111,7 @@ export const PackageCardGlass = ({ package: pkg }: PackageCardGlassProps) => {
 
       {/* Title */}
       <h3
-        className="text-white text-center text-xl font-semibold mb-2"
+        className="text-white text-center text-lg font-semibold mb-1"
         style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
       >
         {data.title}
@@ -120,7 +120,7 @@ export const PackageCardGlass = ({ package: pkg }: PackageCardGlassProps) => {
       {/* Subtitle */}
       {data.subtitle && (
         <p
-          className="text-center text-sm mb-4"
+          className="text-center text-xs mb-3"
           style={{
             color: 'rgba(255, 255, 255, 0.85)',
             fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
@@ -133,7 +133,7 @@ export const PackageCardGlass = ({ package: pkg }: PackageCardGlassProps) => {
       {/* Read more button */}
       <a
         href={data.anchor}
-        className="block w-full py-3 px-6 rounded-2xl text-center transition-all duration-200"
+        className="block w-full py-2 px-4 rounded-2xl text-center transition-all duration-200 text-sm"
         style={{
           background: 'rgba(255, 255, 255, 0.08)',
           border: '1px solid rgba(255, 255, 255, 0.20)',

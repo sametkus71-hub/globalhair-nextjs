@@ -48,17 +48,17 @@ const HaartransplantatiePage = () => {
           <GlassHeader />
 
           {/* Main Content - Single Screen */}
-          <div className="relative z-10 flex flex-col h-screen overflow-hidden">
+          <div className="relative z-10 flex flex-col h-screen overflow-hidden pt-12">
             {/* Animated Head Hero */}
             <AnimatedHeadHero />
 
             {/* Tabs */}
-            <div className="px-4">
+            <div className="px-2 pt-1">
               <GlassTabs activeTab={activeTab} onTabChange={setActiveTab} />
             </div>
 
             {/* Tab Content */}
-            <div className="relative flex-1 px-4 pb-24 overflow-hidden">
+            <div className="relative flex-1 px-2 pb-16 overflow-hidden">
               {activeTab === 'Packages' && (
                 <div className="h-full flex flex-col">
                   {/* Package Tier Switcher */}

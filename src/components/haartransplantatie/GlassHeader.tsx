@@ -16,16 +16,16 @@ export const GlassHeader = () => {
         animation: 'fade-down 0.6s ease-out',
       }}
     >
-      <div className="flex items-center justify-between px-4 py-3">
+      <div className="flex items-center justify-between px-3 py-2">
         {/* Logo */}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2">
           <img 
             src="/assets/logo-shield.png" 
             alt="GHI Logo" 
-            className="w-8 h-8"
+            className="w-7 h-7"
           />
           <span 
-            className="text-white font-semibold text-lg"
+            className="text-white font-semibold text-sm"
             style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
           >
             GHI Hairtransplant
@@ -35,7 +35,7 @@ export const GlassHeader = () => {
         {/* Dashboard button */}
         <button
           onClick={() => navigate(language === 'nl' ? '/nl' : '/en')}
-          className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200"
+          className="w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-200"
           style={{
             background: 'rgba(255, 255, 255, 0.10)',
             border: '1px solid rgba(255, 255, 255, 0.25)',
@@ -49,7 +49,7 @@ export const GlassHeader = () => {
             e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.25)';
           }}
         >
-          <Grid3x3 className="w-5 h-5 text-white" strokeWidth={1.5} />
+          <Grid3x3 className="w-4 h-4 text-white" strokeWidth={1.5} />
         </button>
       </div>
 
