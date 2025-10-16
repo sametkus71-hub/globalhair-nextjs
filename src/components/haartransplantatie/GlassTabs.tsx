@@ -38,7 +38,7 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
                 <div
                   className="absolute left-0 right-0 z-20"
                   style={{
-                    bottom: '-1px',
+                    bottom: '0px',
                     height: '3px',
                     background: 'white',
                     animation: 'fade-in 0.3s ease-out',
