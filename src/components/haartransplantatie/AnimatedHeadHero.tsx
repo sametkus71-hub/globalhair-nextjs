@@ -50,7 +50,6 @@ export const AnimatedHeadHero = () => {
         className="relative flex items-center justify-center"
         style={{
           width: '320px',
-          height: '400px',
           animation: 'fade-up 0.8s ease-out 0.3s both',
         }}
       >
