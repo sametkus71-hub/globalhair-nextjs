@@ -22,7 +22,7 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
             <button
               key={tab}
               onClick={() => onTabChange(tab)}
-              className="relative pb-3 transition-all duration-300"
+              className="relative pb-3 transition-all duration-300 z-10"
               style={{
                 color: isActive ? 'white' : 'rgba(255, 255, 255, 0.5)',
                 fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
@@ -33,11 +33,12 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
             >
               {tab}
               
-              {/* Active indicator - thicker white line under this specific button */}
+              {/* Active indicator - thicker section of the baseline */}
               {isActive && (
                 <div
-                  className="absolute bottom-0 left-0 right-0"
+                  className="absolute left-0 right-0 z-20"
                   style={{
+                    bottom: '-1px',
                     height: '3px',
                     background: 'white',
                     animation: 'fade-in 0.3s ease-out',
@@ -49,10 +50,11 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
         })}
       </div>
       
-      {/* Full width baseline - thinner line */}
+      {/* Full width baseline */}
       <div 
-        className="absolute bottom-0 left-0 right-0"
+        className="absolute left-0 right-0 z-0"
         style={{
+          bottom: '0px',
           height: '1px',
           background: 'rgba(255, 255, 255, 0.2)',
         }}
