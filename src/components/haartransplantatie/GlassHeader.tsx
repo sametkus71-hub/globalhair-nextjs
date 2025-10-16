@@ -13,7 +13,7 @@ export const GlassHeader = () => {
         animation: 'fade-down 0.6s ease-out',
       }}
     >
-      <div className="flex items-center justify-between px-3 py-2">
+      <div className="flex items-center justify-between px-4 py-4">
         {/* Logo */}
         <div className="flex items-center">
           <img 
@@ -26,19 +26,7 @@ export const GlassHeader = () => {
         {/* Dashboard button */}
         <button
           onClick={() => navigate(language === 'nl' ? '/nl' : '/en')}
-          className="w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-200"
-          style={{
-            background: 'rgba(255, 255, 255, 0.10)',
-            border: '1px solid rgba(255, 255, 255, 0.25)',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.14)';
-            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.35)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.10)';
-            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.25)';
-          }}
+          className="w-8 h-8 flex items-center justify-center transition-opacity duration-200 hover:opacity-70"
         >
           <img 
             src="/assets/dashboard-icon.svg" 
