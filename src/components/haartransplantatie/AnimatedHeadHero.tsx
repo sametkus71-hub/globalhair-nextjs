@@ -40,7 +40,7 @@ export const AnimatedHeadHero = () => {
         />
         <button
           type="button"
-          className="relative pl-5 pr-2 py-2 rounded-full flex items-center gap-3 transition-all duration-300"
+          className="relative pl-4 pr-2 py-2 rounded-full flex items-center gap-2 transition-all duration-300"
           style={{
             background: 'rgba(255, 255, 255, 0.08)',
             backdropFilter: 'blur(10px)',
@@ -57,7 +57,7 @@ export const AnimatedHeadHero = () => {
           }}
         >
           <span 
-            className="text-white font-semibold text-sm"
+            className="text-white font-semibold text-sm whitespace-nowrap"
             style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
           >
             {language === 'nl' ? 'Analyseer mijn haar' : 'Analyze my hair'}
