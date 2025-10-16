@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 interface GlassTabsProps {
   activeTab: string;
@@ -8,7 +8,25 @@ interface GlassTabsProps {
 const tabs = ['Packages', 'Traject', 'Mission', 'Contact'];
 
 export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
-  const activeIndex = tabs.findIndex(tab => tab === activeTab);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0 });
+  
+  useEffect(() => {
+    const activeIndex = tabs.findIndex(tab => tab === activeTab);
+    const activeTabElement = tabRefs.current[activeIndex];
+    
+    if (activeTabElement) {
+      const containerRect = activeTabElement.parentElement?.getBoundingClientRect();
+      const tabRect = activeTabElement.getBoundingClientRect();
+      
+      if (containerRect) {
+        setUnderlineStyle({
+          left: tabRect.left - containerRect.left,
+          width: tabRect.width,
+        });
+      }
+    }
+  }, [activeTab]);
   
   return (
     <div 
@@ -23,6 +41,7 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
           return (
             <button
               key={tab}
+              ref={(el) => (tabRefs.current[index] = el)}
               onClick={() => onTabChange(tab)}
               className="relative pb-3 transition-all duration-300 z-10"
               style={{
@@ -45,8 +64,8 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
             bottom: '0px',
             height: '3px',
             background: 'white',
-            left: `calc(${activeIndex * 25}% + 1rem)`,
-            width: `calc(${100 / tabs.length}% - 1.5rem)`,
+            left: `${underlineStyle.left}px`,
+            width: `${underlineStyle.width}px`,
           }}
         />
       </div>
