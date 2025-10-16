@@ -58,12 +58,10 @@ export const AnimatedHeadHero = () => {
         />
         <button
           type="button"
-          className="relative pl-8 pr-4 py-3 rounded-full flex items-center gap-4 transition-all duration-300"
+          className="relative pl-5 pr-2 py-2 rounded-full flex items-center gap-3 transition-all duration-300"
           style={{
             background: 'rgba(255, 255, 255, 0.08)',
             backdropFilter: 'blur(10px)',
-            border: '2px solid',
-            borderImage: 'linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1)) 1',
             borderRadius: '9999px',
             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
           }}
