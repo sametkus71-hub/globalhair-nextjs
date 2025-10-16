@@ -27,7 +27,7 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
                 color: isActive ? 'white' : 'rgba(255, 255, 255, 0.5)',
                 fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
                 fontWeight: isActive ? 600 : 400,
-                fontSize: '15px',
+                fontSize: '12px',
                 letterSpacing: '0.01em',
               }}
             >
