@@ -58,28 +58,41 @@ export const AnimatedHeadHero = () => {
         />
         <button
           type="button"
-          className="relative px-6 py-3 rounded-full flex items-center gap-2 transition-all duration-300"
+          className="relative pl-8 pr-4 py-3 rounded-full flex items-center gap-4 transition-all duration-300"
           style={{
-            background: 'linear-gradient(135deg, rgba(99, 179, 237, 0.9), rgba(99, 179, 237, 0.7))',
-            border: '2px solid rgba(255, 255, 255, 0.3)',
-            boxShadow: '0 4px 20px rgba(99, 179, 237, 0.3)',
+            background: 'rgba(255, 255, 255, 0.08)',
+            backdropFilter: 'blur(10px)',
+            border: '2px solid',
+            borderImage: 'linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1)) 1',
+            borderRadius: '9999px',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = 'scale(1.05)';
-            e.currentTarget.style.boxShadow = '0 6px 30px rgba(99, 179, 237, 0.5)';
+            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = 'scale(1)';
-            e.currentTarget.style.boxShadow = '0 4px 20px rgba(99, 179, 237, 0.3)';
+            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
           }}
         >
-          <Camera className="w-5 h-5 text-white" />
           <span 
-            className="text-white font-semibold text-sm"
+            className="text-white font-semibold text-base"
             style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
           >
             {language === 'nl' ? 'Analyseer mijn haar' : 'Analyze my hair'}
           </span>
+          <div 
+            className="flex items-center justify-center rounded-full"
+            style={{
+              width: '48px',
+              height: '48px',
+              background: 'rgba(255, 255, 255, 0.15)',
+              border: '2px solid rgba(255, 255, 255, 0.3)',
+            }}
+          >
+            <Camera className="w-6 h-6 text-white" />
+          </div>
         </button>
       </label>
 
