@@ -8,6 +8,8 @@ interface GlassTabsProps {
 const tabs = ['Packages', 'Traject', 'Mission', 'Contact'];
 
 export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
+  const activeIndex = tabs.findIndex(tab => tab === activeTab);
+  
   return (
     <div 
       className="relative"
@@ -15,8 +17,8 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
         animation: 'fade-in 0.6s ease-out 0.6s both',
       }}
     >
-      <div className="flex items-center gap-6 px-4">
-        {tabs.map((tab) => {
+      <div className="flex items-center gap-6 px-4 relative">
+        {tabs.map((tab, index) => {
           const isActive = activeTab === tab;
           return (
             <button
@@ -32,22 +34,21 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
               }}
             >
               {tab}
-              
-              {/* Active indicator - thicker section of the baseline */}
-              {isActive && (
-                <div
-                  className="absolute left-0 right-0 z-20"
-                  style={{
-                    bottom: '0px',
-                    height: '3px',
-                    background: 'white',
-                    animation: 'fade-in 0.3s ease-out',
-                  }}
-                />
-              )}
             </button>
           );
         })}
+        
+        {/* Animated active indicator */}
+        <div
+          className="absolute z-20 transition-all duration-300 ease-out"
+          style={{
+            bottom: '0px',
+            height: '3px',
+            background: 'white',
+            left: `calc(${activeIndex * 25}% + 1rem)`,
+            width: `calc(${100 / tabs.length}% - 1.5rem)`,
+          }}
+        />
       </div>
       
       {/* Full width baseline */}
