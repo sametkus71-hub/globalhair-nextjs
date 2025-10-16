@@ -20,30 +20,12 @@ export const AnimatedHeadHero = () => {
 
   return (
     <div 
-      className="relative flex flex-col items-center px-4 pt-3 pb-4"
+      className="relative flex items-end justify-between px-4 pt-3 pb-4 gap-4"
       style={{
         animation: 'fade-up 0.8s ease-out 0.2s both',
       }}
     >
-      {/* 3D Head Image (Top) */}
-      <div 
-        className="relative flex items-center justify-center mb-4"
-        style={{
-          width: '320px',
-          animation: 'fade-up 0.8s ease-out 0.3s both',
-        }}
-      >
-        <img
-          src="/assets/placeholder-head.png"
-          alt="3D head model"
-          className="w-full h-full object-contain"
-          style={{
-            filter: 'drop-shadow(0 0 30px rgba(99, 179, 237, 0.4))',
-          }}
-        />
-      </div>
-
-      {/* Primary CTA - Analyze my hair (Bottom) */}
+      {/* Primary CTA - Analyze my hair (Left Bottom) */}
       <label
         className="cursor-pointer group z-10"
         style={{
@@ -93,6 +75,24 @@ export const AnimatedHeadHero = () => {
           </div>
         </button>
       </label>
+
+      {/* 3D Head Image (Right) */}
+      <div 
+        className="relative flex items-center justify-center"
+        style={{
+          width: '320px',
+          animation: 'fade-up 0.8s ease-out 0.3s both',
+        }}
+      >
+        <img
+          src="/assets/placeholder-head.png"
+          alt="3D head model"
+          className="w-full h-full object-contain"
+          style={{
+            filter: 'drop-shadow(0 0 30px rgba(99, 179, 237, 0.4))',
+          }}
+        />
+      </div>
 
       <style>{`
         @keyframes fade-up {
