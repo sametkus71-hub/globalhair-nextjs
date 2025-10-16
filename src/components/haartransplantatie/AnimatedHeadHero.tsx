@@ -57,7 +57,7 @@ export const AnimatedHeadHero = () => {
           }}
         >
           <span 
-            className="text-white font-semibold text-base"
+            className="text-white font-semibold text-sm"
             style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
           >
             {language === 'nl' ? 'Analyseer mijn haar' : 'Analyze my hair'}
@@ -80,7 +80,7 @@ export const AnimatedHeadHero = () => {
       <div 
         className="relative flex items-center justify-center"
         style={{
-          width: '320px',
+          width: '400px',
           animation: 'fade-up 0.8s ease-out 0.3s both',
         }}
       >
