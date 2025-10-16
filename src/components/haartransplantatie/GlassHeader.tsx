@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
-import { Grid3x3 } from 'lucide-react';
+import logoHeader from '@/assets/logo-header.png';
 
 export const GlassHeader = () => {
   const navigate = useNavigate();
@@ -10,26 +10,17 @@ export const GlassHeader = () => {
     <header 
       className="fixed top-0 left-0 right-0 z-50 animate-fade-in"
       style={{
-        background: 'rgba(255, 255, 255, 0.08)',
-        backdropFilter: 'blur(20px)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.15)',
         animation: 'fade-down 0.6s ease-out',
       }}
     >
       <div className="flex items-center justify-between px-3 py-2">
         {/* Logo */}
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center">
           <img 
-            src="/assets/logo-shield.png" 
-            alt="GHI Logo" 
-            className="w-7 h-7"
+            src={logoHeader} 
+            alt="GHI Hairtransplant Logo" 
+            className="h-8"
           />
-          <span 
-            className="text-white font-semibold text-sm"
-            style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
-          >
-            GHI Hairtransplant
-          </span>
         </div>
 
         {/* Dashboard button */}
@@ -49,7 +40,11 @@ export const GlassHeader = () => {
             e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.25)';
           }}
         >
-          <Grid3x3 className="w-4 h-4 text-white" strokeWidth={1.5} />
+          <img 
+            src="/assets/dashboard-icon.svg" 
+            alt="Dashboard" 
+            className="w-5 h-5"
+          />
         </button>
       </div>
 
