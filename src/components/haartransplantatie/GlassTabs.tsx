@@ -15,7 +15,7 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
         animation: 'fade-in 0.6s ease-out 0.6s both',
       }}
     >
-      <div className="flex items-center gap-6 px-4 py-3">
+      <div className="flex items-center gap-6 px-4">
         {tabs.map((tab) => {
           const isActive = activeTab === tab;
           return (
