@@ -53,7 +53,7 @@ const HaartransplantatiePage = () => {
             <AnimatedHeadHero />
 
             {/* Tabs */}
-            <div className="px-2 pt-1">
+            <div className="pt-2">
               <GlassTabs activeTab={activeTab} onTabChange={setActiveTab} />
             </div>
 

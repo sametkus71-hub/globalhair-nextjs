@@ -10,12 +10,9 @@ const tabs = ['Packages', 'Traject', 'Mission', 'Contact'];
 export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
   return (
     <div 
-      className="flex items-center rounded-full p-0.5"
+      className="relative flex items-center gap-6 px-4 py-3"
       style={{
         animation: 'fade-in 0.6s ease-out 0.6s both',
-        background: 'rgba(255, 255, 255, 0.08)',
-        backdropFilter: 'blur(20px)',
-        border: '1px solid rgba(255, 255, 255, 0.20)',
       }}
     >
       {tabs.map((tab) => {
@@ -24,15 +21,13 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
           <button
             key={tab}
             onClick={() => onTabChange(tab)}
-            className="flex-1 py-2 px-2 rounded-full transition-all duration-300 relative"
+            className="relative pb-2 transition-all duration-300"
             style={{
-              background: isActive ? 'rgba(255, 255, 255, 0.15)' : 'transparent',
-              border: isActive ? '1px solid rgba(255, 255, 255, 0.3)' : '1px solid transparent',
-              boxShadow: isActive ? '0 4px 15px rgba(0, 0, 0, 0.3)' : 'none',
-              color: 'white',
+              color: isActive ? 'white' : 'rgba(255, 255, 255, 0.5)',
               fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
               fontWeight: isActive ? 600 : 400,
-              fontSize: '13px',
+              fontSize: '15px',
+              letterSpacing: '0.01em',
             }}
           >
             {tab}
@@ -40,11 +35,10 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
             {/* Active indicator line */}
             {isActive && (
               <div
-                className="absolute bottom-0 left-1/2 transform -translate-x-1/2"
+                className="absolute bottom-0 left-0 right-0"
                 style={{
-                  width: '40%',
                   height: '2px',
-                  background: 'linear-gradient(90deg, transparent, white, transparent)',
+                  background: 'white',
                   animation: 'fade-in 0.3s ease-out',
                 }}
               />
