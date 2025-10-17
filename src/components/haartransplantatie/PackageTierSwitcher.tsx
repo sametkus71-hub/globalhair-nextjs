@@ -1,7 +1,3 @@
-interface PackageTierSwitcherProps {
-  activePackage: string;
-  onPackageChange: (pkg: string) => void;
-}
 
 const packages = [
   { id: 'Standard', label: 'Standard', tier: 'standard' },
@@ -9,7 +5,7 @@ const packages = [
   { id: 'Advanced', label: 'Advanced', tier: 'advanced', badge: 'New' },
 ];
 
-export const PackageTierSwitcher = ({ activePackage, onPackageChange }: PackageTierSwitcherProps) => {
+export const PackageTierSwitcher = () => {
   return (
     <div 
       className="px-4 py-2"
@@ -21,26 +17,21 @@ export const PackageTierSwitcher = ({ activePackage, onPackageChange }: PackageT
         className="tier-switcher"
         role="tablist"
         aria-label="Package tiers"
-        data-active={packages.find(p => p.id === activePackage)?.tier || 'standard'}
       >
         {packages.map((pkg) => {
-          const isActive = activePackage === pkg.id;
-          
           return (
-            <button
+            <div
               key={pkg.id}
-              className={`tier-btn ${isActive ? 'is-active' : ''}`}
+              className="tier-btn"
               role="tab"
-              aria-selected={isActive}
               data-tier={pkg.tier}
-              onClick={() => onPackageChange(pkg.id)}
             >
               <span className="label">{pkg.label}</span>
               
               {pkg.badge && (
                 <span className="badge-new">{pkg.badge}</span>
               )}
-            </button>
+            </div>
           );
         })}
       </div>

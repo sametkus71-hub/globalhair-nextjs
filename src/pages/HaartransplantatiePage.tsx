@@ -17,7 +17,6 @@ import { PlaceholderContent } from '@/components/haartransplantatie/PlaceholderC
 const HaartransplantatiePage = () => {
   const { language } = useLanguage();
   const [activeTab, setActiveTab] = useState('Packages');
-  const [activePackage, setActivePackage] = useState<'Standard' | 'Premium' | 'Advanced'>('Standard');
 
   // Enable scrolling on mount
   useLayoutEffect(() => {
@@ -62,14 +61,11 @@ const HaartransplantatiePage = () => {
               {activeTab === 'Packages' && (
                 <div className="h-full flex flex-col">
                   {/* Package Tier Switcher */}
-                  <PackageTierSwitcher 
-                    activePackage={activePackage} 
-                    onPackageChange={(pkg) => setActivePackage(pkg as 'Standard' | 'Premium' | 'Advanced')} 
-                  />
+                  <PackageTierSwitcher />
 
                   {/* Package Panel Slider */}
                   <div className="flex-1 overflow-hidden">
-                    <PackagePanelSlider activePackage={activePackage} />
+                    <PackagePanelSlider />
                   </div>
                 </div>
               )}

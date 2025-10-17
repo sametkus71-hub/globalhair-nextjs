@@ -1,32 +1,4 @@
-interface PackagePanelSliderProps {
-  activePackage: string;
-}
-
-const packageData = {
-  Standard: {
-    title: 'FUE Saffier',
-    subtitle: null,
-    features: ['arrow', 'leaf'],
-    lines: ['FUE Saffier'],
-    url: '#packages-standard'
-  },
-  Premium: {
-    title: 'FUE Saffier / DHI',
-    subtitle: 'V6 Hairboost®',
-    features: ['arrow', 'arrow', 'leaf', 'leaf'],
-    lines: ['FUE Saffier / DHI', 'V6 Hairboost®'],
-    url: '#packages-premium'
-  },
-  Advanced: {
-    title: 'FUE Saffier / DHI',
-    subtitle: 'V6 Hairboost® + GHI Stemcell repair™',
-    features: ['arrow', 'arrow', 'leaf', 'leaf', 'leaf'],
-    lines: ['FUE Saffier / DHI', 'V6 Hairboost®', 'GHI Stemcell repair™'],
-    url: '#packages-advanced'
-  }
-};
-
-export const PackagePanelSlider = ({ activePackage }: PackagePanelSliderProps) => {
+export const PackagePanelSlider = () => {
 
   return (
     <section className="packages-module">
