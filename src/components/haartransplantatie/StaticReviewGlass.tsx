@@ -19,7 +19,7 @@ export const StaticReviewGlass = () => {
       >
         <div className="flex items-center justify-between gap-4">
           {/* Left: Quote + Button */}
-          <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0 flex flex-col items-center">
             <p
               className="text-white text-[13px] text-center mb-4"
               style={{
@@ -35,7 +35,7 @@ export const StaticReviewGlass = () => {
 
             <button
               onClick={() => navigate(language === 'nl' ? '/nl/reviews' : '/en/reviews')}
-              className="px-6 py-3 rounded-[20px] text-white text-[15px] font-medium transition-all duration-300"
+              className="px-8 py-3 rounded-full text-white text-[15px] font-medium transition-all duration-300"
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
                 border: '1px solid rgba(255, 255, 255, 0.2)',
