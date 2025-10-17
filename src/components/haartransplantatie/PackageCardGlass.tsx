@@ -82,6 +82,41 @@ export const PackageCardGlass = ({ package: pkg }: PackageCardGlassProps) => {
         animation: 'slide-fade-in 0.5s ease-out',
       }}
     >
+      {/* Package tier indicator */}
+      <div className="flex justify-center mb-3">
+        <div
+          className="inline-flex items-center rounded-full px-4 py-1.5"
+          style={{
+            background: 'rgba(255, 255, 255, 0.08)',
+            backdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255, 255, 255, 0.20)',
+          }}
+        >
+          <span
+            className="text-xs font-medium"
+            style={{
+              color: 'white',
+              fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+            }}
+          >
+            {pkg}
+          </span>
+          {pkg === 'Advanced' && (
+            <span
+              className="ml-2 text-[8px] px-1.5 py-0.5 rounded-full"
+              style={{
+                background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
+                color: 'white',
+                fontWeight: 600,
+                boxShadow: '0 2px 8px rgba(59, 130, 246, 0.4)',
+              }}
+            >
+              New
+            </span>
+          )}
+        </div>
+      </div>
+
       {/* Icons row */}
       <div className="flex justify-center space-x-3 mb-3">
         {/* Growth indicator */}
