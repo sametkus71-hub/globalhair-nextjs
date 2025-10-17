@@ -21,10 +21,13 @@ export const StaticReviewGlass = () => {
           {/* Left: Quote + Button */}
           <div className="flex-1 min-w-0">
             <p
-              className="text-white text-[15px] leading-snug mb-4"
+              className="text-white text-[15px] text-center mb-4"
               style={{
-                fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-                fontWeight: 500,
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontWeight: 400,
+                lineHeight: '160%',
+                letterSpacing: '-0.04em',
+                maxWidth: '205px',
               }}
             >
               "Amazing experience. My hair has never looked better"
