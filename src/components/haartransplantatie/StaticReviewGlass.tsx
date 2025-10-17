@@ -7,7 +7,7 @@ export const StaticReviewGlass = () => {
   const { language } = useLanguage();
 
   return (
-    <div className="px-4 pb-6">
+    <div className="pb-6">
       <div
         className="rounded-[24px] p-6 overflow-hidden"
         style={{
@@ -21,10 +21,10 @@ export const StaticReviewGlass = () => {
           {/* Left: Quote + Button */}
           <div className="flex-1 min-w-0">
             <p
-              className="text-white text-[15px] text-center mb-4"
+              className="text-white text-[13px] text-center mb-4"
               style={{
                 fontFamily: 'Inter, system-ui, sans-serif',
-                fontWeight: 400,
+                fontWeight: 300,
                 lineHeight: '160%',
                 letterSpacing: '-0.04em',
                 maxWidth: '205px',
