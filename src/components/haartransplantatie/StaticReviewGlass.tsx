@@ -35,7 +35,7 @@ export const StaticReviewGlass = () => {
 
             <button
               onClick={() => navigate(language === 'nl' ? '/nl/reviews' : '/en/reviews')}
-              className="px-8 py-3 rounded-full text-white text-[14px] font-normal transition-all duration-300"
+              className="px-12 py-2 rounded-full text-white text-[14px] font-normal transition-all duration-300"
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
                 border: '1px solid rgba(255, 255, 255, 0.2)',
