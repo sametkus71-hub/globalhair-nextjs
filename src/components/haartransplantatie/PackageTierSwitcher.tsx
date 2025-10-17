@@ -12,33 +12,38 @@ const packages = [
 export const PackageTierSwitcher = ({ activePackage, onPackageChange }: PackageTierSwitcherProps) => {
   return (
     <div 
-      className="px-2 py-2"
+      className="px-4 py-2"
       style={{
         animation: 'fade-in 0.6s ease-out 1s both',
       }}
     >
       <div
-        className="flex items-center rounded-full p-1"
+        className="flex items-center rounded-full"
         style={{
-          background: '#1e3a5f',
-          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+          background: 'rgba(0, 0, 0, 0.2)',
+          backdropFilter: 'blur(10px)',
+          border: '2px solid rgba(255, 255, 255, 0.8)',
+          padding: '6px',
         }}
       >
         {packages.map((pkg, index) => {
           const isActive = activePackage === pkg.id;
+          const isFirst = index === 0;
+          const isLast = index === packages.length - 1;
+          
           return (
             <button
               key={pkg.id}
               onClick={() => onPackageChange(pkg.id)}
-              className="relative flex-1 py-2.5 px-4 transition-all duration-300"
+              className="relative flex-1 py-3 px-6 transition-all duration-300 flex items-center justify-center"
               style={{
-                background: isActive ? '#2d5278' : 'transparent',
-                color: 'white',
+                background: isActive ? 'rgba(255, 255, 255, 0.95)' : 'transparent',
+                color: isActive ? '#1e3a5f' : 'white',
                 fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-                fontWeight: 500,
-                fontSize: '14px',
-                borderRadius: index === 0 ? '9999px 0 0 9999px' : index === packages.length - 1 ? '0 9999px 9999px 0' : '0',
-                borderRight: index < packages.length - 1 ? '1px solid rgba(255, 255, 255, 0.1)' : 'none',
+                fontWeight: isActive ? 600 : 400,
+                fontSize: '16px',
+                borderRadius: '9999px',
+                borderRight: !isLast ? '1px solid rgba(255, 255, 255, 0.3)' : 'none',
               }}
             >
               {pkg.label}
@@ -46,12 +51,11 @@ export const PackageTierSwitcher = ({ activePackage, onPackageChange }: PackageT
               {/* New badge */}
               {pkg.badge && (
                 <span
-                  className="ml-1.5 text-[10px] px-2 py-0.5 rounded-full inline-block align-middle"
+                  className="ml-2 text-[11px] px-2.5 py-1 rounded-full inline-block"
                   style={{
                     background: '#fbbf24',
                     color: '#1e3a5f',
                     fontWeight: 700,
-                    textTransform: 'uppercase',
                   }}
                 >
                   {pkg.badge}
