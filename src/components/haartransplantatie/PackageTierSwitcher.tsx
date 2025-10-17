@@ -18,28 +18,27 @@ export const PackageTierSwitcher = ({ activePackage, onPackageChange }: PackageT
       }}
     >
       <div
-        className="flex items-center rounded-full p-0.5"
+        className="flex items-center rounded-full p-1"
         style={{
-          background: 'rgba(255, 255, 255, 0.08)',
-          backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255, 255, 255, 0.20)',
+          background: '#1e3a5f',
+          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
         }}
       >
-        {packages.map((pkg) => {
+        {packages.map((pkg, index) => {
           const isActive = activePackage === pkg.id;
           return (
             <button
               key={pkg.id}
               onClick={() => onPackageChange(pkg.id)}
-              className="relative flex-1 py-2 px-3 rounded-full transition-all duration-300"
+              className="relative flex-1 py-2.5 px-4 transition-all duration-300"
               style={{
-                background: isActive ? 'rgba(255, 255, 255, 0.15)' : 'transparent',
-                border: isActive ? '1px solid rgba(255, 255, 255, 0.3)' : '1px solid transparent',
-                boxShadow: isActive ? '0 4px 15px rgba(0, 0, 0, 0.3)' : 'none',
+                background: isActive ? '#2d5278' : 'transparent',
                 color: 'white',
                 fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-                fontWeight: isActive ? 600 : 400,
-                fontSize: '13px',
+                fontWeight: 500,
+                fontSize: '14px',
+                borderRadius: index === 0 ? '9999px 0 0 9999px' : index === packages.length - 1 ? '0 9999px 9999px 0' : '0',
+                borderRight: index < packages.length - 1 ? '1px solid rgba(255, 255, 255, 0.1)' : 'none',
               }}
             >
               {pkg.label}
@@ -47,12 +46,12 @@ export const PackageTierSwitcher = ({ activePackage, onPackageChange }: PackageT
               {/* New badge */}
               {pkg.badge && (
                 <span
-                  className="absolute -top-1 -right-1 text-[9px] px-1.5 py-0.5 rounded-full"
+                  className="ml-1.5 text-[10px] px-2 py-0.5 rounded-full inline-block align-middle"
                   style={{
-                    background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
-                    color: 'white',
-                    fontWeight: 600,
-                    boxShadow: '0 2px 8px rgba(59, 130, 246, 0.4)',
+                    background: '#fbbf24',
+                    color: '#1e3a5f',
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
                   }}
                 >
                   {pkg.badge}
