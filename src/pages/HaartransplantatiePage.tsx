@@ -9,6 +9,7 @@ import { AnimatedHeadHero } from '@/components/haartransplantatie/AnimatedHeadHe
 import { GlassTabs } from '@/components/haartransplantatie/GlassTabs';
 import { PackageTierSwitcher } from '@/components/haartransplantatie/PackageTierSwitcher';
 import { PackagePanelSlider } from '@/components/haartransplantatie/PackagePanelSlider';
+import { StaticPackagesGlass } from '@/components/haartransplantatie/StaticPackagesGlass';
 import { ReviewsSectionGlass } from '@/components/haartransplantatie/ReviewsSectionGlass';
 import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
 import { PlaceholderContent } from '@/components/haartransplantatie/PlaceholderContent';
@@ -60,13 +61,8 @@ const HaartransplantatiePage = () => {
             <div className="relative flex-1 px-2 pb-16 overflow-hidden">
               {activeTab === 'Packages' && (
                 <div className="h-full flex flex-col">
-                  {/* Package Tier Switcher */}
-                  <PackageTierSwitcher />
-
-                  {/* Package Panel Slider */}
-                  <div className="flex-1 overflow-hidden">
-                    <PackagePanelSlider />
-                  </div>
+                  {/* Static Packages Glass Card */}
+                  <StaticPackagesGlass />
                 </div>
               )}
 

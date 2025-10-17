@@ -1827,3 +1827,210 @@ html, body {
   .pkg-title{ font-size:17px; }
   .pkg-sub{ font-size:13px; }
 }
+
+/* ===============================
+   GHI – Static Packages Glass Card
+   =============================== */
+:root{
+  /* achtergrond tinten (achter de card) */
+  --ghi-bg1:#0f2434; --ghi-bg2:#0a1b28;
+
+  /* glas & randen */
+  --ghi-glass: rgba(255,255,255,.10);
+  --ghi-stroke: rgba(255,255,255,.30);
+  --ghi-stroke-strong: rgba(255,255,255,.55);
+  --ghi-gold-1:#F1D48B; /* goud gloed */
+  --ghi-gold-2:#C9A95F;
+
+  /* typografie */
+  --ghi-text:#EAF2FA;
+  --ghi-text-weak: rgba(255,255,255,.85);
+
+  /* schaduw */
+  --ghi-shadow: 0 12px 40px rgba(0,0,0,.45);
+
+  --ghi-r: 24px;      /* buiten radius */
+  --ghi-r-in: 20px;   /* binnen radius */
+}
+
+/* container (zorg dat hij midden staat en genoeg lucht heeft) */
+.ghi-packages-static{
+  padding: 14px 12px 24px;
+}
+
+/* buitenste glas card met gouden rand */
+.ghi-packages-static .glass-card{
+  position: relative;
+  border-radius: var(--ghi-r);
+  background:
+    linear-gradient(160deg, var(--ghi-bg1), var(--ghi-bg2)) padding-box;
+  border: 1px solid var(--ghi-stroke);
+  box-shadow: var(--ghi-shadow);
+  overflow: hidden;
+}
+
+/* subtiele "gouden" bevel/outline */
+.ghi-packages-static .glass-card::after{
+  content:"";
+  position:absolute; inset:0;
+  border-radius: inherit;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,0)) border-box;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.22),
+    0 0 0 1px rgba(255,255,255,.02),
+    0 0 0 2px rgba(0,0,0,.06),
+    0 0 0 3px rgba(0,0,0,.02);
+}
+
+/* zachte gouden gloed in de hoeken */
+.ghi-packages-static .glass-card::before{
+  content:"";
+  position:absolute; inset:0;
+  border-radius:inherit;
+  background:
+    radial-gradient(80% 60% at 0% 100%, rgba(241,212,139,.25), transparent 60%),
+    radial-gradient(70% 55% at 100% 0%, rgba(201,169,95,.22), transparent 60%);
+  pointer-events:none;
+}
+
+/* TABS (visueel, niet klikbaar) */
+.tabs-wrap{
+  padding: 16px 16px 8px;
+}
+.tabs-pill{
+  pointer-events:none; /* niet klikbaar */
+  user-select:none;
+  height: 46px;
+  border-radius: 23px;
+  padding: 4px;
+  display:flex; align-items:center; gap: 16px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.10)) border-box,
+    linear-gradient(160deg, #274b64, #1a374a) padding-box;
+  border:1px solid var(--ghi-stroke);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.25);
+}
+.tab{
+  color: var(--ghi-text);
+  font: 700 16px/1 "Inter", system-ui, -apple-system, "SF Pro", Arial;
+  padding: 10px 16px;
+  border-radius: 19px;
+  letter-spacing:.2px;
+  opacity:.9;
+}
+.tab.is-active{
+  background: rgba(255,255,255,.16);
+  box-shadow: inset 0 0 0 1px var(--ghi-stroke-strong);
+}
+.tab-sep{
+  width:1px; height:22px; opacity:.5;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,.35), transparent);
+}
+.badge-new{
+  display:inline-block; margin-left:8px;
+  font: 800 11px/1 "Inter"; color:#1b2b36;
+  background: linear-gradient(180deg, #ffeab0, #f3ce6d);
+  padding: 4px 8px; border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.75), 0 2px 6px rgba(0,0,0,.15);
+  transform: translateY(-1px);
+}
+
+/* CONTENT ZONE – glas donker vlak met 3 kolommen */
+.card-body{
+  position: relative;
+  margin: 10px 8px 0;
+  border-radius: var(--ghi-r-in);
+  padding: 18px 14px 22px;
+  background: rgba(0,0,0,.42);
+  border: 1px solid rgba(255,255,255,.08);
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr 1px 1fr; /* 3 kolommen + 2 separators */
+  gap: 0;
+}
+
+/* verticale separators */
+.v-sep{
+  width:1px; align-self:stretch;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,.15), transparent);
+}
+
+/* kolom */
+.col{ padding: 0 10px; color: var(--ghi-text); }
+.chips{ display:flex; gap: 10px; margin-bottom: 12px; }
+.line{
+  color: var(--ghi-text);
+  font: 700 15px/1.2 "Inter";
+  margin: 10px 0 0;
+}
+.line.muted{
+  color: var(--ghi-text-weak);
+  font-weight: 600;
+}
+
+/* chips (ico-capsules) */
+.chip{
+  display:inline-flex; align-items:center; justify-content:center;
+  width: 40px; height: 32px; border-radius: 10px;
+  background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.10));
+  border:1px solid rgba(255,255,255,.35);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.6), 0 2px 10px rgba(0,0,0,.35);
+}
+.ico{ width:18px; height:18px; display:inline-block; }
+
+/* iconen in dezelfde "zilveren" stijl als referentie */
+.ico-chevron{
+  background: conic-gradient(from 180deg, #e8eef7, #bfcad9 60%, #eef3fb);
+  -webkit-mask:
+    linear-gradient(transparent 7px, #000 7px 11px, transparent 11px) left/100% 100% no-repeat,
+    path("M3 9 L11 5 M3 9 L11 13") stroke-box;
+  mask-composite: exclude;
+}
+.ico-fastchev{
+  background: conic-gradient(from 180deg, #e8eef7, #bfcad9 60%, #eef3fb);
+  -webkit-mask:
+    path("M2 9 L10 5 M2 9 L10 13 M8 9 L16 5 M8 9 L16 13") stroke-box;
+}
+.ico-leaf{
+  background: conic-gradient(from 180deg, #e8eef7, #c7d2e3 60%, #eef3fb);
+  -webkit-mask: path("M9 2 C13 5 14 9 9 14 C4 9 5 5 9 2 Z") fill-box;
+}
+
+/* READ MORE balk */
+.readmore-bar{
+  height: 56px;
+  display:flex; align-items:center; justify-content:center;
+  border-top: 1px solid rgba(255,255,255,.28);
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.18));
+}
+.readmore-link{
+  color: var(--ghi-text);
+  font: 800 15px/1 "Inter";
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  pointer-events:none; /* statisch */
+}
+
+/* Dots onderaan */
+.dots{
+  display:flex; gap:8px; justify-content:center; align-items:center;
+  padding: 10px 0 14px;
+}
+.dot{
+  width:8px; height:8px; border-radius:50%;
+  background: rgba(255,255,255,.35);
+}
+.dot.is-active{ background: rgba(255,255,255,.85); }
+
+/* Mobile full width */
+@media (max-width:420px){
+  .ghi-packages-static .glass-card{ border-radius: 22px; }
+  .tabs-wrap{ padding: 16px 12px 8px; }
+  .tabs-pill{ gap: 14px; }
+  .tab{ padding: 10px 14px; font-size: 16px; }
+}
