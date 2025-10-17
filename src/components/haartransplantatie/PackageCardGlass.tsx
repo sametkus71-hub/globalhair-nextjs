@@ -74,27 +74,21 @@ export const PackageCardGlass = ({ package: pkg }: PackageCardGlassProps) => {
 
   return (
     <div
-      className="mx-2 mt-2 rounded-3xl transition-all duration-500 relative"
+      className="mx-2 mt-2 p-[2px] rounded-3xl transition-all duration-500"
       style={{
-        background: 'rgba(119, 125, 129, 0.12)',
-        backdropFilter: 'blur(8px)',
-        WebkitBackdropFilter: 'blur(8px)',
-        boxShadow: '0 8px 30px rgba(0, 0, 0, 0.2)',
+        background: 'linear-gradient(135deg, #DDB961, #E3C06B, #EFCF7C, #D8AF58)',
         animation: 'slide-fade-in 0.5s ease-out',
-        padding: '4px',
-        border: '2px solid transparent',
-        backgroundClip: 'padding-box',
       }}
     >
       <div
-        className="absolute inset-0 rounded-3xl"
+        className="rounded-3xl h-full p-4"
         style={{
-          background: 'linear-gradient(135deg, #DDB961, #E3C06B, #EFCF7C, #D8AF58)',
-          zIndex: -1,
-          margin: '-2px',
+          background: 'rgba(119, 125, 129, 0.12)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.2)',
         }}
-      />
-      <div className="relative z-10 p-4">
+      >
       {/* Icons row */}
       <div className="flex justify-center space-x-3 mb-3">
         {/* Growth indicator */}
