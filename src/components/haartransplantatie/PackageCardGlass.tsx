@@ -76,9 +76,13 @@ export const PackageCardGlass = ({ package: pkg }: PackageCardGlassProps) => {
     <div
       className="mx-2 mt-2 p-4 rounded-3xl transition-all duration-500"
       style={{
-        background: 'rgba(255, 255, 255, 0.10)',
+        background: `
+          linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.08)) padding-box,
+          linear-gradient(180deg, #DDB961 0%, #E3C06B 25%, #EFECE6 50%, #EFCF7C 75%, #D8AF58 100%) border-box
+        `,
+        border: '1px solid transparent',
         backdropFilter: 'blur(20px)',
-        border: '1px solid rgba(255, 255, 255, 0.25)',
+        WebkitBackdropFilter: 'blur(20px)',
         boxShadow: '0 8px 30px rgba(0, 0, 0, 0.35)',
         animation: 'slide-fade-in 0.5s ease-out',
       }}
