@@ -1613,3 +1613,121 @@ html, body {
     transform: translateY(0) scale(1); 
   }
 }
+
+/* ================================
+   Glassmorphic Package Tier Switcher
+   ================================ */
+
+:root{
+  --ts-height: 44px;           /* totale hoogte */
+  --ts-radius: 22px;           /* afgeronde hoeken */
+  --ts-pad-x: 14px;            /* horizontale padding per knop */
+  --ts-gap: 0px;               /* geen echte gap; we tekenen separators */
+  --ts-font: 15px;
+  --ts-weight: 600;
+  --ts-bg1: #22425b;           /* gradient start */
+  --ts-bg2: #18364a;           /* gradient eind */
+  --ts-glass: rgba(255,255,255,.10);
+  --ts-glass-active: rgba(255,255,255,.16);
+  --ts-border: rgba(255,255,255,.30);
+  --ts-border-active: rgba(255,255,255,.45);
+  --ts-separator: rgba(255,255,255,.22);
+  --ts-shadow: 0 8px 24px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.18);
+}
+
+.tier-switcher{
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  max-width: 360px;                 /* laat desgewenst staan of verwijder voor 100% */
+  height: var(--ts-height);
+  border-radius: var(--ts-radius);
+  padding: 2px;                     /* subtiele inner stroke */
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.06)) border-box,
+    linear-gradient(160deg, var(--ts-bg1), var(--ts-bg2)) padding-box;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--ts-border);
+  box-shadow: var(--ts-shadow);
+  overflow: hidden;
+}
+
+/* Buttons */
+.tier-btn{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 var(--ts-pad-x);
+  border: 0;
+  background: transparent;
+  color: rgba(255,255,255,.92);
+  font: var(--ts-weight) var(--ts-font)/1 "Inter", system-ui, -apple-system, "SF Pro", Arial, sans-serif;
+  letter-spacing: .2px;
+  cursor: pointer;
+  transition: background .25s ease, color .25s ease, box-shadow .25s ease, transform .06s ease;
+  border-radius: calc(var(--ts-radius) - 2px);
+  user-select: none;
+}
+
+/* Hover/press feedback */
+.tier-btn:hover{ background: rgba(255,255,255,.06); }
+.tier-btn:active{ transform: translateY(1px) scale(.99); }
+
+/* Active look */
+.tier-btn.is-active{
+  background: var(--ts-glass-active);
+  box-shadow:
+    inset 0 0 0 1px var(--ts-border-active),
+    inset 0 10px 18px rgba(255,255,255,.06);
+  color: #fff;
+}
+
+/* Divider lines between buttons */
+.tier-btn + .tier-btn::before{
+  content:"";
+  position:absolute;
+  left:-.5px; top:8px; bottom:8px;
+  width:1px;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    var(--ts-separator) 15%,
+    var(--ts-separator) 85%,
+    transparent 100%);
+  pointer-events:none;
+}
+
+/* Label text keeps nice crisp look on glass */
+.tier-btn .label{
+  transform: translateY(.5px);
+  text-shadow: 0 1px 0 rgba(0,0,0,.15);
+  white-space: nowrap;
+}
+
+/* New badge (Advanced) */
+.badge-new{
+  font: 700 10px/1 "Inter", system-ui, -apple-system, "SF Pro", Arial, sans-serif;
+  color:#1c2a36;
+  background: linear-gradient(180deg, #ffe9a6, #ffd66b);
+  border:1px solid rgba(0,0,0,.08);
+  box-shadow: 0 1px 0 rgba(255,255,255,.7) inset, 0 2px 6px rgba(0,0,0,.18);
+  padding: 3px 6px;
+  border-radius: 999px;
+  transform: translateY(-1px);
+}
+
+/* Focus accessibility */
+.tier-btn:focus-visible{
+  outline: none;
+  box-shadow:
+    0 0 0 2px rgba(255,255,255,.5),
+    0 0 0 4px rgba(79,172,254,.25);
+}
+
+/* Small screens full width */
+@media (max-width:420px){
+  .tier-switcher{ max-width: 100%; }
+}
