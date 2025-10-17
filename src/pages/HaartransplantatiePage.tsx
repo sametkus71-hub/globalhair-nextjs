@@ -8,7 +8,7 @@ import { GlassHeader } from '@/components/haartransplantatie/GlassHeader';
 import { AnimatedHeadHero } from '@/components/haartransplantatie/AnimatedHeadHero';
 import { GlassTabs } from '@/components/haartransplantatie/GlassTabs';
 import { PackageTierSwitcher } from '@/components/haartransplantatie/PackageTierSwitcher';
-import { PackageCardGlass } from '@/components/haartransplantatie/PackageCardGlass';
+import { PackagePanelSlider } from '@/components/haartransplantatie/PackagePanelSlider';
 import { ReviewsSectionGlass } from '@/components/haartransplantatie/ReviewsSectionGlass';
 import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
 import { PlaceholderContent } from '@/components/haartransplantatie/PlaceholderContent';
@@ -67,9 +67,9 @@ const HaartransplantatiePage = () => {
                     onPackageChange={(pkg) => setActivePackage(pkg as 'Standard' | 'Premium' | 'Advanced')} 
                   />
 
-                  {/* Package Card */}
+                  {/* Package Panel Slider */}
                   <div className="flex-1 overflow-hidden">
-                    <PackageCardGlass package={activePackage} />
+                    <PackagePanelSlider activePackage={activePackage} />
                   </div>
                 </div>
               )}
