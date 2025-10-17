@@ -33,35 +33,29 @@ export const StaticReviewGlass = () => {
               "Amazing experience. My hair has never looked better"
             </p>
 
-            <div
-              className="rounded-full p-[1px]"
+            <button
+              onClick={() => navigate(language === 'nl' ? '/nl/reviews' : '/en/reviews')}
+              className="px-8 py-3 rounded-full text-white text-[15px] font-medium transition-all duration-300"
               style={{
-                background: 'linear-gradient(180deg, #4B555E 0%, #ACB9C1 25%, #FFFFFF 50%, #ACB9C1 75%, #4B555E 100%)',
-                width: 'fit-content',
+                background: 'rgba(255, 255, 255, 0.08)',
+                border: '1px solid',
+                borderImage: 'linear-gradient(180deg, #4B555E 0%, #ACB9C1 25%, #FFFFFF 50%, #ACB9C1 75%, #4B555E 100%) 1',
+                fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+                backdropFilter: 'blur(1.6px)',
+                WebkitBackdropFilter: 'blur(1.6px)',
+                boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25), inset 0 4px 8.7px rgba(0, 0, 0, 0.25), inset 0 -1px 4.7px rgba(255, 255, 255, 0.25)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
+                e.currentTarget.style.transform = 'translateY(-1px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
-              <button
-                onClick={() => navigate(language === 'nl' ? '/nl/reviews' : '/en/reviews')}
-                className="px-8 py-3 rounded-full text-white text-[15px] font-medium transition-all duration-300"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.08)',
-                  fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-                  backdropFilter: 'blur(1.6px)',
-                  WebkitBackdropFilter: 'blur(1.6px)',
-                  boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25), inset 0 4px 8.7px rgba(0, 0, 0, 0.25), inset 0 -1px 4.7px rgba(255, 255, 255, 0.25)',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
-                  e.currentTarget.style.transform = 'translateY(-1px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                Reviews
-              </button>
-            </div>
+              Reviews
+            </button>
           </div>
 
           {/* Right: Before/After Image */}
