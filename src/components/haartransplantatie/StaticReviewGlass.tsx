@@ -11,9 +11,9 @@ export const StaticReviewGlass = () => {
       <div
         className="rounded-[24px] p-6 overflow-hidden"
         style={{
-          background: 'rgba(255, 255, 255, 0.04)',
-          backdropFilter: 'blur(30px)',
-          WebkitBackdropFilter: 'blur(30px)',
+          background: 'rgba(119, 125, 129, 0.12)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
           boxShadow: '0 8px 30px rgba(0, 0, 0, 0.2)',
         }}
       >
