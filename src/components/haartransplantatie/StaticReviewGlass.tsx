@@ -9,13 +9,12 @@ export const StaticReviewGlass = () => {
   return (
     <div className="px-4 pb-6">
       <div
-        className="rounded-[20px] p-5 overflow-hidden"
+        className="rounded-[24px] p-6 overflow-hidden"
         style={{
-          background: 'rgba(255, 255, 255, 0.08)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255, 255, 255, 0.25)',
-          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.35)',
+          background: 'rgba(255, 255, 255, 0.04)',
+          backdropFilter: 'blur(30px)',
+          WebkitBackdropFilter: 'blur(30px)',
+          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.2)',
         }}
       >
         <div className="flex items-center justify-between gap-4">
@@ -33,20 +32,22 @@ export const StaticReviewGlass = () => {
 
             <button
               onClick={() => navigate(language === 'nl' ? '/nl/reviews' : '/en/reviews')}
-              className="px-5 py-2.5 rounded-[16px] text-white text-[14px] font-medium transition-all duration-200"
+              className="px-6 py-3 rounded-[20px] text-white text-[15px] font-medium transition-all duration-300"
               style={{
-                background: 'rgba(255, 255, 255, 0.10)',
-                border: '1px solid rgba(255, 255, 255, 0.25)',
+                background: 'rgba(255, 255, 255, 0.08)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
                 fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 2px 8px rgba(0, 0, 0, 0.25)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                boxShadow: 'inset 0 1px 2px rgba(255, 255, 255, 0.15), 0 4px 12px rgba(0, 0, 0, 0.15)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.15)';
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
+                e.currentTarget.style.transform = 'translateY(-1px)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.10)';
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+                e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
               Reviews
@@ -56,10 +57,10 @@ export const StaticReviewGlass = () => {
           {/* Right: Before/After Image */}
           <div className="flex-shrink-0">
             <div
-              className="w-[120px] h-[160px] rounded-[16px] overflow-hidden"
+              className="w-[130px] h-[130px] rounded-[20px] overflow-hidden"
               style={{
-                border: '2px solid rgba(255, 255, 255, 0.2)',
-                boxShadow: '0 4px 16px rgba(0, 0, 0, 0.35)',
+                border: '1px solid rgba(255, 255, 255, 0.15)',
+                boxShadow: '0 6px 20px rgba(0, 0, 0, 0.25)',
               }}
             >
               <img
