@@ -1667,15 +1667,9 @@ html, body {
   color: rgba(255,255,255,.92);
   font: var(--ts-weight) var(--ts-font)/1 "Inter", system-ui, -apple-system, "SF Pro", Arial, sans-serif;
   letter-spacing: .2px;
-  cursor: pointer;
-  transition: background .25s ease, color .25s ease, box-shadow .25s ease, transform .06s ease;
   border-radius: calc(var(--ts-radius) - 2px);
   user-select: none;
 }
-
-/* Hover/press feedback */
-.tier-btn:hover{ background: rgba(255,255,255,.06); }
-.tier-btn:active{ transform: translateY(1px) scale(.99); }
 
 /* Active look */
 .tier-btn.is-active{
