@@ -33,28 +33,47 @@ export const StaticReviewGlass = () => {
               "Amazing experience. My hair has never looked better"
             </p>
 
-            <button
-              onClick={() => navigate(language === 'nl' ? '/nl/reviews' : '/en/reviews')}
-              className="px-6 py-3 rounded-[20px] text-white text-[15px] font-medium transition-all duration-300"
+            <div
+              className="relative rounded-full p-[1px] mt-4"
               style={{
-                background: 'rgba(255, 255, 255, 0.08)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-                fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
-                boxShadow: 'inset 0 1px 2px rgba(255, 255, 255, 0.15), 0 4px 12px rgba(0, 0, 0, 0.15)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
-                e.currentTarget.style.transform = 'translateY(-1px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
-                e.currentTarget.style.transform = 'translateY(0)';
+                background: 'linear-gradient(180deg, #4B555E 0%, #ACB9C1 25%, #FFFFFF 50%, #ACB9C1 75%, #4B555E 100%)',
+                width: 'fit-content',
+                margin: '0 auto',
               }}
             >
-              Reviews
-            </button>
+              <button
+                onClick={() => navigate(language === 'nl' ? '/nl/reviews' : '/en/reviews')}
+                className="h-[56px] px-6 rounded-full text-center transition-all duration-300"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.06)',
+                  backdropFilter: 'blur(1.6px)',
+                  WebkitBackdropFilter: 'blur(1.6px)',
+                  fontFamily: 'Inter, SF Pro Display, system-ui, sans-serif',
+                  fontWeight: 600,
+                  fontSize: '18px',
+                  color: 'rgba(255, 255, 255, 0.92)',
+                  letterSpacing: '0.2px',
+                  boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25), inset 0 4px 8.7px rgba(0, 0, 0, 0.25), inset 0 -1px 4.7px rgba(255, 255, 255, 0.25)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.10)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
+                }}
+                onMouseDown={(e) => {
+                  e.currentTarget.style.transform = 'translateY(1px)';
+                }}
+                onMouseUp={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                Reviews
+              </button>
+            </div>
           </div>
 
           {/* Right: Before/After Image */}
