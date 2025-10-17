@@ -74,13 +74,9 @@ export const PackageCardGlass = ({ package: pkg }: PackageCardGlassProps) => {
 
   return (
     <div
-      className="mx-2 mt-2 p-4 rounded-3xl transition-all duration-500"
+      className="package-card gold-gradient-border relative mx-2 mt-2 p-4 rounded-3xl transition-all duration-500"
       style={{
-        background: `
-          linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.08)) padding-box,
-          linear-gradient(180deg, #DDB961 0%, #E3C06B 25%, #EFECE6 50%, #EFCF7C 75%, #D8AF58 100%) border-box
-        `,
-        border: '1px solid transparent',
+        background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.05))',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
         boxShadow: '0 8px 30px rgba(0, 0, 0, 0.35)',
@@ -167,6 +163,37 @@ export const PackageCardGlass = ({ package: pkg }: PackageCardGlassProps) => {
             opacity: 1;
             transform: translateX(0);
           }
+        }
+
+        .package-card {
+          position: relative;
+          border-radius: 28px;
+        }
+
+        .gold-gradient-border::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1px;
+          border-radius: inherit;
+          background: linear-gradient(180deg,
+            #DDB961 0%,
+            #E3C06B 25%,
+            #EFECE6 50%,
+            #EFCF7C 75%,
+            #D8AF58 100%);
+          -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .package-card > * {
+          position: relative;
+          z-index: 1;
         }
       `}</style>
     </div>
