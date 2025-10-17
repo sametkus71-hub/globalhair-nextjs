@@ -1,5 +1,3 @@
-import { useEffect, useRef } from 'react';
-
 interface PackagePanelSliderProps {
   activePackage: string;
 }
@@ -29,29 +27,14 @@ const packageData = {
 };
 
 export const PackagePanelSlider = ({ activePackage }: PackagePanelSliderProps) => {
-  const trackRef = useRef<HTMLDivElement>(null);
-  
-  const getIndex = (pkg: string) => {
-    const map: Record<string, number> = { Standard: 0, Premium: 1, Advanced: 2 };
-    return map[pkg] || 0;
-  };
-
-  const currentIndex = getIndex(activePackage);
-  const currentData = packageData[activePackage as keyof typeof packageData] || packageData.Standard;
-
-  useEffect(() => {
-    if (trackRef.current) {
-      trackRef.current.style.transform = `translateX(-${currentIndex * 100}%)`;
-    }
-  }, [currentIndex]);
 
   return (
     <section className="packages-module">
       <div className="pkg-panel">
-        <div className="pkg-track" ref={trackRef} data-index={currentIndex}>
+        <div className="pkg-track">
           {/* Pane 1: Standard */}
           <article 
-            className={`pkg-pane ${activePackage === 'Standard' ? 'is-current' : ''}`}
+            className="pkg-pane"
             data-url="#packages-standard" 
             aria-labelledby="pkg-standard-title"
           >
@@ -71,7 +54,7 @@ export const PackagePanelSlider = ({ activePackage }: PackagePanelSliderProps) =
 
           {/* Pane 2: Premium */}
           <article 
-            className={`pkg-pane ${activePackage === 'Premium' ? 'is-current' : ''}`}
+            className="pkg-pane"
             data-url="#packages-premium" 
             aria-labelledby="pkg-premium-title"
           >
@@ -95,7 +78,7 @@ export const PackagePanelSlider = ({ activePackage }: PackagePanelSliderProps) =
 
           {/* Pane 3: Advanced */}
           <article 
-            className={`pkg-pane ${activePackage === 'Advanced' ? 'is-current' : ''}`}
+            className="pkg-pane"
             data-url="#packages-advanced" 
             aria-labelledby="pkg-advanced-title"
           >
@@ -119,16 +102,6 @@ export const PackagePanelSlider = ({ activePackage }: PackagePanelSliderProps) =
             </ul>
           </article>
         </div>
-
-        {/* Bottom bar */}
-        <a 
-          className="pkg-readmore" 
-          href={currentData.url} 
-          role="button" 
-          aria-label="Read more"
-        >
-          Read more
-        </a>
       </div>
     </section>
   );

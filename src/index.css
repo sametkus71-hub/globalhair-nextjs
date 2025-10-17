@@ -1753,32 +1753,35 @@ html, body {
   pointer-events:none;
 }
 
-/* slider / track */
+/* static grid - all panes visible */
 .pkg-track{
   position:relative;
-  display:flex; width:300%;
-  transform: translateX(0%);
-  transition: transform 320ms cubic-bezier(.2,.8,.2,1);
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: 100%;
 }
 
 /* elke pane */
 .pkg-pane{
   position:relative;
-  width:100%; padding:18px 16px 64px;
-  display:flex; flex-direction:column; gap:14px;
-  opacity:0.999; /* fix subpixel blur op iOS */
+  padding:18px 12px 24px;
+  display:flex; flex-direction:column; gap:10px;
+  opacity:1;
+  background: rgba(0,0,0,.15);
+  border-radius: 16px;
 }
 
 /* header */
 .pkg-header{ display:flex; flex-direction:column; gap:2px; }
-.pkg-title{ margin:0; font:700 16px/1.15 "Inter", system-ui; color:#eaf4ff; }
-.pkg-sub{ margin:0; font:600 12px/1.25 "Inter"; color:rgba(255,255,255,.85); }
+.pkg-title{ margin:0; font:600 13px/1.15 "Inter", system-ui; color:#eaf4ff; }
+.pkg-sub{ margin:0; font:500 11px/1.25 "Inter"; color:rgba(255,255,255,.75); }
 
 /* features chips (icoon-capsules) */
-.pkg-features{ display:flex; gap:10px; margin-top:2px; margin-bottom:6px; }
+.pkg-features{ display:flex; gap:6px; margin-top:2px; margin-bottom:6px; flex-wrap: wrap; }
 .chip{
   display:inline-flex; align-items:center; justify-content:center;
-  width:34px; height:28px; border-radius:10px;
+  width:30px; height:26px; border-radius:8px;
   background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.10));
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   border:1px solid rgba(255,255,255,.35);
@@ -1801,9 +1804,9 @@ html, body {
 /* lijst met details */
 .pkg-lines{ list-style:none; margin:2px 0 0; padding:0; }
 .pkg-lines li{
-  padding:8px 0;
+  padding:6px 0;
   border-top:1px solid rgba(255,255,255,.08);
-  color:#f1f6ff; font:600 13px/1.25 "Inter";
+  color:#f1f6ff; font:500 11px/1.25 "Inter";
 }
 .pkg-lines li:first-child{ border-top:0; }
 
@@ -1822,9 +1825,8 @@ html, body {
   background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.22));
 }
 
-/* Fade-in van actieve pane */
-.pkg-pane{ opacity:.35; transition: opacity 320ms ease; }
-.pkg-pane.is-current{ opacity:1; }
+/* All panes visible */
+.pkg-pane{ opacity:1; }
 
 /* RESPONSIVE */
 @media (min-width:420px){
