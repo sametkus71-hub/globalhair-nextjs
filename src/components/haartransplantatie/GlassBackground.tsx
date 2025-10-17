@@ -27,8 +27,8 @@ export const GlassBackground = () => {
       <div 
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(180deg, #041931 0%, #18181B 100%)',
-          opacity: 0.90,
+          background: 'linear-gradient(180deg, #0a2540 0%, #113556 50%, #18181B 100%)',
+          opacity: 0.85,
         }}
       />
       
