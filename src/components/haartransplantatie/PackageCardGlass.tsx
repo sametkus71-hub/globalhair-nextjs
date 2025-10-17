@@ -79,7 +79,6 @@ export const PackageCardGlass = ({ package: pkg }: PackageCardGlassProps) => {
         background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.05))',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        boxShadow: '0 8px 30px rgba(0, 0, 0, 0.35)',
         animation: 'slide-fade-in 0.5s ease-out',
       }}
     >
