@@ -21,7 +21,7 @@ export const FooterCTAGlass = () => {
           {/* Book a consult button */}
           <button
             onClick={() => navigate(language === 'nl' ? '/nl/boek' : '/en/book')}
-            className="gold-gradient-border flex-1 flex items-center rounded-full transition-all duration-200"
+            className="gold-gradient-border cta-button-glow flex-1 flex items-center rounded-full transition-all duration-200"
             style={{
               paddingTop: '0.35rem',
               paddingBottom: '0.35rem',
@@ -33,6 +33,7 @@ export const FooterCTAGlass = () => {
               justifyContent: 'center',
               gap: 0,
               position: 'relative',
+              overflow: 'hidden',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = 'rgba(20, 30, 48, 0.7)';
@@ -54,6 +55,8 @@ export const FooterCTAGlass = () => {
                 letterSpacing: '0.01em',
                 flex: 1,
                 textAlign: 'center',
+                position: 'relative',
+                zIndex: 2,
               }}
             >
               {language === 'nl' ? 'Book a consult' : 'Book a consult'}
@@ -230,6 +233,22 @@ export const FooterCTAGlass = () => {
         .gold-gradient-border > * {
           position: relative;
           z-index: 1;
+        }
+
+        .cta-button-glow::after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 60%;
+          height: 70%;
+          border-radius: 50%;
+          background: #7990A5;
+          filter: blur(25.28px);
+          opacity: 0.45;
+          z-index: 1;
+          pointer-events: none;
         }
       `}</style>
     </>
