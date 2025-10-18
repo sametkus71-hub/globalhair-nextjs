@@ -21,35 +21,40 @@ export const FooterCTAGlass = () => {
           {/* Book a consult button */}
           <button
             onClick={() => navigate(language === 'nl' ? '/nl/boek' : '/en/book')}
-            className="gold-gradient-border flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-full transition-all duration-200"
+            className="gold-gradient-border flex-1 flex items-center justify-center space-x-3 py-3.5 px-5 rounded-full transition-all duration-200"
             style={{
-              background: 'rgba(255, 255, 255, 0.12)',
+              background: 'rgba(20, 30, 48, 0.6)',
               backdropFilter: 'blur(20px)',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
+              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 1px 2px rgba(255, 255, 255, 0.15)',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.16)';
+              e.currentTarget.style.background = 'rgba(20, 30, 48, 0.7)';
               e.currentTarget.style.transform = 'scale(1.02)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
+              e.currentTarget.style.background = 'rgba(20, 30, 48, 0.6)';
               e.currentTarget.style.transform = 'scale(1)';
             }}
           >
             <span
-              className="text-white font-semibold text-sm"
-              style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
-            >
-              {language === 'nl' ? 'Boek een consult' : 'Book a consult'}
-            </span>
-            <div
-              className="w-8 h-8 rounded-full flex items-center justify-center"
-              style={{
-                background: 'rgba(255, 255, 255, 0.15)',
-                border: '1px solid rgba(255, 255, 255, 0.25)',
+              className="text-white"
+              style={{ 
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontWeight: 400,
+                fontSize: '16px',
+                letterSpacing: '0.01em',
               }}
             >
-              <ArrowUpRight className="w-4 h-4 text-white" strokeWidth={2} />
+              {language === 'nl' ? 'Book a consult' : 'Book a consult'}
+            </span>
+            <div
+              className="w-10 h-10 rounded-full flex items-center justify-center"
+              style={{
+                background: 'rgba(255, 255, 255, 0.10)',
+                border: '1px solid rgba(255, 255, 255, 0.20)',
+              }}
+            >
+              <ArrowUpRight className="w-5 h-5 text-white" strokeWidth={2.5} />
             </div>
           </button>
 
