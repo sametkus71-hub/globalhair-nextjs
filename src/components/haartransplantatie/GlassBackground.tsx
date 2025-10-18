@@ -18,17 +18,16 @@ export const GlassBackground = () => {
         muted
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
-        style={{ opacity: 0.8 }}
+        style={{ opacity: 1.0 }}
       >
         <source src="/assets/background-animation.mp4" type="video/mp4" />
       </video>
       
-      {/* Gradient overlay */}
+      {/* Gradient overlay - upper half only */}
       <div 
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(180deg, #0a2540 0%, #113556 50%, #18181B 100%)',
-          opacity: 0.85,
+          background: 'linear-gradient(180deg, rgba(10, 37, 64, 0.6) 0%, rgba(17, 53, 86, 0.4) 25%, rgba(24, 24, 27, 0.2) 40%, transparent 50%)',
         }}
       />
       
