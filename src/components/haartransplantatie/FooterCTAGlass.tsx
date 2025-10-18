@@ -71,7 +71,7 @@ export const FooterCTAGlass = () => {
               }}
             >
               <div
-                className="w-10 h-10 rounded-full flex items-center justify-center"
+                className="silver-gradient-border w-10 h-10 rounded-full flex items-center justify-center"
                 style={{
                   background: 'rgba(255, 255, 255, 0.10)',
                   border: '1px solid rgba(255, 255, 255, 0.20)',
@@ -249,6 +249,36 @@ export const FooterCTAGlass = () => {
           opacity: 1;
           z-index: 1;
           pointer-events: none;
+        }
+
+        .silver-gradient-border {
+          position: relative;
+        }
+
+        .silver-gradient-border::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1px;
+          border-radius: inherit;
+          background: linear-gradient(180deg,
+            #4B555E 0%,
+            #ACB9C1 25%,
+            #FFFFFF 50%,
+            #ACB9C1 75%,
+            #4B555E 100%);
+          -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .silver-gradient-border > * {
+          position: relative;
+          z-index: 1;
         }
       `}</style>
     </>
