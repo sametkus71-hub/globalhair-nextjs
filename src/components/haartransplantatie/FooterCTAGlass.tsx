@@ -21,11 +21,12 @@ export const FooterCTAGlass = () => {
           {/* Book a consult button */}
           <button
             onClick={() => navigate(language === 'nl' ? '/nl/boek' : '/en/book')}
-            className="gold-gradient-border flex-1 flex items-center justify-between px-5 rounded-full transition-all duration-200"
+            className="gold-gradient-border flex-1 flex items-center justify-center rounded-full transition-all duration-200 relative"
             style={{
               paddingTop: '0.35rem',
               paddingBottom: '0.35rem',
               paddingRight: '0.35rem',
+              paddingLeft: '1.25rem',
               background: 'rgba(20, 30, 48, 0.6)',
               backdropFilter: 'blur(20px)',
               boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1)',
@@ -53,10 +54,13 @@ export const FooterCTAGlass = () => {
               {language === 'nl' ? 'Book a consult' : 'Book a consult'}
             </span>
             <div
-              className="w-10 h-10 rounded-full flex items-center justify-center"
+              className="w-10 h-10 rounded-full flex items-center justify-center absolute"
               style={{
                 background: 'rgba(255, 255, 255, 0.10)',
                 border: '1px solid rgba(255, 255, 255, 0.20)',
+                right: '0.35rem',
+                top: '50%',
+                transform: 'translateY(-50%)',
               }}
             >
               <ArrowUpRight className="w-5 h-5 text-white" strokeWidth={2.5} />
