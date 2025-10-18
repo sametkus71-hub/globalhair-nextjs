@@ -258,7 +258,7 @@ export const FooterCTAGlass = () => {
           content: "";
           position: absolute;
           inset: 0;
-          padding: 1px;
+          padding: 1.3px;
           border-radius: inherit;
           background: linear-gradient(90deg, #949494 7%, #ACB9C1 16%, #FFFFFF 34%, #ACB9C1 51%, #4B555E 78%, #fff 105%);
           -webkit-mask: 
