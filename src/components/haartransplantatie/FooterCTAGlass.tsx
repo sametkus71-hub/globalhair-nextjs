@@ -25,7 +25,7 @@ export const FooterCTAGlass = () => {
             style={{
               paddingTop: '0.35rem',
               paddingBottom: '0.35rem',
-              paddingLeft: '1rem',
+              paddingLeft: '3.5rem',
               paddingRight: '3.5rem',
               background: 'rgba(20, 30, 48, 0.6)',
               backdropFilter: 'blur(20px)',
