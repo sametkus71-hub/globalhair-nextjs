@@ -29,16 +29,16 @@ export const FooterCTAGlass = () => {
               paddingRight: '3.5rem',
               background: 'rgba(20, 30, 48, 0.6)',
               backdropFilter: 'blur(20px)',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -15px 50px 10px rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -10px 60px 20px rgba(255, 255, 255, 0.35)',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = 'rgba(20, 30, 48, 0.7)';
-              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -15px 50px 10px rgba(255, 255, 255, 0.25)';
+              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -10px 60px 20px rgba(255, 255, 255, 0.4)';
               e.currentTarget.style.transform = 'scale(1.02)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = 'rgba(20, 30, 48, 0.6)';
-              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -15px 50px 10px rgba(255, 255, 255, 0.2)';
+              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -10px 60px 20px rgba(255, 255, 255, 0.35)';
               e.currentTarget.style.transform = 'scale(1)';
             }}
           >
@@ -54,7 +54,7 @@ export const FooterCTAGlass = () => {
               {language === 'nl' ? 'Book a consult' : 'Book a consult'}
             </span>
             <div
-              className="absolute right-1 w-11 h-11 rounded-full flex items-center justify-center"
+              className="absolute right-[0.35rem] w-11 h-11 rounded-full flex items-center justify-center"
               style={{
                 background: 'rgba(255, 255, 255, 0.10)',
                 border: '1px solid rgba(255, 255, 255, 0.20)',
