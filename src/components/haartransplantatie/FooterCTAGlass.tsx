@@ -238,15 +238,15 @@ export const FooterCTAGlass = () => {
         .cta-button-glow::after {
           content: "";
           position: absolute;
-          top: 50%;
+          top: 80%;
           left: 50%;
           transform: translate(-50%, -50%);
-          width: 60%;
-          height: 70%;
+          width: 80%;
+          height: 80%;
           border-radius: 50%;
           background: #7990A5;
-          filter: blur(25.28px);
-          opacity: 0.45;
+          filter: blur(20px);
+          opacity: 1;
           z-index: 1;
           pointer-events: none;
         }
