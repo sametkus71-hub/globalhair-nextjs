@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from '@/pages/HomePage';
 import HaartransplantatiePage from '@/pages/HaartransplantatiePage';
 import HaartransplantatieOldPage from '@/pages/HaartransplantatieOldPage';
+import HaaranalysePage from '@/pages/HaaranalysePage';
 import TreatmentOptionsPage from '@/pages/TreatmentOptionsPage';
 import InfoPage from '@/pages/InfoPage';
 import InfoMethodPage from '@/pages/InfoMethodPage';
@@ -35,6 +36,7 @@ export const SEORoutes = () => {
       <Route path="/nl/haartransplantatie/mission" element={<HaartransplantatiePage />} />
       <Route path="/nl/haartransplantatie/contact" element={<HaartransplantatiePage />} />
       <Route path="/nl/haartransplantatie-old" element={<HaartransplantatieOldPage />} />
+      <Route path="/nl/haaranalyse" element={<HaaranalysePage />} />
       <Route path="/nl/behandelopties" element={<TreatmentOptionsPage />} />
       <Route path="/nl/v6-hairboost" element={<V6HairboostPage />} />
       <Route path="/nl/coming-soon-1" element={<ComingSoon1Page />} />
@@ -59,6 +61,7 @@ export const SEORoutes = () => {
       <Route path="/en/hair-transplant/mission" element={<HaartransplantatiePage />} />
       <Route path="/en/hair-transplant/contact" element={<HaartransplantatiePage />} />
       <Route path="/en/hair-transplant-old" element={<HaartransplantatieOldPage />} />
+      <Route path="/en/hair-analysis" element={<HaaranalysePage />} />
       <Route path="/en/treatment-options" element={<TreatmentOptionsPage />} />
       <Route path="/en/v6-hairboost" element={<V6HairboostPage />} />
       <Route path="/en/coming-soon-1" element={<ComingSoon1Page />} />
