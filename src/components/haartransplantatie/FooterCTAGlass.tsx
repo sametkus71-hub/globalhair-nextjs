@@ -25,20 +25,20 @@ export const FooterCTAGlass = () => {
             style={{
               paddingTop: '0.35rem',
               paddingBottom: '0.35rem',
-              paddingLeft: '3rem',
-              paddingRight: '0.35rem',
+              paddingLeft: '1rem',
+              paddingRight: '3.5rem',
               background: 'rgba(20, 30, 48, 0.6)',
               backdropFilter: 'blur(20px)',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 0 40px 5px rgba(255, 255, 255, 0.15), inset 0 -30px 40px -5px rgba(255, 255, 255, 0.3)',
+              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -15px 50px 10px rgba(255, 255, 255, 0.2)',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = 'rgba(20, 30, 48, 0.7)';
-              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 0 40px 5px rgba(255, 255, 255, 0.18), inset 0 -30px 40px -5px rgba(255, 255, 255, 0.35)';
+              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -15px 50px 10px rgba(255, 255, 255, 0.25)';
               e.currentTarget.style.transform = 'scale(1.02)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = 'rgba(20, 30, 48, 0.6)';
-              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 0 40px 5px rgba(255, 255, 255, 0.15), inset 0 -30px 40px -5px rgba(255, 255, 255, 0.3)';
+              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -15px 50px 10px rgba(255, 255, 255, 0.2)';
               e.currentTarget.style.transform = 'scale(1)';
             }}
           >
