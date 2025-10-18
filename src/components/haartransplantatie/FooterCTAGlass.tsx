@@ -21,21 +21,18 @@ export const FooterCTAGlass = () => {
           {/* Book a consult button */}
           <button
             onClick={() => navigate(language === 'nl' ? '/nl/boek' : '/en/book')}
-            className="flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-full transition-all duration-200"
+            className="gold-gradient-border flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-full transition-all duration-200"
             style={{
               background: 'rgba(255, 255, 255, 0.12)',
               backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(255, 255, 255, 0.30)',
               boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = 'rgba(255, 255, 255, 0.16)';
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.40)';
               e.currentTarget.style.transform = 'scale(1.02)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.30)';
               e.currentTarget.style.transform = 'scale(1)';
             }}
           >
@@ -177,6 +174,36 @@ export const FooterCTAGlass = () => {
             opacity: 1;
             transform: translateY(0);
           }
+        }
+
+        .gold-gradient-border {
+          position: relative;
+        }
+
+        .gold-gradient-border::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1px;
+          border-radius: inherit;
+          background: linear-gradient(180deg,
+            #DDB961 0%,
+            #E3C06B 25%,
+            #EFECE6 50%,
+            #EFCF7C 75%,
+            #D8AF58 100%);
+          -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .gold-gradient-border > * {
+          position: relative;
+          z-index: 1;
         }
       `}</style>
     </>
