@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useLanguage } from '@/hooks/useLanguage';
 
 interface GlassTabsProps {
   activeTab: string;
@@ -8,8 +10,26 @@ interface GlassTabsProps {
 const tabs = ['Packages', 'Traject', 'Mission', 'Contact'];
 
 export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
+  const navigate = useNavigate();
+  const { language } = useLanguage();
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0 });
+  
+  const getTabPath = (tab: string) => {
+    const basePath = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
+    const tabPaths: Record<string, string> = {
+      'Packages': basePath,
+      'Traject': `${basePath}/traject`,
+      'Mission': `${basePath}/mission`,
+      'Contact': `${basePath}/contact`,
+    };
+    return tabPaths[tab] || basePath;
+  };
+  
+  const handleTabClick = (tab: string) => {
+    onTabChange(tab);
+    navigate(getTabPath(tab));
+  };
   
   useEffect(() => {
     const activeIndex = tabs.findIndex(tab => tab === activeTab);
@@ -42,7 +62,7 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
             <button
               key={tab}
               ref={(el) => (tabRefs.current[index] = el)}
-              onClick={() => onTabChange(tab)}
+              onClick={() => handleTabClick(tab)}
               className="relative pb-3 transition-all duration-300 z-10"
               style={{
                 color: isActive ? 'white' : 'rgba(255, 255, 255, 0.5)',

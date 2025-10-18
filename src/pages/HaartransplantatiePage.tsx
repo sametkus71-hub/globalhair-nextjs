@@ -1,4 +1,5 @@
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
 import { MetaHead } from '@/components/MetaHead';
 import { PageTransition } from '@/components/PageTransition';
@@ -17,8 +18,23 @@ import { PlaceholderContent } from '@/components/haartransplantatie/PlaceholderC
 
 const HaartransplantatiePage = () => {
   const { language } = useLanguage();
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState('Packages');
   const [activePackage, setActivePackage] = useState<'Standard' | 'Premium' | 'Advanced'>('Standard');
+  
+  // Determine active tab from URL
+  useEffect(() => {
+    const path = location.pathname;
+    if (path.includes('/traject')) {
+      setActiveTab('Traject');
+    } else if (path.includes('/mission')) {
+      setActiveTab('Mission');
+    } else if (path.includes('/contact')) {
+      setActiveTab('Contact');
+    } else {
+      setActiveTab('Packages');
+    }
+  }, [location.pathname]);
 
   // Enable scrolling on mount
   useLayoutEffect(() => {
