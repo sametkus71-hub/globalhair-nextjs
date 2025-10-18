@@ -21,7 +21,7 @@ export const FooterCTAGlass = () => {
           {/* Book a consult button */}
           <button
             onClick={() => navigate(language === 'nl' ? '/nl/boek' : '/en/book')}
-            className="gold-gradient-border flex-1 flex items-center justify-center rounded-full transition-all duration-200 relative"
+            className="gold-gradient-border flex-1 flex items-center justify-between rounded-full transition-all duration-200 relative"
             style={{
               paddingTop: '0.35rem',
               paddingBottom: '0.35rem',
@@ -42,25 +42,32 @@ export const FooterCTAGlass = () => {
               e.currentTarget.style.transform = 'scale(1)';
             }}
           >
+            {/* Invisible spacer to maintain layout */}
+            <span style={{ visibility: 'hidden' }}>
+              {language === 'nl' ? 'Book a consult' : 'Book a consult'}
+            </span>
+            
+            {/* Centered text overlay */}
             <span
-              className="text-white"
+              className="text-white absolute left-1/2"
               style={{ 
                 fontFamily: 'Inter, system-ui, sans-serif',
                 fontWeight: 300,
                 fontSize: '15px',
                 letterSpacing: '0.01em',
+                transform: 'translateX(-50%)',
+                pointerEvents: 'none',
               }}
             >
               {language === 'nl' ? 'Book a consult' : 'Book a consult'}
             </span>
+            
+            {/* Icon stays in its original position */}
             <div
-              className="w-10 h-10 rounded-full flex items-center justify-center absolute"
+              className="w-10 h-10 rounded-full flex items-center justify-center"
               style={{
                 background: 'rgba(255, 255, 255, 0.10)',
                 border: '1px solid rgba(255, 255, 255, 0.20)',
-                right: '0.35rem',
-                top: '50%',
-                transform: 'translateY(-50%)',
               }}
             >
               <ArrowUpRight className="w-5 h-5 text-white" strokeWidth={2.5} />
