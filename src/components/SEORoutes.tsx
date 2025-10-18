@@ -25,11 +25,11 @@ import NotFound from '@/pages/NotFound';
 export const SEORoutes = () => {
   return (
     <Routes>
-      {/* Root redirect handled by useLanguage hook */}
-      <Route path="/" element={<HomePage />} />
+      {/* Root redirect - temporarily bypassing intro page */}
+      <Route path="/" element={<HaartransplantatiePage />} />
       
       {/* Dutch routes */}
-      <Route path="/nl" element={<HomePage />} />
+      <Route path="/nl" element={<HaartransplantatiePage />} />
       <Route path="/nl/haartransplantatie" element={<HaartransplantatiePage />} />
       <Route path="/nl/haartransplantatie/traject" element={<HaartransplantatiePage />} />
       <Route path="/nl/haartransplantatie/mission" element={<HaartransplantatiePage />} />
@@ -53,7 +53,7 @@ export const SEORoutes = () => {
       <Route path="/nl/contact" element={<ContactPage />} />
       
       {/* English routes */}
-      <Route path="/en" element={<HomePage />} />
+      <Route path="/en" element={<HaartransplantatiePage />} />
       <Route path="/en/hair-transplant" element={<HaartransplantatiePage />} />
       <Route path="/en/hair-transplant/traject" element={<HaartransplantatiePage />} />
       <Route path="/en/hair-transplant/mission" element={<HaartransplantatiePage />} />
