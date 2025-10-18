@@ -11,6 +11,7 @@ import { PageEntryLogo } from "@/components/PageEntryLogo";
 import { AnimatedBackground } from "@/components/homepage/AnimatedBackground";
 import { SEORoutes } from "@/components/SEORoutes";
 import ViewportHeightSetter from "@/components/ViewportHeightSetter";
+import { PasswordProtection } from "@/components/PasswordProtection";
 import { useEffect } from "react";
 import { waitForSalesIQ } from "@/lib/salesiq";
 
@@ -32,27 +33,29 @@ function AppRootInit() {
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <SessionManager>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <LanguageWrapper>
-            <TransitionProvider>
-              <AppRootInit />
-              <ViewportHeightSetter />
-              {/* Solid background across all pages */}
-              <div className="fixed inset-0" style={{ background: '#E4E5E0' }} />
-              
-              {/* Global logo - outside background container to avoid fading */}
-              <GlobalCentralLogo />
-              
-              <SEORoutes />
-            </TransitionProvider>
-          </LanguageWrapper>
-        </BrowserRouter>
-      </TooltipProvider>
-    </SessionManager>
+    <PasswordProtection>
+      <SessionManager>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <LanguageWrapper>
+              <TransitionProvider>
+                <AppRootInit />
+                <ViewportHeightSetter />
+                {/* Solid background across all pages */}
+                <div className="fixed inset-0" style={{ background: '#E4E5E0' }} />
+                
+                {/* Global logo - outside background container to avoid fading */}
+                <GlobalCentralLogo />
+                
+                <SEORoutes />
+              </TransitionProvider>
+            </LanguageWrapper>
+          </BrowserRouter>
+        </TooltipProvider>
+      </SessionManager>
+    </PasswordProtection>
   </QueryClientProvider>
 );
 
