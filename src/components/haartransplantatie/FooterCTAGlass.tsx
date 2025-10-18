@@ -21,7 +21,7 @@ export const FooterCTAGlass = () => {
           {/* Book a consult button */}
           <button
             onClick={() => navigate(language === 'nl' ? '/nl/boek' : '/en/book')}
-            className="gold-gradient-border flex-1 flex items-center justify-between rounded-full transition-all duration-200 relative"
+            className="gold-gradient-border flex-1 flex items-center rounded-full transition-all duration-200"
             style={{
               paddingTop: '0.35rem',
               paddingBottom: '0.35rem',
@@ -30,6 +30,9 @@ export const FooterCTAGlass = () => {
               background: 'rgba(20, 30, 48, 0.6)',
               backdropFilter: 'blur(20px)',
               boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1)',
+              justifyContent: 'center',
+              gap: 0,
+              position: 'relative',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = 'rgba(20, 30, 48, 0.7)';
@@ -42,37 +45,38 @@ export const FooterCTAGlass = () => {
               e.currentTarget.style.transform = 'scale(1)';
             }}
           >
-            {/* Invisible spacer to maintain layout */}
-            <span style={{ visibility: 'hidden' }}>
-              {language === 'nl' ? 'Book a consult' : 'Book a consult'}
-            </span>
-            
-            {/* Centered text overlay */}
             <span
-              className="text-white absolute"
+              className="text-white"
               style={{ 
                 fontFamily: 'Inter, system-ui, sans-serif',
                 fontWeight: 300,
                 fontSize: '15px',
                 letterSpacing: '0.01em',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                pointerEvents: 'none',
+                flex: 1,
+                textAlign: 'center',
               }}
             >
               {language === 'nl' ? 'Book a consult' : 'Book a consult'}
             </span>
             
-            {/* Icon stays in its original position */}
-            <div
-              className="w-10 h-10 rounded-full flex items-center justify-center"
+            <span
               style={{
-                background: 'rgba(255, 255, 255, 0.10)',
-                border: '1px solid rgba(255, 255, 255, 0.20)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginLeft: 'auto',
               }}
             >
-              <ArrowUpRight className="w-5 h-5 text-white" strokeWidth={2.5} />
-            </div>
+              <div
+                className="w-10 h-10 rounded-full flex items-center justify-center"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.10)',
+                  border: '1px solid rgba(255, 255, 255, 0.20)',
+                }}
+              >
+                <ArrowUpRight className="w-5 h-5 text-white" strokeWidth={2.5} />
+              </div>
+            </span>
           </button>
 
           {/* Chat button */}
