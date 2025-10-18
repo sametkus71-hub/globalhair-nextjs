@@ -7,7 +7,7 @@ interface PasswordProtectionProps {
 }
 
 // SHA-256 hash of "Worldofglobalhair2025"
-const EXPECTED_HASH = '8f7c4d6e9a2b5f1c3e8d7a6b4c2e9f1d5a7b3c8e4f9d2a6b1c7e3f8d4a9b2c5e';
+const EXPECTED_HASH = 'fa5c89f3c88b81bfd5e821b0316569af3ed4b8cb2f721889e1dc8c14f5f7e03e';
 
 async function hashPassword(password: string): Promise<string> {
   const encoder = new TextEncoder();
