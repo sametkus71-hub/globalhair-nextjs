@@ -49,12 +49,13 @@ export const FooterCTAGlass = () => {
             
             {/* Centered text overlay */}
             <span
-              className="text-white absolute left-1/2"
+              className="text-white absolute"
               style={{ 
                 fontFamily: 'Inter, system-ui, sans-serif',
                 fontWeight: 300,
                 fontSize: '15px',
                 letterSpacing: '0.01em',
+                left: '50%',
                 transform: 'translateX(-50%)',
                 pointerEvents: 'none',
               }}
