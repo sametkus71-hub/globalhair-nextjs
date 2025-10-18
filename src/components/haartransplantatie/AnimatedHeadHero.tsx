@@ -1,4 +1,4 @@
-import { Camera, Upload } from 'lucide-react';
+import { Upload } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useToast } from '@/hooks/use-toast';
@@ -22,8 +22,12 @@ export const AnimatedHeadHero = () => {
       {/* Primary CTA - Analyze my hair (Left Bottom) */}
       <button
         onClick={handleAnalyzeClick}
-        className="silver-gradient-border cursor-pointer group z-10 relative pl-4 pr-2 py-2 rounded-full flex items-center gap-2 transition-all duration-300"
+        className="silver-gradient-border cursor-pointer group z-10 relative rounded-full flex items-center gap-2 transition-all duration-300"
         style={{
+          paddingTop: '0.4rem',
+          paddingBottom: '0.4rem',
+          paddingLeft: '1.4rem',
+          paddingRight: '0.6rem',
           background: 'rgba(255, 255, 255, 0.08)',
           backdropFilter: 'blur(10px)',
           boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
@@ -47,12 +51,12 @@ export const AnimatedHeadHero = () => {
         <div 
           className="silver-gradient-border flex items-center justify-center rounded-full"
           style={{
-            width: '48px',
-            height: '48px',
+            width: '45px',
+            height: '45px',
             background: 'rgba(255, 255, 255, 0.15)',
           }}
         >
-          <Camera className="w-6 h-6 text-white" />
+          <img src="/assets/camera-icon.svg" alt="Camera" className="w-5 h-4" />
         </div>
       </button>
 
