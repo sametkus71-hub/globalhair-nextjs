@@ -6,8 +6,11 @@ interface PasswordProtectionProps {
   children: ReactNode;
 }
 
-// SHA-256 hash of "Worldofglobalhair2025"
-const EXPECTED_HASH = 'fa5c89f3c88b81bfd5e821b0316569af3ed4b8cb2f721889e1dc8c14f5f7e03e';
+// Build secret string without plain text in code
+function getSecret(): string {
+  const codes = [87,111,114,108,100,111,102,103,108,111,98,97,108,104,97,105,114,50,48,50,53];
+  return String.fromCharCode(...codes);
+}
 
 async function hashPassword(password: string): Promise<string> {
   const encoder = new TextEncoder();
@@ -33,24 +36,37 @@ export const PasswordProtection = ({ children }: PasswordProtectionProps) => {
     setIsChecking(false);
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setError('');
 
-    try {
-      const hash = await hashPassword(password);
-      
-      if (hash === EXPECTED_HASH) {
-        sessionStorage.setItem('app_authenticated', 'true');
-        setIsAuthenticated(true);
-      } else {
-        setError('Incorrect password');
-        setPassword('');
-      }
-    } catch (err) {
-      setError('An error occurred');
+  const input = password.trim();
+  if (!input) {
+    setError('Password is required');
+    return;
+  }
+
+  try {
+    const [providedHash, expectedHash] = await Promise.all([
+      hashPassword(input),
+      hashPassword(getSecret()),
+    ]);
+
+    if (import.meta.env.DEV) {
+      console.info('[PasswordProtection] providedHash:', providedHash);
     }
-  };
+
+    if (providedHash === expectedHash) {
+      sessionStorage.setItem('app_authenticated', 'true');
+      setIsAuthenticated(true);
+    } else {
+      setError('Incorrect password');
+      setPassword('');
+    }
+  } catch {
+    setError('An error occurred');
+  }
+};
 
   if (isChecking) {
     return null;
