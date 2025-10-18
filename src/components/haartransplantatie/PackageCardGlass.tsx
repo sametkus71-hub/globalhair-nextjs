@@ -89,7 +89,6 @@ export const PackageCardGlass = ({ package: pkg }: PackageCardGlassProps) => {
           style={{
             background: 'rgba(255, 255, 255, 0.08)',
             backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255, 255, 255, 0.20)',
           }}
         >
           <span
@@ -124,7 +123,6 @@ export const PackageCardGlass = ({ package: pkg }: PackageCardGlassProps) => {
           className="silver-gradient-border flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
           style={{
             background: 'rgba(255, 255, 255, 0.08)',
-            border: '1px solid rgba(255, 255, 255, 0.15)',
           }}
         >
           <ChevronRight className="w-4 h-4 text-white/60" strokeWidth={1.5} />
@@ -136,7 +134,6 @@ export const PackageCardGlass = ({ package: pkg }: PackageCardGlassProps) => {
           className="silver-gradient-border flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
           style={{
             background: 'rgba(255, 255, 255, 0.08)',
-            border: '1px solid rgba(255, 255, 255, 0.15)',
           }}
         >
           {renderArrows(data.recovery)}

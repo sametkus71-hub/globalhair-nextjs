@@ -26,7 +26,6 @@ export const AnimatedHeadHero = () => {
         style={{
           background: 'rgba(255, 255, 255, 0.08)',
           backdropFilter: 'blur(10px)',
-          borderRadius: '9999px',
           boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
           animation: 'fade-up 0.8s ease-out 0.4s both',
         }}
@@ -51,7 +50,6 @@ export const AnimatedHeadHero = () => {
             width: '48px',
             height: '48px',
             background: 'rgba(255, 255, 255, 0.15)',
-            border: '2px solid rgba(255, 255, 255, 0.3)',
           }}
         >
           <Camera className="w-6 h-6 text-white" />
