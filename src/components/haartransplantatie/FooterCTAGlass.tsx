@@ -21,18 +21,22 @@ export const FooterCTAGlass = () => {
           {/* Book a consult button */}
           <button
             onClick={() => navigate(language === 'nl' ? '/nl/boek' : '/en/book')}
-            className="gold-gradient-border flex-1 flex items-center justify-center space-x-3 py-3.5 px-5 rounded-full transition-all duration-200"
+            className="gold-gradient-border flex-1 flex items-center justify-between px-5 rounded-full transition-all duration-200"
             style={{
+              paddingTop: '0.55rem',
+              paddingBottom: '0.55rem',
               background: 'rgba(20, 30, 48, 0.6)',
               backdropFilter: 'blur(20px)',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 1px 2px rgba(255, 255, 255, 0.15)',
+              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1)',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = 'rgba(20, 30, 48, 0.7)';
+              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)';
               e.currentTarget.style.transform = 'scale(1.02)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = 'rgba(20, 30, 48, 0.6)';
+              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1)';
               e.currentTarget.style.transform = 'scale(1)';
             }}
           >
