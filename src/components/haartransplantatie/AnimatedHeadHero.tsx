@@ -49,11 +49,10 @@ export const AnimatedHeadHero = () => {
           {language === 'nl' ? 'Analyseer mijn haar' : 'Analyze my hair'}
         </span>
         <div 
-          className="silver-gradient-border flex items-center justify-center rounded-full"
+          className="silver-gradient-border cta-button-glow flex items-center justify-center rounded-full"
           style={{
             width: '45px',
             height: '45px',
-            background: 'rgba(255, 255, 255, 0.15)',
           }}
         >
           <img src="/assets/camera-icon.svg" alt="Camera" className="w-5 h-4" />
@@ -113,6 +112,22 @@ export const AnimatedHeadHero = () => {
         .silver-gradient-border > * {
           position: relative;
           z-index: 1;
+        }
+
+        .cta-button-glow::after {
+          content: "";
+          position: absolute;
+          top: 80%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 80%;
+          height: 80%;
+          border-radius: 50%;
+          background: #7990A5;
+          filter: blur(20px);
+          opacity: 1;
+          z-index: 1;
+          pointer-events: none;
         }
       `}</style>
     </div>
