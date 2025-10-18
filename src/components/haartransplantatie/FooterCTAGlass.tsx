@@ -21,22 +21,24 @@ export const FooterCTAGlass = () => {
           {/* Book a consult button */}
           <button
             onClick={() => navigate(language === 'nl' ? '/nl/boek' : '/en/book')}
-            className="gold-gradient-border flex-1 flex items-center justify-between px-5 rounded-full transition-all duration-200"
+            className="gold-gradient-border flex-1 flex items-center justify-center rounded-full transition-all duration-200 relative"
             style={{
-              paddingTop: '0.55rem',
-              paddingBottom: '0.55rem',
+              paddingTop: '0.35rem',
+              paddingBottom: '0.35rem',
+              paddingLeft: '3rem',
+              paddingRight: '0.35rem',
               background: 'rgba(20, 30, 48, 0.6)',
               backdropFilter: 'blur(20px)',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1)',
+              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 0 40px 5px rgba(255, 255, 255, 0.15), inset 0 -30px 40px -5px rgba(255, 255, 255, 0.3)',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = 'rgba(20, 30, 48, 0.7)';
-              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)';
+              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 0 40px 5px rgba(255, 255, 255, 0.18), inset 0 -30px 40px -5px rgba(255, 255, 255, 0.35)';
               e.currentTarget.style.transform = 'scale(1.02)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = 'rgba(20, 30, 48, 0.6)';
-              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1)';
+              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 0 40px 5px rgba(255, 255, 255, 0.15), inset 0 -30px 40px -5px rgba(255, 255, 255, 0.3)';
               e.currentTarget.style.transform = 'scale(1)';
             }}
           >
@@ -44,21 +46,21 @@ export const FooterCTAGlass = () => {
               className="text-white"
               style={{ 
                 fontFamily: 'Inter, system-ui, sans-serif',
-                fontWeight: 400,
-                fontSize: '16px',
+                fontWeight: 300,
+                fontSize: '15px',
                 letterSpacing: '0.01em',
               }}
             >
               {language === 'nl' ? 'Book a consult' : 'Book a consult'}
             </span>
             <div
-              className="w-10 h-10 rounded-full flex items-center justify-center"
+              className="absolute right-1 w-11 h-11 rounded-full flex items-center justify-center"
               style={{
                 background: 'rgba(255, 255, 255, 0.10)',
                 border: '1px solid rgba(255, 255, 255, 0.20)',
               }}
             >
-              <ArrowUpRight className="w-5 h-5 text-white" strokeWidth={2.5} />
+              <ArrowUpRight className="w-6 h-6 text-white" strokeWidth={2.5} />
             </div>
           </button>
 
