@@ -85,7 +85,7 @@ export const PackageCardGlass = ({ package: pkg }: PackageCardGlassProps) => {
       {/* Package tier indicator */}
       <div className="flex justify-center mb-3">
         <div
-          className="inline-flex items-center rounded-full px-4 py-1.5"
+          className="silver-gradient-border inline-flex items-center rounded-full px-4 py-1.5"
           style={{
             background: 'rgba(255, 255, 255, 0.08)',
             backdropFilter: 'blur(20px)',
@@ -121,7 +121,7 @@ export const PackageCardGlass = ({ package: pkg }: PackageCardGlassProps) => {
       <div className="flex justify-center space-x-3 mb-3">
         {/* Growth indicator */}
         <div
-          className="flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
+          className="silver-gradient-border flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
           style={{
             background: 'rgba(255, 255, 255, 0.08)',
             border: '1px solid rgba(255, 255, 255, 0.15)',
@@ -133,7 +133,7 @@ export const PackageCardGlass = ({ package: pkg }: PackageCardGlassProps) => {
 
         {/* Recovery indicator */}
         <div
-          className="flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
+          className="silver-gradient-border flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
           style={{
             background: 'rgba(255, 255, 255, 0.08)',
             border: '1px solid rgba(255, 255, 255, 0.15)',
@@ -226,6 +226,36 @@ export const PackageCardGlass = ({ package: pkg }: PackageCardGlassProps) => {
         }
 
         .package-card > * {
+          position: relative;
+          z-index: 1;
+        }
+
+        .silver-gradient-border {
+          position: relative;
+        }
+
+        .silver-gradient-border::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1px;
+          border-radius: inherit;
+          background: linear-gradient(180deg,
+            #4B555E 0%,
+            #ACB9C1 25%,
+            #FFFFFF 50%,
+            #ACB9C1 75%,
+            #4B555E 100%);
+          -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .silver-gradient-border > * {
           position: relative;
           z-index: 1;
         }

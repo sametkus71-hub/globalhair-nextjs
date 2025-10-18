@@ -35,7 +35,7 @@ export const StaticReviewGlass = () => {
 
             <button
               onClick={() => navigate(language === 'nl' ? '/nl/reviews' : '/en/reviews')}
-              className="px-12 py-2 rounded-full text-white text-[14px] font-normal transition-all duration-300"
+              className="silver-gradient-border px-12 py-2 rounded-full text-white text-[14px] font-normal transition-all duration-300"
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
                 border: '1px solid rgba(255, 255, 255, 0.2)',
@@ -78,3 +78,46 @@ export const StaticReviewGlass = () => {
     </div>
   );
 };
+
+const silverGradientBorderStyles = `
+  .silver-gradient-border {
+    position: relative;
+  }
+
+  .silver-gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(180deg,
+      #4B555E 0%,
+      #ACB9C1 25%,
+      #FFFFFF 50%,
+      #ACB9C1 75%,
+      #4B555E 100%);
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .silver-gradient-border > * {
+    position: relative;
+    z-index: 1;
+  }
+`;
+
+// Inject styles
+if (typeof document !== 'undefined') {
+  const styleId = 'silver-gradient-border-styles';
+  if (!document.getElementById(styleId)) {
+    const style = document.createElement('style');
+    style.id = styleId;
+    style.textContent = silverGradientBorderStyles;
+    document.head.appendChild(style);
+  }
+}

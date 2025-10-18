@@ -22,7 +22,7 @@ export const AnimatedHeadHero = () => {
       {/* Primary CTA - Analyze my hair (Left Bottom) */}
       <button
         onClick={handleAnalyzeClick}
-        className="cursor-pointer group z-10 relative pl-4 pr-2 py-2 rounded-full flex items-center gap-2 transition-all duration-300"
+        className="silver-gradient-border cursor-pointer group z-10 relative pl-4 pr-2 py-2 rounded-full flex items-center gap-2 transition-all duration-300"
         style={{
           background: 'rgba(255, 255, 255, 0.08)',
           backdropFilter: 'blur(10px)',
@@ -46,7 +46,7 @@ export const AnimatedHeadHero = () => {
           {language === 'nl' ? 'Analyseer mijn haar' : 'Analyze my hair'}
         </span>
         <div 
-          className="flex items-center justify-center rounded-full"
+          className="silver-gradient-border flex items-center justify-center rounded-full"
           style={{
             width: '48px',
             height: '48px',
@@ -86,6 +86,36 @@ export const AnimatedHeadHero = () => {
             opacity: 1;
             transform: translateY(0);
           }
+        }
+
+        .silver-gradient-border {
+          position: relative;
+        }
+
+        .silver-gradient-border::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1px;
+          border-radius: inherit;
+          background: linear-gradient(180deg,
+            #4B555E 0%,
+            #ACB9C1 25%,
+            #FFFFFF 50%,
+            #ACB9C1 75%,
+            #4B555E 100%);
+          -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .silver-gradient-border > * {
+          position: relative;
+          z-index: 1;
         }
       `}</style>
     </div>
