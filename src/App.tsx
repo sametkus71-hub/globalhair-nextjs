@@ -33,8 +33,7 @@ function AppRootInit() {
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <PasswordProtection>
-      <SessionManager>
+    <SessionManager>
         <TooltipProvider>
           <Toaster />
           <Sonner />
@@ -55,7 +54,6 @@ const App = () => (
           </BrowserRouter>
         </TooltipProvider>
       </SessionManager>
-    </PasswordProtection>
   </QueryClientProvider>
 );
 
