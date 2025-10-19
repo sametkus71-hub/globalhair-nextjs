@@ -77,23 +77,23 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
       }}
     >
       {/* Top info labels */}
-      <div
-        className="packages-top pt-4 px-4"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr 1fr',
-          gap: 0,
-          alignItems: 'center',
-        }}
-      >
-        <div className="tier-pill" role="group" aria-label="Packages">
-          <span
-            className="seg seg--standard silver-gradient-border inline-flex items-center rounded-full px-4 py-1.5"
-            style={{
-              background: 'rgba(255, 255, 255, 0.08)',
-              backdropFilter: 'blur(20px)',
-            }}
-          >
+      <div className="packages-top pt-4 px-4">
+        <div
+          className="tier-pill silver-gradient-border"
+          role="group"
+          aria-label="Packages"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1px 1fr 1px 1fr',
+            alignItems: 'center',
+            gap: 0,
+            background: 'rgba(255, 255, 255, 0.08)',
+            backdropFilter: 'blur(20px)',
+            borderRadius: '9999px',
+            padding: '6px',
+          }}
+        >
+          <span className="seg seg--standard flex items-center justify-center px-4 py-1.5">
             <span
               className="seg-label text-xs font-medium"
               style={{
@@ -104,14 +104,16 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
               Standard
             </span>
           </span>
-          <span className="divider" aria-hidden="true"></span>
           <span
-            className="seg seg--premium silver-gradient-border inline-flex items-center rounded-full px-4 py-1.5"
+            className="divider"
+            aria-hidden="true"
             style={{
-              background: 'rgba(255, 255, 255, 0.08)',
-              backdropFilter: 'blur(20px)',
+              width: '1px',
+              height: '60%',
+              background: 'linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.35), transparent)',
             }}
-          >
+          ></span>
+          <span className="seg seg--premium flex items-center justify-center px-4 py-1.5">
             <span
               className="seg-label text-xs font-medium"
               style={{
@@ -122,14 +124,16 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
               Premium
             </span>
           </span>
-          <span className="divider" aria-hidden="true"></span>
           <span
-            className="seg seg--advanced silver-gradient-border inline-flex items-center rounded-full px-4 py-1.5"
+            className="divider"
+            aria-hidden="true"
             style={{
-              background: 'rgba(255, 255, 255, 0.08)',
-              backdropFilter: 'blur(20px)',
+              width: '1px',
+              height: '60%',
+              background: 'linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.35), transparent)',
             }}
-          >
+          ></span>
+          <span className="seg seg--advanced flex items-center justify-center px-4 py-1.5">
             <span
               className="seg-label text-xs font-medium"
               style={{
