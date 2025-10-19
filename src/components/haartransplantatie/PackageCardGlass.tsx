@@ -168,9 +168,11 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
                 <span
                   className="badge-new text-[8px] px-1.5 py-0.5 rounded-full"
                   style={{
-                    background: 'linear-gradient(135deg, #C9A961 0%, #EFECE6 50%, #C9A961 100%)',
+                    background: 'linear-gradient(135deg, rgb(201, 169, 97) 20%, rgb(239, 236, 230) 50%, rgb(201, 169, 97) 80%)',
                     color: '#1a1a1a',
                     fontWeight: 600,
+                    fontSize: '7px',
+                    padding: '.05rem .3rem',
                     boxShadow: '0 2px 8px rgba(201, 169, 97, 0.4)',
                     pointerEvents: 'none',
                   }}
