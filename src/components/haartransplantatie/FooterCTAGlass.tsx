@@ -91,8 +91,8 @@ export const FooterCTAGlass = () => {
             onClick={() => setShowChat(true)}
             className="silver-gradient-border rounded-full flex items-center justify-center transition-all duration-200"
             style={{
-              width: 'clamp(42px, 5vh, 48px)',
-              height: 'clamp(42px, 5vh, 48px)',
+              width: 'clamp(48px, 5.5vh, 54px)',
+              height: 'clamp(48px, 5.5vh, 54px)',
               background: 'rgba(255, 255, 255, 0.12)',
               backdropFilter: 'blur(20px)',
               boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
