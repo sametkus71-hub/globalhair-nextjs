@@ -226,6 +226,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
                 background: 'rgba(255, 255, 255, 0.08)',
                 padding: '.5rem',
                 borderRadius: '.4rem',
+                gap: '0.1rem',
               }}
             >
               {renderActiveArrows(2)}
@@ -283,6 +284,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
                 background: 'rgba(255, 255, 255, 0.08)',
                 padding: '.5rem',
                 borderRadius: '.4rem',
+                gap: '0.1rem',
               }}
             >
               {renderActiveArrows(2)}
