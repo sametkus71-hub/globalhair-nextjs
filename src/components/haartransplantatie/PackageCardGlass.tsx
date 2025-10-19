@@ -168,7 +168,8 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         <div className="pkg-col pkg-col--standard">
           {/* Chip row */}
           <div
-            className="chiprow flex justify-center gap-2 mb-3"
+            className="chiprow flex justify-center mb-3"
+            style={{ gap: '.2rem' }}
           >
             <div
               className="silver-gradient-border flex items-center gap-1.5"
@@ -216,7 +217,8 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         <div className="pkg-col pkg-col--premium">
           {/* Chip row */}
           <div
-            className="chiprow flex justify-center gap-2 mb-3"
+            className="chiprow flex justify-center mb-3"
+            style={{ gap: '.2rem' }}
           >
             <div
               className="silver-gradient-border flex items-center"
@@ -272,7 +274,8 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         <div className="pkg-col pkg-col--advanced">
           {/* Chip row */}
           <div
-            className="chiprow flex justify-center gap-2 mb-3"
+            className="chiprow flex justify-center mb-3"
+            style={{ gap: '.2rem' }}
           >
             <div
               className="silver-gradient-border flex items-center"
