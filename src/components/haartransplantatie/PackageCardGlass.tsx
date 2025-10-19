@@ -65,12 +65,14 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
 
   return (
     <div
-      className={`packages-card gold-gradient-border relative mx-2 mt-2 rounded-3xl transition-all duration-500 ${className || ''}`}
+      className={`packages-card gold-gradient-border relative mt-2 rounded-3xl transition-all duration-500 ${className || ''}`}
       id="packages-static"
       style={{
         background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.05))',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
+        marginLeft: '.1rem',
+        marginRight: '.1rem',
       }}
     >
       {/* Top info labels */}
@@ -283,7 +285,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
               {renderActiveArrows(2)}
             </div>
             <div
-              className="silver-gradient-border flex items-center gap-1.5"
+              className="silver-gradient-border flex items-center"
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
                 padding: '.5rem',
