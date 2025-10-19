@@ -113,7 +113,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           >
             <span className="seg seg--standard flex items-center justify-center px-4 py-1.5" style={{ position: 'relative' }}>
               <span
-                className="seg-label text-xs font-medium"
+                className="seg-label seg-label-glow text-xs font-medium"
                 style={{
                   color: 'white',
                   fontFamily: 'Inter',
@@ -134,7 +134,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             ></span>
             <span className="seg seg--premium flex items-center justify-center px-4 py-1.5" style={{ position: 'relative' }}>
               <span
-                className="seg-label text-xs font-medium"
+                className="seg-label seg-label-glow text-xs font-medium"
                 style={{
                   color: 'white',
                   fontFamily: 'Inter',
@@ -156,7 +156,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             <span className="seg seg--advanced flex items-center justify-center py-1.5" style={{ position: 'relative' }}>
               <span style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
                 <span
-                  className="seg-label text-xs font-medium"
+                  className="seg-label seg-label-glow text-xs font-medium"
                   style={{
                     color: 'white',
                     fontFamily: 'Inter',
@@ -435,6 +435,26 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         .silver-gradient-border > * {
           position: relative;
           z-index: 1;
+        }
+
+        .seg-label-glow {
+          position: relative;
+        }
+
+        .seg-label-glow::after {
+          content: "";
+          position: absolute;
+          top: 80%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 80%;
+          height: 80%;
+          border-radius: 50%;
+          background: #7990A5;
+          filter: blur(15px);
+          opacity: 0.6;
+          pointer-events: none;
+          z-index: -1;
         }
       `}</style>
     </div>
