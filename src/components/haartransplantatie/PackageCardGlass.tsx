@@ -173,17 +173,21 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             className="chiprow flex justify-center gap-2 mb-3"
           >
             <div
-              className="silver-gradient-border flex items-center gap-1.5 px-3 py-1.5 rounded-2xl"
+              className="silver-gradient-border flex items-center gap-1.5"
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
+                padding: '.5rem',
+                borderRadius: '.4rem',
               }}
             >
               {renderActiveArrows(1)}
             </div>
             <div
-              className="silver-gradient-border flex items-center gap-1.5 px-3 py-1.5 rounded-2xl"
+              className="silver-gradient-border flex items-center gap-1.5"
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
+                padding: '.5rem',
+                borderRadius: '.4rem',
               }}
             >
               {renderActiveLeaves(1)}
@@ -217,17 +221,21 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             className="chiprow flex justify-center gap-2 mb-3"
           >
             <div
-              className="silver-gradient-border flex items-center gap-1.5 px-3 py-1.5 rounded-2xl"
+              className="silver-gradient-border flex items-center gap-1.5"
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
+                padding: '.5rem',
+                borderRadius: '.4rem',
               }}
             >
               {renderActiveArrows(2)}
             </div>
             <div
-              className="silver-gradient-border flex items-center gap-1.5 px-3 py-1.5 rounded-2xl"
+              className="silver-gradient-border flex items-center gap-1.5"
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
+                padding: '.5rem',
+                borderRadius: '.4rem',
               }}
             >
               {renderActiveLeaves(2)}
@@ -269,17 +277,21 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             className="chiprow flex justify-center gap-2 mb-3"
           >
             <div
-              className="silver-gradient-border flex items-center gap-1.5 px-3 py-1.5 rounded-2xl"
+              className="silver-gradient-border flex items-center gap-1.5"
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
+                padding: '.5rem',
+                borderRadius: '.4rem',
               }}
             >
               {renderActiveArrows(2)}
             </div>
             <div
-              className="silver-gradient-border flex items-center gap-1.5 px-3 py-1.5 rounded-2xl"
+              className="silver-gradient-border flex items-center gap-1.5"
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
+                padding: '.5rem',
+                borderRadius: '.4rem',
               }}
             >
               {renderActiveLeaves(3)}
