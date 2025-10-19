@@ -3,10 +3,10 @@ export const HeadImage = () => {
     <div 
       className="absolute head-glow z-0"
       style={{
-        top: 'clamp(3.5rem, 5vh, 5rem)',
-        right: 'clamp(1rem, 2vw, 2rem)',
-        width: 'clamp(600px, 70vw, 1000px)',
-        maxHeight: '40vh',
+        top: 'clamp(2rem, 3vh, 3rem)',
+        right: 'clamp(0.5rem, 1vw, 1.5rem)',
+        width: 'clamp(350px, 45vw, 600px)',
+        maxHeight: '30vh',
         animation: 'fade-in-scale 0.8s ease-out 0.3s both',
       }}
     >
