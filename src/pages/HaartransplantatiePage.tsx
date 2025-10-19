@@ -65,24 +65,26 @@ const HaartransplantatiePage = () => {
           {/* Main Content - Single Screen with height-responsive scaling */}
           <div className="relative z-10 flex flex-col h-screen overflow-hidden pt-[clamp(2rem,2vh,3rem)]">
             {/* Animated Head Hero */}
-            <AnimatedHeadHero />
+            <div className="flex-shrink-0">
+              <AnimatedHeadHero />
+            </div>
 
             {/* Tabs */}
-            <div className="pt-[clamp(0.25rem,0.5vh,0.5rem)]">
+            <div className="pt-[clamp(0.5rem,1vh,1rem)] flex-shrink-0">
               <GlassTabs activeTab={activeTab} onTabChange={setActiveTab} />
             </div>
 
             {/* Tab Content - No scrolling, fit to available height */}
-            <div className="relative flex-1 px-2 pb-[clamp(3rem,4vh,4rem)] overflow-hidden flex flex-col">
+            <div className="relative flex-1 px-2 pb-[clamp(3rem,4vh,4rem)] overflow-hidden flex flex-col justify-between">
               {activeTab === 'Packages' && (
-                <div className="flex flex-col h-full">
+                <div className="flex flex-col h-full justify-evenly">
                   {/* Package Cards */}
                   <div className="overflow-hidden flex-shrink-0">
                     <PackageCardGlass />
                   </div>
 
                   {/* Review Section */}
-                  <div className="flex-shrink-0" style={{ marginTop: 'clamp(0.5rem, 1vh, 1rem)' }}>
+                  <div className="flex-shrink-0">
                     <StaticReviewGlass />
                   </div>
                 </div>
