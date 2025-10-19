@@ -41,7 +41,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             key={i}
             src={leafIcon}
             alt=""
-            className="w-4 h-4"
+            style={{ width: '.8rem', height: '.8rem' }}
           />
         ))}
       </>
@@ -56,8 +56,11 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             key={i}
             src={chevronRightIcon}
             alt=""
-            className="w-4 h-4"
-            style={i % 2 === 1 ? { marginLeft: '-7px' } : undefined}
+            style={{
+              width: '.8rem',
+              height: '.8rem',
+              ...(i % 2 === 1 ? { marginLeft: '-7px' } : {})
+            }}
           />
         ))}
       </>
