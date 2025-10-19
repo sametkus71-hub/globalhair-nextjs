@@ -75,13 +75,13 @@ export const FooterCTAGlass = () => {
               <div
                 className="silver-gradient-border rounded-full flex items-center justify-center"
                 style={{
-                  width: 'clamp(35px, 4vh, 40px)',
-                  height: 'clamp(35px, 4vh, 40px)',
+                  width: 'clamp(40px, 4.5vh, 46px)',
+                  height: 'clamp(40px, 4.5vh, 46px)',
                   background: 'rgba(255, 255, 255, 0.10)',
                   border: '1px solid rgba(255, 255, 255, 0.20)',
                 }}
               >
-                <ArrowUpRight style={{ width: 'clamp(18px, 2vh, 20px)', height: 'clamp(18px, 2vh, 20px)' }} className="text-white" strokeWidth={2.5} />
+                <ArrowUpRight style={{ width: 'clamp(20px, 2.2vh, 22px)', height: 'clamp(20px, 2.2vh, 22px)' }} className="text-white" strokeWidth={2.5} />
               </div>
             </span>
           </button>
