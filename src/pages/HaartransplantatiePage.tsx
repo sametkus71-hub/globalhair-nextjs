@@ -162,7 +162,7 @@ const HaartransplantatiePage = () => {
             {/* Content Flow Container */}
             <div className="relative flex flex-col flex-1 overflow-hidden" style={{ paddingTop: 'clamp(1.5rem, 2vh, 2.5rem)' }}>
               {/* Animated Head Hero (Button Only) */}
-              <div className="flex-shrink-0">
+              <div className="flex-shrink-0 pb-[10px]">
                 <AnimatedHeadHero />
               </div>
 
