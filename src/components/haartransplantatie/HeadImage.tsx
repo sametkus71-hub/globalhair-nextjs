@@ -6,7 +6,7 @@ export const HeadImage = () => {
         top: 'clamp(2rem, 3vh, 3rem)',
         right: 'clamp(0.5rem, 1vw, 1.5rem)',
         width: 'clamp(350px, 45vw, 600px)',
-        maxHeight: '30vh',
+        maxHeight: '20vh',
         animation: 'fade-in-scale 0.8s ease-out 0.3s both',
       }}
     >
