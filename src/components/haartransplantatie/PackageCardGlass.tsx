@@ -84,10 +84,9 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
       <div
         className="pkg-grid"
         style={{
-          paddingTop: 'clamp(0.7rem, 1vh, 1rem)',
-          paddingLeft: 'clamp(0.7rem, 1vw, 1rem)',
-          paddingRight: 'clamp(0.7rem, 1vw, 1rem)',
-          paddingBottom: 'clamp(0.7rem, 1vw, 1rem)',
+          paddingTop: 'clamp(0.5rem, 1vh, 1rem)',
+          paddingLeft: 'clamp(0.5rem, 1vw, 1rem)',
+          paddingRight: 'clamp(0.5rem, 1vw, 1rem)',
           display: 'grid',
           gridTemplateColumns: '1fr auto 1fr auto 1fr',
           alignItems: 'start',
@@ -98,7 +97,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           className="pill-outer"
           style={{
             gridColumn: '1 / -1',
-            marginBottom: 'clamp(1rem, 2vh, 1.5rem)',
+            marginBottom: 'clamp(0.5rem, 1vh, 1rem)',
           }}
         >
           {/* Pill inner aligns to the same 5 tracks */}
@@ -196,7 +195,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             className="chiprow flex justify-center"
             style={{ 
               gap: '.2rem',
-              marginBottom: 'clamp(0.75rem, 1.5vh, 1.25rem)',
+              marginBottom: 'clamp(0.4rem, 0.8vh, 0.75rem)',
             }}
           >
             <div
@@ -228,7 +227,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
               fontFamily: 'Inter, system-ui, sans-serif', 
               fontWeight: 300, 
               fontSize: 'clamp(8px, 1vh, 10px)',
-              marginBottom: 'clamp(0.5rem, 1vh, 0.75rem)',
+              marginBottom: 'clamp(0.25rem, 0.5vh, 0.5rem)',
             }}
           >
             FUE Saffier
@@ -253,7 +252,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             className="chiprow flex justify-center"
             style={{ 
               gap: '.2rem',
-              marginBottom: 'clamp(0.75rem, 1.5vh, 1.25rem)',
+              marginBottom: 'clamp(0.4rem, 0.8vh, 0.75rem)',
             }}
           >
             <div
@@ -286,7 +285,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
               fontFamily: 'Inter, system-ui, sans-serif', 
               fontWeight: 300, 
               fontSize: 'clamp(8px, 1vh, 10px)',
-              marginBottom: 'clamp(0.5rem, 1vh, 0.75rem)',
+              marginBottom: 'clamp(0.25rem, 0.5vh, 0.5rem)',
             }}
           >
             FUE Saffier / DHI
@@ -324,7 +323,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             className="chiprow flex justify-center"
             style={{ 
               gap: '.2rem',
-              marginBottom: 'clamp(0.75rem, 1.5vh, 1.25rem)',
+              marginBottom: 'clamp(0.4rem, 0.8vh, 0.75rem)',
             }}
           >
             <div
@@ -357,7 +356,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
               fontFamily: 'Inter, system-ui, sans-serif', 
               fontWeight: 300, 
               fontSize: 'clamp(8px, 1vh, 10px)',
-              marginBottom: 'clamp(0.5rem, 1vh, 0.75rem)',
+              marginBottom: 'clamp(0.25rem, 0.5vh, 0.5rem)',
             }}
           >
             FUE Saffier / DHI
@@ -436,7 +435,12 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           inset: 0;
           padding: 1px;
           border-radius: inherit;
-          background: linear-gradient(290deg, #7c6632 0%, #c6a24c 25%, #EFECE6 30%, #ac914c 95%, #000 102%);
+          background: linear-gradient(180deg,
+            #DDB961 0%,
+            #E3C06B 25%,
+            #EFECE6 50%,
+            #EFCF7C 75%,
+            #D8AF58 100%);
           -webkit-mask: 
             linear-gradient(#fff 0 0) content-box,
             linear-gradient(#fff 0 0);
