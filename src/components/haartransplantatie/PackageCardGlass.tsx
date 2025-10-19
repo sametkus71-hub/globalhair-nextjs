@@ -76,21 +76,83 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         marginRight: '.1rem',
       }}
     >
-      {/* Top tier pill */}
-      <div className="packages-top pt-4 px-4">
-        <div className="tier-pill" aria-label="Packages">
-          <span className="seg">
-            <span className="seg-label">Standard</span>
-          </span>
-          <span className="divider" aria-hidden="true"></span>
-          <span className="seg">
-            <span className="seg-label">Premium</span>
-          </span>
-          <span className="divider" aria-hidden="true"></span>
-          <span className="seg">
-            <span className="seg-label">Advanced</span>
-            <em className="badge-new">New</em>
-          </span>
+      {/* Top info labels */}
+      <div
+        className="packages-top pt-4 px-4"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr 1fr',
+          gap: 0,
+          alignItems: 'center',
+        }}
+      >
+        <div className="flex justify-center">
+          <div
+            className="silver-gradient-border inline-flex items-center rounded-full px-4 py-1.5"
+            style={{
+              background: 'rgba(255, 255, 255, 0.08)',
+              backdropFilter: 'blur(20px)',
+            }}
+          >
+            <span
+              className="text-xs font-medium"
+              style={{
+                color: 'white',
+                fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+              }}
+            >
+              Standard
+            </span>
+          </div>
+        </div>
+        <div className="flex justify-center">
+          <div
+            className="silver-gradient-border inline-flex items-center rounded-full px-4 py-1.5"
+            style={{
+              background: 'rgba(255, 255, 255, 0.08)',
+              backdropFilter: 'blur(20px)',
+            }}
+          >
+            <span
+              className="text-xs font-medium"
+              style={{
+                color: 'white',
+                fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+              }}
+            >
+              Premium
+            </span>
+          </div>
+        </div>
+        <div className="flex justify-center">
+          <div
+            className="silver-gradient-border inline-flex items-center rounded-full px-4 py-1.5"
+            style={{
+              background: 'rgba(255, 255, 255, 0.08)',
+              backdropFilter: 'blur(20px)',
+            }}
+          >
+            <span
+              className="text-xs font-medium"
+              style={{
+                color: 'white',
+                fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+              }}
+            >
+              Advanced
+            </span>
+            <span
+              className="ml-2 text-[8px] px-1.5 py-0.5 rounded-full"
+              style={{
+                background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
+                color: 'white',
+                fontWeight: 600,
+                boxShadow: '0 2px 8px rgba(59, 130, 246, 0.4)',
+              }}
+            >
+              New
+            </span>
+          </div>
         </div>
       </div>
 
@@ -344,55 +406,6 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         .silver-gradient-border > * {
           position: relative;
           z-index: 1;
-        }
-
-        .tier-pill {
-          display: grid;
-          grid-template-columns: 1fr 1px 1fr 1px 1fr;
-          align-items: center;
-          gap: 0;
-          height: 56px;
-          padding: 4px;
-          border-radius: 9999px;
-          background:
-            linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05)) padding-box,
-            linear-gradient(180deg, #4B555E 0%, #ACB9C1 22%, #FFFFFF 52%, #ACB9C1 78%, #4B555E 100%) border-box;
-          border: 1px solid transparent;
-          background-clip: padding-box, border-box;
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-        }
-
-        .tier-pill .seg {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          height: 100%;
-          border-radius: 9999px;
-          padding: 0 18px;
-        }
-
-        .tier-pill .seg-label {
-          color: #fff;
-          font: 700 18px/1 "Inter", system-ui;
-        }
-
-        .tier-pill .divider {
-          width: 1px;
-          height: 60%;
-          background: linear-gradient(180deg, transparent, rgba(255,255,255,.35), transparent);
-        }
-
-        .tier-pill .badge-new {
-          margin-left: 10px;
-          font: 800 11px/1 "Inter";
-          color: #1b2b36;
-          padding: 6px 8px;
-          border-radius: 9999px;
-          background: linear-gradient(180deg, #ffe3a8, #efc96f);
-          border: 1px solid rgba(0,0,0,.08);
-          box-shadow: inset 0 1px 0 rgba(255,255,255,.75), 0 2px 6px rgba(0,0,0,.15);
-          font-style: normal;
         }
       `}</style>
     </div>
