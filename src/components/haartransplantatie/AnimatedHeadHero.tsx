@@ -68,7 +68,7 @@ export const AnimatedHeadHero = () => {
       <div 
         className="relative flex items-center justify-center"
         style={{
-          width: 'clamp(250px, 35vw, 400px)',
+          width: 'clamp(350px, 45vw, 550px)',
           animation: 'fade-up 0.8s ease-out 0.3s both',
         }}
       >
@@ -77,7 +77,7 @@ export const AnimatedHeadHero = () => {
           alt="3D head model"
           className="w-full h-full object-contain"
           style={{
-            filter: 'drop-shadow(0 0 30px rgba(99, 179, 237, 0.4))',
+            filter: 'brightness(1.2) drop-shadow(0 0 40px rgba(255, 255, 255, 0.3))',
           }}
         />
       </div>
