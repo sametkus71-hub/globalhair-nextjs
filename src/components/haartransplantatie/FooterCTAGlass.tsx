@@ -53,7 +53,6 @@ export const FooterCTAGlass = () => {
               style={{ 
                 fontFamily: 'Inter, system-ui, sans-serif',
                 fontWeight: 300,
-                fontSize: 'clamp(12px, 1.5vh, 15px)',
                 letterSpacing: '0.01em',
                 flex: 1,
                 textAlign: 'center',
