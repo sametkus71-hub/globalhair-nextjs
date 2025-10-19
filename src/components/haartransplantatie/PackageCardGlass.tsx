@@ -154,7 +154,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
               }}
             ></span>
             <span className="seg seg--advanced flex items-center justify-center py-1.5" style={{ position: 'relative' }}>
-              <span style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+              <span style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
                 <span
                   className="seg-label text-xs font-medium"
                   style={{
