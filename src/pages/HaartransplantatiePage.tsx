@@ -75,14 +75,14 @@ const HaartransplantatiePage = () => {
             {/* Tab Content - No scrolling, fit to available height */}
             <div className="relative flex-1 px-2 pb-[clamp(3rem,4vh,4rem)] overflow-hidden flex flex-col">
               {activeTab === 'Packages' && (
-                <div className="flex flex-col h-full justify-between">
+                <div className="flex flex-col h-full">
                   {/* Package Cards */}
                   <div className="overflow-hidden flex-shrink-0">
                     <PackageCardGlass />
                   </div>
 
                   {/* Review Section */}
-                  <div className="flex-shrink-0">
+                  <div className="flex-shrink-0" style={{ marginTop: 'clamp(0.5rem, 1vh, 1rem)' }}>
                     <StaticReviewGlass />
                   </div>
                 </div>
