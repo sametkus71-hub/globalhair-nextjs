@@ -57,7 +57,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             src={chevronRightIcon}
             alt=""
             className="w-4 h-4"
-            style={i % 2 === 1 ? { marginLeft: '-4px' } : undefined}
+            style={i % 2 === 1 ? { marginLeft: '-7px' } : undefined}
           />
         ))}
       </>
