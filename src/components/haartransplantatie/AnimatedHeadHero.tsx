@@ -18,8 +18,8 @@ export const AnimatedHeadHero = () => {
       style={{
         paddingLeft: 'clamp(0.75rem, 1vw, 1rem)',
         paddingRight: 'clamp(0.75rem, 1vw, 1rem)',
-        paddingTop: 'clamp(0.3rem, 0.5vh, 0.5rem)',
-        paddingBottom: 'clamp(0.3rem, 0.5vh, 0.75rem)',
+        paddingTop: '0',
+        paddingBottom: '0',
         animation: 'fade-up 0.8s ease-out 0.2s both',
         maxHeight: '24vh',
       }}
