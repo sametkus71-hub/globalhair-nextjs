@@ -143,6 +143,10 @@ const HaartransplantatiePage = () => {
   return (
     <>
       <MetaHead language={language} page="haartransplantatie" />
+      
+      {/* Absolute Positioned Head Image - Outside container for full viewport positioning */}
+      <HeadImage />
+      
       <DesktopContainer>
         <PageTransition isNewPage={true}>
           {/* Glassmorphic Background */}
@@ -150,9 +154,6 @@ const HaartransplantatiePage = () => {
           
           {/* Glass Header */}
           <GlassHeader />
-
-          {/* Absolute Positioned Head Image */}
-          <HeadImage />
 
           {/* Main Content - Single Screen with height-responsive scaling */}
           <div className="relative z-10 flex flex-col h-screen overflow-hidden pt-[clamp(1rem,1.5vh,2rem)]">
