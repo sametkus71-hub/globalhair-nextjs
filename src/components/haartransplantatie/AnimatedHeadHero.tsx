@@ -66,7 +66,7 @@ export const AnimatedHeadHero = () => {
 
       {/* 3D Head Image (Right) */}
       <div 
-        className="relative flex items-center justify-center"
+        className="relative flex items-center justify-center head-glow"
         style={{
           width: 'clamp(350px, 45vw, 550px)',
           animation: 'fade-up 0.8s ease-out 0.3s both',
@@ -132,6 +132,22 @@ export const AnimatedHeadHero = () => {
           filter: blur(20px);
           opacity: 1;
           z-index: 1;
+          pointer-events: none;
+        }
+
+        .head-glow::after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 70%;
+          height: 70%;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.4);
+          filter: blur(40px);
+          opacity: 1;
+          z-index: -1;
           pointer-events: none;
         }
       `}</style>
