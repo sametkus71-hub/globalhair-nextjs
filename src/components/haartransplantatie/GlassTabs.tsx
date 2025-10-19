@@ -55,7 +55,7 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
         animation: 'fade-in 0.6s ease-out 0.6s both',
       }}
     >
-      <div className="flex items-center gap-10 px-4 relative">
+      <div className="flex items-center gap-6 px-4 relative">
         {tabs.map((tab, index) => {
           const isActive = activeTab === tab;
           return (
@@ -67,9 +67,9 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
               style={{
                 paddingBottom: 'clamp(0.625rem, 1.2vh, 0.875rem)',
                 color: isActive ? 'white' : 'rgba(255, 255, 255, 0.5)',
-                fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-                fontWeight: isActive ? 500 : 400,
-                fontSize: 'clamp(13px, 1.6vh, 16px)',
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontWeight: isActive ? 400 : 300,
+                fontSize: 'clamp(11px, 1.3vh, 13px)',
                 letterSpacing: '0.01em',
               }}
             >
