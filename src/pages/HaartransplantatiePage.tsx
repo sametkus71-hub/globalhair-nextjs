@@ -171,7 +171,7 @@ const HaartransplantatiePage = () => {
               onTouchEnd={onTouchEnd}
             >
               {/* Animated Tab Content Container */}
-              <div className="relative flex-shrink-0 overflow-hidden">
+              <div className="relative flex-1 overflow-hidden">
                 {(activeTab === 'Packages' || (isTransitioning && previousTab === 'Packages')) && (
                   <div 
                     className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Packages')}`}
