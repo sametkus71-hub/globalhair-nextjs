@@ -76,8 +76,8 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         marginRight: '.1rem',
       }}
     >
-      {/* Top info labels */}
-      <div className="packages-top pt-4 px-4">
+      {/* Packages container with shared grid alignment */}
+      <div className="packages-container pt-4 px-4">
         <div
           className="tier-pill silver-gradient-border"
           role="group"
@@ -91,6 +91,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             backdropFilter: 'blur(20px)',
             borderRadius: '9999px',
             padding: '6px',
+            marginBottom: '16px',
           }}
         >
           <span className="seg seg--standard flex items-center justify-center px-4 py-1.5">
@@ -156,17 +157,16 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             </span>
           </span>
         </div>
-      </div>
 
-      {/* Three columns with vertical dividers */}
-      <div
-        className="packages-grid p-4"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1px 1fr 9px 1fr',
-          alignItems: 'start',
-        }}
-      >
+        {/* Three columns with vertical dividers */}
+        <div
+          className="packages-grid"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1px 1fr 1px 1fr',
+            alignItems: 'start',
+          }}
+        >
         {/* Standard Column */}
         <div className="pkg-col pkg-col--standard">
           {/* Chip row */}
@@ -326,6 +326,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             </p>
           </div>
         </div>
+      </div>
       </div>
 
       {/* Read more button - outside the grid, spans full width */}
