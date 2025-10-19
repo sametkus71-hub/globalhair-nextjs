@@ -32,48 +32,44 @@ const packageData = {
 export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
   const { language } = useLanguage();
 
-  const renderLeaves = (count: number) => {
+  const renderActiveLeaves = (count: number) => {
     return (
-      <div className="flex space-x-1">
-        {[...Array(3)].map((_, i) => (
+      <>
+        {[...Array(count)].map((_, i) => (
           <Leaf
             key={i}
             className="w-4 h-4"
             strokeWidth={1.5}
             style={{
-              color: i < count ? 'rgba(74, 222, 128, 1)' : 'rgba(255, 255, 255, 0.2)',
-              fill: i < count ? 'rgba(74, 222, 128, 0.3)' : 'transparent',
+              color: 'rgba(74, 222, 128, 1)',
+              fill: 'rgba(74, 222, 128, 0.3)',
             }}
           />
         ))}
-      </div>
+      </>
     );
   };
 
-  const renderArrows = (count: number) => {
+  const renderActiveArrows = (count: number) => {
     return (
-      <div className="flex space-x-1">
-        {[...Array(3)].map((_, i) => (
-          <div
+      <>
+        {[...Array(count)].map((_, i) => (
+          <ChevronRight
             key={i}
-            className="flex items-center"
-          >
-            <ChevronRight
-              className="w-4 h-4"
-              strokeWidth={2}
-              style={{
-                color: i < count ? 'rgba(96, 165, 250, 1)' : 'rgba(255, 255, 255, 0.2)',
-              }}
-            />
-          </div>
+            className="w-4 h-4"
+            strokeWidth={2}
+            style={{
+              color: 'rgba(96, 165, 250, 1)',
+            }}
+          />
         ))}
-      </div>
+      </>
     );
   };
 
   return (
     <div
-      className={`packages-block gold-gradient-border relative mx-2 mt-2 rounded-3xl transition-all duration-500 ${className || ''}`}
+      className={`packages-card gold-gradient-border relative mx-2 mt-2 rounded-3xl transition-all duration-500 ${className || ''}`}
       id="packages-static"
       style={{
         background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.05))',
@@ -81,9 +77,89 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         WebkitBackdropFilter: 'blur(20px)',
       }}
     >
-      {/* Packages Row - 3 columns with 2 separators */}
+      {/* Top info labels */}
       <div
-        className="packages-row p-4"
+        className="packages-top pt-4 px-4"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr 1fr',
+          gap: 0,
+          alignItems: 'center',
+        }}
+      >
+        <div className="flex justify-center">
+          <div
+            className="silver-gradient-border inline-flex items-center rounded-full px-4 py-1.5"
+            style={{
+              background: 'rgba(255, 255, 255, 0.08)',
+              backdropFilter: 'blur(20px)',
+            }}
+          >
+            <span
+              className="text-xs font-medium"
+              style={{
+                color: 'white',
+                fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+              }}
+            >
+              Standard
+            </span>
+          </div>
+        </div>
+        <div className="flex justify-center">
+          <div
+            className="silver-gradient-border inline-flex items-center rounded-full px-4 py-1.5"
+            style={{
+              background: 'rgba(255, 255, 255, 0.08)',
+              backdropFilter: 'blur(20px)',
+            }}
+          >
+            <span
+              className="text-xs font-medium"
+              style={{
+                color: 'white',
+                fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+              }}
+            >
+              Premium
+            </span>
+          </div>
+        </div>
+        <div className="flex justify-center">
+          <div
+            className="silver-gradient-border inline-flex items-center rounded-full px-4 py-1.5"
+            style={{
+              background: 'rgba(255, 255, 255, 0.08)',
+              backdropFilter: 'blur(20px)',
+            }}
+          >
+            <span
+              className="text-xs font-medium"
+              style={{
+                color: 'white',
+                fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+              }}
+            >
+              Advanced
+            </span>
+            <span
+              className="ml-2 text-[8px] px-1.5 py-0.5 rounded-full"
+              style={{
+                background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
+                color: 'white',
+                fontWeight: 600,
+                boxShadow: '0 2px 8px rgba(59, 130, 246, 0.4)',
+              }}
+            >
+              New
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Three columns with vertical dividers */}
+      <div
+        className="packages-grid p-4"
         style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1px 1fr 1px 1fr',
@@ -92,55 +168,40 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
       >
         {/* Standard Column */}
         <div className="pkg-col pkg-col--standard">
-          {/* Package tier indicator */}
-          <div className="flex justify-center mb-3">
+          {/* Chip row */}
+          <div
+            className="chiprow flex justify-center gap-2 mb-3"
+          >
             <div
-              className="silver-gradient-border inline-flex items-center rounded-full px-4 py-1.5"
-              style={{
-                background: 'rgba(255, 255, 255, 0.08)',
-                backdropFilter: 'blur(20px)',
-              }}
-            >
-              <span
-                className="text-xs font-medium"
-                style={{
-                  color: 'white',
-                  fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-                }}
-              >
-                Standard
-              </span>
-            </div>
-          </div>
-
-          {/* Icons row */}
-          <div className="flex justify-center space-x-3 mb-3">
-            <div
-              className="silver-gradient-border flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
+              className="silver-gradient-border flex items-center gap-1.5 px-3 py-1.5 rounded-2xl"
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
               }}
             >
-              <ChevronRight className="w-4 h-4 text-white/60" strokeWidth={1.5} />
-              {renderLeaves(1)}
+              {renderActiveArrows(1)}
             </div>
             <div
-              className="silver-gradient-border flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
+              className="silver-gradient-border flex items-center gap-1.5 px-3 py-1.5 rounded-2xl"
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
               }}
             >
-              {renderArrows(1)}
+              {renderActiveLeaves(1)}
             </div>
           </div>
 
           {/* Title */}
           <h3
-            className="text-white text-center text-lg font-semibold mb-1"
+            className="pkg-title text-white text-center text-base font-semibold mb-2"
             style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
           >
             FUE Saffier
           </h3>
+
+          {/* Lines */}
+          <ul className="pkg-lines text-center text-xs space-y-1" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>
+            <li>FUE Saffier</li>
+          </ul>
         </div>
 
         {/* Vertical Separator 1 */}
@@ -156,66 +217,41 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
 
         {/* Premium Column */}
         <div className="pkg-col pkg-col--premium">
-          {/* Package tier indicator */}
-          <div className="flex justify-center mb-3">
+          {/* Chip row */}
+          <div
+            className="chiprow flex justify-center gap-2 mb-3"
+          >
             <div
-              className="silver-gradient-border inline-flex items-center rounded-full px-4 py-1.5"
-              style={{
-                background: 'rgba(255, 255, 255, 0.08)',
-                backdropFilter: 'blur(20px)',
-              }}
-            >
-              <span
-                className="text-xs font-medium"
-                style={{
-                  color: 'white',
-                  fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-                }}
-              >
-                Premium
-              </span>
-            </div>
-          </div>
-
-          {/* Icons row */}
-          <div className="flex justify-center space-x-3 mb-3">
-            <div
-              className="silver-gradient-border flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
+              className="silver-gradient-border flex items-center gap-1.5 px-3 py-1.5 rounded-2xl"
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
               }}
             >
-              <ChevronRight className="w-4 h-4 text-white/60" strokeWidth={1.5} />
-              {renderLeaves(2)}
+              {renderActiveArrows(2)}
             </div>
             <div
-              className="silver-gradient-border flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
+              className="silver-gradient-border flex items-center gap-1.5 px-3 py-1.5 rounded-2xl"
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
               }}
             >
-              {renderArrows(2)}
+              {renderActiveLeaves(2)}
             </div>
           </div>
 
           {/* Title */}
           <h3
-            className="text-white text-center text-lg font-semibold mb-1"
+            className="pkg-title text-white text-center text-base font-semibold mb-2"
             style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
           >
             FUE Saffier / DHI
           </h3>
 
-          {/* Subtitle */}
-          <p
-            className="text-center text-xs mb-3"
-            style={{
-              color: 'rgba(255, 255, 255, 0.85)',
-              fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-            }}
-          >
-            V6 Hairboost®
-          </p>
+          {/* Lines */}
+          <ul className="pkg-lines text-center text-xs space-y-1" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>
+            <li>FUE Saffier / DHI</li>
+            <li>V6 Hairboost®</li>
+          </ul>
         </div>
 
         {/* Vertical Separator 2 */}
@@ -231,82 +267,46 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
 
         {/* Advanced Column */}
         <div className="pkg-col pkg-col--advanced">
-          {/* Package tier indicator */}
-          <div className="flex justify-center mb-3">
+          {/* Chip row */}
+          <div
+            className="chiprow flex justify-center gap-2 mb-3"
+          >
             <div
-              className="silver-gradient-border inline-flex items-center rounded-full px-4 py-1.5"
-              style={{
-                background: 'rgba(255, 255, 255, 0.08)',
-                backdropFilter: 'blur(20px)',
-              }}
-            >
-              <span
-                className="text-xs font-medium"
-                style={{
-                  color: 'white',
-                  fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-                }}
-              >
-                Advanced
-              </span>
-              <span
-                className="ml-2 text-[8px] px-1.5 py-0.5 rounded-full"
-                style={{
-                  background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
-                  color: 'white',
-                  fontWeight: 600,
-                  boxShadow: '0 2px 8px rgba(59, 130, 246, 0.4)',
-                }}
-              >
-                New
-              </span>
-            </div>
-          </div>
-
-          {/* Icons row */}
-          <div className="flex justify-center space-x-3 mb-3">
-            <div
-              className="silver-gradient-border flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
+              className="silver-gradient-border flex items-center gap-1.5 px-3 py-1.5 rounded-2xl"
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
               }}
             >
-              <ChevronRight className="w-4 h-4 text-white/60" strokeWidth={1.5} />
-              {renderLeaves(3)}
+              {renderActiveArrows(2)}
             </div>
             <div
-              className="silver-gradient-border flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
+              className="silver-gradient-border flex items-center gap-1.5 px-3 py-1.5 rounded-2xl"
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
               }}
             >
-              {renderArrows(3)}
+              {renderActiveLeaves(3)}
             </div>
           </div>
 
           {/* Title */}
           <h3
-            className="text-white text-center text-lg font-semibold mb-1"
+            className="pkg-title text-white text-center text-base font-semibold mb-2"
             style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
           >
             FUE Saffier / DHI
           </h3>
 
-          {/* Subtitle */}
-          <p
-            className="text-center text-xs mb-3"
-            style={{
-              color: 'rgba(255, 255, 255, 0.85)',
-              fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-            }}
-          >
-            V6 Hairboost® + GHI Stemcell repair™
-          </p>
+          {/* Lines */}
+          <ul className="pkg-lines text-center text-xs space-y-1" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>
+            <li>V6 Hairboost®</li>
+            <li>GHI Stemcell repair™</li>
+          </ul>
         </div>
       </div>
 
-      {/* Read more button - outside the row, spans full width */}
-      <div className="px-4 pb-4">
+      {/* Read more button - outside the grid, spans full width */}
+      <div className="packages-readmore px-4 pb-4">
         <a
           href="#packages-standard"
           className="block w-full py-2 px-4 rounded-2xl text-center transition-all duration-200 text-sm"
@@ -331,7 +331,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
       </div>
 
       <style>{`
-        .packages-block {
+        .packages-card {
           position: relative;
           border-radius: 28px;
         }
@@ -357,7 +357,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           z-index: 0;
         }
 
-        .packages-block > * {
+        .packages-card > * {
           position: relative;
           z-index: 1;
         }
