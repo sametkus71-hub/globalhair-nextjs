@@ -66,15 +66,19 @@ export const AnimatedHeadHero = () => {
 
       {/* 3D Head Image (Right) */}
       <div 
-        className="hero-visual"
+        className="relative flex items-center justify-center head-glow"
         style={{
+          width: 'clamp(700px, 80vw, 1200px)',
           animation: 'fade-up 0.8s ease-out 0.3s both',
         }}
       >
         <img
-          id="hero-head"
           src="/assets/placeholder-head.png"
-          alt="Transparent rotating head"
+          alt="3D head model"
+          className="w-full h-auto object-contain"
+          style={{
+            filter: 'brightness(1.2) drop-shadow(0 0 40px rgba(255, 255, 255, 0.3))',
+          }}
         />
       </div>
 
@@ -131,38 +135,20 @@ export const AnimatedHeadHero = () => {
           pointer-events: none;
         }
 
-        .hero-visual {
-          position: relative;
-          min-height: 44vh;
-        }
-
-        #hero-head {
-          position: absolute !important;
-          right: 4vw !important;
-          top: 2vh !important;
-          width: clamp(280px, 78vw, 720px) !important;
-          height: auto !important;
-          object-fit: contain;
-          pointer-events: none;
-          z-index: 1;
-          filter: saturate(0) brightness(1.35) contrast(1.08) drop-shadow(0 12px 24px rgba(0,0,0,.35));
-          opacity: .96;
-        }
-
-        .hero-visual::after {
+        .head-glow::after {
           content: "";
           position: absolute;
-          inset: 0;
-          background: radial-gradient(70% 70% at 65% 35%, rgba(255,255,255,.35), rgba(255,255,255,0) 60%);
-          mix-blend-mode: screen;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 70%;
+          height: 70%;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.4);
+          filter: blur(40px);
+          opacity: 1;
+          z-index: -1;
           pointer-events: none;
-        }
-
-        @media (min-width: 768px) {
-          #hero-head {
-            right: 6vw !important;
-            width: clamp(420px, 52vw, 860px) !important;
-          }
         }
       `}</style>
     </div>
