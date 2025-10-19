@@ -194,7 +194,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             <div
               className="silver-gradient-border flex items-center gap-1.5"
               style={{
-                background: 'rgba(255, 255, 255, 0.08)',
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 80%)',
                 padding: '.5rem',
                 borderRadius: '.4rem',
               }}
@@ -204,7 +204,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             <div
               className="silver-gradient-border flex items-center gap-1.5"
               style={{
-                background: 'rgba(255, 255, 255, 0.08)',
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 80%)',
                 padding: '.5rem',
                 borderRadius: '.4rem',
               }}
@@ -243,7 +243,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             <div
               className="silver-gradient-border flex items-center"
               style={{
-                background: 'rgba(255, 255, 255, 0.08)',
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 80%)',
                 padding: '.3rem',
                 borderRadius: '.4rem',
                 gap: '0.1rem',
@@ -254,7 +254,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             <div
               className="silver-gradient-border flex items-center"
               style={{
-                background: 'rgba(255, 255, 255, 0.08)',
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 80%)',
                 padding: '.5rem',
                 borderRadius: '.4rem',
               }}
@@ -301,7 +301,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             <div
               className="silver-gradient-border flex items-center"
               style={{
-                background: 'rgba(255, 255, 255, 0.08)',
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 80%)',
                 padding: '.3rem',
                 borderRadius: '.4rem',
                 gap: '0.1rem',
@@ -312,7 +312,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             <div
               className="silver-gradient-border flex items-center"
               style={{
-                background: 'rgba(255, 255, 255, 0.08)',
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 80%)',
                 padding: '.5rem',
                 borderRadius: '.4rem',
               }}
