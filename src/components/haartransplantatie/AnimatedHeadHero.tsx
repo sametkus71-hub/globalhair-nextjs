@@ -49,6 +49,7 @@ export const AnimatedHeadHero = () => {
             fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
             fontSize: 'clamp(0.75rem, 1.2vh, 0.875rem)',
             fontWeight: '400',
+            paddingRight: '.5rem',
           }}
         >
           Analyze my hair
