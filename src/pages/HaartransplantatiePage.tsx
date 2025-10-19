@@ -21,6 +21,9 @@ const HaartransplantatiePage = () => {
   const [activeTab, setActiveTab] = useState('Packages');
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [transitionDirection, setTransitionDirection] = useState<'left' | 'right' | null>(null);
+  const [previousTab, setPreviousTab] = useState<string | null>(null);
   
   const tabs = ['Packages', 'Traject', 'Mission', 'Contact'];
   const minSwipeDistance = 50;
@@ -36,9 +39,25 @@ const HaartransplantatiePage = () => {
     return tabPaths[tab] || path;
   };
   
-  const handleTabChange = (tab: string) => {
-    setActiveTab(tab);
-    window.history.pushState({}, '', getTabPath(tab));
+  const handleTabChange = (tab: string, direction?: 'left' | 'right') => {
+    if (tab === activeTab || isTransitioning) return;
+    
+    setPreviousTab(activeTab);
+    setTransitionDirection(direction || null);
+    setIsTransitioning(true);
+    
+    // Delay tab change to allow exit animation
+    setTimeout(() => {
+      setActiveTab(tab);
+      window.history.pushState({}, '', getTabPath(tab));
+      
+      // Reset transition state after enter animation completes
+      setTimeout(() => {
+        setIsTransitioning(false);
+        setTransitionDirection(null);
+        setPreviousTab(null);
+      }, 300);
+    }, 200);
   };
   
   const onTouchStart = (e: React.TouchEvent) => {
@@ -60,11 +79,11 @@ const HaartransplantatiePage = () => {
     const currentIndex = tabs.indexOf(activeTab);
     
     if (isLeftSwipe && currentIndex < tabs.length - 1) {
-      handleTabChange(tabs[currentIndex + 1]);
+      handleTabChange(tabs[currentIndex + 1], 'left');
     }
     
     if (isRightSwipe && currentIndex > 0) {
-      handleTabChange(tabs[currentIndex - 1]);
+      handleTabChange(tabs[currentIndex - 1], 'right');
     }
   };
   
@@ -99,6 +118,27 @@ const HaartransplantatiePage = () => {
     };
   }, []);
 
+  const getTabAnimationClass = (tabName: string) => {
+    // If not transitioning, no animation
+    if (!isTransitioning) return '';
+    
+    // Current tab (exiting)
+    if (tabName === previousTab) {
+      return transitionDirection === 'left' 
+        ? 'animate-slide-out-left' 
+        : 'animate-slide-out-right';
+    }
+    
+    // New tab (entering)
+    if (tabName === activeTab) {
+      return transitionDirection === 'left'
+        ? 'animate-slide-in-from-right'
+        : 'animate-slide-in-from-left';
+    }
+    
+    return '';
+  };
+
   return (
     <>
       <MetaHead language={language} page="haartransplantatie" />
@@ -124,14 +164,21 @@ const HaartransplantatiePage = () => {
 
             {/* Tab Content - No scrolling, fit to available height */}
             <div 
-              className="relative flex-1 px-2 pb-[clamp(3rem,4vh,4rem)] overflow-hidden flex flex-col justify-between" 
+              className="relative flex-1 px-2 pb-[clamp(3rem,4vh,4rem)] overflow-hidden" 
               style={{ paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)' }}
               onTouchStart={onTouchStart}
               onTouchMove={onTouchMove}
               onTouchEnd={onTouchEnd}
             >
-              {activeTab === 'Packages' && (
-                <div className="flex flex-col h-full justify-between">
+              {(activeTab === 'Packages' || (isTransitioning && previousTab === 'Packages')) && (
+                <div 
+                  className={`flex flex-col h-full justify-between absolute inset-0 px-2 ${getTabAnimationClass('Packages')}`}
+                  style={{ 
+                    pointerEvents: activeTab === 'Packages' ? 'auto' : 'none',
+                    paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)',
+                    paddingBottom: 'clamp(3rem,4vh,4rem)'
+                  }}
+                >
                   {/* Package Cards */}
                   <div className="overflow-hidden flex-shrink-0">
                     <PackageCardGlass />
@@ -141,7 +188,12 @@ const HaartransplantatiePage = () => {
                       {tabs.map((tab) => (
                         <button
                           key={tab}
-                          onClick={() => handleTabChange(tab)}
+                          onClick={() => {
+                            const currentIndex = tabs.indexOf(activeTab);
+                            const targetIndex = tabs.indexOf(tab);
+                            const direction = targetIndex > currentIndex ? 'left' : 'right';
+                            handleTabChange(tab, direction);
+                          }}
                           className="transition-all duration-300"
                           style={{
                             width: activeTab === tab ? '24px' : '6px',
@@ -161,8 +213,15 @@ const HaartransplantatiePage = () => {
                 </div>
               )}
 
-              {activeTab === 'Traject' && (
-                <div className="flex flex-col h-full justify-between">
+              {(activeTab === 'Traject' || (isTransitioning && previousTab === 'Traject')) && (
+                <div 
+                  className={`flex flex-col h-full justify-between absolute inset-0 px-2 ${getTabAnimationClass('Traject')}`}
+                  style={{ 
+                    pointerEvents: activeTab === 'Traject' ? 'auto' : 'none',
+                    paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)',
+                    paddingBottom: 'clamp(3rem,4vh,4rem)'
+                  }}
+                >
                   <div className="overflow-hidden flex-shrink-0">
                     <PlaceholderContent type="Traject" />
                     
@@ -171,7 +230,12 @@ const HaartransplantatiePage = () => {
                       {tabs.map((tab) => (
                         <button
                           key={tab}
-                          onClick={() => handleTabChange(tab)}
+                          onClick={() => {
+                            const currentIndex = tabs.indexOf(activeTab);
+                            const targetIndex = tabs.indexOf(tab);
+                            const direction = targetIndex > currentIndex ? 'left' : 'right';
+                            handleTabChange(tab, direction);
+                          }}
                           className="transition-all duration-300"
                           style={{
                             width: activeTab === tab ? '24px' : '6px',
@@ -189,8 +253,15 @@ const HaartransplantatiePage = () => {
                 </div>
               )}
 
-              {activeTab === 'Mission' && (
-                <div className="flex flex-col h-full justify-between">
+              {(activeTab === 'Mission' || (isTransitioning && previousTab === 'Mission')) && (
+                <div 
+                  className={`flex flex-col h-full justify-between absolute inset-0 px-2 ${getTabAnimationClass('Mission')}`}
+                  style={{ 
+                    pointerEvents: activeTab === 'Mission' ? 'auto' : 'none',
+                    paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)',
+                    paddingBottom: 'clamp(3rem,4vh,4rem)'
+                  }}
+                >
                   <div className="overflow-hidden flex-shrink-0">
                     <PlaceholderContent type="Mission" />
                     
@@ -199,7 +270,12 @@ const HaartransplantatiePage = () => {
                       {tabs.map((tab) => (
                         <button
                           key={tab}
-                          onClick={() => handleTabChange(tab)}
+                          onClick={() => {
+                            const currentIndex = tabs.indexOf(activeTab);
+                            const targetIndex = tabs.indexOf(tab);
+                            const direction = targetIndex > currentIndex ? 'left' : 'right';
+                            handleTabChange(tab, direction);
+                          }}
                           className="transition-all duration-300"
                           style={{
                             width: activeTab === tab ? '24px' : '6px',
@@ -217,8 +293,15 @@ const HaartransplantatiePage = () => {
                 </div>
               )}
 
-              {activeTab === 'Contact' && (
-                <div className="flex flex-col h-full justify-between">
+              {(activeTab === 'Contact' || (isTransitioning && previousTab === 'Contact')) && (
+                <div 
+                  className={`flex flex-col h-full justify-between absolute inset-0 px-2 ${getTabAnimationClass('Contact')}`}
+                  style={{ 
+                    pointerEvents: activeTab === 'Contact' ? 'auto' : 'none',
+                    paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)',
+                    paddingBottom: 'clamp(3rem,4vh,4rem)'
+                  }}
+                >
                   <div className="overflow-hidden flex-shrink-0">
                     <PlaceholderContent type="Contact" />
                     
@@ -227,7 +310,12 @@ const HaartransplantatiePage = () => {
                       {tabs.map((tab) => (
                         <button
                           key={tab}
-                          onClick={() => handleTabChange(tab)}
+                          onClick={() => {
+                            const currentIndex = tabs.indexOf(activeTab);
+                            const targetIndex = tabs.indexOf(tab);
+                            const direction = targetIndex > currentIndex ? 'left' : 'right';
+                            handleTabChange(tab, direction);
+                          }}
                           className="transition-all duration-300"
                           style={{
                             width: activeTab === tab ? '24px' : '6px',
