@@ -45,9 +45,6 @@ const App = () => (
                 {/* Solid background across all pages */}
                 <div className="fixed inset-0" style={{ background: '#E4E5E0' }} />
                 
-                {/* Global logo - outside background container to avoid fading */}
-                <GlobalCentralLogo />
-                
                 <SEORoutes />
               </TransitionProvider>
             </LanguageWrapper>
