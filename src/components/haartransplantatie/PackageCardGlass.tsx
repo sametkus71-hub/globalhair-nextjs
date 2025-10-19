@@ -68,9 +68,9 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
       className={`packages-card gold-gradient-border relative mt-2 rounded-3xl transition-all duration-500 ${className || ''}`}
       id="packages-static"
       style={{
-        background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.05))',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
+        background: 'linear-gradient(rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0.17))',
+        backdropFilter: 'blur(3px)',
+        WebkitBackdropFilter: 'blur(3px)',
         marginLeft: '.1rem',
         marginRight: '.1rem',
       }}
@@ -160,7 +160,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         className="packages-grid p-4"
         style={{
           display: 'grid',
-          gridTemplateColumns: '1fr 1px 1fr 1px 1fr',
+          gridTemplateColumns: '1fr 1px 1fr 9px 1fr',
           alignItems: 'start',
         }}
       >
