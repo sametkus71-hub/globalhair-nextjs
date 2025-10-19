@@ -165,7 +165,7 @@ const HaartransplantatiePage = () => {
             {/* Tab Content - No scrolling, fit to available height */}
             <div 
               className="relative flex-1 px-2 overflow-hidden flex flex-col justify-between" 
-              style={{ paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)', paddingBottom: 'clamp(0.5rem, 0.8vh, 1rem)' }}
+              style={{ paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)', paddingBottom: 'clamp(2rem, 1vh, 1.2rem)' }}
               onTouchStart={onTouchStart}
               onTouchMove={onTouchMove}
               onTouchEnd={onTouchEnd}
