@@ -23,7 +23,7 @@ export const AnimatedHeadHero = () => {
       {/* Primary CTA - Analyze my hair */}
       <button
         onClick={handleAnalyzeClick}
-        className="silver-grey-gradient-border cursor-pointer group z-10 relative rounded-full flex items-center gap-2 transition-all duration-300"
+        className="silver-grey-gradient-border cursor-pointer group z-10 relative rounded-full flex items-center gap-2 transition-all duration-300 overflow-hidden"
         style={{
           padding: 'clamp(0.25rem, 0.5vh, 0.4rem) clamp(0.35rem, 0.4vw, 0.5rem) clamp(0.25rem, 0.5vh, 0.4rem) clamp(1.8rem, 1.4vw, 1.6rem)',
           background: 'rgba(255, 255, 255, 0.08)',
@@ -74,6 +74,32 @@ export const AnimatedHeadHero = () => {
           }
         }
 
+        @keyframes button-shine {
+          0% {
+            transform: translateX(-100%) skewX(-15deg);
+          }
+          100% {
+            transform: translateX(200%) skewX(-15deg);
+          }
+        }
+
+        .silver-grey-gradient-border::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 40%;
+          height: 100%;
+          background: linear-gradient(90deg, 
+            transparent 0%, 
+            rgba(255, 255, 255, 0.15) 50%, 
+            transparent 100%
+          );
+          animation: button-shine 3s ease-in-out infinite;
+          pointer-events: none;
+          z-index: 2;
+        }
+
         .silver-gradient-border {
           position: relative;
         }
@@ -119,7 +145,7 @@ export const AnimatedHeadHero = () => {
 
         .silver-grey-gradient-border > * {
           position: relative;
-          z-index: 1;
+          z-index: 3;
         }
 
         .cta-button-glow::after {
