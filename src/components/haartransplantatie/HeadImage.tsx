@@ -1,7 +1,7 @@
 export const HeadImage = () => {
   return (
     <div 
-      className="absolute head-glow z-0"
+      className="absolute head-glow z-[5]"
       style={{
         top: 'clamp(2rem, 3vh, 3rem)',
         right: 'clamp(0.5rem, 1vw, 1.5rem)',
