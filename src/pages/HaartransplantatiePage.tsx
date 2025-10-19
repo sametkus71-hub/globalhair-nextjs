@@ -70,14 +70,14 @@ const HaartransplantatiePage = () => {
             </div>
 
             {/* Tabs */}
-            <div className="pt-[clamp(0.5rem,1vh,1rem)] flex-shrink-0">
+            <div className="flex-shrink-0" style={{ paddingTop: 'clamp(0.25rem, 0.5vh, 0.5rem)' }}>
               <GlassTabs activeTab={activeTab} onTabChange={setActiveTab} />
             </div>
 
             {/* Tab Content - No scrolling, fit to available height */}
-            <div className="relative flex-1 px-2 pb-[clamp(3rem,4vh,4rem)] overflow-hidden flex flex-col justify-between">
+            <div className="relative flex-1 px-2 pb-[clamp(3rem,4vh,4rem)] overflow-hidden flex flex-col justify-between" style={{ paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)' }}>
               {activeTab === 'Packages' && (
-                <div className="flex flex-col h-full justify-evenly">
+                <div className="flex flex-col h-full justify-between">
                   {/* Package Cards */}
                   <div className="overflow-hidden flex-shrink-0">
                     <PackageCardGlass />

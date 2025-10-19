@@ -97,7 +97,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           className="pill-outer"
           style={{
             gridColumn: '1 / -1',
-            marginBottom: 'clamp(0.5rem, 1vh, 1rem)',
+            marginBottom: 'clamp(1rem, 2vh, 1.5rem)',
           }}
         >
           {/* Pill inner aligns to the same 5 tracks */}
@@ -195,7 +195,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             className="chiprow flex justify-center"
             style={{ 
               gap: '.2rem',
-              marginBottom: 'clamp(0.4rem, 0.8vh, 0.75rem)',
+              marginBottom: 'clamp(0.75rem, 1.5vh, 1.25rem)',
             }}
           >
             <div
@@ -227,7 +227,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
               fontFamily: 'Inter, system-ui, sans-serif', 
               fontWeight: 300, 
               fontSize: 'clamp(8px, 1vh, 10px)',
-              marginBottom: 'clamp(0.25rem, 0.5vh, 0.5rem)',
+              marginBottom: 'clamp(0.5rem, 1vh, 0.75rem)',
             }}
           >
             FUE Saffier
@@ -252,7 +252,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             className="chiprow flex justify-center"
             style={{ 
               gap: '.2rem',
-              marginBottom: 'clamp(0.4rem, 0.8vh, 0.75rem)',
+              marginBottom: 'clamp(0.75rem, 1.5vh, 1.25rem)',
             }}
           >
             <div
@@ -285,7 +285,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
               fontFamily: 'Inter, system-ui, sans-serif', 
               fontWeight: 300, 
               fontSize: 'clamp(8px, 1vh, 10px)',
-              marginBottom: 'clamp(0.25rem, 0.5vh, 0.5rem)',
+              marginBottom: 'clamp(0.5rem, 1vh, 0.75rem)',
             }}
           >
             FUE Saffier / DHI
@@ -323,7 +323,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             className="chiprow flex justify-center"
             style={{ 
               gap: '.2rem',
-              marginBottom: 'clamp(0.4rem, 0.8vh, 0.75rem)',
+              marginBottom: 'clamp(0.75rem, 1.5vh, 1.25rem)',
             }}
           >
             <div
@@ -356,7 +356,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
               fontFamily: 'Inter, system-ui, sans-serif', 
               fontWeight: 300, 
               fontSize: 'clamp(8px, 1vh, 10px)',
-              marginBottom: 'clamp(0.25rem, 0.5vh, 0.5rem)',
+              marginBottom: 'clamp(0.5rem, 1vh, 0.75rem)',
             }}
           >
             FUE Saffier / DHI
