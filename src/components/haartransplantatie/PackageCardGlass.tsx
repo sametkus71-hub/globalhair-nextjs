@@ -84,9 +84,10 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
       <div
         className="pkg-grid"
         style={{
-          paddingTop: 'clamp(0.5rem, 1vh, 1rem)',
-          paddingLeft: 'clamp(0.5rem, 1vw, 1rem)',
-          paddingRight: 'clamp(0.5rem, 1vw, 1rem)',
+          paddingTop: 'clamp(0.7rem, 1vh, 1rem)',
+          paddingLeft: 'clamp(0.7rem, 1vw, 1rem)',
+          paddingRight: 'clamp(0.7rem, 1vw, 1rem)',
+          paddingBottom: 'clamp(0.7rem, 1vw, 1rem)',
           display: 'grid',
           gridTemplateColumns: '1fr auto 1fr auto 1fr',
           alignItems: 'start',
