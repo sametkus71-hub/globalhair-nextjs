@@ -69,9 +69,10 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
 
   return (
     <div
-      className={`packages-card gold-gradient-border relative mt-2 rounded-3xl transition-all duration-500 ${className || ''}`}
+      className={`packages-card gold-gradient-border relative rounded-3xl transition-all duration-500 ${className || ''}`}
       id="packages-static"
       style={{
+        marginTop: 'clamp(0.25rem, 0.5vh, 0.5rem)',
         background: 'linear-gradient(rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0.17))',
         backdropFilter: 'blur(7px)',
         WebkitBackdropFilter: 'blur(7px)',
@@ -81,8 +82,11 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
     >
       {/* Shared 5-track grid for pill and content */}
       <div
-        className="pkg-grid pt-4 px-4"
+        className="pkg-grid"
         style={{
+          paddingTop: 'clamp(0.5rem, 1vh, 1rem)',
+          paddingLeft: 'clamp(0.5rem, 1vw, 1rem)',
+          paddingRight: 'clamp(0.5rem, 1vw, 1rem)',
           display: 'grid',
           gridTemplateColumns: '1fr auto 1fr auto 1fr',
           alignItems: 'start',
@@ -93,7 +97,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           className="pill-outer"
           style={{
             gridColumn: '1 / -1',
-            marginBottom: '16px',
+            marginBottom: 'clamp(0.5rem, 1vh, 1rem)',
           }}
         >
           {/* Pill inner aligns to the same 5 tracks */}
@@ -188,8 +192,11 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         <div className="col col--standard">
           {/* Chip row */}
           <div
-            className="chiprow flex justify-center mb-3"
-            style={{ gap: '.2rem' }}
+            className="chiprow flex justify-center"
+            style={{ 
+              gap: '.2rem',
+              marginBottom: 'clamp(0.4rem, 0.8vh, 0.75rem)',
+            }}
           >
             <div
               className="silver-gradient-border flex items-center gap-1.5"
@@ -215,8 +222,13 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
 
           {/* Title */}
           <p
-            className="pkg-title text-white text-center mb-2"
-            style={{ fontFamily: 'Inter, system-ui, sans-serif', fontWeight: 300, fontSize: '10px' }}
+            className="pkg-title text-white text-center"
+            style={{ 
+              fontFamily: 'Inter, system-ui, sans-serif', 
+              fontWeight: 300, 
+              fontSize: 'clamp(8px, 1vh, 10px)',
+              marginBottom: 'clamp(0.25rem, 0.5vh, 0.5rem)',
+            }}
           >
             FUE Saffier
           </p>
@@ -237,8 +249,11 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         <div className="col col--premium">
           {/* Chip row */}
           <div
-            className="chiprow flex justify-center mb-3"
-            style={{ gap: '.2rem' }}
+            className="chiprow flex justify-center"
+            style={{ 
+              gap: '.2rem',
+              marginBottom: 'clamp(0.4rem, 0.8vh, 0.75rem)',
+            }}
           >
             <div
               className="silver-gradient-border flex items-center"
@@ -265,8 +280,13 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
 
           {/* Title */}
           <p
-            className="pkg-title text-white text-center mb-2"
-            style={{ fontFamily: 'Inter, system-ui, sans-serif', fontWeight: 300, fontSize: '10px' }}
+            className="pkg-title text-white text-center"
+            style={{ 
+              fontFamily: 'Inter, system-ui, sans-serif', 
+              fontWeight: 300, 
+              fontSize: 'clamp(8px, 1vh, 10px)',
+              marginBottom: 'clamp(0.25rem, 0.5vh, 0.5rem)',
+            }}
           >
             FUE Saffier / DHI
           </p>
@@ -274,7 +294,12 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           {/* Lines */}
           <p
             className="text-center"
-            style={{ fontFamily: 'Inter, system-ui, sans-serif', fontWeight: 300, fontSize: '10px', color: 'rgba(255, 255, 255, 0.85)' }}
+            style={{ 
+              fontFamily: 'Inter, system-ui, sans-serif', 
+              fontWeight: 300, 
+              fontSize: 'clamp(8px, 1vh, 10px)', 
+              color: 'rgba(255, 255, 255, 0.85)' 
+            }}
           >
             V6 Hairboost®
           </p>
@@ -295,8 +320,11 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         <div className="col col--advanced">
           {/* Chip row */}
           <div
-            className="chiprow flex justify-center mb-3"
-            style={{ gap: '.2rem' }}
+            className="chiprow flex justify-center"
+            style={{ 
+              gap: '.2rem',
+              marginBottom: 'clamp(0.4rem, 0.8vh, 0.75rem)',
+            }}
           >
             <div
               className="silver-gradient-border flex items-center"
@@ -323,8 +351,13 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
 
           {/* Title */}
           <p
-            className="pkg-title text-white text-center mb-2"
-            style={{ fontFamily: 'Inter, system-ui, sans-serif', fontWeight: 300, fontSize: '10px' }}
+            className="pkg-title text-white text-center"
+            style={{ 
+              fontFamily: 'Inter, system-ui, sans-serif', 
+              fontWeight: 300, 
+              fontSize: 'clamp(8px, 1vh, 10px)',
+              marginBottom: 'clamp(0.25rem, 0.5vh, 0.5rem)',
+            }}
           >
             FUE Saffier / DHI
           </p>
@@ -332,12 +365,22 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           {/* Lines */}
           <div className="text-center space-y-1">
             <p
-              style={{ fontFamily: 'Inter, system-ui, sans-serif', fontWeight: 300, fontSize: '10px', color: 'rgba(255, 255, 255, 0.85)' }}
+              style={{ 
+                fontFamily: 'Inter, system-ui, sans-serif', 
+                fontWeight: 300, 
+                fontSize: 'clamp(8px, 1vh, 10px)', 
+                color: 'rgba(255, 255, 255, 0.85)' 
+              }}
             >
               V6 Hairboost®
             </p>
             <p
-              style={{ fontFamily: 'Inter, system-ui, sans-serif', fontWeight: 300, fontSize: '10px', color: 'rgba(255, 255, 255, 0.85)' }}
+              style={{ 
+                fontFamily: 'Inter, system-ui, sans-serif', 
+                fontWeight: 300, 
+                fontSize: 'clamp(8px, 1vh, 10px)', 
+                color: 'rgba(255, 255, 255, 0.85)' 
+              }}
             >
               GHI Stemcell repair™
             </p>
@@ -349,9 +392,9 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
       <div
         className="packages-readmore"
         style={{
-          marginTop: '10px',
-          paddingTop: '5px',
-          paddingBottom: '15px',
+          marginTop: 'clamp(0.25rem, 0.5vh, 0.625rem)',
+          paddingTop: 'clamp(0.2rem, 0.4vh, 0.3rem)',
+          paddingBottom: 'clamp(0.5rem, 1vh, 0.9rem)',
           textAlign: 'center',
           borderTop: '1px solid transparent',
           borderImage: 'linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2)) 1',
@@ -364,7 +407,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             color: 'white',
             fontFamily: 'Inter',
             fontWeight: 400,
-            fontSize: '13px',
+            fontSize: 'clamp(10px, 1.2vh, 13px)',
             textDecoration: 'underline',
             textUnderlineOffset: '3px',
             transition: 'opacity 0.2s ease',

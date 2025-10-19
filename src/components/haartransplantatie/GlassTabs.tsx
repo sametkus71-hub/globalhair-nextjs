@@ -63,12 +63,13 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
               key={tab}
               ref={(el) => (tabRefs.current[index] = el)}
               onClick={() => handleTabClick(tab)}
-              className="relative pb-3 transition-all duration-300 z-10"
+              className="relative transition-all duration-300 z-10"
               style={{
+                paddingBottom: 'clamp(0.5rem, 1vh, 0.75rem)',
                 color: isActive ? 'white' : 'rgba(255, 255, 255, 0.5)',
                 fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
                 fontWeight: isActive ? 600 : 400,
-                fontSize: '12px',
+                fontSize: 'clamp(10px, 1.2vh, 12px)',
                 letterSpacing: '0.01em',
               }}
             >
