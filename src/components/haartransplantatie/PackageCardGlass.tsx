@@ -31,7 +31,6 @@ const packageData = {
 
 export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
   const { language } = useLanguage();
-  const packages = ['Standard', 'Premium', 'Advanced'] as const;
 
   const renderLeaves = (count: number) => {
     return (
@@ -72,39 +71,184 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
     );
   };
 
-  const renderPackageCard = (pkg: 'Standard' | 'Premium' | 'Advanced') => {
-    const data = packageData[pkg];
-    
-    return (
+  return (
+    <div
+      className={`packages-block gold-gradient-border relative mx-2 mt-2 rounded-3xl transition-all duration-500 ${className || ''}`}
+      id="packages-static"
+      style={{
+        background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.05))',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+      }}
+    >
+      {/* Packages Row - 3 columns with 2 separators */}
       <div
-        key={pkg}
-        className="package-card gold-gradient-border relative p-4 rounded-3xl transition-all duration-500 flex-1"
+        className="packages-row p-4"
         style={{
-          background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.05))',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          animation: 'slide-fade-in 0.5s ease-out',
+          display: 'grid',
+          gridTemplateColumns: '1fr 1px 1fr 1px 1fr',
+          alignItems: 'start',
         }}
       >
-        {/* Package tier indicator */}
-        <div className="flex justify-center mb-3">
-          <div
-            className="silver-gradient-border inline-flex items-center rounded-full px-4 py-1.5"
-            style={{
-              background: 'rgba(255, 255, 255, 0.08)',
-              backdropFilter: 'blur(20px)',
-            }}
-          >
-            <span
-              className="text-xs font-medium"
+        {/* Standard Column */}
+        <div className="pkg-col pkg-col--standard">
+          {/* Package tier indicator */}
+          <div className="flex justify-center mb-3">
+            <div
+              className="silver-gradient-border inline-flex items-center rounded-full px-4 py-1.5"
               style={{
-                color: 'white',
-                fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+                background: 'rgba(255, 255, 255, 0.08)',
+                backdropFilter: 'blur(20px)',
               }}
             >
-              {pkg}
-            </span>
-            {pkg === 'Advanced' && (
+              <span
+                className="text-xs font-medium"
+                style={{
+                  color: 'white',
+                  fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+                }}
+              >
+                Standard
+              </span>
+            </div>
+          </div>
+
+          {/* Icons row */}
+          <div className="flex justify-center space-x-3 mb-3">
+            <div
+              className="silver-gradient-border flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
+              style={{
+                background: 'rgba(255, 255, 255, 0.08)',
+              }}
+            >
+              <ChevronRight className="w-4 h-4 text-white/60" strokeWidth={1.5} />
+              {renderLeaves(1)}
+            </div>
+            <div
+              className="silver-gradient-border flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
+              style={{
+                background: 'rgba(255, 255, 255, 0.08)',
+              }}
+            >
+              {renderArrows(1)}
+            </div>
+          </div>
+
+          {/* Title */}
+          <h3
+            className="text-white text-center text-lg font-semibold mb-1"
+            style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
+          >
+            FUE Saffier
+          </h3>
+        </div>
+
+        {/* Vertical Separator 1 */}
+        <div
+          className="v-sep"
+          aria-hidden="true"
+          style={{
+            width: '1px',
+            height: '100%',
+            background: 'linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.2) 50%, transparent)',
+          }}
+        />
+
+        {/* Premium Column */}
+        <div className="pkg-col pkg-col--premium">
+          {/* Package tier indicator */}
+          <div className="flex justify-center mb-3">
+            <div
+              className="silver-gradient-border inline-flex items-center rounded-full px-4 py-1.5"
+              style={{
+                background: 'rgba(255, 255, 255, 0.08)',
+                backdropFilter: 'blur(20px)',
+              }}
+            >
+              <span
+                className="text-xs font-medium"
+                style={{
+                  color: 'white',
+                  fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+                }}
+              >
+                Premium
+              </span>
+            </div>
+          </div>
+
+          {/* Icons row */}
+          <div className="flex justify-center space-x-3 mb-3">
+            <div
+              className="silver-gradient-border flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
+              style={{
+                background: 'rgba(255, 255, 255, 0.08)',
+              }}
+            >
+              <ChevronRight className="w-4 h-4 text-white/60" strokeWidth={1.5} />
+              {renderLeaves(2)}
+            </div>
+            <div
+              className="silver-gradient-border flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
+              style={{
+                background: 'rgba(255, 255, 255, 0.08)',
+              }}
+            >
+              {renderArrows(2)}
+            </div>
+          </div>
+
+          {/* Title */}
+          <h3
+            className="text-white text-center text-lg font-semibold mb-1"
+            style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
+          >
+            FUE Saffier / DHI
+          </h3>
+
+          {/* Subtitle */}
+          <p
+            className="text-center text-xs mb-3"
+            style={{
+              color: 'rgba(255, 255, 255, 0.85)',
+              fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+            }}
+          >
+            V6 Hairboost®
+          </p>
+        </div>
+
+        {/* Vertical Separator 2 */}
+        <div
+          className="v-sep"
+          aria-hidden="true"
+          style={{
+            width: '1px',
+            height: '100%',
+            background: 'linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.2) 50%, transparent)',
+          }}
+        />
+
+        {/* Advanced Column */}
+        <div className="pkg-col pkg-col--advanced">
+          {/* Package tier indicator */}
+          <div className="flex justify-center mb-3">
+            <div
+              className="silver-gradient-border inline-flex items-center rounded-full px-4 py-1.5"
+              style={{
+                background: 'rgba(255, 255, 255, 0.08)',
+                backdropFilter: 'blur(20px)',
+              }}
+            >
+              <span
+                className="text-xs font-medium"
+                style={{
+                  color: 'white',
+                  fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+                }}
+              >
+                Advanced
+              </span>
               <span
                 className="ml-2 text-[8px] px-1.5 py-0.5 rounded-full"
                 style={{
@@ -116,44 +260,39 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
               >
                 New
               </span>
-            )}
+            </div>
           </div>
-        </div>
 
-        {/* Icons row */}
-        <div className="flex justify-center space-x-3 mb-3">
-          {/* Growth indicator */}
-          <div
-            className="silver-gradient-border flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
-            style={{
-              background: 'rgba(255, 255, 255, 0.08)',
-            }}
+          {/* Icons row */}
+          <div className="flex justify-center space-x-3 mb-3">
+            <div
+              className="silver-gradient-border flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
+              style={{
+                background: 'rgba(255, 255, 255, 0.08)',
+              }}
+            >
+              <ChevronRight className="w-4 h-4 text-white/60" strokeWidth={1.5} />
+              {renderLeaves(3)}
+            </div>
+            <div
+              className="silver-gradient-border flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
+              style={{
+                background: 'rgba(255, 255, 255, 0.08)',
+              }}
+            >
+              {renderArrows(3)}
+            </div>
+          </div>
+
+          {/* Title */}
+          <h3
+            className="text-white text-center text-lg font-semibold mb-1"
+            style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
           >
-            <ChevronRight className="w-4 h-4 text-white/60" strokeWidth={1.5} />
-            {renderLeaves(data.growth)}
-          </div>
+            FUE Saffier / DHI
+          </h3>
 
-          {/* Recovery indicator */}
-          <div
-            className="silver-gradient-border flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
-            style={{
-              background: 'rgba(255, 255, 255, 0.08)',
-            }}
-          >
-            {renderArrows(data.recovery)}
-          </div>
-        </div>
-
-        {/* Title */}
-        <h3
-          className="text-white text-center text-lg font-semibold mb-1"
-          style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
-        >
-          {data.title}
-        </h3>
-
-        {/* Subtitle */}
-        {data.subtitle && (
+          {/* Subtitle */}
           <p
             className="text-center text-xs mb-3"
             style={{
@@ -161,13 +300,15 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
               fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
             }}
           >
-            {data.subtitle}
+            V6 Hairboost® + GHI Stemcell repair™
           </p>
-        )}
+        </div>
+      </div>
 
-        {/* Read more button */}
+      {/* Read more button - outside the row, spans full width */}
+      <div className="px-4 pb-4">
         <a
-          href={data.anchor}
+          href="#packages-standard"
           className="block w-full py-2 px-4 rounded-2xl text-center transition-all duration-200 text-sm"
           style={{
             background: 'rgba(255, 255, 255, 0.08)',
@@ -188,26 +329,9 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           {language === 'nl' ? 'Lees meer' : 'Read more'}
         </a>
       </div>
-    );
-  };
-
-  return (
-    <div className={className}>
-      <div className="grid grid-cols-3 gap-4 mx-2 mt-2">{packages.map(renderPackageCard)}</div>
 
       <style>{`
-        @keyframes slide-fade-in {
-          from {
-            opacity: 0;
-            transform: translateX(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        .package-card {
+        .packages-block {
           position: relative;
           border-radius: 28px;
         }
@@ -233,7 +357,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           z-index: 0;
         }
 
-        .package-card > * {
+        .packages-block > * {
           position: relative;
           z-index: 1;
         }
