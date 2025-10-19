@@ -98,20 +98,18 @@ export const AnimatedHeadHero = () => {
           border-radius: inherit;
           background: linear-gradient(
             90deg,
-            #949494 0%,
-            #838e94 10%,
-            #b5b5b5 20%,
-            #FFFFFF 30%,
-            #b5b5b5 40%,
-            #ACB9C1 50%,
-            #4e5964 60%,
-            #727272 70%,
-            #949494 80%,
-            #838e94 90%,
-            #b5b5b5 100%
+            #8a8a8a 0%,
+            #909090 12%,
+            #a5a5a5 24%,
+            #b8b8b8 36%,
+            #c5c5c5 48%,
+            #b8b8b8 60%,
+            #a5a5a5 72%,
+            #909090 84%,
+            #8a8a8a 100%
           );
-          background-size: 200% 100%;
-          animation: border-shine-rotate 4s linear infinite;
+          background-size: 300% 100%;
+          animation: border-shine-rotate 8s ease-in-out infinite;
           -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
           -webkit-mask-composite: xor;
           mask-composite: exclude;
