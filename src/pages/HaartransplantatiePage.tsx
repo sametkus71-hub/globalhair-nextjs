@@ -164,23 +164,22 @@ const HaartransplantatiePage = () => {
 
             {/* Tab Content - No scrolling, fit to available height */}
             <div 
-              className="relative flex-1 px-2 pb-[clamp(3rem,4vh,4rem)] overflow-hidden" 
-              style={{ paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)' }}
+              className="relative flex-1 px-2 overflow-hidden flex flex-col" 
+              style={{ paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)', paddingBottom: 'clamp(0.5rem, 0.8vh, 1rem)' }}
               onTouchStart={onTouchStart}
               onTouchMove={onTouchMove}
               onTouchEnd={onTouchEnd}
             >
-              {(activeTab === 'Packages' || (isTransitioning && previousTab === 'Packages')) && (
-                <div 
-                  className={`flex flex-col h-full justify-between absolute inset-0 px-2 ${getTabAnimationClass('Packages')}`}
-                  style={{ 
-                    pointerEvents: activeTab === 'Packages' ? 'auto' : 'none',
-                    paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)',
-                    paddingBottom: 'clamp(3rem,4vh,4rem)'
-                  }}
-                >
-                  {/* Package Cards */}
-                  <div className="overflow-hidden flex-shrink-0">
+              {/* Animated Tab Content Container */}
+              <div className="relative flex-1 overflow-hidden">
+                {(activeTab === 'Packages' || (isTransitioning && previousTab === 'Packages')) && (
+                  <div 
+                    className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Packages')}`}
+                    style={{ 
+                      pointerEvents: activeTab === 'Packages' ? 'auto' : 'none'
+                    }}
+                  >
+                    {/* Package Cards */}
                     <PackageCardGlass />
                     
                     {/* Pagination Dots */}
@@ -205,24 +204,15 @@ const HaartransplantatiePage = () => {
                       ))}
                     </div>
                   </div>
+                )}
 
-                  {/* Review Section */}
-                  <div className="flex-shrink-0">
-                    <StaticReviewGlass />
-                  </div>
-                </div>
-              )}
-
-              {(activeTab === 'Traject' || (isTransitioning && previousTab === 'Traject')) && (
-                <div 
-                  className={`flex flex-col h-full justify-between absolute inset-0 px-2 ${getTabAnimationClass('Traject')}`}
-                  style={{ 
-                    pointerEvents: activeTab === 'Traject' ? 'auto' : 'none',
-                    paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)',
-                    paddingBottom: 'clamp(3rem,4vh,4rem)'
-                  }}
-                >
-                  <div className="overflow-hidden flex-shrink-0">
+                {(activeTab === 'Traject' || (isTransitioning && previousTab === 'Traject')) && (
+                  <div 
+                    className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Traject')}`}
+                    style={{ 
+                      pointerEvents: activeTab === 'Traject' ? 'auto' : 'none'
+                    }}
+                  >
                     <PlaceholderContent type="Traject" />
                     
                     {/* Pagination Dots */}
@@ -247,22 +237,15 @@ const HaartransplantatiePage = () => {
                       ))}
                     </div>
                   </div>
-                  <div className="flex-shrink-0">
-                    <StaticReviewGlass />
-                  </div>
-                </div>
-              )}
+                )}
 
-              {(activeTab === 'Mission' || (isTransitioning && previousTab === 'Mission')) && (
-                <div 
-                  className={`flex flex-col h-full justify-between absolute inset-0 px-2 ${getTabAnimationClass('Mission')}`}
-                  style={{ 
-                    pointerEvents: activeTab === 'Mission' ? 'auto' : 'none',
-                    paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)',
-                    paddingBottom: 'clamp(3rem,4vh,4rem)'
-                  }}
-                >
-                  <div className="overflow-hidden flex-shrink-0">
+                {(activeTab === 'Mission' || (isTransitioning && previousTab === 'Mission')) && (
+                  <div 
+                    className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Mission')}`}
+                    style={{ 
+                      pointerEvents: activeTab === 'Mission' ? 'auto' : 'none'
+                    }}
+                  >
                     <PlaceholderContent type="Mission" />
                     
                     {/* Pagination Dots */}
@@ -287,22 +270,15 @@ const HaartransplantatiePage = () => {
                       ))}
                     </div>
                   </div>
-                  <div className="flex-shrink-0">
-                    <StaticReviewGlass />
-                  </div>
-                </div>
-              )}
+                )}
 
-              {(activeTab === 'Contact' || (isTransitioning && previousTab === 'Contact')) && (
-                <div 
-                  className={`flex flex-col h-full justify-between absolute inset-0 px-2 ${getTabAnimationClass('Contact')}`}
-                  style={{ 
-                    pointerEvents: activeTab === 'Contact' ? 'auto' : 'none',
-                    paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)',
-                    paddingBottom: 'clamp(3rem,4vh,4rem)'
-                  }}
-                >
-                  <div className="overflow-hidden flex-shrink-0">
+                {(activeTab === 'Contact' || (isTransitioning && previousTab === 'Contact')) && (
+                  <div 
+                    className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Contact')}`}
+                    style={{ 
+                      pointerEvents: activeTab === 'Contact' ? 'auto' : 'none'
+                    }}
+                  >
                     <PlaceholderContent type="Contact" />
                     
                     {/* Pagination Dots */}
@@ -327,11 +303,13 @@ const HaartransplantatiePage = () => {
                       ))}
                     </div>
                   </div>
-                  <div className="flex-shrink-0">
-                    <StaticReviewGlass />
-                  </div>
-                </div>
-              )}
+                )}
+              </div>
+
+              {/* Static Review Section - Always visible at bottom */}
+              <div className="flex-shrink-0 px-2" style={{ paddingTop: 'clamp(0.5rem, 1vh, 1rem)', paddingBottom: 'clamp(3rem,4vh,4rem)' }}>
+                <StaticReviewGlass />
+              </div>
             </div>
           </div>
 
