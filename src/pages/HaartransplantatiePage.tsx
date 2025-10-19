@@ -8,7 +8,6 @@ import { GlassBackground } from '@/components/haartransplantatie/GlassBackground
 import { GlassHeader } from '@/components/haartransplantatie/GlassHeader';
 import { AnimatedHeadHero } from '@/components/haartransplantatie/AnimatedHeadHero';
 import { GlassTabs } from '@/components/haartransplantatie/GlassTabs';
-import { PackageTierSwitcher } from '@/components/haartransplantatie/PackageTierSwitcher';
 import { PackageCardGlass } from '@/components/haartransplantatie/PackageCardGlass';
 import { ReviewsSectionGlass } from '@/components/haartransplantatie/ReviewsSectionGlass';
 import { StaticReviewGlass } from '@/components/haartransplantatie/StaticReviewGlass';
@@ -20,7 +19,6 @@ const HaartransplantatiePage = () => {
   const { language } = useLanguage();
   const location = useLocation();
   const [activeTab, setActiveTab] = useState('Packages');
-  const [activePackage, setActivePackage] = useState<'Standard' | 'Premium' | 'Advanced'>('Standard');
   
   // Determine active tab from URL
   useEffect(() => {
@@ -78,15 +76,9 @@ const HaartransplantatiePage = () => {
             <div className="relative flex-1 px-2 pb-16 overflow-y-auto">
               {activeTab === 'Packages' && (
                 <div className="flex flex-col">
-                  {/* Package Tier Switcher */}
-                  <PackageTierSwitcher 
-                    activePackage={activePackage} 
-                    onPackageChange={(pkg) => setActivePackage(pkg as 'Standard' | 'Premium' | 'Advanced')} 
-                  />
-
-                  {/* Package Card */}
+                  {/* Package Cards */}
                   <div className="overflow-hidden">
-                    <PackageCardGlass package={activePackage} />
+                    <PackageCardGlass />
                   </div>
 
                   {/* Review Section */}

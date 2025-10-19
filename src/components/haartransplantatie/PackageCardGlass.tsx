@@ -2,7 +2,7 @@ import { ChevronRight, Leaf } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 
 interface PackageCardGlassProps {
-  package: 'Standard' | 'Premium' | 'Advanced';
+  className?: string;
 }
 
 const packageData = {
@@ -29,9 +29,9 @@ const packageData = {
   },
 };
 
-export const PackageCardGlass = ({ package: pkg }: PackageCardGlassProps) => {
+export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
   const { language } = useLanguage();
-  const data = packageData[pkg];
+  const packages = ['Standard', 'Premium', 'Advanced'] as const;
 
   const renderLeaves = (count: number) => {
     return (
@@ -72,117 +72,128 @@ export const PackageCardGlass = ({ package: pkg }: PackageCardGlassProps) => {
     );
   };
 
-  return (
-    <div
-      className="package-card gold-gradient-border relative mx-2 mt-2 p-4 rounded-3xl transition-all duration-500"
-      style={{
-        background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.05))',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
-        animation: 'slide-fade-in 0.5s ease-out',
-      }}
-    >
-      {/* Package tier indicator */}
-      <div className="flex justify-center mb-3">
-        <div
-          className="silver-gradient-border inline-flex items-center rounded-full px-4 py-1.5"
-          style={{
-            background: 'rgba(255, 255, 255, 0.08)',
-            backdropFilter: 'blur(20px)',
-          }}
-        >
-          <span
-            className="text-xs font-medium"
+  const renderPackageCard = (pkg: 'Standard' | 'Premium' | 'Advanced') => {
+    const data = packageData[pkg];
+    
+    return (
+      <div
+        key={pkg}
+        className="package-card gold-gradient-border relative p-4 rounded-3xl transition-all duration-500 flex-1"
+        style={{
+          background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.05))',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          animation: 'slide-fade-in 0.5s ease-out',
+        }}
+      >
+        {/* Package tier indicator */}
+        <div className="flex justify-center mb-3">
+          <div
+            className="silver-gradient-border inline-flex items-center rounded-full px-4 py-1.5"
             style={{
-              color: 'white',
+              background: 'rgba(255, 255, 255, 0.08)',
+              backdropFilter: 'blur(20px)',
+            }}
+          >
+            <span
+              className="text-xs font-medium"
+              style={{
+                color: 'white',
+                fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+              }}
+            >
+              {pkg}
+            </span>
+            {pkg === 'Advanced' && (
+              <span
+                className="ml-2 text-[8px] px-1.5 py-0.5 rounded-full"
+                style={{
+                  background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
+                  color: 'white',
+                  fontWeight: 600,
+                  boxShadow: '0 2px 8px rgba(59, 130, 246, 0.4)',
+                }}
+              >
+                New
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Icons row */}
+        <div className="flex justify-center space-x-3 mb-3">
+          {/* Growth indicator */}
+          <div
+            className="silver-gradient-border flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
+            style={{
+              background: 'rgba(255, 255, 255, 0.08)',
+            }}
+          >
+            <ChevronRight className="w-4 h-4 text-white/60" strokeWidth={1.5} />
+            {renderLeaves(data.growth)}
+          </div>
+
+          {/* Recovery indicator */}
+          <div
+            className="silver-gradient-border flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
+            style={{
+              background: 'rgba(255, 255, 255, 0.08)',
+            }}
+          >
+            {renderArrows(data.recovery)}
+          </div>
+        </div>
+
+        {/* Title */}
+        <h3
+          className="text-white text-center text-lg font-semibold mb-1"
+          style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
+        >
+          {data.title}
+        </h3>
+
+        {/* Subtitle */}
+        {data.subtitle && (
+          <p
+            className="text-center text-xs mb-3"
+            style={{
+              color: 'rgba(255, 255, 255, 0.85)',
               fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
             }}
           >
-            {pkg}
-          </span>
-          {pkg === 'Advanced' && (
-            <span
-              className="ml-2 text-[8px] px-1.5 py-0.5 rounded-full"
-              style={{
-                background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
-                color: 'white',
-                fontWeight: 600,
-                boxShadow: '0 2px 8px rgba(59, 130, 246, 0.4)',
-              }}
-            >
-              New
-            </span>
-          )}
-        </div>
-      </div>
+            {data.subtitle}
+          </p>
+        )}
 
-      {/* Icons row */}
-      <div className="flex justify-center space-x-3 mb-3">
-        {/* Growth indicator */}
-        <div
-          className="silver-gradient-border flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
+        {/* Read more button */}
+        <a
+          href={data.anchor}
+          className="block w-full py-2 px-4 rounded-2xl text-center transition-all duration-200 text-sm"
           style={{
             background: 'rgba(255, 255, 255, 0.08)',
-          }}
-        >
-          <ChevronRight className="w-4 h-4 text-white/60" strokeWidth={1.5} />
-          {renderLeaves(data.growth)}
-        </div>
-
-        {/* Recovery indicator */}
-        <div
-          className="silver-gradient-border flex items-center space-x-1.5 px-3 py-1.5 rounded-2xl"
-          style={{
-            background: 'rgba(255, 255, 255, 0.08)',
-          }}
-        >
-          {renderArrows(data.recovery)}
-        </div>
-      </div>
-
-      {/* Title */}
-      <h3
-        className="text-white text-center text-lg font-semibold mb-1"
-        style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
-      >
-        {data.title}
-      </h3>
-
-      {/* Subtitle */}
-      {data.subtitle && (
-        <p
-          className="text-center text-xs mb-3"
-          style={{
-            color: 'rgba(255, 255, 255, 0.85)',
+            border: '1px solid rgba(255, 255, 255, 0.20)',
+            color: 'white',
             fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+            fontWeight: 500,
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
+            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.30)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
+            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.20)';
           }}
         >
-          {data.subtitle}
-        </p>
-      )}
+          {language === 'nl' ? 'Lees meer' : 'Read more'}
+        </a>
+      </div>
+    );
+  };
 
-      {/* Read more button */}
-      <a
-        href={data.anchor}
-        className="block w-full py-2 px-4 rounded-2xl text-center transition-all duration-200 text-sm"
-        style={{
-          background: 'rgba(255, 255, 255, 0.08)',
-          border: '1px solid rgba(255, 255, 255, 0.20)',
-          color: 'white',
-          fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-          fontWeight: 500,
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
-          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.30)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
-          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.20)';
-        }}
-      >
-        {language === 'nl' ? 'Lees meer' : 'Read more'}
-      </a>
+  return (
+    <div className={className}>
+      <div className="flex gap-4 mx-2 mt-2">{packages.map(renderPackageCard)}</div>
 
       <style>{`
         @keyframes slide-fade-in {
