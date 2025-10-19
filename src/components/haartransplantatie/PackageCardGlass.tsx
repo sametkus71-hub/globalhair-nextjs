@@ -77,82 +77,20 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
       }}
     >
       {/* Top info labels */}
-      <div
-        className="packages-top pt-4 px-4"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr 1fr',
-          gap: 0,
-          alignItems: 'center',
-        }}
-      >
-        <div className="flex justify-center">
-          <div
-            className="silver-gradient-border inline-flex items-center rounded-full px-4 py-1.5"
-            style={{
-              background: 'rgba(255, 255, 255, 0.08)',
-              backdropFilter: 'blur(20px)',
-            }}
-          >
-            <span
-              className="text-xs font-medium"
-              style={{
-                color: 'white',
-                fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-              }}
-            >
-              Standard
-            </span>
-          </div>
-        </div>
-        <div className="flex justify-center">
-          <div
-            className="silver-gradient-border inline-flex items-center rounded-full px-4 py-1.5"
-            style={{
-              background: 'rgba(255, 255, 255, 0.08)',
-              backdropFilter: 'blur(20px)',
-            }}
-          >
-            <span
-              className="text-xs font-medium"
-              style={{
-                color: 'white',
-                fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-              }}
-            >
-              Premium
-            </span>
-          </div>
-        </div>
-        <div className="flex justify-center">
-          <div
-            className="silver-gradient-border inline-flex items-center rounded-full px-4 py-1.5"
-            style={{
-              background: 'rgba(255, 255, 255, 0.08)',
-              backdropFilter: 'blur(20px)',
-            }}
-          >
-            <span
-              className="text-xs font-medium"
-              style={{
-                color: 'white',
-                fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-              }}
-            >
-              Advanced
-            </span>
-            <span
-              className="ml-2 text-[8px] px-1.5 py-0.5 rounded-full"
-              style={{
-                background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
-                color: 'white',
-                fontWeight: 600,
-                boxShadow: '0 2px 8px rgba(59, 130, 246, 0.4)',
-              }}
-            >
-              New
-            </span>
-          </div>
+      <div className="packages-top pt-4 px-4">
+        <div className="tier-pill" role="group" aria-label="Packages">
+          <span className="seg seg--standard">
+            <span className="seg-label">Standard</span>
+          </span>
+          <span className="divider" aria-hidden="true"></span>
+          <span className="seg seg--premium">
+            <span className="seg-label">Premium</span>
+          </span>
+          <span className="divider" aria-hidden="true"></span>
+          <span className="seg seg--advanced">
+            <span className="seg-label">Advanced</span>
+            <em className="badge-new">New</em>
+          </span>
         </div>
       </div>
 
