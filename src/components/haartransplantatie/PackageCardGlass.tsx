@@ -343,7 +343,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           paddingBottom: '15px',
           textAlign: 'center',
           borderTop: '1px solid transparent',
-          borderImage: 'linear-gradient(90deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.3)) 1',
+          borderImage: 'linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2)) 1',
         }}
       >
         <a
