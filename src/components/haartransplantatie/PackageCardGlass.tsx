@@ -69,8 +69,8 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
       id="packages-static"
       style={{
         background: 'linear-gradient(rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0.17))',
-        backdropFilter: 'blur(3px)',
-        WebkitBackdropFilter: 'blur(3px)',
+        backdropFilter: 'blur(7px)',
+        WebkitBackdropFilter: 'blur(7px)',
         marginLeft: '.1rem',
         marginRight: '.1rem',
       }}
