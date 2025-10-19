@@ -334,25 +334,33 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         </div>
       </div>
 
-      {/* Read more button - outside the grid, spans full width */}
-      <div className="packages-readmore px-4 pb-4">
+      {/* Read more link - flat text with top divider */}
+      <div
+        className="packages-readmore"
+        style={{
+          borderTop: '1px solid rgba(255, 255, 255, 0.15)',
+          paddingTop: '15px',
+          paddingBottom: '15px',
+          textAlign: 'center',
+        }}
+      >
         <a
           href="#packages-standard"
-          className="block w-full py-2 px-4 rounded-2xl text-center transition-all duration-200 text-sm"
+          className="readmore-link"
           style={{
-            background: 'rgba(255, 255, 255, 0.08)',
-            border: '1px solid rgba(255, 255, 255, 0.20)',
             color: 'white',
             fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-            fontWeight: 500,
+            fontWeight: 600,
+            fontSize: '14px',
+            textDecoration: 'underline',
+            textUnderlineOffset: '3px',
+            transition: 'opacity 0.2s ease',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
-            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.30)';
+            e.currentTarget.style.opacity = '0.7';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
-            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.20)';
+            e.currentTarget.style.opacity = '1';
           }}
         >
           {language === 'nl' ? 'Lees meer' : 'Read more'}
