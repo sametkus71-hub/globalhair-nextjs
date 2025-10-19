@@ -164,14 +164,14 @@ const HaartransplantatiePage = () => {
 
             {/* Tab Content - No scrolling, fit to available height */}
             <div 
-              className="relative flex-1 px-2 overflow-hidden flex flex-col" 
+              className="relative flex-1 px-2 overflow-hidden flex flex-col justify-between" 
               style={{ paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)', paddingBottom: 'clamp(0.5rem, 0.8vh, 1rem)' }}
               onTouchStart={onTouchStart}
               onTouchMove={onTouchMove}
               onTouchEnd={onTouchEnd}
             >
               {/* Animated Tab Content Container */}
-              <div className="relative flex-1 overflow-hidden">
+              <div className="relative flex-shrink-0 overflow-hidden">
                 {(activeTab === 'Packages' || (isTransitioning && previousTab === 'Packages')) && (
                   <div 
                     className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Packages')}`}
@@ -307,7 +307,7 @@ const HaartransplantatiePage = () => {
               </div>
 
               {/* Static Review Section - Always visible at bottom */}
-              <div className="flex-shrink-0 px-2" style={{ paddingTop: 'clamp(0.5rem, 1vh, 1rem)', paddingBottom: 'clamp(3rem,4vh,4rem)' }}>
+              <div className="flex-shrink-0 px-2" style={{ paddingTop: 'clamp(1rem, 2vh, 2rem)', paddingBottom: 'clamp(3rem,4vh,4rem)' }}>
                 <StaticReviewGlass />
               </div>
             </div>
