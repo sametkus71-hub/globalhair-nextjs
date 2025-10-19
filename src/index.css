@@ -8,6 +8,9 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
 
 @layer base {
   :root {
+    /* App Background for Safari mobile */
+    --app-background: #0C1B2A;
+    
     /* Brand Colors - Sophisticated hair clinic palette */
     --background: 0 0% 98%;
     --foreground: 210 12% 16%;
@@ -119,6 +122,10 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
 @layer base {
   * {
     @apply border-border;
+  }
+
+  body, html {
+    background-color: var(--app-background);
   }
 
   body {
