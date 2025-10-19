@@ -151,21 +151,21 @@ const HaartransplantatiePage = () => {
           <GlassHeader />
 
           {/* Main Content - Single Screen with height-responsive scaling */}
-          <div className="relative z-10 flex flex-col h-screen overflow-hidden pt-[clamp(2rem,2vh,3rem)]">
+          <div className="relative z-10 flex flex-col overflow-hidden pt-[clamp(1.5rem,1.5vh,2rem)]" style={{ height: '100vh', maxHeight: '100vh' }}>
             {/* Animated Head Hero */}
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0" style={{ maxHeight: '24vh' }}>
               <AnimatedHeadHero />
             </div>
 
             {/* Tabs */}
-            <div className="flex-shrink-0" style={{ paddingTop: 'clamp(0.25rem, 0.5vh, 0.5rem)' }}>
+            <div className="flex-shrink-0" style={{ paddingTop: 'clamp(0.2rem, 0.3vh, 0.4rem)' }}>
               <GlassTabs activeTab={activeTab} onTabChange={setActiveTab} />
             </div>
 
             {/* Tab Content - No scrolling, fit to available height */}
             <div 
               className="relative flex-1 px-2 overflow-hidden flex flex-col justify-between" 
-              style={{ paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)', paddingBottom: 'clamp(0.5rem, 0.8vh, 1rem)' }}
+              style={{ paddingTop: 'clamp(0.3rem, 0.5vh, 0.6rem)', paddingBottom: 'clamp(0.3rem, 0.5vh, 0.6rem)', minHeight: 0 }}
               onTouchStart={onTouchStart}
               onTouchMove={onTouchMove}
               onTouchEnd={onTouchEnd}
@@ -307,7 +307,7 @@ const HaartransplantatiePage = () => {
               </div>
 
               {/* Static Review Section - Always visible at bottom */}
-              <div className="flex-shrink-0 px-2" style={{ paddingBottom: 'clamp(3rem,4vh,4rem)' }}>
+              <div className="flex-shrink-0 px-2" style={{ paddingBottom: 'clamp(2rem,2.5vh,3rem)' }}>
                 <StaticReviewGlass />
               </div>
             </div>

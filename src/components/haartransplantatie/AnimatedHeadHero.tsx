@@ -18,9 +18,10 @@ export const AnimatedHeadHero = () => {
       style={{
         paddingLeft: 'clamp(0.75rem, 1vw, 1rem)',
         paddingRight: 'clamp(0.75rem, 1vw, 1rem)',
-        paddingTop: 'clamp(0.5rem, 1vh, 0.75rem)',
-        paddingBottom: 'clamp(0.5rem, 1vh, 1rem)',
+        paddingTop: 'clamp(0.3rem, 0.5vh, 0.5rem)',
+        paddingBottom: 'clamp(0.3rem, 0.5vh, 0.75rem)',
         animation: 'fade-up 0.8s ease-out 0.2s both',
+        maxHeight: '24vh',
       }}
     >
       {/* Primary CTA - Analyze my hair (Left Bottom) */}
@@ -68,17 +69,18 @@ export const AnimatedHeadHero = () => {
       <div 
         className="relative flex items-center justify-center head-glow"
         style={{
-          width: 'clamp(700px, 80vw, 1200px)',
-          minHeight: '30vh',
+          width: 'clamp(500px, 65vw, 1000px)',
+          maxHeight: '22vh',
           animation: 'fade-up 0.8s ease-out 0.3s both',
         }}
       >
         <img
           src="/assets/placeholder-head.png"
           alt="3D head model"
-          className="w-full h-auto object-contain"
+          className="w-full h-full object-contain"
           style={{
             filter: 'brightness(1.2) drop-shadow(0 0 40px rgba(255, 255, 255, 0.3))',
+            maxHeight: '22vh',
           }}
         />
       </div>
