@@ -51,7 +51,7 @@ export const AnimatedHeadHero = () => {
             fontWeight: '400',
           }}
         >
-          {language === 'nl' ? 'Analyseer mijn haar' : 'Analyze my hair'}
+          Analyze my hair
         </span>
         <div 
           className="silver-gradient-border cta-button-glow flex items-center justify-center rounded-full"

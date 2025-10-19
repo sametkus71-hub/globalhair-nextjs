@@ -26,7 +26,7 @@ export const StaticReviewGlass = () => {
               style={{
                 fontFamily: 'Inter, system-ui, sans-serif',
                 fontWeight: 300,
-                fontSize: 'clamp(10px, 1.3vh, 13px)',
+                fontSize: 'clamp(12px, 1.5vh, 15px)',
                 lineHeight: '160%',
                 letterSpacing: '-0.04em',
                 maxWidth: '205px',
