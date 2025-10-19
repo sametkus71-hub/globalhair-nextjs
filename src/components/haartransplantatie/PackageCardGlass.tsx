@@ -452,7 +452,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           border-radius: 50%;
           background: #7990A5;
           filter: blur(15px);
-          opacity: 0.6;
+          opacity: 1;
           pointer-events: none;
           z-index: -1;
         }
