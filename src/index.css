@@ -498,6 +498,27 @@ body.s-rood {
   }
   
   .animate-ultra-massive-sway {
+    animation: ultra-massive-sway 270s ease-in-out infinite;
+  }
+  
+  /* Directional slide animations for tab transitions */
+  .animate-slide-out-left {
+    animation: slide-out-left 0.2s ease-out forwards;
+  }
+  
+  .animate-slide-out-right {
+    animation: slide-out-right 0.2s ease-out forwards;
+  }
+  
+  .animate-slide-in-from-right {
+    animation: slide-in-from-right 0.3s ease-out forwards;
+  }
+  
+  .animate-slide-in-from-left {
+    animation: slide-in-from-left 0.3s ease-out forwards;
+  }
+  
+  .animate-ultra-massive-sway {
     animation: ultra-massive-sway 280s ease-in-out infinite;
   }
   
@@ -1618,5 +1639,50 @@ html, body {
   100% { 
     opacity: 1; 
     transform: translateY(0) scale(1); 
+  }
+}
+
+/* Directional slide animations for tab swipe transitions */
+@keyframes slide-out-left {
+  from { 
+    transform: translateX(0); 
+    opacity: 1; 
+  }
+  to { 
+    transform: translateX(-100%); 
+    opacity: 0; 
+  }
+}
+
+@keyframes slide-out-right {
+  from { 
+    transform: translateX(0); 
+    opacity: 1; 
+  }
+  to { 
+    transform: translateX(100%); 
+    opacity: 0; 
+  }
+}
+
+@keyframes slide-in-from-right {
+  from { 
+    transform: translateX(100%); 
+    opacity: 0; 
+  }
+  to { 
+    transform: translateX(0); 
+    opacity: 1; 
+  }
+}
+
+@keyframes slide-in-from-left {
+  from { 
+    transform: translateX(-100%); 
+    opacity: 0; 
+  }
+  to { 
+    transform: translateX(0); 
+    opacity: 1; 
   }
 }
