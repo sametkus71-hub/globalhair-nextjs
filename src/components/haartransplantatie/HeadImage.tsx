@@ -1,12 +1,12 @@
 export const HeadImage = () => {
   return (
     <div 
-      className="fixed head-glow z-20"
+      className="absolute head-glow z-0"
       style={{
         top: 'clamp(2rem, 3vh, 3rem)',
         right: 'clamp(0.5rem, 1vw, 1.5rem)',
         width: 'clamp(350px, 45vw, 600px)',
-        maxHeight: '20vh',
+        maxHeight: '25vh',
         animation: 'fade-in-scale 0.8s ease-out 0.3s both',
       }}
     >
@@ -16,7 +16,7 @@ export const HeadImage = () => {
         className="w-full h-full object-contain"
         style={{
           filter: 'brightness(1.2) drop-shadow(0 0 40px rgba(255, 255, 255, 0.3))',
-          maxHeight: '20vh',
+          maxHeight: '25vh',
         }}
       />
 
