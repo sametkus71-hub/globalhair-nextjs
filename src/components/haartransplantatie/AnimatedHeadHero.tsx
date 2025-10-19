@@ -23,7 +23,7 @@ export const AnimatedHeadHero = () => {
       {/* Primary CTA - Analyze my hair */}
       <button
         onClick={handleAnalyzeClick}
-        className="silver-grey-gradient-border cursor-pointer group z-10 relative rounded-full flex items-center gap-2 transition-all duration-300 overflow-hidden"
+        className="animated-border-shine cursor-pointer group z-10 relative rounded-full flex items-center gap-2 transition-all duration-300"
         style={{
           padding: 'clamp(0.25rem, 0.5vh, 0.4rem) clamp(0.35rem, 0.4vw, 0.5rem) clamp(0.25rem, 0.5vh, 0.4rem) clamp(1.8rem, 1.4vw, 1.6rem)',
           background: 'rgba(255, 255, 255, 0.08)',
@@ -74,30 +74,54 @@ export const AnimatedHeadHero = () => {
           }
         }
 
-        @keyframes button-shine {
+        @keyframes border-shine-rotate {
           0% {
-            transform: translateX(-100%) skewX(-15deg);
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
           }
           100% {
-            transform: translateX(200%) skewX(-15deg);
+            background-position: 0% 50%;
           }
         }
 
-        .silver-grey-gradient-border::after {
+        .animated-border-shine {
+          position: relative;
+        }
+
+        .animated-border-shine::before {
           content: "";
           position: absolute;
-          top: 0;
-          left: 0;
-          width: 40%;
-          height: 100%;
-          background: linear-gradient(90deg, 
-            transparent 0%, 
-            rgba(255, 255, 255, 0.15) 50%, 
-            transparent 100%
+          inset: 0;
+          padding: 1px;
+          border-radius: inherit;
+          background: linear-gradient(
+            90deg,
+            #949494 0%,
+            #838e94 10%,
+            #b5b5b5 20%,
+            #FFFFFF 30%,
+            #b5b5b5 40%,
+            #ACB9C1 50%,
+            #4e5964 60%,
+            #727272 70%,
+            #949494 80%,
+            #838e94 90%,
+            #b5b5b5 100%
           );
-          animation: button-shine 3s ease-in-out infinite;
+          background-size: 200% 100%;
+          animation: border-shine-rotate 4s linear infinite;
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
           pointer-events: none;
-          z-index: 2;
+          z-index: 0;
+        }
+
+        .animated-border-shine > * {
+          position: relative;
+          z-index: 3;
         }
 
         .silver-gradient-border {
@@ -123,29 +147,6 @@ export const AnimatedHeadHero = () => {
         .silver-gradient-border > * {
           position: relative;
           z-index: 1;
-        }
-
-        .silver-grey-gradient-border {
-          position: relative;
-        }
-
-        .silver-grey-gradient-border::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          padding: 1px;
-          border-radius: inherit;
-          background: linear-gradient(80deg, #949494 7%, #838e94 16%, #b5b5b5 34%, #ACB9C1 51%, #4e5964 78%, #727272 105%);
-          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-          -webkit-mask-composite: xor;
-          mask-composite: exclude;
-          pointer-events: none;
-          z-index: 0;
-        }
-
-        .silver-grey-gradient-border > * {
-          position: relative;
-          z-index: 3;
         }
 
         .cta-button-glow::after {
