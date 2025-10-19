@@ -26,7 +26,7 @@ export const AnimatedHeadHero = () => {
       {/* Primary CTA - Analyze my hair (Left Bottom) */}
       <button
         onClick={handleAnalyzeClick}
-        className="silver-gradient-border cursor-pointer group z-10 relative rounded-full flex items-center gap-2 transition-all duration-300"
+        className="silver-grey-gradient-border cursor-pointer group z-10 relative rounded-full flex items-center gap-2 transition-all duration-300"
         style={{
           padding: 'clamp(0.25rem, 0.5vh, 0.4rem) clamp(0.4rem, 0.5vw, 0.6rem) clamp(0.25rem, 0.5vh, 0.4rem) clamp(1.65rem, 1.2vw, 1.4rem)',
           background: 'rgba(255, 255, 255, 0.08)',
