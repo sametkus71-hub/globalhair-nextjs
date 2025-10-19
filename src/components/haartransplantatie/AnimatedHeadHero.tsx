@@ -43,7 +43,7 @@ export const AnimatedHeadHero = () => {
           className="text-white whitespace-nowrap"
           style={{ 
             fontFamily: 'Inter, system-ui, sans-serif',
-            fontSize: 'clamp(0.8125rem, 1.3vh, 0.9375rem)',
+            fontSize: 'clamp(0.875rem, 1.4vh, 1rem)',
             fontWeight: '300',
             paddingRight: '.75rem',
           }}
@@ -55,7 +55,7 @@ export const AnimatedHeadHero = () => {
           style={{
             width: 'clamp(35px, 5vh, 45px)',
             height: 'clamp(35px, 5vh, 45px)',
-            marginLeft: 'clamp(0.25rem, 0.4vw, 0.4rem)',
+            marginLeft: 'clamp(0.5rem, 0.7vw, 0.65rem)',
           }}
         >
           <img src="/assets/camera-icon.svg" alt="Camera" style={{ width: 'clamp(16px, 2vh, 20px)', height: 'clamp(14px, 1.8vh, 16px)' }} />
