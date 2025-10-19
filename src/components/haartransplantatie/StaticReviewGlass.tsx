@@ -11,9 +11,9 @@ export const StaticReviewGlass = () => {
       <div
         className="rounded-[24px] p-6 overflow-hidden"
         style={{
-          background: 'rgba(119, 125, 129, 0.12)',
-          backdropFilter: 'blur(8px)',
-          WebkitBackdropFilter: 'blur(8px)',
+          background: 'rgba(119, 125, 129, 0.11)',
+          backdropFilter: 'blur(6px)',
+          WebkitBackdropFilter: 'blur(6px)',
           boxShadow: '0 8px 30px rgba(0, 0, 0, 0.2)',
         }}
       >
@@ -35,10 +35,12 @@ export const StaticReviewGlass = () => {
 
             <button
               onClick={() => navigate(language === 'nl' ? '/nl/reviews' : '/en/reviews')}
-              className="silver-gradient-border px-12 py-2 rounded-full text-white text-[14px] font-normal transition-all duration-300"
+              className="silver-gradient-border rounded-full text-white text-[14px] transition-all duration-300"
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
                 fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+                fontWeight: 300,
+                padding: '.75rem 2.5rem',
                 backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
                 boxShadow: 'inset 0 1px 2px rgba(255, 255, 255, 0.15), 0 4px 12px rgba(0, 0, 0, 0.15)',
