@@ -25,8 +25,8 @@ export const FooterCTAGlass = () => {
             onClick={() => navigate(language === 'nl' ? '/nl/boek' : '/en/book')}
             className="gold-gradient-border cta-button-glow flex-1 flex items-center rounded-full transition-all duration-200"
             style={{
-              paddingTop: 'clamp(0.25rem, 0.4vh, 0.35rem)',
-              paddingBottom: 'clamp(0.25rem, 0.4vh, 0.35rem)',
+              paddingTop: 'clamp(0.5rem, 0.8vh, 0.65rem)',
+              paddingBottom: 'clamp(0.5rem, 0.8vh, 0.65rem)',
               paddingRight: 'clamp(0.25rem, 0.4vh, 0.35rem)',
               paddingLeft: 'clamp(0.75rem, 1.2vw, 1.25rem)',
               background: 'rgba(20, 30, 48, 0.6)',
