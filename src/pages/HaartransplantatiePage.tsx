@@ -145,7 +145,7 @@ const HaartransplantatiePage = () => {
       <MetaHead language={language} page="haartransplantatie" />
       
       {/* Relative wrapper for absolute positioning context */}
-      <div className="relative">
+      <div className="relative w-full min-h-screen">
         {/* Absolute Positioned Head Image - Top right of viewport */}
         <HeadImage />
         
