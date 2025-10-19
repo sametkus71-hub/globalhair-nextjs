@@ -42,10 +42,10 @@ export const AnimatedHeadHero = () => {
         <span 
           className="text-white whitespace-nowrap"
           style={{ 
-            fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+            fontFamily: 'Inter, system-ui, sans-serif',
             fontSize: 'clamp(0.8125rem, 1.3vh, 0.9375rem)',
-            fontWeight: '400',
-            paddingRight: '.5rem',
+            fontWeight: '300',
+            paddingRight: '.75rem',
           }}
         >
           Analyze my hair
@@ -55,6 +55,7 @@ export const AnimatedHeadHero = () => {
           style={{
             width: 'clamp(35px, 5vh, 45px)',
             height: 'clamp(35px, 5vh, 45px)',
+            marginLeft: 'clamp(0.25rem, 0.4vw, 0.4rem)',
           }}
         >
           <img src="/assets/camera-icon.svg" alt="Camera" style={{ width: 'clamp(16px, 2vh, 20px)', height: 'clamp(14px, 1.8vh, 16px)' }} />
