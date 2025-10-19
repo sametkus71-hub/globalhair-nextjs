@@ -57,6 +57,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             src={chevronRightIcon}
             alt=""
             className="w-4 h-4"
+            style={i % 2 === 1 ? { marginLeft: '-4px' } : undefined}
           />
         ))}
       </>
@@ -224,7 +225,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
               className="silver-gradient-border flex items-center"
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
-                padding: '.5rem',
+                padding: '.3rem',
                 borderRadius: '.4rem',
                 gap: '0.1rem',
               }}
@@ -282,7 +283,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
               className="silver-gradient-border flex items-center"
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
-                padding: '.5rem',
+                padding: '.3rem',
                 borderRadius: '.4rem',
                 gap: '0.1rem',
               }}
