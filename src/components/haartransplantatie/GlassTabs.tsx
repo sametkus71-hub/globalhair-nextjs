@@ -68,7 +68,7 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
                 paddingBottom: 'clamp(0.625rem, 1.2vh, 0.875rem)',
                 color: isActive ? 'white' : 'rgba(255, 255, 255, 0.5)',
                 fontFamily: 'Inter, system-ui, sans-serif',
-                fontWeight: isActive ? 400 : 300,
+                fontWeight: 300,
                 fontSize: 'clamp(11px, 1.3vh, 13px)',
                 letterSpacing: '0.01em',
               }}
@@ -85,8 +85,8 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
             bottom: '0px',
             height: '3px',
             background: 'white',
-            left: `${underlineStyle.left - 8}px`,
-            width: `${underlineStyle.width + 16}px`,
+            left: `${underlineStyle.left}px`,
+            width: `${underlineStyle.width + 12}px`,
           }}
         />
       </div>
