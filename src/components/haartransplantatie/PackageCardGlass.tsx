@@ -105,7 +105,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
               background: 'rgba(255, 255, 255, 0.08)',
               backdropFilter: 'blur(20px)',
               borderRadius: '9999px',
-              padding: '6px',
+              padding: '2px 0px',
             }}
           >
             <span className="seg seg--standard flex items-center justify-center px-4 py-1.5" style={{ position: 'relative' }}>
@@ -113,7 +113,8 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
                 className="seg-label text-xs font-medium"
                 style={{
                   color: 'white',
-                  fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+                  fontFamily: 'Inter',
+                  fontWeight: 300,
                 }}
               >
                 Standard
@@ -133,7 +134,8 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
                 className="seg-label text-xs font-medium"
                 style={{
                   color: 'white',
-                  fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+                  fontFamily: 'Inter',
+                  fontWeight: 300,
                 }}
               >
                 Premium
@@ -153,7 +155,8 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
                 className="seg-label text-xs font-medium"
                 style={{
                   color: 'white',
-                  fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+                  fontFamily: 'Inter',
+                  fontWeight: 300,
                 }}
               >
                 Advanced
