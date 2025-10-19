@@ -19,6 +19,54 @@ const HaartransplantatiePage = () => {
   const { language } = useLanguage();
   const location = useLocation();
   const [activeTab, setActiveTab] = useState('Packages');
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  
+  const tabs = ['Packages', 'Traject', 'Mission', 'Contact'];
+  const minSwipeDistance = 50;
+  
+  const getTabPath = (tab: string) => {
+    const path = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
+    const tabPaths: Record<string, string> = {
+      'Packages': path,
+      'Traject': `${path}/traject`,
+      'Mission': `${path}/mission`,
+      'Contact': `${path}/contact`,
+    };
+    return tabPaths[tab] || path;
+  };
+  
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    window.history.pushState({}, '', getTabPath(tab));
+  };
+  
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+  
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+  
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    const currentIndex = tabs.indexOf(activeTab);
+    
+    if (isLeftSwipe && currentIndex < tabs.length - 1) {
+      handleTabChange(tabs[currentIndex + 1]);
+    }
+    
+    if (isRightSwipe && currentIndex > 0) {
+      handleTabChange(tabs[currentIndex - 1]);
+    }
+  };
   
   // Determine active tab from URL
   useEffect(() => {
@@ -75,12 +123,35 @@ const HaartransplantatiePage = () => {
             </div>
 
             {/* Tab Content - No scrolling, fit to available height */}
-            <div className="relative flex-1 px-2 pb-[clamp(3rem,4vh,4rem)] overflow-hidden flex flex-col justify-between" style={{ paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)' }}>
+            <div 
+              className="relative flex-1 px-2 pb-[clamp(3rem,4vh,4rem)] overflow-hidden flex flex-col justify-between" 
+              style={{ paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)' }}
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
+            >
               {activeTab === 'Packages' && (
                 <div className="flex flex-col h-full justify-between">
                   {/* Package Cards */}
                   <div className="overflow-hidden flex-shrink-0">
                     <PackageCardGlass />
+                    
+                    {/* Pagination Dots */}
+                    <div className="flex items-center justify-center gap-2" style={{ marginTop: 'clamp(0.5rem, 1vh, 1rem)' }}>
+                      {tabs.map((tab) => (
+                        <button
+                          key={tab}
+                          onClick={() => handleTabChange(tab)}
+                          className="transition-all duration-300"
+                          style={{
+                            width: activeTab === tab ? '24px' : '6px',
+                            height: '6px',
+                            borderRadius: '3px',
+                            background: activeTab === tab ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.3)',
+                          }}
+                        />
+                      ))}
+                    </div>
                   </div>
 
                   {/* Review Section */}
@@ -90,9 +161,89 @@ const HaartransplantatiePage = () => {
                 </div>
               )}
 
-              {activeTab === 'Traject' && <PlaceholderContent type="Traject" />}
-              {activeTab === 'Mission' && <PlaceholderContent type="Mission" />}
-              {activeTab === 'Contact' && <PlaceholderContent type="Contact" />}
+              {activeTab === 'Traject' && (
+                <div className="flex flex-col h-full justify-between">
+                  <div className="overflow-hidden flex-shrink-0">
+                    <PlaceholderContent type="Traject" />
+                    
+                    {/* Pagination Dots */}
+                    <div className="flex items-center justify-center gap-2" style={{ marginTop: 'clamp(0.5rem, 1vh, 1rem)' }}>
+                      {tabs.map((tab) => (
+                        <button
+                          key={tab}
+                          onClick={() => handleTabChange(tab)}
+                          className="transition-all duration-300"
+                          style={{
+                            width: activeTab === tab ? '24px' : '6px',
+                            height: '6px',
+                            borderRadius: '3px',
+                            background: activeTab === tab ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.3)',
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex-shrink-0">
+                    <StaticReviewGlass />
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'Mission' && (
+                <div className="flex flex-col h-full justify-between">
+                  <div className="overflow-hidden flex-shrink-0">
+                    <PlaceholderContent type="Mission" />
+                    
+                    {/* Pagination Dots */}
+                    <div className="flex items-center justify-center gap-2" style={{ marginTop: 'clamp(0.5rem, 1vh, 1rem)' }}>
+                      {tabs.map((tab) => (
+                        <button
+                          key={tab}
+                          onClick={() => handleTabChange(tab)}
+                          className="transition-all duration-300"
+                          style={{
+                            width: activeTab === tab ? '24px' : '6px',
+                            height: '6px',
+                            borderRadius: '3px',
+                            background: activeTab === tab ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.3)',
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex-shrink-0">
+                    <StaticReviewGlass />
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'Contact' && (
+                <div className="flex flex-col h-full justify-between">
+                  <div className="overflow-hidden flex-shrink-0">
+                    <PlaceholderContent type="Contact" />
+                    
+                    {/* Pagination Dots */}
+                    <div className="flex items-center justify-center gap-2" style={{ marginTop: 'clamp(0.5rem, 1vh, 1rem)' }}>
+                      {tabs.map((tab) => (
+                        <button
+                          key={tab}
+                          onClick={() => handleTabChange(tab)}
+                          className="transition-all duration-300"
+                          style={{
+                            width: activeTab === tab ? '24px' : '6px',
+                            height: '6px',
+                            borderRadius: '3px',
+                            background: activeTab === tab ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.3)',
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex-shrink-0">
+                    <StaticReviewGlass />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
