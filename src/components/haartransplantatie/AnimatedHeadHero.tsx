@@ -58,7 +58,7 @@ export const AnimatedHeadHero = () => {
             marginLeft: 'clamp(0.5rem, 0.7vw, 0.65rem)',
           }}
         >
-          <img src="/assets/camera-icon.svg" alt="Camera" style={{ width: 'clamp(16px, 2vh, 20px)', height: 'clamp(14px, 1.8vh, 16px)' }} />
+          <img src="/assets/camera-icon.svg" alt="Camera" style={{ width: 'clamp(18px, 2.3vh, 23px)', height: 'clamp(16px, 2.1vh, 19px)' }} />
         </div>
       </button>
 
