@@ -75,7 +75,7 @@ export const AnimatedHeadHero = () => {
         <img
           src="/assets/placeholder-head.png"
           alt="3D head model"
-          className="w-full h-full object-contain"
+          className="w-full h-auto object-contain"
           style={{
             filter: 'brightness(1.2) drop-shadow(0 0 40px rgba(255, 255, 255, 0.3))',
           }}
