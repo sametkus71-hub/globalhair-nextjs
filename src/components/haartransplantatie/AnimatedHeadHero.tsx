@@ -107,6 +107,16 @@ export const AnimatedHeadHero = () => {
           mask-composite: exclude;
           pointer-events: none;
           z-index: 0;
+          animation: rotate-gradient 8s linear infinite;
+        }
+
+        @keyframes rotate-gradient {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
         }
 
         .silver-gradient-border > * {
