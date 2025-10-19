@@ -76,99 +76,105 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         marginRight: '.1rem',
       }}
     >
-      {/* Packages container with shared grid alignment */}
-      <div className="packages-container pt-4 px-4">
+      {/* Shared 5-track grid for pill and content */}
+      <div
+        className="pkg-grid pt-4 px-4"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr auto 1fr auto 1fr',
+          alignItems: 'start',
+        }}
+      >
+        {/* Pill outer spans full width */}
         <div
-          className="tier-pill silver-gradient-border"
-          role="group"
-          aria-label="Packages"
+          className="pill-outer"
           style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1px 1fr 1px 1fr',
-            alignItems: 'center',
-            gap: 0,
-            background: 'rgba(255, 255, 255, 0.08)',
-            backdropFilter: 'blur(20px)',
-            borderRadius: '9999px',
-            padding: '6px',
+            gridColumn: '1 / -1',
             marginBottom: '16px',
           }}
         >
-          <span className="seg seg--standard flex items-center justify-center px-4 py-1.5">
-            <span
-              className="seg-label text-xs font-medium"
-              style={{
-                color: 'white',
-                fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-              }}
-            >
-              Standard
-            </span>
-          </span>
-          <span
-            className="divider"
-            aria-hidden="true"
+          {/* Pill inner aligns to the same 5 tracks */}
+          <div
+            className="pill-inner silver-gradient-border"
+            role="group"
+            aria-label="Packages"
             style={{
-              width: '1px',
-              height: '60%',
-              background: 'linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.35), transparent)',
+              display: 'grid',
+              gridTemplateColumns: '1fr auto 1fr auto 1fr',
+              alignItems: 'center',
+              background: 'rgba(255, 255, 255, 0.08)',
+              backdropFilter: 'blur(20px)',
+              borderRadius: '9999px',
+              padding: '6px',
             }}
-          ></span>
-          <span className="seg seg--premium flex items-center justify-center px-4 py-1.5">
-            <span
-              className="seg-label text-xs font-medium"
-              style={{
-                color: 'white',
-                fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-              }}
-            >
-              Premium
-            </span>
-          </span>
-          <span
-            className="divider"
-            aria-hidden="true"
-            style={{
-              width: '1px',
-              height: '60%',
-              background: 'linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.35), transparent)',
-            }}
-          ></span>
-          <span className="seg seg--advanced flex items-center justify-center px-4 py-1.5">
-            <span
-              className="seg-label text-xs font-medium"
-              style={{
-                color: 'white',
-                fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-              }}
-            >
-              Advanced
+          >
+            <span className="seg seg--standard flex items-center justify-center px-4 py-1.5">
+              <span
+                className="seg-label text-xs font-medium"
+                style={{
+                  color: 'white',
+                  fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+                }}
+              >
+                Standard
+              </span>
             </span>
             <span
-              className="badge-new ml-2 text-[8px] px-1.5 py-0.5 rounded-full"
+              className="pill-divider"
+              aria-hidden="true"
               style={{
-                background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
-                color: 'white',
-                fontWeight: 600,
-                boxShadow: '0 2px 8px rgba(59, 130, 246, 0.4)',
+                width: '1px',
+                height: '60%',
+                background: 'linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.35), transparent)',
               }}
-            >
-              New
+            ></span>
+            <span className="seg seg--premium flex items-center justify-center px-4 py-1.5">
+              <span
+                className="seg-label text-xs font-medium"
+                style={{
+                  color: 'white',
+                  fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+                }}
+              >
+                Premium
+              </span>
             </span>
-          </span>
+            <span
+              className="pill-divider"
+              aria-hidden="true"
+              style={{
+                width: '1px',
+                height: '60%',
+                background: 'linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.35), transparent)',
+              }}
+            ></span>
+            <span className="seg seg--advanced flex items-center justify-center px-4 py-1.5">
+              <span
+                className="seg-label text-xs font-medium"
+                style={{
+                  color: 'white',
+                  fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+                }}
+              >
+                Advanced
+              </span>
+              <span
+                className="badge-new ml-2 text-[8px] px-1.5 py-0.5 rounded-full"
+                style={{
+                  background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
+                  color: 'white',
+                  fontWeight: 600,
+                  boxShadow: '0 2px 8px rgba(59, 130, 246, 0.4)',
+                }}
+              >
+                New
+              </span>
+            </span>
+          </div>
         </div>
 
-        {/* Three columns with vertical dividers */}
-        <div
-          className="packages-grid"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1px 1fr 1px 1fr',
-            alignItems: 'start',
-          }}
-        >
         {/* Standard Column */}
-        <div className="pkg-col pkg-col--standard">
+        <div className="col col--standard">
           {/* Chip row */}
           <div
             className="chiprow flex justify-center mb-3"
@@ -217,7 +223,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         />
 
         {/* Premium Column */}
-        <div className="pkg-col pkg-col--premium">
+        <div className="col col--premium">
           {/* Chip row */}
           <div
             className="chiprow flex justify-center mb-3"
@@ -275,7 +281,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         />
 
         {/* Advanced Column */}
-        <div className="pkg-col pkg-col--advanced">
+        <div className="col col--advanced">
           {/* Chip row */}
           <div
             className="chiprow flex justify-center mb-3"
@@ -326,7 +332,6 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             </p>
           </div>
         </div>
-      </div>
       </div>
 
       {/* Read more button - outside the grid, spans full width */}
