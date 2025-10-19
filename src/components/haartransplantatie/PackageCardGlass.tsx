@@ -108,7 +108,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
               padding: '6px',
             }}
           >
-            <span className="seg seg--standard flex items-center justify-center px-4 py-1.5">
+            <span className="seg seg--standard flex items-center justify-center px-4 py-1.5" style={{ position: 'relative' }}>
               <span
                 className="seg-label text-xs font-medium"
                 style={{
@@ -128,7 +128,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
                 background: 'linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.35), transparent)',
               }}
             ></span>
-            <span className="seg seg--premium flex items-center justify-center px-4 py-1.5">
+            <span className="seg seg--premium flex items-center justify-center px-4 py-1.5" style={{ position: 'relative' }}>
               <span
                 className="seg-label text-xs font-medium"
                 style={{
@@ -148,7 +148,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
                 background: 'linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.35), transparent)',
               }}
             ></span>
-            <span className="seg seg--advanced flex items-center justify-center px-4 py-1.5">
+            <span className="seg seg--advanced flex items-center justify-center py-1.5" style={{ position: 'relative', paddingLeft: '16px', paddingRight: '48px' }}>
               <span
                 className="seg-label text-xs font-medium"
                 style={{
@@ -159,12 +159,17 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
                 Advanced
               </span>
               <span
-                className="badge-new ml-2 text-[8px] px-1.5 py-0.5 rounded-full"
+                className="badge-new text-[8px] px-1.5 py-0.5 rounded-full"
                 style={{
+                  position: 'absolute',
+                  right: '12px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
                   background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
                   color: 'white',
                   fontWeight: 600,
                   boxShadow: '0 2px 8px rgba(59, 130, 246, 0.4)',
+                  pointerEvents: 'none',
                 }}
               >
                 New
