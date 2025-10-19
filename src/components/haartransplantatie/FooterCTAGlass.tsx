@@ -11,11 +11,9 @@ export const FooterCTAGlass = () => {
   return (
     <>
       <div
-        className="fixed bottom-0 left-0 right-0 z-40"
+        className="fixed bottom-0 left-0 right-0 z-40 px-3 pb-4"
         style={{
-          paddingLeft: 'clamp(0.5rem, 1vw, 0.75rem)',
-          paddingRight: 'clamp(0.5rem, 1vw, 0.75rem)',
-          paddingBottom: 'clamp(calc(env(safe-area-inset-bottom) + 0.5rem), calc(env(safe-area-inset-bottom) + 1vh), calc(env(safe-area-inset-bottom) + 1rem))',
+          paddingBottom: 'calc(env(safe-area-inset-bottom) + 1rem)',
           animation: 'fade-up 0.6s ease-out 1.4s both',
         }}
       >
@@ -25,10 +23,10 @@ export const FooterCTAGlass = () => {
             onClick={() => navigate(language === 'nl' ? '/nl/boek' : '/en/book')}
             className="gold-gradient-border cta-button-glow flex-1 flex items-center rounded-full transition-all duration-200"
             style={{
-              paddingTop: 'clamp(0.25rem, 0.4vh, 0.35rem)',
-              paddingBottom: 'clamp(0.25rem, 0.4vh, 0.35rem)',
-              paddingRight: 'clamp(0.25rem, 0.4vh, 0.35rem)',
-              paddingLeft: 'clamp(0.75rem, 1.2vw, 1.25rem)',
+              paddingTop: '0.35rem',
+              paddingBottom: '0.35rem',
+              paddingRight: '0.35rem',
+              paddingLeft: '1.25rem',
               background: 'rgba(20, 30, 48, 0.6)',
               backdropFilter: 'blur(20px)',
               boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1)',
@@ -53,7 +51,7 @@ export const FooterCTAGlass = () => {
               style={{ 
                 fontFamily: 'Inter, system-ui, sans-serif',
                 fontWeight: 300,
-                fontSize: 'clamp(12px, 1.5vh, 15px)',
+                fontSize: '15px',
                 letterSpacing: '0.01em',
                 flex: 1,
                 textAlign: 'center',
@@ -73,15 +71,13 @@ export const FooterCTAGlass = () => {
               }}
             >
               <div
-                className="silver-gradient-border rounded-full flex items-center justify-center"
+                className="silver-gradient-border w-10 h-10 rounded-full flex items-center justify-center"
                 style={{
-                  width: 'clamp(35px, 4vh, 40px)',
-                  height: 'clamp(35px, 4vh, 40px)',
                   background: 'rgba(255, 255, 255, 0.10)',
                   border: '1px solid rgba(255, 255, 255, 0.20)',
                 }}
               >
-                <ArrowUpRight style={{ width: 'clamp(18px, 2vh, 20px)', height: 'clamp(18px, 2vh, 20px)' }} className="text-white" strokeWidth={2.5} />
+                <ArrowUpRight className="w-5 h-5 text-white" strokeWidth={2.5} />
               </div>
             </span>
           </button>
@@ -89,10 +85,8 @@ export const FooterCTAGlass = () => {
           {/* Chat button */}
           <button
             onClick={() => setShowChat(true)}
-            className="silver-gradient-border rounded-full flex items-center justify-center transition-all duration-200"
+            className="silver-gradient-border w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200"
             style={{
-              width: 'clamp(42px, 5vh, 48px)',
-              height: 'clamp(42px, 5vh, 48px)',
               background: 'rgba(255, 255, 255, 0.12)',
               backdropFilter: 'blur(20px)',
               boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
@@ -106,7 +100,7 @@ export const FooterCTAGlass = () => {
               e.currentTarget.style.transform = 'scale(1)';
             }}
           >
-            <MessageCircle style={{ width: 'clamp(18px, 2vh, 20px)', height: 'clamp(18px, 2vh, 20px)' }} className="text-white" strokeWidth={1.5} />
+            <MessageCircle className="w-5 h-5 text-white" strokeWidth={1.5} />
           </button>
         </div>
       </div>

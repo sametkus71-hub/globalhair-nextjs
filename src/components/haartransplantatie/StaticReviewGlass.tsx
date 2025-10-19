@@ -7,11 +7,10 @@ export const StaticReviewGlass = () => {
   const { language } = useLanguage();
 
   return (
-    <div style={{ paddingBottom: 'clamp(0.5rem, 1vh, 1.5rem)' }}>
+    <div className="pb-6">
       <div
-        className="rounded-[24px] overflow-hidden"
+        className="rounded-[24px] p-6 overflow-hidden"
         style={{
-          padding: 'clamp(0.75rem, 1.5vh, 1.5rem)',
           background: 'rgba(119, 125, 129, 0.11)',
           backdropFilter: 'blur(6px)',
           WebkitBackdropFilter: 'blur(6px)',
@@ -22,15 +21,13 @@ export const StaticReviewGlass = () => {
           {/* Left: Quote + Button */}
           <div className="flex-1 min-w-0 flex flex-col items-center">
             <p
-              className="text-white text-center"
+              className="text-white text-[13px] text-center mb-4"
               style={{
                 fontFamily: 'Inter, system-ui, sans-serif',
                 fontWeight: 300,
-                fontSize: 'clamp(10px, 1.3vh, 13px)',
                 lineHeight: '160%',
                 letterSpacing: '-0.04em',
                 maxWidth: '205px',
-                marginBottom: 'clamp(0.5rem, 1vh, 1rem)',
               }}
             >
               "Amazing experience. My hair has never looked better"
@@ -38,13 +35,12 @@ export const StaticReviewGlass = () => {
 
             <button
               onClick={() => navigate(language === 'nl' ? '/nl/reviews' : '/en/reviews')}
-              className="silver-gradient-border rounded-full text-white transition-all duration-300"
+              className="silver-gradient-border rounded-full text-white text-[14px] transition-all duration-300"
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
                 fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
                 fontWeight: 300,
-                fontSize: 'clamp(11px, 1.4vh, 14px)',
-                padding: 'clamp(0.4rem, 0.8vh, 0.75rem) clamp(1.5rem, 2.5vw, 2.5rem)',
+                padding: '.75rem 2.5rem',
                 backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
                 boxShadow: 'inset 0 1px 2px rgba(255, 255, 255, 0.15), 0 4px 12px rgba(0, 0, 0, 0.15)',
@@ -65,10 +61,8 @@ export const StaticReviewGlass = () => {
           {/* Right: Before/After Image */}
           <div className="flex-shrink-0">
             <div
-              className="rounded-[20px] overflow-hidden"
+              className="w-[130px] h-[130px] rounded-[20px] overflow-hidden"
               style={{
-                width: 'clamp(90px, 13vh, 130px)',
-                height: 'clamp(90px, 13vh, 130px)',
                 border: '1px solid rgba(255, 255, 255, 0.15)',
                 boxShadow: '0 6px 20px rgba(0, 0, 0, 0.25)',
               }}

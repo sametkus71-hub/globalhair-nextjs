@@ -14,12 +14,8 @@ export const AnimatedHeadHero = () => {
 
   return (
     <div 
-      className="relative flex items-end justify-between gap-4"
+      className="relative flex items-end justify-between px-4 pt-3 pb-4 gap-4"
       style={{
-        paddingLeft: 'clamp(0.75rem, 1vw, 1rem)',
-        paddingRight: 'clamp(0.75rem, 1vw, 1rem)',
-        paddingTop: 'clamp(0.5rem, 1vh, 0.75rem)',
-        paddingBottom: 'clamp(0.5rem, 1vh, 1rem)',
         animation: 'fade-up 0.8s ease-out 0.2s both',
       }}
     >
@@ -28,10 +24,10 @@ export const AnimatedHeadHero = () => {
         onClick={handleAnalyzeClick}
         className="silver-gradient-border cursor-pointer group z-10 relative rounded-full flex items-center gap-2 transition-all duration-300"
         style={{
-          paddingTop: 'clamp(0.25rem, 0.5vh, 0.4rem)',
-          paddingBottom: 'clamp(0.25rem, 0.5vh, 0.4rem)',
-          paddingLeft: 'clamp(0.75rem, 1.2vw, 1.4rem)',
-          paddingRight: 'clamp(0.4rem, 0.5vw, 0.6rem)',
+          paddingTop: '0.4rem',
+          paddingBottom: '0.4rem',
+          paddingLeft: '1.4rem',
+          paddingRight: '0.6rem',
           background: 'rgba(255, 255, 255, 0.08)',
           backdropFilter: 'blur(10px)',
           boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
@@ -47,22 +43,19 @@ export const AnimatedHeadHero = () => {
         }}
       >
         <span 
-          className="text-white font-semibold whitespace-nowrap"
-          style={{ 
-            fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-            fontSize: 'clamp(0.75rem, 1.2vh, 0.875rem)',
-          }}
+          className="text-white font-semibold text-sm whitespace-nowrap"
+          style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
         >
           {language === 'nl' ? 'Analyseer mijn haar' : 'Analyze my hair'}
         </span>
         <div 
           className="silver-gradient-border cta-button-glow flex items-center justify-center rounded-full"
           style={{
-            width: 'clamp(35px, 5vh, 45px)',
-            height: 'clamp(35px, 5vh, 45px)',
+            width: '45px',
+            height: '45px',
           }}
         >
-          <img src="/assets/camera-icon.svg" alt="Camera" style={{ width: 'clamp(16px, 2vh, 20px)', height: 'clamp(14px, 1.8vh, 16px)' }} />
+          <img src="/assets/camera-icon.svg" alt="Camera" className="w-5 h-4" />
         </div>
       </button>
 
@@ -70,7 +63,7 @@ export const AnimatedHeadHero = () => {
       <div 
         className="relative flex items-center justify-center"
         style={{
-          width: 'clamp(250px, 35vw, 400px)',
+          width: '400px',
           animation: 'fade-up 0.8s ease-out 0.3s both',
         }}
       >
