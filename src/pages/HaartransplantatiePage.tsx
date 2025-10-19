@@ -144,11 +144,13 @@ const HaartransplantatiePage = () => {
     <>
       <MetaHead language={language} page="haartransplantatie" />
       
-      {/* Absolute Positioned Head Image - Outside container for full viewport positioning */}
-      <HeadImage />
-      
-      <DesktopContainer>
-        <PageTransition isNewPage={true}>
+      {/* Relative wrapper for absolute positioning context */}
+      <div className="relative">
+        {/* Absolute Positioned Head Image - Top right of viewport */}
+        <HeadImage />
+        
+        <DesktopContainer>
+          <PageTransition isNewPage={true}>
           {/* Glassmorphic Background */}
           <GlassBackground />
           
@@ -325,6 +327,7 @@ const HaartransplantatiePage = () => {
           <FooterCTAGlass />
         </PageTransition>
       </DesktopContainer>
+      </div>
     </>
   );
 };
