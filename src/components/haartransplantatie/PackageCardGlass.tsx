@@ -1,5 +1,6 @@
-import { ChevronRight, Leaf } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
+import chevronRightIcon from '@/assets/chevron-right.svg';
+import leafIcon from '@/assets/leaf.svg';
 
 interface PackageCardGlassProps {
   className?: string;
@@ -36,14 +37,11 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
     return (
       <>
         {[...Array(count)].map((_, i) => (
-          <Leaf
+          <img
             key={i}
+            src={leafIcon}
+            alt=""
             className="w-4 h-4"
-            strokeWidth={1.5}
-            style={{
-              color: 'rgba(74, 222, 128, 1)',
-              fill: 'rgba(74, 222, 128, 0.3)',
-            }}
           />
         ))}
       </>
@@ -54,13 +52,11 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
     return (
       <>
         {[...Array(count)].map((_, i) => (
-          <ChevronRight
+          <img
             key={i}
+            src={chevronRightIcon}
+            alt=""
             className="w-4 h-4"
-            strokeWidth={2}
-            style={{
-              color: 'rgba(96, 165, 250, 1)',
-            }}
           />
         ))}
       </>
@@ -221,7 +217,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             className="chiprow flex justify-center gap-2 mb-3"
           >
             <div
-              className="silver-gradient-border flex items-center gap-1.5"
+              className="silver-gradient-border flex items-center"
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
                 padding: '.5rem',
