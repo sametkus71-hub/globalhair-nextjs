@@ -68,7 +68,7 @@ export const AnimatedHeadHero = () => {
       <div 
         className="relative flex items-center justify-center head-glow"
         style={{
-          width: 'clamp(350px, 45vw, 550px)',
+          width: 'clamp(500px, 60vw, 800px)',
           animation: 'fade-up 0.8s ease-out 0.3s both',
         }}
       >
