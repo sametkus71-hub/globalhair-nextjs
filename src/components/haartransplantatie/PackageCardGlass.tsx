@@ -338,10 +338,12 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
       <div
         className="packages-readmore"
         style={{
-          borderTop: '1px solid rgba(255, 255, 255, 0.15)',
-          paddingTop: '15px',
+          marginTop: '10px',
+          paddingTop: '5px',
           paddingBottom: '15px',
           textAlign: 'center',
+          borderTop: '1px solid transparent',
+          borderImage: 'linear-gradient(90deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.3)) 1',
         }}
       >
         <a
@@ -349,9 +351,9 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           className="readmore-link"
           style={{
             color: 'white',
-            fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-            fontWeight: 600,
-            fontSize: '14px',
+            fontFamily: 'Inter',
+            fontWeight: 400,
+            fontSize: '13px',
             textDecoration: 'underline',
             textUnderlineOffset: '3px',
             transition: 'opacity 0.2s ease',
