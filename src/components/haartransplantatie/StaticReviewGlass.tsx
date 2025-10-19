@@ -111,6 +111,29 @@ const silverGradientBorderStyles = `
     position: relative;
     z-index: 1;
   }
+
+  .silver-grey-gradient-border {
+    position: relative;
+  }
+
+  .silver-grey-gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(80deg, #949494 7%, #838e94 16%, #b5b5b5 34%, #ACB9C1 51%, #4e5964 78%, #727272 105%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .silver-grey-gradient-border > * {
+    position: relative;
+    z-index: 1;
+  }
 `;
 
 // Inject styles
