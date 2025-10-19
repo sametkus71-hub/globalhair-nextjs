@@ -307,7 +307,7 @@ const HaartransplantatiePage = () => {
               </div>
 
               {/* Static Review Section - Always visible at bottom */}
-              <div className="flex-shrink-0 px-2" style={{ paddingTop: 'clamp(2.5rem, 5vh, 4rem)', paddingBottom: 'clamp(3rem,4vh,4rem)' }}>
+              <div className="flex-shrink-0 px-2" style={{ paddingBottom: 'clamp(3rem,4vh,4rem)' }}>
                 <StaticReviewGlass />
               </div>
             </div>
