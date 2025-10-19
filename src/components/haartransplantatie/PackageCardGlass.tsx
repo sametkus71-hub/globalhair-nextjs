@@ -193,7 +193,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
 
   return (
     <div className={className}>
-      <div className="flex gap-4 mx-2 mt-2">{packages.map(renderPackageCard)}</div>
+      <div className="grid grid-cols-3 gap-4 mx-2 mt-2">{packages.map(renderPackageCard)}</div>
 
       <style>{`
         @keyframes slide-fade-in {
