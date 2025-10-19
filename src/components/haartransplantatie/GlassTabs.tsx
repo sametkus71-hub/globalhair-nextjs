@@ -55,7 +55,7 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
         animation: 'fade-in 0.6s ease-out 0.6s both',
       }}
     >
-      <div className="flex items-center gap-6 px-4 relative">
+      <div className="flex items-center gap-10 px-4 relative">
         {tabs.map((tab, index) => {
           const isActive = activeTab === tab;
           return (
@@ -65,11 +65,11 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
               onClick={() => handleTabClick(tab)}
               className="relative transition-all duration-300 z-10"
               style={{
-                paddingBottom: 'clamp(0.5rem, 1vh, 0.75rem)',
+                paddingBottom: 'clamp(0.625rem, 1.2vh, 0.875rem)',
                 color: isActive ? 'white' : 'rgba(255, 255, 255, 0.5)',
                 fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-                fontWeight: isActive ? 600 : 400,
-                fontSize: 'clamp(10px, 1.2vh, 12px)',
+                fontWeight: isActive ? 500 : 400,
+                fontSize: 'clamp(13px, 1.6vh, 16px)',
                 letterSpacing: '0.01em',
               }}
             >
@@ -85,8 +85,8 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
             bottom: '0px',
             height: '3px',
             background: 'white',
-            left: `${underlineStyle.left}px`,
-            width: `${underlineStyle.width}px`,
+            left: `${underlineStyle.left - 8}px`,
+            width: `${underlineStyle.width + 16}px`,
           }}
         />
       </div>
