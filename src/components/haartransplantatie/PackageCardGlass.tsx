@@ -191,12 +191,12 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           </div>
 
           {/* Title */}
-          <h3
-            className="pkg-title text-white text-center text-base font-semibold mb-2"
-            style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
+          <p
+            className="pkg-title text-white text-center mb-2"
+            style={{ fontFamily: 'Inter, system-ui, sans-serif', fontWeight: 300, fontSize: '10px' }}
           >
             FUE Saffier
-          </h3>
+          </p>
 
           {/* Lines */}
           <ul className="pkg-lines text-center text-xs space-y-1" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>
@@ -240,12 +240,12 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           </div>
 
           {/* Title */}
-          <h3
-            className="pkg-title text-white text-center text-base font-semibold mb-2"
-            style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
+          <p
+            className="pkg-title text-white text-center mb-2"
+            style={{ fontFamily: 'Inter, system-ui, sans-serif', fontWeight: 300, fontSize: '10px' }}
           >
             FUE Saffier / DHI
-          </h3>
+          </p>
 
           {/* Lines */}
           <ul className="pkg-lines text-center text-xs space-y-1" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>
@@ -290,12 +290,12 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           </div>
 
           {/* Title */}
-          <h3
-            className="pkg-title text-white text-center text-base font-semibold mb-2"
-            style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
+          <p
+            className="pkg-title text-white text-center mb-2"
+            style={{ fontFamily: 'Inter, system-ui, sans-serif', fontWeight: 300, fontSize: '10px' }}
           >
             FUE Saffier / DHI
-          </h3>
+          </p>
 
           {/* Lines */}
           <ul className="pkg-lines text-center text-xs space-y-1" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>
