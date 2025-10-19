@@ -197,11 +197,6 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           >
             FUE Saffier
           </p>
-
-          {/* Lines */}
-          <ul className="pkg-lines text-center text-xs space-y-1" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>
-            <li>FUE Saffier</li>
-          </ul>
         </div>
 
         {/* Vertical Separator 1 */}
@@ -248,10 +243,12 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           </p>
 
           {/* Lines */}
-          <ul className="pkg-lines text-center text-xs space-y-1" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>
-            <li>FUE Saffier / DHI</li>
-            <li>V6 Hairboost®</li>
-          </ul>
+          <p
+            className="text-center"
+            style={{ fontFamily: 'Inter, system-ui, sans-serif', fontWeight: 300, fontSize: '10px', color: 'rgba(255, 255, 255, 0.85)' }}
+          >
+            V6 Hairboost®
+          </p>
         </div>
 
         {/* Vertical Separator 2 */}
@@ -298,10 +295,18 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           </p>
 
           {/* Lines */}
-          <ul className="pkg-lines text-center text-xs space-y-1" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>
-            <li>V6 Hairboost®</li>
-            <li>GHI Stemcell repair™</li>
-          </ul>
+          <div className="text-center space-y-1">
+            <p
+              style={{ fontFamily: 'Inter, system-ui, sans-serif', fontWeight: 300, fontSize: '10px', color: 'rgba(255, 255, 255, 0.85)' }}
+            >
+              V6 Hairboost®
+            </p>
+            <p
+              style={{ fontFamily: 'Inter, system-ui, sans-serif', fontWeight: 300, fontSize: '10px', color: 'rgba(255, 255, 255, 0.85)' }}
+            >
+              GHI Stemcell repair™
+            </p>
+          </div>
         </div>
       </div>
 
