@@ -56,6 +56,10 @@ export const SEORoutes = () => {
       
       {/* English routes */}
       <Route path="/en" element={<HaartransplantatiePage />} />
+      <Route path="/en/haartransplantatie" element={<HaartransplantatiePage />} />
+      <Route path="/en/haartransplantatie/traject" element={<HaartransplantatiePage />} />
+      <Route path="/en/haartransplantatie/mission" element={<HaartransplantatiePage />} />
+      <Route path="/en/haartransplantatie/contact" element={<HaartransplantatiePage />} />
       <Route path="/en/hair-transplant" element={<HaartransplantatiePage />} />
       <Route path="/en/hair-transplant/traject" element={<HaartransplantatiePage />} />
       <Route path="/en/hair-transplant/mission" element={<HaartransplantatiePage />} />
