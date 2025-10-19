@@ -14,16 +14,13 @@ export const AnimatedHeadHero = () => {
 
   return (
     <div 
-      className="relative flex items-end justify-between gap-4"
+      className="relative flex items-start"
       style={{
         paddingLeft: 'clamp(0.75rem, 1vw, 1rem)',
-        paddingRight: 'clamp(0.75rem, 1vw, 1rem)',
-        paddingTop: 'clamp(0.5rem, 1vh, 0.75rem)',
-        paddingBottom: 'clamp(0.5rem, 1vh, 1rem)',
-        animation: 'fade-up 0.8s ease-out 0.2s both',
+        animation: 'fade-up 0.8s ease-out 0.4s both',
       }}
     >
-      {/* Primary CTA - Analyze my hair (Left Bottom) */}
+      {/* Primary CTA - Analyze my hair */}
       <button
         onClick={handleAnalyzeClick}
         className="silver-grey-gradient-border cursor-pointer group z-10 relative rounded-full flex items-center gap-2 transition-all duration-300"
@@ -32,7 +29,6 @@ export const AnimatedHeadHero = () => {
           background: 'rgba(255, 255, 255, 0.08)',
           backdropFilter: 'blur(10px)',
           boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
-          animation: 'fade-up 0.8s ease-out 0.4s both',
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = 'scale(1.05)';
@@ -64,25 +60,6 @@ export const AnimatedHeadHero = () => {
           <img src="/assets/camera-icon.svg" alt="Camera" style={{ width: 'clamp(16px, 2vh, 20px)', height: 'clamp(14px, 1.8vh, 16px)' }} />
         </div>
       </button>
-
-      {/* 3D Head Image (Right) */}
-      <div 
-        className="relative flex items-center justify-center head-glow"
-        style={{
-          width: 'clamp(700px, 80vw, 1200px)',
-          minHeight: '30vh',
-          animation: 'fade-up 0.8s ease-out 0.3s both',
-        }}
-      >
-        <img
-          src="/assets/placeholder-head.png"
-          alt="3D head model"
-          className="w-full h-auto object-contain"
-          style={{
-            filter: 'brightness(1.2) drop-shadow(0 0 40px rgba(255, 255, 255, 0.3))',
-          }}
-        />
-      </div>
 
       <style>{`
         @keyframes fade-up {
@@ -157,22 +134,6 @@ export const AnimatedHeadHero = () => {
           filter: blur(20px);
           opacity: 1;
           z-index: 1;
-          pointer-events: none;
-        }
-
-        .head-glow::after {
-          content: "";
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 70%;
-          height: 70%;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.4);
-          filter: blur(40px);
-          opacity: 1;
-          z-index: -1;
           pointer-events: none;
         }
       `}</style>

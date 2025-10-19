@@ -6,6 +6,7 @@ import { PageTransition } from '@/components/PageTransition';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
 import { GlassBackground } from '@/components/haartransplantatie/GlassBackground';
 import { GlassHeader } from '@/components/haartransplantatie/GlassHeader';
+import { HeadImage } from '@/components/haartransplantatie/HeadImage';
 import { AnimatedHeadHero } from '@/components/haartransplantatie/AnimatedHeadHero';
 import { GlassTabs } from '@/components/haartransplantatie/GlassTabs';
 import { PackageCardGlass } from '@/components/haartransplantatie/PackageCardGlass';
@@ -150,26 +151,31 @@ const HaartransplantatiePage = () => {
           {/* Glass Header */}
           <GlassHeader />
 
+          {/* Absolute Positioned Head Image */}
+          <HeadImage />
+
           {/* Main Content - Single Screen with height-responsive scaling */}
-          <div className="relative z-10 flex flex-col h-screen overflow-hidden pt-[clamp(2rem,2vh,3rem)]">
-            {/* Animated Head Hero */}
-            <div className="flex-shrink-0">
-              <AnimatedHeadHero />
-            </div>
+          <div className="relative z-10 flex flex-col h-screen overflow-hidden pt-[clamp(1rem,1.5vh,2rem)]">
+            {/* Content Flow Container */}
+            <div className="relative flex flex-col flex-1 overflow-hidden" style={{ paddingTop: 'clamp(1.5rem, 2vh, 2.5rem)' }}>
+              {/* Animated Head Hero (Button Only) */}
+              <div className="flex-shrink-0">
+                <AnimatedHeadHero />
+              </div>
 
-            {/* Tabs */}
-            <div className="flex-shrink-0" style={{ paddingTop: 'clamp(0.25rem, 0.5vh, 0.5rem)' }}>
-              <GlassTabs activeTab={activeTab} onTabChange={setActiveTab} />
-            </div>
+              {/* Tabs */}
+              <div className="flex-shrink-0" style={{ paddingTop: 'clamp(0.25rem, 0.5vh, 0.5rem)' }}>
+                <GlassTabs activeTab={activeTab} onTabChange={setActiveTab} />
+              </div>
 
-            {/* Tab Content - No scrolling, fit to available height */}
-            <div 
-              className="relative flex-1 px-2 overflow-hidden flex flex-col justify-between" 
-              style={{ paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)', paddingBottom: 'clamp(2rem, 1vh, 1.2rem)' }}
-              onTouchStart={onTouchStart}
-              onTouchMove={onTouchMove}
-              onTouchEnd={onTouchEnd}
-            >
+              {/* Tab Content - No scrolling, fit to available height */}
+              <div 
+                className="relative flex-1 px-2 overflow-hidden flex flex-col justify-between" 
+                style={{ paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)', paddingBottom: 'clamp(2rem, 1vh, 1.2rem)' }}
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
+              >
               {/* Animated Tab Content Container */}
               <div className="relative flex-1 overflow-hidden">
                 {(activeTab === 'Packages' || (isTransitioning && previousTab === 'Packages')) && (
@@ -306,9 +312,10 @@ const HaartransplantatiePage = () => {
                 )}
               </div>
 
-              {/* Static Review Section - Always visible at bottom */}
-              <div className="flex-shrink-0 px-2" style={{ paddingBottom: 'clamp(3rem,4vh,4rem)' }}>
-                <StaticReviewGlass />
+                {/* Static Review Section - Always visible at bottom */}
+                <div className="flex-shrink-0 px-2" style={{ paddingBottom: 'clamp(3rem,4vh,4rem)' }}>
+                  <StaticReviewGlass />
+                </div>
               </div>
             </div>
           </div>
