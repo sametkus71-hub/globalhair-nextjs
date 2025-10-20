@@ -45,7 +45,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
         style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr 1fr',
-          gap: '6px',
+          gap: 0,
           position: 'relative',
           margin: '3px',
           marginBottom: 'clamp(1rem, 2vh, 1.5rem)',
@@ -85,7 +85,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
             style={{
               position: 'relative',
               overflow: 'hidden',
-              borderRadius: '18px',
+              borderRadius: idx === 0 ? '18px 0 0 0' : idx === 2 ? '0 18px 0 0' : '0',
               height: '180px',
               width: '100%',
             }}
@@ -100,7 +100,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
                 objectFit: 'cover',
                 display: 'block',
                 opacity: 0.9,
-                borderRadius: '18px',
+                borderRadius: idx === 0 ? '18px 0 0 0' : idx === 2 ? '0 18px 0 0' : '0',
               }}
             />
             <span
