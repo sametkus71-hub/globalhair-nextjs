@@ -86,7 +86,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
               position: 'relative',
               overflow: 'hidden',
               borderRadius: idx === 0 ? '23px 0 0 0' : idx === 2 ? '0 23px 0 0' : '0',
-              height: '180px',
+              height: '140px',
               width: '100%',
             }}
           >
