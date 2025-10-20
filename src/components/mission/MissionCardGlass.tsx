@@ -109,7 +109,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
                 position: 'absolute',
                 inset: 0,
                 background: idx === 0 ? '#3B454D' : idx === 1 ? '#4B555E' : '#3B454D',
-                opacity: 0.7,
+                opacity: 1.0,
                 borderRadius: idx === 0 ? '23px 0 0 0' : idx === 2 ? '0 23px 0 0' : '0',
               }}
             />
@@ -166,17 +166,26 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
           borderTop: '1px solid rgba(255, 255, 255, 0.28)',
         }}
       >
-        <img
-          className="profile-photo silver-grey-gradient-border"
-          src={berkantProfile}
-          alt="Berkant Dural"
+        <div
+          className="silver-grey-gradient-border"
           style={{
             width: '38px',
             height: '38px',
             borderRadius: '50%',
-            objectFit: 'cover',
+            overflow: 'hidden',
           }}
-        />
+        >
+          <img
+            className="profile-photo"
+            src={berkantProfile}
+            alt="Berkant Dural"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+          />
+        </div>
         <div className="profile-text">
           <strong
             className="profile-name"
@@ -213,7 +222,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
           content: "";
           position: absolute;
           inset: 0;
-          padding: 1px;
+          padding: 1.6px;
           border-radius: inherit;
           background: linear-gradient(80deg, #949494 7%, #838e94 16%, #b5b5b5 34%, #ACB9C1 51%, #4e5964 78%, #727272 105%);
           -webkit-mask: 
@@ -222,7 +231,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
           -webkit-mask-composite: xor;
           mask-composite: exclude;
           pointer-events: none;
-          z-index: 1;
+          z-index: 0;
         }
 
         .silver-grey-gradient-border > * {
