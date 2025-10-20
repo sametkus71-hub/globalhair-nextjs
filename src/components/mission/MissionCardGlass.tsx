@@ -231,7 +231,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
           -webkit-mask-composite: xor;
           mask-composite: exclude;
           pointer-events: none;
-          z-index: 0;
+          z-index: 3;
         }
 
         .silver-grey-gradient-border > * {
