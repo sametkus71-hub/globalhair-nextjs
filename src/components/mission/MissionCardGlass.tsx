@@ -87,8 +87,8 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
               overflow: 'hidden',
               borderRadius: '18px',
               aspectRatio: '640 / 800',
-              minHeight: 'clamp(200px, 30vh, 320px)',
-              maxHeight: '320px',
+              minHeight: 'clamp(160px, 25vh, 240px)',
+              maxHeight: '240px',
             }}
           >
             <img
