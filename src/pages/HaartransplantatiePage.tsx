@@ -113,10 +113,14 @@ const HaartransplantatiePage = () => {
       requestAnimationFrame(() => {
         if (viewportRef.current && contentRef.current) {
           const viewportRect = viewportRef.current.getBoundingClientRect();
-          const contentRect = contentRef.current.getBoundingClientRect();
+          const anchorRect = contentRef.current.getBoundingClientRect();
           const gap = 5;
-          const calculatedTop = contentRect.bottom - viewportRect.top + gap;
-          setDotsTop(calculatedTop);
+          // Use anchor's top position relative to viewport
+          const calculatedTop = (anchorRect.top - viewportRect.top) + gap;
+          // Clamp to viewport bounds
+          const maxTop = viewportRef.current.clientHeight - 12;
+          const clampedTop = Math.max(0, Math.min(calculatedTop, maxTop));
+          setDotsTop(clampedTop);
         }
       });
     };
@@ -125,12 +129,26 @@ const HaartransplantatiePage = () => {
 
     // Recalculate after transitions
     if (!isTransitioning) {
-      measureDotsPosition();
+      setTimeout(measureDotsPosition, 50);
     }
 
-    // Recalculate on resize
+    // Set up ResizeObserver for content changes
+    let resizeObserver: ResizeObserver | null = null;
+    if (contentRef.current && viewportRef.current) {
+      resizeObserver = new ResizeObserver(measureDotsPosition);
+      resizeObserver.observe(contentRef.current);
+      resizeObserver.observe(viewportRef.current);
+    }
+
+    // Recalculate on window resize
     window.addEventListener('resize', measureDotsPosition);
-    return () => window.removeEventListener('resize', measureDotsPosition);
+    
+    return () => {
+      window.removeEventListener('resize', measureDotsPosition);
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
+    };
   }, [activeTab, isTransitioning]);
 
   // Enable scrolling on mount
@@ -214,7 +232,6 @@ const HaartransplantatiePage = () => {
               <div ref={viewportRef} className="relative flex-1 overflow-hidden">
                 {(activeTab === 'Packages' || (isTransitioning && previousTab === 'Packages')) && (
                   <div 
-                    ref={activeTab === 'Packages' ? contentRef : null}
                     className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Packages')}`}
                     style={{ 
                       pointerEvents: activeTab === 'Packages' ? 'auto' : 'none'
@@ -222,48 +239,69 @@ const HaartransplantatiePage = () => {
                   >
                     {/* Package Cards */}
                     <PackageCardGlass />
+                    {/* Anchor for dots positioning */}
+                    <div 
+                      ref={activeTab === 'Packages' ? contentRef : null} 
+                      data-dots-anchor 
+                      style={{ height: 1 }} 
+                    />
                   </div>
                 )}
 
                 {(activeTab === 'Traject' || (isTransitioning && previousTab === 'Traject')) && (
                   <div 
-                    ref={activeTab === 'Traject' ? contentRef : null}
                     className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Traject')}`}
                     style={{ 
                       pointerEvents: activeTab === 'Traject' ? 'auto' : 'none'
                     }}
                   >
                     <PlaceholderContent type="Traject" />
+                    {/* Anchor for dots positioning */}
+                    <div 
+                      ref={activeTab === 'Traject' ? contentRef : null} 
+                      data-dots-anchor 
+                      style={{ height: 1 }} 
+                    />
                   </div>
                 )}
 
                  {(activeTab === 'Mission' || (isTransitioning && previousTab === 'Mission')) && (
                   <div 
-                    ref={activeTab === 'Mission' ? contentRef : null}
                     className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Mission')}`}
                     style={{ 
                       pointerEvents: activeTab === 'Mission' ? 'auto' : 'none'
                     }}
                   >
                     <MissionCardGlass />
+                    {/* Anchor for dots positioning */}
+                    <div 
+                      ref={activeTab === 'Mission' ? contentRef : null} 
+                      data-dots-anchor 
+                      style={{ height: 1 }} 
+                    />
                   </div>
                 )}
 
                 {(activeTab === 'Contact' || (isTransitioning && previousTab === 'Contact')) && (
                   <div 
-                    ref={activeTab === 'Contact' ? contentRef : null}
                     className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Contact')}`}
                     style={{ 
                       pointerEvents: activeTab === 'Contact' ? 'auto' : 'none'
                     }}
                   >
                     <PlaceholderContent type="Contact" />
+                    {/* Anchor for dots positioning */}
+                    <div 
+                      ref={activeTab === 'Contact' ? contentRef : null} 
+                      data-dots-anchor 
+                      style={{ height: 1 }} 
+                    />
                   </div>
                 )}
                 
                 {/* Pagination Dots - Positioned dynamically */}
                 <div 
-                  className="absolute left-0 right-0 flex items-center justify-center gap-2 pointer-events-auto z-10" 
+                  className="absolute left-0 right-0 flex items-center justify-center gap-2 pointer-events-auto z-30" 
                   style={{ 
                     top: dotsTop > 0 ? `${dotsTop}px` : '75%',
                     transition: 'top 0.2s ease-out'
