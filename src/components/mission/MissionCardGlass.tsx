@@ -47,6 +47,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
           gridTemplateColumns: '1fr 1fr 1fr',
           gap: 0,
           position: 'relative',
+          margin: '3px',
           marginBottom: 'clamp(1rem, 2vh, 1.5rem)',
         }}
       >
