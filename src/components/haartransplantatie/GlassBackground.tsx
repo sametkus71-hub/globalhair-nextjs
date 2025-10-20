@@ -25,7 +25,7 @@ export const GlassBackground = () => {
       
       {/* Blue-ish transparent overlay */}
       <div 
-        className="absolute inset-0 bg-blue-500/20"
+        className="absolute inset-0 bg-blue-500/35"
       />
       
       {/* Gradient overlay - upper half only */}
