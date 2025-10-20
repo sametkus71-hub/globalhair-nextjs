@@ -80,9 +80,9 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
               <ShieldIcon className="w-4 h-4 opacity-95" />
               <div className="v6-badge" style={{ width: '16px', height: '16px', border: '1.5px solid rgba(255,255,255,0.8)', borderRadius: '3px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '8px', fontWeight: '700', color: 'rgba(255,255,255,0.9)' }}>V6</div>
             </div>
-            <h2 className="city" style={{ margin: 0, fontWeight: 800, fontSize: 'clamp(20px, 4vw, 36px)' }}>Barendrecht</h2>
-            <p className="addr" style={{ margin: '.2rem 0 .6rem', fontSize: 'clamp(12px, 1.8vw, 16px)', opacity: .95 }}>Pesetastraat 72, 2991 XT</p>
-            <span className="badge" style={{ display: 'inline-block', padding: '4px 10px', borderRadius: '999px', background: 'rgba(255,255,255,0.15)', fontSize: '11px' }}>Hoofdvestiging</span>
+            <h2 className="city" style={{ margin: 0, fontWeight: 800, fontSize: 'clamp(20px, 4vw, 36px)', color: 'rgba(255,255,255,0.95)' }}>Barendrecht</h2>
+            <p className="addr" style={{ margin: '.2rem 0 .6rem', fontSize: 'clamp(12px, 1.8vw, 16px)', color: 'rgba(255,255,255,0.95)' }}>Pesetastraat 72, 2991 XT</p>
+            <span className="badge" style={{ display: 'inline-block', padding: '4px 10px', borderRadius: '999px', background: 'rgba(255,255,255,0.15)', fontSize: '11px', color: 'rgba(255,255,255,0.9)' }}>Hoofdvestiging</span>
           </article>
 
           {/* Leiden */}
@@ -90,16 +90,16 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
             <div className="loc-icons" style={{ display: 'flex', gap: '6px', justifyContent: 'center', marginBottom: '6px' }}>
               <div className="v6-badge" style={{ width: '16px', height: '16px', border: '1.5px solid rgba(255,255,255,0.8)', borderRadius: '3px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '8px', fontWeight: '700', color: 'rgba(255,255,255,0.9)' }}>V6</div>
             </div>
-            <h2 className="city" style={{ margin: 0, fontWeight: 800, fontSize: 'clamp(20px, 4vw, 36px)' }}>Leiden</h2>
-            <p className="addr" style={{ margin: '.2rem 0 .6rem', fontSize: 'clamp(12px, 1.8vw, 16px)', opacity: .95 }}>Fruitweg 22, 2321 GK</p>
+            <h2 className="city" style={{ margin: 0, fontWeight: 800, fontSize: 'clamp(20px, 4vw, 36px)', color: 'rgba(255,255,255,0.95)' }}>Leiden</h2>
+            <p className="addr" style={{ margin: '.2rem 0 .6rem', fontSize: 'clamp(12px, 1.8vw, 16px)', color: 'rgba(255,255,255,0.95)' }}>Fruitweg 22, 2321 GK</p>
           </article>
         </div>
 
         {/* Info row */}
         <div className="info-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px', alignItems: 'center', justifyContent: 'center', padding: '12px 0', marginTop: '12px', borderTop: '1px solid rgba(255,255,255,.25)', textAlign: 'center' }}>
-          <span className="info" style={{ fontSize: 'clamp(10px, 1.6vw, 14px)', opacity: .9 }}>Ma – Za 10:00 – 19:00</span>
-          <a className="info" href="mailto:info@globalhair.nl" style={{ fontSize: 'clamp(10px, 1.6vw, 14px)', opacity: .9, textDecoration: 'none', color: 'inherit' }}>info@globalhair.nl</a>
-          <a className="info" href="tel:+31696969696" style={{ fontSize: 'clamp(10px, 1.6vw, 14px)', opacity: .9, textDecoration: 'none', color: 'inherit' }}>+31 6 96969696</a>
+          <span className="info" style={{ fontSize: 'clamp(10px, 1.6vw, 14px)', color: 'rgba(255,255,255,0.9)' }}>Ma – Za 10:00 – 19:00</span>
+          <a className="info" href="mailto:info@globalhair.nl" style={{ fontSize: 'clamp(10px, 1.6vw, 14px)', color: 'rgba(255,255,255,0.9)', textDecoration: 'none' }}>info@globalhair.nl</a>
+          <a className="info" href="tel:+31696969696" style={{ fontSize: 'clamp(10px, 1.6vw, 14px)', color: 'rgba(255,255,255,0.9)', textDecoration: 'none' }}>+31 6 96969696</a>
         </div>
       </div>
 
@@ -111,22 +111,22 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
             <div className="loc-icons" style={{ display: 'flex', gap: '6px', justifyContent: 'center', marginBottom: '6px' }}>
               <div className="v6-badge" style={{ width: '16px', height: '16px', border: '1.5px solid rgba(255,255,255,0.8)', borderRadius: '3px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '8px', fontWeight: '700', color: 'rgba(255,255,255,0.9)' }}>V6</div>
             </div>
-            <h2 className="city" style={{ margin: 0, fontWeight: 800, fontSize: 'clamp(20px, 4vw, 36px)' }}>İstanbul</h2>
-            <p className="addr" style={{ margin: '.2rem 0 .6rem', fontSize: 'clamp(12px, 1.8vw, 16px)', opacity: .95 }}>Placeholder street 123, İstanbul</p>
+            <h2 className="city" style={{ margin: 0, fontWeight: 800, fontSize: 'clamp(20px, 4vw, 36px)', color: 'rgba(255,255,255,0.95)' }}>İstanbul</h2>
+            <p className="addr" style={{ margin: '.2rem 0 .6rem', fontSize: 'clamp(12px, 1.8vw, 16px)', color: 'rgba(255,255,255,0.95)' }}>Placeholder street 123, İstanbul</p>
           </article>
 
           {/* Ankara */}
           <article className="loc" style={{ textAlign: 'center' }}>
-            <h2 className="city" style={{ margin: 0, fontWeight: 800, fontSize: 'clamp(20px, 4vw, 36px)' }}>Ankara</h2>
-            <p className="addr" style={{ margin: '.2rem 0 .6rem', fontSize: 'clamp(12px, 1.8vw, 16px)', opacity: .95 }}>Placeholder 45, Ankara</p>
+            <h2 className="city" style={{ margin: 0, fontWeight: 800, fontSize: 'clamp(20px, 4vw, 36px)', color: 'rgba(255,255,255,0.95)' }}>Ankara</h2>
+            <p className="addr" style={{ margin: '.2rem 0 .6rem', fontSize: 'clamp(12px, 1.8vw, 16px)', color: 'rgba(255,255,255,0.95)' }}>Placeholder 45, Ankara</p>
           </article>
         </div>
 
         {/* Info row */}
         <div className="info-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '8px', alignItems: 'center', justifyContent: 'center', padding: '12px 0', marginTop: '12px', borderTop: '1px solid rgba(255,255,255,.25)', textAlign: 'center' }}>
-          <span className="info" style={{ fontSize: 'clamp(10px, 1.6vw, 14px)', opacity: .9 }}>Mon – Sat 10:00 – 19:00</span>
-          <a className="info" href="mailto:info@globalhair.nl" style={{ fontSize: 'clamp(10px, 1.6vw, 14px)', opacity: .9, textDecoration: 'none', color: 'inherit' }}>info@globalhair.nl</a>
-          <a className="info" href="tel:+31696969696" style={{ fontSize: 'clamp(10px, 1.6vw, 14px)', opacity: .9, textDecoration: 'none', color: 'inherit' }}>+31 6 96969696</a>
+          <span className="info" style={{ fontSize: 'clamp(10px, 1.6vw, 14px)', color: 'rgba(255,255,255,0.9)' }}>Mon – Sat 10:00 – 19:00</span>
+          <a className="info" href="mailto:info@globalhair.nl" style={{ fontSize: 'clamp(10px, 1.6vw, 14px)', color: 'rgba(255,255,255,0.9)', textDecoration: 'none' }}>info@globalhair.nl</a>
+          <a className="info" href="tel:+31696969696" style={{ fontSize: 'clamp(10px, 1.6vw, 14px)', color: 'rgba(255,255,255,0.9)', textDecoration: 'none' }}>+31 6 96969696</a>
         </div>
       </div>
 
