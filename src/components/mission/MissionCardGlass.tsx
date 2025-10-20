@@ -156,15 +156,14 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
         }}
       >
         <img
-          className="profile-photo"
+          className="profile-photo silver-gradient-border"
           src="https://i.pravatar.cc/120?img=12"
           alt="Berkant Dural"
           style={{
-            width: '48px',
-            height: '48px',
+            width: '38px',
+            height: '38px',
             borderRadius: '50%',
             objectFit: 'cover',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
           }}
         />
         <div className="profile-text">
@@ -173,7 +172,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
             style={{
               display: 'block',
               color: 'white',
-              fontSize: 'clamp(1rem, 2vw, 1.125rem)',
+              fontSize: '11px',
               fontWeight: 400,
             }}
           >
@@ -185,7 +184,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
               display: 'block',
               color: 'white',
               opacity: 0.85,
-              fontSize: 'clamp(0.75rem, 1.5vw, 0.875rem)',
+              fontSize: '11px',
               fontWeight: 600,
             }}
           >
@@ -193,6 +192,33 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
           </span>
         </div>
       </footer>
+
+      <style>{`
+        .silver-gradient-border {
+          position: relative;
+        }
+
+        .silver-gradient-border::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1.3px;
+          border-radius: inherit;
+          background: linear-gradient(90deg, #949494 7%, #ACB9C1 16%, #FFFFFF 34%, #ACB9C1 51%, #4B555E 78%, #fff 105%);
+          -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .silver-gradient-border > * {
+          position: relative;
+          z-index: 1;
+        }
+      `}</style>
     </section>
   );
 };

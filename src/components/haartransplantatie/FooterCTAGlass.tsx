@@ -77,7 +77,6 @@ export const FooterCTAGlass = () => {
                   width: 'clamp(40px, 4.5vh, 46px)',
                   height: 'clamp(40px, 4.5vh, 46px)',
                   background: 'rgba(255, 255, 255, 0.10)',
-                  border: '1px solid rgba(255, 255, 255, 0.20)',
                 }}
               >
                 <ArrowUpRight style={{ width: 'clamp(20px, 2.2vh, 22px)', height: 'clamp(20px, 2.2vh, 22px)' }} className="text-white" strokeWidth={2.5} />
