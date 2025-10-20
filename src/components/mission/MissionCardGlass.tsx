@@ -36,7 +36,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
         WebkitBackdropFilter: 'blur(7px)',
         marginLeft: '.1rem',
         marginRight: '.1rem',
-        padding: 'clamp(1rem, 2vw, 1.5rem)',
+        padding: 0,
       }}
     >
       {/* Missions Grid */}
