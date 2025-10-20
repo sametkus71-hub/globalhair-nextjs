@@ -248,13 +248,25 @@ const HaartransplantatiePage = () => {
                     <MissionCardGlass />
                   </div>
                 )}
+
+                {(activeTab === 'Contact' || (isTransitioning && previousTab === 'Contact')) && (
+                  <div 
+                    ref={activeTab === 'Contact' ? contentRef : null}
+                    className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Contact')}`}
+                    style={{ 
+                      pointerEvents: activeTab === 'Contact' ? 'auto' : 'none'
+                    }}
+                  >
+                    <PlaceholderContent type="Contact" />
+                  </div>
+                )}
                 
-                {/* Pagination Dots - Always visible and not animated */}
+                {/* Pagination Dots - Positioned dynamically */}
                 <div 
                   className="absolute left-0 right-0 flex items-center justify-center gap-2 pointer-events-auto z-10" 
                   style={{ 
-                    top: dotsTop > 0 ? `${dotsTop}px` : undefined,
-                    opacity: dotsTop > 0 ? 1 : 0
+                    top: dotsTop > 0 ? `${dotsTop}px` : '75%',
+                    transition: 'top 0.2s ease-out'
                   }}
                 >
                   {tabs.map((tab) => (
@@ -276,19 +288,6 @@ const HaartransplantatiePage = () => {
                     />
                   ))}
                 </div>
-
-
-                {(activeTab === 'Contact' || (isTransitioning && previousTab === 'Contact')) && (
-                  <div 
-                    ref={activeTab === 'Contact' ? contentRef : null}
-                    className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Contact')}`}
-                    style={{ 
-                      pointerEvents: activeTab === 'Contact' ? 'auto' : 'none'
-                    }}
-                  >
-                    <PlaceholderContent type="Contact" />
-                  </div>
-                )}
               </div>
 
                 {/* Static Review Section - Always visible at bottom */}
