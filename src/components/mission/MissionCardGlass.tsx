@@ -134,14 +134,15 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
               className="mission-caption"
               style={{
                 position: 'absolute',
-                left: '12px',
-                right: '12px',
+                left: '5px',
+                right: '2px',
                 bottom: '12px',
                 textAlign: 'left',
                 lineHeight: 1.25,
                 color: 'white',
-                fontSize: '10px',
-                fontWeight: 300,
+                fontSize: 'clamp(9px, 1.5vw, 11px)',
+                fontWeight: 400,
+                letterSpacing: '-0.3px',
                 whiteSpace: 'pre-line',
                 textShadow: '0 2px 8px rgba(0, 0, 0, 0.5)',
               }}
