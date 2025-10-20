@@ -1,4 +1,5 @@
 import { useLanguage } from '@/hooks/useLanguage';
+import berkantProfile from '@/assets/berkant-profile.png';
 
 interface MissionCardGlassProps {
   className?: string;
@@ -156,8 +157,8 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
         }}
       >
         <img
-          className="profile-photo silver-gradient-border"
-          src="https://i.pravatar.cc/120?img=12"
+          className="profile-photo silver-grey-gradient-border"
+          src={berkantProfile}
           alt="Berkant Dural"
           style={{
             width: '38px',
@@ -194,17 +195,17 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
       </footer>
 
       <style>{`
-        .silver-gradient-border {
+        .silver-grey-gradient-border {
           position: relative;
         }
 
-        .silver-gradient-border::before {
+        .silver-grey-gradient-border::before {
           content: "";
           position: absolute;
           inset: 0;
           padding: 1.3px;
           border-radius: inherit;
-          background: linear-gradient(90deg, #949494 7%, #ACB9C1 16%, #FFFFFF 34%, #ACB9C1 51%, #4B555E 78%, #fff 105%);
+          background: linear-gradient(80deg, #949494 7%, #838e94 16%, #b5b5b5 34%, #ACB9C1 51%, #4e5964 78%, #727272 105%);
           -webkit-mask: 
             linear-gradient(#fff 0 0) content-box,
             linear-gradient(#fff 0 0);
@@ -214,7 +215,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
           z-index: 0;
         }
 
-        .silver-gradient-border > * {
+        .silver-grey-gradient-border > * {
           position: relative;
           z-index: 1;
         }

@@ -38,7 +38,7 @@ export const StaticReviewGlass = () => {
 
             <button
               onClick={() => navigate(language === 'nl' ? '/nl/reviews' : '/en/reviews')}
-              className="silver-gradient-border rounded-full text-white transition-all duration-300"
+              className="silver-grey-gradient-border rounded-full text-white transition-all duration-300"
               style={{
                 background: 'rgba(255, 255, 255, 0.08)',
                 fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
