@@ -303,7 +303,7 @@ const HaartransplantatiePage = () => {
                 <div 
                   className="absolute left-0 right-0 flex items-center justify-center gap-2 pointer-events-auto z-30" 
                   style={{ 
-                    top: '240px',
+                    top: '220px',
                     transition: 'top 0.2s ease-out'
                   }}
                 >
