@@ -217,7 +217,7 @@ const HaartransplantatiePage = () => {
                 )}
                 
                 {/* Pagination Dots - Always visible and not animated */}
-                <div className="absolute bottom-2 left-0 right-0 flex items-center justify-center gap-2 pointer-events-auto z-10" style={{ marginTop: 'clamp(0.5rem, 1vh, 1rem)' }}>
+                <div className="absolute bottom-8 left-0 right-0 flex items-center justify-center gap-2 pointer-events-auto z-10" style={{ marginTop: 'clamp(0.5rem, 1vh, 1rem)' }}>
                   {tabs.map((tab) => (
                     <button
                       key={tab}
