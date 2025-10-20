@@ -86,9 +86,8 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
               position: 'relative',
               overflow: 'hidden',
               borderRadius: '18px',
-              aspectRatio: '640 / 800',
-              minHeight: 'clamp(160px, 25vh, 240px)',
-              maxHeight: '240px',
+              height: '240px',
+              width: '100%',
             }}
           >
             <img
@@ -101,6 +100,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
                 objectFit: 'cover',
                 display: 'block',
                 opacity: 0.9,
+                borderRadius: '18px',
               }}
             />
             <span
