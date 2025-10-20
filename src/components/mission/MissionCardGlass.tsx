@@ -156,14 +156,13 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
 
       {/* Profile Footer */}
       <footer
-        className="missions-profile profile-glow"
+        className="missions-profile profile-glow profile-border-top"
         style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           gap: '8px',
           padding: '6px 0px 9px',
-          borderTop: '1px solid rgba(255, 255, 255, 0.28)',
           position: 'relative',
         }}
       >
@@ -253,6 +252,18 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
           filter: blur(40px);
           opacity: 1;
           z-index: -1;
+          pointer-events: none;
+        }
+
+        .profile-border-top::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 1px;
+          background: linear-gradient(80deg, #949494 7%, #838e94 16%, #b5b5b5 34%, #ACB9C1 51%, #4e5964 78%, #727272 105%);
+          z-index: 3;
           pointer-events: none;
         }
       `}</style>
