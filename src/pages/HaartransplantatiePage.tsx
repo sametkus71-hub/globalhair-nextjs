@@ -14,6 +14,7 @@ import { ReviewsSectionGlass } from '@/components/haartransplantatie/ReviewsSect
 import { StaticReviewGlass } from '@/components/haartransplantatie/StaticReviewGlass';
 import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
 import { PlaceholderContent } from '@/components/haartransplantatie/PlaceholderContent';
+import { MissionCardGlass } from '@/components/mission/MissionCardGlass';
 
 
 const HaartransplantatiePage = () => {
@@ -255,7 +256,7 @@ const HaartransplantatiePage = () => {
                       pointerEvents: activeTab === 'Mission' ? 'auto' : 'none'
                     }}
                   >
-                    <PlaceholderContent type="Mission" />
+                    <MissionCardGlass />
                     
                     {/* Pagination Dots */}
                     <div className="flex items-center justify-center gap-2" style={{ marginTop: 'clamp(0.5rem, 1vh, 1rem)' }}>
