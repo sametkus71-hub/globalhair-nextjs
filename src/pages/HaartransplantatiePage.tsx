@@ -15,6 +15,7 @@ import { StaticReviewGlass } from '@/components/haartransplantatie/StaticReviewG
 import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
 import { PlaceholderContent } from '@/components/haartransplantatie/PlaceholderContent';
 import { MissionCardGlass } from '@/components/mission/MissionCardGlass';
+import { ContactCardGlass } from '@/components/haartransplantatie/ContactCardGlass';
 
 
 const HaartransplantatiePage = () => {
@@ -289,7 +290,7 @@ const HaartransplantatiePage = () => {
                       pointerEvents: activeTab === 'Contact' ? 'auto' : 'none'
                     }}
                   >
-                    <PlaceholderContent type="Contact" />
+                    <ContactCardGlass />
                     {/* Anchor for dots positioning */}
                     <div 
                       ref={activeTab === 'Contact' ? contentRef : null} 
