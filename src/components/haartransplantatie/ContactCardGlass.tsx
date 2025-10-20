@@ -1,8 +1,16 @@
+import { useState } from 'react';
+import { ShieldIcon } from '@/components/logos/ShieldIcon';
+import { MessageCircle } from 'lucide-react';
+import { CustomWhatsAppIcon } from '@/components/icons/CustomWhatsAppIcon';
+import { CustomInstagramIcon } from '@/components/icons/CustomInstagramIcon';
+
 interface ContactCardGlassProps {
   className?: string;
 }
 
 export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
+  const [activeTab, setActiveTab] = useState<'nl' | 'tr'>('nl');
+
   return (
     <section
       className={`contact-card gold-gradient-border relative rounded-3xl transition-all duration-500 ${className}`}
@@ -14,77 +22,137 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
         WebkitBackdropFilter: 'blur(7px)',
         marginLeft: '.1rem',
         marginRight: '.1rem',
-        padding: 0,
+        padding: '24px 16px 0',
       }}
     >
-      {/* Content Grid */}
-      <div
-        className="contact-grid"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr 1fr',
-          gap: 0,
-          position: 'relative',
-          margin: '0px 1px',
-          paddingTop: '1px',
-        }}
-      >
-        {/* Vertical separators */}
-        <div
+      {/* Tabs */}
+      <div className="contact-tabs" role="tablist" aria-label="Country" style={{ display: 'flex', gap: '18px', justifyContent: 'center', alignItems: 'center', marginBottom: '22px' }}>
+        <button
+          className={`tab ${activeTab === 'nl' ? 'is-active' : ''}`}
+          role="tab"
+          aria-selected={activeTab === 'nl'}
+          onClick={() => setActiveTab('nl')}
           style={{
-            content: '',
-            position: 'absolute',
-            top: 0,
-            bottom: 0,
-            left: 'calc(100% / 3)',
-            width: '1px',
-            background: 'linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.25), transparent)',
-            pointerEvents: 'none',
+            appearance: 'none',
+            background: 'none',
+            border: 0,
+            padding: '8px 18px',
+            fontWeight: activeTab === 'nl' ? 700 : 400,
+            fontSize: 'clamp(20px, 3.5vw, 32px)',
+            color: activeTab === 'nl' ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.5)',
+            textDecoration: activeTab === 'nl' ? 'underline' : 'none',
+            textUnderlineOffset: '6px',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease',
           }}
-        />
-        <div
+        >
+          Nederland
+        </button>
+        <button
+          className={`tab ${activeTab === 'tr' ? 'is-active' : ''}`}
+          role="tab"
+          aria-selected={activeTab === 'tr'}
+          onClick={() => setActiveTab('tr')}
           style={{
-            content: '',
-            position: 'absolute',
-            top: 0,
-            bottom: 0,
-            left: 'calc(200% / 3)',
-            width: '1px',
-            background: 'linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.25), transparent)',
-            pointerEvents: 'none',
+            appearance: 'none',
+            background: 'none',
+            border: 0,
+            padding: '8px 18px',
+            fontWeight: activeTab === 'tr' ? 700 : 400,
+            fontSize: 'clamp(20px, 3.5vw, 32px)',
+            color: activeTab === 'tr' ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.5)',
+            textDecoration: activeTab === 'tr' ? 'underline' : 'none',
+            textUnderlineOffset: '6px',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease',
           }}
-        />
+        >
+          Turkije
+        </button>
+      </div>
 
-        {/* Empty Tiles */}
-        {[0, 1, 2].map((idx) => (
-          <div
-            key={idx}
-            className="contact-tile"
-            style={{
-              position: 'relative',
-              overflow: 'hidden',
-              borderRadius: idx === 0 ? '23px 0 0 0' : idx === 2 ? '0 23px 0 0' : '0',
-              height: '140px',
-              width: '100%',
-              background: idx === 0 ? '#3B454D' : idx === 1 ? '#4B555E' : '#3B454D',
-            }}
-          />
-        ))}
+      {/* NL content */}
+      <div className="contact-pane" data-pane="nl" hidden={activeTab !== 'nl'} aria-labelledby="tab-nl">
+        <div className="locations" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', alignItems: 'start' }}>
+          {/* Barendrecht */}
+          <article className="loc" style={{ textAlign: 'center' }}>
+            <div className="loc-icons" style={{ display: 'flex', gap: '10px', justifyContent: 'center', marginBottom: '8px' }}>
+              <ShieldIcon className="w-6 h-6 opacity-95" />
+              <div className="v6-badge" style={{ width: '24px', height: '24px', border: '2px solid rgba(255,255,255,0.8)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', fontWeight: '700', color: 'rgba(255,255,255,0.9)' }}>V6</div>
+            </div>
+            <h2 className="city" style={{ margin: 0, fontWeight: 800, fontSize: 'clamp(28px, 5vw, 56px)' }}>Barendrecht</h2>
+            <p className="addr" style={{ margin: '.35rem 0 1rem', fontSize: 'clamp(16px, 2.2vw, 24px)', opacity: .95 }}>Pesetastraat 72, 2991 XT</p>
+            <span className="badge" style={{ display: 'inline-block', padding: '8px 14px', borderRadius: '999px', background: 'rgba(255,255,255,0.15)', fontSize: '14px' }}>Hoofdvestiging</span>
+          </article>
+
+          {/* Leiden */}
+          <article className="loc" style={{ textAlign: 'center' }}>
+            <div className="loc-icons" style={{ display: 'flex', gap: '10px', justifyContent: 'center', marginBottom: '8px' }}>
+              <div className="v6-badge" style={{ width: '24px', height: '24px', border: '2px solid rgba(255,255,255,0.8)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', fontWeight: '700', color: 'rgba(255,255,255,0.9)' }}>V6</div>
+            </div>
+            <h2 className="city" style={{ margin: 0, fontWeight: 800, fontSize: 'clamp(28px, 5vw, 56px)' }}>Leiden</h2>
+            <p className="addr" style={{ margin: '.35rem 0 1rem', fontSize: 'clamp(16px, 2.2vw, 24px)', opacity: .95 }}>Fruitweg 22, 2321 GK</p>
+          </article>
+        </div>
+
+        {/* Info row */}
+        <div className="info-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px', alignItems: 'center', justifyContent: 'center', padding: '18px 0', marginTop: '18px', borderTop: '1px solid rgba(255,255,255,.25)', textAlign: 'center' }}>
+          <span className="info" style={{ fontSize: 'clamp(14px, 2vw, 18px)', opacity: .9 }}>Ma – Za 10:00 – 19:00</span>
+          <a className="info" href="mailto:info@globalhair.nl" style={{ fontSize: 'clamp(14px, 2vw, 18px)', opacity: .9, textDecoration: 'none', color: 'inherit' }}>info@globalhair.nl</a>
+          <a className="info" href="tel:+31696969696" style={{ fontSize: 'clamp(14px, 2vw, 18px)', opacity: .9, textDecoration: 'none', color: 'inherit' }}>+31 6 96969696</a>
+        </div>
+      </div>
+
+      {/* TR content */}
+      <div className="contact-pane" data-pane="tr" hidden={activeTab !== 'tr'} aria-labelledby="tab-tr">
+        <div className="locations" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', alignItems: 'start' }}>
+          {/* Istanbul */}
+          <article className="loc" style={{ textAlign: 'center' }}>
+            <div className="loc-icons" style={{ display: 'flex', gap: '10px', justifyContent: 'center', marginBottom: '8px' }}>
+              <div className="v6-badge" style={{ width: '24px', height: '24px', border: '2px solid rgba(255,255,255,0.8)', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', fontWeight: '700', color: 'rgba(255,255,255,0.9)' }}>V6</div>
+            </div>
+            <h2 className="city" style={{ margin: 0, fontWeight: 800, fontSize: 'clamp(28px, 5vw, 56px)' }}>İstanbul</h2>
+            <p className="addr" style={{ margin: '.35rem 0 1rem', fontSize: 'clamp(16px, 2.2vw, 24px)', opacity: .95 }}>Placeholder street 123, İstanbul</p>
+          </article>
+
+          {/* Ankara */}
+          <article className="loc" style={{ textAlign: 'center' }}>
+            <h2 className="city" style={{ margin: 0, fontWeight: 800, fontSize: 'clamp(28px, 5vw, 56px)' }}>Ankara</h2>
+            <p className="addr" style={{ margin: '.35rem 0 1rem', fontSize: 'clamp(16px, 2.2vw, 24px)', opacity: .95 }}>Placeholder 45, Ankara</p>
+          </article>
+        </div>
+
+        {/* Info row */}
+        <div className="info-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px', alignItems: 'center', justifyContent: 'center', padding: '18px 0', marginTop: '18px', borderTop: '1px solid rgba(255,255,255,.25)', textAlign: 'center' }}>
+          <span className="info" style={{ fontSize: 'clamp(14px, 2vw, 18px)', opacity: .9 }}>Mon – Sat 10:00 – 19:00</span>
+          <a className="info" href="mailto:info@globalhair.nl" style={{ fontSize: 'clamp(14px, 2vw, 18px)', opacity: .9, textDecoration: 'none', color: 'inherit' }}>info@globalhair.nl</a>
+          <a className="info" href="tel:+31696969696" style={{ fontSize: 'clamp(14px, 2vw, 18px)', opacity: .9, textDecoration: 'none', color: 'inherit' }}>+31 6 96969696</a>
+        </div>
       </div>
 
       {/* Footer */}
       <footer
-        className="contact-footer profile-glow profile-border-top"
+        className="contact-footer profile-border-top"
+        aria-label="Contact methods"
         style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '8px',
-          padding: '6px 0px 9px',
-          position: 'relative',
+          gap: '28px',
+          padding: '18px 0 16px',
+          borderTop: '1px solid rgba(255,255,255,.2)',
+          marginTop: '18px',
         }}
       >
-        {/* Empty footer content */}
+        <button className="cta-ico" aria-label="Chat" style={{ width: '56px', height: '56px', borderRadius: '50%', border: '1px solid rgba(255,255,255,.5)', background: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', padding: 0 }}>
+          <MessageCircle size={24} color="rgba(255,255,255,0.9)" />
+        </button>
+        <a className="cta-ico" aria-label="WhatsApp" href="https://wa.me/31696969696" target="_blank" rel="noopener" style={{ width: '56px', height: '56px', borderRadius: '50%', border: '1px solid rgba(255,255,255,.5)', background: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>
+          <CustomWhatsAppIcon className="w-6 h-6" />
+        </a>
+        <a className="cta-ico" aria-label="Instagram" href="https://instagram.com/yourhandle" target="_blank" rel="noopener" style={{ width: '56px', height: '56px', borderRadius: '50%', border: '1px solid rgba(255,255,255,.5)', background: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>
+          <CustomInstagramIcon className="w-6 h-6" />
+        </a>
       </footer>
 
       <style>{`
