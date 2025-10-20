@@ -156,7 +156,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
 
       {/* Profile Footer */}
       <footer
-        className="missions-profile"
+        className="missions-profile profile-glow"
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -164,6 +164,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
           gap: '8px',
           padding: '6px 0px 9px',
           borderTop: '1px solid rgba(255, 255, 255, 0.28)',
+          position: 'relative',
         }}
       >
         <div
@@ -237,6 +238,22 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
         .silver-grey-gradient-border > * {
           position: relative;
           z-index: 1;
+        }
+
+        .profile-glow::after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 70%;
+          height: 70%;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.4);
+          filter: blur(40px);
+          opacity: 1;
+          z-index: -1;
+          pointer-events: none;
         }
       `}</style>
     </section>
