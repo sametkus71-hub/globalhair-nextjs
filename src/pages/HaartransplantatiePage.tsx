@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState, useEffect } from 'react';
+import { useLayoutEffect, useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
 import { MetaHead } from '@/components/MetaHead';
@@ -26,6 +26,10 @@ const HaartransplantatiePage = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [transitionDirection, setTransitionDirection] = useState<'left' | 'right' | null>(null);
   const [previousTab, setPreviousTab] = useState<string | null>(null);
+  const [dotsTop, setDotsTop] = useState(0);
+  
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   
   const tabs = ['Packages', 'Traject', 'Mission', 'Contact'];
   const minSwipeDistance = 50;
@@ -102,6 +106,32 @@ const HaartransplantatiePage = () => {
       setActiveTab('Packages');
     }
   }, [location.pathname]);
+
+  // Measure and position dots dynamically
+  useEffect(() => {
+    const measureDotsPosition = () => {
+      requestAnimationFrame(() => {
+        if (viewportRef.current && contentRef.current) {
+          const viewportRect = viewportRef.current.getBoundingClientRect();
+          const contentRect = contentRef.current.getBoundingClientRect();
+          const gap = 5;
+          const calculatedTop = contentRect.bottom - viewportRect.top + gap;
+          setDotsTop(calculatedTop);
+        }
+      });
+    };
+
+    measureDotsPosition();
+
+    // Recalculate after transitions
+    if (!isTransitioning) {
+      measureDotsPosition();
+    }
+
+    // Recalculate on resize
+    window.addEventListener('resize', measureDotsPosition);
+    return () => window.removeEventListener('resize', measureDotsPosition);
+  }, [activeTab, isTransitioning]);
 
   // Enable scrolling on mount
   useLayoutEffect(() => {
@@ -181,9 +211,10 @@ const HaartransplantatiePage = () => {
                 onTouchEnd={onTouchEnd}
               >
               {/* Animated Tab Content Container */}
-              <div className="relative flex-1 overflow-hidden">
+              <div ref={viewportRef} className="relative flex-1 overflow-hidden">
                 {(activeTab === 'Packages' || (isTransitioning && previousTab === 'Packages')) && (
                   <div 
+                    ref={activeTab === 'Packages' ? contentRef : null}
                     className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Packages')}`}
                     style={{ 
                       pointerEvents: activeTab === 'Packages' ? 'auto' : 'none'
@@ -196,6 +227,7 @@ const HaartransplantatiePage = () => {
 
                 {(activeTab === 'Traject' || (isTransitioning && previousTab === 'Traject')) && (
                   <div 
+                    ref={activeTab === 'Traject' ? contentRef : null}
                     className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Traject')}`}
                     style={{ 
                       pointerEvents: activeTab === 'Traject' ? 'auto' : 'none'
@@ -207,6 +239,7 @@ const HaartransplantatiePage = () => {
 
                  {(activeTab === 'Mission' || (isTransitioning && previousTab === 'Mission')) && (
                   <div 
+                    ref={activeTab === 'Mission' ? contentRef : null}
                     className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Mission')}`}
                     style={{ 
                       pointerEvents: activeTab === 'Mission' ? 'auto' : 'none'
@@ -217,7 +250,13 @@ const HaartransplantatiePage = () => {
                 )}
                 
                 {/* Pagination Dots - Always visible and not animated */}
-                <div className="absolute bottom-1.5 left-0 right-0 flex items-center justify-center gap-2 pointer-events-auto z-10" style={{ marginTop: 'clamp(0.5rem, 1vh, 1rem)' }}>
+                <div 
+                  className="absolute left-0 right-0 flex items-center justify-center gap-2 pointer-events-auto z-10" 
+                  style={{ 
+                    top: dotsTop > 0 ? `${dotsTop}px` : undefined,
+                    opacity: dotsTop > 0 ? 1 : 0
+                  }}
+                >
                   {tabs.map((tab) => (
                     <button
                       key={tab}
@@ -241,6 +280,7 @@ const HaartransplantatiePage = () => {
 
                 {(activeTab === 'Contact' || (isTransitioning && previousTab === 'Contact')) && (
                   <div 
+                    ref={activeTab === 'Contact' ? contentRef : null}
                     className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Contact')}`}
                     style={{ 
                       pointerEvents: activeTab === 'Contact' ? 'auto' : 'none'
