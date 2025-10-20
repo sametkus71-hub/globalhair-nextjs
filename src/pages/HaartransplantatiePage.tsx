@@ -191,28 +191,6 @@ const HaartransplantatiePage = () => {
                   >
                     {/* Package Cards */}
                     <PackageCardGlass />
-                    
-                    {/* Pagination Dots */}
-                    <div className="flex items-center justify-center gap-2" style={{ marginTop: 'clamp(0.5rem, 1vh, 1rem)' }}>
-                      {tabs.map((tab) => (
-                        <button
-                          key={tab}
-                          onClick={() => {
-                            const currentIndex = tabs.indexOf(activeTab);
-                            const targetIndex = tabs.indexOf(tab);
-                            const direction = targetIndex > currentIndex ? 'left' : 'right';
-                            handleTabChange(tab, direction);
-                          }}
-                          className="transition-all duration-300"
-                          style={{
-                            width: activeTab === tab ? '24px' : '6px',
-                            height: '6px',
-                            borderRadius: '3px',
-                            background: activeTab === tab ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.3)',
-                          }}
-                        />
-                      ))}
-                    </div>
                   </div>
                 )}
 
@@ -224,28 +202,6 @@ const HaartransplantatiePage = () => {
                     }}
                   >
                     <PlaceholderContent type="Traject" />
-                    
-                    {/* Pagination Dots */}
-                    <div className="flex items-center justify-center gap-2" style={{ marginTop: 'clamp(0.5rem, 1vh, 1rem)' }}>
-                      {tabs.map((tab) => (
-                        <button
-                          key={tab}
-                          onClick={() => {
-                            const currentIndex = tabs.indexOf(activeTab);
-                            const targetIndex = tabs.indexOf(tab);
-                            const direction = targetIndex > currentIndex ? 'left' : 'right';
-                            handleTabChange(tab, direction);
-                          }}
-                          className="transition-all duration-300"
-                          style={{
-                            width: activeTab === tab ? '24px' : '6px',
-                            height: '6px',
-                            borderRadius: '3px',
-                            background: activeTab === tab ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.3)',
-                          }}
-                        />
-                      ))}
-                    </div>
                   </div>
                 )}
 
@@ -291,28 +247,6 @@ const HaartransplantatiePage = () => {
                     }}
                   >
                     <PlaceholderContent type="Contact" />
-                    
-                    {/* Pagination Dots */}
-                    <div className="flex items-center justify-center gap-2" style={{ marginTop: 'clamp(0.5rem, 1vh, 1rem)' }}>
-                      {tabs.map((tab) => (
-                        <button
-                          key={tab}
-                          onClick={() => {
-                            const currentIndex = tabs.indexOf(activeTab);
-                            const targetIndex = tabs.indexOf(tab);
-                            const direction = targetIndex > currentIndex ? 'left' : 'right';
-                            handleTabChange(tab, direction);
-                          }}
-                          className="transition-all duration-300"
-                          style={{
-                            width: activeTab === tab ? '24px' : '6px',
-                            height: '6px',
-                            borderRadius: '3px',
-                            background: activeTab === tab ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.3)',
-                          }}
-                        />
-                      ))}
-                    </div>
                   </div>
                 )}
               </div>
