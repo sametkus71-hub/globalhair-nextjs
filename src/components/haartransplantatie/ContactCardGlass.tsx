@@ -142,6 +142,9 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
           padding: '8px 0 8px',
           borderTop: '1px solid rgba(255,255,255,.2)',
           marginTop: '12px',
+          marginLeft: '-12px',
+          marginRight: '-12px',
+          width: 'calc(100% + 24px)',
         }}
       >
         <button className="cta-ico" aria-label="Chat" style={{ width: '32px', height: '32px', borderRadius: '50%', border: '1px solid rgba(255,255,255,.5)', background: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', padding: 0 }}>
