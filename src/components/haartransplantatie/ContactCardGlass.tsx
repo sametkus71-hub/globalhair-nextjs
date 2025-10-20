@@ -37,7 +37,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
             background: 'none',
             border: 0,
             padding: '2px 8px',
-            fontWeight: activeTab === 'nl' ? 600 : 300,
+            fontWeight: activeTab === 'nl' ? 500 : 200,
             fontSize: '10px',
             color: activeTab === 'nl' ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.5)',
             textDecoration: activeTab === 'nl' ? 'underline' : 'none',
@@ -58,7 +58,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
             background: 'none',
             border: 0,
             padding: '2px 8px',
-            fontWeight: activeTab === 'tr' ? 600 : 300,
+            fontWeight: activeTab === 'tr' ? 500 : 200,
             fontSize: '10px',
             color: activeTab === 'tr' ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.5)',
             textDecoration: activeTab === 'tr' ? 'underline' : 'none',
@@ -78,9 +78,9 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
           <article className="loc" style={{ textAlign: 'center' }}>
             <div className="loc-icons" style={{ display: 'flex', gap: '4px', justifyContent: 'center', marginBottom: '4px' }}>
               <ShieldIcon className="w-3 h-3 opacity-95" />
-              <div className="v6-badge" style={{ width: '12px', height: '12px', border: '1px solid rgba(255,255,255,0.8)', borderRadius: '2px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '6px', fontWeight: '600', color: 'rgba(255,255,255,0.9)' }}>V6</div>
+              <div className="v6-badge" style={{ width: '12px', height: '12px', border: '1px solid rgba(255,255,255,0.8)', borderRadius: '2px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '6px', fontWeight: '500', color: 'rgba(255,255,255,0.9)' }}>V6</div>
             </div>
-            <h2 className="city" style={{ margin: 0, fontWeight: 700, fontSize: '10px', color: 'rgba(255,255,255,0.95)' }}>Barendrecht</h2>
+            <h2 className="city" style={{ margin: 0, fontWeight: 600, fontSize: '10px', color: 'rgba(255,255,255,0.95)' }}>Barendrecht</h2>
             <p className="addr" style={{ margin: '.1rem 0 .3rem', fontSize: '8px', color: 'rgba(255,255,255,0.95)' }}>Pesetastraat 72, 2991 XT</p>
             <span className="badge" style={{ display: 'inline-block', padding: '2px 6px', borderRadius: '999px', background: 'rgba(255,255,255,0.15)', fontSize: '7px', color: 'rgba(255,255,255,0.9)' }}>Hoofdvestiging</span>
           </article>
@@ -88,9 +88,9 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
           {/* Leiden */}
           <article className="loc" style={{ textAlign: 'center' }}>
             <div className="loc-icons" style={{ display: 'flex', gap: '4px', justifyContent: 'center', marginBottom: '4px' }}>
-              <div className="v6-badge" style={{ width: '12px', height: '12px', border: '1px solid rgba(255,255,255,0.8)', borderRadius: '2px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '6px', fontWeight: '600', color: 'rgba(255,255,255,0.9)' }}>V6</div>
+              <div className="v6-badge" style={{ width: '12px', height: '12px', border: '1px solid rgba(255,255,255,0.8)', borderRadius: '2px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '6px', fontWeight: '500', color: 'rgba(255,255,255,0.9)' }}>V6</div>
             </div>
-            <h2 className="city" style={{ margin: 0, fontWeight: 700, fontSize: '10px', color: 'rgba(255,255,255,0.95)' }}>Leiden</h2>
+            <h2 className="city" style={{ margin: 0, fontWeight: 600, fontSize: '10px', color: 'rgba(255,255,255,0.95)' }}>Leiden</h2>
             <p className="addr" style={{ margin: '.1rem 0 .3rem', fontSize: '8px', color: 'rgba(255,255,255,0.95)' }}>Fruitweg 22, 2321 GK</p>
           </article>
         </div>
@@ -109,15 +109,15 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
           {/* Istanbul */}
           <article className="loc" style={{ textAlign: 'center' }}>
             <div className="loc-icons" style={{ display: 'flex', gap: '4px', justifyContent: 'center', marginBottom: '4px' }}>
-              <div className="v6-badge" style={{ width: '12px', height: '12px', border: '1px solid rgba(255,255,255,0.8)', borderRadius: '2px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '6px', fontWeight: '600', color: 'rgba(255,255,255,0.9)' }}>V6</div>
+              <div className="v6-badge" style={{ width: '12px', height: '12px', border: '1px solid rgba(255,255,255,0.8)', borderRadius: '2px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '6px', fontWeight: '500', color: 'rgba(255,255,255,0.9)' }}>V6</div>
             </div>
-            <h2 className="city" style={{ margin: 0, fontWeight: 700, fontSize: '10px', color: 'rgba(255,255,255,0.95)' }}>İstanbul</h2>
+            <h2 className="city" style={{ margin: 0, fontWeight: 600, fontSize: '10px', color: 'rgba(255,255,255,0.95)' }}>İstanbul</h2>
             <p className="addr" style={{ margin: '.1rem 0 .3rem', fontSize: '8px', color: 'rgba(255,255,255,0.95)' }}>Placeholder street 123, İstanbul</p>
           </article>
 
           {/* Ankara */}
           <article className="loc" style={{ textAlign: 'center' }}>
-            <h2 className="city" style={{ margin: 0, fontWeight: 700, fontSize: '10px', color: 'rgba(255,255,255,0.95)' }}>Ankara</h2>
+            <h2 className="city" style={{ margin: 0, fontWeight: 600, fontSize: '10px', color: 'rgba(255,255,255,0.95)' }}>Ankara</h2>
             <p className="addr" style={{ margin: '.1rem 0 .3rem', fontSize: '8px', color: 'rgba(255,255,255,0.95)' }}>Placeholder 45, Ankara</p>
           </article>
         </div>
