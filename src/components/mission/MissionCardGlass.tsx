@@ -104,6 +104,14 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
                 borderRadius: idx === 0 ? '23px 0 0 0' : idx === 2 ? '0 23px 0 0' : '0',
               }}
             />
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'rgba(0, 0, 0, 0.35)',
+                borderRadius: idx === 0 ? '23px 0 0 0' : idx === 2 ? '0 23px 0 0' : '0',
+              }}
+            />
             <span
               className="mission-year silver-gradient-border"
               style={{
@@ -132,7 +140,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
                 textAlign: 'left',
                 lineHeight: 1.25,
                 color: 'white',
-                fontSize: 'clamp(0.875rem, 1.5vw, 1.125rem)',
+                fontSize: '10px',
                 fontWeight: 300,
                 whiteSpace: 'pre-line',
                 textShadow: '0 2px 8px rgba(0, 0, 0, 0.5)',
