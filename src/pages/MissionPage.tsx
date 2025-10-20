@@ -4,10 +4,11 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
-import { MissionContent } from '@/components/mission/MissionContent';
+import { MissionCardGlass } from '@/components/mission/MissionCardGlass';
 import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 import { getBerkantVideoById, BERKANT_VIDEOS } from '@/data/berkantVideos';
 import { ChevronRight } from 'lucide-react';
+import { ContentSection } from '@/components/haartransplantatie/ContentSection';
 const MissionPage: React.FC = () => {
   const {
     language
@@ -283,44 +284,18 @@ const MissionPage: React.FC = () => {
         {/* Close button */}
         <PopupCloseButton onClose={handleClose} />
         
-        {/* Content overlay - split into top and bottom containers */}
-        <div className="relative z-10 w-full h-full flex flex-col justify-between px-6 py-8 pb-32">
-          {/* Top container - Title */}
-          <div className={`pt-6 text-center transition-all duration-500 ease-out ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-white leading-[0.85] tracking-wide">
-              BERKANT
-            </h1>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl text-white leading-[0.85] tracking-wide font-medium">
-              DURAL
-            </h1>
-          </div>
-
-          {/* Bottom container - Description and Button */}
-          <div className="space-y-6">
-            <div className={`max-w-md transition-all duration-500 ease-out ${contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              <p className="text-xs leading-snug font-light text-left text-white/90">
-                {language === 'nl' ? 'Founder & Medisch Directeur, Berkant Dural, zag al op jonge leeftijd wat erfelijk haarverlies met zijn vader deed en hij was ervan overtuigd dat dit voorkomen kon worden. Na jaren onderzoek en samenwerkingen met Tricho artsen ontwikkelde hij een werkwijze niet alleen voor zijn.' : 'Founder & Medical Director, Berkant Dural, saw at a young age what hereditary hair loss did to his father and he was convinced that this could be prevented. After years of research and collaborations with Tricho doctors, he developed a method not only for his own hair.'}
-              </p>
+        {/* Content overlay - centered mission card */}
+        <div className="relative z-10 w-full h-full flex items-center justify-center px-4 py-8 pb-32">
+          <ContentSection className="flex items-center justify-center">
+            <div 
+              className={`w-full max-w-4xl transition-all duration-700 ease-out ${contentVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
+              style={{
+                marginTop: 'clamp(2rem, 8vh, 4rem)',
+              }}
+            >
+              <MissionCardGlass />
             </div>
-
-            {/* Bottom Buttons */}
-            <div className={`transition-all duration-500 ease-out ${buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              <div className="flex flex-col items-start gap-4">
-                <button onClick={handleMethodsClick} className="shiny-cta">
-                  <span className="font-light">{language === 'nl' ? 'Bekijk methodes' : 'View methods'}</span>
-                </button>
-
-                {/* Next Video Control */}
-                {nextButtonVisible && <div onClick={handleNextVideo} className="cursor-pointer flex items-center gap-2 text-white/50 hover:text-white/90 transition-all duration-300 group ml-2" style={{
-                opacity: nextButtonVisible ? 1 : 0,
-                transform: nextButtonVisible ? 'translateY(0)' : 'translateY(10px)'
-              }}>
-                    <ChevronRight size={14} className="group-hover:translate-x-0.5 transition-transform duration-200" />
-                    <span className="text-xs font-light">{language === 'nl' ? 'Volgende video' : 'Next video'}</span>
-                  </div>}
-              </div>
-            </div>
-          </div>
+          </ContentSection>
         </div>
       </div>
       <BottomNavigationPortal />
