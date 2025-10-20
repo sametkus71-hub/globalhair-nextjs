@@ -45,7 +45,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
         style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr 1fr',
-          gap: 0,
+          gap: '6px',
           position: 'relative',
           margin: '3px',
           marginBottom: 'clamp(1rem, 2vh, 1.5rem)',
@@ -88,6 +88,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
               borderRadius: '18px',
               aspectRatio: '640 / 800',
               minHeight: 'clamp(200px, 30vh, 320px)',
+              maxHeight: '320px',
             }}
           >
             <img
