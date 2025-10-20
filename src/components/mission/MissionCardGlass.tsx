@@ -49,7 +49,6 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
           position: 'relative',
           margin: '0px 1px',
           paddingTop: '1px',
-          marginBottom: 'clamp(1rem, 2vh, 1.5rem)',
         }}
       >
         {/* Vertical separators */}
