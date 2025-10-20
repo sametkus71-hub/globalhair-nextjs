@@ -108,7 +108,8 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
               style={{
                 position: 'absolute',
                 inset: 0,
-                background: 'rgba(0, 0, 0, 0.35)',
+                background: idx === 0 ? '#3B454D' : idx === 1 ? '#4B555E' : '#3B454D',
+                opacity: 0.7,
                 borderRadius: idx === 0 ? '23px 0 0 0' : idx === 2 ? '0 23px 0 0' : '0',
               }}
             />
@@ -160,8 +161,8 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '12px',
-          padding: '14px 0 8px',
+          gap: '8px',
+          padding: '6px 0px 9px',
           borderTop: '1px solid rgba(255, 255, 255, 0.28)',
         }}
       >
@@ -212,7 +213,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
           content: "";
           position: absolute;
           inset: 0;
-          padding: 1.3px;
+          padding: 1px;
           border-radius: inherit;
           background: linear-gradient(80deg, #949494 7%, #838e94 16%, #b5b5b5 34%, #ACB9C1 51%, #4e5964 78%, #727272 105%);
           -webkit-mask: 
@@ -221,7 +222,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
           -webkit-mask-composite: xor;
           mask-composite: exclude;
           pointer-events: none;
-          z-index: 0;
+          z-index: 1;
         }
 
         .silver-grey-gradient-border > * {
