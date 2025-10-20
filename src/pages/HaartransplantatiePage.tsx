@@ -249,7 +249,7 @@ const HaartransplantatiePage = () => {
                   </div>
                 )}
 
-                {(activeTab === 'Mission' || (isTransitioning && previousTab === 'Mission')) && (
+                 {(activeTab === 'Mission' || (isTransitioning && previousTab === 'Mission')) && (
                   <div 
                     className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Mission')}`}
                     style={{ 
@@ -257,30 +257,31 @@ const HaartransplantatiePage = () => {
                     }}
                   >
                     <MissionCardGlass />
-                    
-                    {/* Pagination Dots */}
-                    <div className="flex items-center justify-center gap-2" style={{ marginTop: 'clamp(0.5rem, 1vh, 1rem)' }}>
-                      {tabs.map((tab) => (
-                        <button
-                          key={tab}
-                          onClick={() => {
-                            const currentIndex = tabs.indexOf(activeTab);
-                            const targetIndex = tabs.indexOf(tab);
-                            const direction = targetIndex > currentIndex ? 'left' : 'right';
-                            handleTabChange(tab, direction);
-                          }}
-                          className="transition-all duration-300"
-                          style={{
-                            width: '6px',
-                            height: '6px',
-                            borderRadius: '50%',
-                            background: activeTab === tab ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.3)',
-                          }}
-                        />
-                      ))}
-                    </div>
                   </div>
                 )}
+                
+                {/* Pagination Dots - Always visible and not animated */}
+                <div className="absolute bottom-2 left-0 right-0 flex items-center justify-center gap-2 pointer-events-auto z-10" style={{ marginTop: 'clamp(0.5rem, 1vh, 1rem)' }}>
+                  {tabs.map((tab) => (
+                    <button
+                      key={tab}
+                      onClick={() => {
+                        const currentIndex = tabs.indexOf(activeTab);
+                        const targetIndex = tabs.indexOf(tab);
+                        const direction = targetIndex > currentIndex ? 'left' : 'right';
+                        handleTabChange(tab, direction);
+                      }}
+                      className="transition-all duration-300"
+                      style={{
+                        width: '6px',
+                        height: '6px',
+                        borderRadius: '50%',
+                        background: activeTab === tab ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.3)',
+                      }}
+                    />
+                  ))}
+                </div>
+
 
                 {(activeTab === 'Contact' || (isTransitioning && previousTab === 'Contact')) && (
                   <div 
