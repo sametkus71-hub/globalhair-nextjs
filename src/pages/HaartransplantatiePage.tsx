@@ -301,7 +301,7 @@ const HaartransplantatiePage = () => {
                 
                 {/* Pagination Dots - Positioned dynamically */}
                 <div 
-                  className="absolute left-0 right-0 flex items-center justify-center gap-2 pointer-events-auto z-30" 
+                  className="absolute left-0 right-0 flex items-center justify-center gap-[0.2rem] pointer-events-auto z-30"
                   style={{ 
                     top: '220px',
                     transition: 'top 0.2s ease-out'

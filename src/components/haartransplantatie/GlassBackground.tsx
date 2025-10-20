@@ -23,6 +23,11 @@ export const GlassBackground = () => {
         <source src="/assets/background-animation.mp4" type="video/mp4" />
       </video>
       
+      {/* Blue-ish transparent overlay */}
+      <div 
+        className="absolute inset-0 bg-blue-500/20"
+      />
+      
       {/* Gradient overlay - upper half only */}
       <div 
         className="absolute inset-0"
