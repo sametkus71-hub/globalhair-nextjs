@@ -436,7 +436,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           inset: 0;
           padding: 1px;
           border-radius: inherit;
-          background: linear-gradient(180deg,
+          background: linear-gradient(130deg,
             #DDB961 0%,
             #E3C06B 25%,
             #EFECE6 50%,
