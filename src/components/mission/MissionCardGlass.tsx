@@ -1,5 +1,4 @@
 import { useLanguage } from '@/hooks/useLanguage';
-import { useTranslation } from '@/lib/translations';
 
 interface MissionCardGlassProps {
   className?: string;
@@ -7,32 +6,29 @@ interface MissionCardGlassProps {
 
 export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
   const { language } = useLanguage();
-  const { t } = useTranslation(language);
 
-  const timelineData = {
-    nl: {
-      periods: ['1996', '2025', 'future'],
-      content: {
-        '1996': ['Started at', '12 years old'],
-        '2025': ['Developed 6+ methods', 'Opened 3 locations'],
-        'future': ['100% reverse', 'global balding'],
-      }
+  const missions = [
+    {
+      year: '1996',
+      image: 'https://picsum.photos/640/900?1',
+      caption: 'Started at 12 years old',
     },
-    en: {
-      periods: ['1996', '2025', 'future'],
-      content: {
-        '1996': ['Started at', '12 years old'],
-        '2025': ['Developed 6+ methods', 'Opened 3 locations'],
-        'future': ['100% reverse', 'global balding'],
-      }
-    }
-  };
-
-  const data = language === 'nl' ? timelineData.nl : timelineData.en;
+    {
+      year: '2025',
+      image: 'https://picsum.photos/640/900?2',
+      caption: 'Developed 6+ methods\nOpened 3 locations',
+    },
+    {
+      year: 'future',
+      image: 'https://picsum.photos/640/900?3',
+      caption: '100% reverse\nglobal balding',
+    },
+  ];
 
   return (
-    <div
-      className={`mission-card gold-gradient-border relative rounded-3xl transition-all duration-500 ${className}`}
+    <section
+      className={`missions-card gold-gradient-border relative rounded-3xl transition-all duration-500 ${className}`}
+      aria-label="Mission timeline"
       style={{
         marginTop: 'clamp(0.25rem, 0.5vh, 0.5rem)',
         background: 'linear-gradient(rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0.17))',
@@ -40,246 +36,161 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
         WebkitBackdropFilter: 'blur(7px)',
         marginLeft: '.1rem',
         marginRight: '.1rem',
+        padding: 'clamp(1rem, 2vw, 1.5rem)',
       }}
     >
-      {/* Grid container */}
+      {/* Missions Grid */}
       <div
-        className="mission-grid"
+        className="missions-grid"
         style={{
-          paddingTop: 'clamp(0.7rem, 1vh, 1rem)',
-          paddingLeft: 'clamp(0.7rem, 1vw, 1rem)',
-          paddingRight: 'clamp(0.7rem, 1vw, 1rem)',
-          paddingBottom: 'clamp(0.7rem, 1vw, 1rem)',
           display: 'grid',
-          gridTemplateColumns: '1fr auto 1fr auto 1fr',
-          alignItems: 'start',
+          gridTemplateColumns: '1fr 1fr 1fr',
+          gap: 'clamp(0.5rem, 1vw, 1rem)',
+          position: 'relative',
+          marginBottom: 'clamp(1rem, 2vh, 1.5rem)',
         }}
       >
-        {/* Timeline pill selector */}
+        {/* Vertical separators */}
         <div
-          className="pill-outer"
           style={{
-            gridColumn: '1 / -1',
-            marginBottom: 'clamp(1rem, 2vh, 1.5rem)',
-          }}
-        >
-          <div
-            className="pill-inner silver-gradient-border"
-            role="group"
-            aria-label="Timeline"
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr auto 1fr auto 1fr',
-              alignItems: 'center',
-              background: 'rgba(255, 255, 255, 0.08)',
-              backdropFilter: 'blur(20px)',
-              borderRadius: '9999px',
-              padding: '2px 0px',
-            }}
-          >
-            <span className="seg flex items-center justify-center px-4 py-1.5" style={{ position: 'relative' }}>
-              <span
-                className="seg-label seg-label-glow text-xs font-medium"
-                style={{
-                  color: 'white',
-                  fontFamily: 'Inter',
-                  fontWeight: 300,
-                }}
-              >
-                {data.periods[0]}
-              </span>
-            </span>
-            <span
-              className="pill-divider"
-              aria-hidden="true"
-              style={{
-                width: '1px',
-                height: '60%',
-                background: 'linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.35), transparent)',
-              }}
-            ></span>
-            <span className="seg flex items-center justify-center px-4 py-1.5" style={{ position: 'relative' }}>
-              <span
-                className="seg-label seg-label-glow text-xs font-medium"
-                style={{
-                  color: 'white',
-                  fontFamily: 'Inter',
-                  fontWeight: 300,
-                }}
-              >
-                {data.periods[1]}
-              </span>
-            </span>
-            <span
-              className="pill-divider"
-              aria-hidden="true"
-              style={{
-                width: '1px',
-                height: '60%',
-                background: 'linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.35), transparent)',
-              }}
-            ></span>
-            <span className="seg flex items-center justify-center px-4 py-1.5" style={{ position: 'relative' }}>
-              <span
-                className="seg-label seg-label-glow text-xs font-medium"
-                style={{
-                  color: 'white',
-                  fontFamily: 'Inter',
-                  fontWeight: 300,
-                }}
-              >
-                {data.periods[2]}
-              </span>
-            </span>
-          </div>
-        </div>
-
-        {/* Content columns */}
-        <div
-          className="content-col"
-          style={{
-            gridColumn: '1',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 'clamp(0.5rem, 1vh, 0.75rem)',
-            minHeight: 'clamp(200px, 30vh, 280px)',
-          }}
-        >
-          {data.content['1996'].map((text, idx) => (
-            <p
-              key={idx}
-              className="text-white/90 text-center"
-              style={{
-                fontSize: 'clamp(0.875rem, 1.5vw, 1.125rem)',
-                fontWeight: 300,
-                lineHeight: 1.4,
-              }}
-            >
-              {text}
-            </p>
-          ))}
-        </div>
-
-        <div
-          className="col-divider"
-          style={{
-            gridColumn: '2',
+            content: '',
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: 'calc(100% / 3)',
             width: '1px',
-            height: '100%',
-            background: 'linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.15), transparent)',
+            background: 'linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.25), transparent)',
+            pointerEvents: 'none',
           }}
-        ></div>
-
+        />
         <div
-          className="content-col"
           style={{
-            gridColumn: '3',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 'clamp(0.5rem, 1vh, 0.75rem)',
-            minHeight: 'clamp(200px, 30vh, 280px)',
-          }}
-        >
-          {data.content['2025'].map((text, idx) => (
-            <p
-              key={idx}
-              className="text-white/90 text-center"
-              style={{
-                fontSize: 'clamp(0.875rem, 1.5vw, 1.125rem)',
-                fontWeight: 300,
-                lineHeight: 1.4,
-              }}
-            >
-              {text}
-            </p>
-          ))}
-        </div>
-
-        <div
-          className="col-divider"
-          style={{
-            gridColumn: '4',
+            content: '',
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: 'calc(200% / 3)',
             width: '1px',
-            height: '100%',
-            background: 'linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.15), transparent)',
+            background: 'linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.25), transparent)',
+            pointerEvents: 'none',
           }}
-        ></div>
+        />
 
-        <div
-          className="content-col"
-          style={{
-            gridColumn: '5',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 'clamp(0.5rem, 1vh, 0.75rem)',
-            minHeight: 'clamp(200px, 30vh, 280px)',
-          }}
-        >
-          {data.content['future'].map((text, idx) => (
-            <p
-              key={idx}
-              className="text-white/90 text-center"
-              style={{
-                fontSize: 'clamp(0.875rem, 1.5vw, 1.125rem)',
-                fontWeight: 300,
-                lineHeight: 1.4,
-              }}
-            >
-              {text}
-            </p>
-          ))}
-        </div>
-
-        {/* Profile section at bottom */}
-        <div
-          className="profile-section"
-          style={{
-            gridColumn: '1 / -1',
-            marginTop: 'clamp(1rem, 2vh, 1.5rem)',
-            paddingTop: 'clamp(1rem, 2vh, 1.5rem)',
-            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 'clamp(0.75rem, 1.5vw, 1rem)',
-          }}
-        >
-          <div
-            className="profile-avatar"
+        {/* Mission Tiles */}
+        {missions.map((mission, idx) => (
+          <article
+            key={idx}
+            className="mission-tile"
             style={{
-              width: 'clamp(40px, 6vw, 56px)',
-              height: 'clamp(40px, 6vw, 56px)',
-              borderRadius: '50%',
-              background: 'rgba(255, 255, 255, 0.1)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
+              position: 'relative',
               overflow: 'hidden',
+              borderRadius: '18px',
+              aspectRatio: '640 / 900',
+              minHeight: 'clamp(300px, 40vh, 450px)',
             }}
           >
-            {/* Placeholder for profile image */}
-            <div className="w-full h-full bg-gradient-to-br from-white/20 to-white/5"></div>
-          </div>
-          <div className="profile-info">
-            <p
-              className="text-white font-medium"
+            <img
+              className="mission-img"
+              src={mission.image}
+              alt={`Mission ${mission.year} placeholder`}
               style={{
-                fontSize: 'clamp(1rem, 2vw, 1.25rem)',
-                fontWeight: 400,
-                marginBottom: '0.125rem',
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                display: 'block',
+                opacity: 0.9,
               }}
-            >
-              Berkant Dural
-            </p>
-            <p
-              className="text-white/70"
+            />
+            <span
+              className="mission-year silver-gradient-border"
               style={{
+                position: 'absolute',
+                top: '12px',
+                right: '12px',
+                background: 'rgba(255, 255, 255, 0.08)',
+                backdropFilter: 'blur(20px)',
+                borderRadius: '9999px',
+                padding: '6px 16px',
+                color: 'white',
                 fontSize: 'clamp(0.75rem, 1.5vw, 0.875rem)',
                 fontWeight: 300,
+                fontFamily: 'Inter',
               }}
             >
-              CEO
-            </p>
-          </div>
-        </div>
+              {mission.year}
+            </span>
+            <h3
+              className="mission-caption"
+              style={{
+                position: 'absolute',
+                left: '12px',
+                right: '12px',
+                bottom: '12px',
+                textAlign: 'left',
+                lineHeight: 1.25,
+                color: 'white',
+                fontSize: 'clamp(0.875rem, 1.5vw, 1.125rem)',
+                fontWeight: 300,
+                whiteSpace: 'pre-line',
+                textShadow: '0 2px 8px rgba(0, 0, 0, 0.5)',
+              }}
+            >
+              {mission.caption}
+            </h3>
+          </article>
+        ))}
       </div>
-    </div>
+
+      {/* Profile Footer */}
+      <footer
+        className="missions-profile"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '12px',
+          padding: '14px 0 8px',
+          borderTop: '1px solid rgba(255, 255, 255, 0.28)',
+        }}
+      >
+        <img
+          className="profile-photo"
+          src="https://i.pravatar.cc/120?img=12"
+          alt="Berkant Dural"
+          style={{
+            width: '48px',
+            height: '48px',
+            borderRadius: '50%',
+            objectFit: 'cover',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+          }}
+        />
+        <div className="profile-text">
+          <strong
+            className="profile-name"
+            style={{
+              display: 'block',
+              color: 'white',
+              fontSize: 'clamp(1rem, 2vw, 1.125rem)',
+              fontWeight: 400,
+            }}
+          >
+            Berkant Dural
+          </strong>
+          <span
+            className="profile-role"
+            style={{
+              display: 'block',
+              color: 'white',
+              opacity: 0.85,
+              fontSize: 'clamp(0.75rem, 1.5vw, 0.875rem)',
+              fontWeight: 600,
+            }}
+          >
+            CEO
+          </span>
+        </div>
+      </footer>
+    </section>
   );
 };
