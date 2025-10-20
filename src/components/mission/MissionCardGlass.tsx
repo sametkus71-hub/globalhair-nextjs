@@ -11,11 +11,11 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
 
   const timelineData = {
     nl: {
-      periods: ['1996', '2025', 'toekomst'],
+      periods: ['1996', '2025', 'future'],
       content: {
-        '1996': ['Gestart op', '12-jarige leeftijd'],
-        '2025': ['Ontwikkeld 6+ methodes', 'Geopend 3 locaties'],
-        'toekomst': ['100% omkering', 'wereldwijde kaalheid'],
+        '1996': ['Started at', '12 years old'],
+        '2025': ['Developed 6+ methods', 'Opened 3 locations'],
+        'future': ['100% reverse', 'global balding'],
       }
     },
     en: {
@@ -215,7 +215,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
             minHeight: 'clamp(200px, 30vh, 280px)',
           }}
         >
-          {data.content[language === 'nl' ? 'toekomst' : 'future'].map((text, idx) => (
+          {data.content['future'].map((text, idx) => (
             <p
               key={idx}
               className="text-white/90 text-center"
