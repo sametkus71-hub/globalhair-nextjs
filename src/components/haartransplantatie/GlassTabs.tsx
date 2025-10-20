@@ -83,7 +83,7 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
           className="absolute z-20 transition-all duration-300 ease-out"
           style={{
             bottom: '0px',
-            height: '3px',
+            height: '2px',
             background: 'white',
             left: `${underlineStyle.left}px`,
             width: `${underlineStyle.width + 12}px`,
@@ -96,7 +96,7 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
         className="absolute left-0 right-0 z-0"
         style={{
           bottom: '0px',
-          height: '1px',
+          height: '2px',
           background: 'rgba(255, 255, 255, 0.2)',
         }}
       />

@@ -143,7 +143,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
                 color: 'white',
                 fontSize: 'clamp(9px, 1.5vw, 11px)',
                 fontWeight: 400,
-                letterSpacing: '-0.3px',
+                letterSpacing: '-0.2px',
                 whiteSpace: 'pre-line',
                 textShadow: '0 2px 8px rgba(0, 0, 0, 0.5)',
               }}
