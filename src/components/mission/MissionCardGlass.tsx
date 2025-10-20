@@ -113,18 +113,18 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
               }}
             />
             <span
-              className="mission-year silver-gradient-border"
+              className="mission-year silver-grey-gradient-border"
               style={{
                 position: 'absolute',
-                top: '12px',
-                right: '12px',
+                top: '10px',
+                right: '10px',
                 background: 'rgba(255, 255, 255, 0.08)',
                 backdropFilter: 'blur(20px)',
                 borderRadius: '9999px',
-                padding: '6px 16px',
+                padding: '2px 8px',
                 color: 'white',
-                fontSize: 'clamp(0.75rem, 1.5vw, 0.875rem)',
-                fontWeight: 300,
+                fontSize: '9px',
+                fontWeight: 200,
                 fontFamily: 'Inter',
               }}
             >
