@@ -271,9 +271,9 @@ const HaartransplantatiePage = () => {
                           }}
                           className="transition-all duration-300"
                           style={{
-                            width: activeTab === tab ? '24px' : '6px',
+                            width: '6px',
                             height: '6px',
-                            borderRadius: '3px',
+                            borderRadius: '50%',
                             background: activeTab === tab ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.3)',
                           }}
                         />
