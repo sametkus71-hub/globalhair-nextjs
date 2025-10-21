@@ -109,12 +109,11 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
 
       {/* TR content */}
       <div className="contact-pane" data-pane="tr" aria-labelledby="tab-tr" style={{ flex: 1, display: activeTab === 'tr' ? 'flex' : 'none', flexDirection: 'column' }}>
-        <div className="locations" style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.3rem' }}>
+        <div className="locations" style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
           {/* Istanbul */}
           <article className="loc" style={{ textAlign: 'center' }}>
             <div className="loc-icons" style={{ display: 'flex', gap: '3px', justifyContent: 'center', alignItems: 'center', marginBottom: '3px' }}>
               <img src={shieldIcon} alt="Shield" style={{ width: '12px', height: '12px', opacity: 0.95 }} />
-              <img src={v6HairboostIcon} alt="V6 Hairboost" style={{ width: '18px', height: '18px' }} />
             </div>
             <h2 className="city" style={{ margin: 0, fontWeight: 400, fontSize: '13px', color: 'rgba(255,255,255,0.95)' }}>İstanbul</h2>
             <p className="addr" style={{ margin: '0.05rem 0px -0.2rem', fontSize: '7.5px', color: 'rgba(255,255,255,0.95)' }}>
