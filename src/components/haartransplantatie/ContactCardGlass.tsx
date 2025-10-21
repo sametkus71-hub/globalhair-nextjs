@@ -74,7 +74,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
 
       {/* NL content */}
       <div className="contact-pane" data-pane="nl" hidden={activeTab !== 'nl'} aria-labelledby="tab-nl">
-        <div className="locations" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', alignItems: 'start' }}>
+        <div className="locations" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'start', marginBottom: '0.7rem' }}>
           {/* Barendrecht */}
           <article className="loc" style={{ textAlign: 'center' }}>
             <div className="loc-icons" style={{ display: 'flex', gap: '4px', justifyContent: 'center', alignItems: 'center', marginBottom: '4px' }}>
@@ -97,7 +97,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
         </div>
 
         {/* Info row */}
-        <div className="info-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '6px', alignItems: 'center', justifyContent: 'center', padding: '8px 0', marginTop: '8px', borderTop: '1px solid rgba(255,255,255,.25)', textAlign: 'center' }}>
+        <div className="info-row" style={{ display: 'flex', gap: '4px', alignItems: 'center', justifyContent: 'center', padding: '8px 0 0 0', marginTop: '8px', borderTop: '0.5px solid rgba(255,255,255,.25)', textAlign: 'center' }}>
           <span className="info" style={{ fontSize: '8px', color: 'rgba(255,255,255,0.9)' }}>Ma – Za 10:00 – 19:00</span>
           <a className="info" href="mailto:info@globalhair.nl" style={{ fontSize: '8px', color: 'rgba(255,255,255,0.9)', textDecoration: 'none' }}>info@globalhair.nl</a>
           <a className="info" href="tel:+31696969696" style={{ fontSize: '8px', color: 'rgba(255,255,255,0.9)', textDecoration: 'none' }}>+31 6 96969696</a>
@@ -106,7 +106,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
 
       {/* TR content */}
       <div className="contact-pane" data-pane="tr" hidden={activeTab !== 'tr'} aria-labelledby="tab-tr">
-        <div className="locations" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', alignItems: 'start' }}>
+        <div className="locations" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'start', marginBottom: '0.7rem' }}>
           {/* Istanbul */}
           <article className="loc" style={{ textAlign: 'center' }}>
             <div className="loc-icons" style={{ display: 'flex', gap: '4px', justifyContent: 'center', marginBottom: '4px' }}>
@@ -124,7 +124,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
         </div>
 
         {/* Info row */}
-        <div className="info-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '6px', alignItems: 'center', justifyContent: 'center', padding: '8px 0', marginTop: '8px', borderTop: '1px solid rgba(255,255,255,.25)', textAlign: 'center' }}>
+        <div className="info-row" style={{ display: 'flex', gap: '4px', alignItems: 'center', justifyContent: 'center', padding: '8px 0 0 0', marginTop: '8px', borderTop: '0.5px solid rgba(255,255,255,.25)', textAlign: 'center' }}>
           <span className="info" style={{ fontSize: '8px', color: 'rgba(255,255,255,0.9)' }}>Mon – Sat 10:00 – 19:00</span>
           <a className="info" href="mailto:info@globalhair.nl" style={{ fontSize: '8px', color: 'rgba(255,255,255,0.9)', textDecoration: 'none' }}>info@globalhair.nl</a>
           <a className="info" href="tel:+31696969696" style={{ fontSize: '8px', color: 'rgba(255,255,255,0.9)', textDecoration: 'none' }}>+31 6 96969696</a>
