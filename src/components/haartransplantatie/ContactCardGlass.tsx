@@ -76,7 +76,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
       </div>
 
       {/* NL content */}
-      <div className="contact-pane" data-pane="nl" hidden={activeTab !== 'nl'} aria-labelledby="tab-nl" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+      <div className="contact-pane" data-pane="nl" aria-labelledby="tab-nl" style={{ flex: 1, display: activeTab === 'nl' ? 'flex' : 'none', flexDirection: 'column' }}>
         <div className="locations" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'start', marginBottom: '1.3rem' }}>
           {/* Barendrecht */}
           <article className="loc" style={{ textAlign: 'center' }}>
@@ -108,7 +108,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
       </div>
 
       {/* TR content */}
-      <div className="contact-pane" data-pane="tr" hidden={activeTab !== 'tr'} aria-labelledby="tab-tr" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+      <div className="contact-pane" data-pane="tr" aria-labelledby="tab-tr" style={{ flex: 1, display: activeTab === 'tr' ? 'flex' : 'none', flexDirection: 'column' }}>
         <div className="locations" style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.3rem' }}>
           {/* Istanbul */}
           <article className="loc" style={{ textAlign: 'center' }}>
