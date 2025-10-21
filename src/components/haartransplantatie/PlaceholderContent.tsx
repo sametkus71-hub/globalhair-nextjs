@@ -55,6 +55,7 @@ export const PlaceholderContent = ({ type }: PlaceholderContentProps) => {
       className="px-4 py-6"
       style={{
         animation: 'fade-in 0.4s ease-out',
+        minHeight: '280px',
       }}
     >
       <div

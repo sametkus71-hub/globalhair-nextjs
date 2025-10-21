@@ -24,6 +24,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
         marginLeft: '.1rem',
         marginRight: '.1rem',
         padding: '10px 10px 0',
+        minHeight: '280px',
       }}
     >
       {/* Tabs */}
