@@ -20,6 +20,17 @@ export const ReviewsPage = () => {
 
   return (
     <>
+      {/* Top gradient bar */}
+      <div
+        className="fixed top-0 left-0 right-0 z-40"
+        style={{
+          paddingTop: 'clamp(0.5rem, 1vh, 1rem)',
+          height: 'clamp(80px, 12vh, 120px)',
+          background: 'linear-gradient(180deg, rgba(4, 14, 21, 0.9) 0%, rgba(4, 14, 21, 0) 100%)',
+          pointerEvents: 'none',
+        }}
+      />
+      
       <div 
         className={`reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}
         style={{
