@@ -98,7 +98,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
         </div>
 
         {/* Info row */}
-        <div className="info-row" style={{ display: 'flex', gap: '11px', alignItems: 'center', justifyContent: 'center', padding: '5px 0 0 0', marginTop: '5px', marginLeft: '20px', marginRight: '20px', borderTop: '1px solid rgba(255,255,255,.25)', textAlign: 'center' }}>
+        <div className="info-row" style={{ display: 'flex', gap: '11px', alignItems: 'center', justifyContent: 'space-between', padding: '5px 0px 0px', marginTop: '5px', marginLeft: '30px', marginRight: '30px', borderTop: '1px solid rgba(255,255,255,.25)', textAlign: 'center' }}>
           <span className="info" style={{ fontSize: '7.5px', color: 'rgba(255,255,255,0.9)' }}>Ma – Za 10:00 – 19:00</span>
           <a className="info" href="mailto:info@globalhair.nl" style={{ fontSize: '7.5px', color: 'rgba(255,255,255,0.9)', textDecoration: 'none' }}>info@globalhair.nl</a>
           <a className="info" href="tel:+31696969696" style={{ fontSize: '7.5px', color: 'rgba(255,255,255,0.9)', textDecoration: 'none' }}>+31 6 96969696</a>
@@ -125,7 +125,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
         </div>
 
         {/* Info row */}
-        <div className="info-row" style={{ display: 'flex', gap: '11px', alignItems: 'center', justifyContent: 'center', padding: '5px 0 0 0', marginTop: '5px', marginLeft: '20px', marginRight: '20px', borderTop: '1px solid rgba(255,255,255,.25)', textAlign: 'center' }}>
+        <div className="info-row" style={{ display: 'flex', gap: '11px', alignItems: 'center', justifyContent: 'space-between', padding: '5px 0px 0px', marginTop: '5px', marginLeft: '30px', marginRight: '30px', borderTop: '1px solid rgba(255,255,255,.25)', textAlign: 'center' }}>
           <span className="info" style={{ fontSize: '7.5px', color: 'rgba(255,255,255,0.9)' }}>Mon – Sat 10:00 – 19:00</span>
           <a className="info" href="mailto:info@globalhair.nl" style={{ fontSize: '7.5px', color: 'rgba(255,255,255,0.9)', textDecoration: 'none' }}>info@globalhair.nl</a>
           <a className="info" href="tel:+31696969696" style={{ fontSize: '7.5px', color: 'rgba(255,255,255,0.9)', textDecoration: 'none' }}>+31 6 96969696</a>
