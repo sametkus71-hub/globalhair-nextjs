@@ -25,6 +25,8 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
         marginRight: '.1rem',
         padding: '10px 10px 0',
         minHeight: '26vh',
+        display: 'flex',
+        flexDirection: 'column',
       }}
     >
       {/* Tabs */}
@@ -74,7 +76,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
       </div>
 
       {/* NL content */}
-      <div className="contact-pane" data-pane="nl" hidden={activeTab !== 'nl'} aria-labelledby="tab-nl">
+      <div className="contact-pane" data-pane="nl" hidden={activeTab !== 'nl'} aria-labelledby="tab-nl" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         <div className="locations" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'start', marginBottom: '1.3rem' }}>
           {/* Barendrecht */}
           <article className="loc" style={{ textAlign: 'center' }}>
@@ -106,7 +108,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
       </div>
 
       {/* TR content */}
-      <div className="contact-pane" data-pane="tr" hidden={activeTab !== 'tr'} aria-labelledby="tab-tr">
+      <div className="contact-pane" data-pane="tr" hidden={activeTab !== 'tr'} aria-labelledby="tab-tr" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         <div className="locations" style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.3rem' }}>
           {/* Istanbul */}
           <article className="loc" style={{ textAlign: 'center' }}>
@@ -139,7 +141,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
           padding: '9px 0px',
           background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 100%)',
           borderTop: '1px solid rgba(255,255,255,.2)',
-          marginTop: '8px',
+          marginTop: 'auto',
           marginLeft: '-10px',
           marginRight: '-10px',
           width: 'calc(100% + 20px)',
