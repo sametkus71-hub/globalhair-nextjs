@@ -142,7 +142,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
           justifyContent: 'center',
           gap: '10px',
           padding: '9px 0px',
-          background: 'linear-gradient(90deg,rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0.3) 100%)',
+          background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 100%)',
           borderTop: '1px solid rgba(255,255,255,.2)',
           marginTop: '8px',
           marginLeft: '-10px',
