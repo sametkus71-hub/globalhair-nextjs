@@ -78,8 +78,8 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
           {/* Barendrecht */}
           <article className="loc" style={{ textAlign: 'center' }}>
             <div className="loc-icons" style={{ display: 'flex', gap: '4px', justifyContent: 'center', marginBottom: '4px' }}>
-              <img src={shieldIcon} alt="Shield" style={{ width: '12px', height: '12px', opacity: 0.95 }} />
-              <img src={v6HairboostIcon} alt="V6 Hairboost" style={{ width: '12px', height: '12px' }} />
+              <img src={shieldIcon} alt="Shield" style={{ width: '14px', height: '14px', opacity: 0.95 }} />
+              <img src={v6HairboostIcon} alt="V6 Hairboost" style={{ width: '14px', height: '14px' }} />
             </div>
             <h2 className="city" style={{ margin: 0, fontWeight: 600, fontSize: '10px', color: 'rgba(255,255,255,0.95)' }}>Barendrecht</h2>
             <p className="addr" style={{ margin: '.1rem 0 .3rem', fontSize: '8px', color: 'rgba(255,255,255,0.95)' }}>Pesetastraat 72, 2991 XT</p>
@@ -89,7 +89,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
           {/* Leiden */}
           <article className="loc" style={{ textAlign: 'center' }}>
             <div className="loc-icons" style={{ display: 'flex', gap: '4px', justifyContent: 'center', marginBottom: '4px' }}>
-              <div className="v6-badge" style={{ width: '12px', height: '12px', border: '1px solid rgba(255,255,255,0.8)', borderRadius: '2px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '6px', fontWeight: '500', color: 'rgba(255,255,255,0.9)' }}>V6</div>
+              <img src={v6HairboostIcon} alt="V6 Hairboost" style={{ width: '14px', height: '14px' }} />
             </div>
             <h2 className="city" style={{ margin: 0, fontWeight: 600, fontSize: '10px', color: 'rgba(255,255,255,0.95)' }}>Leiden</h2>
             <p className="addr" style={{ margin: '.1rem 0 .3rem', fontSize: '8px', color: 'rgba(255,255,255,0.95)' }}>Fruitweg 22, 2321 GK</p>
