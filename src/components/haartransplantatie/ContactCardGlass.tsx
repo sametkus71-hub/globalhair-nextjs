@@ -83,7 +83,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
             </div>
             <h2 className="city" style={{ margin: 0, fontWeight: 600, fontSize: '10px', color: 'rgba(255,255,255,0.95)' }}>Barendrecht</h2>
             <p className="addr" style={{ margin: '.1rem 0 .3rem', fontSize: '8px', color: 'rgba(255,255,255,0.95)' }}>Pesetastraat 72, 2991 XT</p>
-            <span className="badge" style={{ display: 'inline-block', padding: '2px 6px', borderRadius: '999px', background: 'rgba(255,255,255,0.15)', fontSize: '7px', color: 'rgba(255,255,255,0.9)' }}>Hoofdvestiging</span>
+            <span className="badge" style={{ display: 'inline-block', padding: '2px 6px', borderRadius: '999px', background: 'rgba(255,255,255,0.15)', fontSize: '7px', color: 'rgba(255,255,255,0.9)', border: '1px solid rgba(255,255,255,0.3)', marginTop: '-2px' }}>Hoofdvestiging</span>
           </article>
 
           {/* Leiden */}
