@@ -23,14 +23,17 @@ export const ReviewsPage = () => {
       <div 
         className={`reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}
         style={{
-          background: 'linear-gradient(180deg, #040E15 0%, #333D46 100%)'
+          background: 'linear-gradient(180deg, #040E15 0%, #333D46 100%)',
+          overflow: 'hidden',
+          position: 'fixed',
+          inset: 0
         }}
       >
         {/* Close button */}
         <PopupCloseButton onClose={handleClose} />
         
         {/* Full screen Instagram-style grid */}
-        <div className="h-full">
+        <div className="h-full overflow-hidden">
           <ReviewsGrid />
         </div>
       </div>
