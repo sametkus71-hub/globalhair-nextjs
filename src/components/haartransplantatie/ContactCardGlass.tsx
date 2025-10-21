@@ -84,7 +84,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
             </div>
             <h2 className="city" style={{ margin: 0, fontWeight: 400, fontSize: '13px', color: 'rgba(255,255,255,0.95)' }}>Barendrecht</h2>
             <p className="addr" style={{ margin: '0.05rem 0px -0.2rem', fontSize: '7.5px', color: 'rgba(255,255,255,0.95)' }}>Pesetastraat 72, 2991 XT</p>
-            <span className="badge silver-grey-gradient-border" style={{ display: 'inline-block', padding: '1px 5px', borderRadius: '999px', background: 'rgba(255,255,255,0.15)', fontSize: '6.5px', color: 'rgba(255,255,255,0.9)', marginTop: '-1px' }}>Hoofdvestiging</span>
+            <span className="badge silver-grey-gradient-border" style={{ display: 'inline-block', padding: '3px 6px', borderRadius: '999px', background: 'rgba(255,255,255,0.15)', fontSize: '6.5px', color: 'rgba(255,255,255,0.9)', marginTop: '-1px' }}>Hoofdvestiging</span>
           </article>
 
           {/* Leiden */}
