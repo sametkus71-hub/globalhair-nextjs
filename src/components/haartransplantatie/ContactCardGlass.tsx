@@ -149,8 +149,8 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
         }}
       >
         <button 
-          className="cta-ico silver-gradient-border" 
-          aria-label="Chat" 
+          className="cta-ico silver-grey-gradient-border" 
+          aria-label="Chat"
           style={{ 
             width: '28px', 
             height: '28px', 
@@ -177,8 +177,8 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
           <img src={chatIcon} alt="Chat" style={{ width: '14px', height: '14px' }} />
         </button>
         <a 
-          className="cta-ico silver-gradient-border" 
-          aria-label="WhatsApp" 
+          className="cta-ico silver-grey-gradient-border" 
+          aria-label="WhatsApp"
           href="https://wa.me/31696969696" 
           target="_blank" 
           rel="noopener" 
@@ -207,8 +207,8 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
           <img src={whatsappIcon} alt="WhatsApp" style={{ width: '14px', height: '14px' }} />
         </a>
         <a 
-          className="cta-ico silver-gradient-border" 
-          aria-label="Instagram" 
+          className="cta-ico silver-grey-gradient-border" 
+          aria-label="Instagram"
           href="https://instagram.com/yourhandle" 
           target="_blank" 
           rel="noopener" 
