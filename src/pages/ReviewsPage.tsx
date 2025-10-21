@@ -26,7 +26,8 @@ export const ReviewsPage = () => {
           background: 'linear-gradient(180deg, #040E15 0%, #333D46 100%)',
           overflow: 'hidden',
           position: 'fixed',
-          inset: 0
+          inset: 0,
+          zIndex: 30
         }}
       >
         {/* Close button */}
