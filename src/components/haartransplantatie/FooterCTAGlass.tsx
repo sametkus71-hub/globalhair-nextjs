@@ -17,7 +17,7 @@ export const FooterCTAGlass = () => {
           paddingRight: 'clamp(0.5rem, 1vw, 0.75rem)',
           paddingBottom: 'clamp(calc(env(safe-area-inset-bottom) + 0.5rem), calc(env(safe-area-inset-bottom) + 1vh), calc(env(safe-area-inset-bottom) + 1rem))',
           animation: 'fade-up 0.6s ease-out 1.4s both',
-          background: 'rgba(4, 14, 21, 0.85)',
+          background: 'linear-gradient(180deg, rgba(4, 14, 21, 0) 0%, rgba(4, 14, 21, 0.9) 100%)',
         }}
       >
         <div className="flex items-center justify-between space-x-2">
