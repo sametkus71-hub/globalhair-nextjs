@@ -208,7 +208,7 @@ const HaartransplantatiePage = () => {
           <GlassHeader />
 
           {/* Main Content - Single Screen with height-responsive scaling */}
-          <div className="relative z-10 flex flex-col h-screen overflow-hidden pt-[175px]">
+          <div className="relative z-10 flex flex-col h-screen overflow-hidden" style={{ paddingTop: 'clamp(140px, 21vh, 175px)' }}>
             {/* Content Flow Container */}
             <div className="relative flex flex-col flex-1 overflow-hidden" style={{ paddingTop: 'clamp(1.5rem, 2vh, 2.5rem)' }}>
               {/* Animated Head Hero (Button Only) */}
