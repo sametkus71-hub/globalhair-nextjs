@@ -107,20 +107,15 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
 
       {/* TR content */}
       <div className="contact-pane" data-pane="tr" hidden={activeTab !== 'tr'} aria-labelledby="tab-tr">
-        <div className="locations" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'start', marginBottom: '1.3rem' }}>
+        <div className="locations" style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.3rem' }}>
           {/* Istanbul */}
           <article className="loc" style={{ textAlign: 'center' }}>
-            <div className="loc-icons" style={{ display: 'flex', gap: '3px', justifyContent: 'center', marginBottom: '3px' }}>
-              <div className="v6-badge" style={{ width: '10px', height: '10px', border: '1px solid rgba(255,255,255,0.8)', borderRadius: '2px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '5.5px', fontWeight: '500', color: 'rgba(255,255,255,0.9)' }}>V6</div>
+            <div className="loc-icons" style={{ display: 'flex', gap: '3px', justifyContent: 'center', alignItems: 'center', marginBottom: '3px' }}>
+              <img src={shieldIcon} alt="Shield" style={{ width: '12px', height: '12px', opacity: 0.95 }} />
+              <img src={v6HairboostIcon} alt="V6 Hairboost" style={{ width: '18px', height: '18px' }} />
             </div>
             <h2 className="city" style={{ margin: 0, fontWeight: 400, fontSize: '13px', color: 'rgba(255,255,255,0.95)' }}>İstanbul</h2>
-            <p className="addr" style={{ margin: '0.05rem 0px -0.2rem', fontSize: '7.5px', color: 'rgba(255,255,255,0.95)' }}>Placeholder street 123, İstanbul</p>
-          </article>
-
-          {/* Ankara */}
-          <article className="loc" style={{ textAlign: 'center' }}>
-            <h2 className="city" style={{ margin: 0, fontWeight: 400, fontSize: '13px', color: 'rgba(255,255,255,0.95)' }}>Ankara</h2>
-            <p className="addr" style={{ margin: '0.05rem 0px -0.2rem', fontSize: '7.5px', color: 'rgba(255,255,255,0.95)' }}>Placeholder 45, Ankara</p>
+            <p className="addr" style={{ margin: '0.05rem 0px -0.2rem', fontSize: '7.5px', color: 'rgba(255,255,255,0.95)' }}>Kaynarca, Erol Kaya Cd No:204, 34890 Pendik</p>
           </article>
         </div>
 
