@@ -142,7 +142,6 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
           gap: '10px',
           padding: '9px 0px',
           background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.03) 100%)',
-          borderTop: '1px solid rgba(255,255,255,.2)',
           marginTop: 'auto',
           marginLeft: '-10px',
           marginRight: '-10px',
