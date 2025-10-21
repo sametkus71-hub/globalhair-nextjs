@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { MessageCircle } from 'lucide-react';
-import { CustomWhatsAppIcon } from '@/components/icons/CustomWhatsAppIcon';
-import { CustomInstagramIcon } from '@/components/icons/CustomInstagramIcon';
 import shieldIcon from '@/assets/shield-icon.svg';
 import v6HairboostIcon from '@/assets/v6-hairboost.png';
+import chatIcon from '@/assets/chat-icon.svg';
+import whatsappIcon from '@/assets/whatsapp-icon-new.svg';
+import instagramIcon from '@/assets/instagram-icon-new.svg';
 
 interface ContactCardGlassProps {
   className?: string;
@@ -149,13 +149,13 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
         }}
       >
         <button className="cta-ico" aria-label="Chat" style={{ width: '32px', height: '32px', borderRadius: '50%', border: '1px solid rgba(255,255,255,.5)', background: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', padding: 0 }}>
-          <MessageCircle size={14} color="rgba(255,255,255,0.9)" />
+          <img src={chatIcon} alt="Chat" style={{ width: '16px', height: '16px' }} />
         </button>
         <a className="cta-ico" aria-label="WhatsApp" href="https://wa.me/31696969696" target="_blank" rel="noopener" style={{ width: '32px', height: '32px', borderRadius: '50%', border: '1px solid rgba(255,255,255,.5)', background: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>
-          <CustomWhatsAppIcon className="w-3.5 h-3.5" />
+          <img src={whatsappIcon} alt="WhatsApp" style={{ width: '16px', height: '16px' }} />
         </a>
         <a className="cta-ico" aria-label="Instagram" href="https://instagram.com/yourhandle" target="_blank" rel="noopener" style={{ width: '32px', height: '32px', borderRadius: '50%', border: '1px solid rgba(255,255,255,.5)', background: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>
-          <CustomInstagramIcon className="w-3.5 h-3.5" />
+          <img src={instagramIcon} alt="Instagram" style={{ width: '16px', height: '16px' }} />
         </a>
       </footer>
 
