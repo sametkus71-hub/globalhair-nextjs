@@ -211,7 +211,7 @@ export const ReviewsGrid = () => {
   const itemsToRender = gridItems.slice(0, visibleItemCount);
 
   return (
-    <div className="w-full h-full overflow-hidden">
+    <div className="w-full h-full overflow-hidden absolute inset-0 pt-0">
       <div
         className={cn(
           "grid grid-cols-3",
