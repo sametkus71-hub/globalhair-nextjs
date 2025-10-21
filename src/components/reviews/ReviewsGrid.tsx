@@ -222,7 +222,7 @@ export const ReviewsGrid = () => {
           minHeight: '100vh',
           gridAutoRows: '32vw',
           gap: '2px',
-          backgroundColor: '#ffffff'
+          backgroundColor: 'transparent'
         }}
       >
         {itemsToRender.map((item, index) => {
@@ -236,14 +236,16 @@ export const ReviewsGrid = () => {
             <div
               key={item.id}
               className={cn(
-                "grid-item-entrance cursor-default",
+                "grid-item-entrance cursor-default silver-grey-gradient-border",
                 item.rowSpan === 2 ? "row-span-2" : "row-span-1"
               )}
               style={{
                 width: '33vw',
                 height: item.rowSpan === 2 ? 'calc(64vw + 2px)' : '32vw',
                 '--delay': `${delay}ms`,
-                contain: 'content'
+                contain: 'content',
+                borderRadius: '12px',
+                overflow: 'hidden'
               } as React.CSSProperties}
             >
               {item.type === 'quote' && (
@@ -276,6 +278,33 @@ export const ReviewsGrid = () => {
           </div>
         )}
       </div>
+
+      <style>{`
+        .silver-grey-gradient-border {
+          position: relative;
+        }
+
+        .silver-grey-gradient-border::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1.6px;
+          border-radius: inherit;
+          background: linear-gradient(80deg, #949494 7%, #838e94 16%, #b5b5b5 34%, #ACB9C1 51%, #4e5964 78%, #727272 105%);
+          -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 3;
+        }
+
+        .silver-grey-gradient-border > * {
+          position: relative;
+          z-index: 1;
+        }
+      `}</style>
     </div>
   );
 };

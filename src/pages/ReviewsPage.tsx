@@ -4,7 +4,7 @@ import { useTranslation } from '@/lib/translations';
 import { ReviewsGrid } from '@/components/reviews/ReviewsGrid';
 import { ReviewsTextArea } from '@/components/reviews/ReviewsTextArea';
 import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
-import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
+import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
 
 export const ReviewsPage = () => {
   const { language } = useLanguage();
@@ -20,7 +20,12 @@ export const ReviewsPage = () => {
 
   return (
     <>
-      <div className={`reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}>
+      <div 
+        className={`reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}
+        style={{
+          background: 'linear-gradient(180deg, #040E15 0%, #333D46 100%)'
+        }}
+      >
         {/* Close button */}
         <PopupCloseButton onClose={handleClose} />
         
@@ -29,7 +34,7 @@ export const ReviewsPage = () => {
           <ReviewsGrid />
         </div>
       </div>
-      <BottomNavigationPortal />
+      <FooterCTAGlass />
     </>
   );
 };
