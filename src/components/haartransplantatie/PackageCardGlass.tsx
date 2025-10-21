@@ -78,7 +78,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         WebkitBackdropFilter: 'blur(7px)',
         marginLeft: '.1rem',
         marginRight: '.1rem',
-        minHeight: '280px',
+        minHeight: '26.5vh',
       }}
     >
       {/* Shared 5-track grid for pill and content */}
