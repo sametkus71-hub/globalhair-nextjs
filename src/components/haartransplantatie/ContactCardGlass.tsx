@@ -3,7 +3,7 @@ import { MessageCircle } from 'lucide-react';
 import { CustomWhatsAppIcon } from '@/components/icons/CustomWhatsAppIcon';
 import { CustomInstagramIcon } from '@/components/icons/CustomInstagramIcon';
 import shieldIcon from '@/assets/shield-icon.svg';
-import v6HairboostIcon from '@/assets/v6-hairboost.svg';
+import v6HairboostIcon from '@/assets/v6-hairboost.png';
 
 interface ContactCardGlassProps {
   className?: string;
