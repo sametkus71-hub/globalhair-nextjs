@@ -74,16 +74,16 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
 
       {/* NL content */}
       <div className="contact-pane" data-pane="nl" hidden={activeTab !== 'nl'} aria-labelledby="tab-nl">
-        <div className="locations" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'start', marginBottom: '0.4rem' }}>
+        <div className="locations" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'start', marginBottom: '1.3rem' }}>
           {/* Barendrecht */}
           <article className="loc" style={{ textAlign: 'center' }}>
             <div className="loc-icons" style={{ display: 'flex', gap: '3px', justifyContent: 'center', alignItems: 'center', marginBottom: '3px' }}>
               <img src={shieldIcon} alt="Shield" style={{ width: '12px', height: '12px', opacity: 0.95 }} />
               <img src={v6HairboostIcon} alt="V6 Hairboost" style={{ width: '18px', height: '18px' }} />
             </div>
-            <h2 className="city" style={{ margin: 0, fontWeight: 600, fontSize: '9px', color: 'rgba(255,255,255,0.95)' }}>Barendrecht</h2>
-            <p className="addr" style={{ margin: '.05rem 0 .2rem', fontSize: '7.5px', color: 'rgba(255,255,255,0.95)' }}>Pesetastraat 72, 2991 XT</p>
-            <span className="badge" style={{ display: 'inline-block', padding: '1px 5px', borderRadius: '999px', background: 'rgba(255,255,255,0.15)', fontSize: '6.5px', color: 'rgba(255,255,255,0.9)', border: '1px solid rgba(255,255,255,0.3)', marginTop: '-1px' }}>Hoofdvestiging</span>
+            <h2 className="city" style={{ margin: 0, fontWeight: 400, fontSize: '13px', color: 'rgba(255,255,255,0.95)' }}>Barendrecht</h2>
+            <p className="addr" style={{ margin: '0.05rem 0px -0.2rem', fontSize: '7.5px', color: 'rgba(255,255,255,0.95)' }}>Pesetastraat 72, 2991 XT</p>
+            <span className="badge silver-grey-gradient-border" style={{ display: 'inline-block', padding: '1px 5px', borderRadius: '999px', background: 'rgba(255,255,255,0.15)', fontSize: '6.5px', color: 'rgba(255,255,255,0.9)', marginTop: '-1px' }}>Hoofdvestiging</span>
           </article>
 
           {/* Leiden */}
@@ -91,8 +91,8 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
             <div className="loc-icons" style={{ display: 'flex', gap: '3px', justifyContent: 'center', alignItems: 'center', marginBottom: '3px' }}>
               <img src={v6HairboostIcon} alt="V6 Hairboost" style={{ width: '18px', height: '18px' }} />
             </div>
-            <h2 className="city" style={{ margin: 0, fontWeight: 600, fontSize: '9px', color: 'rgba(255,255,255,0.95)' }}>Leiden</h2>
-            <p className="addr" style={{ margin: '.05rem 0 .2rem', fontSize: '7.5px', color: 'rgba(255,255,255,0.95)' }}>Fruitweg 22, 2321 GK</p>
+            <h2 className="city" style={{ margin: 0, fontWeight: 400, fontSize: '13px', color: 'rgba(255,255,255,0.95)' }}>Leiden</h2>
+            <p className="addr" style={{ margin: '0.05rem 0px -0.2rem', fontSize: '7.5px', color: 'rgba(255,255,255,0.95)' }}>Fruitweg 22, 2321 GK</p>
           </article>
         </div>
 
@@ -106,20 +106,20 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
 
       {/* TR content */}
       <div className="contact-pane" data-pane="tr" hidden={activeTab !== 'tr'} aria-labelledby="tab-tr">
-        <div className="locations" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'start', marginBottom: '0.4rem' }}>
+        <div className="locations" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'start', marginBottom: '1.3rem' }}>
           {/* Istanbul */}
           <article className="loc" style={{ textAlign: 'center' }}>
             <div className="loc-icons" style={{ display: 'flex', gap: '3px', justifyContent: 'center', marginBottom: '3px' }}>
               <div className="v6-badge" style={{ width: '10px', height: '10px', border: '1px solid rgba(255,255,255,0.8)', borderRadius: '2px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '5.5px', fontWeight: '500', color: 'rgba(255,255,255,0.9)' }}>V6</div>
             </div>
-            <h2 className="city" style={{ margin: 0, fontWeight: 600, fontSize: '9px', color: 'rgba(255,255,255,0.95)' }}>İstanbul</h2>
-            <p className="addr" style={{ margin: '.05rem 0 .2rem', fontSize: '7.5px', color: 'rgba(255,255,255,0.95)' }}>Placeholder street 123, İstanbul</p>
+            <h2 className="city" style={{ margin: 0, fontWeight: 400, fontSize: '13px', color: 'rgba(255,255,255,0.95)' }}>İstanbul</h2>
+            <p className="addr" style={{ margin: '0.05rem 0px -0.2rem', fontSize: '7.5px', color: 'rgba(255,255,255,0.95)' }}>Placeholder street 123, İstanbul</p>
           </article>
 
           {/* Ankara */}
           <article className="loc" style={{ textAlign: 'center' }}>
-            <h2 className="city" style={{ margin: 0, fontWeight: 600, fontSize: '9px', color: 'rgba(255,255,255,0.95)' }}>Ankara</h2>
-            <p className="addr" style={{ margin: '.05rem 0 .2rem', fontSize: '7.5px', color: 'rgba(255,255,255,0.95)' }}>Placeholder 45, Ankara</p>
+            <h2 className="city" style={{ margin: 0, fontWeight: 400, fontSize: '13px', color: 'rgba(255,255,255,0.95)' }}>Ankara</h2>
+            <p className="addr" style={{ margin: '0.05rem 0px -0.2rem', fontSize: '7.5px', color: 'rgba(255,255,255,0.95)' }}>Placeholder 45, Ankara</p>
           </article>
         </div>
 
