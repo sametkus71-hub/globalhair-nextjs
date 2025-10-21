@@ -79,7 +79,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
           <article className="loc" style={{ textAlign: 'center' }}>
             <div className="loc-icons" style={{ display: 'flex', gap: '4px', justifyContent: 'center', marginBottom: '4px' }}>
               <img src={shieldIcon} alt="Shield" style={{ width: '14px', height: '14px', opacity: 0.95 }} />
-              <img src={v6HairboostIcon} alt="V6 Hairboost" style={{ width: '14px', height: '14px' }} />
+              <img src={v6HairboostIcon} alt="V6 Hairboost" style={{ width: '22px', height: '22px' }} />
             </div>
             <h2 className="city" style={{ margin: 0, fontWeight: 600, fontSize: '10px', color: 'rgba(255,255,255,0.95)' }}>Barendrecht</h2>
             <p className="addr" style={{ margin: '.1rem 0 .3rem', fontSize: '8px', color: 'rgba(255,255,255,0.95)' }}>Pesetastraat 72, 2991 XT</p>
@@ -89,7 +89,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
           {/* Leiden */}
           <article className="loc" style={{ textAlign: 'center' }}>
             <div className="loc-icons" style={{ display: 'flex', gap: '4px', justifyContent: 'center', marginBottom: '4px' }}>
-              <img src={v6HairboostIcon} alt="V6 Hairboost" style={{ width: '14px', height: '14px' }} />
+              <img src={v6HairboostIcon} alt="V6 Hairboost" style={{ width: '22px', height: '22px' }} />
             </div>
             <h2 className="city" style={{ margin: 0, fontWeight: 600, fontSize: '10px', color: 'rgba(255,255,255,0.95)' }}>Leiden</h2>
             <p className="addr" style={{ margin: '.1rem 0 .3rem', fontSize: '8px', color: 'rgba(255,255,255,0.95)' }}>Fruitweg 22, 2321 GK</p>
