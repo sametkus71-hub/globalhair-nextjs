@@ -148,13 +148,92 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
           width: 'calc(100% + 20px)',
         }}
       >
-        <button className="cta-ico" aria-label="Chat" style={{ width: '28px', height: '28px', borderRadius: '50%', border: '1px solid rgba(255,255,255,.5)', background: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', padding: 0 }}>
+        <button 
+          className="cta-ico silver-gradient-border" 
+          aria-label="Chat" 
+          style={{ 
+            width: '28px', 
+            height: '28px', 
+            borderRadius: '50%', 
+            background: 'rgba(255, 255, 255, 0.12)', 
+            backdropFilter: 'blur(20px)',
+            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            cursor: 'pointer', 
+            padding: 0,
+            transition: 'all 0.2s ease'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.16)';
+            e.currentTarget.style.transform = 'scale(1.05)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
+            e.currentTarget.style.transform = 'scale(1)';
+          }}
+        >
           <img src={chatIcon} alt="Chat" style={{ width: '14px', height: '14px' }} />
         </button>
-        <a className="cta-ico" aria-label="WhatsApp" href="https://wa.me/31696969696" target="_blank" rel="noopener" style={{ width: '28px', height: '28px', borderRadius: '50%', border: '1px solid rgba(255,255,255,.5)', background: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>
+        <a 
+          className="cta-ico silver-gradient-border" 
+          aria-label="WhatsApp" 
+          href="https://wa.me/31696969696" 
+          target="_blank" 
+          rel="noopener" 
+          style={{ 
+            width: '28px', 
+            height: '28px', 
+            borderRadius: '50%', 
+            background: 'rgba(255, 255, 255, 0.12)', 
+            backdropFilter: 'blur(20px)',
+            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            textDecoration: 'none',
+            transition: 'all 0.2s ease'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.16)';
+            e.currentTarget.style.transform = 'scale(1.05)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
+            e.currentTarget.style.transform = 'scale(1)';
+          }}
+        >
           <img src={whatsappIcon} alt="WhatsApp" style={{ width: '14px', height: '14px' }} />
         </a>
-        <a className="cta-ico" aria-label="Instagram" href="https://instagram.com/yourhandle" target="_blank" rel="noopener" style={{ width: '28px', height: '28px', borderRadius: '50%', border: '1px solid rgba(255,255,255,.5)', background: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>
+        <a 
+          className="cta-ico silver-gradient-border" 
+          aria-label="Instagram" 
+          href="https://instagram.com/yourhandle" 
+          target="_blank" 
+          rel="noopener" 
+          style={{ 
+            width: '28px', 
+            height: '28px', 
+            borderRadius: '50%', 
+            background: 'rgba(255, 255, 255, 0.12)', 
+            backdropFilter: 'blur(20px)',
+            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            textDecoration: 'none',
+            transition: 'all 0.2s ease'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.16)';
+            e.currentTarget.style.transform = 'scale(1.05)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
+            e.currentTarget.style.transform = 'scale(1)';
+          }}
+        >
           <img src={instagramIcon} alt="Instagram" style={{ width: '14px', height: '14px' }} />
         </a>
       </footer>
