@@ -42,7 +42,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
             border: 0,
             padding: '1px 6px',
             fontWeight: activeTab === 'nl' ? 500 : 200,
-            fontSize: '9px',
+            fontSize: '10px',
             color: activeTab === 'nl' ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.5)',
             textDecoration: activeTab === 'nl' ? 'underline' : 'none',
             textUnderlineOffset: '2px',
@@ -63,7 +63,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
             border: 0,
             padding: '1px 6px',
             fontWeight: activeTab === 'tr' ? 500 : 200,
-            fontSize: '9px',
+            fontSize: '10px',
             color: activeTab === 'tr' ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.5)',
             textDecoration: activeTab === 'tr' ? 'underline' : 'none',
             textUnderlineOffset: '2px',
@@ -77,7 +77,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
 
       {/* NL content */}
       <div className="contact-pane" data-pane="nl" aria-labelledby="tab-nl" style={{ flex: 1, display: activeTab === 'nl' ? 'flex' : 'none', flexDirection: 'column' }}>
-        <div className="locations" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'start', marginBottom: '1.3rem', marginTop: '1rem' }}>
+        <div className="locations" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'start', marginBottom: '0.5rem', marginTop: '0.7rem' }}>
           {/* Barendrecht */}
           <article className="loc" style={{ textAlign: 'center' }}>
             <div className="loc-icons" style={{ display: 'flex', gap: '3px', justifyContent: 'center', alignItems: 'center', marginBottom: '3px' }}>
@@ -125,7 +125,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
 
         {/* Info row */}
         <div className="info-row" style={{ display: 'flex', gap: '11px', alignItems: 'center', justifyContent: 'space-between', padding: '5px 0px 0px', marginTop: '5px', marginLeft: '30px', marginRight: '30px', borderTop: '1px solid rgba(255,255,255,.25)', textAlign: 'center' }}>
-          <span className="info" style={{ fontSize: '7.5px', color: 'rgba(255,255,255,0.9)' }}>Mon – Sat 10:00 – 19:00</span>
+          <span className="info" style={{ fontSize: '7.5px', color: 'rgba(255,255,255,0.9)' }}>Ma – Za 10:00 – 19:00</span>
           <a className="info" href="mailto:info@globalhair.nl" style={{ fontSize: '7.5px', color: 'rgba(255,255,255,0.9)', textDecoration: 'none' }}>info@globalhair.nl</a>
           <a className="info" href="tel:+31696969696" style={{ fontSize: '7.5px', color: 'rgba(255,255,255,0.9)', textDecoration: 'none' }}>+31 6 96969696</a>
         </div>
