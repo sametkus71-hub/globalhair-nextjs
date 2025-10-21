@@ -77,7 +77,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
         <div className="locations" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', alignItems: 'start' }}>
           {/* Barendrecht */}
           <article className="loc" style={{ textAlign: 'center' }}>
-            <div className="loc-icons" style={{ display: 'flex', gap: '4px', justifyContent: 'center', marginBottom: '4px' }}>
+            <div className="loc-icons" style={{ display: 'flex', gap: '4px', justifyContent: 'center', alignItems: 'center', marginBottom: '4px' }}>
               <img src={shieldIcon} alt="Shield" style={{ width: '14px', height: '14px', opacity: 0.95 }} />
               <img src={v6HairboostIcon} alt="V6 Hairboost" style={{ width: '22px', height: '22px' }} />
             </div>
@@ -88,7 +88,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
 
           {/* Leiden */}
           <article className="loc" style={{ textAlign: 'center' }}>
-            <div className="loc-icons" style={{ display: 'flex', gap: '4px', justifyContent: 'center', marginBottom: '4px' }}>
+            <div className="loc-icons" style={{ display: 'flex', gap: '4px', justifyContent: 'center', alignItems: 'center', marginBottom: '4px' }}>
               <img src={v6HairboostIcon} alt="V6 Hairboost" style={{ width: '22px', height: '22px' }} />
             </div>
             <h2 className="city" style={{ margin: 0, fontWeight: 600, fontSize: '10px', color: 'rgba(255,255,255,0.95)' }}>Leiden</h2>
