@@ -77,7 +77,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
 
       {/* NL content */}
       <div className="contact-pane" data-pane="nl" aria-labelledby="tab-nl" style={{ flex: 1, display: activeTab === 'nl' ? 'flex' : 'none', flexDirection: 'column' }}>
-        <div className="locations" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'start', marginBottom: '0.5rem', marginTop: '0.7rem' }}>
+        <div className="locations" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'start', marginBottom: '0.5rem', marginTop: '0.64rem' }}>
           {/* Barendrecht */}
           <article className="loc" style={{ textAlign: 'center' }}>
             <div className="loc-icons" style={{ display: 'flex', gap: '3px', justifyContent: 'center', alignItems: 'center', marginBottom: '3px' }}>
