@@ -35,7 +35,7 @@ export const ReviewsPage = () => {
         
         {/* Full screen Instagram-style grid */}
         <div 
-          className="h-full overflow-y-auto pb-20"
+          className="h-full overflow-y-auto pt-0 pb-20"
           style={{ WebkitOverflowScrolling: 'touch', overscrollBehavior: 'contain' }}
         >
           <ReviewsGrid />
