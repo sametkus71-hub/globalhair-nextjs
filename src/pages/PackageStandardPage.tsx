@@ -33,7 +33,7 @@ export const PackageStandardPage = () => {
         <div 
           className="h-full flex items-start justify-center p-4 pt-4"
         >
-          <main className="flex flex-col w-full max-w-2xl h-[calc(100vh-32px)]">
+          <main className="flex flex-col w-full max-w-2xl h-[87vh]">
             <section 
               className="relative rounded-[32px] p-6 pb-8 backdrop-blur-xl bg-gradient-to-b from-[#040E15] to-[#333D46] shadow-[0_8px_32px_rgba(0,0,0,0.4)] h-full flex flex-col" 
               style={{ 
