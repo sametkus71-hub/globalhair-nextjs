@@ -134,7 +134,7 @@ export const ReviewsGrid = () => {
   
   // Progressive loading state
   const [visibleItemCount, setVisibleItemCount] = useState(() => 
-    isMobile ? 12 : gridItems.length
+    isMobile ? 18 : gridItems.length
   );
   
   // State for video muting - track which video is currently unmuted (if any)
@@ -150,7 +150,7 @@ export const ReviewsGrid = () => {
   });
 
   // Find video items to determine which should autoplay
-  const videoItems = gridItems.filter(item => item.type === 'video' || item.type === 'berkant-video').slice(0, 3);
+  const videoItems = gridItems.filter(item => item.type === 'video' || item.type === 'berkant-video').slice(0, 6);
   const videoItemIds = new Set(videoItems.map(item => item.id));
 
   // Handle click to navigate to item page with slide animation - only for videos now
@@ -211,7 +211,7 @@ export const ReviewsGrid = () => {
   const itemsToRender = gridItems.slice(0, visibleItemCount);
 
   return (
-    <div className="relative w-full min-h-full pt-0">
+    <div className="relative w-full min-h-full -mt-[clamp(80px,12vh,120px)]">
       <div
         className={cn(
           "grid grid-cols-3",

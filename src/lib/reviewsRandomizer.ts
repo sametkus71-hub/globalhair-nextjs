@@ -12,8 +12,8 @@ export interface GridItem {
   data: any; // Will be typed based on content type
 }
 
-// Grid layout structure (18 items total)
-// 3 vertical videos: left (rows 2-3), right (rows 3-4), left (rows 5-6)
+// Grid layout structure (36 items total for longer scrolling)
+// Videos distributed throughout: positions 4, 8, 11, 22, 26, 29
 const GRID_LAYOUT: Array<{ rowSpan: 1 | 2; contentType?: 'video-only' | 'small-only' }> = [
   { rowSpan: 1, contentType: 'small-only' }, // Item 1 - Row 1, Col 1
   { rowSpan: 1, contentType: 'small-only' }, // Item 2 - Row 1, Col 2
@@ -32,7 +32,25 @@ const GRID_LAYOUT: Array<{ rowSpan: 1 | 2; contentType?: 'video-only' | 'small-o
   { rowSpan: 1, contentType: 'small-only' }, // Item 15 - Row 6, Col 3
   { rowSpan: 1, contentType: 'small-only' }, // Item 16 - Row 7, Col 1
   { rowSpan: 1, contentType: 'small-only' }, // Item 17 - Row 7, Col 2
-  { rowSpan: 1, contentType: 'small-only' }  // Item 18 - Row 7, Col 3
+  { rowSpan: 1, contentType: 'small-only' }, // Item 18 - Row 7, Col 3
+  { rowSpan: 1, contentType: 'small-only' }, // Item 19 - Row 8, Col 1
+  { rowSpan: 1, contentType: 'small-only' }, // Item 20 - Row 8, Col 2
+  { rowSpan: 1, contentType: 'small-only' }, // Item 21 - Row 8, Col 3
+  { rowSpan: 2, contentType: 'video-only' }, // Item 22 - Rows 9-10, Col 1 (left)
+  { rowSpan: 1, contentType: 'small-only' }, // Item 23 - Row 9, Col 2
+  { rowSpan: 1, contentType: 'small-only' }, // Item 24 - Row 9, Col 3
+  { rowSpan: 1, contentType: 'small-only' }, // Item 25 - Row 10, Col 2
+  { rowSpan: 2, contentType: 'video-only' }, // Item 26 - Rows 10-11, Col 3 (right)
+  { rowSpan: 1, contentType: 'small-only' }, // Item 27 - Row 11, Col 1
+  { rowSpan: 1, contentType: 'small-only' }, // Item 28 - Row 11, Col 2
+  { rowSpan: 2, contentType: 'video-only' }, // Item 29 - Rows 12-13, Col 1 (left)
+  { rowSpan: 1, contentType: 'small-only' }, // Item 30 - Row 12, Col 2
+  { rowSpan: 1, contentType: 'small-only' }, // Item 31 - Row 12, Col 3
+  { rowSpan: 1, contentType: 'small-only' }, // Item 32 - Row 13, Col 2
+  { rowSpan: 1, contentType: 'small-only' }, // Item 33 - Row 13, Col 3
+  { rowSpan: 1, contentType: 'small-only' }, // Item 34 - Row 14, Col 1
+  { rowSpan: 1, contentType: 'small-only' }, // Item 35 - Row 14, Col 2
+  { rowSpan: 1, contentType: 'small-only' }  // Item 36 - Row 14, Col 3
 ];
 
 // Shuffle array utility
@@ -68,7 +86,7 @@ export const generateRandomGrid = (): GridItem[] => {
   const selectedQuotes = shuffledQuotes.slice(0, Math.min(4, shuffledQuotes.length));
   
   // Calculate how many before/after images we need
-  const beforeAfterSlots = GRID_LAYOUT.length - 3 - Math.min(4, shuffledQuotes.length); // 3 video slots, up to 4 quote slots
+  const beforeAfterSlots = GRID_LAYOUT.length - 6 - Math.min(4, shuffledQuotes.length); // 6 video slots, up to 4 quote slots
   
   // Ensure priority image is included, then fill with random others
   const priorityImage = BEFORE_AFTER_ITEMS.find(item => 
