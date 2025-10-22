@@ -211,15 +211,14 @@ export const ReviewsGrid = () => {
   const itemsToRender = gridItems.slice(0, visibleItemCount);
 
   return (
-    <div className="w-full h-full overflow-hidden absolute inset-0 pt-0">
+    <div className="relative w-full min-h-full pt-0">
       <div
         className={cn(
           "grid grid-cols-3",
           isGridAnimated && "grid-animate"
         )}
         style={{
-          width: '100vw',
-          height: '100vh',
+          width: '100%',
           gridAutoRows: '32vw',
           gap: '2px',
           backgroundColor: 'transparent'

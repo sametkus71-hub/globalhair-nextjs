@@ -45,7 +45,10 @@ export const ReviewsPage = () => {
         <PopupCloseButton onClose={handleClose} />
         
         {/* Full screen Instagram-style grid */}
-        <div className="h-full overflow-y-auto">
+        <div 
+          className="h-full overflow-y-auto"
+          style={{ WebkitOverflowScrolling: 'touch', overscrollBehavior: 'contain' }}
+        >
           <ReviewsGrid />
         </div>
       </div>
