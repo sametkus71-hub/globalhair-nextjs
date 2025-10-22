@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { X, ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useNavigate } from 'react-router-dom';
+import closeIcon from '@/assets/close-icon.svg';
 
 interface PopupCloseButtonProps {
   onClose: () => void;
@@ -36,14 +37,14 @@ export const PopupCloseButton: React.FC<PopupCloseButtonProps> = ({
   return (
     <button
       onClick={onClose}
-      className={`fixed top-4 left-4 z-50 w-10 h-10 rounded-full bg-black/25 backdrop-blur-md border border-white/50 hover:bg-black/35 transition-all duration-200 flex items-center justify-center overflow-hidden glass-shine ${className}`}
+      className={`fixed top-4 left-4 z-50 w-10 h-10 flex items-center justify-center transition-opacity duration-200 hover:opacity-70 ${className}`}
       style={style}
       aria-label={isBackButton ? (language === 'nl' ? 'Terug' : 'Back') : (language === 'nl' ? 'Sluiten' : 'Close')}
     >
       {isBackButton ? (
         <ArrowLeft className="w-5 h-5 text-white" />
       ) : (
-        <X className="w-5 h-5 text-white" />
+        <img src={closeIcon} alt="" className="w-4.5 h-4.5" />
       )}
     </button>
   );

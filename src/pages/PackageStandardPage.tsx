@@ -44,7 +44,7 @@ export const PackageStandardPage = () => {
               }}
             >
               {/* Close button inside section */}
-              <PopupCloseButton onClose={handleClose} className="absolute top-6 left-6 z-10" />
+              <PopupCloseButton onClose={handleClose} className="absolute top-4 left-4 z-10" />
 
         {/* Country toggle */}
         <div 
