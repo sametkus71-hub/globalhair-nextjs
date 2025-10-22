@@ -17,8 +17,12 @@ export const PackageStandardPage = () => {
   };
 
   return (
-    <main className="min-h-screen flex flex-col justify-between px-4 pt-12 pb-32 bg-gradient-to-b from-[#040E15] to-[#333D46]">
-      <section 
+    <>
+      {/* Fixed gradient background for this page */}
+      <div className="fixed inset-0 bg-gradient-to-b from-[#040E15] to-[#333D46]" style={{ zIndex: 0 }} />
+      
+      <main className="relative min-h-screen flex flex-col justify-between px-4 pt-12 pb-32" style={{ zIndex: 1 }}>
+        <section
         className="relative rounded-[32px] p-5 pb-8 backdrop-blur-xl bg-gradient-to-b from-[#040E15] to-[#333D46] shadow-[0_8px_32px_rgba(0,0,0,0.4)]" 
         style={{ 
           minHeight: 'calc(100vh - 180px)',
@@ -135,8 +139,9 @@ export const PackageStandardPage = () => {
         </div>
       </section>
 
-      {/* Footer CTA */}
-      <FooterCTAGlass />
-    </main>
+        {/* Footer CTA */}
+        <FooterCTAGlass />
+      </main>
+    </>
   );
 };
