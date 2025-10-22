@@ -135,7 +135,7 @@ export const PackageStandardPage = () => {
               borderRadius: '.4rem',
             }}
           >
-            <img src={chevronRightSvg} alt="" className="w-3.5 h-3.5 opacity-70" />
+            <img src={chevronRightSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
           </div>
           <div
             className="silver-grey-gradient-border flex items-center justify-center"
@@ -145,7 +145,7 @@ export const PackageStandardPage = () => {
               borderRadius: '.4rem',
             }}
           >
-            <img src={leafSvg} alt="" className="w-4 h-4 opacity-70" />
+            <img src={leafSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
           </div>
         </div>
 
