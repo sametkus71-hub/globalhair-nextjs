@@ -127,12 +127,26 @@ export const PackageStandardPage = () => {
 
         {/* Chips row */}
         <div className="flex gap-2 items-center my-4 px-1">
-          <span className="w-[40px] h-[40px] rounded-[12px] bg-white/[0.06] border border-white/20 flex items-center justify-center">
+          <div
+            className="silver-grey-gradient-border flex items-center justify-center"
+            style={{
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 80%)',
+              padding: '.5rem',
+              borderRadius: '.4rem',
+            }}
+          >
             <img src={chevronRightSvg} alt="" className="w-3.5 h-3.5 opacity-70" />
-          </span>
-          <span className="w-[40px] h-[40px] rounded-[12px] bg-white/[0.06] border border-white/20 flex items-center justify-center">
+          </div>
+          <div
+            className="silver-grey-gradient-border flex items-center justify-center"
+            style={{
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 80%)',
+              padding: '.5rem',
+              borderRadius: '.4rem',
+            }}
+          >
             <img src={leafSvg} alt="" className="w-4 h-4 opacity-70" />
-          </span>
+          </div>
         </div>
 
         {/* Feature list */}
