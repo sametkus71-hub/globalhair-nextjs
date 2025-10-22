@@ -1,4 +1,5 @@
 import { useLanguage } from '@/hooks/useLanguage';
+import { useNavigate } from 'react-router-dom';
 import chevronRightIcon from '@/assets/chevron-right.svg';
 import leafIcon from '@/assets/leaf.svg';
 
@@ -32,6 +33,7 @@ const packageData = {
 
 export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
   const { language } = useLanguage();
+  const navigate = useNavigate();
 
   const renderActiveLeaves = (count: number) => {
     return (
@@ -402,8 +404,8 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           borderImage: 'linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2)) 1',
         }}
       >
-        <a
-          href="#packages-standard"
+        <button
+          onClick={() => navigate(language === 'nl' ? '/nl/pakket-standaard' : '/en/package-standard')}
           className="readmore-link"
           style={{
             color: 'white',
@@ -413,6 +415,10 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
             textDecoration: 'underline',
             textUnderlineOffset: '3px',
             transition: 'opacity 0.2s ease',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            padding: 0,
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.opacity = '0.7';
@@ -422,7 +428,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           }}
         >
           {language === 'nl' ? 'Lees meer' : 'Read more'}
-        </a>
+        </button>
       </div>
 
       <style>{`

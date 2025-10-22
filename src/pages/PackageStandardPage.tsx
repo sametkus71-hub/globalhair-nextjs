@@ -1,45 +1,53 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { X, Shield } from 'lucide-react';
+import { Shield } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 import chevronRightSvg from '@/assets/chevron-right.svg';
 import leafSvg from '@/assets/leaf.svg';
 import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
+import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
 
 export const PackageStandardPage = () => {
-  const navigate = useNavigate();
   const { language } = useLanguage();
   const [activeCountry, setActiveCountry] = useState<'nl' | 'tr'>('nl');
   const [activeTier, setActiveTier] = useState<'Standard' | 'Premium' | 'Advanced'>('Standard');
+  const [isExiting, setIsExiting] = useState(false);
+  const { handlePopupClose } = usePopupClose();
 
   const handleClose = () => {
-    navigate(`/${language}/haartransplantatie`);
+    setIsExiting(true);
+    handlePopupClose(350);
   };
 
   return (
     <>
-      {/* Fixed gradient background for this page */}
-      <div className="fixed inset-0 bg-gradient-to-b from-[#040E15] to-[#333D46]" style={{ zIndex: 0 }} />
-      
-      <main className="relative min-h-screen flex flex-col justify-between px-4 pt-12 pb-32" style={{ zIndex: 1 }}>
-        <section
-        className="relative rounded-[32px] p-5 pb-8 backdrop-blur-xl bg-gradient-to-b from-[#040E15] to-[#333D46] shadow-[0_8px_32px_rgba(0,0,0,0.4)]" 
-        style={{ 
-          minHeight: 'calc(100vh - 180px)',
-          border: '1px solid transparent',
-          backgroundImage: 'linear-gradient(#040E15, #333D46), linear-gradient(180deg, #4B555E 0%, #ACB9C1 15%, #FFFFFF 50%, #ACB9C1 85%, #4B555E 100%)',
-          backgroundOrigin: 'border-box',
-          backgroundClip: 'padding-box, border-box'
+      <div
+        className={`reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}
+        style={{
+          background: 'linear-gradient(180deg, #040E15 0%, #333D46 100%)',
+          overflow: 'hidden',
+          position: 'fixed',
+          inset: 0,
+          zIndex: 30
         }}
       >
         {/* Close button */}
-        <button 
-          onClick={handleClose}
-          className="absolute top-5 left-5 bg-transparent border-0 text-white/70 hover:text-white transition-colors p-0"
-          aria-label="Close"
+        <PopupCloseButton onClose={handleClose} />
+        
+        <div 
+          className="h-full overflow-y-auto pt-0 pb-20"
+          style={{ WebkitOverflowScrolling: 'touch', overscrollBehavior: 'contain' }}
         >
-          <X className="w-8 h-8" strokeWidth={2} />
-        </button>
+          <main className="min-h-screen flex flex-col justify-between px-4 pt-12 pb-32">
+            <section 
+              className="relative rounded-[32px] p-5 pb-8 backdrop-blur-xl bg-gradient-to-b from-[#040E15] to-[#333D46] shadow-[0_8px_32px_rgba(0,0,0,0.4)]" 
+              style={{ 
+                minHeight: 'calc(100vh - 180px)',
+                border: '1px solid transparent',
+                backgroundImage: 'linear-gradient(#040E15, #333D46), linear-gradient(180deg, #4B555E 0%, #ACB9C1 15%, #FFFFFF 50%, #ACB9C1 85%, #4B555E 100%)',
+                backgroundOrigin: 'border-box',
+                backgroundClip: 'padding-box, border-box'
+              }}
+            >
 
         {/* Country toggle */}
         <div className="flex gap-0 justify-center mt-12 mb-6" role="tablist" aria-label="Country">
@@ -138,10 +146,10 @@ export const PackageStandardPage = () => {
           €8.950
         </div>
       </section>
-
-        {/* Footer CTA */}
-        <FooterCTAGlass />
-      </main>
-    </>
-  );
+    </main>
+  </div>
+</div>
+<FooterCTAGlass />
+</>
+);
 };
