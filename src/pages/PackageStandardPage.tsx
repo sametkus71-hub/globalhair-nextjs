@@ -48,20 +48,20 @@ export const PackageStandardPage = () => {
 
         {/* Country toggle */}
         <div 
-          className="silver-gradient-border flex gap-0 justify-center mt-6 mb-4 mx-auto max-w-[280px]" 
+          className="flex gap-0 justify-center mt-6 mb-4 mx-auto max-w-[280px] border border-white/20" 
           role="tablist" 
           aria-label="Country"
           style={{
             background: 'rgba(255, 255, 255, 0.08)',
             backdropFilter: 'blur(20px)',
             borderRadius: '9999px',
-            padding: '2px',
+            padding: '4px',
           }}
         >
           <button 
             className={`flex-1 px-4 py-1.5 rounded-full text-xs font-light transition-all ${
               activeCountry === 'nl' 
-                ? 'bg-white/10 text-white' 
+                ? 'silver-gradient-border bg-white/10 text-white mx-1' 
                 : 'bg-transparent text-white/50 hover:text-white/70'
             }`}
             onClick={() => setActiveCountry('nl')}
@@ -71,7 +71,7 @@ export const PackageStandardPage = () => {
           <button 
             className={`flex-1 px-4 py-1.5 rounded-full text-xs font-light transition-all ${
               activeCountry === 'tr' 
-                ? 'bg-white/10 text-white' 
+                ? 'silver-gradient-border bg-white/10 text-white mx-1' 
                 : 'bg-transparent text-white/50 hover:text-white/70'
             }`}
             onClick={() => setActiveCountry('tr')}
@@ -82,20 +82,20 @@ export const PackageStandardPage = () => {
 
         {/* Tier pill */}
         <div 
-          className="silver-gradient-border relative mx-auto my-4 max-w-[360px]" 
+          className="relative mx-auto my-4 max-w-[360px] border border-white/20" 
           aria-label="Tiers"
           style={{
             background: 'rgba(255, 255, 255, 0.08)',
             backdropFilter: 'blur(20px)',
             borderRadius: '9999px',
-            padding: '2px',
+            padding: '4px',
           }}
         >
-          <div className="grid grid-cols-3">
+          <div className="grid grid-cols-3 gap-1">
             <button
               className={`relative text-center px-3 py-1.5 rounded-full text-xs font-light transition-all ${
                 activeTier === 'Standard'
-                  ? 'bg-white/10 text-white'
+                  ? 'silver-gradient-border bg-white/10 text-white'
                   : 'bg-transparent text-white/50 hover:text-white/70'
               }`}
               onClick={() => setActiveTier('Standard')}
@@ -105,7 +105,7 @@ export const PackageStandardPage = () => {
             <button
               className={`relative text-center px-3 py-1.5 rounded-full text-xs font-light transition-all ${
                 activeTier === 'Premium'
-                  ? 'bg-white/10 text-white'
+                  ? 'silver-gradient-border bg-white/10 text-white'
                   : 'bg-transparent text-white/50 hover:text-white/70'
               }`}
               onClick={() => setActiveTier('Premium')}
@@ -115,7 +115,7 @@ export const PackageStandardPage = () => {
             <button
               className={`relative text-center px-3 py-1.5 rounded-full text-xs font-light transition-all ${
                 activeTier === 'Advanced'
-                  ? 'bg-white/10 text-white'
+                  ? 'silver-gradient-border bg-white/10 text-white'
                   : 'bg-transparent text-white/50 hover:text-white/70'
               }`}
               onClick={() => setActiveTier('Advanced')}
