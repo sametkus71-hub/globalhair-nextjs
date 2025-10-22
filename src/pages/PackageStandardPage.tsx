@@ -59,21 +59,23 @@ export const PackageStandardPage = () => {
           }}
         >
           <button 
-            className={`flex-1 px-4 py-1.5 rounded-full text-xs font-light transition-all ${
+            className={`flex-1 px-4 rounded-full text-xs font-light transition-all ${
               activeCountry === 'nl' 
-                ? 'silver-gradient-border bg-white/10 text-white mx-1' 
+                ? 'silver-gradient-border bg-white/10 text-white' 
                 : 'bg-transparent text-white/50 hover:text-white/70'
             }`}
+            style={{ paddingTop: '0.675rem', paddingBottom: '0.675rem' }}
             onClick={() => setActiveCountry('nl')}
           >
             Nederland
           </button>
           <button 
-            className={`flex-1 px-4 py-1.5 rounded-full text-xs font-light transition-all ${
+            className={`flex-1 px-4 rounded-full text-xs font-light transition-all ${
               activeCountry === 'tr' 
-                ? 'silver-gradient-border bg-white/10 text-white mx-1' 
+                ? 'silver-gradient-border bg-white/10 text-white' 
                 : 'bg-transparent text-white/50 hover:text-white/70'
             }`}
+            style={{ paddingTop: '0.675rem', paddingBottom: '0.675rem' }}
             onClick={() => setActiveCountry('tr')}
           >
             Turkije
