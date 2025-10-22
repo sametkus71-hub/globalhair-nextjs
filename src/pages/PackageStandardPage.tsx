@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { X, MessageCircle, Shield } from 'lucide-react';
+import { X, Shield } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 import chevronRightSvg from '@/assets/chevron-right.svg';
 import leafSvg from '@/assets/leaf.svg';
+import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
 
 export const PackageStandardPage = () => {
   const navigate = useNavigate();
@@ -16,8 +17,17 @@ export const PackageStandardPage = () => {
   };
 
   return (
-    <main className="min-h-screen flex flex-col justify-between px-4 pt-12 pb-32 bg-gradient-to-b from-[#0a0f1a] via-[#0d1420] to-[#111827]">
-      <section className="relative rounded-[32px] p-5 pb-8 backdrop-blur-xl bg-gradient-to-b from-white/[0.07] to-white/[0.03] border border-white/[0.12] shadow-[0_8px_32px_rgba(0,0,0,0.4)]" style={{ minHeight: 'calc(100vh - 180px)' }}>
+    <main className="min-h-screen flex flex-col justify-between px-4 pt-12 pb-32 bg-gradient-to-b from-[#040E15] to-[#333D46]">
+      <section 
+        className="relative rounded-[32px] p-5 pb-8 backdrop-blur-xl bg-gradient-to-b from-[#040E15] to-[#333D46] shadow-[0_8px_32px_rgba(0,0,0,0.4)]" 
+        style={{ 
+          minHeight: 'calc(100vh - 180px)',
+          border: '1px solid transparent',
+          backgroundImage: 'linear-gradient(#040E15, #333D46), linear-gradient(180deg, #4B555E 0%, #ACB9C1 15%, #FFFFFF 50%, #ACB9C1 85%, #4B555E 100%)',
+          backgroundOrigin: 'border-box',
+          backgroundClip: 'padding-box, border-box'
+        }}
+      >
         {/* Close button */}
         <button 
           onClick={handleClose}
@@ -125,20 +135,8 @@ export const PackageStandardPage = () => {
         </div>
       </section>
 
-      {/* Bottom dock */}
-      <footer className="fixed left-4 right-4 bottom-6 flex gap-4 items-center justify-between z-50">
-        <button className="flex-1 h-[68px] rounded-full bg-gradient-to-br from-amber-400 via-amber-500 to-yellow-600 border border-amber-400/40 flex items-center justify-center gap-4 shadow-[0_0_40px_rgba(251,191,36,0.4)] hover:shadow-[0_0_50px_rgba(251,191,36,0.5)] transition-all px-8">
-          <span className="text-white font-medium text-[17px]">Book a consult</span>
-          <span className="w-10 h-10 rounded-full bg-white/25 border border-white/30 flex items-center justify-center ml-auto">
-            <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </span>
-        </button>
-        <button className="w-[68px] h-[68px] rounded-full bg-white/[0.08] border border-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/[0.12] transition-all" aria-label="Chat">
-          <MessageCircle className="w-7 h-7 text-white/80" strokeWidth={1.5} />
-        </button>
-      </footer>
+      {/* Footer CTA */}
+      <FooterCTAGlass />
     </main>
   );
 };
