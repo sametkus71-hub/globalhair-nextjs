@@ -30,15 +30,12 @@ export const PackageStandardPage = () => {
           zIndex: 30
         }}
       >
-        {/* Close button */}
-        <PopupCloseButton onClose={handleClose} />
-        
         <div 
-          className="h-full flex items-center justify-center p-4"
+          className="h-full flex items-start justify-center p-4 pt-4"
         >
-          <main className="flex flex-col justify-center w-full max-w-2xl h-[calc(100vh-120px)]">
+          <main className="flex flex-col w-full max-w-2xl h-[calc(100vh-32px)]">
             <section 
-              className="relative rounded-[32px] p-6 pb-8 backdrop-blur-xl bg-gradient-to-b from-[#040E15] to-[#333D46] shadow-[0_8px_32px_rgba(0,0,0,0.4)] h-full flex flex-col"
+              className="relative rounded-[32px] p-6 pb-8 backdrop-blur-xl bg-gradient-to-b from-[#040E15] to-[#333D46] shadow-[0_8px_32px_rgba(0,0,0,0.4)] h-full flex flex-col" 
               style={{ 
                 border: '1px solid transparent',
                 backgroundImage: 'linear-gradient(#040E15, #333D46), linear-gradient(180deg, #4B555E 0%, #ACB9C1 15%, #FFFFFF 50%, #ACB9C1 85%, #4B555E 100%)',
@@ -46,6 +43,8 @@ export const PackageStandardPage = () => {
                 backgroundClip: 'padding-box, border-box'
               }}
             >
+              {/* Close button inside section */}
+              <PopupCloseButton onClose={handleClose} className="absolute top-6 left-6 z-10" />
 
         {/* Country toggle */}
         <div 
