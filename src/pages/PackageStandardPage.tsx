@@ -34,14 +34,12 @@ export const PackageStandardPage = () => {
         <PopupCloseButton onClose={handleClose} />
         
         <div 
-          className="h-full overflow-y-auto pt-0 pb-20"
-          style={{ WebkitOverflowScrolling: 'touch', overscrollBehavior: 'contain' }}
+          className="h-full flex items-center justify-center pt-0 pb-20"
         >
-          <main className="min-h-screen flex flex-col justify-between px-4 pt-12 pb-32">
+          <main className="flex flex-col justify-center px-4">
             <section 
-              className="relative rounded-[32px] p-5 pb-8 backdrop-blur-xl bg-gradient-to-b from-[#040E15] to-[#333D46] shadow-[0_8px_32px_rgba(0,0,0,0.4)]" 
+              className="relative rounded-[24px] p-4 pb-6 backdrop-blur-xl bg-gradient-to-b from-[#040E15] to-[#333D46] shadow-[0_8px_32px_rgba(0,0,0,0.4)]" 
               style={{ 
-                minHeight: 'calc(100vh - 180px)',
                 border: '1px solid transparent',
                 backgroundImage: 'linear-gradient(#040E15, #333D46), linear-gradient(180deg, #4B555E 0%, #ACB9C1 15%, #FFFFFF 50%, #ACB9C1 85%, #4B555E 100%)',
                 backgroundOrigin: 'border-box',
@@ -50,22 +48,32 @@ export const PackageStandardPage = () => {
             >
 
         {/* Country toggle */}
-        <div className="flex gap-0 justify-center mt-12 mb-6" role="tablist" aria-label="Country">
+        <div 
+          className="silver-gradient-border flex gap-0 justify-center mt-6 mb-4 mx-auto max-w-[280px]" 
+          role="tablist" 
+          aria-label="Country"
+          style={{
+            background: 'rgba(255, 255, 255, 0.08)',
+            backdropFilter: 'blur(20px)',
+            borderRadius: '9999px',
+            padding: '2px',
+          }}
+        >
           <button 
-            className={`px-6 py-2.5 rounded-l-full text-sm font-medium transition-all border-y border-l ${
+            className={`flex-1 px-4 py-1.5 rounded-full text-xs font-light transition-all ${
               activeCountry === 'nl' 
-                ? 'bg-white/[0.08] text-white border-white/30' 
-                : 'bg-transparent text-white/50 border-white/20 hover:bg-white/[0.04]'
+                ? 'bg-white/10 text-white' 
+                : 'bg-transparent text-white/50 hover:text-white/70'
             }`}
             onClick={() => setActiveCountry('nl')}
           >
             Nederland
           </button>
           <button 
-            className={`px-6 py-2.5 rounded-r-full text-sm font-medium transition-all border-y border-r ${
+            className={`flex-1 px-4 py-1.5 rounded-full text-xs font-light transition-all ${
               activeCountry === 'tr' 
-                ? 'bg-white/[0.08] text-white border-white/30' 
-                : 'bg-transparent text-white/50 border-white/20 hover:bg-white/[0.04]'
+                ? 'bg-white/10 text-white' 
+                : 'bg-transparent text-white/50 hover:text-white/70'
             }`}
             onClick={() => setActiveCountry('tr')}
           >
@@ -73,34 +81,43 @@ export const PackageStandardPage = () => {
           </button>
         </div>
 
-        {/* Tier pill - connected segments */}
-        <div className="relative mx-4 my-6 rounded-full border border-white/20 bg-white/[0.03] p-1.5 backdrop-blur-sm" aria-label="Tiers">
-          <div className="grid grid-cols-3 gap-2">
+        {/* Tier pill */}
+        <div 
+          className="silver-gradient-border relative mx-auto my-4 max-w-[360px]" 
+          aria-label="Tiers"
+          style={{
+            background: 'rgba(255, 255, 255, 0.08)',
+            backdropFilter: 'blur(20px)',
+            borderRadius: '9999px',
+            padding: '2px',
+          }}
+        >
+          <div className="grid grid-cols-3">
             <button
-              className={`relative text-center px-5 py-3.5 rounded-full text-[15px] font-medium transition-all ${
+              className={`relative text-center px-3 py-1.5 rounded-full text-xs font-light transition-all ${
                 activeTier === 'Standard'
-                  ? 'bg-white/[0.15] text-white border-2 border-white/40 shadow-lg z-10'
-                  : 'bg-transparent text-white/50 border-2 border-transparent hover:text-white/70'
+                  ? 'bg-white/10 text-white'
+                  : 'bg-transparent text-white/50 hover:text-white/70'
               }`}
               onClick={() => setActiveTier('Standard')}
             >
               Standard
             </button>
             <button
-              className={`relative text-center px-5 py-3.5 rounded-full text-[15px] font-medium transition-all ${
+              className={`relative text-center px-3 py-1.5 rounded-full text-xs font-light transition-all ${
                 activeTier === 'Premium'
-                  ? 'bg-white/[0.15] text-white border-2 border-white/40 shadow-lg z-10'
-                  : 'bg-transparent text-white/50 border-2 border-transparent hover:text-white/70'
+                  ? 'bg-white/10 text-white'
+                  : 'bg-transparent text-white/50 hover:text-white/70'
               }`}
               onClick={() => setActiveTier('Premium')}
             >
               Premium
             </button>
             <button
-              className={`relative text-center px-5 py-3.5 rounded-full text-[15px] font-medium transition-all ${
+              className={`relative text-center px-3 py-1.5 rounded-full text-xs font-light transition-all ${
                 activeTier === 'Advanced'
-                  ? 'bg-white/[0.15] text-white border-2 border-white/40 shadow-lg z-10'
-                  : 'bg-transparent text-white/50 border-2 border-transparent hover:text-white/70'
+                  ? 'bg-white/10 text-white'
+                  : 'bg-transparent text-white/50 hover:text-white/70'
               }`}
               onClick={() => setActiveTier('Advanced')}
             >
@@ -110,40 +127,42 @@ export const PackageStandardPage = () => {
         </div>
 
         {/* Chips row */}
-        <div className="flex gap-3 items-center my-6 px-1">
-          <span className="w-[52px] h-[52px] rounded-[14px] bg-white/[0.06] border border-white/20 flex items-center justify-center">
-            <img src={chevronRightSvg} alt="" className="w-4 h-4 opacity-70" />
+        <div className="flex gap-2 items-center my-4 px-1">
+          <span className="w-[40px] h-[40px] rounded-[12px] bg-white/[0.06] border border-white/20 flex items-center justify-center">
+            <img src={chevronRightSvg} alt="" className="w-3.5 h-3.5 opacity-70" />
           </span>
-          <span className="w-[52px] h-[52px] rounded-[14px] bg-white/[0.06] border border-white/20 flex items-center justify-center">
-            <img src={leafSvg} alt="" className="w-5 h-5 opacity-70" />
+          <span className="w-[40px] h-[40px] rounded-[12px] bg-white/[0.06] border border-white/20 flex items-center justify-center">
+            <img src={leafSvg} alt="" className="w-4 h-4 opacity-70" />
           </span>
         </div>
 
         {/* Feature list */}
-        <ul className="list-none m-0 p-0 flex flex-col mt-6 px-1">
-          <li className="flex items-center justify-between py-5 border-b border-white/[0.15]">
-            <span className="text-white text-[17px] font-normal">Fue saffier / DHI</span>
-            <span className="text-white/60 font-light text-2xl leading-none">+</span>
+        <ul className="list-none m-0 p-0 flex flex-col mt-4 px-1">
+          <li className="flex items-center justify-between py-3 border-b border-white/[0.15]">
+            <span className="text-white text-sm font-normal">Fue saffier / DHI</span>
+            <span className="text-white/60 font-light text-xl leading-none">+</span>
           </li>
-          <li className="flex items-center justify-between py-5 border-b border-white/[0.15] gap-3">
-            <div className="flex items-center gap-3">
-              <Shield className="w-5 h-5 text-white/70 flex-shrink-0" strokeWidth={1.5} />
-              <span className="text-white text-[17px] font-normal">GHI Precision Method ™</span>
+          <li className="flex items-center justify-between py-3 border-b border-white/[0.15] gap-3">
+            <div className="flex items-center gap-2">
+              <Shield className="w-4 h-4 text-white/70 flex-shrink-0" strokeWidth={1.5} />
+              <span className="text-white text-sm font-normal">GHI Precision Method ™</span>
             </div>
-            <span className="text-white/60 font-light text-2xl leading-none">+</span>
+            <span className="text-white/60 font-light text-xl leading-none">+</span>
           </li>
-          <li className="flex items-center justify-between py-5 border-b border-white/[0.15] gap-3">
-            <div className="flex items-center gap-3">
-              <Shield className="w-5 h-5 text-white/70 flex-shrink-0" strokeWidth={1.5} />
-              <span className="text-white text-[17px] font-normal">1 Year Personal Aftercare</span>
+          <li className="flex items-center justify-between py-3 border-b border-white/[0.15] gap-3">
+            <div className="flex items-center gap-2">
+              <Shield className="w-4 h-4 text-white/70 flex-shrink-0" strokeWidth={1.5} />
+              <span className="text-white text-sm font-normal">1 Year Personal Aftercare</span>
             </div>
-            <span className="text-white/60 font-light text-2xl leading-none">+</span>
+            <span className="text-white/60 font-light text-xl leading-none">+</span>
           </li>
         </ul>
 
         {/* Price pill */}
-        <div className="absolute right-6 bottom-32 px-5 py-2.5 rounded-full bg-black/40 border border-white/20 text-white font-medium text-base backdrop-blur-md">
-          €8.950
+        <div className="flex justify-end mt-4 px-1">
+          <div className="px-4 py-1.5 rounded-full bg-black/40 border border-white/20 text-white font-medium text-sm backdrop-blur-md">
+            €8.950
+          </div>
         </div>
       </section>
     </main>
