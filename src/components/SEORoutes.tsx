@@ -13,6 +13,7 @@ import MissionPage from '@/pages/MissionPage';
 import SupportPage from '@/pages/SupportPage';
 import SupportChatPage from '@/pages/SupportChatPage';
 import V6HairboostPage from '@/pages/V6HairboostPage';
+import { PackageStandardPage } from '@/pages/PackageStandardPage';
 import ComingSoon1Page from '@/pages/ComingSoon1Page';
 import ComingSoon2Page from '@/pages/ComingSoon2Page';
 import DashboardPage from '@/pages/DashboardPage';
@@ -38,6 +39,7 @@ export const SEORoutes = () => {
       <Route path="/nl/haartransplantatie-old" element={<HaartransplantatieOldPage />} />
       <Route path="/nl/haaranalyse" element={<HaaranalysePage />} />
       <Route path="/nl/behandelopties" element={<TreatmentOptionsPage />} />
+      <Route path="/nl/pakket-standaard" element={<PackageStandardPage />} />
       <Route path="/nl/v6-hairboost" element={<V6HairboostPage />} />
       <Route path="/nl/coming-soon-1" element={<ComingSoon1Page />} />
       <Route path="/nl/coming-soon-2" element={<ComingSoon2Page />} />
@@ -67,6 +69,7 @@ export const SEORoutes = () => {
       <Route path="/en/hair-transplant-old" element={<HaartransplantatieOldPage />} />
       <Route path="/en/hair-analysis" element={<HaaranalysePage />} />
       <Route path="/en/treatment-options" element={<TreatmentOptionsPage />} />
+      <Route path="/en/package-standard" element={<PackageStandardPage />} />
       <Route path="/en/v6-hairboost" element={<V6HairboostPage />} />
       <Route path="/en/coming-soon-1" element={<ComingSoon1Page />} />
       <Route path="/en/coming-soon-2" element={<ComingSoon2Page />} />
