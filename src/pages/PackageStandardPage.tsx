@@ -6,7 +6,7 @@ import leafSvg from '@/assets/leaf.svg';
 import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
 import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
 
-type FeatureKey = 'fue' | 'comfort' | 'followup' | 'support' | 'precision' | 'stemcell' | 'prime' | 'recovery';
+type FeatureKey = 'fue' | 'comfort' | 'followup' | 'support' | 'precision' | 'stemcell' | 'prime' | 'recovery' | 'anesthesia' | 'biotine' | 'shampoo' | 'washes' | 'followup2' | 'stemcellrepair' | 'v6prime' | 'v6recovery';
 
 export const PackageStandardPage = () => {
   const { language } = useLanguage();
@@ -129,31 +129,31 @@ export const PackageStandardPage = () => {
       price: '€21.500',
       features: [
         {
-          key: 'comfort' as FeatureKey,
+          key: 'anesthesia' as FeatureKey,
           title: 'Full Comfort Anesthesia™',
           description: 'Een korte, gecontroleerde narcose die zorgt dat de ingreep volledig pijnloos en ontspannen verloopt. Ideaal voor wie het hoogste niveau van comfort en rust wil tijdens de behandeling.',
           exclusive: true
         },
         {
-          key: 'stemcell' as FeatureKey,
+          key: 'biotine' as FeatureKey,
           title: '1 Year Biotine Cure™',
           description: 'Een kuur van 12 potjes met onze eigen formule, rijk aan biotine en essentiële voedingsstoffen. Ontwikkeld om de haargroei van binnenuit te versterken en het resultaat van de behandeling langdurig te ondersteunen.',
           exclusive: true
         },
         {
-          key: 'prime' as FeatureKey,
+          key: 'shampoo' as FeatureKey,
           title: '1 Year Shampoo Care',
           description: 'Een set van 6 flessen shampoo uit onze eigen formule, speciaal ontwikkeld om de hoofdhuid te kalmeren en de haargroei te stimuleren. Zorgt voor gezonde, sterke haren en ondersteunt het herstel na de behandeling.',
           exclusive: true
         },
         {
-          key: 'recovery' as FeatureKey,
+          key: 'washes' as FeatureKey,
           title: '2 Washes',
           description: 'Twee professionele wassingen op locatie, kort na de behandeling. Uitgevoerd door onze specialisten om de hoofdhuid te reinigen en complicaties te minimaliseren voor een veilig en optimaal herstel.',
           exclusive: true
         },
         {
-          key: 'followup' as FeatureKey,
+          key: 'followup2' as FeatureKey,
           title: '2 Personal Follow-Ups',
           description: 'Twee persoonlijke check-ups in onze kliniek in Barendrecht, uitgevoerd door een tricholoog. We volgen je herstel en haargroei nauwgezet op — voor maximale controle en het beste eindresultaat.',
           exclusive: true
@@ -165,31 +165,31 @@ export const PackageStandardPage = () => {
           exclusive: false
         },
         {
-          key: 'support' as FeatureKey,
+          key: 'stemcellrepair' as FeatureKey,
           title: 'GHI Stemcell Repair™',
           description: 'Een stamceltherapie, exclusief ontwikkeld en uitgevoerd door GlobalHair Institute. We oogsten lichaamseigen stamcellen om beschadigde haarzakjes te herstellen en het transplantatiegebied te versterken - wat resulteert in 20-35% meer dichtheid en langdurige stabiliteit.',
           exclusive: false
         },
         {
-          key: 'precision' as FeatureKey,
+          key: 'v6prime' as FeatureKey,
           title: 'V6 Hairboost® – Prime',
           description: 'Twee voorbehandelingen die het donorgebied versterken en de haarwortels activeren. Hierdoor kan er meer veilig geoogst worden en blijft het donorgebied vol, gezond en vrijwel onzichtbaar behandeld.',
           exclusive: false
         },
         {
-          key: 'fue' as FeatureKey,
+          key: 'v6recovery' as FeatureKey,
           title: 'V6 Hairboost® – Recovery',
           description: 'Acht nabehandelingen die het herstel tot twee keer sneller maken. Dankzij onze exclusieve vitaminekuur stimuleert dit het groeiproces - waardoor je na 6 maanden al het resultaat ziet dat normaal pas na 12 maanden optreedt.',
           exclusive: false
         },
         {
-          key: 'comfort' as FeatureKey,
+          key: 'support' as FeatureKey,
           title: '1 Year GHI Support™',
           description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon. Onze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen - altijd bereikbaar, altijd persoonlijk.',
           exclusive: false
         },
         {
-          key: 'stemcell' as FeatureKey,
+          key: 'precision' as FeatureKey,
           title: 'GHI Precision Method™',
           description: 'De exclusieve methode van Berkant Dural, waarmee al onze artsen persoonlijk zijn opgeleid. Een unieke werkwijze die ambacht, precisie en rust combineert - zonder tijdsdruk, in perfecte omstandigheden, om elk resultaat tot een meesterwerk in haartransplantatie te maken.',
           exclusive: false
