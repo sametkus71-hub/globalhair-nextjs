@@ -260,6 +260,26 @@ export const PackageStandardPage = () => {
               borderRadius: '.4rem',
             }}
           >
+            <img src={chevronRightSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
+          </div>
+          <div
+            className="silver-grey-gradient-border flex items-center justify-center"
+            style={{
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 80%)',
+              padding: '.5rem',
+              borderRadius: '.4rem',
+            }}
+          >
+            <img src={leafSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
+          </div>
+          <div
+            className="silver-grey-gradient-border flex items-center justify-center"
+            style={{
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 80%)',
+              padding: '.5rem',
+              borderRadius: '.4rem',
+            }}
+          >
             <img src={leafSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
           </div>
         </div>
