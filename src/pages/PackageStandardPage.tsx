@@ -243,7 +243,7 @@ export const PackageStandardPage = () => {
         {/* Chips row */}
         <div className="flex gap-2 items-center my-2 px-1">
           <div
-            className="silver-grey-gradient-border flex items-center justify-center gap-1"
+            className="silver-grey-gradient-border flex items-center justify-center"
             style={{
               background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 80%)',
               padding: '.5rem',
@@ -251,16 +251,11 @@ export const PackageStandardPage = () => {
             }}
           >
             <img src={chevronRightSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
-            {activeTier === 'Premium' && <img src={chevronRightSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />}
-            {activeTier === 'Advanced' && (
-              <>
-                <img src={chevronRightSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
-                <img src={chevronRightSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
-              </>
-            )}
+            {activeTier === 'Premium' && <img src={chevronRightSvg} alt="" style={{ width: '.8rem', height: '.8rem', marginLeft: '-7px' }} />}
+            {activeTier === 'Advanced' && <img src={chevronRightSvg} alt="" style={{ width: '.8rem', height: '.8rem', marginLeft: '-7px' }} />}
           </div>
           <div
-            className="silver-grey-gradient-border flex items-center justify-center gap-1"
+            className="silver-grey-gradient-border flex items-center justify-center"
             style={{
               background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 80%)',
               padding: '.5rem',
@@ -268,11 +263,11 @@ export const PackageStandardPage = () => {
             }}
           >
             <img src={leafSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
-            {activeTier === 'Premium' && <img src={leafSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />}
+            {activeTier === 'Premium' && <img src={leafSvg} alt="" style={{ width: '.8rem', height: '.8rem', marginLeft: '-7px' }} />}
             {activeTier === 'Advanced' && (
               <>
-                <img src={leafSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
-                <img src={leafSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
+                <img src={leafSvg} alt="" style={{ width: '.8rem', height: '.8rem', marginLeft: '-7px' }} />
+                <img src={leafSvg} alt="" style={{ width: '.8rem', height: '.8rem', marginLeft: '-7px' }} />
               </>
             )}
           </div>
