@@ -251,8 +251,8 @@ export const PackageStandardPage = () => {
             }}
           >
             <img src={chevronRightSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
-            {activeTier === 'Premium' && <img src={chevronRightSvg} alt="" style={{ width: '.8rem', height: '.8rem', marginLeft: '-7px' }} />}
-            {activeTier === 'Advanced' && <img src={chevronRightSvg} alt="" style={{ width: '.8rem', height: '.8rem', marginLeft: '-7px' }} />}
+            {activeTier === 'Premium' && <img src={chevronRightSvg} alt="" style={{ width: '.8rem', height: '.8rem', marginLeft: '-4px' }} />}
+            {activeTier === 'Advanced' && <img src={chevronRightSvg} alt="" style={{ width: '.8rem', height: '.8rem', marginLeft: '-4px' }} />}
           </div>
           <div
             className="silver-grey-gradient-border flex items-center justify-center gap-1"
