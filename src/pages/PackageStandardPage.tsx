@@ -560,7 +560,7 @@ export const PackageStandardPage = () => {
                               {activeTier}
                             </span>
                           )}
-                          <span className="feature-title text-white text-[11.5px] font-normal">{feature.title}</span>
+                          <span className="feature-title text-white text-[12.5px] font-normal">{feature.title}</span>
                         </span>
                       </div>
                       <span className="feature-toggle text-white/60 font-light text-xl leading-none">
