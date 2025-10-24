@@ -26,7 +26,7 @@ export const PackageStandardPage = () => {
         setActiveTier('Premium');
       }
       setIsTransitioning(false);
-    }, 300);
+    }, 150);
   };
 
   const handleTierChange = (tier: 'Standard' | 'Premium' | 'Advanced') => {
@@ -34,7 +34,7 @@ export const PackageStandardPage = () => {
     setTimeout(() => {
       setActiveTier(tier);
       setIsTransitioning(false);
-    }, 300);
+    }, 150);
   };
 
   const toggleFeature = (key: FeatureKey) => {
@@ -271,7 +271,7 @@ export const PackageStandardPage = () => {
                 backgroundOrigin: 'border-box',
                 backgroundClip: 'padding-box, border-box',
                 opacity: isTransitioning ? 0.7 : 1,
-                transition: 'opacity 0.6s ease-in-out'
+                transition: 'opacity 0.3s ease-in-out'
               }}
             >
               {/* Close button inside section */}
