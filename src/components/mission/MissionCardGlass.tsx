@@ -163,7 +163,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
           alignItems: 'center',
           justifyContent: 'center',
           gap: '8px',
-          padding: '6px 0px 9px',
+          padding: '8px 0px 8px',
           position: 'relative',
         }}
       >
