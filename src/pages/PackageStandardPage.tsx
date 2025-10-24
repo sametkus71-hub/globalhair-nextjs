@@ -420,11 +420,11 @@ export const PackageStandardPage = () => {
               return (
                 <div 
                   key={feature.key}
-                  className="animate-fade-in"
-                  style={{
+                  className={feature.exclusive ? "animate-fade-in" : ""}
+                  style={feature.exclusive ? {
                     animationDelay: `${index * 50}ms`,
                     animationFillMode: 'backwards'
-                  }}
+                  } : {}}
                 >
                   {isFirstShared && (
                     <div className="feature-divider border-b border-white/[0.15]" />
