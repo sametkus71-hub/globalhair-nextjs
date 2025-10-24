@@ -161,34 +161,34 @@ export const PackageStandardPage = () => {
 
         {/* Country toggle */}
         <div 
-          className="flex gap-0 justify-center mt-4 mb-3 mx-auto max-w-[240px] border border-white/20"
+          className="flex gap-0 justify-center mt-4 mb-3 mx-auto max-w-[220px] border border-white/20" 
           role="tablist" 
           aria-label="Country"
           style={{
             background: 'rgba(255, 255, 255, 0.08)',
             backdropFilter: 'blur(20px)',
             borderRadius: '9999px',
-            padding: '4px',
+            padding: '3px',
           }}
         >
           <button 
-            className={`flex-1 px-4 rounded-full text-xs font-light transition-all duration-300 ease-out ${
+            className={`flex-1 px-3 rounded-full text-[10px] font-light transition-all duration-300 ease-out ${
               activeCountry === 'nl' 
                 ? 'silver-gradient-border bg-white/10 text-white scale-105' 
                 : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
             }`}
-            style={{ paddingTop: '0.675rem', paddingBottom: '0.675rem' }}
+            style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}
             onClick={() => setActiveCountry('nl')}
           >
             Nederland
           </button>
           <button 
-            className={`flex-1 px-4 rounded-full text-xs font-light transition-all duration-300 ease-out ${
+            className={`flex-1 px-3 rounded-full text-[10px] font-light transition-all duration-300 ease-out ${
               activeCountry === 'tr' 
                 ? 'silver-gradient-border bg-white/10 text-white scale-105' 
                 : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
             }`}
-            style={{ paddingTop: '0.675rem', paddingBottom: '0.675rem' }}
+            style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}
             onClick={() => setActiveCountry('tr')}
           >
             Turkije
@@ -197,18 +197,18 @@ export const PackageStandardPage = () => {
 
         {/* Tier pill */}
         <div 
-          className="relative mx-auto my-3 max-w-[400px] border border-white/20"
+          className="relative mx-auto my-3 max-w-[420px] border border-white/20" 
           aria-label="Tiers"
           style={{
             background: 'rgba(255, 255, 255, 0.08)',
             backdropFilter: 'blur(20px)',
             borderRadius: '9999px',
-            padding: '4px',
+            padding: '5px',
           }}
         >
           <div className="grid grid-cols-3 gap-1">
             <button
-              className={`relative text-center px-3 py-1.5 rounded-full text-xs font-light transition-all duration-300 ease-out ${
+              className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
                 activeTier === 'Standard'
                   ? 'silver-gradient-border bg-white/10 text-white scale-105'
                   : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
@@ -218,7 +218,7 @@ export const PackageStandardPage = () => {
               Standard
             </button>
             <button
-              className={`relative text-center px-3 py-1.5 rounded-full text-xs font-light transition-all duration-300 ease-out ${
+              className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
                 activeTier === 'Premium'
                   ? 'silver-gradient-border bg-white/10 text-white scale-105'
                   : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
@@ -228,7 +228,7 @@ export const PackageStandardPage = () => {
               Premium
             </button>
             <button
-              className={`relative text-center px-3 py-1.5 rounded-full text-xs font-light transition-all duration-300 ease-out ${
+              className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
                 activeTier === 'Advanced'
                   ? 'silver-gradient-border bg-white/10 text-white scale-105'
                   : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
