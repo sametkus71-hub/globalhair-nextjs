@@ -33,8 +33,16 @@ export const ReviewsPage = () => {
         {/* Close button */}
         <PopupCloseButton onClose={handleClose} />
         
-        {/* Full screen Instagram-style grid */}
+        {/* Top gradient overlay */}
         <div 
+          className="fixed top-0 left-0 right-0 h-32 pointer-events-none z-40"
+          style={{
+            background: 'linear-gradient(180deg, #040E15 0%, transparent 100%)'
+          }}
+        />
+        
+        {/* Full screen Instagram-style grid */}
+        <div
           className="h-full overflow-y-auto pt-0 pb-20"
           style={{ WebkitOverflowScrolling: 'touch', overscrollBehavior: 'contain' }}
         >
