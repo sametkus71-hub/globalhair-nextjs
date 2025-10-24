@@ -172,10 +172,10 @@ export const PackageStandardPage = () => {
           }}
         >
           <button 
-            className={`flex-1 px-4 rounded-full text-xs font-light transition-all ${
+            className={`flex-1 px-4 rounded-full text-xs font-light transition-all duration-300 ease-out ${
               activeCountry === 'nl' 
-                ? 'silver-gradient-border bg-white/10 text-white' 
-                : 'bg-transparent text-white/50 hover:text-white/70'
+                ? 'silver-gradient-border bg-white/10 text-white scale-105' 
+                : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
             }`}
             style={{ paddingTop: '0.675rem', paddingBottom: '0.675rem' }}
             onClick={() => setActiveCountry('nl')}
@@ -183,10 +183,10 @@ export const PackageStandardPage = () => {
             Nederland
           </button>
           <button 
-            className={`flex-1 px-4 rounded-full text-xs font-light transition-all ${
+            className={`flex-1 px-4 rounded-full text-xs font-light transition-all duration-300 ease-out ${
               activeCountry === 'tr' 
-                ? 'silver-gradient-border bg-white/10 text-white' 
-                : 'bg-transparent text-white/50 hover:text-white/70'
+                ? 'silver-gradient-border bg-white/10 text-white scale-105' 
+                : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
             }`}
             style={{ paddingTop: '0.675rem', paddingBottom: '0.675rem' }}
             onClick={() => setActiveCountry('tr')}
@@ -208,30 +208,30 @@ export const PackageStandardPage = () => {
         >
           <div className="grid grid-cols-3 gap-1">
             <button
-              className={`relative text-center px-3 py-1.5 rounded-full text-xs font-light transition-all ${
+              className={`relative text-center px-3 py-1.5 rounded-full text-xs font-light transition-all duration-300 ease-out ${
                 activeTier === 'Standard'
-                  ? 'silver-gradient-border bg-white/10 text-white'
-                  : 'bg-transparent text-white/50 hover:text-white/70'
+                  ? 'silver-gradient-border bg-white/10 text-white scale-105'
+                  : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
               }`}
               onClick={() => setActiveTier('Standard')}
             >
               Standard
             </button>
             <button
-              className={`relative text-center px-3 py-1.5 rounded-full text-xs font-light transition-all ${
+              className={`relative text-center px-3 py-1.5 rounded-full text-xs font-light transition-all duration-300 ease-out ${
                 activeTier === 'Premium'
-                  ? 'silver-gradient-border bg-white/10 text-white'
-                  : 'bg-transparent text-white/50 hover:text-white/70'
+                  ? 'silver-gradient-border bg-white/10 text-white scale-105'
+                  : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
               }`}
               onClick={() => setActiveTier('Premium')}
             >
               Premium
             </button>
             <button
-              className={`relative text-center px-3 py-1.5 rounded-full text-xs font-light transition-all ${
+              className={`relative text-center px-3 py-1.5 rounded-full text-xs font-light transition-all duration-300 ease-out ${
                 activeTier === 'Advanced'
-                  ? 'silver-gradient-border bg-white/10 text-white'
-                  : 'bg-transparent text-white/50 hover:text-white/70'
+                  ? 'silver-gradient-border bg-white/10 text-white scale-105'
+                  : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
               }`}
               onClick={() => setActiveTier('Advanced')}
             >
@@ -274,7 +274,14 @@ export const PackageStandardPage = () => {
               const isLastExclusive = activeTier !== 'Standard' && feature.exclusive === true && features[index + 1]?.exclusive === false;
               
               return (
-                <div key={feature.key}>
+                <div 
+                  key={feature.key}
+                  className="animate-fade-in"
+                  style={{
+                    animationDelay: `${index * 50}ms`,
+                    animationFillMode: 'backwards'
+                  }}
+                >
                   {isFirstShared && (
                     <div className="feature-divider border-b border-white/[0.15]" />
                   )}
@@ -307,7 +314,7 @@ export const PackageStandardPage = () => {
                       </span>
                     </button>
                     {isOpen && (
-                      <div className="feature-content pb-3">
+                      <div className="feature-content pb-3 animate-accordion-down">
                         <p className="text-white/80 font-light leading-relaxed" style={{ fontSize: '12px' }}>
                           {feature.description}
                         </p>
@@ -322,7 +329,7 @@ export const PackageStandardPage = () => {
 
           {/* Price pill */}
           <div className="flex justify-end mt-4 mb-2">
-            <div className="px-4 py-1.5 rounded-full bg-black/40 border border-white/20 text-white font-medium text-sm backdrop-blur-md">
+            <div className="px-4 py-1.5 rounded-full bg-black/40 border border-white/20 text-white font-medium text-sm backdrop-blur-md transition-all duration-300 animate-scale-in">
               {currentPackage.price}
             </div>
           </div>
