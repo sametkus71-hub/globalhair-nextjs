@@ -443,13 +443,13 @@ export const PackageStandardPage = () => {
                               className="text-[9px] px-1.5 py-0.5 rounded-full font-medium"
                               style={{
                                 background: activeTier === 'Advanced' 
-                                  ? 'linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 193, 7, 0.15))'
-                                  : 'linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(217, 119, 6, 0.15))',
+                                  ? 'linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(217, 119, 6, 0.15))'
+                                  : 'linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 193, 7, 0.15))',
                                 border: activeTier === 'Advanced'
-                                  ? '1px solid rgba(255, 215, 0, 0.4)'
-                                  : '1px solid rgba(251, 191, 36, 0.3)',
-                                color: activeTier === 'Advanced' ? '#ffd700' : '#fbbf24',
-                                boxShadow: activeTier === 'Advanced' ? '0 0 8px rgba(255, 215, 0, 0.3)' : 'none'
+                                  ? '1px solid rgba(251, 191, 36, 0.3)'
+                                  : '1px solid rgba(255, 215, 0, 0.4)',
+                                color: activeTier === 'Advanced' ? '#fbbf24' : '#ffd700',
+                                boxShadow: activeTier === 'Advanced' ? 'none' : '0 0 8px rgba(255, 215, 0, 0.3)'
                               }}
                             >
                               {activeTier}
