@@ -148,7 +148,7 @@ export const PackageStandardPage = () => {
         >
           <main className="flex flex-col w-full max-w-2xl h-[calc(100vh-32px)]">
             <section 
-              className="relative rounded-[24px] p-6 pb-8 backdrop-blur-xl bg-gradient-to-b from-[#040E15] to-[#333D46] shadow-[0_8px_32px_rgba(0,0,0,0.4)] h-[90%] flex flex-col"
+              className="relative rounded-[24px] p-4 pb-6 backdrop-blur-xl bg-gradient-to-b from-[#040E15] to-[#333D46] shadow-[0_8px_32px_rgba(0,0,0,0.4)] h-[90%] flex flex-col"
               style={{ 
                 border: '1px solid transparent',
                 backgroundImage: 'linear-gradient(#040E15, #333D46), linear-gradient(180deg, #4B555E 0%, #ACB9C1 15%, #FFFFFF 50%, #ACB9C1 85%, #4B555E 100%)',
@@ -161,7 +161,7 @@ export const PackageStandardPage = () => {
 
         {/* Country toggle */}
         <div 
-          className="flex gap-0 justify-center mt-6 mb-4 mx-auto max-w-[280px] border border-white/20" 
+          className="flex gap-0 justify-center mt-4 mb-3 mx-auto max-w-[280px] border border-white/20"
           role="tablist" 
           aria-label="Country"
           style={{
@@ -197,7 +197,7 @@ export const PackageStandardPage = () => {
 
         {/* Tier pill */}
         <div 
-          className="relative mx-auto my-4 max-w-[360px] border border-white/20" 
+          className="relative mx-auto my-3 max-w-[360px] border border-white/20"
           aria-label="Tiers"
           style={{
             background: 'rgba(255, 255, 255, 0.08)',
@@ -241,7 +241,7 @@ export const PackageStandardPage = () => {
         </div>
 
         {/* Chips row */}
-        <div className="flex gap-2 items-center my-4 px-1">
+        <div className="flex gap-2 items-center my-2 px-1">
           <div
             className="silver-grey-gradient-border flex items-center justify-center"
             style={{
@@ -267,7 +267,7 @@ export const PackageStandardPage = () => {
         {/* Scrollable package details */}
         <div className="package-details-scroll flex-1 overflow-y-auto px-1" style={{ minHeight: 0, scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {/* Feature accordion */}
-          <div className="flex flex-col mt-4">
+          <div className="flex flex-col mt-2">
             {features.map((feature, index) => {
               const isOpen = openFeatures.has(feature.key);
               const isFirstShared = activeTier !== 'Standard' && index > 0 && feature.exclusive === false && features[index - 1]?.exclusive === true;
@@ -287,16 +287,16 @@ export const PackageStandardPage = () => {
                   )}
                   <div className="feature-item">
                     <button
-                      className="feature-row flex items-center justify-between py-3 w-full text-left"
+                      className="feature-row flex items-center justify-between py-2 w-full text-left"
                       onClick={() => toggleFeature(feature.key)}
                       aria-expanded={isOpen}
                     >
                       <div className="feature-left flex items-center gap-2">
-                        <Shield className="w-4 h-4 text-white/70 flex-shrink-0" strokeWidth={1.5} />
+                        <Shield className="w-3.5 h-3.5 text-white/70 flex-shrink-0" strokeWidth={1.5} />
                         <span className="flex items-center gap-2 flex-wrap">
                           {feature.exclusive && (
                             <span 
-                              className="text-[10px] px-2 py-0.5 rounded-full font-medium"
+                              className="text-[9px] px-1.5 py-0.5 rounded-full font-medium"
                               style={{
                                 background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(217, 119, 6, 0.15))',
                                 border: '1px solid rgba(251, 191, 36, 0.3)',
@@ -306,7 +306,7 @@ export const PackageStandardPage = () => {
                               {activeTier}
                             </span>
                           )}
-                          <span className="feature-title text-white text-sm font-normal">{feature.title}</span>
+                          <span className="feature-title text-white text-[13px] font-normal">{feature.title}</span>
                         </span>
                       </div>
                       <span className="feature-toggle text-white/60 font-light text-xl leading-none">
@@ -314,8 +314,8 @@ export const PackageStandardPage = () => {
                       </span>
                     </button>
                     {isOpen && (
-                      <div className="feature-content pb-3 animate-accordion-down">
-                        <p className="text-white/80 font-light leading-relaxed" style={{ fontSize: '12px' }}>
+                      <div className="feature-content pb-2 animate-accordion-down">
+                        <p className="text-white/80 font-light leading-relaxed" style={{ fontSize: '11px' }}>
                           {feature.description}
                         </p>
                       </div>
@@ -328,8 +328,8 @@ export const PackageStandardPage = () => {
           </div>
 
           {/* Price pill */}
-          <div className="flex justify-end mt-4 mb-2">
-            <div className="px-4 py-1.5 rounded-full bg-black/40 border border-white/20 text-white font-medium text-sm backdrop-blur-md transition-all duration-300 animate-scale-in">
+          <div className="flex justify-end mt-2 mb-1">
+            <div className="px-3 py-1 rounded-full bg-black/40 border border-white/20 text-white font-medium text-[13px] backdrop-blur-md transition-all duration-300 animate-scale-in">
               {currentPackage.price}
             </div>
           </div>
