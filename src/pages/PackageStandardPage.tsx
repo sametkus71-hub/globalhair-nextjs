@@ -227,6 +227,19 @@ export const PackageStandardPage = () => {
     }
   };
 
+  const getVideoOpacity = () => {
+    switch (activeTier) {
+      case 'Standard':
+        return 0;
+      case 'Premium':
+        return 0.3;
+      case 'Advanced':
+        return 0.8;
+      default:
+        return 0;
+    }
+  };
+
   const getSectionBorderGradient = () => {
     switch (activeTier) {
       case 'Standard':
@@ -259,6 +272,21 @@ export const PackageStandardPage = () => {
           transition: 'opacity 0.6s ease-in-out'
         }}
       >
+        {/* Background Video */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{
+            opacity: getVideoOpacity(),
+            transition: 'opacity 0.6s ease-in-out',
+            pointerEvents: 'none'
+          }}
+        >
+          <source src="/assets/background-animation.mp4" type="video/mp4" />
+        </video>
         <div 
           className="h-full flex items-start justify-center p-4 pt-4"
         >
