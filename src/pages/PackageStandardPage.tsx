@@ -6,12 +6,59 @@ import leafSvg from '@/assets/leaf.svg';
 import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
 import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
 
+type FeatureKey = 'fue' | 'comfort' | 'followup' | 'support' | 'precision';
+
 export const PackageStandardPage = () => {
   const { language } = useLanguage();
   const [activeCountry, setActiveCountry] = useState<'nl' | 'tr'>('nl');
   const [activeTier, setActiveTier] = useState<'Standard' | 'Premium' | 'Advanced'>('Standard');
   const [isExiting, setIsExiting] = useState(false);
+  const [openFeatures, setOpenFeatures] = useState<Set<FeatureKey>>(new Set());
   const { handlePopupClose } = usePopupClose();
+
+  const toggleFeature = (key: FeatureKey) => {
+    setOpenFeatures(prev => {
+      const next = new Set(prev);
+      if (next.has(key)) {
+        next.delete(key);
+      } else {
+        next.add(key);
+      }
+      return next;
+    });
+  };
+
+  const features: Array<{
+    key: FeatureKey;
+    title: string;
+    description: string;
+  }> = [
+    {
+      key: 'fue',
+      title: 'FUE Saffier / DHI',
+      description: 'FUE Saffier is de standaard in haartransplantatie: met ultradunne saffieren mesjes voor nauwkeurige plaatsing, minimale littekens en sneller herstel.\nDHI maakt directe implantatie mogelijk — zonder scheren, met maximale controle over richting en dichtheid.'
+    },
+    {
+      key: 'comfort',
+      title: 'Comfort verdoving',
+      description: 'Een naaldloze verdoving die zonder prikken wordt aangebracht.\nJe voelt nog iets, maar veel minder intens — voor een rustige, comfortabele ervaring zonder scherpe pijn.'
+    },
+    {
+      key: 'followup',
+      title: '1 Personal Follow-Up',
+      description: 'Een persoonlijke check-up in onze kliniek in Barendrecht, uitgevoerd door een tricholoog (haarspecialist).\nHier wordt je groei, herstel en hoofdhuidconditie gecontroleerd voor een optimale voortgang van het resultaat.'
+    },
+    {
+      key: 'support',
+      title: '1 Year GHI Support™',
+      description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon.\nOnze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen — altijd bereikbaar, altijd persoonlijk.'
+    },
+    {
+      key: 'precision',
+      title: 'GHI Precision Method™',
+      description: 'De exclusieve methode van Berkant Dural, waarmee al onze artsen persoonlijk zijn opgeleid.\nEen unieke werkwijze die ambacht, precisie en rust combineert — zonder tijdsdruk, in perfecte omstandigheden, om elk resultaat tot een meesterwerk in haartransplantatie te maken.'
+    }
+  ];
 
   const handleClose = () => {
     setIsExiting(true);
@@ -151,32 +198,45 @@ export const PackageStandardPage = () => {
           </div>
         </div>
 
-        {/* Feature list */}
-        <ul className="list-none m-0 p-0 flex flex-col mt-4 px-1">
-          <li className="flex items-center justify-between py-3 border-b border-white/[0.15]">
-            <span className="text-white text-sm font-normal">Fue saffier / DHI</span>
-            <span className="text-white/60 font-light text-xl leading-none">+</span>
-          </li>
-          <li className="flex items-center justify-between py-3 border-b border-white/[0.15] gap-3">
-            <div className="flex items-center gap-2">
-              <Shield className="w-4 h-4 text-white/70 flex-shrink-0" strokeWidth={1.5} />
-              <span className="text-white text-sm font-normal">GHI Precision Method ™</span>
-            </div>
-            <span className="text-white/60 font-light text-xl leading-none">+</span>
-          </li>
-          <li className="flex items-center justify-between py-3 border-b border-white/[0.15] gap-3">
-            <div className="flex items-center gap-2">
-              <Shield className="w-4 h-4 text-white/70 flex-shrink-0" strokeWidth={1.5} />
-              <span className="text-white text-sm font-normal">1 Year Personal Aftercare</span>
-            </div>
-            <span className="text-white/60 font-light text-xl leading-none">+</span>
-          </li>
-        </ul>
+        {/* Scrollable package details */}
+        <div className="package-details-scroll flex-1 overflow-y-auto px-1" style={{ minHeight: 0 }}>
+          {/* Feature accordion */}
+          <div className="flex flex-col mt-4">
+            {features.map((feature) => {
+              const isOpen = openFeatures.has(feature.key);
+              return (
+                <div key={feature.key} className="feature-item">
+                  <button
+                    className="feature-row flex items-center justify-between py-3 w-full text-left"
+                    onClick={() => toggleFeature(feature.key)}
+                    aria-expanded={isOpen}
+                  >
+                    <div className="feature-left flex items-center gap-2">
+                      <Shield className="w-4 h-4 text-white/70 flex-shrink-0" strokeWidth={1.5} />
+                      <span className="feature-title text-white text-sm font-normal">{feature.title}</span>
+                    </div>
+                    <span className="feature-toggle text-white/60 font-light text-xl leading-none">
+                      {isOpen ? '–' : '+'}
+                    </span>
+                  </button>
+                  {isOpen && (
+                    <div className="feature-content pb-3">
+                      <p className="text-white/80 text-sm font-light leading-relaxed whitespace-pre-line">
+                        {feature.description}
+                      </p>
+                    </div>
+                  )}
+                  <div className="feature-divider border-b border-white/[0.15]" />
+                </div>
+              );
+            })}
+          </div>
 
-        {/* Price pill */}
-        <div className="flex justify-end mt-4 px-1">
-          <div className="px-4 py-1.5 rounded-full bg-black/40 border border-white/20 text-white font-medium text-sm backdrop-blur-md">
-            €8.950
+          {/* Price pill */}
+          <div className="flex justify-end mt-4 mb-2">
+            <div className="px-4 py-1.5 rounded-full bg-black/40 border border-white/20 text-white font-medium text-sm backdrop-blur-md">
+              €8.000
+            </div>
           </div>
         </div>
       </section>
