@@ -16,6 +16,14 @@ export const PackageStandardPage = () => {
   const [openFeatures, setOpenFeatures] = useState<Set<FeatureKey>>(new Set());
   const { handlePopupClose } = usePopupClose();
 
+  // Reset to Premium if switching to Turkey while Advanced is selected
+  const handleCountryChange = (country: 'nl' | 'tr') => {
+    setActiveCountry(country);
+    if (country === 'tr' && activeTier === 'Advanced') {
+      setActiveTier('Premium');
+    }
+  };
+
   const toggleFeature = (key: FeatureKey) => {
     setOpenFeatures(prev => {
       const next = new Set(prev);
@@ -118,8 +126,75 @@ export const PackageStandardPage = () => {
       ]
     },
     Advanced: {
-      price: '€24.000',
-      features: []
+      price: '€21.500',
+      features: [
+        {
+          key: 'comfort' as FeatureKey,
+          title: 'Full Comfort Anesthesia™',
+          description: 'Een korte, gecontroleerde narcose die zorgt dat de ingreep volledig pijnloos en ontspannen verloopt. Ideaal voor wie het hoogste niveau van comfort en rust wil tijdens de behandeling.',
+          exclusive: true
+        },
+        {
+          key: 'stemcell' as FeatureKey,
+          title: '1 Year Biotine Cure™',
+          description: 'Een kuur van 12 potjes met onze eigen formule, rijk aan biotine en essentiële voedingsstoffen. Ontwikkeld om de haargroei van binnenuit te versterken en het resultaat van de behandeling langdurig te ondersteunen.',
+          exclusive: true
+        },
+        {
+          key: 'prime' as FeatureKey,
+          title: '1 Year Shampoo Care',
+          description: 'Een set van 6 flessen shampoo uit onze eigen formule, speciaal ontwikkeld om de hoofdhuid te kalmeren en de haargroei te stimuleren. Zorgt voor gezonde, sterke haren en ondersteunt het herstel na de behandeling.',
+          exclusive: true
+        },
+        {
+          key: 'recovery' as FeatureKey,
+          title: '2 Washes',
+          description: 'Twee professionele wassingen op locatie, kort na de behandeling. Uitgevoerd door onze specialisten om de hoofdhuid te reinigen en complicaties te minimaliseren voor een veilig en optimaal herstel.',
+          exclusive: true
+        },
+        {
+          key: 'followup' as FeatureKey,
+          title: '2 Personal Follow-Ups',
+          description: 'Twee persoonlijke check-ups in onze kliniek in Barendrecht, uitgevoerd door een tricholoog. We volgen je herstel en haargroei nauwgezet op — voor maximale controle en het beste eindresultaat.',
+          exclusive: true
+        },
+        {
+          key: 'fue' as FeatureKey,
+          title: 'FUE Saffier / DHI',
+          description: 'FUE Saffier is de standaard in haartransplantatie: met ultradunne saffieren mesjes voor nauwkeurige plaatsing, minimale littekens en sneller herstel. DHI maakt directe implantatie mogelijk - zonder scheren, met maximale controle over richting en dichtheid.',
+          exclusive: false
+        },
+        {
+          key: 'support' as FeatureKey,
+          title: 'GHI Stemcell Repair™',
+          description: 'Een stamceltherapie, exclusief ontwikkeld en uitgevoerd door GlobalHair Institute. We oogsten lichaamseigen stamcellen om beschadigde haarzakjes te herstellen en het transplantatiegebied te versterken - wat resulteert in 20-35% meer dichtheid en langdurige stabiliteit.',
+          exclusive: false
+        },
+        {
+          key: 'precision' as FeatureKey,
+          title: 'V6 Hairboost® – Prime',
+          description: 'Twee voorbehandelingen die het donorgebied versterken en de haarwortels activeren. Hierdoor kan er meer veilig geoogst worden en blijft het donorgebied vol, gezond en vrijwel onzichtbaar behandeld.',
+          exclusive: false
+        },
+        {
+          key: 'fue' as FeatureKey,
+          title: 'V6 Hairboost® – Recovery',
+          description: 'Acht nabehandelingen die het herstel tot twee keer sneller maken. Dankzij onze exclusieve vitaminekuur stimuleert dit het groeiproces - waardoor je na 6 maanden al het resultaat ziet dat normaal pas na 12 maanden optreedt.',
+          exclusive: false
+        },
+        {
+          key: 'comfort' as FeatureKey,
+          title: '1 Year GHI Support™',
+          description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon. Onze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen - altijd bereikbaar, altijd persoonlijk.',
+          exclusive: false
+        },
+        {
+          key: 'stemcell' as FeatureKey,
+          title: 'GHI Precision Method™',
+          description: 'De exclusieve methode van Berkant Dural, waarmee al onze artsen persoonlijk zijn opgeleid. Een unieke werkwijze die ambacht, precisie en rust combineert - zonder tijdsdruk, in perfecte omstandigheden, om elk resultaat tot een meesterwerk in haartransplantatie te maken.',
+          exclusive: false
+        }
+      ]
     }
   };
 
@@ -178,7 +253,7 @@ export const PackageStandardPage = () => {
                 : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
             }`}
             style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}
-            onClick={() => setActiveCountry('nl')}
+            onClick={() => handleCountryChange('nl')}
           >
             Nederland
           </button>
@@ -189,7 +264,7 @@ export const PackageStandardPage = () => {
                 : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
             }`}
             style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}
-            onClick={() => setActiveCountry('tr')}
+            onClick={() => handleCountryChange('tr')}
           >
             Turkije
           </button>
@@ -206,7 +281,7 @@ export const PackageStandardPage = () => {
             padding: '5px',
           }}
         >
-          <div className="grid grid-cols-3 gap-1">
+          <div className={`grid gap-1 ${activeCountry === 'nl' ? 'grid-cols-3' : 'grid-cols-2'}`}>
             <button
               className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
                 activeTier === 'Standard'
@@ -227,16 +302,18 @@ export const PackageStandardPage = () => {
             >
               Premium
             </button>
-            <button
-              className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
-                activeTier === 'Advanced'
-                  ? 'silver-gradient-border bg-white/10 text-white scale-105'
-                  : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
-              }`}
-              onClick={() => setActiveTier('Advanced')}
-            >
-              Advanced
-            </button>
+            {activeCountry === 'nl' && (
+              <button
+                className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
+                  activeTier === 'Advanced'
+                    ? 'silver-gradient-border bg-white/10 text-white scale-105'
+                    : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
+                }`}
+                onClick={() => setActiveTier('Advanced')}
+              >
+                Advanced
+              </button>
+            )}
           </div>
         </div>
 
@@ -365,9 +442,14 @@ export const PackageStandardPage = () => {
                             <span 
                               className="text-[9px] px-1.5 py-0.5 rounded-full font-medium"
                               style={{
-                                background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(217, 119, 6, 0.15))',
-                                border: '1px solid rgba(251, 191, 36, 0.3)',
-                                color: '#fbbf24'
+                                background: activeTier === 'Advanced' 
+                                  ? 'linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 193, 7, 0.15))'
+                                  : 'linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(217, 119, 6, 0.15))',
+                                border: activeTier === 'Advanced'
+                                  ? '1px solid rgba(255, 215, 0, 0.4)'
+                                  : '1px solid rgba(251, 191, 36, 0.3)',
+                                color: activeTier === 'Advanced' ? '#ffd700' : '#fbbf24',
+                                boxShadow: activeTier === 'Advanced' ? '0 0 8px rgba(255, 215, 0, 0.3)' : 'none'
                               }}
                             >
                               {activeTier}
