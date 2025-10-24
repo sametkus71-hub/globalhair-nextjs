@@ -214,6 +214,20 @@ export const PackageStandardPage = () => {
   const currentPackage = packageData[activeTier];
   const features = currentPackage.features;
 
+  const getCurrentPrice = () => {
+    if (activeCountry === 'tr') {
+      switch (activeTier) {
+        case 'Standard':
+          return '€6.500';
+        case 'Premium':
+          return '€13.000';
+        default:
+          return currentPackage.price;
+      }
+    }
+    return currentPackage.price;
+  };
+
   const getBackgroundGradient = () => {
     switch (activeTier) {
       case 'Standard':
@@ -555,7 +569,7 @@ export const PackageStandardPage = () => {
           {/* Price pill */}
           <div className="flex justify-end mt-2 mb-1">
             <div className="px-3 py-1 rounded-full text-white text-[13px] backdrop-blur-md transition-all duration-300 animate-scale-in" style={{ background: '#FFFFFF1A', fontWeight: 300 }}>
-              {currentPackage.price}
+              {getCurrentPrice()}
             </div>
           </div>
         </div>
