@@ -14,14 +14,27 @@ export const PackageStandardPage = () => {
   const [activeTier, setActiveTier] = useState<'Standard' | 'Premium' | 'Advanced'>('Standard');
   const [isExiting, setIsExiting] = useState(false);
   const [openFeatures, setOpenFeatures] = useState<Set<FeatureKey>>(new Set());
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const { handlePopupClose } = usePopupClose();
 
   // Reset to Premium if switching to Turkey while Advanced is selected
   const handleCountryChange = (country: 'nl' | 'tr') => {
-    setActiveCountry(country);
-    if (country === 'tr' && activeTier === 'Advanced') {
-      setActiveTier('Premium');
-    }
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setActiveCountry(country);
+      if (country === 'tr' && activeTier === 'Advanced') {
+        setActiveTier('Premium');
+      }
+      setIsTransitioning(false);
+    }, 150);
+  };
+
+  const handleTierChange = (tier: 'Standard' | 'Premium' | 'Advanced') => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setActiveTier(tier);
+      setIsTransitioning(false);
+    }, 150);
   };
 
   const toggleFeature = (key: FeatureKey) => {
@@ -242,7 +255,8 @@ export const PackageStandardPage = () => {
           position: 'fixed',
           inset: 0,
           zIndex: 30,
-          transition: 'background 0.5s ease-in-out'
+          opacity: isTransitioning ? 0.7 : 1,
+          transition: 'opacity 0.3s ease-in-out'
         }}
       >
         <div 
@@ -256,7 +270,8 @@ export const PackageStandardPage = () => {
                 backgroundImage: getSectionBorderGradient(),
                 backgroundOrigin: 'border-box',
                 backgroundClip: 'padding-box, border-box',
-                transition: 'background-image 0.5s ease-in-out'
+                opacity: isTransitioning ? 0.7 : 1,
+                transition: 'opacity 0.3s ease-in-out'
               }}
             >
               {/* Close button inside section */}
@@ -316,7 +331,7 @@ export const PackageStandardPage = () => {
                   ? 'silver-gradient-border bg-white/10 text-white scale-105'
                   : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
               }`}
-              onClick={() => setActiveTier('Standard')}
+              onClick={() => handleTierChange('Standard')}
             >
               Standard
             </button>
@@ -326,7 +341,7 @@ export const PackageStandardPage = () => {
                   ? 'silver-gradient-border bg-white/10 text-white scale-105'
                   : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
               }`}
-              onClick={() => setActiveTier('Premium')}
+              onClick={() => handleTierChange('Premium')}
             >
               Premium
             </button>
@@ -337,7 +352,7 @@ export const PackageStandardPage = () => {
                     ? 'silver-gradient-border bg-white/10 text-white scale-105'
                     : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
                 }`}
-                onClick={() => setActiveTier('Advanced')}
+                onClick={() => handleTierChange('Advanced')}
               >
                 Advanced
               </button>
