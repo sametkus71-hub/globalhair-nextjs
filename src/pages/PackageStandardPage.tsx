@@ -6,7 +6,7 @@ import leafSvg from '@/assets/leaf.svg';
 import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
 import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
 
-type FeatureKey = 'fue' | 'comfort' | 'followup' | 'support' | 'precision';
+type FeatureKey = 'fue' | 'comfort' | 'followup' | 'support' | 'precision' | 'stemcell' | 'prime' | 'recovery';
 
 export const PackageStandardPage = () => {
   const { language } = useLanguage();
@@ -68,37 +68,37 @@ export const PackageStandardPage = () => {
           description: 'FUE Saffier is de standaard in haartransplantatie: met ultradunne saffieren mesjes voor nauwkeurige plaatsing, minimale littekens en sneller herstel. DHI maakt directe implantatie mogelijk - zonder scheren, met maximale controle over richting en dichtheid.'
         },
         {
-          key: 'comfort' as FeatureKey,
+          key: 'stemcell' as FeatureKey,
           title: 'GHI Stemcell Repair™',
           description: 'Een stamceltherapie, exclusief ontwikkeld en uitgevoerd door GlobalHair Institute. We oogsten lichaamseigen stamcellen om beschadigde haarzakjes te herstellen en het transplantatiegebied te versterken - wat resulteert in 20-35% meer dichtheid en langdurige stabiliteit.'
         },
         {
-          key: 'followup' as FeatureKey,
+          key: 'comfort' as FeatureKey,
           title: 'Comfort verdoving',
           description: 'Een naaldloze verdoving die zonder prikken wordt aangebracht. Je voelt nog iets, maar veel minder intens - voor een rustige, comfortabele ervaring zonder scherpe pijn.'
         },
         {
-          key: 'support' as FeatureKey,
+          key: 'prime' as FeatureKey,
           title: 'V6 Hairboost® - Prime',
           description: 'Twee voorbehandelingen die het donorgebied versterken en de haarwortels activeren. Hierdoor kan er meer veilig geoogst worden en blijft het donorgebied vol, gezond en vrijwel onzichtbaar behandeld.'
         },
         {
-          key: 'precision' as FeatureKey,
+          key: 'recovery' as FeatureKey,
           title: 'V6 Hairboost® - Recovery',
           description: 'Acht nabehandelingen die het herstel tot twee keer sneller maken. Dankzij onze exclusieve vitaminekuur stimuleert dit het groeiproces - waardoor je na 6 maanden al het resultaat ziet dat normaal pas na 12 maanden optreedt.'
         },
         {
-          key: 'fue' as FeatureKey,
+          key: 'followup' as FeatureKey,
           title: '1 Personal Follow-Up',
           description: 'Een persoonlijke check-up in onze kliniek in Barendrecht, uitgevoerd door een tricholoog (haarspecialist). Hier wordt je groei, herstel en hoofdhuidconditie gecontroleerd voor een optimale voortgang van het resultaat.'
         },
         {
-          key: 'comfort' as FeatureKey,
+          key: 'support' as FeatureKey,
           title: '1 Year GHI Support™',
           description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon. Onze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen - altijd bereikbaar, altijd persoonlijk.'
         },
         {
-          key: 'followup' as FeatureKey,
+          key: 'precision' as FeatureKey,
           title: 'GHI Precision Method™',
           description: 'De exclusieve methode van Berkant Dural, waarmee al onze artsen persoonlijk zijn opgeleid. Een unieke werkwijze die ambacht, precisie en rust combineert - zonder tijdsdruk, in perfecte omstandigheden, om elk resultaat tot een meesterwerk in haartransplantatie te maken.'
         }
