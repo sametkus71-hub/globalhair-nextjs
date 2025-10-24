@@ -174,10 +174,11 @@ export const PackageStandardPage = () => {
         >
           {/* Sliding background */}
           <div 
-            className="absolute top-[3px] bottom-[3px] rounded-full transition-all duration-300 ease-out silver-gradient-border bg-white/10"
+            className="absolute top-[3px] bottom-[3px] rounded-full transition-all duration-300 ease-out silver-gradient-border"
             style={{
               width: 'calc(50% - 2px)',
               left: activeCountry === 'nl' ? '3px' : 'calc(50% - 1px)',
+              background: 'rgba(255, 255, 255, 0.1)',
             }}
           />
           <button 
@@ -217,10 +218,11 @@ export const PackageStandardPage = () => {
         >
           {/* Sliding background */}
           <div 
-            className="absolute top-[5px] bottom-[5px] rounded-full transition-all duration-300 ease-out silver-gradient-border bg-white/10"
+            className="absolute top-[5px] bottom-[5px] rounded-full transition-all duration-300 ease-out silver-gradient-border"
             style={{
               width: 'calc(33.333% - 4px)',
               left: activeTier === 'Standard' ? '5px' : activeTier === 'Premium' ? 'calc(33.333% + 1px)' : 'calc(66.666% - 3px)',
+              background: 'rgba(255, 255, 255, 0.1)',
             }}
           />
           <div className="grid grid-cols-3 gap-1 relative">
