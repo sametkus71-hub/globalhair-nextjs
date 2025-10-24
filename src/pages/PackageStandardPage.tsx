@@ -516,7 +516,7 @@ export const PackageStandardPage = () => {
         {/* Scrollable package details */}
         <div className="package-details-scroll flex-1 overflow-y-auto px-1" style={{ minHeight: 0, scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {/* Feature accordion */}
-          <div className="flex flex-col mt-2">
+          <div className={`flex flex-col ${activeTier === 'Advanced' ? 'mt-1' : 'mt-2'}`}>
             {features.map((feature, index) => {
               const isOpen = openFeatures.has(feature.key);
               const isFirstShared = activeTier !== 'Standard' && index > 0 && feature.exclusive === false && features[index - 1]?.exclusive === true;
@@ -536,16 +536,16 @@ export const PackageStandardPage = () => {
                   )}
                   <div className="feature-item">
                     <button
-                      className="feature-row flex items-center justify-between py-2 w-full text-left"
+                      className={`feature-row flex items-center justify-between w-full text-left ${activeTier === 'Advanced' ? 'py-1.5' : 'py-2'}`}
                       onClick={() => toggleFeature(feature.key)}
                       aria-expanded={isOpen}
                     >
-                      <div className="feature-left flex items-center gap-2">
-                        <Shield className="w-3.5 h-3.5 text-white/70 flex-shrink-0" strokeWidth={1.5} />
+                      <div className={`feature-left flex items-center ${activeTier === 'Advanced' ? 'gap-1.5' : 'gap-2'}`}>
+                        <Shield className={`text-white/70 flex-shrink-0 ${activeTier === 'Advanced' ? 'w-3 h-3' : 'w-3.5 h-3.5'}`} strokeWidth={1.5} />
                         <span className="flex items-center gap-2 flex-wrap">
                           {feature.exclusive && (
                             <span 
-                              className="text-[9px] px-1.5 py-0.5 rounded-full font-medium"
+                              className={`px-1.5 py-0.5 rounded-full font-medium ${activeTier === 'Advanced' ? 'text-[8px]' : 'text-[9px]'}`}
                               style={{
                                 background: activeTier === 'Advanced' 
                                   ? 'linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(217, 119, 6, 0.15))'
@@ -560,7 +560,7 @@ export const PackageStandardPage = () => {
                               {activeTier}
                             </span>
                           )}
-                          <span className="feature-title text-white text-[13px] font-normal">{feature.title}</span>
+                          <span className={`feature-title text-white font-normal ${activeTier === 'Advanced' ? 'text-[11.5px]' : 'text-[13px]'}`}>{feature.title}</span>
                         </span>
                       </div>
                       <span className="feature-toggle text-white/60 font-light text-xl leading-none">
@@ -587,7 +587,7 @@ export const PackageStandardPage = () => {
           </div>
 
           {/* Price pill */}
-          <div className="flex justify-end mt-2 mb-1">
+          <div className={`flex justify-end mb-1 ${activeTier === 'Advanced' ? 'mt-1' : 'mt-2'}`}>
             <div className="px-3 py-1 rounded-full text-white text-[13px] backdrop-blur-md transition-all duration-300 animate-scale-in" style={{ background: '#FFFFFF1A', fontWeight: 300 }}>
               {getCurrentPrice()}
             </div>
