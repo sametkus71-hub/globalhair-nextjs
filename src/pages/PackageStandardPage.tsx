@@ -25,6 +25,31 @@ export const PackageStandardPage = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const { handlePopupClose } = usePopupClose();
 
+  // Preload haartransplantatie page assets for smooth navigation back
+  useEffect(() => {
+    const assetsToPreload = [
+      '/assets/head-rotation.mp4',
+      '/assets/placeholder-head.png',
+      '/assets/background-animation.mp4',
+      '/assets/logo-header.png'
+    ];
+
+    assetsToPreload.forEach(asset => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      
+      if (asset.endsWith('.mp4')) {
+        link.as = 'video';
+        link.type = 'video/mp4';
+      } else if (asset.endsWith('.png') || asset.endsWith('.jpg')) {
+        link.as = 'image';
+      }
+      
+      link.href = asset;
+      document.head.appendChild(link);
+    });
+  }, []);
+
   // Sync URL with state when params change
   useEffect(() => {
     if (urlCountry) setActiveCountry(urlCountry as 'nl' | 'tr');
