@@ -161,7 +161,7 @@ export const PackageStandardPage = () => {
 
         {/* Country toggle */}
         <div 
-          className="flex gap-0 justify-center mt-8 mb-1.5 mx-auto max-w-[220px] border border-white/20"
+          className="flex gap-0 justify-center mt-8 mb-1.5 mx-auto max-w-[220px] border border-white/20" 
           role="tablist" 
           aria-label="Country"
           style={{
@@ -169,13 +169,22 @@ export const PackageStandardPage = () => {
             backdropFilter: 'blur(20px)',
             borderRadius: '9999px',
             padding: '3px',
+            position: 'relative',
           }}
         >
+          {/* Sliding background */}
+          <div 
+            className="absolute top-[3px] bottom-[3px] rounded-full transition-all duration-300 ease-out silver-gradient-border bg-white/10"
+            style={{
+              width: 'calc(50% - 2px)',
+              left: activeCountry === 'nl' ? '3px' : 'calc(50% - 1px)',
+            }}
+          />
           <button 
-            className={`flex-1 px-3 rounded-full text-[10px] font-light transition-all duration-300 ease-out ${
+            className={`flex-1 px-3 rounded-full text-[10px] font-light transition-all duration-300 ease-out relative ${
               activeCountry === 'nl' 
-                ? 'silver-gradient-border bg-white/10 text-white scale-105' 
-                : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
+                ? 'text-white' 
+                : 'bg-transparent text-white/50 hover:text-white/70'
             }`}
             style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}
             onClick={() => setActiveCountry('nl')}
@@ -183,10 +192,10 @@ export const PackageStandardPage = () => {
             Nederland
           </button>
           <button 
-            className={`flex-1 px-3 rounded-full text-[10px] font-light transition-all duration-300 ease-out ${
+            className={`flex-1 px-3 rounded-full text-[10px] font-light transition-all duration-300 ease-out relative ${
               activeCountry === 'tr' 
-                ? 'silver-gradient-border bg-white/10 text-white scale-105' 
-                : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
+                ? 'text-white' 
+                : 'bg-transparent text-white/50 hover:text-white/70'
             }`}
             style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}
             onClick={() => setActiveCountry('tr')}
@@ -197,7 +206,7 @@ export const PackageStandardPage = () => {
 
         {/* Tier pill */}
         <div 
-          className="relative mx-auto my-1.5 max-w-[420px] border border-white/20"
+          className="relative mx-auto my-1.5 max-w-[420px] border border-white/20" 
           aria-label="Tiers"
           style={{
             background: 'rgba(255, 255, 255, 0.08)',
@@ -206,12 +215,20 @@ export const PackageStandardPage = () => {
             padding: '5px',
           }}
         >
-          <div className="grid grid-cols-3 gap-1">
+          {/* Sliding background */}
+          <div 
+            className="absolute top-[5px] bottom-[5px] rounded-full transition-all duration-300 ease-out silver-gradient-border bg-white/10"
+            style={{
+              width: 'calc(33.333% - 4px)',
+              left: activeTier === 'Standard' ? '5px' : activeTier === 'Premium' ? 'calc(33.333% + 1px)' : 'calc(66.666% - 3px)',
+            }}
+          />
+          <div className="grid grid-cols-3 gap-1 relative">
             <button
               className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
                 activeTier === 'Standard'
-                  ? 'silver-gradient-border bg-white/10 text-white scale-105'
-                  : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
+                  ? 'text-white'
+                  : 'bg-transparent text-white/50 hover:text-white/70'
               }`}
               onClick={() => setActiveTier('Standard')}
             >
@@ -220,8 +237,8 @@ export const PackageStandardPage = () => {
             <button
               className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
                 activeTier === 'Premium'
-                  ? 'silver-gradient-border bg-white/10 text-white scale-105'
-                  : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
+                  ? 'text-white'
+                  : 'bg-transparent text-white/50 hover:text-white/70'
               }`}
               onClick={() => setActiveTier('Premium')}
             >
@@ -230,8 +247,8 @@ export const PackageStandardPage = () => {
             <button
               className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
                 activeTier === 'Advanced'
-                  ? 'silver-gradient-border bg-white/10 text-white scale-105'
-                  : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
+                  ? 'text-white'
+                  : 'bg-transparent text-white/50 hover:text-white/70'
               }`}
               onClick={() => setActiveTier('Advanced')}
             >
