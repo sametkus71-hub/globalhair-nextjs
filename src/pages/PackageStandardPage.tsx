@@ -36,27 +36,27 @@ export const PackageStandardPage = () => {
     {
       key: 'fue',
       title: 'FUE Saffier / DHI',
-      description: 'FUE Saffier is de standaard in haartransplantatie: met ultradunne saffieren mesjes voor nauwkeurige plaatsing, minimale littekens en sneller herstel.\nDHI maakt directe implantatie mogelijk — zonder scheren, met maximale controle over richting en dichtheid.'
+      description: 'FUE Saffier is de standaard in haartransplantatie: met ultradunne saffieren mesjes voor nauwkeurige plaatsing, minimale littekens en sneller herstel. DHI maakt directe implantatie mogelijk - zonder scheren, met maximale controle over richting en dichtheid.'
     },
     {
       key: 'comfort',
       title: 'Comfort verdoving',
-      description: 'Een naaldloze verdoving die zonder prikken wordt aangebracht.\nJe voelt nog iets, maar veel minder intens — voor een rustige, comfortabele ervaring zonder scherpe pijn.'
+      description: 'Een naaldloze verdoving die zonder prikken wordt aangebracht. Je voelt nog iets, maar veel minder intens - voor een rustige, comfortabele ervaring zonder scherpe pijn.'
     },
     {
       key: 'followup',
       title: '1 Personal Follow-Up',
-      description: 'Een persoonlijke check-up in onze kliniek in Barendrecht, uitgevoerd door een tricholoog (haarspecialist).\nHier wordt je groei, herstel en hoofdhuidconditie gecontroleerd voor een optimale voortgang van het resultaat.'
+      description: 'Een persoonlijke check-up in onze kliniek in Barendrecht, uitgevoerd door een tricholoog (haarspecialist). Hier wordt je groei, herstel en hoofdhuidconditie gecontroleerd voor een optimale voortgang van het resultaat.'
     },
     {
       key: 'support',
       title: '1 Year GHI Support™',
-      description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon.\nOnze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen — altijd bereikbaar, altijd persoonlijk.'
+      description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon. Onze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen - altijd bereikbaar, altijd persoonlijk.'
     },
     {
       key: 'precision',
       title: 'GHI Precision Method™',
-      description: 'De exclusieve methode van Berkant Dural, waarmee al onze artsen persoonlijk zijn opgeleid.\nEen unieke werkwijze die ambacht, precisie en rust combineert — zonder tijdsdruk, in perfecte omstandigheden, om elk resultaat tot een meesterwerk in haartransplantatie te maken.'
+      description: 'De exclusieve methode van Berkant Dural, waarmee al onze artsen persoonlijk zijn opgeleid. Een unieke werkwijze die ambacht, precisie en rust combineert - zonder tijdsdruk, in perfecte omstandigheden, om elk resultaat tot een meesterwerk in haartransplantatie te maken.'
     }
   ];
 
@@ -221,7 +221,7 @@ export const PackageStandardPage = () => {
                   </button>
                   {isOpen && (
                     <div className="feature-content pb-3">
-                      <p className="text-white/80 text-sm font-light leading-relaxed whitespace-pre-line">
+                      <p className="text-white/80 font-light leading-relaxed" style={{ fontSize: '12px' }}>
                         {feature.description}
                       </p>
                     </div>
