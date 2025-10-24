@@ -251,8 +251,34 @@ export const PackageStandardPage = () => {
             }}
           >
             <img src={chevronRightSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
-            {activeTier === 'Premium' && <img src={chevronRightSvg} alt="" style={{ width: '.8rem', height: '.8rem', marginLeft: '-4px' }} />}
-            {activeTier === 'Advanced' && <img src={chevronRightSvg} alt="" style={{ width: '.8rem', height: '.8rem', marginLeft: '-4px' }} />}
+            {activeTier === 'Premium' && (
+              <img 
+                src={chevronRightSvg} 
+                alt="" 
+                className="animate-fade-in"
+                style={{ 
+                  width: '.8rem', 
+                  height: '.8rem', 
+                  marginLeft: '-4px',
+                  animationDelay: '50ms',
+                  animationFillMode: 'backwards'
+                }} 
+              />
+            )}
+            {activeTier === 'Advanced' && (
+              <img 
+                src={chevronRightSvg} 
+                alt="" 
+                className="animate-fade-in"
+                style={{ 
+                  width: '.8rem', 
+                  height: '.8rem', 
+                  marginLeft: '-4px',
+                  animationDelay: '50ms',
+                  animationFillMode: 'backwards'
+                }} 
+              />
+            )}
           </div>
           <div
             className="silver-grey-gradient-border flex items-center justify-center gap-1"
@@ -263,11 +289,43 @@ export const PackageStandardPage = () => {
             }}
           >
             <img src={leafSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
-            {activeTier === 'Premium' && <img src={leafSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />}
+            {activeTier === 'Premium' && (
+              <img 
+                src={leafSvg} 
+                alt="" 
+                className="animate-fade-in"
+                style={{ 
+                  width: '.8rem', 
+                  height: '.8rem',
+                  animationDelay: '100ms',
+                  animationFillMode: 'backwards'
+                }} 
+              />
+            )}
             {activeTier === 'Advanced' && (
               <>
-                <img src={leafSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
-                <img src={leafSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
+                <img 
+                  src={leafSvg} 
+                  alt="" 
+                  className="animate-fade-in"
+                  style={{ 
+                    width: '.8rem', 
+                    height: '.8rem',
+                    animationDelay: '100ms',
+                    animationFillMode: 'backwards'
+                  }} 
+                />
+                <img 
+                  src={leafSvg} 
+                  alt="" 
+                  className="animate-fade-in"
+                  style={{ 
+                    width: '.8rem', 
+                    height: '.8rem',
+                    animationDelay: '150ms',
+                    animationFillMode: 'backwards'
+                  }} 
+                />
               </>
             )}
           </div>
