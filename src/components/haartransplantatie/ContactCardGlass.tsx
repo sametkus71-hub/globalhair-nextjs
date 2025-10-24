@@ -247,7 +247,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
           content: "";
           position: absolute;
           inset: 0;
-          padding: 1.6px;
+          padding: 1px;
           border-radius: inherit;
           background: linear-gradient(80deg, #949494 7%, #838e94 16%, #b5b5b5 34%, #ACB9C1 51%, #4e5964 78%, #727272 105%);
           -webkit-mask: 
