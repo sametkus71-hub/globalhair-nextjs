@@ -219,7 +219,7 @@ export const ReviewsGrid = () => {
         )}
         style={{
           width: '100%',
-          gridAutoRows: '32vw',
+          gridAutoRows: 'calc((100vw - 16px) / 3)',
           gap: '8px',
           backgroundColor: 'transparent'
         }}
@@ -239,8 +239,8 @@ export const ReviewsGrid = () => {
                 item.rowSpan === 2 ? "row-span-2" : "row-span-1"
               )}
               style={{
-                width: '33vw',
-                height: item.rowSpan === 2 ? 'calc(64vw + 8px)' : '32vw',
+                width: 'calc((100vw - 16px) / 3)',
+                height: item.rowSpan === 2 ? 'calc(2 * ((100vw - 16px) / 3) + 8px)' : 'calc((100vw - 16px) / 3)',
                 '--delay': `${delay}ms`,
                 contain: 'content',
                 borderRadius: '12px',
