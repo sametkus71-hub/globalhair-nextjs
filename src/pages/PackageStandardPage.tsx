@@ -161,7 +161,7 @@ export const PackageStandardPage = () => {
 
         {/* Country toggle */}
         <div 
-          className="flex gap-0 justify-center mt-4 mb-1.5 mx-auto max-w-[220px] border border-white/20"
+          className="flex gap-0 justify-center mt-8 mb-1.5 mx-auto max-w-[220px] border border-white/20"
           role="tablist" 
           aria-label="Country"
           style={{
