@@ -161,7 +161,7 @@ export const PackageStandardPage = () => {
 
         {/* Country toggle */}
         <div 
-          className="flex gap-0 justify-center mt-4 mb-3 mx-auto max-w-[280px] border border-white/20"
+          className="flex gap-0 justify-center mt-4 mb-3 mx-auto max-w-[240px] border border-white/20"
           role="tablist" 
           aria-label="Country"
           style={{
@@ -197,7 +197,7 @@ export const PackageStandardPage = () => {
 
         {/* Tier pill */}
         <div 
-          className="relative mx-auto my-3 max-w-[360px] border border-white/20"
+          className="relative mx-auto my-3 max-w-[400px] border border-white/20"
           aria-label="Tiers"
           style={{
             background: 'rgba(255, 255, 255, 0.08)',
