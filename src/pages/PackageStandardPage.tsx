@@ -35,7 +35,7 @@ export const PackageStandardPage = () => {
         >
           <main className="flex flex-col w-full max-w-2xl h-[calc(100vh-32px)]">
             <section 
-              className="relative rounded-[32px] p-6 pb-8 backdrop-blur-xl bg-gradient-to-b from-[#040E15] to-[#333D46] shadow-[0_8px_32px_rgba(0,0,0,0.4)] h-full flex flex-col" 
+              className="relative rounded-[24px] p-6 pb-8 backdrop-blur-xl bg-gradient-to-b from-[#040E15] to-[#333D46] shadow-[0_8px_32px_rgba(0,0,0,0.4)] h-[90%] flex flex-col"
               style={{ 
                 border: '1px solid transparent',
                 backgroundImage: 'linear-gradient(#040E15, #333D46), linear-gradient(180deg, #4B555E 0%, #ACB9C1 15%, #FFFFFF 50%, #ACB9C1 85%, #4B555E 100%)',
