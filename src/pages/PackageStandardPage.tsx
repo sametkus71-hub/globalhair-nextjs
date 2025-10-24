@@ -271,6 +271,7 @@ export const PackageStandardPage = () => {
             {features.map((feature, index) => {
               const isOpen = openFeatures.has(feature.key);
               const isFirstShared = activeTier !== 'Standard' && index > 0 && feature.exclusive === false && features[index - 1]?.exclusive === true;
+              const isLastExclusive = activeTier !== 'Standard' && feature.exclusive === true && features[index + 1]?.exclusive === false;
               
               return (
                 <div key={feature.key}>
@@ -312,7 +313,7 @@ export const PackageStandardPage = () => {
                         </p>
                       </div>
                     )}
-                    <div className="feature-divider border-b border-white/[0.15]" />
+                    {!isLastExclusive && <div className="feature-divider border-b border-white/[0.15]" />}
                   </div>
                 </div>
               );
