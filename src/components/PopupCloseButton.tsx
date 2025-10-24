@@ -37,8 +37,11 @@ export const PopupCloseButton: React.FC<PopupCloseButtonProps> = ({
   return (
     <button
       onClick={onClose}
-      className={`fixed top-4 left-4 z-50 w-10 h-10 flex items-center justify-center transition-opacity duration-200 hover:opacity-70 ${className}`}
-      style={style}
+      className={`fixed top-4 left-4 z-50 w-10 h-10 flex items-center justify-center transition-opacity duration-200 hover:opacity-70 rounded-full ${className}`}
+      style={{
+        backgroundColor: 'rgba(217, 217, 217, 0.2)',
+        ...style
+      }}
       aria-label={isBackButton ? (language === 'nl' ? 'Terug' : 'Back') : (language === 'nl' ? 'Sluiten' : 'Close')}
     >
       {isBackButton ? (
