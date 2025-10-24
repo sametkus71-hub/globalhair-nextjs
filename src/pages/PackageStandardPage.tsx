@@ -269,7 +269,7 @@ export const PackageStandardPage = () => {
           inset: 0,
           zIndex: 30,
           opacity: isTransitioning ? 0.7 : 1,
-          transition: 'opacity 0.6s ease-in-out'
+          transition: 'opacity 0.6s ease-in-out, background 0.2s ease-in-out'
         }}
       >
         {/* Background Video */}
@@ -281,7 +281,7 @@ export const PackageStandardPage = () => {
           className="absolute inset-0 w-full h-full object-cover"
           style={{
             opacity: getVideoOpacity(),
-            transition: 'opacity 0.6s ease-in-out',
+            transition: 'opacity 0.2s ease-in-out',
             pointerEvents: 'none'
           }}
         >
