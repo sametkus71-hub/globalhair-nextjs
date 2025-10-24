@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Shield } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 import chevronRightSvg from '@/assets/chevron-right.svg';
@@ -10,21 +11,38 @@ type FeatureKey = 'fue' | 'comfort' | 'followup' | 'support' | 'precision' | 'st
 
 export const PackageStandardPage = () => {
   const { language } = useLanguage();
-  const [activeCountry, setActiveCountry] = useState<'nl' | 'tr'>('nl');
-  const [activeTier, setActiveTier] = useState<'Standard' | 'Premium' | 'Advanced'>('Standard');
+  const navigate = useNavigate();
+  const { country: urlCountry, tier: urlTier } = useParams<{ country: string; tier: string }>();
+  
+  const [activeCountry, setActiveCountry] = useState<'nl' | 'tr'>(
+    (urlCountry as 'nl' | 'tr') || 'nl'
+  );
+  const [activeTier, setActiveTier] = useState<'Standard' | 'Premium' | 'Advanced'>(
+    urlTier ? (urlTier.charAt(0).toUpperCase() + urlTier.slice(1)) as 'Standard' | 'Premium' | 'Advanced' : 'Standard'
+  );
   const [isExiting, setIsExiting] = useState(false);
   const [openFeatures, setOpenFeatures] = useState<Set<FeatureKey>>(new Set());
   const [isTransitioning, setIsTransitioning] = useState(false);
   const { handlePopupClose } = usePopupClose();
 
+  // Sync URL with state when params change
+  useEffect(() => {
+    if (urlCountry) setActiveCountry(urlCountry as 'nl' | 'tr');
+    if (urlTier) {
+      const normalizedTier = (urlTier.charAt(0).toUpperCase() + urlTier.slice(1)) as 'Standard' | 'Premium' | 'Advanced';
+      setActiveTier(normalizedTier);
+    }
+  }, [urlCountry, urlTier]);
+
   // Reset to Premium if switching to Turkey while Advanced is selected
   const handleCountryChange = (country: 'nl' | 'tr') => {
     setIsTransitioning(true);
     setTimeout(() => {
+      const newTier = country === 'tr' && activeTier === 'Advanced' ? 'Premium' : activeTier;
+      const basePath = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
+      navigate(`${basePath}/${country}/${newTier.toLowerCase()}`);
       setActiveCountry(country);
-      if (country === 'tr' && activeTier === 'Advanced') {
-        setActiveTier('Premium');
-      }
+      setActiveTier(newTier);
       setIsTransitioning(false);
     }, 150);
   };
@@ -32,6 +50,8 @@ export const PackageStandardPage = () => {
   const handleTierChange = (tier: 'Standard' | 'Premium' | 'Advanced') => {
     setIsTransitioning(true);
     setTimeout(() => {
+      const basePath = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
+      navigate(`${basePath}/${activeCountry}/${tier.toLowerCase()}`);
       setActiveTier(tier);
       setIsTransitioning(false);
     }, 150);
