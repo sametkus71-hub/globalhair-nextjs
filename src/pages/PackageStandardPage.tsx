@@ -201,6 +201,32 @@ export const PackageStandardPage = () => {
   const currentPackage = packageData[activeTier];
   const features = currentPackage.features;
 
+  const getBackgroundGradient = () => {
+    switch (activeTier) {
+      case 'Standard':
+        return 'linear-gradient(180deg, #040E15 0%, #333D46 100%)';
+      case 'Premium':
+        return 'linear-gradient(180deg, #040E15 0%, #2D3E50 100%)';
+      case 'Advanced':
+        return 'linear-gradient(180deg, #0A1628 0%, #1E3A5F 100%)';
+      default:
+        return 'linear-gradient(180deg, #040E15 0%, #333D46 100%)';
+    }
+  };
+
+  const getSectionBorderGradient = () => {
+    switch (activeTier) {
+      case 'Standard':
+        return 'linear-gradient(#040E15, #333D46), linear-gradient(180deg, #4B555E 0%, #ACB9C1 15%, #FFFFFF 50%, #ACB9C1 85%, #4B555E 100%)';
+      case 'Premium':
+        return 'linear-gradient(#040E15, #2D3E50), linear-gradient(180deg, #4B555E 0%, #ACB9C1 15%, #E0E8FF 50%, #ACB9C1 85%, #4B555E 100%)';
+      case 'Advanced':
+        return 'linear-gradient(#0A1628, #1E3A5F), linear-gradient(180deg, #5B7A9E 0%, #B0C4DE 15%, #E6F0FF 50%, #B0C4DE 85%, #5B7A9E 100%)';
+      default:
+        return 'linear-gradient(#040E15, #333D46), linear-gradient(180deg, #4B555E 0%, #ACB9C1 15%, #FFFFFF 50%, #ACB9C1 85%, #4B555E 100%)';
+    }
+  };
+
   const handleClose = () => {
     setIsExiting(true);
     handlePopupClose(350);
@@ -211,11 +237,12 @@ export const PackageStandardPage = () => {
       <div
         className={`reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}
         style={{
-          background: 'linear-gradient(180deg, #040E15 0%, #333D46 100%)',
+          background: getBackgroundGradient(),
           overflow: 'hidden',
           position: 'fixed',
           inset: 0,
-          zIndex: 30
+          zIndex: 30,
+          transition: 'background 0.5s ease-in-out'
         }}
       >
         <div 
@@ -223,12 +250,13 @@ export const PackageStandardPage = () => {
         >
           <main className="flex flex-col w-full max-w-2xl h-[calc(100vh-32px)]">
             <section 
-              className="relative rounded-[24px] p-4 pb-6 backdrop-blur-xl bg-gradient-to-b from-[#040E15] to-[#333D46] shadow-[0_8px_32px_rgba(0,0,0,0.4)] h-[90%] flex flex-col"
+              className="relative rounded-[24px] p-4 pb-6 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] h-[90%] flex flex-col"
               style={{ 
                 border: '1px solid transparent',
-                backgroundImage: 'linear-gradient(#040E15, #333D46), linear-gradient(180deg, #4B555E 0%, #ACB9C1 15%, #FFFFFF 50%, #ACB9C1 85%, #4B555E 100%)',
+                backgroundImage: getSectionBorderGradient(),
                 backgroundOrigin: 'border-box',
-                backgroundClip: 'padding-box, border-box'
+                backgroundClip: 'padding-box, border-box',
+                transition: 'background-image 0.5s ease-in-out'
               }}
             >
               {/* Close button inside section */}
