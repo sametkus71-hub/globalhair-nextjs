@@ -276,7 +276,7 @@ export const PackageStandardPage = () => {
               return (
                 <div key={feature.key}>
                   {isFirstShared && (
-                    <div className="border-b border-white/[0.15] my-2" />
+                    <div className="feature-divider border-b border-white/[0.15]" />
                   )}
                   <div className="feature-item">
                     <button
