@@ -205,6 +205,11 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
   }
 }
 
+/* Hide scrollbar while maintaining scroll functionality */
+.package-details-scroll::-webkit-scrollbar {
+  display: none;
+}
+
 .smooth-scroll-container {
   scroll-behavior: smooth;
   overflow-y: auto;

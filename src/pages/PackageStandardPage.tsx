@@ -199,7 +199,7 @@ export const PackageStandardPage = () => {
         </div>
 
         {/* Scrollable package details */}
-        <div className="package-details-scroll flex-1 overflow-y-auto px-1" style={{ minHeight: 0 }}>
+        <div className="package-details-scroll flex-1 overflow-y-auto px-1" style={{ minHeight: 0, scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {/* Feature accordion */}
           <div className="flex flex-col mt-4">
             {features.map((feature) => {
