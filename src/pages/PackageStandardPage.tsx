@@ -462,13 +462,18 @@ export const PackageStandardPage = () => {
                         {isOpen ? '–' : '+'}
                       </span>
                     </button>
-                    {isOpen && (
-                      <div className="feature-content pb-2 animate-accordion-down">
-                        <p className="text-white/80 font-light leading-relaxed" style={{ fontSize: '11px' }}>
-                          {feature.description}
-                        </p>
-                      </div>
-                    )}
+                    <div 
+                      className="feature-content overflow-hidden transition-all duration-300 ease-in-out"
+                      style={{ 
+                        maxHeight: isOpen ? '500px' : '0',
+                        opacity: isOpen ? 1 : 0,
+                        paddingBottom: isOpen ? '0.5rem' : '0'
+                      }}
+                    >
+                      <p className="text-white/80 font-light leading-relaxed" style={{ fontSize: '11px' }}>
+                        {feature.description}
+                      </p>
+                    </div>
                     {!isLastExclusive && <div className="feature-divider border-b border-white/[0.15]" />}
                   </div>
                 </div>
