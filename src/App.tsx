@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, useLocation } from "react-router-dom";
 import { SessionManager } from "@/components/SessionManager";
 import { LanguageWrapper } from "@/components/LanguageWrapper";
 import { TransitionProvider } from "@/contexts/TransitionContext";
@@ -16,6 +16,16 @@ import { useEffect } from "react";
 import { waitForSalesIQ } from "@/lib/salesiq";
 
 const queryClient = new QueryClient();
+
+function AppBackground() {
+  const { pathname } = useLocation();
+  const isChat = pathname.endsWith('/chat') || pathname.includes('/chat');
+  const style = isChat
+    ? { background: 'linear-gradient(180deg, #040E15 0%, #333D46 100%)' }
+    : { background: '#E4E5E0' };
+
+  return <div className="fixed inset-0" style={style} />;
+}
 
 function AppRootInit() {
   useEffect(() => {
@@ -42,8 +52,7 @@ const App = () => (
               <TransitionProvider>
                 <AppRootInit />
                 <ViewportHeightSetter />
-                {/* Solid background across all pages */}
-                <div className="fixed inset-0" style={{ background: '#E4E5E0' }} />
+                <AppBackground />
                 
                 <SEORoutes />
               </TransitionProvider>

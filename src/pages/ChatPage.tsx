@@ -187,7 +187,7 @@ const ChatPage = () => {
               ) : (
                 <div className="max-w-[80%]">
                   <p 
-                    className="text-white/80 whitespace-pre-wrap"
+                    className="text-white/90 whitespace-pre-wrap"
                     style={{
                       fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
                     }}
@@ -234,8 +234,9 @@ const ChatPage = () => {
           <div
             className="flex items-end gap-2 rounded-2xl p-2"
             style={{
-              background: 'rgba(255, 255, 255, 0.1)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
+              background: 'rgba(4, 14, 21, 0.4)',
+              backdropFilter: 'blur(10px)',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
             }}
           >
             <textarea
