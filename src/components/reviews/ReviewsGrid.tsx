@@ -90,12 +90,12 @@ const VideoCard = ({
       />
       {/* Berkant badge */}
       {isBerkantVideo && (
-        <div className="absolute top-2 left-2 bg-black/70 px-2.5 py-1.5 rounded-full text-xs text-white font-normal pointer-events-none">
+        <div className="absolute top-2 left-2 bg-black/70 px-2.5 py-1.5 rounded-full text-xs text-white font-normal pointer-events-none silver-grey-gradient-border">
           Berkant
         </div>
       )}
       <button 
-        className="absolute top-2 right-2 bg-black/70 p-2 rounded-full cursor-pointer hover:bg-black/80 transition-colors"
+        className="absolute top-2 right-2 bg-black/70 p-2 rounded-full cursor-pointer hover:bg-black/80 transition-colors silver-grey-gradient-border"
         onClick={(e) => {
           e.stopPropagation();
           onMuteButtonClick();
