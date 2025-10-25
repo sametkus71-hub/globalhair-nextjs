@@ -326,27 +326,6 @@ body.s-rood {
     @apply lg:max-w-[500px] lg:mx-auto;
   }
 
-  /* Silver grey gradient border effect */
-  .silver-grey-gradient-border {
-    @apply relative;
-    overflow: visible;
-  }
-  
-  .silver-grey-gradient-border::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    background: linear-gradient(135deg, 
-      hsl(0, 0%, 50%), 
-      hsl(0, 0%, 75%), 
-      hsl(0, 0%, 66%), 
-      hsl(0, 0%, 56%)
-    );
-    border-radius: inherit;
-    z-index: -1;
-    opacity: 0.4;
-  }
-
   /* Hero grid tile base styles */
   .hero-tile {
     @apply relative overflow-hidden rounded-2xl cursor-pointer;
