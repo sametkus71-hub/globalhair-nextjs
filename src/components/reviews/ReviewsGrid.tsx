@@ -90,12 +90,12 @@ const VideoCard = ({
       />
       {/* Berkant badge */}
       {isBerkantVideo && (
-        <div className="absolute top-2 left-2 bg-black/70 px-2.5 py-1.5 rounded-full text-xs text-white font-normal pointer-events-none silver-grey-gradient-border">
+        <div className="absolute top-2 left-2 bg-black/70 px-2.5 py-1.5 rounded-full text-xs text-white font-normal pointer-events-none silver-grey-gradient-border z-50">
           Berkant
         </div>
       )}
       <button 
-        className="absolute top-2 right-2 bg-black/70 p-2 rounded-full cursor-pointer hover:bg-black/80 transition-colors silver-grey-gradient-border"
+        className="absolute top-2 right-2 bg-black/70 p-2 rounded-full cursor-pointer hover:bg-black/80 transition-colors silver-grey-gradient-border z-50"
         onClick={(e) => {
           e.stopPropagation();
           onMuteButtonClick();
@@ -294,7 +294,7 @@ export const ReviewsGrid = () => {
           -webkit-mask-composite: xor;
           mask-composite: exclude;
           pointer-events: none;
-          z-index: 3;
+          z-index: 0;
         }
 
         .silver-grey-gradient-border > * {
