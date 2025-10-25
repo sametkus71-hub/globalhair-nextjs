@@ -12,25 +12,44 @@ interface Message {
 }
 
 interface ChatResponse {
-  answer: string;
+  output?: string;
+  answer?: string;
   source?: string;
   canEscalate?: boolean;
+  [key: string]: any;
 }
 
-async function sendMessage(message: string): Promise<ChatResponse> {
-  const response = await fetch('https://radux.app.n8n.cloud/webhook/438ccf83-5a80-4605-8195-a586e4e03c34/chat', {
+async function sendMessage(message: string, sessionId: string): Promise<ChatResponse> {
+  const url = 'https://radux.app.n8n.cloud/webhook/438ccf83-5a80-4605-8195-a586e4e03c34/chat?action=sendMessage';
+  
+  console.log('[Chat] Sending message:', { chatInput: message, sessionId });
+  
+  const response = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ message }),
+    body: JSON.stringify({ 
+      chatInput: message,
+      sessionId: sessionId 
+    }),
   });
 
   if (!response.ok) {
-    throw new Error('Network error');
+    const errorText = await response.text();
+    console.error('[Chat] Error response:', response.status, errorText);
+    throw new Error(`Network error: ${response.status}`);
   }
 
-  return await response.json();
+  const data = await response.json();
+  console.log('[Chat] Response received:', data);
+  
+  return {
+    answer: data.output || data.answer || data.response || 'No response',
+    source: data.source,
+    canEscalate: data.canEscalate,
+    ...data
+  };
 }
 
 const ChatPage = () => {
@@ -39,8 +58,23 @@ const ChatPage = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [sessionId, setSessionId] = useState<string>('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // Initialize session ID
+  useEffect(() => {
+    const storedSessionId = localStorage.getItem('n8n-chat-session-id');
+    if (storedSessionId) {
+      setSessionId(storedSessionId);
+      console.log('[Chat] Loaded existing session:', storedSessionId);
+    } else {
+      const newSessionId = crypto.randomUUID();
+      localStorage.setItem('n8n-chat-session-id', newSessionId);
+      setSessionId(newSessionId);
+      console.log('[Chat] Created new session:', newSessionId);
+    }
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -51,7 +85,7 @@ const ChatPage = () => {
   }, [messages]);
 
   const handleSend = async () => {
-    if (!input.trim() || isLoading) return;
+    if (!input.trim() || isLoading || !sessionId) return;
 
     const userMessage = input.trim();
     setInput('');
@@ -59,13 +93,14 @@ const ChatPage = () => {
     setIsLoading(true);
 
     try {
-      const response = await sendMessage(userMessage);
+      const response = await sendMessage(userMessage, sessionId);
       setMessages(prev => [...prev, {
         role: 'bot',
-        content: response.answer,
+        content: response.answer || 'No response',
         source: response.source,
       }]);
     } catch (error) {
+      console.error('[Chat] Error:', error);
       setMessages(prev => [...prev, {
         role: 'bot',
         content: language === 'nl' 
