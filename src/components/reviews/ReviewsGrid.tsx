@@ -220,7 +220,7 @@ export const ReviewsGrid = () => {
         style={{
           width: '100%',
           gridAutoRows: 'calc((100vw - 16px) / 3)',
-          gap: '8px',
+          gap: '4px',
           backgroundColor: 'transparent'
         }}
       >
