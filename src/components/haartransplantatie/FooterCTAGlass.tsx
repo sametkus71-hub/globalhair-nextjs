@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { ArrowUpRight, MessageCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
@@ -6,7 +5,6 @@ import { useLanguage } from '@/hooks/useLanguage';
 export const FooterCTAGlass = () => {
   const navigate = useNavigate();
   const { language } = useLanguage();
-  const [showChat, setShowChat] = useState(false);
 
   return (
     <>
@@ -87,7 +85,7 @@ export const FooterCTAGlass = () => {
 
           {/* Chat button */}
           <button
-            onClick={() => setShowChat(true)}
+            onClick={() => navigate(language === 'nl' ? '/nl/chat' : '/en/chat')}
             className="silver-gradient-border rounded-full flex items-center justify-center transition-all duration-200"
             style={{
               width: 'clamp(48px, 5.5vh, 54px)',
@@ -109,93 +107,6 @@ export const FooterCTAGlass = () => {
           </button>
         </div>
       </div>
-
-      {/* Chat Modal */}
-      {showChat && (
-        <div
-          className="fixed inset-0 z-50 flex items-end justify-center p-4"
-          style={{
-            background: 'rgba(0, 0, 0, 0.6)',
-            backdropFilter: 'blur(8px)',
-            animation: 'fade-in 0.3s ease-out',
-          }}
-          onClick={() => setShowChat(false)}
-        >
-          <div
-            className="w-full max-w-md rounded-3xl p-6"
-            style={{
-              background: 'rgba(255, 255, 255, 0.12)',
-              backdropFilter: 'blur(30px)',
-              border: '1px solid rgba(255, 255, 255, 0.30)',
-              boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)',
-              animation: 'slide-up 0.3s ease-out',
-              marginBottom: 'calc(env(safe-area-inset-bottom) + 1rem)',
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between mb-4">
-              <h3
-                className="text-white text-xl font-semibold"
-                style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
-              >
-                {language === 'nl' ? 'Chat met ons' : 'Chat with us'}
-              </h3>
-              <button
-                onClick={() => setShowChat(false)}
-                className="text-white/60 hover:text-white transition-colors"
-              >
-                ✕
-              </button>
-            </div>
-            
-            <p
-              className="text-white/80 mb-4"
-              style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
-            >
-              {language === 'nl' 
-                ? 'Onze experts staan klaar om je te helpen.' 
-                : 'Our experts are ready to help you.'}
-            </p>
-
-            <div className="space-y-2">
-              <button
-                className="w-full py-3 px-4 rounded-2xl text-left transition-all duration-200"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.10)',
-                  border: '1px solid rgba(255, 255, 255, 0.20)',
-                  color: 'white',
-                  fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.14)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.10)';
-                }}
-              >
-                {language === 'nl' ? 'Ik heb een vraag over prijzen' : 'I have a question about pricing'}
-              </button>
-              <button
-                className="w-full py-3 px-4 rounded-2xl text-left transition-all duration-200"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.10)',
-                  border: '1px solid rgba(255, 255, 255, 0.20)',
-                  color: 'white',
-                  fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.14)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.10)';
-                }}
-              >
-                {language === 'nl' ? 'Wat is de beste behandeling voor mij?' : 'What is the best treatment for me?'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       <style>{`
         @keyframes slide-up {

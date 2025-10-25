@@ -12,6 +12,7 @@ import InfoTrajectoryPage from '@/pages/InfoTrajectoryPage';
 import MissionPage from '@/pages/MissionPage';
 import SupportPage from '@/pages/SupportPage';
 import SupportChatPage from '@/pages/SupportChatPage';
+import ChatPage from '@/pages/ChatPage';
 import V6HairboostPage from '@/pages/V6HairboostPage';
 import { PackageStandardPage } from '@/pages/PackageStandardPage';
 import ComingSoon1Page from '@/pages/ComingSoon1Page';
@@ -54,6 +55,7 @@ export const SEORoutes = () => {
       <Route path="/nl/info/traject" element={<InfoTrajectoryPage />} />
       <Route path="/nl/support" element={<SupportPage />} />
       <Route path="/nl/support/chat" element={<SupportChatPage />} />
+      <Route path="/nl/chat" element={<ChatPage />} />
       <Route path="/nl/boek" element={<BookingPage />} />
       <Route path="/nl/contact" element={<ContactPage />} />
       
@@ -85,6 +87,7 @@ export const SEORoutes = () => {
       <Route path="/en/info/trajectory" element={<InfoTrajectoryPage />} />
       <Route path="/en/support" element={<SupportPage />} />
       <Route path="/en/support/chat" element={<SupportChatPage />} />
+      <Route path="/en/chat" element={<ChatPage />} />
       <Route path="/en/book" element={<BookingPage />} />
       <Route path="/en/contact" element={<ContactPage />} />
       
