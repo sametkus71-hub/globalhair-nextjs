@@ -174,46 +174,48 @@ const ChatPage = () => {
               key={idx}
               className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
             >
-              <div
-                className={`max-w-[80%] rounded-2xl px-4 py-3 ${
-                  msg.role === 'user'
-                    ? 'bg-white/20 text-white'
-                    : msg.error
-                    ? 'bg-red-500/20 text-white'
-                    : 'bg-white/10 text-white'
-                }`}
-                style={{
-                  fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-                  backdropFilter: 'blur(10px)',
-                }}
-              >
-                <p className="whitespace-pre-wrap">{msg.content}</p>
-                {msg.source && (
-                  <a
-                    href={msg.source}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 mt-2 text-sm text-white/80 hover:text-white underline"
+              {msg.role === 'user' ? (
+                <div
+                  className="max-w-[80%] rounded-2xl px-4 py-3 text-white"
+                  style={{
+                    background: 'linear-gradient(135deg, #6B7280 0%, #9CA3AF 50%, #D1D5DB 100%)',
+                    fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+                  }}
+                >
+                  <p className="whitespace-pre-wrap">{msg.content}</p>
+                </div>
+              ) : (
+                <div className="max-w-[80%]">
+                  <p 
+                    className="text-white/80 whitespace-pre-wrap"
+                    style={{
+                      fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+                    }}
                   >
-                    {language === 'nl' ? 'Bron' : 'Source'}
-                    <ExternalLink size={14} />
-                  </a>
-                )}
-              </div>
+                    {msg.content}
+                  </p>
+                  {msg.source && (
+                    <a
+                      href={msg.source}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 mt-2 text-sm text-white/60 hover:text-white/80 underline"
+                    >
+                      {language === 'nl' ? 'Bron' : 'Source'}
+                      <ExternalLink size={14} />
+                    </a>
+                  )}
+                  {msg.error && (
+                    <span className="text-red-400/80 text-sm ml-2">⚠</span>
+                  )}
+                </div>
+              )}
             </div>
           ))}
           
           {isLoading && (
             <div className="flex justify-start">
-              <div
-                className="rounded-2xl px-4 py-3 bg-white/10"
-                style={{
-                  fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
-                  backdropFilter: 'blur(10px)',
-                }}
-              >
-                <Loader2 className="animate-spin text-white/60" size={20} />
-              </div>
+              <Loader2 className="animate-spin text-white/60" size={20} />
             </div>
           )}
           
