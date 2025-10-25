@@ -239,8 +239,6 @@ export const ReviewsGrid = () => {
                 item.rowSpan === 2 ? "row-span-2" : "row-span-1"
               )}
               style={{
-                width: 'calc((100vw - 16px) / 3)',
-                height: item.rowSpan === 2 ? 'calc(2 * ((100vw - 16px) / 3) + 8px)' : 'calc((100vw - 16px) / 3)',
                 '--delay': `${delay}ms`,
                 contain: 'content',
                 borderRadius: '12px',
