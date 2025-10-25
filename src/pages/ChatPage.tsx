@@ -85,7 +85,20 @@ const ChatPage = () => {
   }, [messages]);
 
   const handleSend = async () => {
-    if (!input.trim() || isLoading || !sessionId) return;
+    if (!input.trim() || isLoading) return;
+
+    // Ensure we have a sessionId
+    let currentSessionId = sessionId;
+    if (!currentSessionId) {
+      const storedSessionId = localStorage.getItem('n8n-chat-session-id');
+      if (storedSessionId) {
+        currentSessionId = storedSessionId;
+      } else {
+        currentSessionId = crypto.randomUUID();
+        localStorage.setItem('n8n-chat-session-id', currentSessionId);
+      }
+      setSessionId(currentSessionId);
+    }
 
     const userMessage = input.trim();
     setInput('');
@@ -93,7 +106,7 @@ const ChatPage = () => {
     setIsLoading(true);
 
     try {
-      const response = await sendMessage(userMessage, sessionId);
+      const response = await sendMessage(userMessage, currentSessionId);
       setMessages(prev => [...prev, {
         role: 'bot',
         content: response.answer || 'No response',
@@ -158,7 +171,7 @@ const ChatPage = () => {
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto px-4 py-6 space-y-4">
+        <div className="flex-1 overflow-y-auto px-4 py-6 pb-28 space-y-4">
           {messages.length === 0 && (
             <div className="text-center text-white/60 mt-20">
               <p style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}>
