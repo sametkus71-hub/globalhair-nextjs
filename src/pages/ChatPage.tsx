@@ -82,6 +82,7 @@ const ChatPage = () => {
 
   useEffect(() => {
     scrollToBottom();
+    console.log('[Chat] messages updated:', messages);
   }, [messages]);
 
   const handleSend = async () => {
@@ -189,18 +190,25 @@ const ChatPage = () => {
             >
               {msg.role === 'user' ? (
                 <div
-                  className="max-w-[80%] rounded-2xl px-4 py-3 text-white"
+                  className="max-w-[80%] rounded-2xl px-4 py-3"
                   style={{
                     background: 'linear-gradient(135deg, #6B7280 0%, #9CA3AF 50%, #D1D5DB 100%)',
+                    color: 'rgba(4, 14, 21, 0.95)',
                     fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
                   }}
                 >
                   <p className="whitespace-pre-wrap">{msg.content}</p>
                 </div>
               ) : (
-                <div className="max-w-[80%]">
+                <div
+                  className="max-w-[80%] rounded-2xl px-4 py-3"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.06)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)'
+                  }}
+                >
                   <p 
-                    className="text-white/90 whitespace-pre-wrap"
+                    className="text-white whitespace-pre-wrap"
                     style={{
                       fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
                     }}
@@ -212,7 +220,7 @@ const ChatPage = () => {
                       href={msg.source}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 mt-2 text-sm text-white/60 hover:text-white/80 underline"
+                      className="inline-flex items-center gap-1 mt-2 text-sm text-white/70 hover:text-white/90 underline"
                     >
                       {language === 'nl' ? 'Bron' : 'Source'}
                       <ExternalLink size={14} />
