@@ -38,7 +38,7 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
     >
       {/* Phase toggle */}
       <div 
-        className="flex gap-0 justify-center mb-1.5 mx-auto max-w-[180px] border border-white/20"
+        className="flex gap-0 justify-center mb-1.5 mx-auto border border-white/20"
         role="tablist" 
         aria-label="Phase"
         style={{
@@ -46,37 +46,53 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
           backdropFilter: 'blur(20px)',
           borderRadius: '9999px',
           padding: '2px',
+          width: 'fit-content',
         }}
       >
         <button 
-          className={`flex-1 px-2 rounded-full text-[9px] font-light transition-all duration-300 ease-out ${
+          className={`rounded-full text-[9px] font-light transition-all duration-300 ease-out ${
             activePhase === 'pre' 
               ? 'silver-gradient-border bg-white/10 text-white scale-105' 
               : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
           }`}
-          style={{ paddingTop: '0.4rem', paddingBottom: '0.4rem' }}
+          style={{ 
+            paddingTop: '0.4rem', 
+            paddingBottom: '0.4rem',
+            width: '60px',
+            minWidth: '60px'
+          }}
           onClick={() => handlePhaseChange('pre')}
         >
           Pre-
         </button>
         <button 
-          className={`flex-1 px-2 rounded-full text-[9px] font-light transition-all duration-300 ease-out ${
+          className={`rounded-full text-[9px] font-light transition-all duration-300 ease-out ${
             activePhase === 'treatment' 
               ? 'silver-gradient-border bg-white/10 text-white scale-105' 
               : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
           }`}
-          style={{ paddingTop: '0.4rem', paddingBottom: '0.4rem' }}
+          style={{ 
+            paddingTop: '0.4rem', 
+            paddingBottom: '0.4rem',
+            width: '60px',
+            minWidth: '60px'
+          }}
           onClick={() => handlePhaseChange('treatment')}
         >
           Treatment
         </button>
         <button 
-          className={`flex-1 px-2 rounded-full text-[9px] font-light transition-all duration-300 ease-out ${
+          className={`rounded-full text-[9px] font-light transition-all duration-300 ease-out ${
             activePhase === 'after' 
               ? 'silver-gradient-border bg-white/10 text-white scale-105' 
               : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
           }`}
-          style={{ paddingTop: '0.4rem', paddingBottom: '0.4rem' }}
+          style={{ 
+            paddingTop: '0.4rem', 
+            paddingBottom: '0.4rem',
+            width: '60px',
+            minWidth: '60px'
+          }}
           onClick={() => handlePhaseChange('after')}
         >
           After-
