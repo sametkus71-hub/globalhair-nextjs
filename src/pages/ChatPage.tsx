@@ -118,6 +118,35 @@ const ChatPage = () => {
     }
   }, []);
 
+  // Preload conversation on first visit
+  useEffect(() => {
+    const chatInit = localStorage.getItem('chatInit');
+    if (!chatInit) {
+      const preloadedMessages: Message[] = [
+        { role: 'bot', content: 'Hallo 👋, welkom bij GlobalHair Institute.' },
+        { role: 'bot', content: 'Ik ben je persoonlijke assistent — hier om al je vragen over haartransplantatie te beantwoorden.' },
+        { role: 'bot', content: 'Wil je dat ik je help het juiste pakket te kiezen, of liever eerst uitleg geef over onze werkwijze?' },
+        { role: 'user', content: 'Vertel me eerst iets over de werkwijze.' },
+        { role: 'bot', content: 'Natuurlijk. We combineren medische precisie met persoonlijke zorg. Elke behandeling begint met een uitgebreide analyse, gevolgd door een behandeling op maat — uitgevoerd door ervaren specialisten.' },
+        { role: 'bot', content: 'Wil je daarna meer weten over de pakketten, of meteen een consult plannen?' }
+      ];
+
+      let index = 0;
+      const displayNextMessage = () => {
+        if (index < preloadedMessages.length) {
+          setMessages(prev => [...prev, preloadedMessages[index]]);
+          index++;
+          const delay = 700 + Math.random() * 200; // 700-900ms
+          setTimeout(displayNextMessage, delay);
+        } else {
+          localStorage.setItem('chatInit', 'true');
+        }
+      };
+      
+      displayNextMessage();
+    }
+  }, []);
+
   const scrollToBottom = () => {
     setTimeout(() => {
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
