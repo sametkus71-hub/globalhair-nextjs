@@ -13,7 +13,7 @@ import { PackageCardGlass } from '@/components/haartransplantatie/PackageCardGla
 import { ReviewsSectionGlass } from '@/components/haartransplantatie/ReviewsSectionGlass';
 import { StaticReviewGlass } from '@/components/haartransplantatie/StaticReviewGlass';
 import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
-import { PlaceholderContent } from '@/components/haartransplantatie/PlaceholderContent';
+import { TrajectCardGlass } from '@/components/haartransplantatie/TrajectCardGlass';
 import { MissionCardGlass } from '@/components/mission/MissionCardGlass';
 import { ContactCardGlass } from '@/components/haartransplantatie/ContactCardGlass';
 
@@ -256,7 +256,7 @@ const HaartransplantatiePage = () => {
                       pointerEvents: activeTab === 'Traject' ? 'auto' : 'none'
                     }}
                   >
-                    <PlaceholderContent type="Traject" />
+                    <TrajectCardGlass />
                     {/* Anchor for dots positioning */}
                     <div 
                       ref={activeTab === 'Traject' ? contentRef : null} 
