@@ -57,7 +57,7 @@ const ChatPage = () => {
   const { language } = useLanguage();
   const navigate = useNavigate();
 
-  // Add styles for gradient borders
+  // Add styles for gradient borders and hide scrollbars
   const chatInputStyles = `
     .chat-input-wrapper::before {
       content: '';
@@ -96,6 +96,16 @@ const ChatPage = () => {
       -webkit-mask-composite: xor;
       mask-composite: exclude;
       pointer-events: none;
+    }
+
+    /* Hide scrollbars while maintaining scroll functionality */
+    .hide-scrollbar {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+    
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;  /* Chrome, Safari and Opera */
     }
   `;
   const [messages, setMessages] = useState<Message[]>([]);
@@ -308,6 +318,10 @@ const ChatPage = () => {
     } finally {
       setIsLoading(false);
       console.log('[Chat] handleSend complete');
+      // Focus back on input after message is sent
+      setTimeout(() => {
+        textareaRef.current?.focus();
+      }, 100);
     }
   };
 
@@ -368,7 +382,7 @@ const ChatPage = () => {
 
         {/* Messages */}
         <div 
-          className="flex-1 overflow-y-auto px-4 py-6 pb-28 space-y-4"
+          className="flex-1 overflow-y-auto px-4 py-6 pb-28 space-y-4 hide-scrollbar"
           style={{
             position: 'relative',
             zIndex: 0,
@@ -538,7 +552,7 @@ const ChatPage = () => {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder={language === 'nl' ? 'Typ een bericht...' : 'Type a message...'}
-              className="flex-1 bg-transparent text-white placeholder-white/40 resize-none outline-none px-2 max-h-32"
+              className="flex-1 bg-transparent text-white placeholder-white/40 resize-none outline-none px-2 max-h-32 hide-scrollbar"
               style={{
                 fontFamily: 'Inter',
                 fontSize: '16px',
