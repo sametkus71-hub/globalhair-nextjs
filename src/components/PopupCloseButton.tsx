@@ -71,15 +71,14 @@ export const usePopupClose = () => {
   };
 
   const handlePopupClose = (delay: number = 200) => {
-    const targetPath = getCloseTargetPath();
-    
     setTimeout(() => {
       // Clear stored paths
       sessionStorage.removeItem('previousPath');
       sessionStorage.removeItem('previousPage');
       sessionStorage.setItem('skipPageAnimations', 'true');
       
-      navigate(targetPath);
+      // Go back to previous page in browser history
+      navigate(-1);
       
       // Remove skip flag after navigation
       setTimeout(() => {
