@@ -260,7 +260,7 @@ const ChatPage = () => {
                 <div
                   className="max-w-[80%] px-4 py-3"
                   style={{
-                    background: 'rgba(44, 54, 62, 0.25)',
+                    background: 'rgba(44, 54, 62, 0.4)',
                     borderRadius: '12px',
                     fontFamily: 'Inter, system-ui, sans-serif',
                     fontSize: '12px',
@@ -315,9 +315,10 @@ const ChatPage = () => {
             className="flex items-end gap-2 p-2 chat-input-wrapper"
             style={{
               borderRadius: '9999px',
-              background: 'rgba(4, 14, 21, 0.4)',
+              background: 'linear-gradient(100deg, rgba(44, 54, 62, 0.05) 0%, rgba(234, 234, 234, 0.15) 50%, rgba(44, 54, 62, 0.05) 100%)',
               backdropFilter: 'blur(10px)',
               position: 'relative',
+              padding: '.5rem .1rem .5rem 1rem',
             }}
           >
             <textarea
