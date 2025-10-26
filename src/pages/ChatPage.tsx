@@ -64,7 +64,7 @@ const ChatPage = () => {
       inset: 0;
       border-radius: 9999px;
       padding: 1px;
-      background: linear-gradient(135deg, #C0C0C0, #E8E8E8, #A8A8A8);
+      background: linear-gradient(90deg, #949494 7%, #ACB9C1 16%, #FFFFFF 34%, #ACB9C1 51%, #4B555E 78%, #fff 105%);
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
