@@ -318,7 +318,7 @@ const ChatPage = () => {
               background: 'linear-gradient(100deg, rgba(44, 54, 62, 0.05) 0%, rgba(234, 234, 234, 0.15) 50%, rgba(44, 54, 62, 0.05) 100%)',
               backdropFilter: 'blur(10px)',
               position: 'relative',
-              padding: '.5rem .1rem .5rem 1rem',
+              padding: '0.3rem 0.3rem 0.3rem 1rem',
             }}
           >
             <textarea
@@ -340,12 +340,11 @@ const ChatPage = () => {
             <button
               onClick={handleSend}
               disabled={!input.trim() || isLoading}
-              className="silver-gradient-border transition-all disabled:opacity-30"
+              className="transition-all disabled:opacity-30"
               style={{
                 padding: '0.8rem',
                 borderRadius: '9999px',
                 background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.02) 100%)',
-                position: 'relative',
               }}
             >
               {isLoading ? (
