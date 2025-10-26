@@ -77,7 +77,9 @@ const ChatPage = () => {
   }, []);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 0);
   };
 
   useEffect(() => {
@@ -86,6 +88,7 @@ const ChatPage = () => {
   }, [messages]);
 
   const handleSend = async () => {
+    console.log('[Chat] handleSend called, input:', input, 'isLoading:', isLoading);
     if (!input.trim() || isLoading) return;
 
     // Ensure we have a sessionId
@@ -102,17 +105,28 @@ const ChatPage = () => {
     }
 
     const userMessage = input.trim();
+    console.log('[Chat] Adding user message:', userMessage);
     setInput('');
-    setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+    setMessages(prev => {
+      const updated = [...prev, { role: 'user' as const, content: userMessage }];
+      console.log('[Chat] Messages after user add:', updated.length);
+      return updated;
+    });
     setIsLoading(true);
 
     try {
+      console.log('[Chat] Sending to API...');
       const response = await sendMessage(userMessage, currentSessionId);
-      setMessages(prev => [...prev, {
-        role: 'bot',
-        content: response.answer || 'No response',
-        source: response.source,
-      }]);
+      console.log('[Chat] API response received:', response);
+      setMessages(prev => {
+        const updated = [...prev, {
+          role: 'bot' as const,
+          content: response.answer || 'No response',
+          source: response.source,
+        }];
+        console.log('[Chat] Messages after bot add:', updated.length);
+        return updated;
+      });
     } catch (error) {
       console.error('[Chat] Error:', error);
       setMessages(prev => [...prev, {
@@ -124,6 +138,7 @@ const ChatPage = () => {
       }]);
     } finally {
       setIsLoading(false);
+      console.log('[Chat] handleSend complete');
     }
   };
 
@@ -146,6 +161,7 @@ const ChatPage = () => {
         className="min-h-[var(--app-height)] flex flex-col"
         style={{
           background: 'linear-gradient(180deg, #040E15 0%, #333D46 100%)',
+          scrollSnapType: 'none',
         }}
       >
         {/* Header */}
@@ -172,7 +188,19 @@ const ChatPage = () => {
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto px-4 py-6 pb-28 space-y-4">
+        <div 
+          className="flex-1 overflow-y-auto px-4 py-6 pb-28 space-y-4"
+          style={{
+            position: 'relative',
+            zIndex: 0,
+            scrollSnapType: 'none',
+          }}
+        >
+          {/* Debug indicator */}
+          <div className="text-white/40 text-xs mb-2" style={{ fontFamily: 'monospace' }}>
+            debug: messages={messages.length}
+          </div>
+          
           {messages.length === 0 && (
             <div className="text-center text-white/60 mt-20">
               <p style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}>
@@ -215,7 +243,7 @@ const ChatPage = () => {
                   >
                     {msg.content}
                   </p>
-                  {msg.source && (
+                  {msg.source && typeof msg.source === 'string' && msg.source.startsWith('http') && (
                     <a
                       href={msg.source}
                       target="_blank"
@@ -250,6 +278,7 @@ const ChatPage = () => {
             background: 'rgba(4, 14, 21, 0.8)',
             backdropFilter: 'blur(20px)',
             borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+            zIndex: 10,
           }}
         >
           <div
