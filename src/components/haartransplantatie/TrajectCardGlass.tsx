@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
 
@@ -8,6 +9,11 @@ interface TrajectCardGlassProps {
 export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
   const navigate = useNavigate();
   const { language } = useLanguage();
+  const [activeCountry, setActiveCountry] = useState<'nl' | 'tr'>('nl');
+
+  const handleCountryChange = (country: 'nl' | 'tr') => {
+    setActiveCountry(country);
+  };
 
   const handleMethodsClick = () => {
     navigate(language === 'nl' ? '/nl/haartransplantatie/nl/standard' : '/en/hair-transplant/en/standard');
@@ -30,6 +36,42 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
         flexDirection: 'column',
       }}
     >
+      {/* Country toggle */}
+      <div 
+        className="flex gap-0 justify-center mb-1.5 mx-auto max-w-[220px] border border-white/20"
+        role="tablist" 
+        aria-label="Country"
+        style={{
+          background: 'rgba(255, 255, 255, 0.08)',
+          backdropFilter: 'blur(20px)',
+          borderRadius: '9999px',
+          padding: '3px',
+        }}
+      >
+        <button 
+          className={`flex-1 px-3 rounded-full text-[10px] font-light transition-all duration-300 ease-out ${
+            activeCountry === 'nl' 
+              ? 'silver-gradient-border bg-white/10 text-white scale-105' 
+              : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
+          }`}
+          style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}
+          onClick={() => handleCountryChange('nl')}
+        >
+          Nederland
+        </button>
+        <button 
+          className={`flex-1 px-3 rounded-full text-[10px] font-light transition-all duration-300 ease-out ${
+            activeCountry === 'tr' 
+              ? 'silver-gradient-border bg-white/10 text-white scale-105' 
+              : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
+          }`}
+          style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}
+          onClick={() => handleCountryChange('tr')}
+        >
+          Turkije
+        </button>
+      </div>
+
       {/* Empty content area for now */}
       <div style={{ flex: 1 }} />
 
@@ -78,6 +120,26 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
       </footer>
 
       <style>{`
+        .silver-gradient-border {
+          position: relative;
+        }
+
+        .silver-gradient-border::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1px;
+          border-radius: inherit;
+          background: linear-gradient(80deg, #949494 7%, #838e94 16%, #b5b5b5 34%, #ACB9C1 51%, #4e5964 78%, #727272 105%);
+          -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 0;
+        }
+
         .gold-gradient-border::before {
           content: "";
           position: absolute;
