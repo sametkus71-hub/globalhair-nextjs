@@ -386,7 +386,7 @@ const ChatPage = () => {
                 onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'}
                 onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)'}
               >
-                🧠 Vertel me meer over de werkwijze
+                Vertel me meer over de werkwijze
               </button>
               <button
                 onClick={() => handleOptionClick('Help me het juiste pakket kiezen')}
@@ -405,7 +405,7 @@ const ChatPage = () => {
                 onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'}
                 onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)'}
               >
-                💬 Help me het juiste pakket kiezen
+                Help me het juiste pakket kiezen
               </button>
               <button
                 onClick={() => handleOptionClick('Ik heb een andere vraag')}
@@ -424,7 +424,7 @@ const ChatPage = () => {
                 onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'}
                 onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)'}
               >
-                ❓ Ik heb een andere vraag
+                Ik heb een andere vraag
               </button>
             </div>
           )}
