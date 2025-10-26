@@ -9,7 +9,7 @@ interface TrajectCardGlassProps {
 export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
   const navigate = useNavigate();
   const { language } = useLanguage();
-  const [activePhase, setActivePhase] = useState<'pre' | 'treatment' | 'after'>('treatment');
+  const [activePhase, setActivePhase] = useState<'pre' | 'treatment' | 'after'>('pre');
 
   const steps = {
     pre: [
@@ -134,11 +134,12 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
           className="timeline-container"
           style={{
             display: 'flex',
-            gap: '24px',
-            overflowX: 'auto',
+            gap: 'clamp(12px, 2vw, 20px)',
+            justifyContent: 'space-between',
             paddingBottom: '8px',
             paddingLeft: '4px',
             paddingRight: '4px',
+            width: '100%',
           }}
         >
           {steps[activePhase].map((step, index) => (
@@ -150,8 +151,9 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
                 flexDirection: 'column',
                 alignItems: 'center',
                 gap: '8px',
-                minWidth: '120px',
+                flex: 1,
                 position: 'relative',
+                minWidth: 0,
               }}
             >
               {/* Connecting line */}
@@ -160,8 +162,8 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
                   style={{
                     position: 'absolute',
                     top: '12px',
-                    left: 'calc(50% + 16px)',
-                    width: '24px',
+                    left: 'calc(50% + 12px)',
+                    right: 'calc(-50% + 12px)',
                     height: '1px',
                     background: 'rgba(255, 255, 255, 0.2)',
                   }}
@@ -186,7 +188,7 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
                   flexShrink: 0,
                 }}
               >
-                {index + 1}
+                {step.id}
               </div>
 
               {/* Step title */}
@@ -196,6 +198,8 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
                 fontWeight: 300,
                 textAlign: 'center',
                 lineHeight: 1.3,
+                wordBreak: 'break-word',
+                hyphens: 'auto',
               }}>
                 {step.title}
               </div>
@@ -206,7 +210,7 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
                 fontSize: 'clamp(8px, 1vh, 10px)',
                 fontWeight: 300,
               }}>
-                Stap {index + 1}.
+                Stap {step.id}.
               </div>
             </div>
           ))}
