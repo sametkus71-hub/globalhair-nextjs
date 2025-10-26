@@ -103,6 +103,7 @@ const ChatPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId, setSessionId] = useState<string>('');
   const [showOptions, setShowOptions] = useState(false);
+  const [userName, setUserName] = useState<string>('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const preloadTimeoutsRef = useRef<number[]>([]);
@@ -121,18 +122,35 @@ const ChatPage = () => {
     }
   }, []);
 
-  // Preload conversation on every visit
+  // Load saved data on mount
   useEffect(() => {
-    // Clear any existing timeouts (StrictMode safe)
+    const savedMessages = localStorage.getItem('chat-messages');
+    const savedName = localStorage.getItem('chat-user-name');
+    
+    if (savedName) {
+      setUserName(savedName);
+    }
+    
+    if (savedMessages) {
+      try {
+        const parsed = JSON.parse(savedMessages);
+        setMessages(parsed);
+        return; // Skip preloaded messages if we have saved ones
+      } catch (e) {
+        console.error('Failed to parse saved messages:', e);
+      }
+    }
+    
+    // Only show preloaded messages if no saved messages exist
     preloadTimeoutsRef.current.forEach(clearTimeout);
     preloadTimeoutsRef.current = [];
     
-    // Reset UI state
-    setMessages([]);
-    setShowOptions(false);
+    const greeting = savedName 
+      ? `Hallo ${savedName}, ik ben je persoonlijke assistent - hier om al je vragen over haartransplantatie te beantwoorden.`
+      : 'Hallo, ik ben je persoonlijke assistent - hier om al je vragen over haartransplantatie te beantwoorden.';
     
     const preloadedMessages: Message[] = [
-      { role: 'bot', content: 'Hallo, ik ben je persoonlijke assistent - hier om al je vragen over haartransplantatie te beantwoorden.' },
+      { role: 'bot', content: greeting },
       { role: 'bot', content: 'Waar kan ik je vandaag mee helpen?' }
     ];
 
@@ -143,12 +161,12 @@ const ChatPage = () => {
         setMessages(prev => {
           const last = prev[prev.length - 1];
           if (last && last.role === nextMsg.role && last.content === nextMsg.content) {
-            return prev; // prevent duplicate message
+            return prev;
           }
           return [...prev, nextMsg];
         });
         index++;
-        const delay = 700 + Math.random() * 200; // 700-900ms
+        const delay = 700 + Math.random() * 200;
         const id = window.setTimeout(displayNextMessage, delay);
         preloadTimeoutsRef.current.push(id);
       } else {
@@ -158,12 +176,43 @@ const ChatPage = () => {
     
     displayNextMessage();
     
-    // Cleanup: prevents duplicate messages from StrictMode double-run
     return () => {
       preloadTimeoutsRef.current.forEach(clearTimeout);
       preloadTimeoutsRef.current = [];
     };
   }, []);
+
+  // Save messages to localStorage whenever they change
+  useEffect(() => {
+    if (messages.length > 0) {
+      localStorage.setItem('chat-messages', JSON.stringify(messages));
+    }
+  }, [messages]);
+
+  // Detect and save user name from messages
+  useEffect(() => {
+    if (messages.length === 0) return;
+    
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage.role !== 'user') return;
+    
+    // Look for name patterns in Dutch
+    const patterns = [
+      /(?:mijn naam is|ik ben|ik heet|naam is)\s+([A-Z][a-zéèêëàâäôöûüïíóúñ]+)/i,
+      /^([A-Z][a-zéèêëàâäôöûüïíóúñ]+)$/
+    ];
+    
+    for (const pattern of patterns) {
+      const match = lastMessage.content.match(pattern);
+      if (match && match[1]) {
+        const detectedName = match[1].charAt(0).toUpperCase() + match[1].slice(1).toLowerCase();
+        setUserName(detectedName);
+        localStorage.setItem('chat-user-name', detectedName);
+        console.log('[Chat] Detected user name:', detectedName);
+        break;
+      }
+    }
+  }, [messages]);
 
   const handleOptionClick = (optionText: string) => {
     setShowOptions(false);
