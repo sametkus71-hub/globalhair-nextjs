@@ -196,11 +196,6 @@ const ChatPage = () => {
             scrollSnapType: 'none',
           }}
         >
-          {/* Debug indicator */}
-          <div className="text-white/40 text-xs mb-2" style={{ fontFamily: 'monospace' }}>
-            debug: messages={messages.length}
-          </div>
-          
           {messages.length === 0 && (
             <div className="text-center text-white/60 mt-20">
               <p style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}>
