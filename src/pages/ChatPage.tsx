@@ -83,6 +83,19 @@ const ChatPage = () => {
       mask-composite: exclude;
       pointer-events: none;
     }
+
+    .silver-gradient-border-round::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 9999px;
+      padding: 1px;
+      background: linear-gradient(90deg, #949494 7%, #ACB9C1 16%, #FFFFFF 34%, #ACB9C1 51%, #4B555E 78%, #fff 105%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
   `;
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -340,7 +353,7 @@ const ChatPage = () => {
             <button
               onClick={handleSend}
               disabled={!input.trim() || isLoading}
-              className="silver-gradient-border transition-all disabled:opacity-30"
+              className="silver-gradient-border-round transition-all disabled:opacity-30"
               style={{
                 padding: '0.8rem',
                 borderRadius: '9999px',
