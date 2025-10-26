@@ -55,6 +55,22 @@ async function sendMessage(message: string, sessionId: string): Promise<ChatResp
 const ChatPage = () => {
   const { language } = useLanguage();
   const navigate = useNavigate();
+
+  // Add styles for gradient border
+  const chatInputStyles = `
+    .chat-input-wrapper::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 9999px;
+      padding: 1px;
+      background: linear-gradient(135deg, #C0C0C0, #E8E8E8, #A8A8A8);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+  `;
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -151,6 +167,7 @@ const ChatPage = () => {
 
   return (
     <>
+      <style>{chatInputStyles}</style>
       <MetaHead
         title={language === 'nl' ? 'Chat' : 'Chat'}
         description={language === 'nl' ? 'Chat met ons' : 'Chat with us'}
@@ -268,20 +285,19 @@ const ChatPage = () => {
 
         {/* Input */}
         <div
-          className="sticky bottom-0 p-4"
+          className="sticky bottom-0"
           style={{
-            background: 'rgba(4, 14, 21, 0.8)',
-            backdropFilter: 'blur(20px)',
-            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+            padding: '1rem 0.5rem',
             zIndex: 10,
           }}
         >
           <div
-            className="flex items-end gap-2 rounded-2xl p-2"
+            className="flex items-end gap-2 p-2 chat-input-wrapper"
             style={{
+              borderRadius: '9999px',
               background: 'rgba(4, 14, 21, 0.4)',
               backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(255, 255, 255, 0.15)',
+              position: 'relative',
             }}
           >
             <textarea
@@ -292,7 +308,8 @@ const ChatPage = () => {
               placeholder={language === 'nl' ? 'Typ een bericht...' : 'Type a message...'}
               className="flex-1 bg-transparent text-white placeholder-white/40 resize-none outline-none px-2 py-2 max-h-32"
               style={{
-                fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+                fontFamily: 'Inter',
+                fontSize: '16px',
               }}
               rows={1}
               disabled={isLoading}
