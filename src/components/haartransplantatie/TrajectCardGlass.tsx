@@ -143,21 +143,6 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
             position: 'relative',
           }}
         >
-          {/* Full continuous white line */}
-          <div 
-            style={{
-              position: 'absolute',
-              top: '12px',
-              left: 'calc(16.66% / 2)',
-              right: activePhase === 'after' ? 'calc(16.66% / 2)' : '-20px',
-              height: '1px',
-              background: activePhase === 'after' 
-                ? 'rgba(255, 255, 255, 1)' 
-                : 'linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 85%, rgba(255, 255, 255, 0) 100%)',
-              zIndex: 0,
-            }}
-          />
-
           {steps[activePhase].map((step, index) => (
             <div 
               key={step.id}
@@ -170,9 +155,38 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
                 flex: 1,
                 position: 'relative',
                 minWidth: 0,
-                zIndex: 1,
               }}
             >
+              {/* Connecting line to next step */}
+              {index < steps[activePhase].length - 1 && (
+                <div 
+                  style={{
+                    position: 'absolute',
+                    top: '12px',
+                    left: 'calc(50% + 12px)',
+                    right: 'calc(-50% + 12px)',
+                    height: '1px',
+                    background: 'rgba(255, 255, 255, 1)',
+                    zIndex: 0,
+                  }}
+                />
+              )}
+
+              {/* Continuation line to next phase */}
+              {index === steps[activePhase].length - 1 && activePhase !== 'after' && (
+                <div 
+                  style={{
+                    position: 'absolute',
+                    top: '12px',
+                    left: 'calc(50% + 12px)',
+                    right: '-20px',
+                    height: '1px',
+                    background: 'linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%)',
+                    zIndex: 0,
+                  }}
+                />
+              )}
+
               {/* Step dot */}
               <div 
                 className="grey-gradient-border"
@@ -189,6 +203,8 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
                   fontSize: '10px',
                   fontWeight: 400,
                   flexShrink: 0,
+                  position: 'relative',
+                  zIndex: 1,
                 }}
               >
                 {step.id}
