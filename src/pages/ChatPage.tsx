@@ -104,6 +104,7 @@ const ChatPage = () => {
   const [showOptions, setShowOptions] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const preloadTimeoutsRef = useRef<number[]>([]);
 
   // Initialize session ID
   useEffect(() => {
@@ -121,8 +122,13 @@ const ChatPage = () => {
 
   // Preload conversation on every visit
   useEffect(() => {
-    // Reset messages first
+    // Clear any existing timeouts (StrictMode safe)
+    preloadTimeoutsRef.current.forEach(clearTimeout);
+    preloadTimeoutsRef.current = [];
+    
+    // Reset UI state
     setMessages([]);
+    setShowOptions(false);
     
     const preloadedMessages: Message[] = [
       { role: 'bot', content: 'Hallo 👋, welkom bij GlobalHair Institute.' },
@@ -135,13 +141,20 @@ const ChatPage = () => {
         setMessages(prev => [...prev, preloadedMessages[index]]);
         index++;
         const delay = 700 + Math.random() * 200; // 700-900ms
-        setTimeout(displayNextMessage, delay);
+        const id = window.setTimeout(displayNextMessage, delay);
+        preloadTimeoutsRef.current.push(id);
       } else {
         setShowOptions(true);
       }
     };
     
     displayNextMessage();
+    
+    // Cleanup: prevents duplicate messages from StrictMode double-run
+    return () => {
+      preloadTimeoutsRef.current.forEach(clearTimeout);
+      preloadTimeoutsRef.current = [];
+    };
   }, []);
 
   const handleOptionClick = (optionText: string) => {
