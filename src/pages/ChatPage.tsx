@@ -119,30 +119,26 @@ const ChatPage = () => {
     }
   }, []);
 
-  // Preload conversation on first visit
+  // Preload conversation on every visit
   useEffect(() => {
-    const chatInit = localStorage.getItem('chatInit');
-    if (!chatInit) {
-      const preloadedMessages: Message[] = [
-        { role: 'bot', content: 'Hallo 👋, welkom bij GlobalHair Institute.' },
-        { role: 'bot', content: 'Ik ben je persoonlijke assistent — hier om al je vragen over haartransplantatie te beantwoorden.' }
-      ];
+    const preloadedMessages: Message[] = [
+      { role: 'bot', content: 'Hallo 👋, welkom bij GlobalHair Institute.' },
+      { role: 'bot', content: 'Ik ben je persoonlijke assistent — hier om al je vragen over haartransplantatie te beantwoorden.' }
+    ];
 
-      let index = 0;
-      const displayNextMessage = () => {
-        if (index < preloadedMessages.length) {
-          setMessages(prev => [...prev, preloadedMessages[index]]);
-          index++;
-          const delay = 700 + Math.random() * 200; // 700-900ms
-          setTimeout(displayNextMessage, delay);
-        } else {
-          setShowOptions(true);
-          localStorage.setItem('chatInit', 'true');
-        }
-      };
-      
-      displayNextMessage();
-    }
+    let index = 0;
+    const displayNextMessage = () => {
+      if (index < preloadedMessages.length) {
+        setMessages(prev => [...prev, preloadedMessages[index]]);
+        index++;
+        const delay = 700 + Math.random() * 200; // 700-900ms
+        setTimeout(displayNextMessage, delay);
+      } else {
+        setShowOptions(true);
+      }
+    };
+    
+    displayNextMessage();
   }, []);
 
   const handleOptionClick = (optionText: string) => {
