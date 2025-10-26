@@ -131,14 +131,21 @@ const ChatPage = () => {
     setShowOptions(false);
     
     const preloadedMessages: Message[] = [
-      { role: 'bot', content: 'Hallo 👋, welkom bij GlobalHair Institute.' },
+      { role: 'bot', content: 'Ik ben je persoonlijke assistent — hier om al je vragen over haartransplantatie te beantwoorden.' },
       { role: 'bot', content: 'Waar kan ik je vandaag mee helpen?' }
     ];
 
     let index = 0;
     const displayNextMessage = () => {
       if (index < preloadedMessages.length) {
-        setMessages(prev => [...prev, preloadedMessages[index]]);
+        const nextMsg = preloadedMessages[index];
+        setMessages(prev => {
+          const last = prev[prev.length - 1];
+          if (last && last.role === nextMsg.role && last.content === nextMsg.content) {
+            return prev; // prevent duplicate message
+          }
+          return [...prev, nextMsg];
+        });
         index++;
         const delay = 700 + Math.random() * 200; // 700-900ms
         const id = window.setTimeout(displayNextMessage, delay);
