@@ -56,13 +56,26 @@ const ChatPage = () => {
   const { language } = useLanguage();
   const navigate = useNavigate();
 
-  // Add styles for gradient border
+  // Add styles for gradient borders
   const chatInputStyles = `
     .chat-input-wrapper::before {
       content: '';
       position: absolute;
       inset: 0;
       border-radius: 9999px;
+      padding: 1px;
+      background: linear-gradient(135deg, #C0C0C0, #E8E8E8, #A8A8A8);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .user-message-bubble::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
       padding: 1px;
       background: linear-gradient(135deg, #C0C0C0, #E8E8E8, #A8A8A8);
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -230,27 +243,34 @@ const ChatPage = () => {
             >
               {msg.role === 'user' ? (
                 <div
-                  className="max-w-[80%] rounded-2xl px-4 py-3"
+                  className="max-w-[80%] px-4 py-3 user-message-bubble"
                   style={{
-                    background: 'linear-gradient(135deg, #6B7280 0%, #9CA3AF 50%, #D1D5DB 100%)',
-                    color: 'rgba(4, 14, 21, 0.95)',
-                    fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+                    background: 'linear-gradient(100deg, #2C363E 0%, #EAEAEA 50%, #2C363E 100%)',
+                    color: '#FFFFFF',
+                    fontFamily: 'Inter, system-ui, sans-serif',
+                    fontSize: '12px',
+                    lineHeight: '1.4',
+                    borderRadius: '12px',
+                    position: 'relative',
                   }}
                 >
                   <p className="whitespace-pre-wrap">{msg.content}</p>
                 </div>
               ) : (
                 <div
-                  className="max-w-[80%] rounded-2xl px-4 py-3"
+                  className="max-w-[80%] px-4 py-3"
                   style={{
-                    background: 'rgba(255, 255, 255, 0.06)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)'
+                    background: 'rgba(44, 54, 62, 0.25)',
+                    borderRadius: '12px',
+                    fontFamily: 'Inter, system-ui, sans-serif',
+                    fontSize: '12px',
+                    lineHeight: '1.4',
                   }}
                 >
                   <p 
-                    className="text-white whitespace-pre-wrap"
+                    className="whitespace-pre-wrap"
                     style={{
-                      fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif',
+                      color: '#CBCBCB',
                     }}
                   >
                     {msg.content}
