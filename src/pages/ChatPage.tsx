@@ -71,7 +71,7 @@ const ChatPage = () => {
       pointer-events: none;
     }
 
-    .user-message-bubble::before {
+    .silver-gradient-border::before {
       content: '';
       position: absolute;
       inset: 0;
@@ -243,9 +243,9 @@ const ChatPage = () => {
             >
               {msg.role === 'user' ? (
                 <div
-                  className="max-w-[80%] px-4 py-3 user-message-bubble"
+                  className="max-w-[80%] px-4 py-3 silver-gradient-border"
                   style={{
-                    background: 'linear-gradient(100deg, #2C363E 0%, #EAEAEA 50%, #2C363E 100%)',
+                    background: 'linear-gradient(100deg, rgba(44, 54, 62, 0.03) 0%, rgba(234, 234, 234, 0.2) 50%, rgba(44, 54, 62, 0.03) 100%)',
                     color: '#FFFFFF',
                     fontFamily: 'Inter, system-ui, sans-serif',
                     fontSize: '12px',
