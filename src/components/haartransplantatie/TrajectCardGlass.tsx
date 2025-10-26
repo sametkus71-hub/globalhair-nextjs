@@ -9,10 +9,10 @@ interface TrajectCardGlassProps {
 export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
   const navigate = useNavigate();
   const { language } = useLanguage();
-  const [activeCountry, setActiveCountry] = useState<'nl' | 'tr'>('nl');
+  const [activePhase, setActivePhase] = useState<'pre' | 'treatment' | 'after'>('treatment');
 
-  const handleCountryChange = (country: 'nl' | 'tr') => {
-    setActiveCountry(country);
+  const handlePhaseChange = (phase: 'pre' | 'treatment' | 'after') => {
+    setActivePhase(phase);
   };
 
   const handleMethodsClick = () => {
@@ -36,39 +36,50 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
         flexDirection: 'column',
       }}
     >
-      {/* Country toggle */}
+      {/* Phase toggle */}
       <div 
-        className="flex gap-0 justify-center mb-1.5 mx-auto max-w-[220px] border border-white/20"
+        className="flex gap-0 justify-center mb-1.5 mx-auto max-w-[180px] border border-white/20"
         role="tablist" 
-        aria-label="Country"
+        aria-label="Phase"
         style={{
           background: 'rgba(255, 255, 255, 0.08)',
           backdropFilter: 'blur(20px)',
           borderRadius: '9999px',
-          padding: '3px',
+          padding: '2px',
         }}
       >
         <button 
-          className={`flex-1 px-3 rounded-full text-[10px] font-light transition-all duration-300 ease-out ${
-            activeCountry === 'nl' 
+          className={`flex-1 px-2 rounded-full text-[9px] font-light transition-all duration-300 ease-out ${
+            activePhase === 'pre' 
               ? 'silver-gradient-border bg-white/10 text-white scale-105' 
               : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
           }`}
-          style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}
-          onClick={() => handleCountryChange('nl')}
+          style={{ paddingTop: '0.4rem', paddingBottom: '0.4rem' }}
+          onClick={() => handlePhaseChange('pre')}
         >
-          Nederland
+          Pre-
         </button>
         <button 
-          className={`flex-1 px-3 rounded-full text-[10px] font-light transition-all duration-300 ease-out ${
-            activeCountry === 'tr' 
+          className={`flex-1 px-2 rounded-full text-[9px] font-light transition-all duration-300 ease-out ${
+            activePhase === 'treatment' 
               ? 'silver-gradient-border bg-white/10 text-white scale-105' 
               : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
           }`}
-          style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}
-          onClick={() => handleCountryChange('tr')}
+          style={{ paddingTop: '0.4rem', paddingBottom: '0.4rem' }}
+          onClick={() => handlePhaseChange('treatment')}
         >
-          Turkije
+          Treatment
+        </button>
+        <button 
+          className={`flex-1 px-2 rounded-full text-[9px] font-light transition-all duration-300 ease-out ${
+            activePhase === 'after' 
+              ? 'silver-gradient-border bg-white/10 text-white scale-105' 
+              : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
+          }`}
+          style={{ paddingTop: '0.4rem', paddingBottom: '0.4rem' }}
+          onClick={() => handlePhaseChange('after')}
+        >
+          After-
         </button>
       </div>
 
