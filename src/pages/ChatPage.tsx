@@ -132,7 +132,7 @@ const ChatPage = () => {
     
     const preloadedMessages: Message[] = [
       { role: 'bot', content: 'Hallo 👋, welkom bij GlobalHair Institute.' },
-      { role: 'bot', content: 'Ik ben je persoonlijke assistent — hier om al je vragen over haartransplantatie te beantwoorden.' }
+      { role: 'bot', content: 'Waar kan ik je vandaag mee helpen?' }
     ];
 
     let index = 0;
