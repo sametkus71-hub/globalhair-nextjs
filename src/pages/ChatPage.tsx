@@ -3,6 +3,7 @@ import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { ArrowLeft, Send, Loader2, ExternalLink } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import globalhairLogo from '@/assets/globalhair-logo.png';
 
 interface Message {
   role: 'user' | 'bot';
@@ -299,12 +300,21 @@ const ChatPage = () => {
           >
             <ArrowLeft size={24} />
           </button>
-          <h1
-            className="flex-1 text-center text-white text-lg font-medium pr-10"
-            style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
+          <div
+            className="flex-1 flex items-center justify-center gap-2 pr-10"
           >
-            {language === 'nl' ? 'Chat' : 'Chat'}
-          </h1>
+            <img 
+              src={globalhairLogo} 
+              alt="Globalhair Logo" 
+              className="h-6 w-6"
+            />
+            <h1
+              className="text-white text-lg font-medium"
+              style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
+            >
+              Globalhair Chat
+            </h1>
+          </div>
         </div>
 
         {/* Messages */}
