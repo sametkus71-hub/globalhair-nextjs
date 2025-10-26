@@ -327,10 +327,12 @@ const ChatPage = () => {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder={language === 'nl' ? 'Typ een bericht...' : 'Type a message...'}
-              className="flex-1 bg-transparent text-white placeholder-white/40 resize-none outline-none px-2 py-2 max-h-32"
+              className="flex-1 bg-transparent text-white placeholder-white/40 resize-none outline-none px-2 max-h-32"
               style={{
                 fontFamily: 'Inter',
                 fontSize: '16px',
+                paddingTop: '0.6rem',
+                paddingBottom: '0.6rem',
               }}
               rows={1}
               disabled={isLoading}
@@ -338,11 +340,12 @@ const ChatPage = () => {
             <button
               onClick={handleSend}
               disabled={!input.trim() || isLoading}
-              className="p-2 rounded-xl transition-all disabled:opacity-30"
+              className="silver-gradient-border transition-all disabled:opacity-30"
               style={{
-                background: input.trim() && !isLoading 
-                  ? 'rgba(255, 255, 255, 0.2)' 
-                  : 'rgba(255, 255, 255, 0.05)',
+                padding: '0.8rem',
+                borderRadius: '9999px',
+                background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.02) 100%)',
+                position: 'relative',
               }}
             >
               {isLoading ? (
