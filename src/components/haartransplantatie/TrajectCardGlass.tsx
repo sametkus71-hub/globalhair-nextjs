@@ -140,6 +140,7 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
             paddingLeft: '4px',
             paddingRight: '4px',
             width: '100%',
+            position: 'relative',
           }}
         >
           {steps[activePhase].map((step, index) => (
@@ -156,7 +157,7 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
                 minWidth: 0,
               }}
             >
-              {/* Connecting line */}
+              {/* Connecting line between steps */}
               {index < steps[activePhase].length - 1 && (
                 <div 
                   style={{
@@ -166,6 +167,20 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
                     right: 'calc(-50% + 12px)',
                     height: '1px',
                     background: 'rgba(255, 255, 255, 0.2)',
+                  }}
+                />
+              )}
+
+              {/* Continuation line to next phase */}
+              {index === steps[activePhase].length - 1 && activePhase !== 'after' && (
+                <div 
+                  style={{
+                    position: 'absolute',
+                    top: '12px',
+                    left: 'calc(50% + 12px)',
+                    right: '-20px',
+                    height: '1px',
+                    background: 'linear-gradient(to right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0))',
                   }}
                 />
               )}
