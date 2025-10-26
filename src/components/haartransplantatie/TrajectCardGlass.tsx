@@ -10,7 +10,7 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
   const { language } = useLanguage();
 
   const handleMethodsClick = () => {
-    navigate(language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant');
+    navigate(language === 'nl' ? '/nl/haartransplantatie/nl/standard' : '/en/hair-transplant/en/standard');
   };
 
   return (
