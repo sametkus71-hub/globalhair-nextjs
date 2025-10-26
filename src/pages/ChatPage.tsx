@@ -258,8 +258,8 @@ const ChatPage = () => {
                 <div
                   className="max-w-[80%] px-4 py-3 silver-gradient-border"
                   style={{
-                    background: 'linear-gradient(100deg, rgba(44, 54, 62, 0.03) 0%, rgba(234, 234, 234, 0.2) 50%, rgba(44, 54, 62, 0.03) 100%)',
-                    color: '#FFFFFF',
+                    background: 'linear-gradient(100deg, rgba(44, 54, 62, 0.03) 0%, rgba(234, 234, 234, 0.15) 50%, rgba(44, 54, 62, 0.03) 100%)',
+                    color: 'rgba(255, 255, 255, 0.9)',
                     fontFamily: 'Inter, system-ui, sans-serif',
                     fontSize: '12px',
                     lineHeight: '1.4',
