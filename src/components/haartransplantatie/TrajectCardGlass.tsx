@@ -11,6 +11,24 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
   const { language } = useLanguage();
   const [activePhase, setActivePhase] = useState<'pre' | 'treatment' | 'after'>('treatment');
 
+  const steps = {
+    pre: [
+      { id: 1, title: 'Voorbehandeling' },
+      { id: 2, title: 'Vitaminekuur' },
+      { id: 3, title: 'Circulation Massage' },
+    ],
+    treatment: [
+      { id: 4, title: 'Extractie van grafts' },
+      { id: 5, title: 'Kanaalopening met saffiermesjes' },
+      { id: 6, title: 'Implantatie met DHI-methode' },
+    ],
+    after: [
+      { id: 7, title: 'Eerste controle' },
+      { id: 8, title: 'Nazorginstructie' },
+      { id: 9, title: 'V6 Hairboost-sessie' },
+    ],
+  };
+
   const handlePhaseChange = (phase: 'pre' | 'treatment' | 'after') => {
     setActivePhase(phase);
   };
@@ -99,8 +117,101 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
         </button>
       </div>
 
-      {/* Empty content area for now */}
-      <div style={{ flex: 1 }} />
+      {/* Content area with timeline */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '12px', paddingTop: '12px' }}>
+        {/* Duration */}
+        <div style={{
+          color: 'rgba(255, 255, 255, 0.7)',
+          fontSize: 'clamp(10px, 1.2vh, 12px)',
+          fontWeight: 300,
+          paddingLeft: '4px',
+        }}>
+          ⏱ Duur 30 min
+        </div>
+
+        {/* Timeline */}
+        <div 
+          className="timeline-container"
+          style={{
+            display: 'flex',
+            gap: '24px',
+            overflowX: 'auto',
+            paddingBottom: '8px',
+            paddingLeft: '4px',
+            paddingRight: '4px',
+          }}
+        >
+          {steps[activePhase].map((step, index) => (
+            <div 
+              key={step.id}
+              className="timeline-step"
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '8px',
+                minWidth: '120px',
+                position: 'relative',
+              }}
+            >
+              {/* Connecting line */}
+              {index < steps[activePhase].length - 1 && (
+                <div 
+                  style={{
+                    position: 'absolute',
+                    top: '12px',
+                    left: 'calc(50% + 16px)',
+                    width: '24px',
+                    height: '1px',
+                    background: 'rgba(255, 255, 255, 0.2)',
+                  }}
+                />
+              )}
+
+              {/* Step dot */}
+              <div 
+                className="silver-gradient-border"
+                style={{
+                  width: '24px',
+                  height: '24px',
+                  borderRadius: '50%',
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  backdropFilter: 'blur(10px)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'white',
+                  fontSize: '10px',
+                  fontWeight: 400,
+                  flexShrink: 0,
+                }}
+              >
+                {index + 1}
+              </div>
+
+              {/* Step title */}
+              <div style={{
+                color: 'white',
+                fontSize: 'clamp(9px, 1.1vh, 11px)',
+                fontWeight: 300,
+                textAlign: 'center',
+                lineHeight: 1.3,
+              }}>
+                {step.title}
+              </div>
+
+              {/* Step label */}
+              <div style={{
+                color: 'rgba(255, 255, 255, 0.5)',
+                fontSize: 'clamp(8px, 1vh, 10px)',
+                fontWeight: 300,
+              }}>
+                Stap {index + 1}.
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* Footer */}
       <footer
@@ -147,6 +258,28 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
       </footer>
 
       <style>{`
+        .timeline-container {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+        }
+
+        .timeline-container::-webkit-scrollbar {
+          height: 4px;
+        }
+
+        .timeline-container::-webkit-scrollbar-track {
+          background: transparent;
+        }
+
+        .timeline-container::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.2);
+          border-radius: 2px;
+        }
+
+        .timeline-container::-webkit-scrollbar-thumb:hover {
+          background: rgba(255, 255, 255, 0.3);
+        }
+
         .silver-gradient-border {
           position: relative;
         }
