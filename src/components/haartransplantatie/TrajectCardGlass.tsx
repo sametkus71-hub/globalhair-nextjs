@@ -143,6 +143,21 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
             position: 'relative',
           }}
         >
+          {/* Full continuous white line */}
+          <div 
+            style={{
+              position: 'absolute',
+              top: '12px',
+              left: 'calc(16.66% / 2)',
+              right: activePhase === 'after' ? 'calc(16.66% / 2)' : '-20px',
+              height: '1px',
+              background: activePhase === 'after' 
+                ? 'rgba(255, 255, 255, 1)' 
+                : 'linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 85%, rgba(255, 255, 255, 0) 100%)',
+              zIndex: 0,
+            }}
+          />
+
           {steps[activePhase].map((step, index) => (
             <div 
               key={step.id}
@@ -155,39 +170,12 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
                 flex: 1,
                 position: 'relative',
                 minWidth: 0,
+                zIndex: 1,
               }}
             >
-              {/* Connecting line between steps */}
-              {index < steps[activePhase].length - 1 && (
-                <div 
-                  style={{
-                    position: 'absolute',
-                    top: '12px',
-                    left: 'calc(50% + 12px)',
-                    right: 'calc(-50% + 12px)',
-                    height: '1px',
-                    background: 'rgba(255, 255, 255, 0.2)',
-                  }}
-                />
-              )}
-
-              {/* Continuation line to next phase */}
-              {index === steps[activePhase].length - 1 && activePhase !== 'after' && (
-                <div 
-                  style={{
-                    position: 'absolute',
-                    top: '12px',
-                    left: 'calc(50% + 12px)',
-                    right: '-20px',
-                    height: '1px',
-                    background: 'linear-gradient(to right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0))',
-                  }}
-                />
-              )}
-
               {/* Step dot */}
               <div 
-                className="silver-gradient-border"
+                className="grey-gradient-border"
                 style={{
                   width: '24px',
                   height: '24px',
@@ -297,6 +285,26 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
 
         .timeline-container::-webkit-scrollbar-thumb:hover {
           background: rgba(255, 255, 255, 0.3);
+        }
+
+        .grey-gradient-border {
+          position: relative;
+        }
+
+        .grey-gradient-border::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1px;
+          border-radius: inherit;
+          background: linear-gradient(135deg, #888888 0%, #666666 50%, #999999 100%);
+          -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 0;
         }
 
         .silver-gradient-border {
