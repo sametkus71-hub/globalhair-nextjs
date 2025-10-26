@@ -340,11 +340,12 @@ const ChatPage = () => {
             <button
               onClick={handleSend}
               disabled={!input.trim() || isLoading}
-              className="transition-all disabled:opacity-30"
+              className="silver-gradient-border transition-all disabled:opacity-30"
               style={{
                 padding: '0.8rem',
                 borderRadius: '9999px',
                 background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.02) 100%)',
+                position: 'relative',
               }}
             >
               {isLoading ? (
