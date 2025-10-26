@@ -151,66 +151,13 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: '8px',
+                gap: '12px',
                 flex: 1,
                 position: 'relative',
                 minWidth: 0,
               }}
             >
-              {/* Connecting line to next step */}
-              {index < steps[activePhase].length - 1 && (
-                <div 
-                  style={{
-                    position: 'absolute',
-                    top: '12px',
-                    left: 'calc(50% + 12px)',
-                    right: 'calc(-50% + 12px)',
-                    height: '1px',
-                    background: 'rgba(255, 255, 255, 1)',
-                    zIndex: 0,
-                  }}
-                />
-              )}
-
-              {/* Continuation line to next phase */}
-              {index === steps[activePhase].length - 1 && activePhase !== 'after' && (
-                <div 
-                  style={{
-                    position: 'absolute',
-                    top: '12px',
-                    left: 'calc(50% + 12px)',
-                    right: '-20px',
-                    height: '1px',
-                    background: 'linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%)',
-                    zIndex: 0,
-                  }}
-                />
-              )}
-
-              {/* Step dot */}
-              <div 
-                className="grey-gradient-border"
-                style={{
-                  width: '24px',
-                  height: '24px',
-                  borderRadius: '50%',
-                  background: 'rgba(255, 255, 255, 0.1)',
-                  backdropFilter: 'blur(10px)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'white',
-                  fontSize: '10px',
-                  fontWeight: 400,
-                  flexShrink: 0,
-                  position: 'relative',
-                  zIndex: 1,
-                }}
-              >
-                {step.id}
-              </div>
-
-              {/* Step title */}
+              {/* Step title at top */}
               <div style={{
                 color: 'white',
                 fontSize: 'clamp(9px, 1.1vh, 11px)',
@@ -219,15 +166,87 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
                 lineHeight: 1.3,
                 wordBreak: 'break-word',
                 hyphens: 'auto',
+                minHeight: '32px',
+                display: 'flex',
+                alignItems: 'flex-end',
+                justifyContent: 'center',
               }}>
                 {step.title}
               </div>
 
-              {/* Step label */}
+              {/* Line and dot container */}
+              <div style={{
+                width: '100%',
+                position: 'relative',
+                height: '24px',
+                display: 'flex',
+                alignItems: 'center',
+              }}>
+                {/* Connecting line to next step */}
+                {index < steps[activePhase].length - 1 && (
+                  <div 
+                    style={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      right: '-50%',
+                      height: '1px',
+                      background: 'rgba(255, 255, 255, 1)',
+                      transform: 'translateY(-50%)',
+                      zIndex: 0,
+                    }}
+                  />
+                )}
+
+                {/* Continuation line to next phase */}
+                {index === steps[activePhase].length - 1 && activePhase !== 'after' && (
+                  <div 
+                    style={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      right: '-100%',
+                      height: '1px',
+                      background: 'linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%)',
+                      transform: 'translateY(-50%)',
+                      zIndex: 0,
+                    }}
+                  />
+                )}
+
+                {/* Step dot */}
+                <div 
+                  className="grey-gradient-border"
+                  style={{
+                    width: '24px',
+                    height: '24px',
+                    borderRadius: '50%',
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    backdropFilter: 'blur(10px)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'white',
+                    fontSize: '10px',
+                    fontWeight: 400,
+                    flexShrink: 0,
+                    position: 'relative',
+                    zIndex: 1,
+                    margin: '0 auto',
+                  }}
+                >
+                  {step.id}
+                </div>
+              </div>
+
+              {/* Step label pill at bottom */}
               <div style={{
                 color: 'rgba(255, 255, 255, 0.5)',
                 fontSize: 'clamp(8px, 1vh, 10px)',
                 fontWeight: 300,
+                background: 'rgba(255, 255, 255, 0.1)',
+                padding: '4px 12px',
+                borderRadius: '12px',
               }}>
                 Stap {step.id}.
               </div>
