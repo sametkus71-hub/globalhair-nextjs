@@ -306,7 +306,7 @@ const ChatPage = () => {
             <img 
               src={globalhairLogo} 
               alt="Globalhair Logo" 
-              className="h-6 w-6"
+              className="w-6"
             />
             <h1
               className="text-white text-lg font-medium"
