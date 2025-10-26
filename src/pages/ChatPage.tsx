@@ -121,6 +121,9 @@ const ChatPage = () => {
 
   // Preload conversation on every visit
   useEffect(() => {
+    // Reset messages first
+    setMessages([]);
+    
     const preloadedMessages: Message[] = [
       { role: 'bot', content: 'Hallo 👋, welkom bij GlobalHair Institute.' },
       { role: 'bot', content: 'Ik ben je persoonlijke assistent — hier om al je vragen over haartransplantatie te beantwoorden.' }
