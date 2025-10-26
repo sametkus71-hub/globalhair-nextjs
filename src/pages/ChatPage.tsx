@@ -101,6 +101,7 @@ const ChatPage = () => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId, setSessionId] = useState<string>('');
+  const [showOptions, setShowOptions] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -124,11 +125,7 @@ const ChatPage = () => {
     if (!chatInit) {
       const preloadedMessages: Message[] = [
         { role: 'bot', content: 'Hallo 👋, welkom bij GlobalHair Institute.' },
-        { role: 'bot', content: 'Ik ben je persoonlijke assistent — hier om al je vragen over haartransplantatie te beantwoorden.' },
-        { role: 'bot', content: 'Wil je dat ik je help het juiste pakket te kiezen, of liever eerst uitleg geef over onze werkwijze?' },
-        { role: 'user', content: 'Vertel me eerst iets over de werkwijze.' },
-        { role: 'bot', content: 'Natuurlijk. We combineren medische precisie met persoonlijke zorg. Elke behandeling begint met een uitgebreide analyse, gevolgd door een behandeling op maat — uitgevoerd door ervaren specialisten.' },
-        { role: 'bot', content: 'Wil je daarna meer weten over de pakketten, of meteen een consult plannen?' }
+        { role: 'bot', content: 'Ik ben je persoonlijke assistent — hier om al je vragen over haartransplantatie te beantwoorden.' }
       ];
 
       let index = 0;
@@ -139,6 +136,7 @@ const ChatPage = () => {
           const delay = 700 + Math.random() * 200; // 700-900ms
           setTimeout(displayNextMessage, delay);
         } else {
+          setShowOptions(true);
           localStorage.setItem('chatInit', 'true');
         }
       };
@@ -146,6 +144,37 @@ const ChatPage = () => {
       displayNextMessage();
     }
   }, []);
+
+  const handleOptionClick = (optionText: string) => {
+    setShowOptions(false);
+    setMessages(prev => [...prev, { role: 'user', content: optionText }]);
+
+    setTimeout(() => {
+      if (optionText.includes('werkwijze')) {
+        setMessages(prev => [...prev, 
+          { role: 'bot', content: 'Natuurlijk. We combineren medische precisie met persoonlijke zorg. Elke behandeling begint met een uitgebreide analyse, gevolgd door een behandeling op maat — uitgevoerd door ervaren specialisten.' }
+        ]);
+        setTimeout(() => {
+          setMessages(prev => [...prev,
+            { role: 'bot', content: 'Wil je daarna meer weten over de pakketten, of meteen een consult plannen?' }
+          ]);
+        }, 800);
+      } else if (optionText.includes('pakket')) {
+        setMessages(prev => [...prev,
+          { role: 'bot', content: 'Uitstekend. Ik kan je helpen bepalen welk pakket het best bij jouw situatie past.' }
+        ]);
+        setTimeout(() => {
+          setMessages(prev => [...prev,
+            { role: 'bot', content: 'Wil je me eerst iets vertellen over je huidige haarstatus of je gewenste resultaat?' }
+          ]);
+        }, 800);
+      } else {
+        setMessages(prev => [...prev,
+          { role: 'bot', content: 'Geen probleem 👍. Stel gerust je vraag — ik help je zo goed mogelijk verder.' }
+        ]);
+      }
+    }, 800);
+  };
 
   const scrollToBottom = () => {
     setTimeout(() => {
@@ -339,6 +368,68 @@ const ChatPage = () => {
           {isLoading && (
             <div className="flex justify-start">
               <Loader2 className="animate-spin text-white/60" size={20} />
+            </div>
+          )}
+
+          {showOptions && (
+            <div className="flex flex-col gap-2 mt-4">
+              <button
+                onClick={() => handleOptionClick('Vertel me meer over de werkwijze')}
+                className="silver-gradient-border text-left"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.06)',
+                  color: '#fff',
+                  borderRadius: '12px',
+                  padding: '12px 16px',
+                  backdropFilter: 'blur(10px)',
+                  transition: 'background 0.3s',
+                  fontFamily: 'Inter, system-ui, sans-serif',
+                  fontSize: '14px',
+                  position: 'relative',
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'}
+                onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)'}
+              >
+                🧠 Vertel me meer over de werkwijze
+              </button>
+              <button
+                onClick={() => handleOptionClick('Help me het juiste pakket kiezen')}
+                className="silver-gradient-border text-left"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.06)',
+                  color: '#fff',
+                  borderRadius: '12px',
+                  padding: '12px 16px',
+                  backdropFilter: 'blur(10px)',
+                  transition: 'background 0.3s',
+                  fontFamily: 'Inter, system-ui, sans-serif',
+                  fontSize: '14px',
+                  position: 'relative',
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'}
+                onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)'}
+              >
+                💬 Help me het juiste pakket kiezen
+              </button>
+              <button
+                onClick={() => handleOptionClick('Ik heb een andere vraag')}
+                className="silver-gradient-border text-left"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.06)',
+                  color: '#fff',
+                  borderRadius: '12px',
+                  padding: '12px 16px',
+                  backdropFilter: 'blur(10px)',
+                  transition: 'background 0.3s',
+                  fontFamily: 'Inter, system-ui, sans-serif',
+                  fontSize: '14px',
+                  position: 'relative',
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'}
+                onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)'}
+              >
+                ❓ Ik heb een andere vraag
+              </button>
             </div>
           )}
           
