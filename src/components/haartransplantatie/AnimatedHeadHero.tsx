@@ -9,7 +9,7 @@ export const AnimatedHeadHero = () => {
   const { toast } = useToast();
 
   const handleAnalyzeClick = () => {
-    navigate(language === 'nl' ? '/nl/haaranalyse' : '/en/hair-analysis');
+    window.open('http://scan.globalhair.institute/', '_blank');
   };
 
   return (
