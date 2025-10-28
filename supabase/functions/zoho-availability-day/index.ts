@@ -19,12 +19,12 @@ Deno.serve(async (req) => {
     const { serviceType, location, date } = await req.json();
 
     if (!serviceType || !location || !date) {
-      return errorResponse('Missing serviceType, location, or date', 400);
+      return errorResponse('Missing serviceType, location, or date', 400, corsHeaders);
     }
 
     // Validate date format (YYYY-MM-DD)
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
-      return errorResponse('Invalid date format. Use YYYY-MM-DD', 400);
+      return errorResponse('Invalid date format. Use YYYY-MM-DD', 400, corsHeaders);
     }
 
     // Get service configuration
@@ -85,13 +85,14 @@ Deno.serve(async (req) => {
         location,
         duration: config.durationMinutes,
       },
-    });
+    }, 200, corsHeaders);
 
   } catch (error) {
     console.error('Error fetching day availability:', error);
     return errorResponse(
       error instanceof Error ? error.message : 'Failed to fetch availability',
-      500
+      500,
+      corsHeaders
     );
   }
 });

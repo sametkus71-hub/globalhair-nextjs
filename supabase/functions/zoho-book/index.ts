@@ -19,13 +19,14 @@ Deno.serve(async (req) => {
     return successResponse({
       message: 'Booking endpoint - To be implemented in Phase 3',
       status: 'placeholder',
-    });
+    }, 200, corsHeaders);
 
   } catch (error) {
     console.error('Booking error:', error);
     return errorResponse(
       error instanceof Error ? error.message : 'Booking failed',
-      500
+      500,
+      corsHeaders
     );
   }
 });

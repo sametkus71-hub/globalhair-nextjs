@@ -120,12 +120,15 @@ export async function zohoApiRequest<T>(
 /**
  * Error response helper
  */
-export function errorResponse(message: string, status = 500) {
+export function errorResponse(message: string, status = 500, additionalHeaders = {}) {
   return new Response(
     JSON.stringify({ error: message }),
     {
       status,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        ...additionalHeaders 
+      },
     }
   );
 }
@@ -133,12 +136,15 @@ export function errorResponse(message: string, status = 500) {
 /**
  * Success response helper
  */
-export function successResponse<T>(data: T, status = 200) {
+export function successResponse<T>(data: T, status = 200, additionalHeaders = {}) {
   return new Response(
     JSON.stringify(data),
     {
       status,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        ...additionalHeaders 
+      },
     }
   );
 }

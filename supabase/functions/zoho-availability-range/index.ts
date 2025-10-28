@@ -24,7 +24,7 @@ Deno.serve(async (req) => {
     const { serviceType, location, year, month } = await req.json();
 
     if (!serviceType || !location || year === undefined || month === undefined) {
-      return errorResponse('Missing serviceType, location, year, or month', 400);
+      return errorResponse('Missing serviceType, location, year, or month', 400, corsHeaders);
     }
 
     // Get service configuration
@@ -104,13 +104,14 @@ Deno.serve(async (req) => {
         location,
         duration: config.durationMinutes,
       },
-    });
+    }, 200, corsHeaders);
 
   } catch (error) {
     console.error('Error fetching availability range:', error);
     return errorResponse(
       error instanceof Error ? error.message : 'Failed to fetch availability',
-      500
+      500,
+      corsHeaders
     );
   }
 });
