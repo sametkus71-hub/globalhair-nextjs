@@ -15,11 +15,16 @@ interface PaymentStepProps {
     time: string;
     staffId: string;
     staffName: string;
+    serviceId: string;
+    durationMinutes: number;
   };
   customerInfo: {
     name: string;
     email: string;
     phone: string;
+    address: string;
+    city: string;
+    country: string;
     notes: string;
   };
   price: number;
@@ -35,71 +40,30 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
     setIsProcessing(true);
 
     try {
-      // Parse date and time to create appointment datetime
-      const [hours, minutes] = bookingSelection.time.split(':').map(Number);
-      const appointmentDate = new Date(bookingSelection.date);
-      appointmentDate.setHours(hours, minutes, 0, 0);
+      console.log('Creating Stripe checkout session...');
 
-      // Calculate from_time and to_time in Zoho format (dd-MMM-yyyy HH:mm)
-      const formatZohoTime = (d: Date) => {
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        const day = String(d.getDate()).padStart(2, '0');
-        const month = months[d.getMonth()];
-        const year = d.getFullYear();
-        const hour = String(d.getHours()).padStart(2, '0');
-        const min = String(d.getMinutes()).padStart(2, '0');
-        return `${day}-${month}-${year} ${hour}:${min}`;
-      };
-
-      const fromTime = formatZohoTime(appointmentDate);
-      const toDate = new Date(appointmentDate.getTime() + config.durationMinutes * 60000);
-      const toTime = formatZohoTime(toDate);
-
-      // CREATE BOOKING INTENT NOW
-      const { data: bookingIntent, error: insertError } = await supabase
-        .from('booking_intents')
-        .insert({
-          service_type: serviceType,
-          location: location,
-          selected_date: bookingSelection.date,
-          selected_time: bookingSelection.time,
-          zoho_service_id: config.serviceId,
-          zoho_staff_id: bookingSelection.staffId,
-          assigned_staff_name: bookingSelection.staffName,
-          duration_minutes: config.durationMinutes,
-          price_euros: config.priceEuros,
-          appointment_datetime_utc: appointmentDate.toISOString(),
-          from_time: fromTime,
-          to_time: toTime,
-          timezone: 'Europe/Amsterdam',
-          customer_name: customerInfo.name,
-          customer_email: customerInfo.email,
-          customer_phone: customerInfo.phone,
-          booking_notes: customerInfo.notes || null,
-          status: 'pending_confirmation',
-        })
-        .select()
-        .single();
-
-      if (insertError) throw insertError;
-
-      // Now call Zoho booking API
-      const { data, error } = await supabase.functions.invoke('zoho-create-booking', {
-        body: { booking_intent_id: bookingIntent.id },
+      const { data, error } = await supabase.functions.invoke('stripe-create-checkout', {
+        body: {
+          serviceType,
+          location,
+          bookingSelection,
+          customerInfo,
+          price,
+        },
       });
 
       if (error) throw error;
 
-      if (data.success) {
-        toast.success(language === 'nl' ? 'Afspraak bevestigd!' : 'Appointment confirmed!');
-        // TODO: Redirect to success page or show success message
+      if (data.success && data.checkoutUrl) {
+        console.log('Redirecting to Stripe checkout...');
+        // Redirect to Stripe checkout
+        window.location.href = data.checkoutUrl;
       } else {
-        throw new Error(data.error || 'Booking failed');
+        throw new Error(data.error || 'Failed to create checkout session');
       }
     } catch (error) {
-      console.error('Error processing payment:', error);
-      toast.error(language === 'nl' ? 'Betaling mislukt. Probeer het opnieuw.' : 'Payment failed. Please try again.');
-    } finally {
+      console.error('Error creating payment:', error);
+      toast.error(language === 'nl' ? 'Betaling kon niet worden gestart. Probeer het opnieuw.' : 'Payment could not be started. Please try again.');
       setIsProcessing(false);
     }
   };

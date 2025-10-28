@@ -61,6 +61,9 @@ export type Database = {
           booking_notes: string | null
           confirmed_at: string | null
           created_at: string
+          customer_address: string | null
+          customer_city: string | null
+          customer_country: string | null
           customer_email: string
           customer_name: string
           customer_phone: string
@@ -93,6 +96,9 @@ export type Database = {
           booking_notes?: string | null
           confirmed_at?: string | null
           created_at?: string
+          customer_address?: string | null
+          customer_city?: string | null
+          customer_country?: string | null
           customer_email: string
           customer_name: string
           customer_phone: string
@@ -125,6 +131,9 @@ export type Database = {
           booking_notes?: string | null
           confirmed_at?: string | null
           created_at?: string
+          customer_address?: string | null
+          customer_city?: string | null
+          customer_country?: string | null
           customer_email?: string
           customer_name?: string
           customer_phone?: string

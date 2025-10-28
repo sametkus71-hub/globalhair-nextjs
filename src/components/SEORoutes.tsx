@@ -23,6 +23,7 @@ import ReviewsPage from '@/pages/ReviewsPage';
 import ReviewItemPage from '@/pages/ReviewItemPage';
 import ContactPage from '@/pages/ContactPage';
 import BookingPage from '@/pages/BookingPage';
+import { BookingSuccessPage } from '@/pages/BookingSuccessPage';
 import NotFound from '@/pages/NotFound';
 
 export const SEORoutes = () => {
@@ -57,6 +58,7 @@ export const SEORoutes = () => {
       <Route path="/nl/support/chat" element={<SupportChatPage />} />
       <Route path="/nl/chat" element={<ChatPage />} />
       <Route path="/nl/boek" element={<BookingPage />} />
+      <Route path="/nl/booking-success" element={<BookingSuccessPage />} />
       <Route path="/nl/contact" element={<ContactPage />} />
       
       {/* English routes */}
@@ -89,6 +91,7 @@ export const SEORoutes = () => {
       <Route path="/en/support/chat" element={<SupportChatPage />} />
       <Route path="/en/chat" element={<ChatPage />} />
       <Route path="/en/book" element={<BookingPage />} />
+      <Route path="/en/booking-success" element={<BookingSuccessPage />} />
       <Route path="/en/contact" element={<ContactPage />} />
       
       {/* Legacy support - maintain old item1 route */}

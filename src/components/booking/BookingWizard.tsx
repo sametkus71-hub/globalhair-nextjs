@@ -28,6 +28,9 @@ export interface CustomerInfo {
   name: string;
   email: string;
   phone: string;
+  address: string;
+  city: string;
+  country: string;
   notes: string;
 }
 
@@ -99,6 +102,18 @@ export const BookingWizard = () => {
     setBookingSelection({ date, time, staffId, staffName });
     setCompletedSteps([...completedSteps, 'step-2']);
     setCurrentStep('step-3');
+  };
+
+  // Build extended booking selection with service config
+  const getExtendedBookingSelection = () => {
+    if (!bookingSelection || !serviceType) return null;
+    
+    const config = getServiceConfig(serviceType, location);
+    return {
+      ...bookingSelection,
+      serviceId: config.serviceId,
+      durationMinutes: config.durationMinutes,
+    };
   };
 
   const handleCustomerInfoComplete = (info: CustomerInfo) => {
@@ -223,11 +238,11 @@ export const BookingWizard = () => {
             <div className="space-y-6">
               <CustomerInfoForm onComplete={handleCustomerInfoComplete} />
               
-              {customerInfo && serviceType && location && bookingSelection && (
+              {customerInfo && serviceType && location && bookingSelection && getExtendedBookingSelection() && (
                 <PaymentStep
                   serviceType={serviceType}
                   location={location}
-                  bookingSelection={bookingSelection}
+                  bookingSelection={getExtendedBookingSelection()!}
                   customerInfo={customerInfo}
                   price={price}
                 />

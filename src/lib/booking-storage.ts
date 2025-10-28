@@ -8,6 +8,15 @@ export interface BookingState {
   price: number;
   currentStep: string;
   completedSteps: string[];
+  customerInfo?: {
+    name: string;
+    email: string;
+    phone: string;
+    address: string;
+    city: string;
+    country: string;
+    notes: string;
+  };
 }
 
 const STORAGE_KEY = 'booking_state';

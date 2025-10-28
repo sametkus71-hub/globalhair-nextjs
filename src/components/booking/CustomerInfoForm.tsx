@@ -12,6 +12,9 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
     name: '',
     email: '',
     phone: '',
+    address: '',
+    city: '',
+    country: 'Nederland',
     notes: '',
   });
 
@@ -20,69 +23,112 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
     setFormData(newData);
     
     // Auto-validate and pass data up when all required fields are filled
-    if (newData.name && newData.email && newData.phone) {
+    if (newData.name && newData.email && newData.phone && newData.address && newData.city && newData.country) {
       onComplete(newData);
     }
   };
 
   return (
-    <div className="flex flex-col space-y-4 py-4">
-      <div className="space-y-4">
-        <h3 className="text-base font-medium text-white/90">
+    <div className="flex flex-col space-y-3 py-4">
+      <div className="space-y-3">
+        <h3 className="text-sm font-medium text-white/90 font-inter">
           {language === 'nl' ? 'Uw gegevens' : 'Your details'}
         </h3>
         
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-white/70">
+        <div className="space-y-1.5">
+          <label className="text-xs font-medium text-white/70 font-inter">
             {language === 'nl' ? 'Naam' : 'Name'} *
           </label>
           <input
             type="text"
             value={formData.name}
             onChange={(e) => handleChange('name', e.target.value)}
-            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/20"
-            placeholder={language === 'nl' ? 'Uw naam' : 'Your name'}
+            className="w-full px-3 py-2 text-sm rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-white/30 font-inter"
+            placeholder={language === 'nl' ? 'Volledige naam' : 'Full name'}
             required
           />
         </div>
 
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-white/70">
-            {language === 'nl' ? 'E-mail' : 'Email'} *
+        <div className="space-y-1.5">
+          <label className="text-xs font-medium text-white/70 font-inter">
+            Email *
           </label>
           <input
             type="email"
             value={formData.email}
             onChange={(e) => handleChange('email', e.target.value)}
-            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/20"
-            placeholder={language === 'nl' ? 'uw@email.nl' : 'your@email.com'}
+            className="w-full px-3 py-2 text-sm rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-white/30 font-inter"
+            placeholder="email@voorbeeld.nl"
             required
           />
         </div>
 
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-white/70">
-            {language === 'nl' ? 'Telefoon' : 'Phone'} *
+        <div className="space-y-1.5">
+          <label className="text-xs font-medium text-white/70 font-inter">
+            {language === 'nl' ? 'Telefoonnummer' : 'Phone number'} *
           </label>
           <input
             type="tel"
             value={formData.phone}
             onChange={(e) => handleChange('phone', e.target.value)}
-            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/20"
-            placeholder={language === 'nl' ? '+31 6 12345678' : '+31 6 12345678'}
+            className="w-full px-3 py-2 text-sm rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-white/30 font-inter"
+            placeholder="+31 6 12345678"
             required
           />
         </div>
 
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-white/70">
+        <div className="space-y-1.5">
+          <label className="text-xs font-medium text-white/70 font-inter">
+            {language === 'nl' ? 'Adres' : 'Address'} *
+          </label>
+          <input
+            type="text"
+            value={formData.address}
+            onChange={(e) => handleChange('address', e.target.value)}
+            className="w-full px-3 py-2 text-sm rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-white/30 font-inter"
+            placeholder={language === 'nl' ? 'Straat en huisnummer' : 'Street and house number'}
+            required
+          />
+        </div>
+
+        <div className="space-y-1.5">
+          <label className="text-xs font-medium text-white/70 font-inter">
+            {language === 'nl' ? 'Plaats' : 'City'} *
+          </label>
+          <input
+            type="text"
+            value={formData.city}
+            onChange={(e) => handleChange('city', e.target.value)}
+            className="w-full px-3 py-2 text-sm rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-white/30 font-inter"
+            placeholder={language === 'nl' ? 'Stad' : 'City'}
+            required
+          />
+        </div>
+
+        <div className="space-y-1.5">
+          <label className="text-xs font-medium text-white/70 font-inter">
+            {language === 'nl' ? 'Land' : 'Country'} *
+          </label>
+          <input
+            type="text"
+            value={formData.country}
+            onChange={(e) => handleChange('country', e.target.value)}
+            className="w-full px-3 py-2 text-sm rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-white/30 font-inter"
+            placeholder="Nederland"
+            required
+          />
+        </div>
+
+        <div className="space-y-1.5">
+          <label className="text-xs font-medium text-white/70 font-inter">
             {language === 'nl' ? 'Opmerkingen (optioneel)' : 'Notes (optional)'}
           </label>
           <textarea
             value={formData.notes}
             onChange={(e) => handleChange('notes', e.target.value)}
-            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/20 min-h-[100px]"
-            placeholder={language === 'nl' ? 'Aanvullende informatie...' : 'Additional information...'}
+            className="w-full px-3 py-2 text-sm rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-white/30 resize-none font-inter"
+            rows={2}
+            placeholder={language === 'nl' ? 'Extra informatie...' : 'Additional information...'}
           />
         </div>
       </div>
