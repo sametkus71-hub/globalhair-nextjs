@@ -103,16 +103,29 @@ Deno.serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
+    // Get service_key from request body (if provided)
+    let requestBody: { service_key?: string } = {};
+    try {
+      requestBody = await req.json();
+    } catch {
+      // No body provided, will sync all services
+    }
+
     const timezone = Deno.env.get('ZB_TIMEZONE') || 'Europe/Amsterdam';
     const weekdaysToCheck = generateWeekdays(60);
 
-    console.log(`Starting availability sync for ${SERVICES_TO_SYNC.length} services, ${weekdaysToCheck.length} days`);
+    // Determine which services to sync
+    const servicesToSync = requestBody.service_key 
+      ? [requestBody.service_key]
+      : SERVICES_TO_SYNC;
+
+    console.log(`Starting availability sync for ${servicesToSync.length} service(s), ${weekdaysToCheck.length} days`);
 
     // Background task that performs the actual sync
     const performSync = async () => {
       const syncResults = [];
 
-      for (const serviceKey of SERVICES_TO_SYNC) {
+      for (const serviceKey of servicesToSync) {
         console.log(`\n--- Syncing ${serviceKey} ---`);
         
         try {
@@ -290,7 +303,7 @@ Deno.serve(async (req) => {
         }
       }
 
-      console.log(`\n✓ Background sync completed for all ${SERVICES_TO_SYNC.length} services`);
+      console.log(`\n✓ Background sync completed for ${servicesToSync.length} service(s)`);
       return syncResults;
     };
 
@@ -302,8 +315,8 @@ Deno.serve(async (req) => {
       JSON.stringify({
         success: true,
         message: 'Sync started in background',
-        services: SERVICES_TO_SYNC,
-        estimatedDuration: '~5 minutes',
+        services: servicesToSync,
+        estimatedDuration: servicesToSync.length === 1 ? '~60 seconds' : '~5 minutes',
       }),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
