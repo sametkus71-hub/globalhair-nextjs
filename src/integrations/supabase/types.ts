@@ -14,6 +14,105 @@ export type Database = {
   }
   public: {
     Tables: {
+      booking_intents: {
+        Row: {
+          additional_fields: Json | null
+          appointment_datetime_utc: string
+          assigned_staff_name: string | null
+          booking_notes: string | null
+          confirmed_at: string | null
+          created_at: string
+          customer_email: string
+          customer_name: string
+          customer_phone: string
+          duration_minutes: number
+          error_message: string | null
+          expires_at: string
+          from_time: string
+          id: string
+          location: string
+          price_euros: number
+          selected_date: string
+          selected_time: string
+          service_type: string
+          status: string
+          stripe_payment_id: string | null
+          stripe_session_id: string | null
+          timezone: string
+          to_time: string
+          updated_at: string
+          webhook_sent_at: string | null
+          zoho_booking_id: string | null
+          zoho_response: Json | null
+          zoho_service_id: string
+          zoho_staff_id: string
+        }
+        Insert: {
+          additional_fields?: Json | null
+          appointment_datetime_utc: string
+          assigned_staff_name?: string | null
+          booking_notes?: string | null
+          confirmed_at?: string | null
+          created_at?: string
+          customer_email: string
+          customer_name: string
+          customer_phone: string
+          duration_minutes: number
+          error_message?: string | null
+          expires_at?: string
+          from_time: string
+          id?: string
+          location: string
+          price_euros: number
+          selected_date: string
+          selected_time: string
+          service_type: string
+          status?: string
+          stripe_payment_id?: string | null
+          stripe_session_id?: string | null
+          timezone?: string
+          to_time: string
+          updated_at?: string
+          webhook_sent_at?: string | null
+          zoho_booking_id?: string | null
+          zoho_response?: Json | null
+          zoho_service_id: string
+          zoho_staff_id: string
+        }
+        Update: {
+          additional_fields?: Json | null
+          appointment_datetime_utc?: string
+          assigned_staff_name?: string | null
+          booking_notes?: string | null
+          confirmed_at?: string | null
+          created_at?: string
+          customer_email?: string
+          customer_name?: string
+          customer_phone?: string
+          duration_minutes?: number
+          error_message?: string | null
+          expires_at?: string
+          from_time?: string
+          id?: string
+          location?: string
+          price_euros?: number
+          selected_date?: string
+          selected_time?: string
+          service_type?: string
+          status?: string
+          stripe_payment_id?: string | null
+          stripe_session_id?: string | null
+          timezone?: string
+          to_time?: string
+          updated_at?: string
+          webhook_sent_at?: string | null
+          zoho_booking_id?: string | null
+          zoho_response?: Json | null
+          zoho_service_id?: string
+          zoho_staff_id?: string
+        }
+        Relationships: []
+      }
       documents: {
         Row: {
           content: string | null
@@ -112,6 +211,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      cleanup_expired_booking_intents: { Args: never; Returns: undefined }
       cleanup_old_haaranalyse_jobs: { Args: never; Returns: undefined }
       cleanup_webhook_tracking: { Args: never; Returns: undefined }
       match_documents: {
