@@ -16,8 +16,8 @@ Deno.serve(async (req) => {
     console.log('=== SIMPLE ZOHO TEST START ===');
     
     // Hard-code Steven's staff ID and today's date for simplicity
-    const staffId = '166653000000028001'; // Steven
-    const serviceId = '166653000001098006'; // V6 Hairboost Online
+    const staffId = '166653000000590040'; // Steven Kwik
+    const serviceId = '166653000000921076'; // V6 Hairboost Online
     const testDate = new Date();
     testDate.setDate(testDate.getDate() + 1); // Tomorrow
     const dateStr = formatDateForZoho(testDate);
