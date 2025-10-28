@@ -66,7 +66,7 @@ Deno.serve(async (req) => {
           );
 
           const dateStr = date.toISOString().split('T')[0];
-          const hasSlots = (response.data?.available_slots || []).length > 0;
+          const hasSlots = (response.response?.returnvalue?.data || []).length > 0;
           
           staffAvailability.push({
             date: dateStr,

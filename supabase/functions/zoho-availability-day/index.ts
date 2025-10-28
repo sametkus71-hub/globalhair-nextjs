@@ -53,7 +53,7 @@ Deno.serve(async (req) => {
 
         return {
           staffId,
-          slots: response.data?.available_slots || [],
+          slots: response.response?.returnvalue?.data || [],
         };
       } catch (error) {
         console.error(`Error fetching slots for staff ${staffId}:`, error);
