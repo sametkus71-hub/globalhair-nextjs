@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      availability_cache: {
+        Row: {
+          created_at: string
+          date: string
+          has_availability: boolean
+          id: string
+          last_synced_at: string
+          service_key: string
+        }
+        Insert: {
+          created_at?: string
+          date: string
+          has_availability: boolean
+          id?: string
+          last_synced_at?: string
+          service_key: string
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          has_availability?: boolean
+          id?: string
+          last_synced_at?: string
+          service_key?: string
+        }
+        Relationships: []
+      }
       booking_intents: {
         Row: {
           additional_fields: Json | null
@@ -188,6 +215,42 @@ export type Database = {
           id?: number
           message?: Json
           session_id?: string
+        }
+        Relationships: []
+      }
+      sync_logs: {
+        Row: {
+          api_calls_made: number | null
+          days_available: number | null
+          days_checked: number | null
+          error_message: string | null
+          id: string
+          service_key: string
+          status: string
+          sync_completed_at: string | null
+          sync_started_at: string
+        }
+        Insert: {
+          api_calls_made?: number | null
+          days_available?: number | null
+          days_checked?: number | null
+          error_message?: string | null
+          id?: string
+          service_key: string
+          status?: string
+          sync_completed_at?: string | null
+          sync_started_at?: string
+        }
+        Update: {
+          api_calls_made?: number | null
+          days_available?: number | null
+          days_checked?: number | null
+          error_message?: string | null
+          id?: string
+          service_key?: string
+          status?: string
+          sync_completed_at?: string | null
+          sync_started_at?: string
         }
         Relationships: []
       }
