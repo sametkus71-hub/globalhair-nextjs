@@ -52,7 +52,7 @@ export const OptionsStep = ({
                   : 'text-white/60 hover:text-white'
               }`}
             >
-              Basic consult
+              V6 Hairboost consult
             </button>
             <button
               onClick={() => onConsultTypeChange('haartransplantatie')}
@@ -62,7 +62,7 @@ export const OptionsStep = ({
                   : 'text-white/60 hover:text-white'
               }`}
             >
-              TrichoScan™
+              Haartransplantatie consult
             </button>
           </div>
         </div>

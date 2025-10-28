@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
+import { useNavigate } from 'react-router-dom';
 import { MetaHead } from '@/components/MetaHead';
-import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
+import { PopupCloseButton } from '@/components/PopupCloseButton';
 import { GlassBackground } from '@/components/haartransplantatie/GlassBackground';
 import { BookingWizard } from '@/components/booking/BookingWizard';
 
 export const BookingPage = () => {
   const { language } = useLanguage();
+  const navigate = useNavigate();
   const [isExiting, setIsExiting] = useState(false);
-  const { handlePopupClose } = usePopupClose();
 
   // Staggered animations for entrance
   const [titleVisible, setTitleVisible] = useState(false);
@@ -27,7 +28,9 @@ export const BookingPage = () => {
 
   const handleClose = () => {
     setIsExiting(true);
-    handlePopupClose(350);
+    setTimeout(() => {
+      navigate(language === 'nl' ? '/nl' : '/en');
+    }, 350);
   };
 
   return (
@@ -42,7 +45,8 @@ export const BookingPage = () => {
         <GlassBackground />
         
         <PopupCloseButton 
-          onClose={handleClose} 
+          onClose={handleClose}
+          className="!left-auto !right-4"
           style={{ zIndex: 100 }} 
         />
         
