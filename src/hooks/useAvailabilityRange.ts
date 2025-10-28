@@ -7,13 +7,11 @@ export interface AvailabilitySlot {
 }
 
 interface AvailabilityRangeResponse {
-  data: {
-    availability: AvailabilitySlot[];
-    service: {
-      type: string;
-      location: string;
-      duration: number;
-    };
+  availability: AvailabilitySlot[];
+  service: {
+    type: string;
+    location: string;
+    duration: number;
   };
 }
 
@@ -38,7 +36,7 @@ export const useAvailabilityRange = (
       );
 
       if (error) throw error;
-      return data.data;
+      return data;
     },
     enabled: !!serviceType && !!location,
     staleTime: 30 * 60 * 1000, // 30 minutes

@@ -2,14 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 
 interface AvailabilityDayResponse {
-  data: {
-    date: string;
-    available_slots: string[];
-    service: {
-      type: string;
-      location: string;
-      duration: number;
-    };
+  date: string;
+  available_slots: string[];
+  service: {
+    type: string;
+    location: string;
+    duration: number;
   };
 }
 
@@ -33,7 +31,7 @@ export const useAvailabilityDay = (
       );
 
       if (error) throw error;
-      return data.data;
+      return data;
     },
     enabled: !!serviceType && !!location && !!date,
     staleTime: 2 * 60 * 1000, // 2 minutes
