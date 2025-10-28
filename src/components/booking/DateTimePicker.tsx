@@ -4,7 +4,7 @@ import { useAvailabilityRange } from '@/hooks/useAvailabilityRange';
 import { useAvailabilityDay } from '@/hooks/useAvailabilityDay';
 import { Calendar } from '@/components/ui/calendar';
 import { ServiceType, LocationType } from './BookingWizard';
-import { format, parseISO } from 'date-fns';
+import { format, parseISO, startOfMonth, addMonths } from 'date-fns';
 import { nl, enGB } from 'date-fns/locale';
 
 interface DateTimePickerProps {
@@ -18,8 +18,17 @@ export const DateTimePicker = ({ serviceType, location, onSelect, onBack }: Date
   const { language } = useLanguage();
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [currentMonth, setCurrentMonth] = useState(new Date());
 
-  const { data: rangeData, isLoading: rangeLoading } = useAvailabilityRange(serviceType, location);
+  const year = currentMonth.getFullYear();
+  const month = currentMonth.getMonth();
+
+  const { data: rangeData, isLoading: rangeLoading, isFetching } = useAvailabilityRange(
+    serviceType, 
+    location,
+    year,
+    month
+  );
   
   const selectedDateString = selectedDate ? format(selectedDate, 'yyyy-MM-dd') : null;
   const { data: dayData, isLoading: dayLoading } = useAvailabilityDay(
@@ -62,7 +71,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect, onBack }: Date
 
       <div className="flex-1 p-6 space-y-6">
         {/* Date Selection */}
-        <div className="space-y-4">
+        <div className="space-y-4 relative">
           <h3 className="text-xl font-light text-white">
             {language === 'nl' ? 'Kies een datum' : 'Choose a date'}
           </h3>
@@ -72,28 +81,39 @@ export const DateTimePicker = ({ serviceType, location, onSelect, onBack }: Date
               <div className="animate-spin rounded-full h-8 w-8 border-2 border-white/20 border-t-white"></div>
             </div>
           ) : (
-            <div 
-              className="rounded-xl p-4 inline-block"
-              style={{
-                background: 'rgba(255, 255, 255, 0.05)',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-              }}
-            >
-              <Calendar
-                mode="single"
-                selected={selectedDate}
-                onSelect={handleDateSelect}
-                disabled={(date) => {
-                  const isPast = date < new Date();
-                  const isAvailable = availableDates.some(
-                    d => format(d, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd')
-                  );
-                  return isPast || !isAvailable;
+            <div className="relative">
+              {/* Minimalist loading overlay */}
+              {isFetching && (
+                <div className="absolute inset-0 z-20 flex items-center justify-center rounded-xl backdrop-blur-sm bg-black/20">
+                  <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                </div>
+              )}
+              
+              <div 
+                className="rounded-xl p-4 inline-block"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  backdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
                 }}
-                locale={language === 'nl' ? nl : enGB}
-                className="pointer-events-auto"
-              />
+              >
+                <Calendar
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={handleDateSelect}
+                  month={currentMonth}
+                  onMonthChange={setCurrentMonth}
+                  disabled={(date) => {
+                    const isPast = date < new Date();
+                    const isAvailable = availableDates.some(
+                      d => format(d, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd')
+                    );
+                    return isPast || !isAvailable;
+                  }}
+                  locale={language === 'nl' ? nl : enGB}
+                  className="pointer-events-auto"
+                />
+              </div>
             </div>
           )}
         </div>

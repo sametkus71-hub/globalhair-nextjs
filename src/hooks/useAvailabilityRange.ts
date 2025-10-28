@@ -19,10 +19,12 @@ interface AvailabilityRangeResponse {
 
 export const useAvailabilityRange = (
   serviceType: 'v6_hairboost' | 'haartransplantatie' | 'ceo_consult' | null,
-  location: 'online' | 'onsite' | null
+  location: 'online' | 'onsite' | null,
+  year: number,
+  month: number
 ) => {
   return useQuery({
-    queryKey: ['availability-range', serviceType, location],
+    queryKey: ['availability-month', serviceType, location, year, month],
     queryFn: async () => {
       if (!serviceType || !location) {
         throw new Error('Service type and location are required');
@@ -31,7 +33,7 @@ export const useAvailabilityRange = (
       const { data, error } = await supabase.functions.invoke<AvailabilityRangeResponse>(
         'zoho-availability-range',
         {
-          body: { serviceType, location },
+          body: { serviceType, location, year, month },
         }
       );
 
@@ -39,7 +41,7 @@ export const useAvailabilityRange = (
       return data.data;
     },
     enabled: !!serviceType && !!location,
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: 30 * 60 * 1000, // 30 minutes
     retry: 2,
   });
 };

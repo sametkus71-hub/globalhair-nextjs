@@ -2,6 +2,7 @@
 
 import { zohoApiRequest, errorResponse, successResponse } from '../_shared/zoho-utils.ts';
 import { getServiceConfig } from '../_shared/service-config.ts';
+import { formatDateForZoho } from '../_shared/date-helpers.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -28,8 +29,11 @@ Deno.serve(async (req) => {
 
     // Get service configuration
     const config = getServiceConfig(serviceType, location);
+    
+    // Convert YYYY-MM-DD to DD-MMM-YYYY format for Zoho API
+    const zohoDate = formatDateForZoho(new Date(date));
 
-    console.log(`Fetching availability for ${date}, service ${config.serviceId}, staff: ${config.staffIds.join(', ')}`);
+    console.log(`Fetching availability for ${date} (${zohoDate}), service ${config.serviceId}, staff: ${config.staffIds.join(', ')}`);
 
     // Fetch availability for all staff members for this specific date
     const availabilityPromises = config.staffIds.map(async (staffId) => {
@@ -37,7 +41,7 @@ Deno.serve(async (req) => {
       const params = new URLSearchParams({
         service_id: config.serviceId,
         staff_id: staffId,
-        selected_date: date,
+        selected_date: zohoDate,
         timezone: Deno.env.get('ZB_TIMEZONE') || 'Europe/Amsterdam',
       });
 

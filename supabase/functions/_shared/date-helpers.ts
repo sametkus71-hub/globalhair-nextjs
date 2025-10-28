@@ -70,3 +70,28 @@ export function getAvailabilityDateRange(): { from: string; to: string } {
     to: toZohoQueryDate(thirtyDaysLater),
   };
 }
+
+/**
+ * Format date for Zoho API selected_date parameter: DD-MMM-YYYY
+ * Example: "28-Oct-2025"
+ */
+export function formatDateForZoho(date: Date): string {
+  const day = date.getDate().toString().padStart(2, '0');
+  const month = date.toLocaleString('en-US', { month: 'short' });
+  const year = date.getFullYear();
+  return `${day}-${month}-${year}`;
+}
+
+/**
+ * Generate all dates for a specific month
+ */
+export function generateMonthDates(year: number, month: number): Date[] {
+  const dates: Date[] = [];
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  
+  for (let day = 1; day <= daysInMonth; day++) {
+    dates.push(new Date(year, month, day));
+  }
+  
+  return dates;
+}

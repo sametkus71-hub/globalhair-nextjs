@@ -2,7 +2,7 @@
 
 import { zohoApiRequest, errorResponse, successResponse } from '../_shared/zoho-utils.ts';
 import { getServiceConfig } from '../_shared/service-config.ts';
-import { getAvailabilityDateRange } from '../_shared/date-helpers.ts';
+import { formatDateForZoho, generateMonthDates } from '../_shared/date-helpers.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -21,38 +21,69 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { serviceType, location } = await req.json();
+    const { serviceType, location, year, month } = await req.json();
 
-    if (!serviceType || !location) {
-      return errorResponse('Missing serviceType or location', 400);
+    if (!serviceType || !location || year === undefined || month === undefined) {
+      return errorResponse('Missing serviceType, location, year, or month', 400);
     }
 
     // Get service configuration
     const config = getServiceConfig(serviceType, location);
-    const dateRange = getAvailabilityDateRange();
+    const monthDates = generateMonthDates(year, month);
 
-    console.log(`Fetching availability for service ${config.serviceId}, staff: ${config.staffIds.join(', ')}`);
+    console.log(`Fetching availability for service ${config.serviceId}, staff: ${config.staffIds.join(', ')}, ${year}-${month + 1}`);
 
     // Fetch availability for all staff members
     const availabilityPromises = config.staffIds.map(async (staffId) => {
-      const endpoint = `/bookings/v1/json/availableslots`;
-      const params = new URLSearchParams({
-        service_id: config.serviceId,
-        staff_id: staffId,
-        from_date: dateRange.from,
-        to_date: dateRange.to,
-        timezone: Deno.env.get('ZB_TIMEZONE') || 'Europe/Amsterdam',
-      });
+      const staffAvailability: any[] = [];
+      
+      // Process dates in batches of 5 with 200ms delay
+      const batchSize = 5;
+      for (let i = 0; i < monthDates.length; i += batchSize) {
+        const batch = monthDates.slice(i, i + batchSize);
+        
+        const batchPromises = batch.map(async (date) => {
+          const endpoint = `/bookings/v1/json/availableslots`;
+          const params = new URLSearchParams({
+            service_id: config.serviceId,
+            staff_id: staffId,
+            selected_date: formatDateForZoho(date),
+            timezone: Deno.env.get('ZB_TIMEZONE') || 'Europe/Amsterdam',
+          });
 
-      const response = await zohoApiRequest<any>(
-        `${endpoint}?${params.toString()}`,
-        { method: 'GET' }
-      );
+          try {
+            const response = await zohoApiRequest<any>(
+              `${endpoint}?${params.toString()}`,
+              { method: 'GET' }
+            );
 
-      return response.data?.availability || [];
+            const dateStr = date.toISOString().split('T')[0];
+            return {
+              date: dateStr,
+              available_slots: response.data?.available_slots || [],
+            };
+          } catch (error) {
+            console.error(`Error fetching date ${date}:`, error);
+            return {
+              date: date.toISOString().split('T')[0],
+              available_slots: [],
+            };
+          }
+        });
+
+        const batchResults = await Promise.all(batchPromises);
+        staffAvailability.push(...batchResults);
+
+        // Add delay between batches to avoid rate limiting
+        if (i + batchSize < monthDates.length) {
+          await new Promise(resolve => setTimeout(resolve, 200));
+        }
+      }
+
+      return staffAvailability;
     });
 
-    // Wait for all availability requests
+    // Wait for all staff availability
     const allAvailability = await Promise.all(availabilityPromises);
 
     // Merge availability across staff members
