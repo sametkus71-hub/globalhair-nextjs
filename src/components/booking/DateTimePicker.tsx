@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useAvailabilityCache } from '@/hooks/useAvailabilityCache';
 import { useAvailabilitySlots } from '@/hooks/useAvailabilitySlots';
+import { useStaffSelection } from '@/hooks/useStaffSelection';
 import { Calendar } from '@/components/ui/calendar';
 import { ServiceType, LocationType } from './BookingWizard';
 import { format } from 'date-fns';
@@ -10,7 +11,7 @@ import { nl, enGB } from 'date-fns/locale';
 interface DateTimePickerProps {
   serviceType: ServiceType;
   location: LocationType;
-  onSelect: (date: string, time: string) => void;
+  onSelect: (date: string, time: string, staffId: string, staffName: string) => void;
   onBack: () => void;
 }
 
@@ -37,6 +38,33 @@ export const DateTimePicker = ({ serviceType, location, onSelect, onBack }: Date
     isLoading: isSlotsLoading 
   } = useAvailabilitySlots(serviceType, location, selectedDate ? format(selectedDate, 'yyyy-MM-dd') : null);
 
+  // Get staff assignment for selected time
+  const {
+    staffId,
+    staffName,
+    isLoading: isStaffLoading,
+  } = useStaffSelection(
+    serviceType,
+    location,
+    selectedDate ? format(selectedDate, 'yyyy-MM-dd') : null,
+    selectedTime || null
+  );
+
+  // Auto-select first available date
+  useEffect(() => {
+    if (cacheData?.availableDates && cacheData.availableDates.length > 0 && !selectedDate) {
+      const firstAvailableDate = new Date(cacheData.availableDates[0]);
+      setSelectedDate(firstAvailableDate);
+    }
+  }, [cacheData?.availableDates, selectedDate]);
+
+  // Auto-proceed when staff is assigned
+  useEffect(() => {
+    if (selectedDate && selectedTime && staffId && staffName && !isStaffLoading) {
+      onSelect(format(selectedDate, 'yyyy-MM-dd'), selectedTime, staffId, staffName);
+    }
+  }, [selectedDate, selectedTime, staffId, staffName, isStaffLoading, onSelect]);
+
   const handleDateSelect = (date: Date | undefined) => {
     setSelectedDate(date);
     setSelectedTime(undefined);
@@ -44,9 +72,6 @@ export const DateTimePicker = ({ serviceType, location, onSelect, onBack }: Date
 
   const handleTimeSelect = (time: string) => {
     setSelectedTime(time);
-    if (selectedDate) {
-      onSelect(format(selectedDate, 'yyyy-MM-dd'), time);
-    }
   };
 
   const handleMonthChange = (date: Date) => {
