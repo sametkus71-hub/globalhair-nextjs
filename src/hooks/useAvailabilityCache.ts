@@ -30,9 +30,9 @@ export const useAvailabilityCache = (
       }
 
       // Map service type to cache key
-      // CEO consult uses single key regardless of location
+      // CEO consult is one service in Zoho, map both online/onsite to same data
       const serviceKey = serviceType === 'ceo_consult' 
-        ? 'ceo_consult' 
+        ? 'ceo_consult_online' 
         : `${serviceType}_${location}`;
 
       // Calculate date range for the month

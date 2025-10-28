@@ -16,7 +16,10 @@ export function useAvailabilitySlots(
   location: 'online' | 'onsite' | null,
   date: string | null
 ): AvailabilitySlotsResult {
-  const serviceKey = serviceType && location ? `${serviceType}_${location}` : null;
+  // CEO consult is one service in Zoho, map both online/onsite to same data
+  const serviceKey = serviceType && location 
+    ? (serviceType === 'ceo_consult' ? 'ceo_consult_online' : `${serviceType}_${location}`)
+    : null;
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['availability-slots', serviceKey, date],

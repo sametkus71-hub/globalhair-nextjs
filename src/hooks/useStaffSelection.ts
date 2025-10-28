@@ -18,7 +18,10 @@ export function useStaffSelection(
   date: string | null,
   time: string | null
 ): StaffSelectionResult {
-  const serviceKey = serviceType && location ? `${serviceType}_${location}` : null;
+  // CEO consult is one service in Zoho, map both online/onsite to same data
+  const serviceKey = serviceType && location 
+    ? (serviceType === 'ceo_consult' ? 'ceo_consult_online' : `${serviceType}_${location}`)
+    : null;
 
   const { data, isLoading } = useQuery({
     queryKey: ['staff-selection', serviceKey, date, time],
