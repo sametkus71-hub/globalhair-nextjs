@@ -8,6 +8,11 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+// Declare EdgeRuntime for background tasks
+declare const EdgeRuntime: {
+  waitUntil(promise: Promise<any>): void;
+};
+
 // Services to sync
 const SERVICES_TO_SYNC = [
   'v6_hairboost_online',
@@ -103,200 +108,211 @@ Deno.serve(async (req) => {
 
     console.log(`Starting availability sync for ${SERVICES_TO_SYNC.length} services, ${weekdaysToCheck.length} days`);
 
-    const syncResults = [];
+    // Background task that performs the actual sync
+    const performSync = async () => {
+      const syncResults = [];
 
-    for (const serviceKey of SERVICES_TO_SYNC) {
-      console.log(`\n--- Syncing ${serviceKey} ---`);
-      
-      try {
-        const config = getServiceConfigForSync(serviceKey);
+      for (const serviceKey of SERVICES_TO_SYNC) {
+        console.log(`\n--- Syncing ${serviceKey} ---`);
         
-        const { data: logEntry, error: logError } = await supabase
-          .from('sync_logs')
-          .insert({
-            service_key: serviceKey,
-            status: 'running',
-          })
-          .select()
-          .single();
+        try {
+          const config = getServiceConfigForSync(serviceKey);
+          
+          const { data: logEntry, error: logError } = await supabase
+            .from('sync_logs')
+            .insert({
+              service_key: serviceKey,
+              status: 'running',
+            })
+            .select()
+            .single();
 
-        if (logError) {
-          console.error(`Failed to create sync log for ${serviceKey}:`, logError);
-          continue;
-        }
+          if (logError) {
+            console.error(`Failed to create sync log for ${serviceKey}:`, logError);
+            continue;
+          }
 
-        let totalSlotsImported = 0;
-        let apiCallsMade = 0;
-        let apiErrorsCount = 0;
-        let rateLimitErrorsCount = 0;
+          let totalSlotsImported = 0;
+          let apiCallsMade = 0;
+          let apiErrorsCount = 0;
+          let rateLimitErrorsCount = 0;
 
-        // Process each date
-        for (const date of weekdaysToCheck) {
-          const zohoDate = formatDateForZoho(date);
-          const dateStr = date.toISOString().split('T')[0];
+          // Process each date
+          for (const date of weekdaysToCheck) {
+            const zohoDate = formatDateForZoho(date);
+            const dateStr = date.toISOString().split('T')[0];
 
-          // Process each staff member
-          for (const staffId of config.staffIds) {
-            const staffName = getStaffName(staffId);
-            
-            try {
-              const result = await fetchWithRetry(async () => {
-                const endpoint = '/bookings/v1/json/availableslots';
-                const params = new URLSearchParams({
-                  service_id: config.serviceId,
-                  staff_id: staffId,
-                  selected_date: zohoDate,
-                  timezone,
-                });
-
-                apiCallsMade++;
-                const response = await zohoApiRequest<any>(
-                  `${endpoint}?${params.toString()}`,
-                  { method: 'GET' }
-                );
-
-                const rawSlots = response.response?.returnvalue?.data;
-                
-                // Ensure rawSlots is an array before filtering
-                const slotsArray = Array.isArray(rawSlots) ? rawSlots : [];
-                
-                // Filter to only valid time slots (HH:MM format)
-                const validSlots = slotsArray.filter((slot: string) => {
-                  const isValid = isValidTimeSlot(slot);
-                  if (!isValid) {
-                    console.warn(`Invalid slot format rejected: "${slot}" for ${serviceKey}, ${staffName}, ${dateStr}`);
-                  }
-                  return isValid;
-                });
-
-                return { validSlots, response };
-              }, 1, 1000);
-
-              totalSlotsImported += result.validSlots.length;
-
-              // Store granular data in availability_slots
-              const { error: slotError } = await supabase
-                .from('availability_slots')
-                .upsert({
-                  service_key: serviceKey,
-                  staff_id: staffId,
-                  staff_name: staffName,
-                  date: dateStr,
-                  time_slots: result.validSlots,
-                  zoho_response_status: 'success',
-                  error_message: null,
-                  last_synced_at: new Date().toISOString(),
-                }, {
-                  onConflict: 'service_key,staff_id,date'
-                });
-
-              if (slotError) {
-                console.error(`Failed to upsert availability_slots for ${serviceKey}, ${staffName}, ${dateStr}:`, slotError);
-              }
-
-              // Delay to avoid rate limiting
-              await new Promise(resolve => setTimeout(resolve, 500));
-
-            } catch (error) {
-              const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-              console.error(`Error fetching slots for ${serviceKey}, ${staffName}, ${dateStr}:`, errorMessage);
+            // Process each staff member
+            for (const staffId of config.staffIds) {
+              const staffName = getStaffName(staffId);
               
-              if (errorMessage.includes('429') || errorMessage.includes('rate limit')) {
-                rateLimitErrorsCount++;
-              } else {
-                apiErrorsCount++;
-              }
+              try {
+                const result = await fetchWithRetry(async () => {
+                  const endpoint = '/bookings/v1/json/availableslots';
+                  const params = new URLSearchParams({
+                    service_id: config.serviceId,
+                    staff_id: staffId,
+                    selected_date: zohoDate,
+                    timezone,
+                  });
 
-              // Store error in availability_slots
-              await supabase
-                .from('availability_slots')
-                .upsert({
-                  service_key: serviceKey,
-                  staff_id: staffId,
-                  staff_name: getStaffName(staffId),
-                  date: dateStr,
-                  time_slots: [],
-                  zoho_response_status: 'error',
-                  error_message: errorMessage,
-                  last_synced_at: new Date().toISOString(),
-                }, {
-                  onConflict: 'service_key,staff_id,date'
-                });
+                  apiCallsMade++;
+                  const response = await zohoApiRequest<any>(
+                    `${endpoint}?${params.toString()}`,
+                    { method: 'GET' }
+                  );
+
+                  const rawSlots = response.response?.returnvalue?.data;
+                  
+                  // Ensure rawSlots is an array before filtering
+                  const slotsArray = Array.isArray(rawSlots) ? rawSlots : [];
+                  
+                  // Filter to only valid time slots (HH:MM format)
+                  const validSlots = slotsArray.filter((slot: string) => {
+                    const isValid = isValidTimeSlot(slot);
+                    if (!isValid) {
+                      console.warn(`Invalid slot format rejected: "${slot}" for ${serviceKey}, ${staffName}, ${dateStr}`);
+                    }
+                    return isValid;
+                  });
+
+                  return { validSlots, response };
+                }, 1, 1000);
+
+                totalSlotsImported += result.validSlots.length;
+
+                // Store granular data in availability_slots
+                const { error: slotError } = await supabase
+                  .from('availability_slots')
+                  .upsert({
+                    service_key: serviceKey,
+                    staff_id: staffId,
+                    staff_name: staffName,
+                    date: dateStr,
+                    time_slots: result.validSlots,
+                    zoho_response_status: 'success',
+                    error_message: null,
+                    last_synced_at: new Date().toISOString(),
+                  }, {
+                    onConflict: 'service_key,staff_id,date'
+                  });
+
+                if (slotError) {
+                  console.error(`Failed to upsert availability_slots for ${serviceKey}, ${staffName}, ${dateStr}:`, slotError);
+                }
+
+                // Delay to avoid rate limiting
+                await new Promise(resolve => setTimeout(resolve, 500));
+
+              } catch (error) {
+                const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+                console.error(`Error fetching slots for ${serviceKey}, ${staffName}, ${dateStr}:`, errorMessage);
+                
+                if (errorMessage.includes('429') || errorMessage.includes('rate limit')) {
+                  rateLimitErrorsCount++;
+                } else {
+                  apiErrorsCount++;
+                }
+
+                // Store error in availability_slots
+                await supabase
+                  .from('availability_slots')
+                  .upsert({
+                    service_key: serviceKey,
+                    staff_id: staffId,
+                    staff_name: getStaffName(staffId),
+                    date: dateStr,
+                    time_slots: [],
+                    zoho_response_status: 'error',
+                    error_message: errorMessage,
+                    last_synced_at: new Date().toISOString(),
+                  }, {
+                    onConflict: 'service_key,staff_id,date'
+                  });
+              }
             }
           }
-        }
 
-        // Clean up old records
-        const today = new Date().toISOString().split('T')[0];
-        await supabase.from('availability_slots').delete().eq('service_key', serviceKey).lt('date', today);
+          // Clean up old records
+          const today = new Date().toISOString().split('T')[0];
+          await supabase.from('availability_slots').delete().eq('service_key', serviceKey).lt('date', today);
 
-        // Update sync log with success
-        await supabase
-          .from('sync_logs')
-          .update({
-            status: 'completed',
-            sync_completed_at: new Date().toISOString(),
-            days_checked: weekdaysToCheck.length,
-            api_calls_made: apiCallsMade,
-            total_slots_fetched: totalSlotsImported,
-            api_errors_count: apiErrorsCount,
-            rate_limit_errors_count: rateLimitErrorsCount,
-          })
-          .eq('id', logEntry.id);
-
-        syncResults.push({
-          service: serviceKey,
-          success: true,
-          totalSlotsImported,
-          apiCallsMade,
-          apiErrorsCount,
-          rateLimitErrorsCount,
-        });
-
-        console.log(`✓ ${serviceKey}: ${totalSlotsImported} slots imported (${apiCallsMade} API calls, ${apiErrorsCount} errors, ${rateLimitErrorsCount} rate limits)`);
-
-      } catch (error) {
-        console.error(`Failed to sync ${serviceKey}:`, error);
-        
-        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-        
-        // Try to update sync log with failure
-        try {
+          // Update sync log with success
           await supabase
             .from('sync_logs')
             .update({
-              status: 'failed',
+              status: 'completed',
               sync_completed_at: new Date().toISOString(),
-              error_message: errorMessage,
+              days_checked: weekdaysToCheck.length,
+              api_calls_made: apiCallsMade,
+              total_slots_fetched: totalSlotsImported,
+              api_errors_count: apiErrorsCount,
+              rate_limit_errors_count: rateLimitErrorsCount,
             })
-            .eq('service_key', serviceKey)
-            .eq('status', 'running');
-        } catch (updateError) {
-          console.error(`Failed to update sync log:`, updateError);
-        }
-        
-        syncResults.push({
-          service: serviceKey,
-          success: false,
-          error: errorMessage,
-        });
-      }
-    }
+            .eq('id', logEntry.id);
 
+          syncResults.push({
+            service: serviceKey,
+            success: true,
+            totalSlotsImported,
+            apiCallsMade,
+            apiErrorsCount,
+            rateLimitErrorsCount,
+          });
+
+          console.log(`✓ ${serviceKey}: ${totalSlotsImported} slots imported (${apiCallsMade} API calls, ${apiErrorsCount} errors, ${rateLimitErrorsCount} rate limits)`);
+
+        } catch (error) {
+          console.error(`Failed to sync ${serviceKey}:`, error);
+          
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+          
+          // Try to update sync log with failure
+          try {
+            await supabase
+              .from('sync_logs')
+              .update({
+                status: 'failed',
+                sync_completed_at: new Date().toISOString(),
+                error_message: errorMessage,
+              })
+              .eq('service_key', serviceKey)
+              .eq('status', 'running');
+          } catch (updateError) {
+            console.error(`Failed to update sync log:`, updateError);
+          }
+          
+          syncResults.push({
+            service: serviceKey,
+            success: false,
+            error: errorMessage,
+          });
+        }
+      }
+
+      console.log(`\n✓ Background sync completed for all ${SERVICES_TO_SYNC.length} services`);
+      return syncResults;
+    };
+
+    // Start background task with EdgeRuntime.waitUntil (prevents shutdown)
+    EdgeRuntime.waitUntil(performSync());
+
+    // Return immediate response
     return new Response(
       JSON.stringify({
         success: true,
-        message: 'Sync completed',
-        results: syncResults,
+        message: 'Sync started in background',
+        services: SERVICES_TO_SYNC,
+        estimatedDuration: '~5 minutes',
       }),
       {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 200,
+        status: 202, // 202 Accepted - processing in background
       }
     );
 
   } catch (error) {
-    console.error('Sync failed:', error);
+    console.error('Failed to start sync:', error);
     return new Response(
       JSON.stringify({
         success: false,
