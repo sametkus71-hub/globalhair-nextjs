@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useAvailabilityCache } from '@/hooks/useAvailabilityCache';
-import { useAvailabilityDay } from '@/hooks/useAvailabilityDay';
+import { useAvailabilitySlots } from '@/hooks/useAvailabilitySlots';
 import { Calendar } from '@/components/ui/calendar';
 import { ServiceType, LocationType } from './BookingWizard';
 import { format } from 'date-fns';
@@ -31,12 +31,11 @@ export const DateTimePicker = ({ serviceType, location, onSelect, onBack }: Date
     currentMonth.getMonth()
   );
 
-  // Load time slots for selected date (live data)
-  const { data: dayData, isLoading: isLoadingSlots } = useAvailabilityDay(
-    serviceType,
-    location,
-    selectedDate ? format(selectedDate, 'yyyy-MM-dd') : null
-  );
+  // Fetch available slots for selected date from availability_slots table
+  const { 
+    availableSlots, 
+    isLoading: isSlotsLoading 
+  } = useAvailabilitySlots(serviceType, location, selectedDate ? format(selectedDate, 'yyyy-MM-dd') : null);
 
   const handleDateSelect = (date: Date | undefined) => {
     setSelectedDate(date);
@@ -113,13 +112,13 @@ export const DateTimePicker = ({ serviceType, location, onSelect, onBack }: Date
                 <h3 className="text-lg font-medium text-white mb-4">
                   {language === 'nl' ? 'Selecteer een tijd' : 'Select a time'}
                 </h3>
-                {isLoadingSlots ? (
+                {isSlotsLoading ? (
                   <div className="flex justify-center py-8">
                     <div className="animate-spin rounded-full h-8 w-8 border-2 border-white/20 border-t-white"></div>
                   </div>
-                ) : dayData?.available_slots && dayData.available_slots.length > 0 ? (
+                ) : availableSlots && availableSlots.length > 0 ? (
                   <div className="grid grid-cols-3 gap-3">
-                    {dayData.available_slots.map((slot) => (
+                    {availableSlots.map((slot) => (
                       <button
                         key={slot}
                         onClick={() => handleTimeSelect(slot)}

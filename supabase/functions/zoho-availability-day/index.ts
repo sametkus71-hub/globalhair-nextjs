@@ -69,9 +69,16 @@ Deno.serve(async (req) => {
 
     // Merge and deduplicate time slots
     const uniqueSlots = new Set<string>();
+    const validTimePattern = /^\d{2}:\d{2}$/;
+    
     for (const { slots } of allStaffSlots) {
       for (const slot of slots) {
-        uniqueSlots.add(slot);
+        // Only add valid time slots (HH:MM format)
+        if (validTimePattern.test(slot)) {
+          uniqueSlots.add(slot);
+        } else {
+          console.warn(`Invalid slot format rejected: "${slot}"`);
+        }
       }
     }
 

@@ -41,6 +41,45 @@ export type Database = {
         }
         Relationships: []
       }
+      availability_slots: {
+        Row: {
+          created_at: string
+          date: string
+          error_message: string | null
+          id: string
+          last_synced_at: string
+          service_key: string
+          staff_id: string
+          staff_name: string
+          time_slots: Json
+          zoho_response_status: string
+        }
+        Insert: {
+          created_at?: string
+          date: string
+          error_message?: string | null
+          id?: string
+          last_synced_at?: string
+          service_key: string
+          staff_id: string
+          staff_name: string
+          time_slots?: Json
+          zoho_response_status?: string
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          error_message?: string | null
+          id?: string
+          last_synced_at?: string
+          service_key?: string
+          staff_id?: string
+          staff_name?: string
+          time_slots?: Json
+          zoho_response_status?: string
+        }
+        Relationships: []
+      }
       booking_intents: {
         Row: {
           additional_fields: Json | null
@@ -221,36 +260,45 @@ export type Database = {
       sync_logs: {
         Row: {
           api_calls_made: number | null
+          api_errors_count: number | null
           days_available: number | null
           days_checked: number | null
           error_message: string | null
           id: string
+          rate_limit_errors_count: number | null
           service_key: string
           status: string
           sync_completed_at: string | null
           sync_started_at: string
+          total_slots_fetched: number | null
         }
         Insert: {
           api_calls_made?: number | null
+          api_errors_count?: number | null
           days_available?: number | null
           days_checked?: number | null
           error_message?: string | null
           id?: string
+          rate_limit_errors_count?: number | null
           service_key: string
           status?: string
           sync_completed_at?: string | null
           sync_started_at?: string
+          total_slots_fetched?: number | null
         }
         Update: {
           api_calls_made?: number | null
+          api_errors_count?: number | null
           days_available?: number | null
           days_checked?: number | null
           error_message?: string | null
           id?: string
+          rate_limit_errors_count?: number | null
           service_key?: string
           status?: string
           sync_completed_at?: string | null
           sync_started_at?: string
+          total_slots_fetched?: number | null
         }
         Relationships: []
       }
