@@ -110,15 +110,15 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
   };
 
   return (
-    <div className="flex flex-col space-y-6">
+    <div className="flex flex-col space-y-6 py-4">
       {isLoadingCache ? (
         <div className="flex justify-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-2 border-border border-t-primary"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-2 border-white/20 border-t-white"></div>
         </div>
       ) : (
         <>
           <div>
-            <h3 className="text-lg font-medium text-foreground mb-4">
+            <h3 className="text-base font-medium text-white/90 mb-4">
               {language === 'nl' ? 'Selecteer een datum' : 'Select a date'}
             </h3>
             <div className="flex justify-center">
@@ -130,19 +130,19 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
                 month={currentMonth}
                 onMonthChange={handleMonthChange}
                 locale={language === 'nl' ? nl : enGB}
-                className="rounded-lg border"
+                className="rounded-lg border border-white/10 bg-white/5"
               />
             </div>
           </div>
 
           {selectedDate && (
             <div>
-              <h3 className="text-lg font-medium text-foreground mb-4">
+              <h3 className="text-base font-medium text-white/90 mb-4">
                 {language === 'nl' ? 'Selecteer een tijd' : 'Select a time'}
               </h3>
               {isSlotsLoading ? (
                 <div className="flex justify-center py-8">
-                  <div className="animate-spin rounded-full h-8 w-8 border-2 border-border border-t-primary"></div>
+                  <div className="animate-spin rounded-full h-8 w-8 border-2 border-white/20 border-t-white"></div>
                 </div>
               ) : availableSlots && availableSlots.length > 0 ? (
                 <div className="grid grid-cols-2 gap-3">
@@ -150,10 +150,10 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
                     <button
                       key={slot}
                       onClick={() => handleTimeSelect(slot)}
-                      className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      className={`px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 border ${
                         selectedTime === slot
-                          ? 'bg-primary text-primary-foreground shadow-lg'
-                          : 'bg-card/50 text-card-foreground hover:bg-card/80'
+                          ? 'bg-white/15 border-white/30 text-white'
+                          : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10'
                       }`}
                     >
                       <span className="text-sm font-medium">
@@ -163,7 +163,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
                   ))}
                 </div>
               ) : (
-                <p className="text-center text-muted-foreground py-8">
+                <p className="text-center text-white/50 py-8">
                   {language === 'nl' ? 'Geen beschikbare tijden' : 'No available times'}
                 </p>
               )}

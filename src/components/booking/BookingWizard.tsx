@@ -92,30 +92,32 @@ export const BookingWizard = () => {
         {/* Step 1: Choose Option */}
         <AccordionItem 
           value="step-1" 
-          className="border rounded-xl bg-card/50 backdrop-blur-sm overflow-hidden"
+          className="border border-white/10 rounded-2xl bg-white/5 backdrop-blur-md overflow-hidden shadow-xl"
         >
-          <AccordionTrigger className="px-6 py-4 hover:no-underline">
+          <AccordionTrigger className="px-6 py-5 hover:no-underline hover:bg-white/5">
             <div className="flex items-center gap-4 w-full">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
+              <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all border-2 ${
                 completedSteps.includes('step-1')
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-muted text-muted-foreground'
+                  ? 'bg-white/20 border-white/40 text-white'
+                  : 'bg-white/5 border-white/20 text-white/80'
               }`}>
                 {completedSteps.includes('step-1') ? (
-                  <Check className="w-5 h-5" />
+                  <Check className="w-6 h-6" />
                 ) : (
-                  <span className="font-semibold">1</span>
+                  <span className="font-bold text-lg">1</span>
                 )}
               </div>
-              <span className="font-medium text-lg flex-1 text-left">
-                {t('booking.step1Title')}
+              <span className="font-medium text-lg flex-1 text-left text-white">
+                Kies een optie
               </span>
               {completedSteps.includes('step-1') && (
-                <span className="text-xl font-bold text-primary">€{price}</span>
+                <span className="px-4 py-1.5 rounded-full bg-white/10 text-white text-base font-semibold">
+                  €{price}
+                </span>
               )}
             </div>
           </AccordionTrigger>
-          <AccordionContent className="px-6 pb-6">
+          <AccordionContent className="border-t border-white/10">
             <OptionsStep onNext={handleOptionsComplete} />
           </AccordionContent>
         </AccordionItem>
@@ -123,35 +125,35 @@ export const BookingWizard = () => {
         {/* Step 2: Select Date */}
         <AccordionItem 
           value="step-2" 
-          className="border rounded-xl bg-card/50 backdrop-blur-sm overflow-hidden"
+          className="border border-white/10 rounded-2xl bg-white/5 backdrop-blur-md overflow-hidden shadow-xl"
           disabled={!completedSteps.includes('step-1')}
         >
           <AccordionTrigger 
-            className="px-6 py-4 hover:no-underline"
+            className="px-6 py-5 hover:no-underline hover:bg-white/5"
             disabled={!completedSteps.includes('step-1')}
           >
             <div className="flex items-center gap-4 w-full">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
+              <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all border-2 ${
                 completedSteps.includes('step-2')
-                  ? 'bg-primary text-primary-foreground'
+                  ? 'bg-white/20 border-white/40 text-white'
                   : completedSteps.includes('step-1')
-                  ? 'bg-muted text-muted-foreground'
-                  : 'bg-muted/50 text-muted-foreground/50'
+                  ? 'bg-white/5 border-white/20 text-white/80'
+                  : 'bg-white/5 border-white/10 text-white/40'
               }`}>
                 {completedSteps.includes('step-2') ? (
-                  <Check className="w-5 h-5" />
+                  <Check className="w-6 h-6" />
                 ) : (
-                  <span className="font-semibold">2</span>
+                  <span className="font-bold text-lg">2</span>
                 )}
               </div>
-              <span className={`font-medium text-lg flex-1 text-left ${
+              <span className={`font-medium text-lg flex-1 text-left text-white ${
                 !completedSteps.includes('step-1') ? 'opacity-50' : ''
               }`}>
-                {t('booking.step2Title')}
+                Selecteer datum
               </span>
             </div>
           </AccordionTrigger>
-          <AccordionContent className="px-6 pb-6">
+          <AccordionContent className="border-t border-white/10 px-6 pb-6">
             {serviceType && location && (
               <DateTimePicker
                 serviceType={serviceType}
@@ -165,35 +167,35 @@ export const BookingWizard = () => {
         {/* Step 3: Confirm */}
         <AccordionItem 
           value="step-3" 
-          className="border rounded-xl bg-card/50 backdrop-blur-sm overflow-hidden"
+          className="border border-white/10 rounded-2xl bg-white/5 backdrop-blur-md overflow-hidden shadow-xl"
           disabled={!completedSteps.includes('step-2')}
         >
           <AccordionTrigger 
-            className="px-6 py-4 hover:no-underline"
+            className="px-6 py-5 hover:no-underline hover:bg-white/5"
             disabled={!completedSteps.includes('step-2')}
           >
             <div className="flex items-center gap-4 w-full">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
+              <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all border-2 ${
                 completedSteps.includes('step-3')
-                  ? 'bg-primary text-primary-foreground'
+                  ? 'bg-white/20 border-white/40 text-white'
                   : completedSteps.includes('step-2')
-                  ? 'bg-muted text-muted-foreground'
-                  : 'bg-muted/50 text-muted-foreground/50'
+                  ? 'bg-white/5 border-white/20 text-white/80'
+                  : 'bg-white/5 border-white/10 text-white/40'
               }`}>
                 {completedSteps.includes('step-3') ? (
-                  <Check className="w-5 h-5" />
+                  <Check className="w-6 h-6" />
                 ) : (
-                  <span className="font-semibold">3</span>
+                  <span className="font-bold text-lg">3</span>
                 )}
               </div>
-              <span className={`font-medium text-lg flex-1 text-left ${
+              <span className={`font-medium text-lg flex-1 text-left text-white ${
                 !completedSteps.includes('step-2') ? 'opacity-50' : ''
               }`}>
-                {t('booking.step3Title')}
+                Bevestigen
               </span>
             </div>
           </AccordionTrigger>
-          <AccordionContent className="px-6 pb-6">
+          <AccordionContent className="border-t border-white/10 px-6 pb-6">
             <div className="space-y-6">
               <CustomerInfoForm onComplete={handleCustomerInfoComplete} />
               

@@ -3,6 +3,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
 import { getServiceConfig } from '@/lib/service-config';
 import { ServiceType, LocationType } from './BookingWizard';
+import { MapPin, Video, Phone } from 'lucide-react';
 
 interface OptionsStepProps {
   onNext: (data: {
@@ -43,35 +44,35 @@ export const OptionsStep = ({ onNext }: OptionsStepProps) => {
   const price = calculatePrice();
 
   return (
-    <div className="space-y-6 p-4">
+    <div className="space-y-6 p-6">
       {/* Consult Type Toggle */}
-      <div className="space-y-3">
-        <label className="text-sm font-medium text-foreground/80">
-          {t('booking.consultType')}
-        </label>
-        <div className="grid grid-cols-2 gap-3">
-          <button
-            onClick={() => setConsultType('v6_hairboost')}
-            className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
-              consultType === 'v6_hairboost'
-                ? 'bg-primary text-primary-foreground shadow-lg'
-                : 'bg-card/50 text-card-foreground hover:bg-card/80'
-            }`}
-          >
-            {t('booking.basicConsult')}
-          </button>
-          <button
-            onClick={() => setConsultType('haartransplantatie')}
-            className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
-              consultType === 'haartransplantatie'
-                ? 'bg-primary text-primary-foreground shadow-lg'
-                : 'bg-card/50 text-card-foreground hover:bg-card/80'
-            }`}
-          >
-            {t('booking.trichoScan')}
-          </button>
+      <div className="space-y-4">
+        <div className="flex justify-center">
+          <div className="inline-flex rounded-full border border-white/20 bg-white/5 p-1">
+            <button
+              onClick={() => setConsultType('v6_hairboost')}
+              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
+                consultType === 'v6_hairboost'
+                  ? 'bg-white/90 text-slate-900'
+                  : 'text-white/70 hover:text-white'
+              }`}
+            >
+              Basic consult
+            </button>
+            <button
+              onClick={() => setConsultType('haartransplantatie')}
+              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
+                consultType === 'haartransplantatie'
+                  ? 'bg-white/90 text-slate-900'
+                  : 'text-white/70 hover:text-white'
+              }`}
+            >
+              TrichoScan™
+            </button>
+          </div>
         </div>
-        <p className="text-xs text-muted-foreground">
+        
+        <p className="text-sm text-white/60 text-center leading-relaxed px-2">
           {consultType === 'v6_hairboost' 
             ? t('booking.basicConsultDesc')
             : t('booking.trichoScanDesc')
@@ -81,94 +82,80 @@ export const OptionsStep = ({ onNext }: OptionsStepProps) => {
 
       {/* Location Selection */}
       <div className="space-y-3">
-        <label className="text-sm font-medium text-foreground/80">
-          {t('booking.locationLabel')}
-        </label>
-        <div className="space-y-2">
-          <button
-            onClick={() => setLocation('onsite')}
-            className={`w-full px-4 py-3 rounded-lg text-left transition-all duration-200 ${
-              location === 'onsite'
-                ? 'bg-primary/20 border-2 border-primary'
-                : 'bg-card/50 border-2 border-transparent hover:bg-card/80'
-            }`}
-          >
-            <div className="flex items-center gap-3">
-              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                location === 'onsite' ? 'border-primary' : 'border-border'
-              }`}>
-                {location === 'onsite' && (
-                  <div className="w-3 h-3 rounded-full bg-primary"></div>
-                )}
-              </div>
-              <span className="text-sm font-medium">{t('booking.onLocation')}</span>
-            </div>
-          </button>
-          <button
-            onClick={() => setLocation('online')}
-            className={`w-full px-4 py-3 rounded-lg text-left transition-all duration-200 ${
-              location === 'online'
-                ? 'bg-primary/20 border-2 border-primary'
-                : 'bg-card/50 border-2 border-transparent hover:bg-card/80'
-            }`}
-          >
-            <div className="flex items-center gap-3">
-              <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                location === 'online' ? 'border-primary' : 'border-border'
-              }`}>
-                {location === 'online' && (
-                  <div className="w-3 h-3 rounded-full bg-primary"></div>
-                )}
-              </div>
-              <span className="text-sm font-medium">{t('booking.videoCall')}</span>
-            </div>
-          </button>
-        </div>
+        <button
+          onClick={() => setLocation('onsite')}
+          className={`w-full px-4 py-4 rounded-xl text-left transition-all duration-200 flex items-center gap-3 ${
+            location === 'onsite'
+              ? 'bg-white/15 border border-white/30'
+              : 'bg-white/5 border border-white/10 hover:bg-white/10'
+          }`}
+        >
+          <MapPin className="w-5 h-5 text-white/80" />
+          <div className="flex-1">
+            <span className="text-sm font-medium text-white">Op locatie</span>
+            <span className="text-xs text-white/60 ml-2">(Barendrecht)</span>
+          </div>
+        </button>
+        
+        <button
+          onClick={() => setLocation('online')}
+          className={`w-full px-4 py-4 rounded-xl text-left transition-all duration-200 flex items-center gap-3 ${
+            location === 'online'
+              ? 'bg-white/15 border border-white/30'
+              : 'bg-white/5 border border-white/10 hover:bg-white/10'
+          }`}
+        >
+          <Video className="w-5 h-5 text-white/80" />
+          <span className="text-sm font-medium text-white">Videocall</span>
+        </button>
+        
+        <button
+          onClick={() => setLocation('online')}
+          className="w-full px-4 py-4 rounded-xl text-left transition-all duration-200 flex items-center gap-3 bg-white/5 border border-white/10 hover:bg-white/10 opacity-50 cursor-not-allowed"
+          disabled
+        >
+          <Phone className="w-5 h-5 text-white/80" />
+          <span className="text-sm font-medium text-white">Telefoon</span>
+        </button>
       </div>
 
       {/* Consultant Selection */}
       <div className="space-y-3">
-        <label className="text-sm font-medium text-foreground/80">
-          {t('booking.selectConsultant')}
+        <label className="text-sm font-medium text-white/80">
+          Selecteer consultant
         </label>
-        <div className="grid grid-cols-2 gap-3">
-          <button
-            onClick={() => setConsultant('trichoTeam')}
-            className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
-              consultant === 'trichoTeam'
-                ? 'bg-primary text-primary-foreground shadow-lg'
-                : 'bg-card/50 text-card-foreground hover:bg-card/80'
-            }`}
-          >
-            {t('booking.trichoTeam')}
-          </button>
-          <button
-            onClick={() => setConsultant('ceo')}
-            className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
-              consultant === 'ceo'
-                ? 'bg-primary text-primary-foreground shadow-lg'
-                : 'bg-card/50 text-card-foreground hover:bg-card/80'
-            }`}
-          >
-            {t('booking.ceo')}
-          </button>
+        <div className="flex justify-center">
+          <div className="inline-flex rounded-full border border-white/20 bg-white/5 p-1 w-full">
+            <button
+              onClick={() => setConsultant('trichoTeam')}
+              className={`flex-1 px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
+                consultant === 'trichoTeam'
+                  ? 'bg-white/90 text-slate-900'
+                  : 'text-white/70 hover:text-white'
+              }`}
+            >
+              TrichoTeam
+            </button>
+            <button
+              onClick={() => setConsultant('ceo')}
+              className={`flex-1 px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
+                consultant === 'ceo'
+                  ? 'bg-white/90 text-slate-900'
+                  : 'text-white/70 hover:text-white'
+              }`}
+            >
+              CEO - Berkant Dural
+            </button>
+          </div>
         </div>
-      </div>
-
-      {/* Price Display */}
-      <div className="flex items-center justify-between p-4 rounded-lg bg-card/50">
-        <span className="text-sm font-medium text-foreground/80">
-          {t('booking.totalPrice')}
-        </span>
-        <span className="text-2xl font-bold text-primary">€{price}</span>
       </div>
 
       {/* Next Button */}
       <button
         onClick={handleNext}
-        className="w-full px-6 py-4 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-all duration-200 shadow-lg"
+        className="w-full px-6 py-4 rounded-full bg-white/10 hover:bg-white/15 border border-white/20 text-white font-medium transition-all duration-200 shadow-lg text-base"
       >
-        {t('booking.next')} →
+        Volgende
       </button>
     </div>
   );

@@ -26,62 +26,62 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
   };
 
   return (
-    <div className="flex flex-col space-y-4">
+    <div className="flex flex-col space-y-4 py-4">
       <div className="space-y-4">
-        <h3 className="text-lg font-medium text-foreground">
+        <h3 className="text-base font-medium text-white/90">
           {language === 'nl' ? 'Uw gegevens' : 'Your details'}
         </h3>
         
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground/80">
+          <label className="text-sm font-medium text-white/70">
             {language === 'nl' ? 'Naam' : 'Name'} *
           </label>
           <input
             type="text"
             value={formData.name}
             onChange={(e) => handleChange('name', e.target.value)}
-            className="w-full px-4 py-3 rounded-lg bg-background border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/20"
             placeholder={language === 'nl' ? 'Uw naam' : 'Your name'}
             required
           />
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground/80">
+          <label className="text-sm font-medium text-white/70">
             {language === 'nl' ? 'E-mail' : 'Email'} *
           </label>
           <input
             type="email"
             value={formData.email}
             onChange={(e) => handleChange('email', e.target.value)}
-            className="w-full px-4 py-3 rounded-lg bg-background border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/20"
             placeholder={language === 'nl' ? 'uw@email.nl' : 'your@email.com'}
             required
           />
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground/80">
+          <label className="text-sm font-medium text-white/70">
             {language === 'nl' ? 'Telefoon' : 'Phone'} *
           </label>
           <input
             type="tel"
             value={formData.phone}
             onChange={(e) => handleChange('phone', e.target.value)}
-            className="w-full px-4 py-3 rounded-lg bg-background border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/20"
             placeholder={language === 'nl' ? '+31 6 12345678' : '+31 6 12345678'}
             required
           />
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-foreground/80">
+          <label className="text-sm font-medium text-white/70">
             {language === 'nl' ? 'Opmerkingen (optioneel)' : 'Notes (optional)'}
           </label>
           <textarea
             value={formData.notes}
             onChange={(e) => handleChange('notes', e.target.value)}
-            className="w-full px-4 py-3 rounded-lg bg-background border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary min-h-[100px]"
+            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/20 min-h-[100px]"
             placeholder={language === 'nl' ? 'Aanvullende informatie...' : 'Additional information...'}
           />
         </div>
