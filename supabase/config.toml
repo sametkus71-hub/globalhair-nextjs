@@ -11,3 +11,6 @@ verify_jwt = false
 
 [functions.zoho-test-simple]
 verify_jwt = false
+
+[functions.zoho-sync-availability]
+verify_jwt = false
