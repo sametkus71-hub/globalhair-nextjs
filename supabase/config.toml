@@ -1,1 +1,10 @@
 project_id = "rjvgdqcbvikmjlrtraap"
+
+[functions.zoho-availability-range]
+verify_jwt = false
+
+[functions.zoho-availability-day]
+verify_jwt = false
+
+[functions.zoho-book]
+verify_jwt = false
