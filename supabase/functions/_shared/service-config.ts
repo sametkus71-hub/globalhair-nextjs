@@ -16,12 +16,12 @@ export interface StaffInfo {
 // Staff members
 export const STAFF: Record<string, StaffInfo> = {
   OZLEM: {
-    id: '166653000000028003',
-    name: 'Özlem',
+    id: '166653000000592010',
+    name: 'Özlem Aslan',
   },
   STEVEN: {
-    id: '166653000000028001',
-    name: 'Steven',
+    id: '166653000000590040',
+    name: 'Steven Kwik',
   },
   BERKANT: {
     id: '166653000000028008',
@@ -33,7 +33,7 @@ export const STAFF: Record<string, StaffInfo> = {
 export const SERVICES: Record<string, ServiceConfig> = {
   // V6 Hairboost Online
   v6_hairboost_online: {
-    serviceId: '166653000001098006',
+    serviceId: '166653000000921076',
     staffIds: [STAFF.OZLEM.id, STAFF.STEVEN.id],
     preferredStaffId: STAFF.STEVEN.id,
     durationMinutes: 30,
@@ -42,7 +42,7 @@ export const SERVICES: Record<string, ServiceConfig> = {
   
   // V6 Hairboost Onsite
   v6_hairboost_onsite: {
-    serviceId: '166653000001085013',
+    serviceId: '166653000000921058',
     staffIds: [STAFF.OZLEM.id, STAFF.STEVEN.id],
     preferredStaffId: STAFF.STEVEN.id,
     durationMinutes: 30,
@@ -51,7 +51,7 @@ export const SERVICES: Record<string, ServiceConfig> = {
   
   // Haartransplantatie Online
   haartransplantatie_online: {
-    serviceId: '166653000001085009',
+    serviceId: '166653000000079229',
     staffIds: [STAFF.OZLEM.id, STAFF.STEVEN.id],
     preferredStaffId: STAFF.STEVEN.id,
     durationMinutes: 45,
@@ -60,7 +60,7 @@ export const SERVICES: Record<string, ServiceConfig> = {
   
   // Haartransplantatie Onsite
   haartransplantatie_onsite: {
-    serviceId: '166653000001037020',
+    serviceId: '166653000000921040',
     staffIds: [STAFF.OZLEM.id, STAFF.STEVEN.id],
     preferredStaffId: STAFF.STEVEN.id,
     durationMinutes: 45,
