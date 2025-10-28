@@ -23,16 +23,15 @@ export const OptionsStep = ({ onNext }: OptionsStepProps) => {
   const [location, setLocation] = useState<LocationType>('onsite');
   const [consultant, setConsultant] = useState<'trichoTeam' | 'ceo'>('trichoTeam');
 
-  const calculatePrice = () => {
-    if (consultant === 'ceo') return 500;
-    if (consultType === 'v6_hairboost') return 50;
-    if (consultType === 'haartransplantatie') return 75;
-    return 0;
-  };
-
   const getDerivedServiceType = (): ServiceType => {
     if (consultant === 'ceo') return 'ceo_consult';
     return consultType;
+  };
+
+  const calculatePrice = () => {
+    const serviceType = getDerivedServiceType();
+    const config = getServiceConfig(serviceType, location);
+    return config.priceEuros;
   };
 
   const handleNext = () => {
@@ -42,6 +41,18 @@ export const OptionsStep = ({ onNext }: OptionsStepProps) => {
   };
 
   const price = calculatePrice();
+
+  const getConsultDescription = () => {
+    if (consultType === 'v6_hairboost') {
+      return language === 'nl' 
+        ? 'Persoonlijk consult voor V6 Hairboost behandeling. Krijg advies over onze revolutionaire haargroei formule en ontdek of deze behandeling geschikt is voor jou. Duur: 30 minuten'
+        : 'Personal consultation for V6 Hairboost treatment. Get advice about our revolutionary hair growth formula and discover if this treatment is suitable for you. Duration: 30 minutes';
+    } else {
+      return language === 'nl'
+        ? 'Uitgebreid consult met TrichoScan™ analyse voor haartransplantatie. Bespreek jouw wensen, krijg een professionele haaranalyse en ontvang een persoonlijk behandelplan. Duur: 45 minuten'
+        : 'Comprehensive consultation with TrichoScan™ analysis for hair transplantation. Discuss your wishes, receive a professional hair analysis and get a personal treatment plan. Duration: 45 minutes';
+    }
+  };
 
   return (
     <div className="space-y-6 p-6">
@@ -57,7 +68,7 @@ export const OptionsStep = ({ onNext }: OptionsStepProps) => {
                   : 'text-white/70 hover:text-white'
               }`}
             >
-              Basic consult
+              V6 Hairboost consult
             </button>
             <button
               onClick={() => setConsultType('haartransplantatie')}
@@ -67,16 +78,13 @@ export const OptionsStep = ({ onNext }: OptionsStepProps) => {
                   : 'text-white/70 hover:text-white'
               }`}
             >
-              TrichoScan™
+              HT Consult
             </button>
           </div>
         </div>
         
         <p className="text-sm text-white/60 text-center leading-relaxed px-2">
-          {consultType === 'v6_hairboost' 
-            ? t('booking.basicConsultDesc')
-            : t('booking.trichoScanDesc')
-          }
+          {getConsultDescription()}
         </p>
       </div>
 
