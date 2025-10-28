@@ -1,104 +1,136 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
+import { ServiceType, LocationType, BookingSelection, CustomerInfo } from './BookingWizard';
+import { getServiceConfig } from '@/lib/service-config';
 import { format } from 'date-fns';
 import { nl, enGB } from 'date-fns/locale';
-import { toast } from 'sonner';
 
 interface PaymentStepProps {
-  bookingIntentId: string;
+  serviceType: ServiceType;
+  location: LocationType;
+  bookingSelection: BookingSelection;
+  customerInfo: CustomerInfo;
   onBack: () => void;
 }
 
-export const PaymentStep = ({ bookingIntentId, onBack }: PaymentStepProps) => {
+export const PaymentStep = ({
+  serviceType,
+  location,
+  bookingSelection,
+  customerInfo,
+  onBack
+}: PaymentStepProps) => {
   const { language } = useLanguage();
-  const [bookingData, setBookingData] = useState<any>(null);
-  const [isLoading, setIsLoading] = useState(true);
   const [isProcessing, setIsProcessing] = useState(false);
 
-  useEffect(() => {
-    loadBookingData();
-  }, [bookingIntentId]);
+  const config = getServiceConfig(serviceType, location);
 
-  const loadBookingData = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('booking_intents')
-        .select('*')
-        .eq('id', bookingIntentId)
-        .single();
+  const serviceNames = {
+    v6_hairboost: language === 'nl' ? 'V6 Hairboost Consult' : 'V6 Hairboost Consultation',
+    haartransplantatie: language === 'nl' ? 'Haartransplantatie Consult' : 'Hair Transplant Consultation',
+    ceo_consult: language === 'nl' ? 'CEO Consult' : 'CEO Consultation',
+  };
 
-      if (error) throw error;
-      setBookingData(data);
-    } catch (error) {
-      console.error('Error loading booking data:', error);
-      toast.error(language === 'nl' ? 'Kon boeking niet laden' : 'Could not load booking');
-    } finally {
-      setIsLoading(false);
-    }
+  const locationNames = {
+    online: language === 'nl' ? 'Online' : 'Online',
+    onsite: language === 'nl' ? 'Op locatie' : 'On-site',
   };
 
   const handlePayment = async () => {
     setIsProcessing(true);
 
     try {
-      // Update status to pending_confirmation
-      const { error: updateError } = await supabase
+      // Parse date and time to create appointment datetime
+      const [hours, minutes] = bookingSelection.time.split(':').map(Number);
+      const appointmentDate = new Date(bookingSelection.date);
+      appointmentDate.setHours(hours, minutes, 0, 0);
+
+      // Calculate from_time and to_time in Zoho format (dd-MMM-yyyy HH:mm)
+      const formatZohoTime = (d: Date) => {
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const day = String(d.getDate()).padStart(2, '0');
+        const month = months[d.getMonth()];
+        const year = d.getFullYear();
+        const hour = String(d.getHours()).padStart(2, '0');
+        const min = String(d.getMinutes()).padStart(2, '0');
+        return `${day}-${month}-${year} ${hour}:${min}`;
+      };
+
+      const fromTime = formatZohoTime(appointmentDate);
+      const toDate = new Date(appointmentDate.getTime() + config.durationMinutes * 60000);
+      const toTime = formatZohoTime(toDate);
+
+      // CREATE BOOKING INTENT NOW
+      const { data: bookingIntent, error: insertError } = await supabase
         .from('booking_intents')
-        .update({ status: 'pending_confirmation' })
-        .eq('id', bookingIntentId);
+        .insert({
+          service_type: serviceType,
+          location: location,
+          selected_date: bookingSelection.date,
+          selected_time: bookingSelection.time,
+          zoho_service_id: config.serviceId,
+          zoho_staff_id: bookingSelection.staffId,
+          assigned_staff_name: bookingSelection.staffName,
+          duration_minutes: config.durationMinutes,
+          price_euros: config.priceEuros,
+          appointment_datetime_utc: appointmentDate.toISOString(),
+          from_time: fromTime,
+          to_time: toTime,
+          timezone: 'Europe/Amsterdam',
+          customer_name: customerInfo.name,
+          customer_email: customerInfo.email,
+          customer_phone: customerInfo.phone,
+          booking_notes: customerInfo.notes || null,
+          status: 'pending_confirmation',
+        })
+        .select()
+        .single();
 
-      if (updateError) throw updateError;
+      if (insertError) throw insertError;
 
-      // Call Zoho booking API
+      // Now call Zoho booking API
       const { data, error } = await supabase.functions.invoke('zoho-create-booking', {
-        body: { booking_intent_id: bookingIntentId },
+        body: { booking_intent_id: bookingIntent.id },
       });
 
       if (error) throw error;
 
       if (data.success) {
         toast.success(language === 'nl' ? 'Afspraak bevestigd!' : 'Appointment confirmed!');
-        // Redirect or show success
+        // TODO: Redirect to success page or show success message
       } else {
         throw new Error(data.error || 'Booking failed');
       }
     } catch (error) {
       console.error('Error processing payment:', error);
-      toast.error(language === 'nl' ? 'Betaling mislukt' : 'Payment failed');
+      toast.error(language === 'nl' ? 'Betaling mislukt. Probeer het opnieuw.' : 'Payment failed. Please try again.');
     } finally {
       setIsProcessing(false);
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-8 w-8 border-2 border-white/20 border-t-white"></div>
-      </div>
-    );
-  }
-
-  if (!bookingData) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen px-4">
-        <p className="text-white/70">{language === 'nl' ? 'Boeking niet gevonden' : 'Booking not found'}</p>
-      </div>
-    );
-  }
-
-  const appointmentDate = new Date(bookingData.selected_date);
-  const formattedDate = format(appointmentDate, 'EEEE d MMMM yyyy', {
+  // Format appointment date for display
+  const appointmentDateObj = new Date(bookingSelection.date);
+  const formattedDate = format(appointmentDateObj, 'EEEE d MMMM yyyy', {
     locale: language === 'nl' ? nl : enGB,
   });
+
+  // Calculate end time for display
+  const [hours, minutes] = bookingSelection.time.split(':').map(Number);
+  const endDate = new Date();
+  endDate.setHours(hours, minutes + config.durationMinutes, 0, 0);
+  const endTime = `${String(endDate.getHours()).padStart(2, '0')}:${String(endDate.getMinutes()).padStart(2, '0')}`;
 
   return (
     <div className="flex flex-col min-h-screen">
       <div className="p-4">
         <button
           onClick={onBack}
-          className="flex items-center gap-2 text-white/70 hover:text-white transition-colors"
+          disabled={isProcessing}
+          className="flex items-center gap-2 text-white/70 hover:text-white transition-colors disabled:opacity-50"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -113,47 +145,43 @@ export const PaymentStep = ({ bookingIntentId, onBack }: PaymentStepProps) => {
         </h2>
 
         <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 space-y-4 mb-6">
-          <div className="flex justify-between">
-            <span className="text-white/70">{language === 'nl' ? 'Service' : 'Service'}:</span>
-            <span className="text-white font-medium">
-              {bookingData.service_type.replace(/_/g, ' ').toUpperCase()}
-            </span>
+          <div>
+            <p className="text-sm text-white/60">{language === 'nl' ? 'Service' : 'Service'}</p>
+            <p className="text-lg font-medium text-white">{serviceNames[serviceType]}</p>
           </div>
 
-          <div className="flex justify-between">
-            <span className="text-white/70">{language === 'nl' ? 'Locatie' : 'Location'}:</span>
-            <span className="text-white font-medium">
-              {bookingData.location === 'online' 
-                ? (language === 'nl' ? 'Online' : 'Online')
-                : (language === 'nl' ? 'Op locatie' : 'On-site')}
-            </span>
+          <div>
+            <p className="text-sm text-white/60">{language === 'nl' ? 'Locatie' : 'Location'}</p>
+            <p className="text-lg font-medium text-white">{locationNames[location]}</p>
           </div>
 
-          <div className="flex justify-between">
-            <span className="text-white/70">{language === 'nl' ? 'Datum' : 'Date'}:</span>
-            <span className="text-white font-medium">{formattedDate}</span>
+          <div>
+            <p className="text-sm text-white/60">{language === 'nl' ? 'Datum' : 'Date'}</p>
+            <p className="text-lg font-medium text-white">{formattedDate}</p>
           </div>
 
-          <div className="flex justify-between">
-            <span className="text-white/70">{language === 'nl' ? 'Tijd' : 'Time'}:</span>
-            <span className="text-white font-medium">{bookingData.selected_time}</span>
+          <div>
+            <p className="text-sm text-white/60">{language === 'nl' ? 'Tijd' : 'Time'}</p>
+            <p className="text-lg font-medium text-white">
+              {bookingSelection.time} - {endTime}
+            </p>
           </div>
 
-          <div className="flex justify-between">
-            <span className="text-white/70">{language === 'nl' ? 'Specialist' : 'Specialist'}:</span>
-            <span className="text-white font-medium">{bookingData.assigned_staff_name}</span>
+          <div>
+            <p className="text-sm text-white/60">{language === 'nl' ? 'Specialist' : 'Specialist'}</p>
+            <p className="text-lg font-medium text-white">{bookingSelection.staffName}</p>
           </div>
 
-          <div className="flex justify-between">
-            <span className="text-white/70">{language === 'nl' ? 'Duur' : 'Duration'}:</span>
-            <span className="text-white font-medium">{bookingData.duration_minutes} min</span>
+          <div>
+            <p className="text-sm text-white/60">{language === 'nl' ? 'Duur' : 'Duration'}</p>
+            <p className="text-lg font-medium text-white">
+              {config.durationMinutes} {language === 'nl' ? 'minuten' : 'minutes'}
+            </p>
           </div>
 
-          <div className="border-t border-white/20 pt-4 mt-4">
-            <div className="flex justify-between text-lg">
-              <span className="text-white font-semibold">{language === 'nl' ? 'Totaal' : 'Total'}:</span>
-              <span className="text-white font-bold">€{bookingData.price_euros}</span>
-            </div>
+          <div className="pt-4 border-t border-white/20">
+            <p className="text-sm text-white/60">{language === 'nl' ? 'Totaal' : 'Total'}</p>
+            <p className="text-2xl font-bold text-white">€{config.priceEuros}</p>
           </div>
         </div>
 
@@ -164,7 +192,7 @@ export const PaymentStep = ({ bookingIntentId, onBack }: PaymentStepProps) => {
         >
           {isProcessing
             ? (language === 'nl' ? 'Bezig met bevestigen...' : 'Confirming...')
-            : (language === 'nl' ? 'Bevestig en betaal' : 'Confirm and pay')}
+            : (language === 'nl' ? 'Betalen en bevestigen' : 'Pay and confirm')}
         </Button>
       </div>
     </div>

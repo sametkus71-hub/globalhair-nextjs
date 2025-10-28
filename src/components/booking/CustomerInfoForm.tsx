@@ -1,18 +1,17 @@
 import { useState } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
-import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
+import { CustomerInfo } from './BookingWizard';
 
 interface CustomerInfoFormProps {
-  bookingIntentId: string;
-  onComplete: () => void;
+  onComplete: (info: CustomerInfo) => void;
   onBack: () => void;
 }
 
-export const CustomerInfoForm = ({ bookingIntentId, onComplete, onBack }: CustomerInfoFormProps) => {
+export const CustomerInfoForm = ({ onComplete, onBack }: CustomerInfoFormProps) => {
   const { language } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -22,38 +21,17 @@ export const CustomerInfoForm = ({ bookingIntentId, onComplete, onBack }: Custom
     notes: '',
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
 
-    try {
-      // Validate fields
-      if (!formData.name || !formData.email || !formData.phone) {
-        toast.error(language === 'nl' ? 'Vul alle verplichte velden in' : 'Please fill in all required fields');
-        setIsSubmitting(false);
-        return;
-      }
-
-      // Update booking intent with customer info
-      const { error } = await supabase
-        .from('booking_intents')
-        .update({
-          customer_name: formData.name,
-          customer_email: formData.email,
-          customer_phone: formData.phone,
-          booking_notes: formData.notes || null,
-        })
-        .eq('id', bookingIntentId);
-
-      if (error) throw error;
-
-      onComplete();
-    } catch (error) {
-      console.error('Error updating booking intent:', error);
-      toast.error(language === 'nl' ? 'Er is iets misgegaan' : 'Something went wrong');
-    } finally {
-      setIsSubmitting(false);
+    // Validate fields
+    if (!formData.name || !formData.email || !formData.phone) {
+      toast.error(language === 'nl' ? 'Vul alle verplichte velden in' : 'Please fill in all required fields');
+      return;
     }
+
+    // Pass data back to parent
+    onComplete(formData);
   };
 
   return (
@@ -129,12 +107,9 @@ export const CustomerInfoForm = ({ bookingIntentId, onComplete, onBack }: Custom
 
           <Button
             type="submit"
-            disabled={isSubmitting}
             className="w-full bg-white/20 hover:bg-white/30 text-white"
           >
-            {isSubmitting
-              ? (language === 'nl' ? 'Bezig...' : 'Processing...')
-              : (language === 'nl' ? 'Verder naar betaling' : 'Continue to payment')}
+            {language === 'nl' ? 'Verder naar betaling' : 'Continue to payment'}
           </Button>
         </form>
       </div>

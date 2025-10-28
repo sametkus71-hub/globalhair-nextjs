@@ -5,6 +5,7 @@ import { useAvailabilitySlots } from '@/hooks/useAvailabilitySlots';
 import { useStaffSelection } from '@/hooks/useStaffSelection';
 import { Calendar } from '@/components/ui/calendar';
 import { ServiceType, LocationType } from './BookingWizard';
+import { getServiceConfig } from '@/lib/service-config';
 import { format } from 'date-fns';
 import { nl, enGB } from 'date-fns/locale';
 
@@ -20,6 +21,20 @@ export const DateTimePicker = ({ serviceType, location, onSelect, onBack }: Date
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [selectedTime, setSelectedTime] = useState<string | undefined>(undefined);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
+
+  // Get service configuration for duration
+  const config = getServiceConfig(serviceType, location);
+  const durationMinutes = config.durationMinutes;
+
+  // Format time slot with duration (e.g., "10:00 - 10:30")
+  const formatTimeSlotWithDuration = (startTime: string): string => {
+    const [hours, minutes] = startTime.split(':').map(Number);
+    const endDate = new Date();
+    endDate.setHours(hours, minutes + durationMinutes, 0, 0);
+    const endHours = String(endDate.getHours()).padStart(2, '0');
+    const endMinutes = String(endDate.getMinutes()).padStart(2, '0');
+    return `${startTime} - ${endHours}:${endMinutes}`;
+  };
 
   // Load cached availability days
   const {
@@ -58,13 +73,6 @@ export const DateTimePicker = ({ serviceType, location, onSelect, onBack }: Date
     }
   }, [cacheData?.availableDates, selectedDate]);
 
-  // Auto-proceed when staff is assigned
-  useEffect(() => {
-    if (selectedDate && selectedTime && staffId && staffName && !isStaffLoading) {
-      onSelect(format(selectedDate, 'yyyy-MM-dd'), selectedTime, staffId, staffName);
-    }
-  }, [selectedDate, selectedTime, staffId, staffName, isStaffLoading, onSelect]);
-
   const handleDateSelect = (date: Date | undefined) => {
     setSelectedDate(date);
     setSelectedTime(undefined);
@@ -73,6 +81,13 @@ export const DateTimePicker = ({ serviceType, location, onSelect, onBack }: Date
   const handleTimeSelect = (time: string) => {
     setSelectedTime(time);
   };
+
+  // When staff is assigned, call onSelect
+  useEffect(() => {
+    if (selectedDate && selectedTime && staffId && staffName && !isStaffLoading) {
+      onSelect(format(selectedDate, 'yyyy-MM-dd'), selectedTime, staffId, staffName);
+    }
+  }, [selectedDate, selectedTime, staffId, staffName, isStaffLoading, onSelect]);
 
   const handleMonthChange = (date: Date) => {
     setCurrentMonth(date);
@@ -142,7 +157,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect, onBack }: Date
                     <div className="animate-spin rounded-full h-8 w-8 border-2 border-white/20 border-t-white"></div>
                   </div>
                 ) : availableSlots && availableSlots.length > 0 ? (
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-2 gap-3">
                     {availableSlots.map((slot) => (
                       <button
                         key={slot}
@@ -153,7 +168,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect, onBack }: Date
                             : 'bg-white/5 text-white/70 hover:bg-white/10 border-white/10'
                         } border backdrop-blur-sm`}
                       >
-                        {slot}
+                        <span className="block">{formatTimeSlotWithDuration(slot)}</span>
                       </button>
                     ))}
                   </div>
