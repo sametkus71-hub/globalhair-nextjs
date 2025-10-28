@@ -31,11 +31,16 @@ Deno.serve(async (req) => {
     const config = getServiceConfig(serviceType, location);
     const monthDates = generateMonthDates(year, month);
 
-    // Sparse sampling: Check every 3rd day to reduce API calls
-    // This gives ~10 samples per month instead of 31
-    const sampledDates = monthDates.filter((_, index) => index % 3 === 0);
+    // Filter to only future weekdays (skip weekends and past days entirely)
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
     
-    console.log(`Sparse sampling: Checking ${sampledDates.length} days (every 3rd) for service ${config.serviceId}, staff: ${config.staffIds.join(', ')}, ${year}-${month + 1}`);
+    const weekdayDates = monthDates.filter(date => {
+      const dayOfWeek = date.getDay();
+      return date >= today && dayOfWeek !== 0 && dayOfWeek !== 6; // Not Sunday or Saturday
+    });
+    
+    console.log(`Checking ${weekdayDates.length} weekdays (excluding weekends and past) for service ${config.serviceId}, staff: ${config.staffIds.join(', ')}, ${year}-${month + 1}`);
 
     // Fetch availability for all staff members (fully sequential to avoid rate limiting)
     const allAvailability: any[][] = [];
@@ -47,9 +52,9 @@ Deno.serve(async (req) => {
       console.log(`Processing staff ${staffIndex + 1}/${config.staffIds.length} (${staffId})`);
       
       // Process each date completely sequentially
-      for (let i = 0; i < sampledDates.length; i++) {
-        const date = sampledDates[i];
-        console.log(`  Checking date ${i + 1}/${sampledDates.length}: ${date.toISOString().split('T')[0]}`);
+      for (let i = 0; i < weekdayDates.length; i++) {
+        const date = weekdayDates[i];
+        console.log(`  Checking date ${i + 1}/${weekdayDates.length}: ${date.toISOString().split('T')[0]}`);
         
         const endpoint = `/bookings/v1/json/availableslots`;
         const params = new URLSearchParams({
@@ -94,8 +99,8 @@ Deno.serve(async (req) => {
       }
     }
 
-    // Merge availability across staff members and extrapolate to all days
-    const mergedAvailability = mergeAndExtrapolate(allAvailability, monthDates);
+    // Merge availability across staff members
+    const mergedAvailability = mergeAvailability(allAvailability);
 
     return successResponse({
       availability: mergedAvailability,
@@ -117,49 +122,25 @@ Deno.serve(async (req) => {
 });
 
 /**
- * Merge sampled availability from multiple staff members and extrapolate to all days
- * Returns which days likely have availability based on sparse sampling
+ * Merge availability from multiple staff members
+ * Returns only days with actual availability (no extrapolation)
  */
-function mergeAndExtrapolate(availabilities: any[][], allDates: Date[]): AvailabilitySlot[] {
-  const sampledMap = new Map<string, boolean>();
-
-  // Collect sampled dates
+function mergeAvailability(availabilities: any[][]): AvailabilitySlot[] {
+  const mergedMap = new Map<string, boolean>();
+  
+  // Merge all staff availability
   for (const staffAvailability of availabilities) {
     for (const dayCheck of staffAvailability) {
-      const date = dayCheck.date;
-      const hasAvail = sampledMap.get(date) || dayCheck.has_availability;
-      sampledMap.set(date, hasAvail);
+      const hasAvail = mergedMap.get(dayCheck.date) || dayCheck.has_availability;
+      mergedMap.set(dayCheck.date, hasAvail);
     }
   }
-
-  // Extrapolate: Mark days as potentially available based on nearest sampled day
-  const result: AvailabilitySlot[] = allDates.map(date => {
-    const dateStr = date.toISOString().split('T')[0];
-    
-    // If we sampled this day, use actual result
-    if (sampledMap.has(dateStr)) {
-      return {
-        date: dateStr,
-        available_slots: sampledMap.get(dateStr) ? ['check_day'] : [], // Placeholder
-      };
-    }
-    
-    // Otherwise, check nearby sampled days (within 3 days)
-    const nearbyDates = Array.from(sampledMap.entries())
-      .filter(([sampledDate]) => {
-        const diff = Math.abs(
-          new Date(sampledDate).getTime() - date.getTime()
-        ) / (1000 * 60 * 60 * 24);
-        return diff <= 3;
-      });
-    
-    const hasNearbyAvailability = nearbyDates.some(([_, hasAvail]) => hasAvail);
-    
-    return {
-      date: dateStr,
-      available_slots: hasNearbyAvailability ? ['check_day'] : [],
-    };
-  });
-
-  return result.sort((a, b) => a.date.localeCompare(b.date));
+  
+  // Convert to array with actual availability only
+  return Array.from(mergedMap.entries())
+    .map(([date, hasAvail]) => ({
+      date,
+      available_slots: hasAvail ? ['check_day'] : [],
+    }))
+    .sort((a, b) => a.date.localeCompare(b.date));
 }
