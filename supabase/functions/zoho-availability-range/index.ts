@@ -37,62 +37,60 @@ Deno.serve(async (req) => {
     
     console.log(`Sparse sampling: Checking ${sampledDates.length} days (every 3rd) for service ${config.serviceId}, staff: ${config.staffIds.join(', ')}, ${year}-${month + 1}`);
 
-    // Fetch availability for all staff members (sequentially to avoid rate limiting)
+    // Fetch availability for all staff members (fully sequential to avoid rate limiting)
     const allAvailability: any[][] = [];
     
     for (const staffId of config.staffIds) {
       const staffAvailability: any[] = [];
+      const staffIndex = config.staffIds.indexOf(staffId);
       
-      // Process sampled dates in batches of 3 with 400ms delay
-      const batchSize = 3;
-      for (let i = 0; i < sampledDates.length; i += batchSize) {
-        const batch = sampledDates.slice(i, i + batchSize);
+      console.log(`Processing staff ${staffIndex + 1}/${config.staffIds.length} (${staffId})`);
+      
+      // Process each date completely sequentially
+      for (let i = 0; i < sampledDates.length; i++) {
+        const date = sampledDates[i];
+        console.log(`  Checking date ${i + 1}/${sampledDates.length}: ${date.toISOString().split('T')[0]}`);
         
-        const batchPromises = batch.map(async (date) => {
-          const endpoint = `/bookings/v1/json/availableslots`;
-          const params = new URLSearchParams({
-            service_id: config.serviceId,
-            staff_id: staffId,
-            selected_date: formatDateForZoho(date),
-            timezone: Deno.env.get('ZB_TIMEZONE') || 'Europe/Amsterdam',
-          });
-
-          try {
-            const response = await zohoApiRequest<any>(
-              `${endpoint}?${params.toString()}`,
-              { method: 'GET' }
-            );
-
-            const dateStr = date.toISOString().split('T')[0];
-            const hasSlots = (response.data?.available_slots || []).length > 0;
-            
-            return {
-              date: dateStr,
-              has_availability: hasSlots,
-            };
-          } catch (error) {
-            console.error(`Error fetching date ${date}:`, error);
-            return {
-              date: date.toISOString().split('T')[0],
-              has_availability: false,
-            };
-          }
+        const endpoint = `/bookings/v1/json/availableslots`;
+        const params = new URLSearchParams({
+          service_id: config.serviceId,
+          staff_id: staffId,
+          selected_date: formatDateForZoho(date),
+          timezone: Deno.env.get('ZB_TIMEZONE') || 'Europe/Amsterdam',
         });
 
-        const batchResults = await Promise.all(batchPromises);
-        staffAvailability.push(...batchResults);
+        try {
+          const response = await zohoApiRequest<any>(
+            `${endpoint}?${params.toString()}`,
+            { method: 'GET' }
+          );
 
-        // Add delay between batches to avoid rate limiting
-        if (i + batchSize < sampledDates.length) {
-          await new Promise(resolve => setTimeout(resolve, 400));
+          const dateStr = date.toISOString().split('T')[0];
+          const hasSlots = (response.data?.available_slots || []).length > 0;
+          
+          staffAvailability.push({
+            date: dateStr,
+            has_availability: hasSlots,
+          });
+        } catch (error) {
+          console.error(`  Error fetching date ${date}:`, error);
+          staffAvailability.push({
+            date: date.toISOString().split('T')[0],
+            has_availability: false,
+          });
         }
+
+        // Add 300ms delay after each API call to avoid rate limiting
+        await new Promise(resolve => setTimeout(resolve, 300));
       }
 
       allAvailability.push(staffAvailability);
+      console.log(`  Completed staff ${staffIndex + 1}/${config.staffIds.length}`);
       
-      // Add delay between staff members
-      if (config.staffIds.indexOf(staffId) < config.staffIds.length - 1) {
-        await new Promise(resolve => setTimeout(resolve, 800));
+      // Add 1000ms delay between staff members
+      if (staffIndex < config.staffIds.length - 1) {
+        console.log(`  Waiting 1s before next staff member...`);
+        await new Promise(resolve => setTimeout(resolve, 1000));
       }
     }
 

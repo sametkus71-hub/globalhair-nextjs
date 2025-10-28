@@ -77,8 +77,11 @@ export const DateTimePicker = ({ serviceType, location, onSelect, onBack }: Date
           </h3>
           
           {rangeLoading ? (
-            <div className="flex justify-center py-12">
+            <div className="flex flex-col items-center justify-center py-12 space-y-3">
               <div className="animate-spin rounded-full h-8 w-8 border-2 border-white/20 border-t-white"></div>
+              <p className="text-sm text-white/60">
+                {language === 'nl' ? 'Beschikbaarheid laden (~7 seconden)...' : 'Loading availability (~7 seconds)...'}
+              </p>
             </div>
           ) : (
             <div className="relative">
