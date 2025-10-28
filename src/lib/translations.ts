@@ -102,6 +102,24 @@ export const translations = {
     'nav.bottom.mission': 'Missie', 
     'nav.bottom.reviews': 'Reviews',
     'nav.bottom.book': 'Book',
+    
+    // Booking
+    'booking.step1Title': 'Kies een optie',
+    'booking.step2Title': 'Selecteer datum',
+    'booking.step3Title': 'Bevestigen',
+    'booking.consultType': 'Type consult',
+    'booking.basicConsult': 'Basic consult / V6 Hairboost',
+    'booking.basicConsultDesc': '30 minuten persoonlijk consult voor V6 Hairboost behandeling',
+    'booking.trichoScan': 'TrichoScan™ / Haartransplantatie',
+    'booking.trichoScanDesc': '45 minuten uitgebreid consult met TrichoScan analyse',
+    'booking.locationLabel': 'Locatie',
+    'booking.onLocation': 'Op locatie (Barendrecht)',
+    'booking.videoCall': 'Videocall',
+    'booking.selectConsultant': 'Selecteer consultant',
+    'booking.trichoTeam': 'TrichoTeam',
+    'booking.ceo': 'CEO - Berkant Dural',
+    'booking.totalPrice': 'Totaalprijs',
+    'booking.next': 'Volgende',
   },
   en: {
     // Navigation
@@ -204,6 +222,24 @@ export const translations = {
     'nav.bottom.mission': 'Mission', 
     'nav.bottom.reviews': 'Reviews',
     'nav.bottom.book': 'Book',
+    
+    // Booking
+    'booking.step1Title': 'Choose an option',
+    'booking.step2Title': 'Select date',
+    'booking.step3Title': 'Confirm',
+    'booking.consultType': 'Consultation type',
+    'booking.basicConsult': 'Basic consult / V6 Hairboost',
+    'booking.basicConsultDesc': '30 minute personal consultation for V6 Hairboost treatment',
+    'booking.trichoScan': 'TrichoScan™ / Hair Transplant',
+    'booking.trichoScanDesc': '45 minute comprehensive consultation with TrichoScan analysis',
+    'booking.locationLabel': 'Location',
+    'booking.onLocation': 'On location (Barendrecht)',
+    'booking.videoCall': 'Video call',
+    'booking.selectConsultant': 'Select consultant',
+    'booking.trichoTeam': 'TrichoTeam',
+    'booking.ceo': 'CEO - Berkant Dural',
+    'booking.totalPrice': 'Total price',
+    'booking.next': 'Next',
   }
 } as const;
 

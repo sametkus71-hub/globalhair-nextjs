@@ -1,43 +1,35 @@
 import { useState } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { supabase } from '@/integrations/supabase/client';
-import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import { ServiceType, LocationType, BookingSelection, CustomerInfo } from './BookingWizard';
 import { getServiceConfig } from '@/lib/service-config';
 import { format } from 'date-fns';
-import { nl, enGB } from 'date-fns/locale';
+import { nl, enGB as enUS } from 'date-fns/locale';
 
 interface PaymentStepProps {
   serviceType: ServiceType;
   location: LocationType;
-  bookingSelection: BookingSelection;
-  customerInfo: CustomerInfo;
-  onBack: () => void;
+  bookingSelection: {
+    date: string;
+    time: string;
+    staffId: string;
+    staffName: string;
+  };
+  customerInfo: {
+    name: string;
+    email: string;
+    phone: string;
+    notes: string;
+  };
+  price: number;
 }
 
-export const PaymentStep = ({
-  serviceType,
-  location,
-  bookingSelection,
-  customerInfo,
-  onBack
-}: PaymentStepProps) => {
+export const PaymentStep = ({ serviceType, location, bookingSelection, customerInfo, price }: PaymentStepProps) => {
   const { language } = useLanguage();
   const [isProcessing, setIsProcessing] = useState(false);
 
   const config = getServiceConfig(serviceType, location);
-
-  const serviceNames = {
-    v6_hairboost: language === 'nl' ? 'V6 Hairboost Consult' : 'V6 Hairboost Consultation',
-    haartransplantatie: language === 'nl' ? 'Haartransplantatie Consult' : 'Hair Transplant Consultation',
-    ceo_consult: language === 'nl' ? 'CEO Consult' : 'CEO Consultation',
-  };
-
-  const locationNames = {
-    online: language === 'nl' ? 'Online' : 'Online',
-    onsite: language === 'nl' ? 'Op locatie' : 'On-site',
-  };
 
   const handlePayment = async () => {
     setIsProcessing(true);
@@ -112,12 +104,6 @@ export const PaymentStep = ({
     }
   };
 
-  // Format appointment date for display
-  const appointmentDateObj = new Date(bookingSelection.date);
-  const formattedDate = format(appointmentDateObj, 'EEEE d MMMM yyyy', {
-    locale: language === 'nl' ? nl : enGB,
-  });
-
   // Calculate end time for display
   const [hours, minutes] = bookingSelection.time.split(':').map(Number);
   const endDate = new Date();
@@ -125,76 +111,72 @@ export const PaymentStep = ({
   const endTime = `${String(endDate.getHours()).padStart(2, '0')}:${String(endDate.getMinutes()).padStart(2, '0')}`;
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <div className="p-4">
-        <button
-          onClick={onBack}
-          disabled={isProcessing}
-          className="flex items-center gap-2 text-white/70 hover:text-white transition-colors disabled:opacity-50"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          {language === 'nl' ? 'Terug' : 'Back'}
-        </button>
-      </div>
+    <div className="flex flex-col space-y-6 pt-6 border-t">
+      {/* Booking Summary */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium text-foreground">
+          {language === 'nl' ? 'Bevestig en betaal' : 'Confirm and pay'}
+        </h3>
 
-      <div className="flex-1 px-4 pb-8">
-        <h2 className="text-2xl font-bold text-white mb-6">
-          {language === 'nl' ? 'Bevestig je afspraak' : 'Confirm your appointment'}
-        </h2>
-
-        <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 space-y-4 mb-6">
-          <div>
-            <p className="text-sm text-white/60">{language === 'nl' ? 'Service' : 'Service'}</p>
-            <p className="text-lg font-medium text-white">{serviceNames[serviceType]}</p>
+        <div className="space-y-3 p-4 rounded-lg bg-card border border-border">
+          <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground">{language === 'nl' ? 'Service' : 'Service'}:</span>
+            <span className="text-foreground font-medium">
+              {serviceType === 'v6_hairboost' && (language === 'nl' ? 'V6 Hairboost' : 'V6 Hairboost')}
+              {serviceType === 'haartransplantatie' && (language === 'nl' ? 'Haartransplantatie' : 'Hair Transplant')}
+              {serviceType === 'ceo_consult' && (language === 'nl' ? 'CEO Consultatie' : 'CEO Consultation')}
+            </span>
           </div>
 
-          <div>
-            <p className="text-sm text-white/60">{language === 'nl' ? 'Locatie' : 'Location'}</p>
-            <p className="text-lg font-medium text-white">{locationNames[location]}</p>
+          <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground">{language === 'nl' ? 'Locatie' : 'Location'}:</span>
+            <span className="text-foreground font-medium">
+              {location === 'online' ? (language === 'nl' ? 'Online' : 'Online') : (language === 'nl' ? 'Op locatie' : 'On-site')}
+            </span>
           </div>
 
-          <div>
-            <p className="text-sm text-white/60">{language === 'nl' ? 'Datum' : 'Date'}</p>
-            <p className="text-lg font-medium text-white">{formattedDate}</p>
+          <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground">{language === 'nl' ? 'Datum' : 'Date'}:</span>
+            <span className="text-foreground font-medium">
+              {format(new Date(bookingSelection.date), 'EEEE, d MMMM yyyy', { locale: language === 'nl' ? nl : enUS })}
+            </span>
           </div>
 
-          <div>
-            <p className="text-sm text-white/60">{language === 'nl' ? 'Tijd' : 'Time'}</p>
-            <p className="text-lg font-medium text-white">
+          <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground">{language === 'nl' ? 'Tijd' : 'Time'}:</span>
+            <span className="text-foreground font-medium">
               {bookingSelection.time} - {endTime}
-            </p>
+            </span>
           </div>
 
-          <div>
-            <p className="text-sm text-white/60">{language === 'nl' ? 'Specialist' : 'Specialist'}</p>
-            <p className="text-lg font-medium text-white">{bookingSelection.staffName}</p>
+          <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground">{language === 'nl' ? 'Specialist' : 'Specialist'}:</span>
+            <span className="text-foreground font-medium">{bookingSelection.staffName}</span>
           </div>
 
-          <div>
-            <p className="text-sm text-white/60">{language === 'nl' ? 'Duur' : 'Duration'}</p>
-            <p className="text-lg font-medium text-white">
-              {config.durationMinutes} {language === 'nl' ? 'minuten' : 'minutes'}
-            </p>
+          <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground">{language === 'nl' ? 'Duur' : 'Duration'}:</span>
+            <span className="text-foreground font-medium">{config.durationMinutes} {language === 'nl' ? 'minuten' : 'minutes'}</span>
           </div>
 
-          <div className="pt-4 border-t border-white/20">
-            <p className="text-sm text-white/60">{language === 'nl' ? 'Totaal' : 'Total'}</p>
-            <p className="text-2xl font-bold text-white">€{config.priceEuros}</p>
+          <div className="pt-3 border-t flex justify-between">
+            <span className="text-foreground font-medium">{language === 'nl' ? 'Totaal' : 'Total'}:</span>
+            <span className="text-primary text-2xl font-bold">€{price}</span>
           </div>
         </div>
-
-        <Button
-          onClick={handlePayment}
-          disabled={isProcessing}
-          className="w-full bg-white/20 hover:bg-white/30 text-white"
-        >
-          {isProcessing
-            ? (language === 'nl' ? 'Bezig met bevestigen...' : 'Confirming...')
-            : (language === 'nl' ? 'Betalen en bevestigen' : 'Pay and confirm')}
-        </Button>
       </div>
+
+      {/* Payment Button */}
+      <button
+        onClick={handlePayment}
+        disabled={isProcessing}
+        className="w-full px-6 py-4 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-all duration-200 disabled:opacity-50 shadow-lg"
+      >
+        {isProcessing 
+          ? (language === 'nl' ? 'Bezig met verwerken...' : 'Processing...') 
+          : (language === 'nl' ? 'Betalen' : 'Pay')
+        }
+      </button>
     </div>
   );
 };

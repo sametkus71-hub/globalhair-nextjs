@@ -13,10 +13,9 @@ interface DateTimePickerProps {
   serviceType: ServiceType;
   location: LocationType;
   onSelect: (date: string, time: string, staffId: string, staffName: string) => void;
-  onBack: () => void;
 }
 
-export const DateTimePicker = ({ serviceType, location, onSelect, onBack }: DateTimePickerProps) => {
+export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePickerProps) => {
   const { language } = useLanguage();
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [selectedTime, setSelectedTime] = useState<string | undefined>(undefined);
@@ -78,8 +77,11 @@ export const DateTimePicker = ({ serviceType, location, onSelect, onBack }: Date
     setSelectedTime(undefined);
   };
 
-  const handleTimeSelect = (time: string) => {
-    setSelectedTime(time);
+  const handleTimeSelect = (slot: string) => {
+    setSelectedTime(slot);
+    if (selectedDate && staffId && staffName) {
+      onSelect(format(selectedDate, 'yyyy-MM-dd'), slot, staffId, staffName);
+    }
   };
 
   // When staff is assigned, call onSelect
@@ -108,80 +110,67 @@ export const DateTimePicker = ({ serviceType, location, onSelect, onBack }: Date
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Back button */}
-      <div className="p-4">
-        <button
-          onClick={onBack}
-          className="flex items-center gap-2 text-white/70 hover:text-white transition-colors"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          {language === 'nl' ? 'Terug' : 'Back'}
-        </button>
-      </div>
-
-      <div className="space-y-6">
-        {isLoadingCache ? (
-          <div className="flex justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-2 border-white/20 border-t-white"></div>
-          </div>
-        ) : (
-          <>
-            <div>
-              <h3 className="text-lg font-medium text-white mb-4 px-4">
-                {language === 'nl' ? 'Selecteer een datum' : 'Select a date'}
-              </h3>
-              <div className="flex justify-center">
-                <Calendar
-                  mode="single"
-                  selected={selectedDate}
-                  onSelect={handleDateSelect}
-                  disabled={isDateDisabled}
-                  month={currentMonth}
-                  onMonthChange={handleMonthChange}
-                  locale={language === 'nl' ? nl : enGB}
-                  className="rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm"
-                />
-              </div>
+    <div className="flex flex-col space-y-6">
+      {isLoadingCache ? (
+        <div className="flex justify-center py-12">
+          <div className="animate-spin rounded-full h-8 w-8 border-2 border-border border-t-primary"></div>
+        </div>
+      ) : (
+        <>
+          <div>
+            <h3 className="text-lg font-medium text-foreground mb-4">
+              {language === 'nl' ? 'Selecteer een datum' : 'Select a date'}
+            </h3>
+            <div className="flex justify-center">
+              <Calendar
+                mode="single"
+                selected={selectedDate}
+                onSelect={handleDateSelect}
+                disabled={isDateDisabled}
+                month={currentMonth}
+                onMonthChange={handleMonthChange}
+                locale={language === 'nl' ? nl : enGB}
+                className="rounded-lg border"
+              />
             </div>
+          </div>
 
-            {selectedDate && (
-              <div className="px-4">
-                <h3 className="text-lg font-medium text-white mb-4">
-                  {language === 'nl' ? 'Selecteer een tijd' : 'Select a time'}
-                </h3>
-                {isSlotsLoading ? (
-                  <div className="flex justify-center py-8">
-                    <div className="animate-spin rounded-full h-8 w-8 border-2 border-white/20 border-t-white"></div>
-                  </div>
-                ) : availableSlots && availableSlots.length > 0 ? (
-                  <div className="grid grid-cols-2 gap-3">
-                    {availableSlots.map((slot) => (
-                      <button
-                        key={slot}
-                        onClick={() => handleTimeSelect(slot)}
-                        className={`py-3 px-4 rounded-lg text-sm font-medium transition-all ${
-                          selectedTime === slot
-                            ? 'bg-white/20 text-white border-white/40'
-                            : 'bg-white/5 text-white/70 hover:bg-white/10 border-white/10'
-                        } border backdrop-blur-sm`}
-                      >
-                        <span className="block">{formatTimeSlotWithDuration(slot)}</span>
-                      </button>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-center text-white/50 py-8">
-                    {language === 'nl' ? 'Geen beschikbare tijden' : 'No available times'}
-                  </p>
-                )}
-              </div>
-            )}
-          </>
-        )}
-      </div>
+          {selectedDate && (
+            <div>
+              <h3 className="text-lg font-medium text-foreground mb-4">
+                {language === 'nl' ? 'Selecteer een tijd' : 'Select a time'}
+              </h3>
+              {isSlotsLoading ? (
+                <div className="flex justify-center py-8">
+                  <div className="animate-spin rounded-full h-8 w-8 border-2 border-border border-t-primary"></div>
+                </div>
+              ) : availableSlots && availableSlots.length > 0 ? (
+                <div className="grid grid-cols-2 gap-3">
+                  {availableSlots.map((slot) => (
+                    <button
+                      key={slot}
+                      onClick={() => handleTimeSelect(slot)}
+                      className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                        selectedTime === slot
+                          ? 'bg-primary text-primary-foreground shadow-lg'
+                          : 'bg-card/50 text-card-foreground hover:bg-card/80'
+                      }`}
+                    >
+                      <span className="text-sm font-medium">
+                        {formatTimeSlotWithDuration(slot)}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-center text-muted-foreground py-8">
+                  {language === 'nl' ? 'Geen beschikbare tijden' : 'No available times'}
+                </p>
+              )}
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 };
