@@ -51,9 +51,12 @@ Deno.serve(async (req) => {
           { method: 'GET' }
         );
 
+        const rawSlots = response.response?.returnvalue?.data;
+        const slotsArray = Array.isArray(rawSlots) ? rawSlots : [];
+
         return {
           staffId,
-          slots: response.response?.returnvalue?.data || [],
+          slots: slotsArray,
         };
       } catch (error) {
         console.error(`Error fetching slots for staff ${staffId}:`, error);

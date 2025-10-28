@@ -39,21 +39,35 @@ export const useAvailabilityCache = (
       const startDate = new Date(year, month, 1);
       const endDate = new Date(year, month + 1, 0);
 
+      // Query availability_slots directly - a date has availability if any staff has slots
       const { data, error } = await supabase
-        .from('availability_cache')
-        .select('date, has_availability, last_synced_at')
+        .from('availability_slots')
+        .select('date, time_slots, last_synced_at')
         .eq('service_key', serviceKey)
         .gte('date', startDate.toISOString().split('T')[0])
         .lte('date', endDate.toISOString().split('T')[0])
-        .eq('has_availability', true)
+        .eq('zoho_response_status', 'success')
         .order('date');
 
       if (error) throw error;
 
-      // Convert to Map for fast lookups
-      const availabilityMap = new Map(
-        data.map(d => [d.date, d.has_availability])
-      );
+      // Group by date and check if any staff has slots
+      const dateAvailability = new Map<string, boolean>();
+      
+      for (const row of data) {
+        const hasSlots = Array.isArray(row.time_slots) && row.time_slots.length > 0;
+        if (!dateAvailability.has(row.date)) {
+          dateAvailability.set(row.date, hasSlots);
+        } else if (hasSlots) {
+          dateAvailability.set(row.date, true);
+        }
+      }
+
+      // Get unique dates with availability
+      const uniqueDates = Array.from(dateAvailability.entries())
+        .filter(([_, hasAvailability]) => hasAvailability)
+        .map(([date]) => date)
+        .sort();
 
       // Check if data is stale (older than 5 hours)
       const lastSyncedAt = data.length > 0 ? data[0].last_synced_at : null;
@@ -67,10 +81,10 @@ export const useAvailabilityCache = (
       }
 
       return {
-        availableDates: data.map(d => d.date),
+        availableDates: uniqueDates,
         hasAvailability: (date: Date) => {
           const dateStr = date.toISOString().split('T')[0];
-          return availabilityMap.get(dateStr) || false;
+          return dateAvailability.get(dateStr) || false;
         },
         isStale,
         lastSyncedAt,

@@ -61,6 +61,32 @@ function isValidTimeSlot(slot: string): boolean {
   return /^\d{2}:\d{2}$/.test(slot);
 }
 
+// Retry wrapper with exponential backoff
+async function fetchWithRetry<T>(
+  fn: () => Promise<T>,
+  maxRetries = 1,
+  delayMs = 1000
+): Promise<T> {
+  let lastError: Error | null = null;
+  
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      return await fn();
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error('Unknown error');
+      console.warn(`Attempt ${attempt + 1}/${maxRetries + 1} failed: ${lastError.message}`);
+      
+      if (attempt < maxRetries) {
+        const backoffDelay = delayMs * Math.pow(2, attempt);
+        console.log(`Retrying in ${backoffDelay}ms...`);
+        await new Promise(resolve => setTimeout(resolve, backoffDelay));
+      }
+    }
+  }
+  
+  throw lastError;
+}
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -114,32 +140,39 @@ Deno.serve(async (req) => {
             const staffName = getStaffName(staffId);
             
             try {
-              const endpoint = '/bookings/v1/json/availableslots';
-              const params = new URLSearchParams({
-                service_id: config.serviceId,
-                staff_id: staffId,
-                selected_date: zohoDate,
-                timezone,
-              });
+              const result = await fetchWithRetry(async () => {
+                const endpoint = '/bookings/v1/json/availableslots';
+                const params = new URLSearchParams({
+                  service_id: config.serviceId,
+                  staff_id: staffId,
+                  selected_date: zohoDate,
+                  timezone,
+                });
 
-              apiCallsMade++;
-              const response = await zohoApiRequest<any>(
-                `${endpoint}?${params.toString()}`,
-                { method: 'GET' }
-              );
+                apiCallsMade++;
+                const response = await zohoApiRequest<any>(
+                  `${endpoint}?${params.toString()}`,
+                  { method: 'GET' }
+                );
 
-              const rawSlots = response.response?.returnvalue?.data || [];
-              
-              // Filter to only valid time slots (HH:MM format)
-              const validSlots = rawSlots.filter((slot: string) => {
-                const isValid = isValidTimeSlot(slot);
-                if (!isValid) {
-                  console.warn(`Invalid slot format rejected: "${slot}" for ${serviceKey}, ${staffName}, ${dateStr}`);
-                }
-                return isValid;
-              });
+                const rawSlots = response.response?.returnvalue?.data;
+                
+                // Ensure rawSlots is an array before filtering
+                const slotsArray = Array.isArray(rawSlots) ? rawSlots : [];
+                
+                // Filter to only valid time slots (HH:MM format)
+                const validSlots = slotsArray.filter((slot: string) => {
+                  const isValid = isValidTimeSlot(slot);
+                  if (!isValid) {
+                    console.warn(`Invalid slot format rejected: "${slot}" for ${serviceKey}, ${staffName}, ${dateStr}`);
+                  }
+                  return isValid;
+                });
 
-              totalSlotsImported += validSlots.length;
+                return { validSlots, response };
+              }, 1, 1000);
+
+              totalSlotsImported += result.validSlots.length;
 
               // Store granular data in availability_slots
               const { error: slotError } = await supabase
@@ -149,7 +182,7 @@ Deno.serve(async (req) => {
                   staff_id: staffId,
                   staff_name: staffName,
                   date: dateStr,
-                  time_slots: validSlots,
+                  time_slots: result.validSlots,
                   zoho_response_status: 'success',
                   error_message: null,
                   last_synced_at: new Date().toISOString(),
@@ -193,51 +226,9 @@ Deno.serve(async (req) => {
           }
         }
 
-        // Now aggregate to availability_cache
-        // A day has availability if ANY staff member has slots
-        for (const date of weekdaysToCheck) {
-          const dateStr = date.toISOString().split('T')[0];
-
-          // Query availability_slots to check if any staff has slots
-          const { data: slotsData, error: queryError } = await supabase
-            .from('availability_slots')
-            .select('time_slots')
-            .eq('service_key', serviceKey)
-            .eq('date', dateStr)
-            .eq('zoho_response_status', 'success');
-
-          if (queryError) {
-            console.error(`Failed to query availability_slots for ${serviceKey} ${dateStr}:`, queryError);
-            continue;
-          }
-
-          // Check if any staff member has slots
-          const hasAvailability = slotsData?.some((row: any) => {
-            const slots = Array.isArray(row.time_slots) ? row.time_slots : [];
-            return slots.length > 0;
-          }) || false;
-
-          // Update availability_cache
-          const { error: cacheError } = await supabase
-            .from('availability_cache')
-            .upsert({
-              service_key: serviceKey,
-              date: dateStr,
-              has_availability: hasAvailability,
-              last_synced_at: new Date().toISOString(),
-            }, {
-              onConflict: 'service_key,date'
-            });
-
-          if (cacheError) {
-            console.error(`Failed to upsert cache for ${serviceKey} ${dateStr}:`, cacheError);
-          }
-        }
-
         // Clean up old records
         const today = new Date().toISOString().split('T')[0];
         await supabase.from('availability_slots').delete().eq('service_key', serviceKey).lt('date', today);
-        await supabase.from('availability_cache').delete().eq('service_key', serviceKey).lt('date', today);
 
         // Update sync log with success
         await supabase
