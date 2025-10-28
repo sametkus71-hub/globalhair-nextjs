@@ -1,4 +1,5 @@
 // Zoho OAuth and API utilities
+import { createClient } from 'npm:@supabase/supabase-js@2';
 
 interface ZohoTokenResponse {
   access_token: string;
@@ -7,21 +8,34 @@ interface ZohoTokenResponse {
   token_type: string;
 }
 
-interface ZohoTokenCache {
-  token: string;
-  expiresAt: number;
-}
-
-let tokenCache: ZohoTokenCache | null = null;
-
 /**
- * Get a valid Zoho access token (cached for 55 minutes)
+ * Get a valid Zoho access token (stored in Supabase for persistence)
  */
 export async function getZohoAccessToken(): Promise<string> {
-  // Return cached token if still valid
-  if (tokenCache && Date.now() < tokenCache.expiresAt) {
-    return tokenCache.token;
+  // Initialize Supabase client with service role
+  const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+  const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+  const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+  // Check if we have a valid token in the database
+  const { data: tokenData, error: fetchError } = await supabase
+    .from('zoho_tokens')
+    .select('access_token, expires_at')
+    .eq('id', 'zoho_oauth')
+    .single();
+
+  if (!fetchError && tokenData) {
+    const expiresAt = new Date(tokenData.expires_at).getTime();
+    const now = Date.now();
+    
+    // Return cached token if still valid (more than 5 minutes remaining)
+    if (now < expiresAt - 5 * 60 * 1000) {
+      console.log('Using cached Zoho token from database');
+      return tokenData.access_token;
+    }
   }
+
+  console.log('Refreshing Zoho access token...');
 
   // Get OAuth credentials from environment
   const clientId = Deno.env.get('ZB_CLIENT_ID');
@@ -53,11 +67,24 @@ export async function getZohoAccessToken(): Promise<string> {
 
   const data: ZohoTokenResponse = await response.json();
 
-  // Cache token for 55 minutes (5 minutes before expiry)
-  tokenCache = {
-    token: data.access_token,
-    expiresAt: Date.now() + 55 * 60 * 1000,
-  };
+  // Store token in database with expiry (55 minutes from now)
+  const expiresAt = new Date(Date.now() + 55 * 60 * 1000).toISOString();
+  
+  const { error: updateError } = await supabase
+    .from('zoho_tokens')
+    .upsert({
+      id: 'zoho_oauth',
+      access_token: data.access_token,
+      expires_at: expiresAt,
+      updated_at: new Date().toISOString(),
+    });
+
+  if (updateError) {
+    console.error('Failed to store token in database:', updateError);
+    // Continue anyway - token refresh succeeded
+  } else {
+    console.log('Token refreshed and stored in database');
+  }
 
   return data.access_token;
 }
