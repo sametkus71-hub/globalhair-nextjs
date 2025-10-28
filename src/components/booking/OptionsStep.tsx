@@ -39,101 +39,101 @@ export const OptionsStep = ({
   };
 
   return (
-    <div className="space-y-6 p-6">
+    <div className="space-y-4 p-4">
       {/* Consult Type Toggle */}
-      <div className="space-y-4">
-        <div className="flex justify-center">
-          <div className="inline-flex rounded-full border border-white/20 bg-white/5 p-1">
+      <div className="space-y-3">
+        <div className="flex justify-start">
+          <div className="inline-flex rounded-full border border-white/20 bg-white/5 p-0.5">
             <button
               onClick={() => onConsultTypeChange('v6_hairboost')}
-              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
+              className={`px-4 py-1.5 rounded-full text-xs font-inter font-normal transition-all duration-200 ${
                 consultType === 'v6_hairboost'
                   ? 'bg-white/90 text-slate-900'
-                  : 'text-white/70 hover:text-white'
+                  : 'text-white/60 hover:text-white'
               }`}
             >
-              V6 Hairboost consult
+              Basic consult
             </button>
             <button
               onClick={() => onConsultTypeChange('haartransplantatie')}
-              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
+              className={`px-4 py-1.5 rounded-full text-xs font-inter font-normal transition-all duration-200 ${
                 consultType === 'haartransplantatie'
                   ? 'bg-white/90 text-slate-900'
-                  : 'text-white/70 hover:text-white'
+                  : 'text-white/60 hover:text-white'
               }`}
             >
-              HT Consult
+              TrichoScan™
             </button>
           </div>
         </div>
         
-        <p className="text-sm text-white/60 text-center leading-relaxed px-2">
+        <p className="text-xs font-inter text-white/50 leading-relaxed">
           {getConsultDescription()}
         </p>
       </div>
 
       {/* Location Selection */}
-      <div className="space-y-3">
+      <div className="space-y-2">
         <button
           onClick={() => onLocationChange('onsite')}
-          className={`w-full px-4 py-4 rounded-xl text-left transition-all duration-200 flex items-center gap-3 ${
+          className={`w-full px-3 py-2.5 rounded-lg text-left transition-all duration-200 flex items-center gap-2.5 ${
             location === 'onsite'
               ? 'bg-white/15 border border-white/30'
               : 'bg-white/5 border border-white/10 hover:bg-white/10'
           }`}
         >
-          <MapPin className="w-5 h-5 text-white/80" />
+          <MapPin className="w-4 h-4 text-white/70" />
           <div className="flex-1">
-            <span className="text-sm font-medium text-white">Op locatie</span>
-            <span className="text-xs text-white/60 ml-2">(Barendrecht)</span>
+            <span className="text-xs font-inter font-normal text-white">Op locatie</span>
+            <span className="text-xs font-inter text-white/50 ml-1.5">(Barendrecht)</span>
           </div>
         </button>
         
         <button
           onClick={() => onLocationChange('online')}
-          className={`w-full px-4 py-4 rounded-xl text-left transition-all duration-200 flex items-center gap-3 ${
+          className={`w-full px-3 py-2.5 rounded-lg text-left transition-all duration-200 flex items-center gap-2.5 ${
             location === 'online'
               ? 'bg-white/15 border border-white/30'
               : 'bg-white/5 border border-white/10 hover:bg-white/10'
           }`}
         >
-          <Video className="w-5 h-5 text-white/80" />
-          <span className="text-sm font-medium text-white">Videocall</span>
+          <Video className="w-4 h-4 text-white/70" />
+          <span className="text-xs font-inter font-normal text-white">Videocall</span>
         </button>
         
         <button
           onClick={() => onLocationChange('online')}
-          className="w-full px-4 py-4 rounded-xl text-left transition-all duration-200 flex items-center gap-3 bg-white/5 border border-white/10 hover:bg-white/10 opacity-50 cursor-not-allowed"
+          className="w-full px-3 py-2.5 rounded-lg text-left transition-all duration-200 flex items-center gap-2.5 bg-white/5 border border-white/10 opacity-40 cursor-not-allowed"
           disabled
         >
-          <Phone className="w-5 h-5 text-white/80" />
-          <span className="text-sm font-medium text-white">Telefoon</span>
+          <Phone className="w-4 h-4 text-white/70" />
+          <span className="text-xs font-inter font-normal text-white">Telefoon</span>
         </button>
       </div>
 
       {/* Consultant Selection */}
-      <div className="space-y-3">
-        <label className="text-sm font-medium text-white/80">
+      <div className="space-y-2">
+        <label className="text-xs font-inter font-normal text-white/70">
           Selecteer consultant
         </label>
-        <div className="flex justify-center">
-          <div className="inline-flex rounded-full border border-white/20 bg-white/5 p-1 w-full">
+        <div className="flex justify-start">
+          <div className="inline-flex rounded-full border border-white/20 bg-white/5 p-0.5 w-full">
             <button
               onClick={() => onConsultantChange('trichoTeam')}
-              className={`flex-1 px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
+              className={`flex-1 px-4 py-1.5 rounded-full text-xs font-inter font-normal transition-all duration-200 ${
                 consultant === 'trichoTeam'
                   ? 'bg-white/90 text-slate-900'
-                  : 'text-white/70 hover:text-white'
+                  : 'text-white/60 hover:text-white'
               }`}
             >
               TrichoTeam
             </button>
             <button
               onClick={() => onConsultantChange('ceo')}
-              className={`flex-1 px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
+              className={`flex-1 px-4 py-1.5 rounded-full text-xs font-inter font-normal transition-all duration-200 ${
                 consultant === 'ceo'
                   ? 'bg-white/90 text-slate-900'
-                  : 'text-white/70 hover:text-white'
+                  : 'text-white/60 hover:text-white'
               }`}
             >
               CEO - Berkant Dural
@@ -145,7 +145,7 @@ export const OptionsStep = ({
       {/* Next Button */}
       <button
         onClick={onNext}
-        className="w-full px-6 py-4 rounded-full bg-white/10 hover:bg-white/15 border border-white/20 text-white font-medium transition-all duration-200 shadow-lg text-base"
+        className="w-full px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/15 border border-white/20 text-white font-inter font-normal transition-all duration-200 text-sm"
       >
         Volgende
       </button>

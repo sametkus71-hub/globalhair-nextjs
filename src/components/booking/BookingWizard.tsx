@@ -11,7 +11,6 @@ import { OptionsStep } from './OptionsStep';
 import { DateTimePicker } from './DateTimePicker';
 import { CustomerInfoForm } from './CustomerInfoForm';
 import { PaymentStep } from './PaymentStep';
-import { Check } from 'lucide-react';
 import { getServiceConfig } from '@/lib/service-config';
 import { saveBookingState, loadBookingState } from '@/lib/booking-storage';
 
@@ -107,7 +106,7 @@ export const BookingWizard = () => {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto p-4">
+    <div className="w-full mx-auto">
       <Accordion 
         type="single" 
         value={currentStep}
@@ -117,30 +116,26 @@ export const BookingWizard = () => {
             setCurrentStep(value);
           }
         }}
-        className="space-y-4"
+        className="space-y-3"
       >
         {/* Step 1: Choose Option */}
         <AccordionItem 
           value="step-1" 
-          className="border border-white/10 rounded-2xl bg-white/5 backdrop-blur-md overflow-hidden shadow-xl"
+          className="border border-white/10 rounded-xl bg-white/5 backdrop-blur-md overflow-hidden"
         >
-          <AccordionTrigger className="px-6 py-5 hover:no-underline hover:bg-white/5">
-            <div className="flex items-center gap-4 w-full">
-              <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all border-2 ${
+          <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-white/5">
+            <div className="flex items-center gap-3 w-full">
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all border ${
                 completedSteps.includes('step-1')
                   ? 'bg-white/20 border-white/40 text-white'
-                  : 'bg-white/5 border-white/20 text-white/80'
+                  : 'bg-transparent border-white/30 text-white/90'
               }`}>
-                {completedSteps.includes('step-1') ? (
-                  <Check className="w-6 h-6" />
-                ) : (
-                  <span className="font-bold text-lg">1</span>
-                )}
+                <span className="font-inter font-normal text-sm">1</span>
               </div>
-              <span className="font-medium text-lg flex-1 text-left text-white">
+              <span className="font-inter font-normal text-sm flex-1 text-left text-white">
                 Kies een optie
               </span>
-              <span className="px-4 py-1.5 rounded-full bg-white/10 text-white text-base font-semibold">
+              <span className="px-3 py-1 rounded-full bg-white/10 text-white text-xs font-inter font-medium">
                 €{price}
               </span>
             </div>
@@ -162,35 +157,31 @@ export const BookingWizard = () => {
         {/* Step 2: Select Date */}
         <AccordionItem 
           value="step-2" 
-          className="border border-white/10 rounded-2xl bg-white/5 backdrop-blur-md overflow-hidden shadow-xl"
+          className="border border-white/10 rounded-xl bg-white/5 backdrop-blur-md overflow-hidden"
           disabled={!completedSteps.includes('step-1')}
         >
           <AccordionTrigger 
-            className="px-6 py-5 hover:no-underline hover:bg-white/5"
+            className="px-4 py-3 hover:no-underline hover:bg-white/5"
             disabled={!completedSteps.includes('step-1')}
           >
-            <div className="flex items-center gap-4 w-full">
-              <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all border-2 ${
+            <div className="flex items-center gap-3 w-full">
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all border ${
                 completedSteps.includes('step-2')
                   ? 'bg-white/20 border-white/40 text-white'
                   : completedSteps.includes('step-1')
-                  ? 'bg-white/5 border-white/20 text-white/80'
-                  : 'bg-white/5 border-white/10 text-white/40'
+                  ? 'bg-transparent border-white/30 text-white/90'
+                  : 'bg-transparent border-white/20 text-white/40'
               }`}>
-                {completedSteps.includes('step-2') ? (
-                  <Check className="w-6 h-6" />
-                ) : (
-                  <span className="font-bold text-lg">2</span>
-                )}
+                <span className="font-inter font-normal text-sm">2</span>
               </div>
-              <span className={`font-medium text-lg flex-1 text-left text-white ${
+              <span className={`font-inter font-normal text-sm flex-1 text-left text-white ${
                 !completedSteps.includes('step-1') ? 'opacity-50' : ''
               }`}>
                 Selecteer datum
               </span>
             </div>
           </AccordionTrigger>
-          <AccordionContent className="border-t border-white/10 px-6 pb-6">
+          <AccordionContent className="border-t border-white/10 px-4 pb-4">
             {serviceType && location && (
               <DateTimePicker
                 serviceType={serviceType}
@@ -204,35 +195,31 @@ export const BookingWizard = () => {
         {/* Step 3: Confirm */}
         <AccordionItem 
           value="step-3" 
-          className="border border-white/10 rounded-2xl bg-white/5 backdrop-blur-md overflow-hidden shadow-xl"
+          className="border border-white/10 rounded-xl bg-white/5 backdrop-blur-md overflow-hidden"
           disabled={!completedSteps.includes('step-2')}
         >
           <AccordionTrigger 
-            className="px-6 py-5 hover:no-underline hover:bg-white/5"
+            className="px-4 py-3 hover:no-underline hover:bg-white/5"
             disabled={!completedSteps.includes('step-2')}
           >
-            <div className="flex items-center gap-4 w-full">
-              <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all border-2 ${
+            <div className="flex items-center gap-3 w-full">
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all border ${
                 completedSteps.includes('step-3')
                   ? 'bg-white/20 border-white/40 text-white'
                   : completedSteps.includes('step-2')
-                  ? 'bg-white/5 border-white/20 text-white/80'
-                  : 'bg-white/5 border-white/10 text-white/40'
+                  ? 'bg-transparent border-white/30 text-white/90'
+                  : 'bg-transparent border-white/20 text-white/40'
               }`}>
-                {completedSteps.includes('step-3') ? (
-                  <Check className="w-6 h-6" />
-                ) : (
-                  <span className="font-bold text-lg">3</span>
-                )}
+                <span className="font-inter font-normal text-sm">3</span>
               </div>
-              <span className={`font-medium text-lg flex-1 text-left text-white ${
+              <span className={`font-inter font-normal text-sm flex-1 text-left text-white ${
                 !completedSteps.includes('step-2') ? 'opacity-50' : ''
               }`}>
                 Bevestigen
               </span>
             </div>
           </AccordionTrigger>
-          <AccordionContent className="border-t border-white/10 px-6 pb-6">
+          <AccordionContent className="border-t border-white/10 px-4 pb-4">
             <div className="space-y-6">
               <CustomerInfoForm onComplete={handleCustomerInfoComplete} />
               

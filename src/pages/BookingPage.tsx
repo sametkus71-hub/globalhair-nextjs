@@ -47,11 +47,11 @@ export const BookingPage = () => {
         />
         
         <div className="relative z-10 h-screen overflow-y-auto">
-          <div className="min-h-screen py-8 px-4">
-            <div className={`transition-all duration-700 ease-out max-w-5xl mx-auto ${
+          <div className="min-h-screen py-6 px-4">
+            <div className={`transition-all duration-700 ease-out max-w-2xl mx-auto ${
               titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}>
-              <h1 className="text-5xl md:text-6xl font-light text-white mb-8 text-center leading-tight">
+              <h1 className="text-[32px] leading-[1.2] font-light text-white mb-6 font-inter">
                 Boek een<br />afspraak
               </h1>
               <BookingWizard />
