@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
-import { useChunkedAvailability } from '@/hooks/useChunkedAvailability';
+import { useAvailabilityCache } from '@/hooks/useAvailabilityCache';
 import { useAvailabilityDay } from '@/hooks/useAvailabilityDay';
 import { Calendar } from '@/components/ui/calendar';
 import { ServiceType, LocationType } from './BookingWizard';
-import { format, startOfMonth } from 'date-fns';
+import { format } from 'date-fns';
 import { nl, enGB } from 'date-fns/locale';
 
 interface DateTimePickerProps {
@@ -16,160 +16,131 @@ interface DateTimePickerProps {
 
 export const DateTimePicker = ({ serviceType, location, onSelect, onBack }: DateTimePickerProps) => {
   const { language } = useLanguage();
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>();
-  const [selectedTime, setSelectedTime] = useState<string | null>(null);
-  const [currentMonth, setCurrentMonth] = useState(startOfMonth(new Date()));
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
+  const [selectedTime, setSelectedTime] = useState<string | undefined>(undefined);
+  const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
 
-  // Use chunked availability loading
+  // Load cached availability days
   const {
-    hasAvailability,
-    isLoadingFirstChunk,
-    isLoadingBackground,
-    loadMonth,
-  } = useChunkedAvailability(serviceType, location, currentMonth);
-  
-  const selectedDateString = selectedDate ? format(selectedDate, 'yyyy-MM-dd') : null;
-  const { data: dayData, isLoading: dayLoading } = useAvailabilityDay(
+    data: cacheData,
+    isLoading: isLoadingCache,
+  } = useAvailabilityCache(
     serviceType,
     location,
-    selectedDateString
+    currentMonth.getFullYear(),
+    currentMonth.getMonth()
+  );
+
+  // Load time slots for selected date (live data)
+  const { data: dayData, isLoading: isLoadingSlots } = useAvailabilityDay(
+    serviceType,
+    location,
+    selectedDate ? format(selectedDate, 'yyyy-MM-dd') : null
   );
 
   const handleDateSelect = (date: Date | undefined) => {
     setSelectedDate(date);
-    setSelectedTime(null);
+    setSelectedTime(undefined);
   };
 
   const handleTimeSelect = (time: string) => {
     setSelectedTime(time);
-    if (selectedDateString) {
-      onSelect(selectedDateString, time);
+    if (selectedDate) {
+      onSelect(format(selectedDate, 'yyyy-MM-dd'), time);
     }
   };
 
-  const handleMonthChange = (newMonth: Date) => {
-    const monthStart = startOfMonth(newMonth);
-    setCurrentMonth(monthStart);
-    loadMonth(monthStart);
+  const handleMonthChange = (date: Date) => {
+    setCurrentMonth(date);
+  };
+
+  const isDateDisabled = (date: Date) => {
+    const dayOfWeek = date.getDay();
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    const isPast = date < today;
+    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+    
+    // Check if date has availability from cache
+    const hasSlots = cacheData?.hasAvailability(date) || false;
+    
+    return isPast || isWeekend || !hasSlots;
   };
 
   return (
-    <div className="flex flex-col h-full overflow-y-auto">
-      {/* Header with back button */}
-      <div className="sticky top-0 z-10 p-4 backdrop-blur-md" style={{ background: 'rgba(0, 0, 0, 0.5)' }}>
+    <div className="flex flex-col min-h-screen">
+      {/* Back button */}
+      <div className="p-4">
         <button
           onClick={onBack}
-          className="flex items-center gap-2 text-white/80 hover:text-white transition-colors"
+          className="flex items-center gap-2 text-white/70 hover:text-white transition-colors"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
-          <span>{language === 'nl' ? 'Terug' : 'Back'}</span>
+          {language === 'nl' ? 'Terug' : 'Back'}
         </button>
       </div>
 
-      <div className="flex-1 p-6 space-y-6">
-        {/* Date Selection */}
-        <div className="space-y-4 relative">
-          <div className="flex items-center justify-between">
-            <h3 className="text-xl font-light text-white">
-              {language === 'nl' ? 'Kies een datum' : 'Choose a date'}
-            </h3>
-            {isLoadingBackground && (
-              <span className="text-xs text-white/40 flex items-center gap-2">
-                <div className="w-3 h-3 border border-white/30 border-t-white rounded-full animate-spin"></div>
-                {language === 'nl' ? 'Meer laden...' : 'Loading more...'}
-              </span>
-            )}
+      <div className="space-y-6">
+        {isLoadingCache ? (
+          <div className="flex justify-center py-12">
+            <div className="animate-spin rounded-full h-8 w-8 border-2 border-white/20 border-t-white"></div>
           </div>
-          
-          {isLoadingFirstChunk ? (
-            <div className="flex flex-col items-center justify-center py-12 space-y-3">
-              <div className="animate-spin rounded-full h-8 w-8 border-2 border-white/20 border-t-white"></div>
-              <p className="text-sm text-white/60">
-                {language === 'nl' ? 'Eerste data laden (~2 seconden)...' : 'Loading initial dates (~2 seconds)...'}
-              </p>
+        ) : (
+          <>
+            <div>
+              <h3 className="text-lg font-medium text-white mb-4 px-4">
+                {language === 'nl' ? 'Selecteer een datum' : 'Select a date'}
+              </h3>
+              <div className="flex justify-center">
+                <Calendar
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={handleDateSelect}
+                  disabled={isDateDisabled}
+                  month={currentMonth}
+                  onMonthChange={handleMonthChange}
+                  locale={language === 'nl' ? nl : enGB}
+                  className="rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm"
+                />
+              </div>
             </div>
-          ) : (
-            <div 
-              className="rounded-xl p-4 inline-block"
-              style={{
-                background: 'rgba(255, 255, 255, 0.05)',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-              }}
-            >
-              <Calendar
-                mode="single"
-                selected={selectedDate}
-                onSelect={handleDateSelect}
-                month={currentMonth}
-                onMonthChange={handleMonthChange}
-                disabled={(date) => {
-                  const today = new Date();
-                  today.setHours(0, 0, 0, 0);
-                  const isPast = date < today;
-                  
-                  // Disable weekends
-                  const dayOfWeek = date.getDay();
-                  if (dayOfWeek === 0 || dayOfWeek === 6) return true;
-                  
-                  return isPast || !hasAvailability(date);
-                }}
-                locale={language === 'nl' ? nl : enGB}
-                className="pointer-events-auto"
-              />
-            </div>
-          )}
-        </div>
 
-        {/* Time Selection */}
-        {selectedDate && (
-          <div className="space-y-4">
-            <h3 className="text-xl font-light text-white">
-              {language === 'nl' ? 'Kies een tijd' : 'Choose a time'}
-            </h3>
-            
-            {dayLoading ? (
-              <div className="flex justify-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-2 border-white/20 border-t-white"></div>
-              </div>
-            ) : dayData?.available_slots.length === 0 ? (
-              <div 
-                className="rounded-xl p-6 text-center"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                }}
-              >
-                <p className="text-white/60">
-                  {language === 'nl' ? 'Geen tijdslots beschikbaar' : 'No time slots available'}
-                </p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-3 gap-3">
-                {dayData?.available_slots.map((slot) => (
-                  <button
-                    key={slot}
-                    onClick={() => handleTimeSelect(slot)}
-                    className="px-4 py-3 rounded-lg text-sm font-medium text-white transition-all duration-200"
-                    style={{
-                      background: selectedTime === slot 
-                        ? 'rgba(255, 255, 255, 0.2)' 
-                        : 'rgba(255, 255, 255, 0.05)',
-                      border: selectedTime === slot
-                        ? '1px solid rgba(255, 255, 255, 0.4)'
-                        : '1px solid rgba(255, 255, 255, 0.1)',
-                      backdropFilter: 'blur(10px)',
-                    }}
-                  >
-                    {slot}
-                  </button>
-                ))}
+            {selectedDate && (
+              <div className="px-4">
+                <h3 className="text-lg font-medium text-white mb-4">
+                  {language === 'nl' ? 'Selecteer een tijd' : 'Select a time'}
+                </h3>
+                {isLoadingSlots ? (
+                  <div className="flex justify-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-2 border-white/20 border-t-white"></div>
+                  </div>
+                ) : dayData?.available_slots && dayData.available_slots.length > 0 ? (
+                  <div className="grid grid-cols-3 gap-3">
+                    {dayData.available_slots.map((slot) => (
+                      <button
+                        key={slot}
+                        onClick={() => handleTimeSelect(slot)}
+                        className={`py-3 px-4 rounded-lg text-sm font-medium transition-all ${
+                          selectedTime === slot
+                            ? 'bg-white/20 text-white border-white/40'
+                            : 'bg-white/5 text-white/70 hover:bg-white/10 border-white/10'
+                        } border backdrop-blur-sm`}
+                      >
+                        {slot}
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-center text-white/50 py-8">
+                    {language === 'nl' ? 'Geen beschikbare tijden' : 'No available times'}
+                  </p>
+                )}
               </div>
             )}
-          </div>
+          </>
         )}
       </div>
     </div>
