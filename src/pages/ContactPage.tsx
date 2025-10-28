@@ -4,7 +4,6 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useSession } from '@/hooks/useSession';
 import { useNavigate } from 'react-router-dom';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 import { AnimatedContactBackground } from '@/components/contact/AnimatedContactBackground';
 import { AnimatedTurkeySvg } from '@/components/contact/AnimatedTurkeySvg';
 import { AnimatedNetherlandsSvg } from '@/components/contact/AnimatedNetherlandsSvg';
@@ -414,7 +413,6 @@ const ContactPage: React.FC = () => {
           </div>
         </div>
       </div>
-      <BottomNavigationPortal />
     </>
   );
 };

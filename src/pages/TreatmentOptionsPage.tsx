@@ -7,7 +7,6 @@ import { DesktopContainer } from '@/components/layout/DesktopContainer';
 import { VideoBackground } from '@/components/haartransplantatie/VideoBackground';
 import { PackageLocationSelector } from '@/components/haartransplantatie/PackageLocationSelector';
 import { PackageDetailContent } from '@/components/haartransplantatie/PackageDetailContent';
-import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 
 const TreatmentOptionsPage = () => {
   const { language } = useLanguage();
@@ -102,9 +101,6 @@ const TreatmentOptionsPage = () => {
               <PackageDetailContent />
             </div>
           </section>
-
-          {/* Bottom Navigation */}
-          <BottomNavigationPortal />
         </PageTransition>
       </DesktopContainer>
     </>

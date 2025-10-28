@@ -4,7 +4,6 @@ import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useNavigate } from 'react-router-dom';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 import { AnimatedGradientBackground } from '@/components/method/AnimatedGradientBackground';
 import { PopupCloseButton } from '@/components/PopupCloseButton';
 const InfoMethodPage: React.FC = () => {
@@ -177,7 +176,6 @@ const InfoMethodPage: React.FC = () => {
           </div>
         </div>
       </div>
-      <BottomNavigationPortal />
     </>;
 };
 export default InfoMethodPage;

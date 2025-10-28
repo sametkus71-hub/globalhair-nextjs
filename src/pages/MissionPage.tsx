@@ -5,7 +5,6 @@ import { useTranslation } from '@/lib/translations';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
 import { MissionCardGlass } from '@/components/mission/MissionCardGlass';
-import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 import { getBerkantVideoById, BERKANT_VIDEOS } from '@/data/berkantVideos';
 import { ChevronRight } from 'lucide-react';
 import { ContentSection } from '@/components/haartransplantatie/ContentSection';
@@ -298,7 +297,6 @@ const MissionPage: React.FC = () => {
           </ContentSection>
         </div>
       </div>
-      <BottomNavigationPortal />
     </>;
 };
 export default MissionPage;

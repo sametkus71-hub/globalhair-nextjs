@@ -5,7 +5,6 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useNavigate } from 'react-router-dom';
 import { Carousel, CarouselContent, CarouselItem, CarouselApi } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
-import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 import { AnimatedTrajectoryBackground } from '@/components/trajectory/AnimatedTrajectoryBackground';
 import { PopupCloseButton } from '@/components/PopupCloseButton';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
@@ -269,7 +268,6 @@ const InfoTrajectoryPage: React.FC = () => {
           </div>
         </div>
       </div>
-      <BottomNavigationPortal />
     </>
   );
 };

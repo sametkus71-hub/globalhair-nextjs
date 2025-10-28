@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useSlideTransition } from '@/hooks/useSlideTransition';
 import { ArrowLeft } from 'lucide-react';
-import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 import { VIDEOS } from '@/data/reviewsVideos';
 
 export const ReviewItemPage = () => {
@@ -72,8 +71,6 @@ export const ReviewItemPage = () => {
           />
         </div>
       </div>
-      
-      <BottomNavigationPortal />
     </>
   );
 };

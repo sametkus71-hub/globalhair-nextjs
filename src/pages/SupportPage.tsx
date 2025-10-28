@@ -4,7 +4,6 @@ import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
 import { GlobalHairLogo } from '@/components/logos/GlobalHairLogo';
-import { BottomNavigationPortal } from '@/components/haartransplantatie/BottomNavigationPortal';
 import { MessageCircle, Phone, Instagram, Mail, ChevronRight } from 'lucide-react';
 
 const SupportPage: React.FC = () => {
@@ -172,7 +171,6 @@ const SupportPage: React.FC = () => {
           </div>
         </div>
       </div>
-      <BottomNavigationPortal />
     </>
   );
 };
