@@ -14,33 +14,6 @@ export type Database = {
   }
   public: {
     Tables: {
-      availability_cache: {
-        Row: {
-          created_at: string
-          date: string
-          has_availability: boolean
-          id: string
-          last_synced_at: string
-          service_key: string
-        }
-        Insert: {
-          created_at?: string
-          date: string
-          has_availability: boolean
-          id?: string
-          last_synced_at?: string
-          service_key: string
-        }
-        Update: {
-          created_at?: string
-          date?: string
-          has_availability?: boolean
-          id?: string
-          last_synced_at?: string
-          service_key?: string
-        }
-        Relationships: []
-      }
       availability_slots: {
         Row: {
           created_at: string
