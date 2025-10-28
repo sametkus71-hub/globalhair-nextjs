@@ -1,46 +1,30 @@
-import { useState } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
-import { getServiceConfig } from '@/lib/service-config';
-import { ServiceType, LocationType } from './BookingWizard';
+import { LocationType } from './BookingWizard';
 import { MapPin, Video, Phone } from 'lucide-react';
 
 interface OptionsStepProps {
-  onNext: (data: {
-    consultType: 'v6_hairboost' | 'haartransplantatie';
-    location: LocationType;
-    consultant: 'trichoTeam' | 'ceo';
-    serviceType: ServiceType;
-    price: number;
-  }) => void;
+  consultType: 'v6_hairboost' | 'haartransplantatie';
+  location: LocationType;
+  consultant: 'trichoTeam' | 'ceo';
+  price: number;
+  onConsultTypeChange: (type: 'v6_hairboost' | 'haartransplantatie') => void;
+  onLocationChange: (loc: LocationType) => void;
+  onConsultantChange: (cons: 'trichoTeam' | 'ceo') => void;
+  onNext: () => void;
 }
 
-export const OptionsStep = ({ onNext }: OptionsStepProps) => {
+export const OptionsStep = ({ 
+  consultType, 
+  location, 
+  consultant, 
+  price,
+  onConsultTypeChange,
+  onLocationChange,
+  onConsultantChange,
+  onNext 
+}: OptionsStepProps) => {
   const { language } = useLanguage();
-  const { t } = useTranslation(language);
-  
-  const [consultType, setConsultType] = useState<'v6_hairboost' | 'haartransplantatie'>('v6_hairboost');
-  const [location, setLocation] = useState<LocationType>('onsite');
-  const [consultant, setConsultant] = useState<'trichoTeam' | 'ceo'>('trichoTeam');
-
-  const getDerivedServiceType = (): ServiceType => {
-    if (consultant === 'ceo') return 'ceo_consult';
-    return consultType;
-  };
-
-  const calculatePrice = () => {
-    const serviceType = getDerivedServiceType();
-    const config = getServiceConfig(serviceType, location);
-    return config.priceEuros;
-  };
-
-  const handleNext = () => {
-    const serviceType = getDerivedServiceType();
-    const price = calculatePrice();
-    onNext({ consultType, location, consultant, serviceType, price });
-  };
-
-  const price = calculatePrice();
 
   const getConsultDescription = () => {
     if (consultType === 'v6_hairboost') {
@@ -61,7 +45,7 @@ export const OptionsStep = ({ onNext }: OptionsStepProps) => {
         <div className="flex justify-center">
           <div className="inline-flex rounded-full border border-white/20 bg-white/5 p-1">
             <button
-              onClick={() => setConsultType('v6_hairboost')}
+              onClick={() => onConsultTypeChange('v6_hairboost')}
               className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
                 consultType === 'v6_hairboost'
                   ? 'bg-white/90 text-slate-900'
@@ -71,7 +55,7 @@ export const OptionsStep = ({ onNext }: OptionsStepProps) => {
               V6 Hairboost consult
             </button>
             <button
-              onClick={() => setConsultType('haartransplantatie')}
+              onClick={() => onConsultTypeChange('haartransplantatie')}
               className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
                 consultType === 'haartransplantatie'
                   ? 'bg-white/90 text-slate-900'
@@ -91,7 +75,7 @@ export const OptionsStep = ({ onNext }: OptionsStepProps) => {
       {/* Location Selection */}
       <div className="space-y-3">
         <button
-          onClick={() => setLocation('onsite')}
+          onClick={() => onLocationChange('onsite')}
           className={`w-full px-4 py-4 rounded-xl text-left transition-all duration-200 flex items-center gap-3 ${
             location === 'onsite'
               ? 'bg-white/15 border border-white/30'
@@ -106,7 +90,7 @@ export const OptionsStep = ({ onNext }: OptionsStepProps) => {
         </button>
         
         <button
-          onClick={() => setLocation('online')}
+          onClick={() => onLocationChange('online')}
           className={`w-full px-4 py-4 rounded-xl text-left transition-all duration-200 flex items-center gap-3 ${
             location === 'online'
               ? 'bg-white/15 border border-white/30'
@@ -118,7 +102,7 @@ export const OptionsStep = ({ onNext }: OptionsStepProps) => {
         </button>
         
         <button
-          onClick={() => setLocation('online')}
+          onClick={() => onLocationChange('online')}
           className="w-full px-4 py-4 rounded-xl text-left transition-all duration-200 flex items-center gap-3 bg-white/5 border border-white/10 hover:bg-white/10 opacity-50 cursor-not-allowed"
           disabled
         >
@@ -135,7 +119,7 @@ export const OptionsStep = ({ onNext }: OptionsStepProps) => {
         <div className="flex justify-center">
           <div className="inline-flex rounded-full border border-white/20 bg-white/5 p-1 w-full">
             <button
-              onClick={() => setConsultant('trichoTeam')}
+              onClick={() => onConsultantChange('trichoTeam')}
               className={`flex-1 px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
                 consultant === 'trichoTeam'
                   ? 'bg-white/90 text-slate-900'
@@ -145,7 +129,7 @@ export const OptionsStep = ({ onNext }: OptionsStepProps) => {
               TrichoTeam
             </button>
             <button
-              onClick={() => setConsultant('ceo')}
+              onClick={() => onConsultantChange('ceo')}
               className={`flex-1 px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
                 consultant === 'ceo'
                   ? 'bg-white/90 text-slate-900'
@@ -160,7 +144,7 @@ export const OptionsStep = ({ onNext }: OptionsStepProps) => {
 
       {/* Next Button */}
       <button
-        onClick={handleNext}
+        onClick={onNext}
         className="w-full px-6 py-4 rounded-full bg-white/10 hover:bg-white/15 border border-white/20 text-white font-medium transition-all duration-200 shadow-lg text-base"
       >
         Volgende

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
 import {
@@ -12,6 +12,8 @@ import { DateTimePicker } from './DateTimePicker';
 import { CustomerInfoForm } from './CustomerInfoForm';
 import { PaymentStep } from './PaymentStep';
 import { Check } from 'lucide-react';
+import { getServiceConfig } from '@/lib/service-config';
+import { saveBookingState, loadBookingState } from '@/lib/booking-storage';
 
 export type ServiceType = 'v6_hairboost' | 'haartransplantatie' | 'ceo_consult';
 export type LocationType = 'online' | 'onsite';
@@ -50,18 +52,46 @@ export const BookingWizard = () => {
   // Step 3 data
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo | null>(null);
 
-  const handleOptionsComplete = (data: {
-    consultType: 'v6_hairboost' | 'haartransplantatie';
-    location: LocationType;
-    consultant: 'trichoTeam' | 'ceo';
-    serviceType: ServiceType;
-    price: number;
-  }) => {
-    setConsultType(data.consultType);
-    setLocation(data.location);
-    setConsultant(data.consultant);
-    setServiceType(data.serviceType);
-    setPrice(data.price);
+  // Load saved state on mount
+  useEffect(() => {
+    const saved = loadBookingState();
+    if (saved) {
+      setConsultType(saved.consultType);
+      setLocation(saved.location);
+      setConsultant(saved.consultant);
+      setServiceType(saved.serviceType);
+      setPrice(saved.price);
+      setCurrentStep(saved.currentStep);
+      setCompletedSteps(saved.completedSteps);
+    }
+  }, []);
+
+  // Reactive price calculation whenever selections change
+  useEffect(() => {
+    const derivedServiceType = consultant === 'ceo' ? 'ceo_consult' : consultType;
+    try {
+      const config = getServiceConfig(derivedServiceType, location);
+      setPrice(config.priceEuros);
+      setServiceType(derivedServiceType);
+    } catch (error) {
+      console.error('Failed to calculate price:', error);
+    }
+  }, [consultType, location, consultant]);
+
+  // Save state to session storage whenever it changes
+  useEffect(() => {
+    saveBookingState({
+      consultType,
+      location,
+      consultant,
+      serviceType,
+      price,
+      currentStep,
+      completedSteps,
+    });
+  }, [consultType, location, consultant, serviceType, price, currentStep, completedSteps]);
+
+  const handleOptionsComplete = () => {
     setCompletedSteps([...completedSteps, 'step-1']);
     setCurrentStep('step-2');
   };
@@ -110,15 +140,22 @@ export const BookingWizard = () => {
               <span className="font-medium text-lg flex-1 text-left text-white">
                 Kies een optie
               </span>
-              {completedSteps.includes('step-1') && (
-                <span className="px-4 py-1.5 rounded-full bg-white/10 text-white text-base font-semibold">
-                  €{price}
-                </span>
-              )}
+              <span className="px-4 py-1.5 rounded-full bg-white/10 text-white text-base font-semibold">
+                €{price}
+              </span>
             </div>
           </AccordionTrigger>
           <AccordionContent className="border-t border-white/10">
-            <OptionsStep onNext={handleOptionsComplete} />
+            <OptionsStep 
+              consultType={consultType}
+              location={location}
+              consultant={consultant}
+              price={price}
+              onConsultTypeChange={setConsultType}
+              onLocationChange={setLocation}
+              onConsultantChange={setConsultant}
+              onNext={handleOptionsComplete}
+            />
           </AccordionContent>
         </AccordionItem>
 
