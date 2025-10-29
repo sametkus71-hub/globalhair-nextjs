@@ -56,33 +56,34 @@ export const StaffCodePopover = ({ onCodeVerified }: StaffCodePopoverProps) => {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <button className="text-xs text-white/30 hover:text-white/50 font-mono">
-          staff
+        <button className="text-xs text-white/30 hover:text-white/50">
+          Medewerkers
         </button>
       </PopoverTrigger>
-      <PopoverContent className="w-64 bg-white border border-gray-200 shadow-lg">
-        <div className="space-y-3">
+      <PopoverContent className="w-72 bg-white border border-gray-300 shadow-xl rounded-sm p-5">
+        <div className="space-y-4">
           <div>
-            <p className="text-xs text-gray-500 font-mono">Staff code</p>
+            <h3 className="text-sm font-medium text-gray-900 mb-1">Medewerkers toegang</h3>
+            <p className="text-xs text-gray-500">Voer de medewerkers code in om test modus te activeren</p>
           </div>
           
           <div className="space-y-2">
             <Input
               type="password"
-              placeholder="Enter code"
+              placeholder="Code invoeren"
               value={code}
               onChange={(e) => setCode(e.target.value)}
               onKeyPress={handleKeyPress}
               disabled={isVerified}
-              className="text-sm font-mono border-gray-300 focus:border-gray-400 focus:ring-0"
+              className="text-sm border-gray-300 focus:border-gray-500 focus:ring-1 focus:ring-gray-500 rounded-sm"
               autoFocus
             />
             <Button 
               onClick={handleVerify}
               disabled={isVerifying || isVerified || !code.trim()}
-              className="w-full bg-gray-900 hover:bg-gray-800 text-white text-sm font-mono h-9"
+              className="w-full bg-gray-900 hover:bg-gray-800 text-white text-sm h-9 rounded-sm"
             >
-              {isVerifying ? '...' : isVerified ? '✓' : 'Verify'}
+              {isVerifying ? 'Verifiëren...' : isVerified ? 'Geverifieerd ✓' : 'Verifiëren'}
             </Button>
           </div>
         </div>
