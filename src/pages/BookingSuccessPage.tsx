@@ -114,7 +114,7 @@ export const BookingSuccessPage = () => {
 
         {/* Content Card - Bottom section */}
         <div className="relative z-10 w-full px-4 pb-6">
-          <div className="max-w-2xl mx-auto bg-white/5 backdrop-blur-xl rounded-lg border border-white/10 p-6 shadow-2xl">
+          <div className="max-w-2xl mx-auto bg-white/[0.02] backdrop-blur-xl rounded-lg border border-white/10 p-6 shadow-2xl">
             {/* Booking Number Badge */}
             <div className="flex justify-center mb-5">
               <Badge variant="secondary" className="bg-white/10 text-white border border-white rounded-full px-4 py-1 text-sm font-light font-inter">
