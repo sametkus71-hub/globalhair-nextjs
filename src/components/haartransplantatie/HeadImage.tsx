@@ -12,7 +12,7 @@ export const HeadImage = () => {
       }}
     >
       <video
-        src="/assets/head-animation.webm"
+        src="https://GlobalHair.b-cdn.net/Male%201K%20HT.mov"
         autoPlay
         loop
         muted
