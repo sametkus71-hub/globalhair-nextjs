@@ -28,16 +28,7 @@ function AppBackground() {
 }
 
 function AppRootInit() {
-  useEffect(() => {
-    waitForSalesIQ(() => {
-      // overal: verberg standaard alles
-      (window as any).$zoho.salesiq.floatbutton.visible("hide");
-      (window as any).$zoho.salesiq.chatbutton?.visible("hide");
-      (window as any).$zoho.salesiq.floatwindow.visible("hide");
-      (window as any).$zoho.salesiq.chatwindow.visible("hide");
-    });
-  }, []);
-
+  // Zoho SalesIQ integration removed
   return null;
 }
 
