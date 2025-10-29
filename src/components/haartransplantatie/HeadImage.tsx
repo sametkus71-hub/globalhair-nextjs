@@ -21,7 +21,8 @@ export const HeadImage = () => {
           filter: 'brightness(1.2) drop-shadow(0 0 40px rgba(255, 255, 255, 0.3))',
         }}
       >
-        <source src="/assets/Male_1K_HT_WEB.mp4" type='video/mp4; codecs="hvc1"' />
+        <source src="https://GlobalHair.b-cdn.net/Male%201K%20HT%20WEB.mp4" type='video/mp4; codecs="hvc1"' />
+        <source src="https://GlobalHair.b-cdn.net/Male%201K%20HT%20WEB.webm" type="video/webm" />
       </video>
 
       <style>{`
