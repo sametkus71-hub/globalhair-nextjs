@@ -11,12 +11,9 @@ export const HeadImage = () => {
         animation: 'fade-in-scale 0.8s ease-out 0.3s both',
       }}
     >
-      <video
-        src="https://GlobalHair.b-cdn.net/Male%201K%20HT.mov"
-        autoPlay
-        loop
-        muted
-        playsInline
+      <img
+        src="https://GlobalHair.b-cdn.net/Male-1K-HT-WEB.gif"
+        alt="Head animation"
         className="w-full h-full object-contain"
         style={{
           filter: 'brightness(1.2) drop-shadow(0 0 40px rgba(255, 255, 255, 0.3))',
