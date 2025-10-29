@@ -117,7 +117,7 @@ export const BookingSuccessPage = () => {
           <div className="max-w-2xl mx-auto bg-white/[0.02] backdrop-blur-xl rounded-lg border border-white/10 p-6 shadow-2xl">
             {/* Booking Number Badge */}
             <div className="flex justify-center mb-5">
-              <Badge variant="secondary" className="bg-white/10 text-white border border-white rounded-full px-4 py-1 text-sm font-light font-inter">
+              <Badge variant="secondary" className="bg-white/10 text-white border border-white rounded-full px-2.5 py-1 text-sm font-light font-inter">
                 {language === 'nl' ? 'Boeking' : 'Booking'} #{bookingNumber}
               </Badge>
             </div>
