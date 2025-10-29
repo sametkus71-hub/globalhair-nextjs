@@ -96,7 +96,7 @@ export const BookingSuccessPage = () => {
         <GlassHeader />
         
         {/* Title Section - Upper middle area */}
-        <div className="relative z-10 flex-1 flex items-center justify-center px-4 pt-12 pb-16">
+        <div className="relative z-10 flex-1 flex items-center justify-center px-4 pt-4 pb-16">
           <div className="w-full max-w-2xl">
             <h1 
               className="text-[48px] leading-none font-normal tracking-[-0.04em] text-left font-inter bg-clip-text text-transparent pb-2"
