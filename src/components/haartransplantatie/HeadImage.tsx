@@ -11,14 +11,18 @@ export const HeadImage = () => {
         animation: 'fade-in-scale 0.8s ease-out 0.3s both',
       }}
     >
-      <img
-        src="https://GlobalHair.b-cdn.net/Ontwerp%20zonder%20titel%20(5).gif"
-        alt="Head animation"
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
         className="w-full h-full object-contain"
         style={{
           filter: 'brightness(1.2) drop-shadow(0 0 40px rgba(255, 255, 255, 0.3))',
         }}
-      />
+      >
+        <source src="https://GlobalHair.b-cdn.net/Male-1K-HT-WEB.hevc.mp4" type='video/mp4; codecs="hvc1"' />
+      </video>
 
       <style>{`
         @keyframes fade-in-scale {
