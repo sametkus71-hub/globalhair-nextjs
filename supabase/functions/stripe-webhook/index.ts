@@ -92,28 +92,21 @@ Deno.serve(async (req) => {
 
       // Create Zoho booking
       try {
-        // Combine selected_date with from_time and to_time to create full datetime
-        const selectedDate = new Date(bookingIntent.selected_date);
-        const [fromHours, fromMinutes] = bookingIntent.from_time.split(':');
-        const [toHours, toMinutes] = bookingIntent.to_time.split(':');
-
-        // Create full datetime objects
-        const fromDateTime = new Date(selectedDate);
-        fromDateTime.setHours(parseInt(fromHours), parseInt(fromMinutes), 0, 0);
-
-        const toDateTime = new Date(selectedDate);
-        toDateTime.setHours(parseInt(toHours), parseInt(toMinutes), 0, 0);
-
-        // Format to Zoho format: dd-MMM-yyyy HH:mm:ss
-        const formattedFromTime = toZohoDateFormat(fromDateTime.toISOString());
-        const formattedToTime = toZohoDateFormat(toDateTime.toISOString());
+        console.log('Datetime debug:', {
+          selected_date: bookingIntent.selected_date,
+          selected_time: bookingIntent.selected_time,
+          from_time_stored: bookingIntent.from_time,
+          to_time_stored: bookingIntent.to_time,
+          timezone: bookingIntent.timezone,
+        });
 
         // Prepare form data for Zoho API (it uses form-data, not JSON)
+        // Use from_time and to_time directly - they're already in Zoho format
         const formData = new FormData();
         formData.append('service_id', bookingIntent.zoho_service_id);
         formData.append('staff_id', bookingIntent.zoho_staff_id);
-        formData.append('from_time', formattedFromTime);
-        formData.append('to_time', formattedToTime);
+        formData.append('from_time', bookingIntent.from_time);
+        formData.append('to_time', bookingIntent.to_time);
         formData.append('timezone', bookingIntent.timezone);
         formData.append('customer_details', JSON.stringify({
           name: bookingIntent.customer_name,
@@ -130,20 +123,11 @@ Deno.serve(async (req) => {
           formData.append('notes', bookingIntent.booking_notes);
         }
 
-        console.log('Datetime debug:', {
-          selected_date: bookingIntent.selected_date,
-          selected_time: bookingIntent.selected_time,
-          from_time_db: bookingIntent.from_time,
-          to_time_db: bookingIntent.to_time,
-          from_time_formatted: formattedFromTime,
-          to_time_formatted: formattedToTime,
-        });
-
         console.log('Sending to Zoho:', {
           service_id: bookingIntent.zoho_service_id,
           staff_id: bookingIntent.zoho_staff_id,
-          from_time: formattedFromTime,
-          to_time: formattedToTime,
+          from_time: bookingIntent.from_time,
+          to_time: bookingIntent.to_time,
           timezone: bookingIntent.timezone,
           customer: bookingIntent.customer_name,
         });
