@@ -100,13 +100,20 @@ export async function zohoApiRequest<T>(
   const apiBase = Deno.env.get('ZB_API_BASE') || 'https://www.zohoapis.com';
   const url = `${apiBase}${endpoint}`;
 
+  // Don't override Content-Type if it's FormData (browser will set it with boundary)
+  const headers: Record<string, string> = {
+    'Authorization': `Zoho-oauthtoken ${token}`,
+    ...(options.headers as Record<string, string> || {}),
+  };
+
+  // Only add Content-Type if body is not FormData
+  if (!(options.body instanceof FormData)) {
+    headers['Content-Type'] = 'application/json';
+  }
+
   const response = await fetch(url, {
     ...options,
-    headers: {
-      'Authorization': `Zoho-oauthtoken ${token}`,
-      'Content-Type': 'application/json',
-      ...options.headers,
-    },
+    headers,
   });
 
   if (!response.ok) {

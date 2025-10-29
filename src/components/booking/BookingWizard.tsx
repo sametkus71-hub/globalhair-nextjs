@@ -249,7 +249,7 @@ export const BookingWizard = () => {
             <div className="space-y-6">
               <CustomerInfoForm onComplete={handleCustomerInfoComplete} />
               
-              {customerInfo && serviceType && location && bookingSelection && getExtendedBookingSelection() && (
+              {serviceType && location && bookingSelection && getExtendedBookingSelection() && (
                 <PaymentStep
                   serviceType={serviceType}
                   location={location}

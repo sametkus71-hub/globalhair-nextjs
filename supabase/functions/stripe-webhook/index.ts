@@ -91,43 +91,56 @@ Deno.serve(async (req) => {
 
       // Create Zoho booking
       try {
-        const zohoPayload = {
+        // Format times with seconds for Zoho API
+        const fromTimeWithSeconds = bookingIntent.from_time.replace(/(\d{2}:\d{2})$/, '$1:00');
+        const toTimeWithSeconds = bookingIntent.to_time.replace(/(\d{2}:\d{2})$/, '$1:00');
+
+        // Prepare form data for Zoho API (it uses form-data, not JSON)
+        const formData = new FormData();
+        formData.append('service_id', bookingIntent.zoho_service_id);
+        formData.append('staff_id', bookingIntent.zoho_staff_id);
+        formData.append('from_time', fromTimeWithSeconds);
+        formData.append('to_time', toTimeWithSeconds);
+        formData.append('timezone', bookingIntent.timezone);
+        formData.append('customer_details', JSON.stringify({
+          name: bookingIntent.customer_name,
+          email: bookingIntent.customer_email,
+          phone_number: bookingIntent.customer_phone,
+        }));
+        formData.append('additional_fields', JSON.stringify({
+          address: bookingIntent.customer_address,
+          city: bookingIntent.customer_city,
+          country: bookingIntent.customer_country,
+          ...(bookingIntent.additional_fields || {})
+        }));
+        if (bookingIntent.booking_notes) {
+          formData.append('notes', bookingIntent.booking_notes);
+        }
+
+        console.log('Sending to Zoho:', {
           service_id: bookingIntent.zoho_service_id,
           staff_id: bookingIntent.zoho_staff_id,
-          from_time: bookingIntent.from_time,
-          to_time: bookingIntent.to_time,
+          from_time: fromTimeWithSeconds,
+          to_time: toTimeWithSeconds,
           timezone: bookingIntent.timezone,
-          customer_details: {
-            name: bookingIntent.customer_name,
-            email: bookingIntent.customer_email,
-            phone_number: bookingIntent.customer_phone,
-            address: bookingIntent.customer_address,
-            city: bookingIntent.customer_city,
-            country: bookingIntent.customer_country,
-          },
-          additional_fields: bookingIntent.additional_fields || {},
-          notes: bookingIntent.booking_notes || '',
-        };
+        });
 
-        console.log('Sending to Zoho:', JSON.stringify(zohoPayload, null, 2));
-
-        const zohoResponse = await zohoApiRequest<{ data: { booking: { id: string } } }>(
-          '/bookings',
+        const zohoResponse = await zohoApiRequest<{ response: { returnvalue: { booking_id: string } } }>(
+          '/bookings/v1/json/appointment',
           {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(zohoPayload),
+            body: formData,
           }
         );
 
-        console.log('Zoho booking created:', zohoResponse.data.booking.id);
+        console.log('Zoho booking created:', zohoResponse.response.returnvalue.booking_id);
 
         // Update booking intent to confirmed
         await supabase
           .from('booking_intents')
           .update({
             status: 'confirmed',
-            zoho_booking_id: zohoResponse.data.booking.id,
+            zoho_booking_id: zohoResponse.response.returnvalue.booking_id,
             confirmed_at: new Date().toISOString(),
             zoho_response: zohoResponse,
             updated_at: new Date().toISOString(),
