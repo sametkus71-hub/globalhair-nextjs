@@ -6,6 +6,8 @@ import { ServiceType, LocationType, BookingSelection, CustomerInfo } from './Boo
 import { getServiceConfig } from '@/lib/service-config';
 import { format } from 'date-fns';
 import { nl, enGB as enUS } from 'date-fns/locale';
+import { useTestMode } from '@/contexts/TestModeContext';
+import { Button } from '@/components/ui/button';
 
 interface PaymentStepProps {
   serviceType: ServiceType;
@@ -32,9 +34,12 @@ interface PaymentStepProps {
 
 export const PaymentStep = ({ serviceType, location, bookingSelection, customerInfo, price }: PaymentStepProps) => {
   const { language } = useLanguage();
+  const { isTestMode } = useTestMode();
   const [isProcessing, setIsProcessing] = useState(false);
 
   const config = getServiceConfig(serviceType, location);
+  const isFormComplete = customerInfo.name && customerInfo.email && customerInfo.phone && 
+                         customerInfo.address && customerInfo.city && customerInfo.country;
 
   const handlePayment = async () => {
     setIsProcessing(true);
@@ -131,16 +136,23 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
       </div>
 
       {/* Payment Button */}
-      <button
+      <Button
         onClick={handlePayment}
-        disabled={isProcessing}
-        className="w-full px-6 py-4 rounded-full bg-white/10 hover:bg-white/15 border border-white/20 text-white font-medium transition-all duration-200 disabled:opacity-50 shadow-lg text-base"
+        disabled={!isFormComplete || isProcessing}
+        className="w-full py-6 text-lg font-medium"
       >
         {isProcessing 
-          ? (language === 'nl' ? 'Bezig met verwerken...' : 'Processing...') 
-          : (language === 'nl' ? 'Betalen' : 'Pay')
+          ? (language === 'nl' ? 'Even geduld...' : 'Processing...') 
+          : (language === 'nl' ? `Betalen €${price.toFixed(2)}` : `Pay €${price.toFixed(2)}`)
         }
-      </button>
+        {isTestMode && <span className="ml-2 text-xs opacity-70">(Test modus)</span>}
+      </Button>
+      
+      {!isFormComplete && (
+        <p className="text-xs text-center text-white/50 mt-2">
+          {language === 'nl' ? 'Vul alle velden in om te kunnen betalen' : 'Fill in all fields to proceed with payment'}
+        </p>
+      )}
     </div>
   );
 };

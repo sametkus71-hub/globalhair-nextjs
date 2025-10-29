@@ -5,6 +5,8 @@ import { MetaHead } from '@/components/MetaHead';
 import { PopupCloseButton } from '@/components/PopupCloseButton';
 import { GlassBackground } from '@/components/haartransplantatie/GlassBackground';
 import { BookingWizard } from '@/components/booking/BookingWizard';
+import { StaffCodePopover } from '@/components/booking/StaffCodePopover';
+import { TestModeProvider } from '@/contexts/TestModeContext';
 
 export const BookingPage = () => {
   const { language } = useLanguage();
@@ -41,28 +43,32 @@ export const BookingPage = () => {
         language={language}
       />
       
-      <div className={`fixed inset-0 z-50 ${isExiting ? 'reviews-page-exit' : ''}`}>
-        <GlassBackground />
-        
-        <PopupCloseButton 
-          onClose={handleClose}
-          className="!left-auto !right-4"
-          style={{ zIndex: 100 }} 
-        />
-        
-        <div className="relative z-10 h-screen overflow-y-auto">
-          <div className="min-h-screen py-6 px-4">
-            <div className={`transition-all duration-700 ease-out max-w-2xl mx-auto ${
-              titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}>
-              <h1 className="text-[32px] leading-[1.2] font-light text-white mb-6 font-inter">
-                Boek een<br />afspraak
-              </h1>
-              <BookingWizard />
+      <TestModeProvider>
+        <div className={`fixed inset-0 z-50 ${isExiting ? 'reviews-page-exit' : ''}`}>
+          <GlassBackground />
+          
+          <PopupCloseButton 
+            onClose={handleClose}
+            className="!left-auto !right-4"
+            style={{ zIndex: 100 }} 
+          />
+          
+          <StaffCodePopover onCodeVerified={() => window.location.reload()} />
+          
+          <div className="relative z-10 h-screen overflow-y-auto">
+            <div className="min-h-screen py-6 px-4">
+              <div className={`transition-all duration-700 ease-out max-w-2xl mx-auto ${
+                titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}>
+                <h1 className="text-[32px] leading-[1.2] font-light text-white mb-6 font-inter">
+                  Boek een<br />afspraak
+                </h1>
+                <BookingWizard />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </TestModeProvider>
     </>
   );
 };

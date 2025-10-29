@@ -41,7 +41,8 @@ Deno.serve(async (req) => {
           Stripe.createSubtleCryptoProvider()
         );
       } catch (err) {
-        console.error('Webhook signature verification failed:', err.message);
+        const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+        console.error('Webhook signature verification failed:', errorMessage);
         return new Response(
           JSON.stringify({ error: 'Webhook signature verification failed' }),
           { status: 400, headers: corsHeaders }
@@ -144,12 +145,13 @@ Deno.serve(async (req) => {
 
       } catch (zohoError) {
         console.error('Error creating Zoho booking:', zohoError);
+        const errorMessage = zohoError instanceof Error ? zohoError.message : 'Unknown error';
         
         // Update booking with error but keep as paid
         await supabase
           .from('booking_intents')
           .update({
-            error_message: `Zoho booking failed: ${zohoError.message}`,
+            error_message: `Zoho booking failed: ${errorMessage}`,
             updated_at: new Date().toISOString(),
           })
           .eq('id', bookingIntentId);
@@ -166,8 +168,9 @@ Deno.serve(async (req) => {
     );
   } catch (error) {
     console.error('Error in stripe-webhook:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: errorMessage }),
       {
         status: 400,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },

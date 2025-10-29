@@ -13,6 +13,8 @@ import { CustomerInfoForm } from './CustomerInfoForm';
 import { PaymentStep } from './PaymentStep';
 import { getServiceConfig } from '@/lib/service-config';
 import { saveBookingState, loadBookingState } from '@/lib/booking-storage';
+import { useTestMode } from '@/contexts/TestModeContext';
+import { FlaskConical } from 'lucide-react';
 
 export type ServiceType = 'v6_hairboost' | 'haartransplantatie' | 'ceo_consult';
 export type LocationType = 'online' | 'onsite';
@@ -37,6 +39,7 @@ export interface CustomerInfo {
 export const BookingWizard = () => {
   const { language } = useLanguage();
   const { t } = useTranslation(language);
+  const { isTestMode, getTestPrice } = useTestMode();
   
   const [currentStep, setCurrentStep] = useState<string>('step-1');
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
@@ -73,12 +76,13 @@ export const BookingWizard = () => {
     const derivedServiceType = consultant === 'ceo' ? 'ceo_consult' : consultType;
     try {
       const config = getServiceConfig(derivedServiceType, location);
-      setPrice(config.priceEuros);
+      const finalPrice = getTestPrice(config.priceEuros);
+      setPrice(finalPrice);
       setServiceType(derivedServiceType);
     } catch (error) {
       console.error('Failed to calculate price:', error);
     }
-  }, [consultType, location, consultant]);
+  }, [consultType, location, consultant, isTestMode, getTestPrice]);
 
   // Save state to session storage whenever it changes
   useEffect(() => {
@@ -122,7 +126,14 @@ export const BookingWizard = () => {
 
   return (
     <div className="w-full mx-auto">
-      <Accordion 
+      {isTestMode && (
+        <div className="mb-4 flex items-center gap-2 px-4 py-2 bg-amber-500/20 border border-amber-500/30 rounded-lg">
+          <FlaskConical className="w-4 h-4 text-amber-400" />
+          <span className="text-sm text-amber-200">Test modus actief - Alle consulten €0,50</span>
+        </div>
+      )}
+      
+      <Accordion
         type="single" 
         value={currentStep}
         onValueChange={(value) => {
