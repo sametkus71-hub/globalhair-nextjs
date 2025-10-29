@@ -53,8 +53,6 @@ export const BookingPage = () => {
             style={{ zIndex: 100 }} 
           />
           
-          <StaffCodePopover onCodeVerified={() => window.location.reload()} />
-          
           <div className="relative z-10 h-screen overflow-y-auto">
             <div className="min-h-screen py-6 px-4">
               <div className={`transition-all duration-700 ease-out max-w-2xl mx-auto ${
@@ -64,6 +62,10 @@ export const BookingPage = () => {
                   Boek een<br />afspraak
                 </h1>
                 <BookingWizard />
+                
+                <div className="mt-12 pt-8 border-t border-white/5 flex justify-center">
+                  <StaffCodePopover onCodeVerified={() => window.location.reload()} />
+                </div>
               </div>
             </div>
           </div>

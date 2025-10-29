@@ -60,17 +60,17 @@ export const StaffCodePopover = ({ onCodeVerified }: StaffCodePopoverProps) => {
         <Button
           variant="ghost"
           size="sm"
-          className="fixed top-20 right-4 z-[60] text-white/60 hover:text-white hover:bg-white/10"
+          className="text-white/30 hover:text-white/50 text-xs px-0 h-auto font-normal"
         >
-          <Lock className="w-4 h-4 mr-2" />
+          <Lock className="w-3 h-3 mr-1" />
           Medewerkers
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-64 bg-background/95 backdrop-blur-xl border-white/20">
+      <PopoverContent className="w-64 bg-white/5 backdrop-blur-sm border border-white/10">
         <div className="space-y-3">
           <div>
-            <h4 className="font-medium text-sm mb-1">Medewerkers code</h4>
-            <p className="text-xs text-muted-foreground">Voer de testcode in om testmodus te activeren</p>
+            <h4 className="font-normal text-sm mb-1 text-white/80">Medewerkers code</h4>
+            <p className="text-xs text-white/50">Voer de testcode in</p>
           </div>
           
           <div className="flex gap-2">
@@ -79,16 +79,23 @@ export const StaffCodePopover = ({ onCodeVerified }: StaffCodePopoverProps) => {
               placeholder="Code"
               value={code}
               onChange={(e) => setCode(e.target.value)}
-              onKeyPress={handleKeyPress}
-              disabled={isVerifying || isVerified}
-              className="flex-1"
+              onKeyPress={(e) => e.key === 'Enter' && handleVerify()}
+              disabled={isVerified}
+              className="flex-1 bg-white/5 border-white/10 text-white placeholder:text-white/30"
             />
-            <Button
+            <Button 
               onClick={handleVerify}
               disabled={isVerifying || isVerified || !code.trim()}
               size="sm"
+              className="bg-white/10 hover:bg-white/20 text-white border-white/10"
             >
-              {isVerified ? <Check className="w-4 h-4" /> : 'OK'}
+              {isVerifying ? (
+                <span className="text-xs">...</span>
+              ) : isVerified ? (
+                <Check className="w-4 h-4" />
+              ) : (
+                <span className="text-xs">OK</span>
+              )}
             </Button>
           </div>
         </div>
