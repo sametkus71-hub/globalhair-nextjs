@@ -97,17 +97,19 @@ export const BookingSuccessPage = () => {
         
         {/* Title Section - Upper middle area */}
         <div className="relative z-10 flex-1 flex items-center justify-center px-4 pt-16 pb-12">
-          <h1 
-            className="text-[53.57px] leading-none font-normal tracking-[-0.04em] text-center font-inter bg-clip-text text-transparent"
-            style={{
-              background: 'linear-gradient(124.01deg, rgba(255, 255, 255, 0.5) 4.17%, #FFFFFF 37.36%, #FFFFFF 70.56%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
-          >
-            {language === 'nl' ? 'De eerste stap is gezet.' : 'The first step is taken.'}
-          </h1>
+          <div className="w-full max-w-2xl">
+            <h1 
+              className="text-[48px] leading-none font-normal tracking-[-0.04em] text-left font-inter bg-clip-text text-transparent"
+              style={{
+                background: 'linear-gradient(124.01deg, rgba(255, 255, 255, 0.5) 4.17%, #FFFFFF 37.36%, #FFFFFF 70.56%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
+              {language === 'nl' ? 'De eerste stap is gezet.' : 'The first step is taken.'}
+            </h1>
+          </div>
         </div>
 
         {/* Content Card - Bottom section */}
