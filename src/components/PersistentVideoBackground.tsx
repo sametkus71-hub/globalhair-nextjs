@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 export const PersistentVideoBackground = () => {
   const [mounted, setMounted] = useState(false);
   const isMobile = useIsMobile();
+  const { pathname } = useLocation();
+  
+  // Don't show video on chat pages
+  const isChat = pathname.endsWith('/chat') || pathname.includes('/chat');
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null;
+  if (!mounted || isChat) return null;
 
   const videoSrc = isMobile
     ? 'https://GlobalHair.b-cdn.net/Bg%20Videos/S3.mp4'
