@@ -11,9 +11,12 @@ export const HeadImage = () => {
         animation: 'fade-in-scale 0.8s ease-out 0.3s both',
       }}
     >
-      <img
-        src="/assets/placeholder-head.png"
-        alt="3D head model"
+      <video
+        src="/assets/head-animation.webm"
+        autoPlay
+        loop
+        muted
+        playsInline
         className="w-full h-full object-contain"
         style={{
           filter: 'brightness(1.2) drop-shadow(0 0 40px rgba(255, 255, 255, 0.3))',
