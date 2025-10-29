@@ -49,7 +49,7 @@ Deno.serve(async (req) => {
       const year = d.getFullYear();
       const hour = String(d.getHours()).padStart(2, '0');
       const min = String(d.getMinutes()).padStart(2, '0');
-      return `${day}-${month}-${year} ${hour}:${min}`;
+      return `${day}-${month}-${year} ${hour}:${min}:00`;
     };
 
     const fromTime = formatZohoTime(appointmentDate);

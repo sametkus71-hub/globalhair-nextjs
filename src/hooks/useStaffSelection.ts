@@ -49,7 +49,9 @@ export function useStaffSelection(
       // Filter staff who have this specific time slot
       const availableStaff = slotsData?.filter((row: any) => {
         const slots = Array.isArray(row.time_slots) ? row.time_slots : [];
-        return slots.includes(time);
+        // Normalize time to HH:mm format for comparison (remove seconds if present)
+        const normalizedTime = time.substring(0, 5); // Convert "13:45:00" to "13:45"
+        return slots.includes(normalizedTime);
       }) || [];
 
       if (availableStaff.length === 0) {

@@ -130,6 +130,15 @@ Deno.serve(async (req) => {
           formData.append('notes', bookingIntent.booking_notes);
         }
 
+        console.log('Datetime debug:', {
+          selected_date: bookingIntent.selected_date,
+          selected_time: bookingIntent.selected_time,
+          from_time_db: bookingIntent.from_time,
+          to_time_db: bookingIntent.to_time,
+          from_time_formatted: formattedFromTime,
+          to_time_formatted: formattedToTime,
+        });
+
         console.log('Sending to Zoho:', {
           service_id: bookingIntent.zoho_service_id,
           staff_id: bookingIntent.zoho_staff_id,
