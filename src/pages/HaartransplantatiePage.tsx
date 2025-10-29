@@ -235,11 +235,7 @@ const HaartransplantatiePage = () => {
                     }}
                   >
                     {/* Package Cards */}
-                    <PackageCardGlass 
-                      activeTab={activeTab}
-                      tabs={tabs}
-                      onTabChange={handleTabChange}
-                    />
+                    <PackageCardGlass />
                     {/* Anchor for dots positioning */}
                     <div 
                       ref={activeTab === 'Packages' ? contentRef : null} 
@@ -299,6 +295,30 @@ const HaartransplantatiePage = () => {
                     />
                   </div>
                 )}
+              </div>
+
+              {/* Pagination Dots - Always visible, positioned after tab content */}
+              <div className="flex-shrink-0 px-2 py-2">
+                <div className="flex items-center justify-center gap-[0.2rem] pointer-events-auto z-30">
+                  {tabs.map((tab) => (
+                    <button
+                      key={tab}
+                      onClick={() => {
+                        const currentIndex = tabs.indexOf(activeTab);
+                        const targetIndex = tabs.indexOf(tab);
+                        const direction = targetIndex > currentIndex ? 'left' : 'right';
+                        handleTabChange(tab, direction);
+                      }}
+                      className="transition-all duration-300"
+                      style={{
+                        width: '6px',
+                        height: '6px',
+                        borderRadius: '50%',
+                        background: activeTab === tab ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.3)',
+                      }}
+                    />
+                  ))}
+                </div>
               </div>
 
                 {/* Static Review Section - Always visible at bottom */}
