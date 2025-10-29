@@ -1,6 +1,7 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.76.1';
 import Stripe from 'https://esm.sh/stripe@14.21.0?target=deno';
 import { zohoApiRequest } from '../_shared/zoho-utils.ts';
+import { toZohoDateFormat } from '../_shared/date-helpers.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -91,16 +92,28 @@ Deno.serve(async (req) => {
 
       // Create Zoho booking
       try {
-        // Format times with seconds for Zoho API
-        const fromTimeWithSeconds = bookingIntent.from_time.replace(/(\d{2}:\d{2})$/, '$1:00');
-        const toTimeWithSeconds = bookingIntent.to_time.replace(/(\d{2}:\d{2})$/, '$1:00');
+        // Combine selected_date with from_time and to_time to create full datetime
+        const selectedDate = new Date(bookingIntent.selected_date);
+        const [fromHours, fromMinutes] = bookingIntent.from_time.split(':');
+        const [toHours, toMinutes] = bookingIntent.to_time.split(':');
+
+        // Create full datetime objects
+        const fromDateTime = new Date(selectedDate);
+        fromDateTime.setHours(parseInt(fromHours), parseInt(fromMinutes), 0, 0);
+
+        const toDateTime = new Date(selectedDate);
+        toDateTime.setHours(parseInt(toHours), parseInt(toMinutes), 0, 0);
+
+        // Format to Zoho format: dd-MMM-yyyy HH:mm:ss
+        const formattedFromTime = toZohoDateFormat(fromDateTime.toISOString());
+        const formattedToTime = toZohoDateFormat(toDateTime.toISOString());
 
         // Prepare form data for Zoho API (it uses form-data, not JSON)
         const formData = new FormData();
         formData.append('service_id', bookingIntent.zoho_service_id);
         formData.append('staff_id', bookingIntent.zoho_staff_id);
-        formData.append('from_time', fromTimeWithSeconds);
-        formData.append('to_time', toTimeWithSeconds);
+        formData.append('from_time', formattedFromTime);
+        formData.append('to_time', formattedToTime);
         formData.append('timezone', bookingIntent.timezone);
         formData.append('customer_details', JSON.stringify({
           name: bookingIntent.customer_name,
@@ -120,9 +133,10 @@ Deno.serve(async (req) => {
         console.log('Sending to Zoho:', {
           service_id: bookingIntent.zoho_service_id,
           staff_id: bookingIntent.zoho_staff_id,
-          from_time: fromTimeWithSeconds,
-          to_time: toTimeWithSeconds,
+          from_time: formattedFromTime,
+          to_time: formattedToTime,
           timezone: bookingIntent.timezone,
+          customer: bookingIntent.customer_name,
         });
 
         const zohoResponse = await zohoApiRequest<{ response: { returnvalue: { booking_id: string } } }>(

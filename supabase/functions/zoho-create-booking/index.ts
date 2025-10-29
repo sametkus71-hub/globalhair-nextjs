@@ -1,5 +1,6 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.76.1';
 import { zohoApiRequest, errorResponse, successResponse } from '../_shared/zoho-utils.ts';
+import { toZohoDateFormat } from '../_shared/date-helpers.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -51,12 +52,28 @@ Deno.serve(async (req) => {
       time: bookingIntent.selected_time,
     });
 
+    // Combine selected_date with from_time and to_time to create full datetime
+    const selectedDate = new Date(bookingIntent.selected_date);
+    const [fromHours, fromMinutes] = bookingIntent.from_time.split(':');
+    const [toHours, toMinutes] = bookingIntent.to_time.split(':');
+
+    // Create full datetime objects
+    const fromDateTime = new Date(selectedDate);
+    fromDateTime.setHours(parseInt(fromHours), parseInt(fromMinutes), 0, 0);
+
+    const toDateTime = new Date(selectedDate);
+    toDateTime.setHours(parseInt(toHours), parseInt(toMinutes), 0, 0);
+
+    // Format to Zoho format: dd-MMM-yyyy HH:mm:ss
+    const formattedFromTime = toZohoDateFormat(fromDateTime.toISOString());
+    const formattedToTime = toZohoDateFormat(toDateTime.toISOString());
+
     // Prepare Zoho booking request
     const bookingPayload = {
       service_id: bookingIntent.zoho_service_id,
       staff_id: bookingIntent.zoho_staff_id,
-      from_time: bookingIntent.from_time,
-      to_time: bookingIntent.to_time,
+      from_time: formattedFromTime,
+      to_time: formattedToTime,
       timezone: bookingIntent.timezone,
       customer_details: {
         name: bookingIntent.customer_name,
