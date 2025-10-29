@@ -5,9 +5,9 @@ export const HeadImage = () => {
       style={{
         top: 'clamp(2rem, 3vh, 3rem)',
         right: 'clamp(0.5rem, 1vw, 1.5rem)',
-        marginRight: '-75px',
-        width: 'clamp(350px, 45vw, 600px)',
-        height: '240px',
+        marginRight: '-120px',
+        width: 'clamp(420px, 54vw, 720px)',
+        height: '288px',
         animation: 'fade-in-scale 0.8s ease-out 0.3s both',
       }}
     >
