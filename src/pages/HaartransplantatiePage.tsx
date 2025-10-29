@@ -4,7 +4,6 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { MetaHead } from '@/components/MetaHead';
 import { PageTransition } from '@/components/PageTransition';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
-import { GlassBackground } from '@/components/haartransplantatie/GlassBackground';
 import { GlassHeader } from '@/components/haartransplantatie/GlassHeader';
 import { HeadImage } from '@/components/haartransplantatie/HeadImage';
 import { AnimatedHeadHero } from '@/components/haartransplantatie/AnimatedHeadHero';
@@ -201,9 +200,6 @@ const HaartransplantatiePage = () => {
         
         <DesktopContainer>
           <PageTransition isNewPage={true}>
-          {/* Glassmorphic Background */}
-          <GlassBackground />
-          
           {/* Glass Header */}
           <GlassHeader />
 

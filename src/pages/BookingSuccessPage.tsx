@@ -3,7 +3,6 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
 import { supabase } from '@/integrations/supabase/client';
 import { MetaHead } from '@/components/MetaHead';
-import { GlassBackground } from '@/components/haartransplantatie/GlassBackground';
 import { GlassHeader } from '@/components/haartransplantatie/GlassHeader';
 import { Badge } from '@/components/ui/badge';
 import { format } from 'date-fns';
@@ -56,7 +55,6 @@ export const BookingSuccessPage = () => {
           description=""
         />
         <div className="min-h-screen bg-gradient-to-b from-[hsl(var(--background-start))] to-[hsl(var(--background-end))]">
-          <GlassBackground />
           <GlassHeader />
           <div className="flex items-center justify-center min-h-screen">
             <div className="text-white text-lg font-inter">
@@ -92,7 +90,6 @@ export const BookingSuccessPage = () => {
       />
       
       <div className="min-h-screen bg-gradient-to-b from-[hsl(var(--background-start))] to-[hsl(var(--background-end))] flex flex-col">
-        <GlassBackground />
         <GlassHeader />
         
         {/* Title Section - Upper middle area */}

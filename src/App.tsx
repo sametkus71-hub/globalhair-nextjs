@@ -12,6 +12,7 @@ import { AnimatedBackground } from "@/components/homepage/AnimatedBackground";
 import { SEORoutes } from "@/components/SEORoutes";
 import ViewportHeightSetter from "@/components/ViewportHeightSetter";
 import { PasswordProtection } from "@/components/PasswordProtection";
+import { PersistentVideoBackground } from "@/components/PersistentVideoBackground";
 import { useEffect } from "react";
 import { waitForSalesIQ } from "@/lib/salesiq";
 
@@ -45,6 +46,7 @@ const App = () => (
                   <AppRootInit />
                   <ViewportHeightSetter />
                   <AppBackground />
+                  <PersistentVideoBackground />
                   
                   <SEORoutes />
                 </PasswordProtection>

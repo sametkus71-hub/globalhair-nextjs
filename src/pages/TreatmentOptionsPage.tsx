@@ -4,7 +4,6 @@ import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { MetaHead } from '@/components/MetaHead';
 import { PageTransition } from '@/components/PageTransition';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
-import { VideoBackground } from '@/components/haartransplantatie/VideoBackground';
 import { PackageLocationSelector } from '@/components/haartransplantatie/PackageLocationSelector';
 import { PackageDetailContent } from '@/components/haartransplantatie/PackageDetailContent';
 
@@ -69,9 +68,6 @@ const TreatmentOptionsPage = () => {
       />
       <DesktopContainer>
         <PageTransition isNewPage={true}>
-          {/* Same Video Background for seamless transition */}
-          <VideoBackground />
-          
           {/* Main Content Section */}
           <section 
             className="w-full relative overflow-hidden flex flex-col"

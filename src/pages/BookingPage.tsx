@@ -3,7 +3,6 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useNavigate } from 'react-router-dom';
 import { MetaHead } from '@/components/MetaHead';
 import { PopupCloseButton } from '@/components/PopupCloseButton';
-import { GlassBackground } from '@/components/haartransplantatie/GlassBackground';
 import { BookingWizard } from '@/components/booking/BookingWizard';
 import { StaffCodePopover } from '@/components/booking/StaffCodePopover';
 import { TestModeProvider } from '@/contexts/TestModeContext';
@@ -45,9 +44,7 @@ export const BookingPage = () => {
       
       <TestModeProvider>
         <div className={`fixed inset-0 z-50 ${isExiting ? 'reviews-page-exit' : ''}`}>
-          <GlassBackground />
-          
-          <PopupCloseButton 
+          <PopupCloseButton
             onClose={handleClose}
             className="!left-auto !right-4"
             style={{ zIndex: 100 }} 
