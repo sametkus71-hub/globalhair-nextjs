@@ -12,7 +12,7 @@ export const HeadImage = () => {
       }}
     >
       <img
-        src="https://GlobalHair.b-cdn.net/Male-1K-HT-WEB.gif"
+        src="https://GlobalHair.b-cdn.net/Ontwerp%20zonder%20titel%20(5).gif"
         alt="Head animation"
         className="w-full h-full object-contain"
         style={{
