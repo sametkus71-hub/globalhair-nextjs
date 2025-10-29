@@ -50,11 +50,13 @@ const App = () => (
           <BrowserRouter>
             <LanguageWrapper>
               <TransitionProvider>
-                <AppRootInit />
-                <ViewportHeightSetter />
-                <AppBackground />
-                
-                <SEORoutes />
+                <PasswordProtection>
+                  <AppRootInit />
+                  <ViewportHeightSetter />
+                  <AppBackground />
+                  
+                  <SEORoutes />
+                </PasswordProtection>
               </TransitionProvider>
             </LanguageWrapper>
           </BrowserRouter>

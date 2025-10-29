@@ -74,30 +74,47 @@ const handleSubmit = async (e: React.FormEvent) => {
 
   if (!isAuthenticated) {
     return (
-      <div className="fixed inset-0 flex items-center justify-center" style={{ background: '#E4E5E0' }}>
-        <div className="w-full max-w-md p-8 mx-4">
-          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20">
-            <h1 className="text-2xl font-bold text-center mb-6 text-gray-900">
-              Access Required
-            </h1>
+      <div className="fixed inset-0 bg-white flex items-center justify-center">
+        <div className="w-full max-w-sm px-6">
+          <div className="border border-gray-200 bg-white p-8 space-y-6">
+            {/* Minimal header */}
+            <div className="space-y-2">
+              <h1 className="text-sm font-mono text-gray-900 tracking-tight">
+                Development Access
+              </h1>
+              <p className="text-xs text-gray-500 font-mono leading-relaxed">
+                This site is currently in development.<br />
+                Access is restricted to development team members only.
+              </p>
+            </div>
+            
+            {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <Input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter password"
-                  className="w-full"
+                  placeholder="Enter access code"
+                  className="w-full text-sm font-mono border-gray-300 focus:border-gray-400 focus:ring-0"
                   autoFocus
                 />
                 {error && (
-                  <p className="text-red-500 text-sm mt-2">{error}</p>
+                  <p className="text-xs text-red-600 mt-2 font-mono">{error}</p>
                 )}
               </div>
-              <Button type="submit" className="w-full">
+              <Button 
+                type="submit" 
+                className="w-full bg-gray-900 hover:bg-gray-800 text-white text-sm font-mono h-9"
+              >
                 Enter
               </Button>
             </form>
+            
+            {/* Subtle footer */}
+            <div className="text-center pt-2 border-t border-gray-100">
+              <p className="text-xs text-gray-400 font-mono">v0.1-dev</p>
+            </div>
           </div>
         </div>
       </div>
