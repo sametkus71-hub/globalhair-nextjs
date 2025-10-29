@@ -4,9 +4,10 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { supabase } from '@/integrations/supabase/client';
 import { MetaHead } from '@/components/MetaHead';
 import { GlassBackground } from '@/components/haartransplantatie/GlassBackground';
+import { GlassHeader } from '@/components/haartransplantatie/GlassHeader';
+import { Badge } from '@/components/ui/badge';
 import { format } from 'date-fns';
 import { nl, enGB as enUS } from 'date-fns/locale';
-import { Check, Calendar, Clock, MapPin, User } from 'lucide-react';
 import { toast } from 'sonner';
 
 export const BookingSuccessPage = () => {
@@ -54,10 +55,13 @@ export const BookingSuccessPage = () => {
           title={language === 'nl' ? 'Laden...' : 'Loading...'}
           description=""
         />
-        <div className="min-h-screen bg-[hsl(var(--background-start))] flex items-center justify-center">
+        <div className="min-h-screen bg-gradient-to-b from-[hsl(var(--background-start))] to-[hsl(var(--background-end))]">
           <GlassBackground />
-          <div className="text-white text-lg">
-            {language === 'nl' ? 'Laden...' : 'Loading...'}
+          <GlassHeader />
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="text-white text-lg font-inter">
+              {language === 'nl' ? 'Laden...' : 'Loading...'}
+            </div>
           </div>
         </div>
       </>
@@ -68,98 +72,77 @@ export const BookingSuccessPage = () => {
     return null;
   }
 
-  const serviceName = booking.service_type === 'v6_hairboost' 
-    ? 'V6 Hairboost Consult'
-    : booking.service_type === 'haartransplantatie'
-    ? 'Haartransplantatie Consult'
-    : 'CEO Consultatie';
-
-  const locationName = booking.location === 'online' 
-    ? (language === 'nl' ? 'Online' : 'Online')
-    : (language === 'nl' ? 'Op locatie' : 'On-site');
+  // Format booking ID (last 6 digits of the ID)
+  const bookingNumber = booking.id.slice(-6).toUpperCase();
+  
+  // Format date and time
+  const bookingDate = format(new Date(booking.selected_date), 'd MMMM yyyy', { 
+    locale: language === 'nl' ? nl : enUS 
+  });
+  const bookingDateTime = `${bookingDate} om ${booking.selected_time}`;
 
   return (
     <>
       <MetaHead
         language={language}
-        title={language === 'nl' ? 'Afspraak Bevestigd' : 'Appointment Confirmed'}
+        title={language === 'nl' ? 'De eerste stap is gezet' : 'The first step is taken'}
         description={language === 'nl' ? 'Uw afspraak is bevestigd' : 'Your appointment is confirmed'}
       />
       
-      <div className="min-h-screen bg-gradient-to-b from-[hsl(var(--background-start))] to-[hsl(var(--background-end))] flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-b from-[hsl(var(--background-start))] to-[hsl(var(--background-end))] flex flex-col">
         <GlassBackground />
+        <GlassHeader />
         
-        <div className="relative z-10 w-full max-w-2xl">
-          <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-8 shadow-2xl">
-            {/* Success Icon */}
+        {/* Title Section - Upper middle area */}
+        <div className="flex-1 flex items-center justify-center px-4 pt-20 pb-8">
+          <h1 className="text-5xl md:text-6xl font-bold text-white text-center font-inter">
+            {language === 'nl' ? 'De eerste stap is gezet.' : 'The first step is taken.'}
+          </h1>
+        </div>
+
+        {/* Content Card - Bottom section */}
+        <div className="relative z-10 w-full px-4 pb-8">
+          <div className="max-w-2xl mx-auto bg-white/5 backdrop-blur-xl rounded-lg border border-white/10 p-6 shadow-2xl">
+            {/* Booking Number Badge */}
             <div className="flex justify-center mb-6">
-              <div className="w-16 h-16 rounded-full bg-green-500/20 border border-green-500/30 flex items-center justify-center">
-                <Check className="w-8 h-8 text-green-400" />
-              </div>
+              <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-1 text-sm font-inter">
+                {language === 'nl' ? 'Boeking' : 'Booking'} #{bookingNumber}
+              </Badge>
             </div>
 
-            {/* Title */}
-            <h1 className="text-2xl font-bold text-white text-center mb-2 font-inter">
-              {language === 'nl' ? 'Afspraak Bevestigd!' : 'Appointment Confirmed!'}
-            </h1>
-            
-            <p className="text-white/60 text-center mb-8 text-sm font-inter">
-              {language === 'nl' 
-                ? 'U ontvangt een bevestigingsmail op' 
-                : 'You will receive a confirmation email at'
-              } {booking.customer_email}
-            </p>
-
-            {/* Booking Details */}
-            <div className="space-y-4 mb-8">
-              <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
-                <User className="w-5 h-5 text-white/60 mt-0.5 flex-shrink-0" />
-                <div className="flex-1">
-                  <div className="text-xs text-white/60 mb-1 font-inter">{language === 'nl' ? 'Service' : 'Service'}</div>
-                  <div className="text-white font-medium font-inter">{serviceName}</div>
-                  <div className="text-sm text-white/70 font-inter">{booking.assigned_staff_name}</div>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
-                <Calendar className="w-5 h-5 text-white/60 mt-0.5 flex-shrink-0" />
-                <div className="flex-1">
-                  <div className="text-xs text-white/60 mb-1 font-inter">{language === 'nl' ? 'Datum' : 'Date'}</div>
-                  <div className="text-white font-medium font-inter">
-                    {format(new Date(booking.selected_date), 'EEEE, d MMMM yyyy', { 
-                      locale: language === 'nl' ? nl : enUS 
-                    })}
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
-                <Clock className="w-5 h-5 text-white/60 mt-0.5 flex-shrink-0" />
-                <div className="flex-1">
-                  <div className="text-xs text-white/60 mb-1 font-inter">{language === 'nl' ? 'Tijd' : 'Time'}</div>
-                  <div className="text-white font-medium font-inter">
-                    {booking.selected_time} ({booking.duration_minutes} {language === 'nl' ? 'minuten' : 'minutes'})
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/10">
-                <MapPin className="w-5 h-5 text-white/60 mt-0.5 flex-shrink-0" />
-                <div className="flex-1">
-                  <div className="text-xs text-white/60 mb-1 font-inter">{language === 'nl' ? 'Locatie' : 'Location'}</div>
-                  <div className="text-white font-medium font-inter">{locationName}</div>
-                </div>
-              </div>
+            {/* Date and Time */}
+            <div className="text-center mb-4">
+              <p className="text-white text-xl font-medium font-inter">
+                {bookingDateTime}
+              </p>
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex gap-3">
-              <button
-                onClick={() => navigate(language === 'nl' ? '/nl' : '/en')}
-                className="flex-1 px-6 py-3 rounded-full bg-white/10 hover:bg-white/15 border border-white/20 text-white font-medium transition-all duration-200 text-sm font-inter"
-              >
-                {language === 'nl' ? 'Terug naar home' : 'Back to home'}
-              </button>
+            {/* Confirmation Message */}
+            <div className="text-center mb-8">
+              <p className="text-white/70 text-sm font-inter">
+                {language === 'nl' 
+                  ? 'Afspraak bevestiging staat in je e-mail' 
+                  : 'Appointment confirmation is in your email'}
+              </p>
+            </div>
+
+            {/* Contact Footer */}
+            <div className="border-t border-white/10 pt-6">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-white/60 text-sm font-inter">
+                <a 
+                  href="mailto:info@ghihairtransplant.com" 
+                  className="hover:text-white transition-colors"
+                >
+                  info@ghihairtransplant.com
+                </a>
+                <span className="hidden sm:inline text-white/40">•</span>
+                <a 
+                  href="tel:+31850606464" 
+                  className="hover:text-white transition-colors"
+                >
+                  +31 85 060 64 64
+                </a>
+              </div>
             </div>
           </div>
         </div>
