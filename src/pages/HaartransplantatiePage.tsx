@@ -295,34 +295,30 @@ const HaartransplantatiePage = () => {
                     />
                   </div>
                 )}
-                
-                {/* Pagination Dots - Positioned dynamically */}
-                <div 
-                  className="absolute left-0 right-0 flex items-center justify-center gap-[0.2rem] pointer-events-auto z-30"
-                  style={{ 
-                    top: '220px',
-                    transition: 'top 0.2s ease-out'
-                  }}
-                >
-                  {tabs.map((tab) => (
-                    <button
-                      key={tab}
-                      onClick={() => {
-                        const currentIndex = tabs.indexOf(activeTab);
-                        const targetIndex = tabs.indexOf(tab);
-                        const direction = targetIndex > currentIndex ? 'left' : 'right';
-                        handleTabChange(tab, direction);
-                      }}
-                      className="transition-all duration-300"
-                      style={{
-                        width: '6px',
-                        height: '6px',
-                        borderRadius: '50%',
-                        background: activeTab === tab ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.3)',
-                      }}
-                    />
-                  ))}
-                </div>
+              </div>
+
+              {/* Pagination Dots - Positioned relatively after content */}
+              <div 
+                className="relative flex items-center justify-center gap-[0.2rem] pointer-events-auto z-30 py-2"
+              >
+                {tabs.map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => {
+                      const currentIndex = tabs.indexOf(activeTab);
+                      const targetIndex = tabs.indexOf(tab);
+                      const direction = targetIndex > currentIndex ? 'left' : 'right';
+                      handleTabChange(tab, direction);
+                    }}
+                    className="transition-all duration-300"
+                    style={{
+                      width: '6px',
+                      height: '6px',
+                      borderRadius: '50%',
+                      background: activeTab === tab ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.3)',
+                    }}
+                  />
+                ))}
               </div>
 
                 {/* Static Review Section - Always visible at bottom */}
