@@ -72,14 +72,16 @@ export const BookingSuccessPage = () => {
     return null;
   }
 
-  // Format booking ID (last 6 digits of the ID)
+  // Format booking ID (last 6 digits of the ID for traceability in database)
   const bookingNumber = booking.id.slice(-6).toUpperCase();
   
-  // Format date and time
+  // Format date and time (HH:mm format without seconds)
   const bookingDate = format(new Date(booking.selected_date), 'd MMMM yyyy', { 
     locale: language === 'nl' ? nl : enUS 
   });
-  const bookingDateTime = `${bookingDate} om ${booking.selected_time}`;
+  // Format time as HH:mm only (remove seconds)
+  const timeWithoutSeconds = booking.selected_time.substring(0, 5);
+  const bookingDateTime = `${bookingDate} om ${timeWithoutSeconds}`;
 
   return (
     <>
@@ -94,56 +96,53 @@ export const BookingSuccessPage = () => {
         <GlassHeader />
         
         {/* Title Section - Upper middle area */}
-        <div className="flex-1 flex items-center justify-center px-4 pt-20 pb-8">
-          <h1 className="text-5xl md:text-6xl font-bold text-white text-center font-inter">
+        <div className="flex-1 flex items-center justify-center px-4 pt-24 pb-12">
+          <h1 className="text-[56px] leading-tight font-bold text-white text-center font-inter">
             {language === 'nl' ? 'De eerste stap is gezet.' : 'The first step is taken.'}
           </h1>
         </div>
 
         {/* Content Card - Bottom section */}
-        <div className="relative z-10 w-full px-4 pb-8">
-          <div className="max-w-2xl mx-auto bg-white/5 backdrop-blur-xl rounded-lg border border-white/10 p-6 shadow-2xl">
+        <div className="relative z-10 w-full px-4 pb-6">
+          <div className="max-w-2xl mx-auto bg-white/5 backdrop-blur-xl rounded-lg border border-white/10 p-8 shadow-2xl">
             {/* Booking Number Badge */}
-            <div className="flex justify-center mb-6">
-              <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-1 text-sm font-inter">
+            <div className="flex justify-center mb-5">
+              <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-1 text-base font-inter">
                 {language === 'nl' ? 'Boeking' : 'Booking'} #{bookingNumber}
               </Badge>
             </div>
 
             {/* Date and Time */}
-            <div className="text-center mb-4">
-              <p className="text-white text-xl font-medium font-inter">
+            <div className="text-center mb-3">
+              <p className="text-white text-2xl font-normal font-inter">
                 {bookingDateTime}
               </p>
             </div>
 
             {/* Confirmation Message */}
-            <div className="text-center mb-8">
-              <p className="text-white/70 text-sm font-inter">
+            <div className="text-center">
+              <p className="text-white/70 text-base font-inter">
                 {language === 'nl' 
                   ? 'Afspraak bevestiging staat in je e-mail' 
                   : 'Appointment confirmation is in your email'}
               </p>
             </div>
-
-            {/* Contact Footer */}
-            <div className="border-t border-white/10 pt-6">
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-white/60 text-sm font-inter">
-                <a 
-                  href="mailto:info@ghihairtransplant.com" 
-                  className="hover:text-white transition-colors"
-                >
-                  info@ghihairtransplant.com
-                </a>
-                <span className="hidden sm:inline text-white/40">•</span>
-                <a 
-                  href="tel:+31850606464" 
-                  className="hover:text-white transition-colors"
-                >
-                  +31 85 060 64 64
-                </a>
-              </div>
-            </div>
+          </div>
+          
+          {/* Contact Info - Outside container */}
+          <div className="max-w-2xl mx-auto flex items-center justify-between mt-6 text-white/60 text-sm font-inter px-2">
+            <a 
+              href="mailto:Contact@globalhair.nl" 
+              className="hover:text-white transition-colors"
+            >
+              Contact@globalhair.nl
+            </a>
+            <a 
+              href="tel:0857500577" 
+              className="hover:text-white transition-colors"
+            >
+              085 750 0577
+            </a>
           </div>
         </div>
       </div>
