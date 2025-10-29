@@ -5,6 +5,9 @@ import leafIcon from '@/assets/leaf.svg';
 
 interface PackageCardGlassProps {
   className?: string;
+  activeTab?: string;
+  tabs?: string[];
+  onTabChange?: (tab: string, direction?: 'left' | 'right') => void;
 }
 
 const packageData = {
@@ -31,7 +34,7 @@ const packageData = {
   },
 };
 
-export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
+export const PackageCardGlass = ({ className, activeTab, tabs, onTabChange }: PackageCardGlassProps) => {
   const { language } = useLanguage();
   const navigate = useNavigate();
 
@@ -430,6 +433,32 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           {language === 'nl' ? 'Lees meer' : 'Read more'}
         </button>
       </div>
+
+      {/* Pagination Dots - Only show if props are provided */}
+      {activeTab && tabs && onTabChange && (
+        <div 
+          className="relative flex items-center justify-center gap-[0.2rem] pointer-events-auto z-30 py-2"
+        >
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => {
+                const currentIndex = tabs.indexOf(activeTab);
+                const targetIndex = tabs.indexOf(tab);
+                const direction = targetIndex > currentIndex ? 'left' : 'right';
+                onTabChange(tab, direction);
+              }}
+              className="transition-all duration-300"
+              style={{
+                width: '6px',
+                height: '6px',
+                borderRadius: '50%',
+                background: activeTab === tab ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.3)',
+              }}
+            />
+          ))}
+        </div>
+      )}
 
       <style>{`
         .packages-card {
