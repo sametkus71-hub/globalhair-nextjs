@@ -3,7 +3,7 @@ export const HeadImage = () => {
     <div 
       className="absolute head-glow z-[5]"
       style={{
-        top: 'clamp(2rem, 3vh, 3rem)',
+        top: 'clamp(-0.5rem, 1vh, 0.5rem)',
         right: 'clamp(0.5rem, 1vw, 1.5rem)',
         marginRight: '-120px',
         width: 'clamp(420px, 54vw, 720px)',
