@@ -60,11 +60,11 @@ export const StaffCodePopover = ({ onCodeVerified }: StaffCodePopoverProps) => {
           Medewerkers
         </button>
       </PopoverTrigger>
-      <PopoverContent className="w-72 bg-white border border-gray-300 shadow-xl rounded-sm p-5">
-        <div className="space-y-4">
+      <PopoverContent className="w-72 bg-white border border-gray-300 shadow-lg rounded-none p-4">
+        <div className="space-y-3">
           <div>
-            <h3 className="text-sm font-medium text-gray-900 mb-1">Medewerkers toegang</h3>
-            <p className="text-xs text-gray-500">Voer de medewerkers code in om test modus te activeren</p>
+            <h3 className="text-sm font-medium text-gray-900 mb-1">Medewerkers code invoeren</h3>
+            <p className="text-xs text-gray-500">Voer jouw medewerkers code in om staff-mode te activeren</p>
           </div>
           
           <div className="space-y-2">
@@ -75,13 +75,13 @@ export const StaffCodePopover = ({ onCodeVerified }: StaffCodePopoverProps) => {
               onChange={(e) => setCode(e.target.value)}
               onKeyPress={handleKeyPress}
               disabled={isVerified}
-              className="text-sm border-gray-300 focus:border-gray-500 focus:ring-1 focus:ring-gray-500 rounded-sm"
+              className="text-sm border-gray-300 focus:border-gray-500 focus:ring-1 focus:ring-gray-500 rounded-none"
               autoFocus
             />
             <Button 
               onClick={handleVerify}
               disabled={isVerifying || isVerified || !code.trim()}
-              className="w-full bg-gray-900 hover:bg-gray-800 text-white text-sm h-9 rounded-sm"
+              className="w-full bg-gray-900 hover:bg-gray-800 text-white text-sm h-9 rounded-none"
             >
               {isVerifying ? 'Verifiëren...' : isVerified ? 'Geverifieerd ✓' : 'Verifiëren'}
             </Button>
