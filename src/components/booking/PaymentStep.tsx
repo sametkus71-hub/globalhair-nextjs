@@ -38,7 +38,7 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
   const [isProcessing, setIsProcessing] = useState(false);
 
   const config = getServiceConfig(serviceType, location);
-  const isFormComplete = customerInfo.name && customerInfo.email && customerInfo.phone && 
+  const isFormComplete = customerInfo && customerInfo.name && customerInfo.email && customerInfo.phone && 
                          customerInfo.address && customerInfo.city && customerInfo.country;
 
   const handlePayment = async () => {
