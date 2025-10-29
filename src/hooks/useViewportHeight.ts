@@ -2,12 +2,6 @@ import { useState, useEffect } from 'react';
 
 type HeightBreakpoint = 'small' | 'medium' | 'large';
 
-// Detect Safari browser
-const isSafari = () => {
-  const ua = navigator.userAgent;
-  return /Safari/.test(ua) && !/Chrome/.test(ua) && !/CriOS/.test(ua) && !/FxiOS/.test(ua);
-};
-
 export const useViewportHeight = () => {
   const [height, setHeight] = useState(0);
   const [heightBreakpoint, setHeightBreakpoint] = useState<HeightBreakpoint>('large');
@@ -16,58 +10,23 @@ export const useViewportHeight = () => {
     const updateHeight = () => {
       let viewportHeight: number;
       
-      // Enhanced Safari handling
-      if (isSafari()) {
-        // For Safari, use multiple fallback methods
-        if (window.visualViewport) {
-          viewportHeight = window.visualViewport.height;
-        } else {
-          // Safari-specific fallbacks
-          const bodyHeight = document.body.clientHeight;
-          const innerHeight = window.innerHeight;
-          const screenHeight = window.screen.height;
-          
-          // Use the most conservative (smallest) height for Safari
-          viewportHeight = Math.min(innerHeight, bodyHeight || innerHeight, screenHeight || innerHeight);
-        }
+      // Use Visual Viewport API if available (works on all modern browsers)
+      if (window.visualViewport) {
+        viewportHeight = window.visualViewport.height;
       } else {
-        // Standard handling for other browsers
-        if (window.visualViewport) {
-          viewportHeight = window.visualViewport.height;
-        } else {
-          viewportHeight = window.innerHeight;
-        }
-      }
-
-      // Additional Safari mobile address bar handling
-      const documentHeight = document.documentElement.clientHeight;
-      let finalHeight = viewportHeight;
-      
-      if (isSafari() && documentHeight > 0) {
-        finalHeight = Math.min(viewportHeight, documentHeight);
+        viewportHeight = window.innerHeight;
       }
       
-      setHeight(finalHeight);
+      setHeight(viewportHeight);
       
-      // Set CSS custom properties for use throughout the app
-      document.documentElement.style.setProperty('--app-height', `${finalHeight}px`);
-      document.documentElement.style.setProperty('--safe-area-height', `${finalHeight}px`);
-      
-      // Debug logging for Safari (temporary)
-      if (isSafari()) {
-        console.log('Safari height update:', {
-          visualViewport: window.visualViewport?.height,
-          innerHeight: window.innerHeight,
-          documentHeight,
-          bodyHeight: document.body.clientHeight,
-          finalHeight
-        });
-      }
+      // Set CSS custom properties - overrides the CSS fallback with precise values
+      document.documentElement.style.setProperty('--app-height', `${viewportHeight}px`);
+      document.documentElement.style.setProperty('--safe-area-height', `${viewportHeight}px`);
       
       // Determine breakpoint based on height
-      if (finalHeight < 700) {
+      if (viewportHeight < 700) {
         setHeightBreakpoint('small');
-      } else if (finalHeight < 850) {
+      } else if (viewportHeight < 850) {
         setHeightBreakpoint('medium');
       } else {
         setHeightBreakpoint('large');
@@ -77,7 +36,7 @@ export const useViewportHeight = () => {
     // Initial update
     updateHeight();
 
-    // Enhanced event listeners for Safari and other browsers
+    // Event listeners for all browsers
     const events = ['resize', 'orientationchange'];
     events.forEach(event => {
       window.addEventListener(event, updateHeight);
@@ -89,45 +48,28 @@ export const useViewportHeight = () => {
       window.visualViewport.addEventListener('scroll', updateHeight);
     }
 
-    // Enhanced Safari address bar changes handling
-    const handleSafariResize = () => {
-      // Increased delay for Safari address bar animations
-      window.setTimeout(updateHeight, 300);
+    // Address bar changes handling
+    const handleViewportResize = () => {
+      window.setTimeout(updateHeight, 150);
     };
     
-    // Additional Safari-specific viewport change detection
-    let safariTimer: number;
-    const safariViewportWatcher = () => {
-      clearTimeout(safariTimer);
-      safariTimer = window.setTimeout(updateHeight, 150);
-    };
+    window.addEventListener('scroll', handleViewportResize, { passive: true });
+    window.addEventListener('focus', updateHeight);
+    window.addEventListener('blur', updateHeight);
     
-    // Safari-specific events
-    if (isSafari()) {
-      window.addEventListener('scroll', handleSafariResize, { passive: true });
-      window.addEventListener('focus', updateHeight);
-      window.addEventListener('blur', updateHeight);
-      
-      document.addEventListener('touchstart', safariViewportWatcher, { passive: true });
-      document.addEventListener('touchend', safariViewportWatcher, { passive: true });
-    } else {
-      // Standard scroll handling for non-Safari browsers
-      window.addEventListener('scroll', handleSafariResize, { passive: true });
-    }
+    document.addEventListener('touchstart', handleViewportResize, { passive: true });
+    document.addEventListener('touchend', handleViewportResize, { passive: true });
 
     return () => {
       events.forEach(event => {
         window.removeEventListener(event, updateHeight);
       });
       
-      window.removeEventListener('scroll', handleSafariResize);
-      
-      if (isSafari()) {
-        window.removeEventListener('focus', updateHeight);
-        window.removeEventListener('blur', updateHeight);
-        document.removeEventListener('touchstart', safariViewportWatcher);
-        document.removeEventListener('touchend', safariViewportWatcher);
-      }
+      window.removeEventListener('scroll', handleViewportResize);
+      window.removeEventListener('focus', updateHeight);
+      window.removeEventListener('blur', updateHeight);
+      document.removeEventListener('touchstart', handleViewportResize);
+      document.removeEventListener('touchend', handleViewportResize);
       
       if (window.visualViewport) {
         window.visualViewport.removeEventListener('resize', updateHeight);

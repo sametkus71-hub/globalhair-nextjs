@@ -8,6 +8,12 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
 
 @layer base {
   :root {
+    /* Viewport height - browsers use the last one they support */
+    --app-height: 100vh;
+    --app-height: 100svh; /* Modern browsers will use this */
+    --safe-area-height: 100vh;
+    --safe-area-height: 100svh;
+    
     /* App Background for Safari mobile */
     --app-background: #0C1B2A;
     

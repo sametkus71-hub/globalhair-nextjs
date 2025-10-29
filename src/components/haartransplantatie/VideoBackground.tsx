@@ -149,7 +149,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
             objectPosition: 'center center',
             zIndex: 1,
             width: 'calc(100vw + 100px)',
-            height: 'calc(100vh + 100px)',
+            height: 'calc(var(--app-height) + 100px)',
             left: '50%',
             top: '-50px',
             transform: 'translateX(-50%) scale(1.05)'
@@ -176,7 +176,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
             objectPosition: 'center center',
             zIndex: 1,
             width: 'calc(100vw + 100px)',
-            height: 'calc(100vh + 100px)',
+            height: 'calc(var(--app-height) + 100px)',
             left: '50%',
             top: '-50px',
             transform: 'translateX(-50%) scale(1.05)'
@@ -203,7 +203,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
             objectPosition: 'center center',
             zIndex: 1,
             width: 'calc(100vw + 100px)',
-            height: 'calc(100vh + 100px)',
+            height: 'calc(var(--app-height) + 100px)',
             left: '50%',
             top: '-50px',
             transform: 'translateX(-50%) scale(1.05)'

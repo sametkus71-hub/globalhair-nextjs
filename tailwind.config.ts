@@ -18,6 +18,18 @@ export default {
 			}
 		},
 		extend: {
+			height: {
+				'screen': 'var(--app-height)',
+				'screen-safe': 'var(--safe-area-height)',
+			},
+			minHeight: {
+				'screen': 'var(--app-height)',
+				'screen-safe': 'var(--safe-area-height)',
+			},
+			maxHeight: {
+				'screen': 'var(--app-height)',
+				'screen-safe': 'var(--safe-area-height)',
+			},
 			fontFamily: {
 				'header': ['Manrope', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
 				'body': ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
