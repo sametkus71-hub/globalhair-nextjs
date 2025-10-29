@@ -96,7 +96,7 @@ export const BookingSuccessPage = () => {
         <GlassHeader />
         
         {/* Title Section - Upper middle area */}
-        <div className="flex-1 flex items-center justify-center px-4 pt-24 pb-12">
+        <div className="relative z-10 flex-1 flex items-center justify-center px-4 pt-24 pb-12">
           <h1 className="text-[56px] leading-tight font-bold text-white text-center font-inter">
             {language === 'nl' ? 'De eerste stap is gezet.' : 'The first step is taken.'}
           </h1>
