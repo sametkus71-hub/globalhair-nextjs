@@ -49,7 +49,6 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
         marginLeft: '.1rem',
         marginRight: '.1rem',
         padding: '10px 10px 0',
-        minHeight: '26vh',
         display: 'flex',
         flexDirection: 'column',
       }}

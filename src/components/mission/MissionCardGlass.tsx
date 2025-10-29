@@ -38,7 +38,6 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
         marginLeft: '.1rem',
         marginRight: '.1rem',
         padding: 0,
-        minHeight: '26vh',
       }}
     >
       {/* Missions Grid */}
