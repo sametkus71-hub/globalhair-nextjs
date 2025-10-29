@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Lock, Check } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -57,45 +56,33 @@ export const StaffCodePopover = ({ onCodeVerified }: StaffCodePopoverProps) => {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="text-white/30 hover:text-white/50 text-xs px-0 h-auto font-normal"
-        >
-          <Lock className="w-3 h-3 mr-1" />
-          Medewerkers
-        </Button>
+        <button className="text-xs text-white/30 hover:text-white/50 font-mono">
+          staff
+        </button>
       </PopoverTrigger>
-      <PopoverContent className="w-64 bg-white/5 backdrop-blur-sm border border-white/10">
+      <PopoverContent className="w-64 bg-white border border-gray-200 shadow-lg">
         <div className="space-y-3">
           <div>
-            <h4 className="font-normal text-sm mb-1 text-white/80">Medewerkers code</h4>
-            <p className="text-xs text-white/50">Voer de testcode in</p>
+            <p className="text-xs text-gray-500 font-mono">Staff code</p>
           </div>
           
-          <div className="flex gap-2">
+          <div className="space-y-2">
             <Input
               type="password"
-              placeholder="Code"
+              placeholder="Enter code"
               value={code}
               onChange={(e) => setCode(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleVerify()}
+              onKeyPress={handleKeyPress}
               disabled={isVerified}
-              className="flex-1 bg-white/5 border-white/10 text-white placeholder:text-white/30"
+              className="text-sm font-mono border-gray-300 focus:border-gray-400 focus:ring-0"
+              autoFocus
             />
             <Button 
               onClick={handleVerify}
               disabled={isVerifying || isVerified || !code.trim()}
-              size="sm"
-              className="bg-white/10 hover:bg-white/20 text-white border-white/10"
+              className="w-full bg-gray-900 hover:bg-gray-800 text-white text-sm font-mono h-9"
             >
-              {isVerifying ? (
-                <span className="text-xs">...</span>
-              ) : isVerified ? (
-                <Check className="w-4 h-4" />
-              ) : (
-                <span className="text-xs">OK</span>
-              )}
+              {isVerifying ? '...' : isVerified ? '✓' : 'Verify'}
             </Button>
           </div>
         </div>
