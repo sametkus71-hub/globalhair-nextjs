@@ -140,16 +140,28 @@ export const BookingSuccessPage = () => {
           </div>
           
           {/* Contact Info - Outside container */}
-          <div className="max-w-2xl mx-auto flex items-center justify-between mt-6 text-white/60 text-sm font-inter px-2">
+          <div className="max-w-2xl mx-auto flex items-center justify-between mt-6 px-2">
             <a 
               href="mailto:Contact@globalhair.nl" 
-              className="hover:text-white transition-colors"
+              className="text-[13.69px] leading-none tracking-[-0.04em] text-center font-normal font-inter bg-clip-text text-transparent hover:opacity-80 transition-opacity"
+              style={{
+                background: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
             >
               Contact@globalhair.nl
             </a>
             <a 
               href="tel:0857500577" 
-              className="hover:text-white transition-colors"
+              className="text-[13.69px] leading-none tracking-[-0.04em] text-center font-normal font-inter bg-clip-text text-transparent hover:opacity-80 transition-opacity"
+              style={{
+                background: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
             >
               085 750 0577
             </a>
