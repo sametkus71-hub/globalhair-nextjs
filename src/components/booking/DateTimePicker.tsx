@@ -267,7 +267,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
         }
 
         .cal-day.is-selected {
-          background: linear-gradient(180deg, rgba(240,245,255,0.28), rgba(255,255,255,0.06));
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 80%);
           color: rgba(255,255,255,0.85);
           box-shadow: inset 0 0 0 1px rgba(255,255,255,0.28), 0 6px 18px rgba(0,0,0,0.25);
         }
