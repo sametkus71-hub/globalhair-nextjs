@@ -80,7 +80,7 @@ export const OptionsStep = ({
           onClick={() => onLocationChange('onsite')}
           className={`w-full px-3 py-3 rounded text-left transition-all duration-200 flex items-center gap-2.5 ${
             location === 'onsite'
-              ? 'silver-gradient-border bg-[#FFFFFF1F]'
+              ? 'bg-[#FFFFFF1F] border border-green-500'
               : 'bg-[#FFFFFF1F] border border-white/10 hover:bg-white/10'
           }`}
         >
@@ -95,7 +95,7 @@ export const OptionsStep = ({
           onClick={() => onLocationChange('online')}
           className={`w-full px-3 py-3 rounded text-left transition-all duration-200 flex items-center gap-2.5 ${
             location === 'online'
-              ? 'silver-gradient-border bg-[#FFFFFF1F]'
+              ? 'bg-[#FFFFFF1F] border border-green-500'
               : 'bg-[#FFFFFF1F] border border-white/10 hover:bg-white/10'
           }`}
         >
