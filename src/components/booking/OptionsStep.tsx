@@ -48,9 +48,10 @@ export const OptionsStep = ({
               onClick={() => onConsultTypeChange('v6_hairboost')}
               className={`px-4 py-1.5 rounded-full text-xs font-inter font-normal transition-all duration-300 ease-out ${
                 consultType === 'v6_hairboost'
-                  ? 'silver-gradient-border bg-white/10 text-white scale-105'
+                  ? 'silver-gradient-border text-white scale-105'
                   : 'text-white/60 hover:text-white scale-100'
               }`}
+              style={consultType === 'v6_hairboost' ? { textShadow: '0 0 20px rgba(255, 255, 255, 0.6)' } : {}}
             >
               V6 Hairboost consult
             </button>
@@ -58,9 +59,10 @@ export const OptionsStep = ({
               onClick={() => onConsultTypeChange('haartransplantatie')}
               className={`px-4 py-1.5 rounded-full text-xs font-inter font-normal transition-all duration-300 ease-out ${
                 consultType === 'haartransplantatie'
-                  ? 'silver-gradient-border bg-white/10 text-white scale-105'
+                  ? 'silver-gradient-border text-white scale-105'
                   : 'text-white/60 hover:text-white scale-100'
               }`}
+              style={consultType === 'haartransplantatie' ? { textShadow: '0 0 20px rgba(255, 255, 255, 0.6)' } : {}}
             >
               Haartransplantatie consult
             </button>
