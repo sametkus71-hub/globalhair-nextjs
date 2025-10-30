@@ -168,8 +168,16 @@ export const BookingWizard = () => {
               </div>
               <div className="flex items-center gap-2 flex-1">
                 <span 
-                  className="font-inter font-normal text-sm text-left text-white"
-                  style={{ textShadow: '0px 3.39px 18.55px #FFFFFF40' }}
+                  className="font-inter text-left"
+                  style={{ 
+                    fontWeight: 400,
+                    fontSize: '16px',
+                    background: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    textShadow: '0px 3.39px 18.55px #FFFFFF40'
+                  }}
                 >
                   Kies een optie
                 </span>
@@ -225,10 +233,18 @@ export const BookingWizard = () => {
               </div>
               <div className="flex items-center gap-2 flex-1">
                 <span 
-                  className={`font-inter font-normal text-sm text-left text-white ${
+                  className={`font-inter text-left ${
                     !completedSteps.includes('step-1') ? 'opacity-50' : ''
                   }`}
-                  style={{ textShadow: '0px 3.39px 18.55px #FFFFFF40' }}
+                  style={{ 
+                    fontWeight: 400,
+                    fontSize: '16px',
+                    background: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    textShadow: '0px 3.39px 18.55px #FFFFFF40'
+                  }}
                 >
                   Selecteer datum
                 </span>
@@ -278,10 +294,18 @@ export const BookingWizard = () => {
               </div>
               <div className="flex items-center gap-2 flex-1">
                 <span 
-                  className={`font-inter font-normal text-sm text-left text-white ${
+                  className={`font-inter text-left ${
                     !completedSteps.includes('step-2') ? 'opacity-50' : ''
                   }`}
-                  style={{ textShadow: '0px 3.39px 18.55px #FFFFFF40' }}
+                  style={{ 
+                    fontWeight: 400,
+                    fontSize: '16px',
+                    background: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    textShadow: '0px 3.39px 18.55px #FFFFFF40'
+                  }}
                 >
                   Bevestigen
                 </span>
