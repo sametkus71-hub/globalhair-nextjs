@@ -304,14 +304,25 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
           padding: 2px 2px 6px;
           scroll-snap-type: x mandatory;
           -webkit-overflow-scrolling: touch;
+          scrollbar-width: thin;
+          scrollbar-color: rgba(255,255,255,0.3) transparent;
         }
 
         .time-strip::-webkit-scrollbar {
-          display: none;
+          height: 6px;
         }
 
-        .time-strip {
-          scrollbar-width: none;
+        .time-strip::-webkit-scrollbar-track {
+          background: transparent;
+        }
+
+        .time-strip::-webkit-scrollbar-thumb {
+          background: rgba(255,255,255,0.3);
+          border-radius: 3px;
+        }
+
+        .time-strip::-webkit-scrollbar-thumb:hover {
+          background: rgba(255,255,255,0.4);
         }
 
         .time-pill {
