@@ -278,8 +278,13 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
         }
 
         .cal-day.is-disabled {
-          opacity: 0.35;
+          background: #FD4E4E29;
+          opacity: 1;
           pointer-events: none;
+        }
+
+        .cal-day.is-disabled::before {
+          background: linear-gradient(123.33deg, rgba(255,69,58,0.6) -0.64%, rgba(255,69,58,0.8) 39.54%, rgba(255,69,58,0.6) 79.72%);
         }
 
         .cal-day.is-unavailable {
