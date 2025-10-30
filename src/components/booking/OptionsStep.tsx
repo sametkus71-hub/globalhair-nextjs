@@ -138,7 +138,12 @@ export const OptionsStep = ({
       {/* Next Button */}
       <button
         onClick={onNext}
-        className="w-full px-4 py-3 rounded bg-[#FFFFFF1F] hover:bg-white/15 border border-white/20 text-white font-inter font-normal transition-all duration-200 text-sm"
+        className="silver-gradient-border w-full px-4 py-3 rounded-full text-white font-inter font-normal transition-all duration-200 text-sm"
+        style={{
+          backdropFilter: 'blur(5.435667037963867px)',
+          boxShadow: '0px 0px 5.16px 0px #FFFFFF40 inset, 0px 4.07px 6.2px 0px #00000040 inset',
+          background: '#FFFFFF1F',
+        }}
       >
         Volgende
       </button>
