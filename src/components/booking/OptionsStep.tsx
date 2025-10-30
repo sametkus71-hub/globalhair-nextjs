@@ -45,7 +45,7 @@ export const OptionsStep = ({
         <p className="text-xs font-inter font-normal text-white/70 text-center">
           Kies een consult
         </p>
-        <div className="flex justify-center">
+        <div className="flex justify-center" style={{ marginTop: '4px' }}>
           <div className="inline-flex rounded-full bg-white/5 p-1.5 gap-2 w-full">
             <button
               onClick={() => onConsultTypeChange('v6_hairboost')}
