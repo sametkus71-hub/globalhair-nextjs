@@ -46,20 +46,20 @@ export const OptionsStep = ({
           <div className="inline-flex rounded-full border border-white/20 bg-white/5 p-0.5">
             <button
               onClick={() => onConsultTypeChange('v6_hairboost')}
-              className={`px-4 py-1.5 rounded-full text-xs font-inter font-normal transition-all duration-200 ${
+              className={`px-4 py-1.5 rounded-full text-xs font-inter font-normal transition-all duration-300 ease-out ${
                 consultType === 'v6_hairboost'
-                  ? 'bg-white/90 text-slate-900'
-                  : 'text-white/60 hover:text-white'
+                  ? 'silver-gradient-border bg-white/10 text-white scale-105'
+                  : 'text-white/60 hover:text-white scale-100'
               }`}
             >
               V6 Hairboost consult
             </button>
             <button
               onClick={() => onConsultTypeChange('haartransplantatie')}
-              className={`px-4 py-1.5 rounded-full text-xs font-inter font-normal transition-all duration-200 ${
+              className={`px-4 py-1.5 rounded-full text-xs font-inter font-normal transition-all duration-300 ease-out ${
                 consultType === 'haartransplantatie'
-                  ? 'bg-white/90 text-slate-900'
-                  : 'text-white/60 hover:text-white'
+                  ? 'silver-gradient-border bg-white/10 text-white scale-105'
+                  : 'text-white/60 hover:text-white scale-100'
               }`}
             >
               Haartransplantatie consult
@@ -152,3 +152,37 @@ export const OptionsStep = ({
     </div>
   );
 };
+
+const styles = `
+  .silver-gradient-border {
+    position: relative;
+  }
+
+  .silver-gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1.3px;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #949494 7%, #ACB9C1 16%, #FFFFFF 34%, #ACB9C1 51%, #4B555E 78%, #fff 105%);
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .silver-gradient-border > * {
+    position: relative;
+    z-index: 1;
+  }
+`;
+
+// Inject styles
+if (typeof document !== 'undefined') {
+  const styleSheet = document.createElement('style');
+  styleSheet.textContent = styles;
+  document.head.appendChild(styleSheet);
+}
