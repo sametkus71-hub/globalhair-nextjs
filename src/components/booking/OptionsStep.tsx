@@ -111,29 +111,27 @@ export const OptionsStep = ({
         <label className="text-xs font-inter font-normal text-white/70">
           Selecteer consultant
         </label>
-        <div className="flex justify-start">
-          <div className="inline-flex rounded-full border border-white/20 bg-[#FFFFFF1F] p-0.5 w-full">
-            <button
-              onClick={() => onConsultantChange('trichoTeam')}
-              className={`flex-1 px-4 py-2 rounded-full text-xs font-inter font-normal transition-all duration-200 ${
-                consultant === 'trichoTeam'
-                  ? 'bg-white/90 text-slate-900'
-                  : 'text-white/60 hover:text-white'
-              }`}
-            >
-              TrichoTeam
-            </button>
-            <button
-              onClick={() => onConsultantChange('ceo')}
-              className={`flex-1 px-4 py-2 rounded-full text-xs font-inter font-normal transition-all duration-200 ${
-                consultant === 'ceo'
-                  ? 'bg-white/90 text-slate-900'
-                  : 'text-white/60 hover:text-white'
-              }`}
-            >
-              CEO - Berkant Dural
-            </button>
-          </div>
+        <div className="flex gap-2">
+          <button
+            onClick={() => onConsultantChange('trichoTeam')}
+            className={`flex-1 px-3 py-3 rounded text-center transition-all duration-200 ${
+              consultant === 'trichoTeam'
+                ? 'bg-[#FFFFFF1F] border border-green-500'
+                : 'bg-[#FFFFFF1F] border border-white/10 hover:bg-white/10'
+            }`}
+          >
+            <span className="text-xs font-inter font-normal text-white">TrichoTeam</span>
+          </button>
+          <button
+            onClick={() => onConsultantChange('ceo')}
+            className={`flex-1 px-3 py-3 rounded text-center transition-all duration-200 ${
+              consultant === 'ceo'
+                ? 'bg-[#FFFFFF1F] border border-green-500'
+                : 'bg-[#FFFFFF1F] border border-white/10 hover:bg-white/10'
+            }`}
+          >
+            <span className="text-xs font-inter font-normal text-white">CEO - Berkant Dural</span>
+          </button>
         </div>
       </div>
 
