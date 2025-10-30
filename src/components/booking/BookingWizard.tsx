@@ -370,9 +370,7 @@ export const BookingWizard = () => {
           padding: 1px;
           border-radius: inherit;
           background: linear-gradient(269.87deg, #4B555E 3.18%, #ACB9C1 51.79%, #FFFFFF 76.09%, #ACB9C1 88.24%, #4B555E 100.39%);
-          -webkit-mask: 
-            linear-gradient(#fff 0 0) content-box,
-            linear-gradient(#fff 0 0);
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
           -webkit-mask-composite: xor;
           mask-composite: exclude;
           pointer-events: none;
