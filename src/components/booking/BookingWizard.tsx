@@ -182,8 +182,8 @@ export const BookingWizard = () => {
               </span>
             </div>
           </AccordionTrigger>
-          <AccordionContent className="border-t border-white/10">
-            <OptionsStep 
+          <AccordionContent className="">
+            <OptionsStep
               consultType={consultType}
               location={location}
               consultant={consultant}
@@ -238,7 +238,7 @@ export const BookingWizard = () => {
               </div>
             </div>
           </AccordionTrigger>
-          <AccordionContent className="border-t border-white/10 px-4 pb-4">
+          <AccordionContent className="px-4 pb-4">
             {serviceType && location && (
               <DateTimePicker
                 serviceType={serviceType}
@@ -291,7 +291,7 @@ export const BookingWizard = () => {
               </div>
             </div>
           </AccordionTrigger>
-          <AccordionContent className="border-t border-white/10 px-4 pb-4">
+          <AccordionContent className="px-4 pb-4">
             <div className="space-y-6">
               <CustomerInfoForm onComplete={handleCustomerInfoComplete} />
               

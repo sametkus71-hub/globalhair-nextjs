@@ -48,8 +48,8 @@ export const BookingPage = () => {
           <div 
             className="absolute inset-0 z-0"
             style={{ 
-              backdropFilter: 'blur(50.6px)',
-              background: 'linear-gradient(180deg, rgba(4, 14, 21, 0.7) 0%, rgba(51, 61, 70, 0.7) 100%)'
+              backdropFilter: 'blur(10.6px)',
+              background: 'linear-gradient(180deg, rgba(4, 14, 21, 0.4) 0%, rgba(51, 61, 70, 0.2) 100%)'
             }}
           />
           
