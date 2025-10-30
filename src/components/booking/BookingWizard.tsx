@@ -151,12 +151,15 @@ export const BookingWizard = () => {
         >
           <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-white/5">
             <div className="flex items-center gap-3 w-full">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all border ${
-                completedSteps.includes('step-1')
-                  ? 'bg-white/20 border-white/40 text-white'
-                  : 'bg-transparent border-white/30 text-white/90'
-              }`}>
-                <span className="font-inter font-normal text-sm">1</span>
+              <div 
+                className="silver-gradient-border rounded-full flex items-center justify-center"
+                style={{
+                  width: 'clamp(32px, 4vh, 36px)',
+                  height: 'clamp(32px, 4vh, 36px)',
+                  background: 'rgba(255, 255, 255, 0.10)',
+                }}
+              >
+                <span className="font-inter font-normal text-sm text-white">1</span>
               </div>
               <span className="font-inter font-normal text-sm flex-1 text-left text-white">
                 Kies een optie
@@ -191,14 +194,16 @@ export const BookingWizard = () => {
             disabled={!completedSteps.includes('step-1')}
           >
             <div className="flex items-center gap-3 w-full">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all border ${
-                completedSteps.includes('step-2')
-                  ? 'bg-white/20 border-white/40 text-white'
-                  : completedSteps.includes('step-1')
-                  ? 'bg-transparent border-white/30 text-white/90'
-                  : 'bg-transparent border-white/20 text-white/40'
-              }`}>
-                <span className="font-inter font-normal text-sm">2</span>
+              <div 
+                className="silver-gradient-border rounded-full flex items-center justify-center"
+                style={{
+                  width: 'clamp(32px, 4vh, 36px)',
+                  height: 'clamp(32px, 4vh, 36px)',
+                  background: 'rgba(255, 255, 255, 0.10)',
+                  opacity: !completedSteps.includes('step-1') ? 0.5 : 1,
+                }}
+              >
+                <span className="font-inter font-normal text-sm text-white">2</span>
               </div>
               <span className={`font-inter font-normal text-sm flex-1 text-left text-white ${
                 !completedSteps.includes('step-1') ? 'opacity-50' : ''
@@ -229,14 +234,16 @@ export const BookingWizard = () => {
             disabled={!completedSteps.includes('step-2')}
           >
             <div className="flex items-center gap-3 w-full">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all border ${
-                completedSteps.includes('step-3')
-                  ? 'bg-white/20 border-white/40 text-white'
-                  : completedSteps.includes('step-2')
-                  ? 'bg-transparent border-white/30 text-white/90'
-                  : 'bg-transparent border-white/20 text-white/40'
-              }`}>
-                <span className="font-inter font-normal text-sm">3</span>
+              <div 
+                className="silver-gradient-border rounded-full flex items-center justify-center"
+                style={{
+                  width: 'clamp(32px, 4vh, 36px)',
+                  height: 'clamp(32px, 4vh, 36px)',
+                  background: 'rgba(255, 255, 255, 0.10)',
+                  opacity: !completedSteps.includes('step-2') ? 0.5 : 1,
+                }}
+              >
+                <span className="font-inter font-normal text-sm text-white">3</span>
               </div>
               <span className={`font-inter font-normal text-sm flex-1 text-left text-white ${
                 !completedSteps.includes('step-2') ? 'opacity-50' : ''
@@ -262,6 +269,33 @@ export const BookingWizard = () => {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
+
+      <style>{`
+        .silver-gradient-border {
+          position: relative;
+        }
+
+        .silver-gradient-border::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1.3px;
+          border-radius: inherit;
+          background: linear-gradient(90deg, #949494 7%, #ACB9C1 16%, #FFFFFF 34%, #ACB9C1 51%, #4B555E 78%, #fff 105%);
+          -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .silver-gradient-border > * {
+          position: relative;
+          z-index: 1;
+        }
+      `}</style>
     </div>
   );
 };
