@@ -43,7 +43,7 @@ export const OptionsStep = ({
       {/* Consult Type Toggle */}
       <div className="space-y-3">
         <div className="flex justify-start">
-          <div className="inline-flex rounded-full border border-white/20 bg-white/5 p-0.5">
+          <div className="inline-flex rounded-full bg-white/5 p-1.5 gap-2">
             <button
               onClick={() => onConsultTypeChange('v6_hairboost')}
               className={`px-4 py-1.5 rounded-full text-xs font-inter font-normal transition-all duration-300 ease-out ${
