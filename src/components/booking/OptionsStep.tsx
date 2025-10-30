@@ -80,7 +80,7 @@ export const OptionsStep = ({
           onClick={() => onLocationChange('onsite')}
           className={`w-full px-3 py-3 rounded text-left transition-all duration-200 flex items-center gap-2.5 ${
             location === 'onsite'
-              ? 'bg-[#FFFFFF1F] border border-white/30'
+              ? 'silver-gradient-border bg-[#FFFFFF1F]'
               : 'bg-[#FFFFFF1F] border border-white/10 hover:bg-white/10'
           }`}
         >
@@ -95,21 +95,12 @@ export const OptionsStep = ({
           onClick={() => onLocationChange('online')}
           className={`w-full px-3 py-3 rounded text-left transition-all duration-200 flex items-center gap-2.5 ${
             location === 'online'
-              ? 'bg-[#FFFFFF1F] border border-white/30'
+              ? 'silver-gradient-border bg-[#FFFFFF1F]'
               : 'bg-[#FFFFFF1F] border border-white/10 hover:bg-white/10'
           }`}
         >
           <Video className="w-4 h-4 text-white/70" />
           <span className="text-xs font-inter font-normal text-white">Videocall</span>
-        </button>
-        
-        <button
-          onClick={() => onLocationChange('online')}
-          className="w-full px-3 py-3 rounded text-left transition-all duration-200 flex items-center gap-2.5 bg-[#FFFFFF1F] border border-white/10 opacity-40 cursor-not-allowed"
-          disabled
-        >
-          <Phone className="w-4 h-4 text-white/70" />
-          <span className="text-xs font-inter font-normal text-white">Telefoon</span>
         </button>
       </div>
 
