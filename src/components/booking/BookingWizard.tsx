@@ -147,7 +147,7 @@ export const BookingWizard = () => {
         {/* Step 1: Choose Option */}
         <AccordionItem 
           value="step-1" 
-          className="step-gradient-border rounded-xl bg-white/5 overflow-hidden"
+          className="step-gradient-border rounded-xl bg-white/5 overflow-hidden border-b-0"
           style={{
             backdropFilter: 'blur(1.6044442653656006px)',
             boxShadow: '0px 4.01px 8.72px 0px #00000040 inset, 0px -1px 4.71px 0px #FFFFFF40 inset, 0px 3.01px 1px 0px #00000040'
@@ -199,7 +199,7 @@ export const BookingWizard = () => {
         {/* Step 2: Select Date */}
         <AccordionItem 
           value="step-2" 
-          className="step-gradient-border rounded-xl bg-white/5 overflow-hidden"
+          className="step-gradient-border rounded-xl bg-white/5 overflow-hidden border-b-0"
           disabled={!completedSteps.includes('step-1')}
           style={{
             backdropFilter: 'blur(1.6044442653656006px)',
@@ -252,7 +252,7 @@ export const BookingWizard = () => {
         {/* Step 3: Confirm */}
         <AccordionItem 
           value="step-3" 
-          className="step-gradient-border rounded-xl bg-white/5 overflow-hidden"
+          className="step-gradient-border rounded-xl bg-white/5 overflow-hidden border-b-0"
           disabled={!completedSteps.includes('step-2')}
           style={{
             backdropFilter: 'blur(1.6044442653656006px)',
