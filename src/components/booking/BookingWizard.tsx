@@ -147,7 +147,7 @@ export const BookingWizard = () => {
         {/* Step 1: Choose Option */}
         <AccordionItem 
           value="step-1" 
-          className="border border-white/10 rounded-xl bg-white/5 overflow-hidden"
+          className="step-gradient-border border border-white/10 rounded-xl bg-white/5 overflow-hidden"
           style={{
             backdropFilter: 'blur(1.6044442653656006px)',
             boxShadow: '0px 4.01px 8.72px 0px #00000040 inset, 0px -1px 4.71px 0px #FFFFFF40 inset, 0px 3.01px 1px 0px #00000040'
@@ -199,7 +199,7 @@ export const BookingWizard = () => {
         {/* Step 2: Select Date */}
         <AccordionItem 
           value="step-2" 
-          className="border border-white/10 rounded-xl bg-white/5 overflow-hidden"
+          className="step-gradient-border border border-white/10 rounded-xl bg-white/5 overflow-hidden"
           disabled={!completedSteps.includes('step-1')}
           style={{
             backdropFilter: 'blur(1.6044442653656006px)',
@@ -252,7 +252,7 @@ export const BookingWizard = () => {
         {/* Step 3: Confirm */}
         <AccordionItem 
           value="step-3" 
-          className="border border-white/10 rounded-xl bg-white/5 overflow-hidden"
+          className="step-gradient-border border border-white/10 rounded-xl bg-white/5 overflow-hidden"
           disabled={!completedSteps.includes('step-2')}
           style={{
             backdropFilter: 'blur(1.6044442653656006px)',
@@ -331,6 +331,31 @@ export const BookingWizard = () => {
         }
 
         .silver-gradient-border > * {
+          position: relative;
+          z-index: 1;
+        }
+
+        .step-gradient-border {
+          position: relative;
+        }
+
+        .step-gradient-border::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1.3px;
+          border-radius: inherit;
+          background: linear-gradient(269.87deg, #4B555E 3.18%, #ACB9C1 51.79%, #FFFFFF 76.09%, #ACB9C1 88.24%, #4B555E 100.39%);
+          -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .step-gradient-border > * {
           position: relative;
           z-index: 1;
         }
