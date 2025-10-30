@@ -156,7 +156,8 @@ export const BookingWizard = () => {
                 style={{
                   width: 'clamp(32px, 4vh, 36px)',
                   height: 'clamp(32px, 4vh, 36px)',
-                  background: 'rgba(255, 255, 255, 0.10)',
+                  backdropFilter: 'blur(5.435667037963867px)',
+                  boxShadow: '0px 0px 5.16px 0px #FFFFFF40 inset',
                 }}
               >
               <span className="font-inter font-normal text-sm text-white">1</span>
@@ -207,7 +208,8 @@ export const BookingWizard = () => {
                 style={{
                   width: 'clamp(32px, 4vh, 36px)',
                   height: 'clamp(32px, 4vh, 36px)',
-                  background: 'rgba(255, 255, 255, 0.10)',
+                  backdropFilter: 'blur(5.435667037963867px)',
+                  boxShadow: '0px 0px 5.16px 0px #FFFFFF40 inset',
                   opacity: !completedSteps.includes('step-1') ? 0.5 : 1,
                 }}
               >
@@ -255,7 +257,8 @@ export const BookingWizard = () => {
                 style={{
                   width: 'clamp(32px, 4vh, 36px)',
                   height: 'clamp(32px, 4vh, 36px)',
-                  background: 'rgba(255, 255, 255, 0.10)',
+                  backdropFilter: 'blur(5.435667037963867px)',
+                  boxShadow: '0px 0px 5.16px 0px #FFFFFF40 inset',
                   opacity: !completedSteps.includes('step-2') ? 0.5 : 1,
                 }}
               >
