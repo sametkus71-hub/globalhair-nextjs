@@ -224,8 +224,9 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
         }
 
         .cal-day {
-          width: 44px;
-          height: 44px;
+          aspect-ratio: 1;
+          width: 100%;
+          max-width: 44px;
           border-radius: 5.5px;
           background: rgba(255,255,255,0.06);
           border: 1px solid rgba(255,255,255,0.35);
