@@ -42,7 +42,7 @@ export const OptionsStep = ({
     <div className="space-y-4 p-4">
       {/* Consult Type Toggle */}
       <div className="space-y-3">
-        <p className="font-manrope font-semibold text-white/70 text-center" style={{ fontSize: '14px', textShadow: '0 2px 6px rgba(0, 0, 0, 0.2)' }}>
+        <p className="text-xs font-inter font-normal text-white/70 text-center">
           Kies een consult
         </p>
         <div className="flex justify-center" style={{ marginTop: '4px' }}>
@@ -111,7 +111,7 @@ export const OptionsStep = ({
 
       {/* Consultant Selection */}
       <div className="space-y-2">
-        <label className="font-manrope font-semibold text-white/70" style={{ fontSize: '14px', textShadow: '0 2px 6px rgba(0, 0, 0, 0.2)' }}>
+        <label className="text-xs font-inter font-normal text-white/70">
           Selecteer consultant
         </label>
         <div className="flex gap-2">
