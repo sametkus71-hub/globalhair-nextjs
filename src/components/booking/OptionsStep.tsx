@@ -135,6 +135,15 @@ export const OptionsStep = ({
         </div>
       </div>
 
+      {/* Divider */}
+      <div 
+        className="w-full h-px"
+        style={{ 
+          backgroundColor: '#D9D9D9',
+          opacity: 0.22
+        }}
+      />
+
       {/* Next Button */}
       <button
         onClick={onNext}
