@@ -147,7 +147,11 @@ export const BookingWizard = () => {
         {/* Step 1: Choose Option */}
         <AccordionItem 
           value="step-1" 
-          className="border border-white/10 rounded-xl bg-white/5 backdrop-blur-md overflow-hidden"
+          className="border border-white/10 rounded-xl bg-white/5 overflow-hidden"
+          style={{
+            backdropFilter: 'blur(1.6044442653656006px)',
+            boxShadow: '0px 4.01px 8.72px 0px #00000040 inset, 0px -1px 4.71px 0px #FFFFFF40 inset, 0px 3.01px 1px 0px #00000040'
+          }}
         >
           <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-white/5">
             <div className="flex items-center gap-3 w-full">
@@ -195,8 +199,12 @@ export const BookingWizard = () => {
         {/* Step 2: Select Date */}
         <AccordionItem 
           value="step-2" 
-          className="border border-white/10 rounded-xl bg-white/5 backdrop-blur-md overflow-hidden"
+          className="border border-white/10 rounded-xl bg-white/5 overflow-hidden"
           disabled={!completedSteps.includes('step-1')}
+          style={{
+            backdropFilter: 'blur(1.6044442653656006px)',
+            boxShadow: '0px 4.01px 8.72px 0px #00000040 inset, 0px -1px 4.71px 0px #FFFFFF40 inset, 0px 3.01px 1px 0px #00000040'
+          }}
         >
           <AccordionTrigger 
             className="px-4 py-3 hover:no-underline hover:bg-white/5"
@@ -244,8 +252,12 @@ export const BookingWizard = () => {
         {/* Step 3: Confirm */}
         <AccordionItem 
           value="step-3" 
-          className="border border-white/10 rounded-xl bg-white/5 backdrop-blur-md overflow-hidden"
+          className="border border-white/10 rounded-xl bg-white/5 overflow-hidden"
           disabled={!completedSteps.includes('step-2')}
+          style={{
+            backdropFilter: 'blur(1.6044442653656006px)',
+            boxShadow: '0px 4.01px 8.72px 0px #00000040 inset, 0px -1px 4.71px 0px #FFFFFF40 inset, 0px 3.01px 1px 0px #00000040'
+          }}
         >
           <AccordionTrigger 
             className="px-4 py-3 hover:no-underline hover:bg-white/5"
