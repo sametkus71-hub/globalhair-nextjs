@@ -50,7 +50,7 @@ export const BookingPage = () => {
             style={{ zIndex: 100 }} 
           />
           
-          <div className="relative z-10 h-screen overflow-y-auto">
+          <div className="relative z-10 h-screen overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             <div className="min-h-screen py-6 px-4">
               <div className={`transition-all duration-700 ease-out max-w-2xl mx-auto ${
                 titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
