@@ -84,7 +84,7 @@ export const OptionsStep = ({
               : 'bg-[#FFFFFF1F] border border-white/10 hover:bg-white/10'
           }`}
         >
-          <MapPin className="w-4 h-4 text-white/70" />
+          <MapPin className="w-4 h-4 text-white/70 flex-shrink-0" />
           <div className="flex-1">
             <span className="text-xs font-inter font-normal text-white">Op locatie</span>
             <span className="text-xs font-inter text-white/50 ml-1.5">(Barendrecht)</span>
@@ -99,8 +99,10 @@ export const OptionsStep = ({
               : 'bg-[#FFFFFF1F] border border-white/10 hover:bg-white/10'
           }`}
         >
-          <Video className="w-4 h-4 text-white/70" />
-          <span className="text-xs font-inter font-normal text-white">Videocall</span>
+          <Video className="w-4 h-4 text-white/70 flex-shrink-0" />
+          <div className="flex-1">
+            <span className="text-xs font-inter font-normal text-white">Videocall</span>
+          </div>
         </button>
       </div>
 
