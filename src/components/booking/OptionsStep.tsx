@@ -191,14 +191,15 @@ const styles = `
   .button-glow::after {
     content: "";
     position: absolute;
-    bottom: 0;
+    bottom: -17px;
     left: 50%;
     transform: translateX(-50%);
-    width: 80%;
+    width: 56%;
     height: 50%;
     background: #7990A5;
-    backdrop-filter: blur(25.27585220336914px);
-    border-radius: 50%;
+    filter: blur(11px);
+    opacity: 0.8;
+    border-radius: 20%;
     z-index: 0;
     pointer-events: none;
   }
