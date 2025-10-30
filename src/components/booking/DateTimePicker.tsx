@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useAvailabilityCache } from '@/hooks/useAvailabilityCache';
 import { useAvailabilitySlots } from '@/hooks/useAvailabilitySlots';
@@ -20,6 +20,10 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [selectedTime, setSelectedTime] = useState<string | undefined>(undefined);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
+  const timeStripRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
 
   // Get service configuration for duration
   const config = getServiceConfig(serviceType, location);
@@ -85,6 +89,30 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
     if (selectedDate && selectedTime && staffId && staffName) {
       onSelect(format(selectedDate, 'yyyy-MM-dd'), selectedTime, staffId, staffName);
     }
+  };
+
+  // Drag to scroll handlers
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!timeStripRef.current) return;
+    setIsDragging(true);
+    setStartX(e.pageX - timeStripRef.current.offsetLeft);
+    setScrollLeft(timeStripRef.current.scrollLeft);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDragging || !timeStripRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - timeStripRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    timeStripRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
   };
 
   const handleMonthChange = (date: Date) => {
@@ -304,25 +332,20 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
           padding: 2px 2px 6px;
           scroll-snap-type: x mandatory;
           -webkit-overflow-scrolling: touch;
-          scrollbar-width: thin;
-          scrollbar-color: rgba(255,255,255,0.3) transparent;
+          cursor: grab;
+          user-select: none;
+        }
+
+        .time-strip:active {
+          cursor: grabbing;
         }
 
         .time-strip::-webkit-scrollbar {
-          height: 6px;
+          display: none;
         }
 
-        .time-strip::-webkit-scrollbar-track {
-          background: transparent;
-        }
-
-        .time-strip::-webkit-scrollbar-thumb {
-          background: rgba(255,255,255,0.3);
-          border-radius: 3px;
-        }
-
-        .time-strip::-webkit-scrollbar-thumb:hover {
-          background: rgba(255,255,255,0.4);
+        .time-strip {
+          scrollbar-width: none;
         }
 
         .time-pill {
@@ -476,12 +499,20 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
                   <div className="animate-spin rounded-full h-8 w-8 border-2 border-white/20 border-t-white"></div>
                 </div>
               ) : availableSlots && availableSlots.length > 0 ? (
-                <div className="time-strip">
+                <div 
+                  className="time-strip"
+                  ref={timeStripRef}
+                  onMouseDown={handleMouseDown}
+                  onMouseMove={handleMouseMove}
+                  onMouseUp={handleMouseUp}
+                  onMouseLeave={handleMouseLeave}
+                >
                   {availableSlots.map((slot) => (
                     <button
                       key={slot}
                       onClick={() => handleTimeSelect(slot)}
                       className={`time-pill ${selectedTime === slot ? 'is-selected' : ''}`}
+                      onMouseDown={(e) => e.stopPropagation()}
                     >
                       {formatTimeSlotWithDuration(slot)}
                     </button>
