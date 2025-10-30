@@ -61,7 +61,16 @@ export const BookingPage = () => {
               <div className={`transition-all duration-700 ease-out max-w-2xl mx-auto ${
                 titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
-                <h1 className="text-[32px] leading-[1.2] font-light text-white mb-6 font-inter">
+                <h1 
+                  className="text-[32px] leading-[1.2] font-light mb-6 font-inter"
+                  style={{
+                    background: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    textShadow: '0px 3.39px 18.55px #FFFFFF40'
+                  }}
+                >
                   Boek een<br />afspraak
                 </h1>
                 <BookingWizard />
