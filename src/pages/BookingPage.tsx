@@ -45,7 +45,10 @@ export const BookingPage = () => {
       <TestModeProvider>
         <div className={`fixed inset-0 z-50 ${isExiting ? 'reviews-page-exit' : ''}`}>
           {/* Dark overlay for better text readability */}
-          <div className="absolute inset-0 bg-black/40 z-0" />
+          <div 
+            className="absolute inset-0 bg-black/40 z-0"
+            style={{ backdropFilter: 'blur(50.6px)' }}
+          />
           
           <PopupCloseButton
             onClose={handleClose}
