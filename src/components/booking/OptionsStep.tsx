@@ -149,7 +149,7 @@ export const OptionsStep = ({
         onClick={onNext}
         className="silver-gradient-border button-glow w-full px-4 rounded-full text-white font-inter font-normal transition-all duration-200 text-sm relative overflow-hidden"
         style={{
-          background: 'linear-gradient(93.06deg, rgba(255, 255, 255, 0.05) 1%, rgba(203, 203, 203, 0.2) 51.84%, rgba(153, 153, 153, 0.05) 100%)',
+          background: 'linear-gradient(93.06deg, rgba(255, 255, 255, 0) 1%, rgba(203, 203, 203, 0.2) 51.84%, rgba(153, 153, 153, 0) 100%)',
           backdropFilter: 'blur(5.435667037963867px)',
           boxShadow: '0px 0px 5.16px 0px #FFFFFF40 inset, 0px 4.07px 6.2px 0px #00000040 inset',
           paddingTop: '15px',
