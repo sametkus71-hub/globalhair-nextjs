@@ -42,6 +42,9 @@ export const OptionsStep = ({
     <div className="space-y-4 p-4">
       {/* Consult Type Toggle */}
       <div className="space-y-3">
+        <p className="text-xs font-inter font-normal text-white/70 text-center">
+          Kies een consult
+        </p>
         <div className="flex justify-start">
           <div className="inline-flex rounded-full bg-white/5 p-1.5 gap-2">
             <button
@@ -53,7 +56,7 @@ export const OptionsStep = ({
               }`}
               style={consultType === 'v6_hairboost' ? { textShadow: '0 0 20px rgba(255, 255, 255, 0.6)' } : {}}
             >
-              V6 Hairboost consult
+              V6 Hairboost
             </button>
             <button
               onClick={() => onConsultTypeChange('haartransplantatie')}
@@ -64,7 +67,7 @@ export const OptionsStep = ({
               }`}
               style={consultType === 'haartransplantatie' ? { textShadow: '0 0 20px rgba(255, 255, 255, 0.6)' } : {}}
             >
-              Haartransplantatie consult
+              Haartransplantatie
             </button>
           </div>
         </div>
