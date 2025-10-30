@@ -225,7 +225,6 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
           max-width: 44px;
           border-radius: 5.5px;
           background: rgba(255,255,255,0.06);
-          border: 1px solid rgba(255,255,255,0.35);
           backdrop-filter: blur(8px);
           box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
           display: flex;
@@ -234,8 +233,24 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
           font-weight: 600;
           font-size: 14px;
           color: #E6EDF5;
-          transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+          transition: transform 0.15s ease, background 0.2s ease;
           cursor: pointer;
+          position: relative;
+        }
+
+        .cal-day::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 0.5px;
+          border-radius: inherit;
+          background: linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%);
+          -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
         }
 
         .cal-day:hover:not(.is-disabled):not(.is-outside) {
@@ -254,9 +269,12 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
 
         .cal-day.is-selected {
           background: linear-gradient(180deg, rgba(240,245,255,0.28), rgba(255,255,255,0.06));
-          border-color: rgba(255,255,255,0.55);
           color: rgba(255,255,255,0.85);
           box-shadow: inset 0 0 0 1px rgba(255,255,255,0.28), 0 6px 18px rgba(0,0,0,0.25);
+        }
+
+        .cal-day.is-selected::before {
+          background: linear-gradient(123.33deg, rgba(255, 255, 255, 0.8) -0.64%, #FFFFFF 39.54%, rgba(255, 255, 255, 0.8) 79.72%);
         }
 
         .cal-day.is-disabled {
@@ -266,8 +284,11 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
 
         .cal-day.is-unavailable {
           background: #FD4E4E29;
-          border-color: rgba(255,69,58,0.55);
           color: #fff;
+        }
+
+        .cal-day.is-unavailable::before {
+          background: linear-gradient(123.33deg, rgba(255,69,58,0.6) -0.64%, rgba(255,69,58,0.8) 39.54%, rgba(255,69,58,0.6) 79.72%);
         }
 
         .cal-times-title {
