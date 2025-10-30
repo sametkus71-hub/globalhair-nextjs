@@ -29,12 +29,28 @@ export const OptionsStep = ({
   const getConsultDescription = () => {
     if (consultType === 'v6_hairboost') {
       return language === 'nl' 
-        ? 'Persoonlijk consult voor V6 Hairboost behandeling. Krijg advies over onze revolutionaire haargroei formule en ontdek of deze behandeling geschikt is voor jou. Duur: 30 minuten'
-        : 'Personal consultation for V6 Hairboost treatment. Get advice about our revolutionary hair growth formula and discover if this treatment is suitable for you. Duration: 30 minutes';
+        ? (
+            <>
+              Persoonlijk consult voor V6 Hairboost behandeling. Krijg advies over onze revolutionaire haargroei formule en ontdek of deze behandeling geschikt is voor jou. <span style={{ color: '#FFFFFF' }}>Duur: 30 minuten</span>
+            </>
+          )
+        : (
+            <>
+              Personal consultation for V6 Hairboost treatment. Get advice about our revolutionary hair growth formula and discover if this treatment is suitable for you. <span style={{ color: '#FFFFFF' }}>Duration: 30 minutes</span>
+            </>
+          );
     } else {
       return language === 'nl'
-        ? 'Uitgebreid consult met TrichoScan™ analyse voor haartransplantatie. Bespreek jouw wensen, krijg een professionele haaranalyse en ontvang een persoonlijk behandelplan. Duur: 45 minuten'
-        : 'Comprehensive consultation with TrichoScan™ analysis for hair transplantation. Discuss your wishes, receive a professional hair analysis and get a personal treatment plan. Duration: 45 minutes';
+        ? (
+            <>
+              Uitgebreid consult met TrichoScan™ analyse voor haartransplantatie. Bespreek jouw wensen, krijg een professionele haaranalyse en ontvang een persoonlijk behandelplan. <span style={{ color: '#FFFFFF' }}>Duur: 45 minuten</span>
+            </>
+          )
+        : (
+            <>
+              Comprehensive consultation with TrichoScan™ analysis for hair transplantation. Discuss your wishes, receive a professional hair analysis and get a personal treatment plan. <span style={{ color: '#FFFFFF' }}>Duration: 45 minutes</span>
+            </>
+          );
     }
   };
 
