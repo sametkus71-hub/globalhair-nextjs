@@ -49,23 +49,23 @@ export const OptionsStep = ({
           <div className="inline-flex rounded-full bg-white/5 p-1.5 gap-2 w-full">
             <button
               onClick={() => onConsultTypeChange('v6_hairboost')}
-              className={`flex-1 px-4 py-1.5 rounded-full text-xs font-inter font-normal transition-all duration-300 ease-out ${
+              className={`flex-1 px-4 rounded-full text-xs font-inter font-normal transition-all duration-300 ease-out ${
                 consultType === 'v6_hairboost'
                   ? 'silver-gradient-border text-white scale-105'
                   : 'text-white/60 hover:text-white scale-100'
               }`}
-              style={consultType === 'v6_hairboost' ? { textShadow: '0 0 20px rgba(255, 255, 255, 0.6)' } : {}}
+              style={consultType === 'v6_hairboost' ? { textShadow: '0 0 20px rgba(255, 255, 255, 0.6)', paddingTop: '0.775rem', paddingBottom: '0.775rem' } : { paddingTop: '0.775rem', paddingBottom: '0.775rem' }}
             >
               V6 Hairboost
             </button>
             <button
               onClick={() => onConsultTypeChange('haartransplantatie')}
-              className={`flex-1 px-4 py-1.5 rounded-full text-xs font-inter font-normal transition-all duration-300 ease-out ${
+              className={`flex-1 px-4 rounded-full text-xs font-inter font-normal transition-all duration-300 ease-out ${
                 consultType === 'haartransplantatie'
                   ? 'silver-gradient-border text-white scale-105'
                   : 'text-white/60 hover:text-white scale-100'
               }`}
-              style={consultType === 'haartransplantatie' ? { textShadow: '0 0 20px rgba(255, 255, 255, 0.6)' } : {}}
+              style={consultType === 'haartransplantatie' ? { textShadow: '0 0 20px rgba(255, 255, 255, 0.6)', paddingTop: '0.775rem', paddingBottom: '0.775rem' } : { paddingTop: '0.775rem', paddingBottom: '0.775rem' }}
             >
               Haartransplantatie
             </button>
