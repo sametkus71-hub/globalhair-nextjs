@@ -242,15 +242,14 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
           content: "";
           position: absolute;
           inset: 0;
-          padding: 0.5px;
+          padding: 1px;
           border-radius: inherit;
-          background: linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%);
-          -webkit-mask: 
-            linear-gradient(#fff 0 0) content-box,
-            linear-gradient(#fff 0 0);
+          background: linear-gradient(269.87deg, #4B555E 3.18%, #ACB9C1 51.79%, #FFFFFF 76.09%, #ACB9C1 88.24%, #4B555E 100.39%);
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
           -webkit-mask-composite: xor;
           mask-composite: exclude;
           pointer-events: none;
+          z-index: 0;
         }
 
         .cal-day:hover:not(.is-disabled):not(.is-outside) {
