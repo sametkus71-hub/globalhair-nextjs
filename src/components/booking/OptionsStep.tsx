@@ -45,11 +45,11 @@ export const OptionsStep = ({
         <p className="text-xs font-inter font-normal text-white/70 text-center">
           Kies een consult
         </p>
-        <div className="flex justify-start">
-          <div className="inline-flex rounded-full bg-white/5 p-1.5 gap-2">
+        <div className="flex justify-center">
+          <div className="inline-flex rounded-full bg-white/5 p-1.5 gap-2 w-full">
             <button
               onClick={() => onConsultTypeChange('v6_hairboost')}
-              className={`px-4 py-1.5 rounded-full text-xs font-inter font-normal transition-all duration-300 ease-out ${
+              className={`flex-1 px-4 py-1.5 rounded-full text-xs font-inter font-normal transition-all duration-300 ease-out ${
                 consultType === 'v6_hairboost'
                   ? 'silver-gradient-border text-white scale-105'
                   : 'text-white/60 hover:text-white scale-100'
@@ -60,7 +60,7 @@ export const OptionsStep = ({
             </button>
             <button
               onClick={() => onConsultTypeChange('haartransplantatie')}
-              className={`px-4 py-1.5 rounded-full text-xs font-inter font-normal transition-all duration-300 ease-out ${
+              className={`flex-1 px-4 py-1.5 rounded-full text-xs font-inter font-normal transition-all duration-300 ease-out ${
                 consultType === 'haartransplantatie'
                   ? 'silver-gradient-border text-white scale-105'
                   : 'text-white/60 hover:text-white scale-100'
