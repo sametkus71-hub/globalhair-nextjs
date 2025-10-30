@@ -65,8 +65,11 @@ export const BookingPage = () => {
                 titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
                 <h1 
-                  className="text-[32px] leading-[1.2] font-light mb-6 font-inter"
+                  className="font-inter mb-6"
                   style={{
+                    lineHeight: 1,
+                    fontWeight: 400,
+                    fontSize: '40px',
                     background: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
