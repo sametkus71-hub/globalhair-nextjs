@@ -14,7 +14,7 @@ import { PaymentStep } from './PaymentStep';
 import { getServiceConfig } from '@/lib/service-config';
 import { saveBookingState, loadBookingState } from '@/lib/booking-storage';
 import { useTestMode } from '@/contexts/TestModeContext';
-import { FlaskConical } from 'lucide-react';
+import { FlaskConical, Check } from 'lucide-react';
 
 export type ServiceType = 'v6_hairboost' | 'haartransplantatie' | 'ceo_consult';
 export type LocationType = 'online' | 'onsite';
@@ -159,11 +159,19 @@ export const BookingWizard = () => {
                   background: 'rgba(255, 255, 255, 0.10)',
                 }}
               >
-                <span className="font-inter font-normal text-sm text-white">1</span>
+              <span className="font-inter font-normal text-sm text-white">1</span>
               </div>
-              <span className="font-inter font-normal text-sm flex-1 text-left text-white">
-                Kies een optie
-              </span>
+              <div className="flex items-center gap-2 flex-1">
+                <span 
+                  className="font-inter font-normal text-sm text-left text-white"
+                  style={{ boxShadow: '0px 3.39px 18.55px 0px #FFFFFF40' }}
+                >
+                  Kies een optie
+                </span>
+                {completedSteps.includes('step-1') && (
+                  <Check className="w-4 h-4 text-green-400" strokeWidth={2.5} />
+                )}
+              </div>
               <span className="px-3 py-1 rounded-full bg-white/10 text-white text-xs font-inter font-medium">
                 €{price}
               </span>
@@ -203,13 +211,21 @@ export const BookingWizard = () => {
                   opacity: !completedSteps.includes('step-1') ? 0.5 : 1,
                 }}
               >
-                <span className="font-inter font-normal text-sm text-white">2</span>
+              <span className="font-inter font-normal text-sm text-white">2</span>
               </div>
-              <span className={`font-inter font-normal text-sm flex-1 text-left text-white ${
-                !completedSteps.includes('step-1') ? 'opacity-50' : ''
-              }`}>
-                Selecteer datum
-              </span>
+              <div className="flex items-center gap-2 flex-1">
+                <span 
+                  className={`font-inter font-normal text-sm text-left text-white ${
+                    !completedSteps.includes('step-1') ? 'opacity-50' : ''
+                  }`}
+                  style={{ boxShadow: '0px 3.39px 18.55px 0px #FFFFFF40' }}
+                >
+                  Selecteer datum
+                </span>
+                {completedSteps.includes('step-2') && (
+                  <Check className="w-4 h-4 text-green-400" strokeWidth={2.5} />
+                )}
+              </div>
             </div>
           </AccordionTrigger>
           <AccordionContent className="border-t border-white/10 px-4 pb-4">
@@ -243,13 +259,21 @@ export const BookingWizard = () => {
                   opacity: !completedSteps.includes('step-2') ? 0.5 : 1,
                 }}
               >
-                <span className="font-inter font-normal text-sm text-white">3</span>
+              <span className="font-inter font-normal text-sm text-white">3</span>
               </div>
-              <span className={`font-inter font-normal text-sm flex-1 text-left text-white ${
-                !completedSteps.includes('step-2') ? 'opacity-50' : ''
-              }`}>
-                Bevestigen
-              </span>
+              <div className="flex items-center gap-2 flex-1">
+                <span 
+                  className={`font-inter font-normal text-sm text-left text-white ${
+                    !completedSteps.includes('step-2') ? 'opacity-50' : ''
+                  }`}
+                  style={{ boxShadow: '0px 3.39px 18.55px 0px #FFFFFF40' }}
+                >
+                  Bevestigen
+                </span>
+                {completedSteps.includes('step-3') && (
+                  <Check className="w-4 h-4 text-green-400" strokeWidth={2.5} />
+                )}
+              </div>
             </div>
           </AccordionTrigger>
           <AccordionContent className="border-t border-white/10 px-4 pb-4">
