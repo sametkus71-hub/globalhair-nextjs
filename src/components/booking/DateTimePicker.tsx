@@ -79,17 +79,13 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
 
   const handleTimeSelect = (slot: string) => {
     setSelectedTime(slot);
-    if (selectedDate && staffId && staffName) {
-      onSelect(format(selectedDate, 'yyyy-MM-dd'), slot, staffId, staffName);
-    }
   };
 
-  // When staff is assigned, call onSelect
-  useEffect(() => {
-    if (selectedDate && selectedTime && staffId && staffName && !isStaffLoading) {
+  const handleNext = () => {
+    if (selectedDate && selectedTime && staffId && staffName) {
       onSelect(format(selectedDate, 'yyyy-MM-dd'), selectedTime, staffId, staffName);
     }
-  }, [selectedDate, selectedTime, staffId, staffName, isStaffLoading, onSelect]);
+  };
 
   const handleMonthChange = (date: Date) => {
     setCurrentMonth(date);
@@ -332,20 +328,59 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
 
         .btn-primary-wide {
           width: 100%;
-          height: 50px;
-          border-radius: 24px;
-          border: 1px solid rgba(255,255,255,0.35);
-          background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+          border-radius: 9999px;
+          background: linear-gradient(93.06deg, rgba(255, 255, 255, 0) 1%, rgba(203, 203, 203, 0.2) 51.84%, rgba(153, 153, 153, 0) 100%);
           color: rgba(255,255,255,0.85);
-          font-weight: 700;
-          font-size: 16px;
-          backdrop-filter: blur(8px);
+          font-weight: 400;
+          font-size: 14px;
+          backdrop-filter: blur(5.435667037963867px);
+          box-shadow: 0px 0px 5.16px 0px #FFFFFF40 inset, 0px 4.07px 6.2px 0px #00000040 inset;
           cursor: pointer;
-          transition: background 0.2s ease;
+          transition: opacity 0.2s ease;
+          padding: 15px 16px;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .btn-primary-wide::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1.3px;
+          border-radius: inherit;
+          background: linear-gradient(90deg, #949494 7%, #ACB9C1 16%, #FFFFFF 34%, #ACB9C1 51%, #4B555E 78%, #fff 105%);
+          -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .btn-primary-wide::after {
+          content: "";
+          position: absolute;
+          bottom: -17px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 56%;
+          height: 50%;
+          background: #7990A5;
+          filter: blur(11px);
+          opacity: 0.8;
+          border-radius: 20%;
+          z-index: 0;
+          pointer-events: none;
+        }
+
+        .btn-primary-wide > span {
+          position: relative;
+          z-index: 1;
         }
 
         .btn-primary-wide:hover {
-          background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.08));
+          opacity: 0.9;
         }
 
         .btn-primary-wide:disabled {
@@ -431,9 +466,10 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
           <div className="cal-cta">
             <button 
               className="btn-primary-wide"
-              disabled={!selectedDate || !selectedTime}
+              onClick={handleNext}
+              disabled={!selectedDate || !selectedTime || isStaffLoading}
             >
-              {language === 'nl' ? 'Volgende' : 'Next'}
+              <span>{language === 'nl' ? 'Volgende' : 'Next'}</span>
             </button>
           </div>
         </>
