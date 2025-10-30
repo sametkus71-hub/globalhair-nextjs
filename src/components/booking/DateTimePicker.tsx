@@ -273,7 +273,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
         }
 
         .cal-day.is-selected::before {
-          background: linear-gradient(123.33deg, rgba(255, 255, 255, 0.8) -0.64%, #FFFFFF 39.54%, rgba(255, 255, 255, 0.8) 79.72%);
+          background: linear-gradient(269.87deg, #22c55e 3.18%, #4ade80 51.79%, #22c55e 76.09%, #16a34a 88.24%, #22c55e 100.39%);
         }
 
         .cal-day.is-disabled {
