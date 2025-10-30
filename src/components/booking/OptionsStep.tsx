@@ -72,7 +72,15 @@ export const OptionsStep = ({
           </div>
         </div>
         
-        <p className="text-xs font-inter text-white/50 leading-relaxed">
+        <p 
+          className="leading-relaxed"
+          style={{
+            fontSize: '10px',
+            fontFamily: 'Inter',
+            fontWeight: 300,
+            color: '#CFCFCF'
+          }}
+        >
           {getConsultDescription()}
         </p>
       </div>
