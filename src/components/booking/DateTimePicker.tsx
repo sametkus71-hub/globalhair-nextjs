@@ -224,8 +224,9 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
         }
 
         .cal-day {
+          width: 56px;
           height: 56px;
-          border-radius: 12px;
+          border-radius: 5.5px;
           background: rgba(255,255,255,0.06);
           border: 1px solid rgba(255,255,255,0.35);
           backdrop-filter: blur(8px);
@@ -267,7 +268,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
         }
 
         .cal-day.is-unavailable {
-          background: linear-gradient(180deg, rgba(255,69,58,0.18), rgba(255,69,58,0.32));
+          background: #FD4E4E29;
           border-color: rgba(255,69,58,0.55);
           color: #fff;
         }
