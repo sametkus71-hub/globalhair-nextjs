@@ -191,11 +191,10 @@ const styles = `
     content: "";
     position: absolute;
     bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    height: 50%;
-    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    left: 0;
+    right: 0;
+    height: 60%;
+    background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.25) 100%);
     z-index: 0;
     pointer-events: none;
   }
