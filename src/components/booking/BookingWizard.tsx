@@ -171,7 +171,7 @@ export const BookingWizard = () => {
                   className="font-inter text-left"
                   style={{ 
                     fontWeight: 400,
-                    fontSize: '16px',
+                    fontSize: '15px',
                     background: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
@@ -238,7 +238,7 @@ export const BookingWizard = () => {
                   }`}
                   style={{ 
                     fontWeight: 400,
-                    fontSize: '16px',
+                    fontSize: '15px',
                     background: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
@@ -299,7 +299,7 @@ export const BookingWizard = () => {
                   }`}
                   style={{ 
                     fontWeight: 400,
-                    fontSize: '16px',
+                    fontSize: '15px',
                     background: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
