@@ -24,6 +24,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+  const [hasDragged, setHasDragged] = useState(false);
 
   // Get service configuration for duration
   const config = getServiceConfig(serviceType, location);
@@ -82,6 +83,10 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
   };
 
   const handleTimeSelect = (slot: string) => {
+    if (hasDragged) {
+      setHasDragged(false);
+      return;
+    }
     setSelectedTime(slot);
   };
 
@@ -95,24 +100,37 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!timeStripRef.current) return;
     setIsDragging(true);
+    setHasDragged(false);
     setStartX(e.pageX - timeStripRef.current.offsetLeft);
     setScrollLeft(timeStripRef.current.scrollLeft);
+    if (timeStripRef.current) {
+      timeStripRef.current.style.scrollBehavior = 'auto';
+    }
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!isDragging || !timeStripRef.current) return;
     e.preventDefault();
     const x = e.pageX - timeStripRef.current.offsetLeft;
-    const walk = (x - startX) * 2;
+    const walk = (x - startX) * 1.5;
+    if (Math.abs(walk) > 5) {
+      setHasDragged(true);
+    }
     timeStripRef.current.scrollLeft = scrollLeft - walk;
   };
 
   const handleMouseUp = () => {
     setIsDragging(false);
+    if (timeStripRef.current) {
+      timeStripRef.current.style.scrollBehavior = 'smooth';
+    }
   };
 
   const handleMouseLeave = () => {
     setIsDragging(false);
+    if (timeStripRef.current) {
+      timeStripRef.current.style.scrollBehavior = 'smooth';
+    }
   };
 
   const handleMonthChange = (date: Date) => {
@@ -334,10 +352,13 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
           -webkit-overflow-scrolling: touch;
           cursor: grab;
           user-select: none;
+          scroll-behavior: smooth;
+          transition: scroll 0.3s ease-out;
         }
 
         .time-strip:active {
           cursor: grabbing;
+          scroll-behavior: auto;
         }
 
         .time-strip::-webkit-scrollbar {
@@ -365,6 +386,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
           scroll-snap-align: start;
           transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
           cursor: pointer;
+          pointer-events: auto;
         }
 
         .time-pill:hover {
@@ -512,7 +534,6 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
                       key={slot}
                       onClick={() => handleTimeSelect(slot)}
                       className={`time-pill ${selectedTime === slot ? 'is-selected' : ''}`}
-                      onMouseDown={(e) => e.stopPropagation()}
                     >
                       {formatTimeSlotWithDuration(slot)}
                     </button>
