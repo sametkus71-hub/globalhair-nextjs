@@ -78,10 +78,10 @@ export const OptionsStep = ({
       <div className="space-y-2">
         <button
           onClick={() => onLocationChange('onsite')}
-          className={`w-full px-3 py-2.5 rounded-lg text-left transition-all duration-200 flex items-center gap-2.5 ${
+          className={`w-full px-3 py-3 rounded text-left transition-all duration-200 flex items-center gap-2.5 ${
             location === 'onsite'
-              ? 'bg-white/15 border border-white/30'
-              : 'bg-white/5 border border-white/10 hover:bg-white/10'
+              ? 'bg-[#FFFFFF1F] border border-white/30'
+              : 'bg-[#FFFFFF1F] border border-white/10 hover:bg-white/10'
           }`}
         >
           <MapPin className="w-4 h-4 text-white/70" />
@@ -93,10 +93,10 @@ export const OptionsStep = ({
         
         <button
           onClick={() => onLocationChange('online')}
-          className={`w-full px-3 py-2.5 rounded-lg text-left transition-all duration-200 flex items-center gap-2.5 ${
+          className={`w-full px-3 py-3 rounded text-left transition-all duration-200 flex items-center gap-2.5 ${
             location === 'online'
-              ? 'bg-white/15 border border-white/30'
-              : 'bg-white/5 border border-white/10 hover:bg-white/10'
+              ? 'bg-[#FFFFFF1F] border border-white/30'
+              : 'bg-[#FFFFFF1F] border border-white/10 hover:bg-white/10'
           }`}
         >
           <Video className="w-4 h-4 text-white/70" />
@@ -105,7 +105,7 @@ export const OptionsStep = ({
         
         <button
           onClick={() => onLocationChange('online')}
-          className="w-full px-3 py-2.5 rounded-lg text-left transition-all duration-200 flex items-center gap-2.5 bg-white/5 border border-white/10 opacity-40 cursor-not-allowed"
+          className="w-full px-3 py-3 rounded text-left transition-all duration-200 flex items-center gap-2.5 bg-[#FFFFFF1F] border border-white/10 opacity-40 cursor-not-allowed"
           disabled
         >
           <Phone className="w-4 h-4 text-white/70" />
@@ -119,10 +119,10 @@ export const OptionsStep = ({
           Selecteer consultant
         </label>
         <div className="flex justify-start">
-          <div className="inline-flex rounded-full border border-white/20 bg-white/5 p-0.5 w-full">
+          <div className="inline-flex rounded-full border border-white/20 bg-[#FFFFFF1F] p-0.5 w-full">
             <button
               onClick={() => onConsultantChange('trichoTeam')}
-              className={`flex-1 px-4 py-1.5 rounded-full text-xs font-inter font-normal transition-all duration-200 ${
+              className={`flex-1 px-4 py-2 rounded-full text-xs font-inter font-normal transition-all duration-200 ${
                 consultant === 'trichoTeam'
                   ? 'bg-white/90 text-slate-900'
                   : 'text-white/60 hover:text-white'
@@ -132,7 +132,7 @@ export const OptionsStep = ({
             </button>
             <button
               onClick={() => onConsultantChange('ceo')}
-              className={`flex-1 px-4 py-1.5 rounded-full text-xs font-inter font-normal transition-all duration-200 ${
+              className={`flex-1 px-4 py-2 rounded-full text-xs font-inter font-normal transition-all duration-200 ${
                 consultant === 'ceo'
                   ? 'bg-white/90 text-slate-900'
                   : 'text-white/60 hover:text-white'
@@ -147,7 +147,7 @@ export const OptionsStep = ({
       {/* Next Button */}
       <button
         onClick={onNext}
-        className="w-full px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/15 border border-white/20 text-white font-inter font-normal transition-all duration-200 text-sm"
+        className="w-full px-4 py-3 rounded bg-[#FFFFFF1F] hover:bg-white/15 border border-white/20 text-white font-inter font-normal transition-all duration-200 text-sm"
       >
         Volgende
       </button>
