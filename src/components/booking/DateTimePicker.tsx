@@ -230,8 +230,8 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
           display: flex;
           align-items: center;
           justify-content: center;
-          font-weight: 600;
-          font-size: 14px;
+          font-weight: 300;
+          font-size: 12px;
           color: #E6EDF5;
           transition: transform 0.15s ease, background 0.2s ease;
           cursor: pointer;
