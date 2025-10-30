@@ -158,8 +158,8 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
       <style>{`
         .cal {
           color: var(--txt, #E6EDF5);
-          border-radius: 24px;
-          padding: 16px 16px 20px;
+          border-radius: 20px;
+          padding: 12px 12px 14px;
           background: radial-gradient(120% 120% at 80% 0%, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 60%, transparent 100%);
           backdrop-filter: blur(10px);
           border: 1px solid rgba(255,255,255,0.18);
@@ -169,21 +169,21 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
           position: relative;
           display: flex;
           align-items: center;
-          gap: 12px;
-          margin-bottom: 10px;
+          gap: 8px;
+          margin-bottom: 6px;
         }
 
         .cal-month {
-          font-size: clamp(18px, 2.6vw, 22px);
+          font-size: clamp(16px, 2.2vw, 18px);
           font-weight: 600;
           margin: 0;
           flex: 1;
         }
 
         .cal-prev, .cal-next {
-          width: 36px;
-          height: 36px;
-          border-radius: 12px;
+          width: 32px;
+          height: 32px;
+          border-radius: 10px;
           border: 1px solid rgba(255,255,255,0.35);
           background: rgba(255,255,255,0.04);
           backdrop-filter: blur(8px);
@@ -209,23 +209,23 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
         .cal-weekdays {
           display: grid;
           grid-template-columns: repeat(7, 1fr);
-          gap: 10px;
-          margin: 8px 0;
+          gap: 6px;
+          margin: 6px 0 4px;
           color: rgba(230,237,245,0.65);
-          font-size: 13px;
+          font-size: 11px;
           text-align: center;
         }
 
         .cal-grid {
           display: grid;
           grid-template-columns: repeat(7, 1fr);
-          gap: 12px;
-          margin-bottom: 18px;
+          gap: 6px;
+          margin-bottom: 12px;
         }
 
         .cal-day {
-          width: 56px;
-          height: 56px;
+          width: 44px;
+          height: 44px;
           border-radius: 5.5px;
           background: rgba(255,255,255,0.06);
           border: 1px solid rgba(255,255,255,0.35);
@@ -235,7 +235,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
           align-items: center;
           justify-content: center;
           font-weight: 600;
-          font-size: 16px;
+          font-size: 14px;
           color: #E6EDF5;
           transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
           cursor: pointer;
@@ -274,16 +274,16 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
         }
 
         .cal-times-title {
-          margin: 6px 0 10px;
-          font-size: clamp(16px, 2.2vw, 18px);
+          margin: 4px 0 6px;
+          font-size: clamp(14px, 2vw, 16px);
           color: rgba(255,255,255,0.85);
         }
 
         .time-strip {
           display: flex;
-          gap: 12px;
+          gap: 8px;
           overflow-x: auto;
-          padding: 2px 2px 8px;
+          padding: 2px 2px 6px;
           scroll-snap-type: x mandatory;
           -webkit-overflow-scrolling: touch;
         }
@@ -298,14 +298,15 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
 
         .time-pill {
           flex: 0 0 auto;
-          min-width: 200px;
-          height: 56px;
-          border-radius: 14px;
+          min-width: 160px;
+          height: 44px;
+          border-radius: 12px;
           background: rgba(255,255,255,0.06);
           border: 1px solid rgba(255,255,255,0.35);
           box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
           color: #E6EDF5;
           font-weight: 600;
+          font-size: 14px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -325,18 +326,18 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
         }
 
         .cal-cta {
-          margin-top: 16px;
+          margin-top: 10px;
         }
 
         .btn-primary-wide {
           width: 100%;
-          height: 64px;
-          border-radius: 28px;
+          height: 50px;
+          border-radius: 24px;
           border: 1px solid rgba(255,255,255,0.35);
           background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
           color: rgba(255,255,255,0.85);
           font-weight: 700;
-          font-size: 18px;
+          font-size: 16px;
           backdrop-filter: blur(8px);
           cursor: pointer;
           transition: background 0.2s ease;
