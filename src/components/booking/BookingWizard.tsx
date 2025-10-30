@@ -164,7 +164,7 @@ export const BookingWizard = () => {
               <div className="flex items-center gap-2 flex-1">
                 <span 
                   className="font-inter font-normal text-sm text-left text-white"
-                  style={{ boxShadow: '0px 3.39px 18.55px 0px #FFFFFF40' }}
+                  style={{ textShadow: '0px 3.39px 18.55px #FFFFFF40' }}
                 >
                   Kies een optie
                 </span>
@@ -218,7 +218,7 @@ export const BookingWizard = () => {
                   className={`font-inter font-normal text-sm text-left text-white ${
                     !completedSteps.includes('step-1') ? 'opacity-50' : ''
                   }`}
-                  style={{ boxShadow: '0px 3.39px 18.55px 0px #FFFFFF40' }}
+                  style={{ textShadow: '0px 3.39px 18.55px #FFFFFF40' }}
                 >
                   Selecteer datum
                 </span>
@@ -266,7 +266,7 @@ export const BookingWizard = () => {
                   className={`font-inter font-normal text-sm text-left text-white ${
                     !completedSteps.includes('step-2') ? 'opacity-50' : ''
                   }`}
-                  style={{ boxShadow: '0px 3.39px 18.55px 0px #FFFFFF40' }}
+                  style={{ textShadow: '0px 3.39px 18.55px #FFFFFF40' }}
                 >
                   Bevestigen
                 </span>
