@@ -147,7 +147,7 @@ export const OptionsStep = ({
       {/* Next Button */}
       <button
         onClick={onNext}
-        className="silver-gradient-border w-full px-4 rounded-full text-white font-inter font-normal transition-all duration-200 text-sm relative overflow-hidden"
+        className="silver-gradient-border button-glow w-full px-4 rounded-full text-white font-inter font-normal transition-all duration-200 text-sm relative overflow-hidden"
         style={{
           background: 'linear-gradient(93.06deg, rgba(255, 255, 255, 0.05) 1%, rgba(203, 203, 203, 0.2) 51.84%, rgba(153, 153, 153, 0.05) 100%)',
           backdropFilter: 'blur(5.435667037963867px)',
@@ -186,6 +186,21 @@ const styles = `
   .silver-gradient-border > * {
     position: relative;
     z-index: 1;
+  }
+
+  .button-glow::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 50%;
+    background: #7990A5;
+    backdrop-filter: blur(25.27585220336914px);
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
   }
 `;
 
