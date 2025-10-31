@@ -243,10 +243,15 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
         }
 
         .cal-month {
-          font-size: clamp(16px, 2.2vw, 18px);
-          font-weight: 600;
+          font-size: 15px;
+          font-weight: 400;
           margin: 0;
           flex: 1;
+          background: linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          text-shadow: 0px 3.39px 18.55px #FFFFFF40;
         }
 
         .cal-prev, .cal-next {
@@ -366,8 +371,13 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
 
         .cal-times-title {
           margin: 4px 0 6px;
-          font-size: clamp(14px, 2vw, 16px);
-          color: rgba(255,255,255,0.85);
+          font-size: 15px;
+          font-weight: 400;
+          background: linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          text-shadow: 0px 3.39px 18.55px #FFFFFF40;
         }
 
         .time-strip {
@@ -442,8 +452,11 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
 
         .time-pill.is-selected {
           background: linear-gradient(180deg, rgba(240,245,255,0.28), rgba(255,255,255,0.06));
-          border-color: rgba(255,255,255,0.55);
           color: rgba(255,255,255,0.85);
+        }
+
+        .time-pill.is-selected::before {
+          background: linear-gradient(269.87deg, #22c55e 3.18%, #4ade80 51.79%, #22c55e 76.09%, #16a34a 88.24%, #22c55e 100.39%);
         }
 
         .cal-cta {
