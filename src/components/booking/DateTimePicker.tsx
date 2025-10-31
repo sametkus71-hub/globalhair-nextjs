@@ -27,6 +27,9 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
   const [scrollLeft, setScrollLeft] = useState(0);
   const [hasDragged, setHasDragged] = useState(false);
 
+  const dateKey = (d: Date) => format(d, 'yyyy-MM-dd');
+  const monthKey = (d: Date) => format(d, 'yyyy-MM');
+
   // Get service configuration for duration
   const config = getServiceConfig(serviceType, location);
   const durationMinutes = config.durationMinutes;
@@ -152,46 +155,44 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
     const isPast = date < today;
     const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
     
-    // Check if date has availability from cache
-    const hasSlots = cacheData?.hasAvailability(date) || false;
+    // Use date-only key to avoid timezone drift
+    const key = dateKey(date);
+    const hasSlots = cacheData?.availableDates?.includes(key) ?? false;
     
     return isPast || isWeekend || !hasSlots;
   };
-
   // Auto-select the first available date within the current month based on cache
   useEffect(() => {
     if (!cacheData || !currentMonth) return;
 
-    // First, check if current selection is now invalid/disabled
+    // Clear invalid selection asap
     if (selectedDate && isDateDisabled(selectedDate)) {
-      setSelectedDate(null); // Clear invalid selection immediately
+      setSelectedDate(null);
     }
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    // Get candidates: only dates in current visible month that are not disabled
-    const candidates = cacheData.availableDates
-      .map((d) => new Date(d))
-      .filter((d) => isSameMonth(d, currentMonth) && d >= today && !isDateDisabled(d))
-      .sort((a, b) => a.getTime() - b.getTime());
+    const cmKey = monthKey(currentMonth);
+    const todayKey = dateKey(today);
 
-    const firstInMonth = candidates[0] ?? null;
+    const firstKeyInMonth = (cacheData.availableDates ?? [])
+      .filter((k) => k.startsWith(cmKey) && k >= todayKey)
+      .sort()[0];
 
-    const selectedInvalid = !selectedDate || isDateDisabled(selectedDate) || !isSameMonth(selectedDate, currentMonth);
+    const selectedInvalid =
+      !selectedDate ||
+      isDateDisabled(selectedDate) ||
+      !isSameMonth(selectedDate, currentMonth);
 
     if (selectedInvalid) {
-      if (firstInMonth) {
-        setSelectedDate(firstInMonth);
-      } else if (firstAvailableDate && isSameMonth(firstAvailableDate, currentMonth) && !isDateDisabled(firstAvailableDate)) {
-        // Fallback to the true first available date if it belongs to this month
-        setSelectedDate(firstAvailableDate);
+      if (firstKeyInMonth) {
+        setSelectedDate(new Date(firstKeyInMonth));
       } else {
-        setSelectedDate(null); // Clear selection if no valid dates in this month
+        setSelectedDate(null); // No valid dates in this month
       }
     }
-  }, [cacheData, currentMonth, selectedDate, firstAvailableDate]);
-
+  }, [cacheData, currentMonth, selectedDate]);
   // Generate calendar days
   const generateCalendarDays = () => {
     if (!currentMonth) return [];
@@ -227,7 +228,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
     const isOutside = !isSameMonth(day, currentMonth);
     const isDisabled = isDateDisabled(day);
     const isSelected = selectedDate && isSameDay(day, selectedDate) && !isDisabled;
-    const dayHasAvailability = cacheData?.hasAvailability(day) || false;
+    const dayHasAvailability = cacheData?.availableDates?.includes(dateKey(day)) || false;
     const isUnavailable = !isDisabled && !isOutside && !dayHasAvailability;
 
     if (isOutside) classes.push('is-outside');

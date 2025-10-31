@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
+import { format } from 'date-fns';
 
 interface AvailabilityCacheResult {
   availableDates: string[];
@@ -44,8 +45,8 @@ export const useAvailabilityCache = (
         .from('availability_slots')
         .select('date, time_slots, last_synced_at')
         .eq('service_key', serviceKey)
-        .gte('date', startDate.toISOString().split('T')[0])
-        .lte('date', endDate.toISOString().split('T')[0])
+        .gte('date', format(startDate, 'yyyy-MM-dd'))
+        .lte('date', format(endDate, 'yyyy-MM-dd'))
         .eq('zoho_response_status', 'success')
         .order('date');
 
@@ -83,7 +84,7 @@ export const useAvailabilityCache = (
       return {
         availableDates: uniqueDates,
         hasAvailability: (date: Date) => {
-          const dateStr = date.toISOString().split('T')[0];
+          const dateStr = format(date, 'yyyy-MM-dd');
           return dateAvailability.get(dateStr) || false;
         },
         isStale,
