@@ -3,6 +3,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useAvailabilityCache } from '@/hooks/useAvailabilityCache';
 import { useAvailabilitySlots } from '@/hooks/useAvailabilitySlots';
 import { useStaffSelection } from '@/hooks/useStaffSelection';
+import { useFirstAvailableDate } from '@/hooks/useFirstAvailableDate';
 import { ServiceType, LocationType } from './BookingWizard';
 import { getServiceConfig } from '@/lib/service-config';
 import { format, addMonths, subMonths, startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, isSameMonth, isSameDay, isToday } from 'date-fns';
@@ -17,9 +18,9 @@ interface DateTimePickerProps {
 
 export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePickerProps) => {
   const { language } = useLanguage();
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
-  const [selectedTime, setSelectedTime] = useState<string | undefined>(undefined);
-  const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [currentMonth, setCurrentMonth] = useState<Date | null>(null);
   const timeStripRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -29,6 +30,17 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
   // Get service configuration for duration
   const config = getServiceConfig(serviceType, location);
   const durationMinutes = config.durationMinutes;
+
+  // Fetch the first available date to initialize the calendar
+  const { data: firstAvailableDate } = useFirstAvailableDate(serviceType, location);
+
+  // Initialize currentMonth with the first available date
+  useEffect(() => {
+    if (firstAvailableDate && !currentMonth) {
+      setCurrentMonth(firstAvailableDate);
+      setSelectedDate(firstAvailableDate);
+    }
+  }, [firstAvailableDate, currentMonth]);
 
   // Format time slot with duration (e.g., "10:00 - 10:30")
   const formatTimeSlotWithDuration = (startTime: string): string => {
@@ -47,8 +59,8 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
   } = useAvailabilityCache(
     serviceType,
     location,
-    currentMonth.getFullYear(),
-    currentMonth.getMonth()
+    currentMonth?.getFullYear() ?? new Date().getFullYear(),
+    (currentMonth?.getMonth() ?? new Date().getMonth()) + 1
   );
 
   // Fetch available slots for selected date from availability_slots table
@@ -69,18 +81,9 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
     selectedTime || null
   );
 
-  // Auto-select first available date
-  useEffect(() => {
-    if (cacheData?.availableDates && cacheData.availableDates.length > 0 && !selectedDate) {
-      const firstAvailableDate = new Date(cacheData.availableDates[0]);
-      setSelectedDate(firstAvailableDate);
-      setCurrentMonth(firstAvailableDate);
-    }
-  }, [cacheData?.availableDates, selectedDate]);
-
-  const handleDateSelect = (date: Date | undefined) => {
+  const handleDateSelect = (date: Date | null) => {
     setSelectedDate(date);
-    setSelectedTime(undefined);
+    setSelectedTime(null);
   };
 
   const handleTimeSelect = (slot: string) => {
@@ -154,6 +157,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
 
   // Generate calendar days
   const generateCalendarDays = () => {
+    if (!currentMonth) return [];
     const start = startOfWeek(startOfMonth(currentMonth), { weekStartsOn: 1 });
     const end = endOfWeek(endOfMonth(currentMonth), { weekStartsOn: 1 });
     const days = [];
@@ -172,10 +176,12 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
     : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
   const goToPreviousMonth = () => {
+    if (!currentMonth) return;
     setCurrentMonth(subMonths(currentMonth, 1));
   };
 
   const goToNextMonth = () => {
+    if (!currentMonth) return;
     setCurrentMonth(addMonths(currentMonth, 1));
   };
 
@@ -467,7 +473,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
         }
       `}</style>
 
-      {isLoadingCache ? (
+      {!currentMonth || isLoadingCache ? (
         <div className="flex justify-center py-12">
           <div className="animate-spin rounded-full h-8 w-8 border-2 border-white/20 border-t-white"></div>
         </div>
