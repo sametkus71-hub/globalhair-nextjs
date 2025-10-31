@@ -34,9 +34,12 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
   // Fetch the first available date to initialize the calendar
   const { data: firstAvailableDate } = useFirstAvailableDate(serviceType, location);
 
-  // Initialize currentMonth with the first available date
+  // Initialize and sync currentMonth with the first available date
   useEffect(() => {
-    if (firstAvailableDate && !currentMonth) {
+    if (!firstAvailableDate) return;
+    
+    // Always align to the month containing the first available date
+    if (!currentMonth || !isSameMonth(currentMonth, firstAvailableDate)) {
       setCurrentMonth(firstAvailableDate);
     }
   }, [firstAvailableDate, currentMonth]);
@@ -169,19 +172,24 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
+    // Get candidates: only dates in current visible month that are not disabled
     const candidates = cacheData.availableDates
       .map((d) => new Date(d))
-      .filter((d) => isSameMonth(d, currentMonth) && d >= today && cacheData.hasAvailability(d) && !isDateDisabled(d))
+      .filter((d) => isSameMonth(d, currentMonth) && d >= today && !isDateDisabled(d))
       .sort((a, b) => a.getTime() - b.getTime());
 
-    const firstAvailableInMonth = candidates[0] ?? null;
+    const firstInMonth = candidates[0] ?? null;
 
     const selectedInvalid = !selectedDate || isDateDisabled(selectedDate) || !isSameMonth(selectedDate, currentMonth);
 
-    if (selectedInvalid && firstAvailableInMonth) {
-      setSelectedDate(firstAvailableInMonth);
+    if (selectedInvalid) {
+      if (firstInMonth) {
+        setSelectedDate(firstInMonth);
+      } else {
+        setSelectedDate(null); // Clear selection if no valid dates in this month
+      }
     }
-  }, [cacheData, currentMonth, selectedDate]);
+  }, [cacheData, currentMonth, selectedDate, firstAvailableDate]);
 
   // Generate calendar days
   const generateCalendarDays = () => {

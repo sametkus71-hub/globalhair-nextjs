@@ -12,7 +12,11 @@ export const useFirstAvailableDate = (
         return null;
       }
 
-      const serviceKey = `${serviceType}_${location}`;
+      // Normalize serviceKey - ceo_consult always uses 'online' key regardless of location
+      const serviceKey = serviceType === 'ceo_consult' 
+        ? 'ceo_consult_online' 
+        : `${serviceType}_${location}`;
+      
       const today = new Date().toISOString().split('T')[0];
 
       const { data, error } = await supabase
@@ -28,12 +32,23 @@ export const useFirstAvailableDate = (
         return null;
       }
 
-      // Find the first date that has at least one staff with available slots
-      const firstAvailable = data?.find(row => 
-        Array.isArray(row.time_slots) && row.time_slots.length > 0
-      );
+      // Use a Map to aggregate availability by date (handle multiple staff per date)
+      const dateHasSlots = new Map<string, boolean>();
+      
+      for (const row of data ?? []) {
+        const hasSlots = Array.isArray(row.time_slots) && row.time_slots.length > 0;
+        const currentValue = dateHasSlots.get(row.date) ?? false;
+        dateHasSlots.set(row.date, currentValue || hasSlots);
+      }
 
-      return firstAvailable?.date ? new Date(firstAvailable.date) : null;
+      // Find earliest date with availability
+      const availableDates = Array.from(dateHasSlots.entries())
+        .filter(([_, hasSlots]) => hasSlots)
+        .map(([date]) => date)
+        .sort();
+
+      const earliestDate = availableDates[0];
+      return earliestDate ? new Date(earliestDate) : null;
     },
     enabled: !!serviceType && !!location,
     staleTime: 5 * 60 * 1000, // 5 minutes
