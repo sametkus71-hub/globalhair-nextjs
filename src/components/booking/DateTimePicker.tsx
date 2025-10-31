@@ -154,15 +154,26 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
     return isPast || isWeekend || !hasSlots;
   };
 
-  // Auto-select the first available date only if it's not disabled and cache is loaded
+  // Auto-select the first available date within the current month based on cache
   useEffect(() => {
-    if (firstAvailableDate && cacheData && !selectedDate) {
-      const isDisabled = isDateDisabled(firstAvailableDate);
-      if (!isDisabled) {
-        setSelectedDate(firstAvailableDate);
-      }
+    if (!cacheData || !currentMonth) return;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const candidates = cacheData.availableDates
+      .map((d) => new Date(d))
+      .filter((d) => isSameMonth(d, currentMonth) && d >= today && cacheData.hasAvailability(d) && !isDateDisabled(d))
+      .sort((a, b) => a.getTime() - b.getTime());
+
+    const firstAvailableInMonth = candidates[0] ?? null;
+
+    const selectedInvalid = !selectedDate || isDateDisabled(selectedDate) || !isSameMonth(selectedDate, currentMonth);
+
+    if (selectedInvalid && firstAvailableInMonth) {
+      setSelectedDate(firstAvailableInMonth);
     }
-  }, [firstAvailableDate, cacheData, selectedDate, isDateDisabled]);
+  }, [cacheData, currentMonth, selectedDate]);
 
   // Generate calendar days
   const generateCalendarDays = () => {
