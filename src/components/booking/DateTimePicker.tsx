@@ -74,6 +74,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
     if (cacheData?.availableDates && cacheData.availableDates.length > 0 && !selectedDate) {
       const firstAvailableDate = new Date(cacheData.availableDates[0]);
       setSelectedDate(firstAvailableDate);
+      setCurrentMonth(firstAvailableDate);
     }
   }, [cacheData?.availableDates, selectedDate]);
 
