@@ -147,19 +147,27 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
     setCurrentMonth(date);
   };
 
-  const isDateDisabled = (date: Date) => {
+  const isDateNotSelectable = (date: Date) => {
     const dayOfWeek = date.getDay();
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    
+
     const isPast = date < today;
     const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+    const isOutside = !isSameMonth(date, currentMonth);
     
-    // Use date-only key to avoid timezone drift
+    return isPast || isWeekend || isOutside;
+  };
+
+  const isDateFullyBooked = (date: Date) => {
+    if (isDateNotSelectable(date)) return false;
     const key = dateKey(date);
     const hasSlots = cacheData?.availableDates?.includes(key) ?? false;
-    
-    return isPast || isWeekend || !hasSlots;
+    return !hasSlots;
+  };
+
+  const isDateDisabled = (date: Date) => {
+    return isDateNotSelectable(date) || isDateFullyBooked(date);
   };
   // Auto-select the first available date within the current month based on cache
   useEffect(() => {
@@ -225,17 +233,15 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
 
   const getDayClasses = (day: Date) => {
     const classes = ['cal-day'];
-    const isOutside = !isSameMonth(day, currentMonth);
-    const isDisabled = isDateDisabled(day);
+    const notSelectable = isDateNotSelectable(day);
+    const fullyBooked = isDateFullyBooked(day);
+    const isDisabled = notSelectable || fullyBooked;
     const isSelected = selectedDate && isSameDay(day, selectedDate) && !isDisabled;
-    const dayHasAvailability = cacheData?.availableDates?.includes(dateKey(day)) || false;
-    const isUnavailable = !isDisabled && !isOutside && !dayHasAvailability;
 
-    if (isOutside) classes.push('is-outside');
+    if (notSelectable) classes.push('is-not-selectable');
+    if (fullyBooked) classes.push('is-fully-booked');
     if (isToday(day)) classes.push('is-today');
     if (isSelected) classes.push('is-selected');
-    if (isDisabled) classes.push('is-disabled');
-    if (isUnavailable) classes.push('is-unavailable');
 
     return classes.join(' ');
   };
@@ -344,13 +350,33 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
           z-index: 0;
         }
 
-        .cal-day:hover:not(.is-disabled):not(.is-outside) {
+        .cal-day:hover:not(.is-not-selectable):not(.is-fully-booked) {
           transform: translateY(-1px);
         }
 
-        .cal-day.is-outside {
-          opacity: 0.35;
+        .cal-day.is-not-selectable {
+          opacity: 0.25;
           pointer-events: none;
+          cursor: not-allowed;
+          background: transparent;
+          color: hsl(var(--muted-foreground));
+        }
+
+        .cal-day.is-not-selectable::before {
+          opacity: 0.3;
+        }
+
+        .cal-day.is-fully-booked {
+          opacity: 0.6;
+          pointer-events: none;
+          cursor: not-allowed;
+          background: rgba(253, 78, 78, 0.16);
+          color: rgba(255, 255, 255, 0.7);
+        }
+
+        .cal-day.is-fully-booked::before {
+          background: linear-gradient(269.87deg, #ef4444 3.18%, #dc2626 51.79%, #ef4444 76.09%, #b91c1c 88.24%, #ef4444 100.39%);
+          opacity: 0.5;
         }
 
         .cal-day.is-today {
@@ -366,21 +392,6 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
 
         .cal-day.is-selected::before {
           background: linear-gradient(269.87deg, #22c55e 3.18%, #4ade80 51.79%, #22c55e 76.09%, #16a34a 88.24%, #22c55e 100.39%);
-        }
-
-        .cal-day.is-disabled {
-          background: #FD4E4E29;
-          opacity: 1;
-          pointer-events: none;
-        }
-
-        .cal-day.is-unavailable {
-          background: #FD4E4E29;
-          color: #fff;
-        }
-
-        .cal-day.is-unavailable::before {
-          background: linear-gradient(123.33deg, rgba(255,69,58,0.6) -0.64%, rgba(255,69,58,0.8) 39.54%, rgba(255,69,58,0.6) 79.72%);
         }
 
         .cal-times-title {
