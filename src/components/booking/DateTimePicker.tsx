@@ -60,7 +60,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
     serviceType,
     location,
     currentMonth?.getFullYear() ?? new Date().getFullYear(),
-    (currentMonth?.getMonth() ?? new Date().getMonth()) + 1
+    currentMonth?.getMonth() ?? new Date().getMonth()
   );
 
   // Fetch available slots for selected date from availability_slots table
