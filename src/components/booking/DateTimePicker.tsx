@@ -227,11 +227,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
       <style>{`
         .cal {
           color: var(--txt, #E6EDF5);
-          border-radius: 20px;
-          padding: 12px 12px 14px;
-          background: radial-gradient(120% 120% at 80% 0%, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 60%, transparent 100%);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255,255,255,0.18);
+          padding: 10px 0px 1px 3px;
         }
 
         .cal-header {
