@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
+import { format } from 'date-fns';
 
 export const useFirstAvailableDate = (
   serviceType: 'v6_hairboost' | 'haartransplantatie' | 'ceo_consult' | null,
@@ -17,7 +18,7 @@ export const useFirstAvailableDate = (
         ? 'ceo_consult_online' 
         : `${serviceType}_${location}`;
       
-      const today = new Date().toISOString().split('T')[0];
+      const today = format(new Date(), 'yyyy-MM-dd');
 
       const { data, error } = await supabase
         .from('availability_slots')

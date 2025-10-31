@@ -34,14 +34,12 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
   // Fetch the first available date to initialize the calendar
   const { data: firstAvailableDate } = useFirstAvailableDate(serviceType, location);
 
-  // Initialize and sync currentMonth with the first available date
+  // Initialize currentMonth with the first available date (only on initial load)
   useEffect(() => {
-    if (!firstAvailableDate) return;
-    
-    // Always align to the month containing the first available date
-    if (!currentMonth || !isSameMonth(currentMonth, firstAvailableDate)) {
+    if (firstAvailableDate && !currentMonth) {
       setCurrentMonth(firstAvailableDate);
     }
+    // Intentionally do NOT re-align if user has already navigated
   }, [firstAvailableDate, currentMonth]);
 
   // Format time slot with duration (e.g., "10:00 - 10:30")
@@ -185,6 +183,9 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
     if (selectedInvalid) {
       if (firstInMonth) {
         setSelectedDate(firstInMonth);
+      } else if (firstAvailableDate && isSameMonth(firstAvailableDate, currentMonth) && !isDateDisabled(firstAvailableDate)) {
+        // Fallback to the true first available date if it belongs to this month
+        setSelectedDate(firstAvailableDate);
       } else {
         setSelectedDate(null); // Clear selection if no valid dates in this month
       }
