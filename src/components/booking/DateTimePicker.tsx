@@ -379,8 +379,11 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
         }
 
         .cal-day.is-today {
-          outline: 2px solid rgba(255,255,255,0.35);
-          outline-offset: 2px;
+          border-color: rgba(255, 255, 255, 0.8);
+          box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+          background: rgba(255, 255, 255, 0.02);
+          backdrop-filter: blur(7px);
+          color: rgba(255, 255, 255, 0.92);
         }
 
         .cal-day.is-selected {
