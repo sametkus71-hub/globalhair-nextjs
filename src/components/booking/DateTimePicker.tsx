@@ -381,6 +381,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
           gap: 8px;
           overflow-x: auto;
           padding: 2px 2px 6px;
+          margin-right: -16px;
           scroll-snap-type: x mandatory;
           -webkit-overflow-scrolling: touch;
           cursor: grab;
