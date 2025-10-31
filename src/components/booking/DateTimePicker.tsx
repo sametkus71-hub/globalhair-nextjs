@@ -104,6 +104,13 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
   const ensureValidSelection = () => {
     if (!cacheData || !currentMonth) return;
 
+    // On initial load (no selection yet), use the global first available date
+    if (!selectedDate && firstAvailableDate) {
+      setSelectedDate(firstAvailableDate);
+      setSelectedTime(null);
+      return;
+    }
+
     // If current selection is still valid, keep it
     if (selectedDate && isSelectable(selectedDate) && isSameMonth(selectedDate, currentMonth)) {
       return;
@@ -133,7 +140,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
   // Run validation whenever month or availability changes
   useEffect(() => {
     ensureValidSelection();
-  }, [cacheData, currentMonth]);
+  }, [cacheData, currentMonth, firstAvailableDate]);
 
   const handleDateSelect = (date: Date | null) => {
     if (!date || !isSelectable(date)) return;
@@ -230,16 +237,13 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
     const classes = ['cal-day'];
     const isOutside = !isSameMonth(day, currentMonth);
     const dayIsDisabled = isDisabled(day);
-    const dayIsAvailable = isDateAvailable(day);
     const dayIsSelectable = isSelectable(day);
     const isSelected = dayIsSelectable && selectedDate && isSameDay(day, selectedDate);
-    const isUnavailable = !dayIsDisabled && !isOutside && !dayIsAvailable;
 
     if (isOutside) classes.push('is-outside');
     if (isToday(day)) classes.push('is-today');
     if (isSelected) classes.push('is-selected');
     if (dayIsDisabled) classes.push('is-disabled');
-    if (isUnavailable) classes.push('is-unavailable');
 
     return classes.join(' ');
   };
