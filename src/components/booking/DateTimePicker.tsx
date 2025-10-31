@@ -277,19 +277,34 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
         .cal-prev, .cal-next {
           width: 32px;
           height: 32px;
-          border-radius: 10px;
-          border: 1px solid rgba(255,255,255,0.35);
-          background: rgba(255,255,255,0.04);
+          border-radius: 5.5px;
+          background: rgba(255,255,255,0.06);
           backdrop-filter: blur(8px);
+          box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          transition: background 0.2s ease;
+          transition: transform 0.15s ease, background 0.2s ease;
+          position: relative;
+        }
+
+        .cal-prev::before, .cal-next::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1px;
+          border-radius: inherit;
+          background: linear-gradient(269.87deg, #4B555E 3.18%, #ACB9C1 51.79%, #FFFFFF 76.09%, #ACB9C1 88.24%, #4B555E 100.39%);
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 0;
         }
 
         .cal-prev:hover, .cal-next:hover {
-          background: rgba(255,255,255,0.08);
+          transform: translateY(-1px);
         }
 
         .cal-alt-link {
