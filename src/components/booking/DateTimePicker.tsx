@@ -355,7 +355,6 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
         }
 
         .cal-day.is-not-selectable {
-          opacity: 0.25;
           pointer-events: none;
           cursor: not-allowed;
           background: transparent;
