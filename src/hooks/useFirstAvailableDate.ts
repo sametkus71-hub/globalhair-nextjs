@@ -17,20 +17,23 @@ export const useFirstAvailableDate = (
 
       const { data, error } = await supabase
         .from('availability_slots')
-        .select('date')
+        .select('date, time_slots')
         .eq('service_key', serviceKey)
         .eq('zoho_response_status', 'success')
         .gte('date', today)
-        .order('date', { ascending: true })
-        .limit(1)
-        .single();
+        .order('date', { ascending: true });
 
       if (error) {
         console.error('Error fetching first available date:', error);
         return null;
       }
 
-      return data?.date ? new Date(data.date) : null;
+      // Find the first date that has at least one staff with available slots
+      const firstAvailable = data?.find(row => 
+        Array.isArray(row.time_slots) && row.time_slots.length > 0
+      );
+
+      return firstAvailable?.date ? new Date(firstAvailable.date) : null;
     },
     enabled: !!serviceType && !!location,
     staleTime: 5 * 60 * 1000, // 5 minutes
