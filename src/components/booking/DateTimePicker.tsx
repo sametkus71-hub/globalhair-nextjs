@@ -81,6 +81,9 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
   );
 
   const handleDateSelect = (date: Date | null) => {
+    if (date && isDateDisabled(date)) {
+      return; // Don't allow selecting disabled dates
+    }
     setSelectedDate(date);
     setSelectedTime(null);
   };
@@ -158,6 +161,11 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
   useEffect(() => {
     if (!cacheData || !currentMonth) return;
 
+    // First, check if current selection is now invalid/disabled
+    if (selectedDate && isDateDisabled(selectedDate)) {
+      setSelectedDate(null); // Clear invalid selection immediately
+    }
+
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -208,8 +216,8 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
   const getDayClasses = (day: Date) => {
     const classes = ['cal-day'];
     const isOutside = !isSameMonth(day, currentMonth);
-    const isSelected = selectedDate && isSameDay(day, selectedDate);
     const isDisabled = isDateDisabled(day);
+    const isSelected = selectedDate && isSameDay(day, selectedDate) && !isDisabled;
     const dayHasAvailability = cacheData?.hasAvailability(day) || false;
     const isUnavailable = !isDisabled && !isOutside && !dayHasAvailability;
 
