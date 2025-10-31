@@ -398,26 +398,46 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
 
         .time-pill {
           flex: 0 0 auto;
-          min-width: 160px;
-          height: 44px;
-          border-radius: 12px;
+          min-width: 120px;
+          height: 41px;
+          border-radius: 6px;
           background: rgba(255,255,255,0.06);
-          border: 1px solid rgba(255,255,255,0.35);
+          border: none;
           box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
           color: #E6EDF5;
-          font-weight: 600;
-          font-size: 14px;
+          font-weight: 300;
+          font-size: 11px;
           display: flex;
           align-items: center;
           justify-content: center;
           scroll-snap-align: start;
-          transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+          transition: transform 0.15s ease, background 0.2s ease;
           cursor: pointer;
           pointer-events: auto;
+          position: relative;
+        }
+
+        .time-pill::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1px;
+          border-radius: inherit;
+          background: linear-gradient(269.87deg, #4B555E 3.18%, #ACB9C1 51.79%, #FFFFFF 76.09%, #ACB9C1 88.24%, #4B555E 100.39%);
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 0;
         }
 
         .time-pill:hover {
           transform: translateY(-1px);
+        }
+
+        .time-pill > * {
+          position: relative;
+          z-index: 1;
         }
 
         .time-pill.is-selected {
@@ -562,7 +582,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
                       onClick={() => handleTimeSelect(slot)}
                       className={`time-pill ${selectedTime === slot ? 'is-selected' : ''}`}
                     >
-                      {formatTimeSlotWithDuration(slot)}
+                      <span>{formatTimeSlotWithDuration(slot)}</span>
                     </button>
                   ))}
                 </div>
