@@ -383,7 +383,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
           box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
           background: rgba(255, 255, 255, 0.02);
           backdrop-filter: blur(7px);
-          color: rgba(255, 255, 255, 0.92);
+          color: rgba(255, 255, 255, 0.25);
         }
 
         .cal-day.is-selected {
