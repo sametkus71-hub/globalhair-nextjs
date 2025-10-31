@@ -231,22 +231,6 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
     setCurrentMonth(addMonths(currentMonth, 1));
   };
 
-  const hasPreviousMonthAvailableDates = () => {
-    if (!cacheData || !currentMonth) return false;
-    
-    const prevMonth = subMonths(currentMonth, 1);
-    const prevMonthKey = monthKey(prevMonth);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const todayKey = dateKey(today);
-    
-    return (cacheData.availableDates ?? []).some(dateStr => 
-      dateStr.startsWith(prevMonthKey) && dateStr >= todayKey
-    );
-  };
-
-  const isPrevDisabled = !hasPreviousMonthAvailableDates();
-
   const getDayClasses = (day: Date) => {
     const classes = ['cal-day'];
     const notSelectable = isDateNotSelectable(day);
@@ -321,16 +305,6 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
 
         .cal-prev:hover, .cal-next:hover {
           transform: translateY(-1px);
-        }
-
-        .cal-prev:disabled, .cal-next:disabled {
-          opacity: 0.3;
-          cursor: not-allowed;
-          pointer-events: none;
-        }
-
-        .cal-prev:disabled::before, .cal-next:disabled::before {
-          opacity: 0.3;
         }
 
         .cal-alt-link {
@@ -608,7 +582,6 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
             <button 
               className="cal-prev" 
               onClick={goToPreviousMonth}
-              disabled={isPrevDisabled}
               aria-label={language === 'nl' ? 'Vorige maand' : 'Previous month'}
             >
               <ChevronLeft size={20} />
