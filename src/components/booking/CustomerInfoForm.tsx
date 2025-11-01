@@ -12,7 +12,7 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
     name: '',
     email: '',
     phone: '',
-    address: '',
+    postcode: '',
     city: '',
     country: 'Nederland',
     notes: '',
@@ -23,7 +23,7 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
     setFormData(newData);
     
     // Auto-validate and pass data up when all required fields are filled
-    if (newData.name && newData.email && newData.phone && newData.address && newData.city && newData.country) {
+    if (newData.name && newData.email && newData.phone && newData.postcode && newData.city && newData.country) {
       onComplete(newData);
     }
   };
@@ -132,32 +132,34 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
           </label>
         </div>
 
-        <div className="floating-label-container">
-          <input
-            type="text"
-            value={formData.address}
-            onChange={(e) => handleChange('address', e.target.value)}
-            className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] border border-white/10 text-white focus:outline-none focus:border-white/30 font-inter transition-all duration-200"
-            placeholder=" "
-            required
-          />
-          <label className="floating-label">
-            {language === 'nl' ? 'Adres' : 'Address'}
-          </label>
-        </div>
+        <div className="flex gap-3">
+          <div className="floating-label-container" style={{ width: '33%' }}>
+            <input
+              type="text"
+              value={formData.postcode}
+              onChange={(e) => handleChange('postcode', e.target.value)}
+              className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] border border-white/10 text-white focus:outline-none focus:border-white/30 font-inter transition-all duration-200"
+              placeholder=" "
+              required
+            />
+            <label className="floating-label">
+              {language === 'nl' ? 'Postcode' : 'Zipcode'}
+            </label>
+          </div>
 
-        <div className="floating-label-container">
-          <input
-            type="text"
-            value={formData.city}
-            onChange={(e) => handleChange('city', e.target.value)}
-            className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] border border-white/10 text-white focus:outline-none focus:border-white/30 font-inter transition-all duration-200"
-            placeholder=" "
-            required
-          />
-          <label className="floating-label">
-            {language === 'nl' ? 'Plaats' : 'City'}
-          </label>
+          <div className="floating-label-container" style={{ width: '66%' }}>
+            <input
+              type="text"
+              value={formData.city}
+              onChange={(e) => handleChange('city', e.target.value)}
+              className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] border border-white/10 text-white focus:outline-none focus:border-white/30 font-inter transition-all duration-200"
+              placeholder=" "
+              required
+            />
+            <label className="floating-label">
+              {language === 'nl' ? 'Plaats' : 'City'}
+            </label>
+          </div>
         </div>
 
         <div className="floating-label-container">

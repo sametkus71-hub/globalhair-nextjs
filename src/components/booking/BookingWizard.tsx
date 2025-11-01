@@ -30,7 +30,7 @@ export interface CustomerInfo {
   name: string;
   email: string;
   phone: string;
-  address: string;
+  postcode: string;
   city: string;
   country: string;
   notes: string;

@@ -24,7 +24,7 @@ interface PaymentStepProps {
     name: string;
     email: string;
     phone: string;
-    address: string;
+    postcode: string;
     city: string;
     country: string;
     notes: string;
@@ -39,7 +39,7 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
 
   const config = getServiceConfig(serviceType, location);
   const isFormComplete = customerInfo && customerInfo.name && customerInfo.email && customerInfo.phone && 
-                         customerInfo.address && customerInfo.city && customerInfo.country;
+                         customerInfo.postcode && customerInfo.city && customerInfo.country;
 
   const handlePayment = async () => {
     setIsProcessing(true);
