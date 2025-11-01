@@ -37,13 +37,43 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
   // Fetch the first available date to initialize the calendar
   const { data: firstAvailableDate } = useFirstAvailableDate(serviceType, location);
 
-  // Initialize currentMonth with the first available date (only on initial load)
+  // Load saved date/time from session storage on mount
+  useEffect(() => {
+    const saved = sessionStorage.getItem('booking-date-time');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed.date) {
+          const parsedDate = new Date(parsed.date);
+          setSelectedDate(parsedDate);
+          setCurrentMonth(parsedDate);
+        }
+        if (parsed.time) {
+          setSelectedTime(parsed.time);
+        }
+      } catch (e) {
+        console.error('Failed to parse saved date/time', e);
+      }
+    }
+  }, []);
+
+  // Initialize currentMonth with the first available date (only on initial load if not already set)
   useEffect(() => {
     if (firstAvailableDate && !currentMonth) {
       setCurrentMonth(firstAvailableDate);
     }
     // Intentionally do NOT re-align if user has already navigated
   }, [firstAvailableDate, currentMonth]);
+
+  // Save selected date and time to session storage
+  useEffect(() => {
+    if (selectedDate || selectedTime) {
+      sessionStorage.setItem('booking-date-time', JSON.stringify({
+        date: selectedDate?.toISOString(),
+        time: selectedTime
+      }));
+    }
+  }, [selectedDate, selectedTime]);
 
   // Format time slot with duration (e.g., "10:00 - 10:30")
   const formatTimeSlotWithDuration = (startTime: string): string => {
