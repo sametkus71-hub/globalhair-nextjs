@@ -28,7 +28,7 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
   };
 
   return (
-    <div className="flex flex-col space-y-3 py-4">
+    <div className="flex flex-col space-y-3">
       <style>{`
         .floating-label-container {
           position: relative;
