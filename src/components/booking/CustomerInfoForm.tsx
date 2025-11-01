@@ -82,11 +82,12 @@ export const CustomerInfoForm = ({ onComplete, initialData }: CustomerInfoFormPr
         .floating-label-container input:not(:placeholder-shown) ~ .floating-label,
         .floating-label-container textarea:focus ~ .floating-label,
         .floating-label-container textarea:not(:placeholder-shown) ~ .floating-label {
-          top: 100%;
+          top: 0;
           transform: translateY(-50%);
           left: 12px;
           font-size: 11px;
           color: rgba(255, 255, 255, 0.6);
+          background: linear-gradient(to bottom, transparent 0%, transparent 40%, #1a1a1a 40%, #1a1a1a 60%, transparent 60%, transparent 100%);
           text-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
         }
 
@@ -97,11 +98,12 @@ export const CustomerInfoForm = ({ onComplete, initialData }: CustomerInfoFormPr
 
         .floating-label-container textarea:focus ~ .floating-label-textarea,
         .floating-label-container textarea:not(:placeholder-shown) ~ .floating-label-textarea {
-          top: 100%;
+          top: 0;
           transform: translateY(-50%);
           left: 12px;
           font-size: 11px;
           color: rgba(255, 255, 255, 0.7);
+          background: linear-gradient(to bottom, transparent 0%, transparent 40%, #1a1a1a 40%, #1a1a1a 60%, transparent 60%, transparent 100%);
           text-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
         }
       `}</style>
@@ -215,7 +217,7 @@ export const CustomerInfoForm = ({ onComplete, initialData }: CustomerInfoFormPr
             </SelectContent>
           </Select>
           {formData.country && (
-            <label className="absolute left-[12px] bottom-0 transform translate-y-1/2 text-[11px] text-white/70 pointer-events-none font-inter" style={{ textShadow: '0 0 8px rgba(0, 0, 0, 0.5)' }}>
+            <label className="absolute left-[12px] top-0 transform -translate-y-1/2 text-[11px] text-white/70 pointer-events-none font-inter px-1" style={{ textShadow: '0 0 8px rgba(0, 0, 0, 0.5)', background: 'linear-gradient(to bottom, transparent 0%, transparent 40%, #1a1a1a 40%, #1a1a1a 60%, transparent 60%, transparent 100%)' }}>
               {language === 'nl' ? 'Land' : 'Country'}
             </label>
           )}
