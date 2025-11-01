@@ -33,7 +33,6 @@ export interface CustomerInfo {
   postcode: string;
   city: string;
   country: string;
-  notes: string;
 }
 
 export const BookingWizard = () => {

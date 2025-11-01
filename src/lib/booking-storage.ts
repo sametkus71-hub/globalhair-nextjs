@@ -15,7 +15,6 @@ export interface BookingState {
     postcode: string;
     city: string;
     country: string;
-    notes: string;
   };
 }
 

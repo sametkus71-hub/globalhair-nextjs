@@ -15,7 +15,6 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
     postcode: '',
     city: '',
     country: 'Nederland',
-    notes: '',
   });
 
   const handleChange = (field: keyof typeof formData, value: string) => {
@@ -178,19 +177,6 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
           />
           <label className="floating-label">
             {language === 'nl' ? 'Land' : 'Country'}
-          </label>
-        </div>
-
-        <div className="floating-label-container">
-          <textarea
-            value={formData.notes}
-            onChange={(e) => handleChange('notes', e.target.value)}
-            className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] text-white focus:outline-none resize-none font-inter transition-all duration-200"
-            rows={2}
-            placeholder=" "
-          />
-          <label className="floating-label floating-label-textarea">
-            {language === 'nl' ? 'Opmerkingen (optioneel)' : 'Notes (optional)'}
           </label>
         </div>
       </div>

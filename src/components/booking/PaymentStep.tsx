@@ -27,7 +27,6 @@ interface PaymentStepProps {
     postcode: string;
     city: string;
     country: string;
-    notes: string;
   };
   price: number;
 }
