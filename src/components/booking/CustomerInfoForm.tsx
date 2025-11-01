@@ -11,17 +11,18 @@ import {
 
 interface CustomerInfoFormProps {
   onComplete: (info: CustomerInfo) => void;
+  initialData?: CustomerInfo;
 }
 
-export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
+export const CustomerInfoForm = ({ onComplete, initialData }: CustomerInfoFormProps) => {
   const { language } = useLanguage();
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    postcode: '',
-    city: '',
-    country: 'Nederland',
+    name: initialData?.name || '',
+    email: initialData?.email || '',
+    phone: initialData?.phone || '',
+    postcode: initialData?.postcode || '',
+    city: initialData?.city || '',
+    country: initialData?.country || 'Nederland',
   });
 
   const countries = [

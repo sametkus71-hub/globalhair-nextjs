@@ -67,6 +67,9 @@ export const BookingWizard = () => {
       setPrice(saved.price);
       setCurrentStep(saved.currentStep);
       setCompletedSteps(saved.completedSteps);
+      if (saved.customerInfo) {
+        setCustomerInfo(saved.customerInfo);
+      }
     }
   }, []);
 
@@ -93,8 +96,9 @@ export const BookingWizard = () => {
       price,
       currentStep,
       completedSteps,
+      customerInfo: customerInfo || undefined,
     });
-  }, [consultType, location, consultant, serviceType, price, currentStep, completedSteps]);
+  }, [consultType, location, consultant, serviceType, price, currentStep, completedSteps, customerInfo]);
 
   const handleOptionsComplete = () => {
     setCompletedSteps([...completedSteps, 'step-1']);
@@ -318,7 +322,10 @@ export const BookingWizard = () => {
           </AccordionTrigger>
           <AccordionContent className="px-4 pb-4">
             <div className="space-y-6">
-              <CustomerInfoForm onComplete={handleCustomerInfoComplete} />
+              <CustomerInfoForm 
+                onComplete={handleCustomerInfoComplete}
+                initialData={customerInfo || undefined}
+              />
               
               {serviceType && location && bookingSelection && getExtendedBookingSelection() ? (
                 <PaymentStep
