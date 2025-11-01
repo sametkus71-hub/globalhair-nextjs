@@ -111,7 +111,10 @@ export const BookingSuccessPage = () => {
 
         {/* Content Card - Bottom section */}
         <div className="relative z-10 w-full px-4 pb-6">
-          <div className="max-w-2xl mx-auto bg-white/[0.01] backdrop-blur-sm rounded-lg border border-white/10 p-6 shadow-2xl">
+          <div className="step-gradient-border max-w-2xl mx-auto rounded-xl bg-white/5 overflow-hidden border-b-0 p-6" style={{
+            backdropFilter: 'blur(1.6044442653656006px)',
+            boxShadow: '0px 4.01px 8.72px 0px #00000040 inset, 0px -1px 4.71px 0px #FFFFFF40 inset, 0px 3.01px 1px 0px #00000040'
+          }}>
             {/* Booking Number Badge */}
             <div className="flex justify-center mb-5">
               <Badge variant="secondary" className="bg-white/10 text-white border border-white rounded-full px-2.5 py-1 text-sm font-light font-inter">
@@ -121,14 +124,14 @@ export const BookingSuccessPage = () => {
 
             {/* Date and Time */}
             <div className="text-center mb-1">
-              <p className="text-white text-2xl font-normal font-inter">
+              <p className="font-normal font-inter" style={{ fontSize: '22px', color: '#DBDBDB' }}>
                 {bookingDateTime}
               </p>
             </div>
 
             {/* Confirmation Message */}
             <div className="text-center">
-              <p className="text-white/70 text-base font-inter">
+              <p className="font-inter" style={{ fontSize: '20px', color: '#DBDBDB' }}>
                 {language === 'nl' 
                   ? 'Afspraak bevestiging staat in je e-mail' 
                   : 'Appointment confirmation is in your email'}
@@ -165,6 +168,31 @@ export const BookingSuccessPage = () => {
           </div>
         </div>
       </div>
+
+      <style>{`
+        .step-gradient-border {
+          position: relative;
+        }
+
+        .step-gradient-border::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1px;
+          border-radius: inherit;
+          background: linear-gradient(269.87deg, #4B555E 3.18%, #ACB9C1 51.79%, #FFFFFF 76.09%, #ACB9C1 88.24%, #4B555E 100.39%);
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .step-gradient-border > * {
+          position: relative;
+          z-index: 1;
+        }
+      `}</style>
     </>
   );
 };
