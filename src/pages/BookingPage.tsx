@@ -6,6 +6,7 @@ import { PopupCloseButton } from '@/components/PopupCloseButton';
 import { BookingWizard } from '@/components/booking/BookingWizard';
 import { StaffCodePopover } from '@/components/booking/StaffCodePopover';
 import { TestModeProvider } from '@/contexts/TestModeContext';
+import { DesktopContainer } from '@/components/layout/DesktopContainer';
 
 export const BookingPage = () => {
   const { language } = useLanguage();
@@ -61,9 +62,10 @@ export const BookingPage = () => {
           
           <div className="relative z-10 h-screen overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             <div className="min-h-screen py-6 px-4">
-              <div className={`transition-all duration-700 ease-out max-w-2xl mx-auto ${
-                titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}>
+              <DesktopContainer>
+                <div className={`transition-all duration-700 ease-out ${
+                  titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}>
                 <h1 
                   className="font-inter mb-6"
                   style={{
@@ -85,6 +87,7 @@ export const BookingPage = () => {
                   <StaffCodePopover onCodeVerified={() => window.location.reload()} />
                 </div>
               </div>
+              </DesktopContainer>
             </div>
           </div>
         </div>
