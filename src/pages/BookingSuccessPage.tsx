@@ -118,7 +118,11 @@ export const BookingSuccessPage = () => {
           }}>
             {/* Booking Number Badge */}
             <div className="flex justify-center mb-5">
-            <Badge variant="secondary" className="bg-white/10 text-white border border-white rounded-full px-2.5 py-1 font-light font-inter" style={{ fontSize: '10px' }}>
+            <Badge variant="secondary" className="bg-white/10 border border-white rounded-full px-2.5 py-1 font-light font-inter" style={{ 
+              fontSize: '10px',
+              background: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, rgb(255, 255, 255) 39.54%, rgb(255, 255, 255) 79.72%) text',
+              WebkitTextFillColor: 'transparent'
+            }}>
               {language === 'nl' ? 'Boeking' : 'Booking'} #{bookingNumber}
             </Badge>
             </div>
