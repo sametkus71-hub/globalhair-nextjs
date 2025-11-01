@@ -67,6 +67,9 @@ export const BookingWizard = () => {
       setPrice(saved.price);
       setCurrentStep(saved.currentStep);
       setCompletedSteps(saved.completedSteps);
+      if (saved.bookingSelection) {
+        setBookingSelection(saved.bookingSelection);
+      }
       if (saved.customerInfo) {
         setCustomerInfo(saved.customerInfo);
       }
@@ -96,9 +99,10 @@ export const BookingWizard = () => {
       price,
       currentStep,
       completedSteps,
+      bookingSelection: bookingSelection || undefined,
       customerInfo: customerInfo || undefined,
     });
-  }, [consultType, location, consultant, serviceType, price, currentStep, completedSteps, customerInfo]);
+  }, [consultType, location, consultant, serviceType, price, currentStep, completedSteps, bookingSelection, customerInfo]);
 
   const handleOptionsComplete = () => {
     setCompletedSteps([...completedSteps, 'step-1']);
@@ -335,7 +339,9 @@ export const BookingWizard = () => {
                   customerInfo={customerInfo}
                   price={price}
                 />
-              ) : null}
+              ) : (
+                <p className="text-sm text-white/60 pt-4">Selecteer eerst datum en tijd.</p>
+              )}
             </div>
           </AccordionContent>
         </AccordionItem>

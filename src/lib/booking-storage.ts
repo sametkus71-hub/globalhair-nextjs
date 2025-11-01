@@ -8,6 +8,12 @@ export interface BookingState {
   price: number;
   currentStep: string;
   completedSteps: string[];
+  bookingSelection?: {
+    date: string;
+    time: string;
+    staffId: string;
+    staffName: string;
+  };
   customerInfo?: {
     name: string;
     email: string;
