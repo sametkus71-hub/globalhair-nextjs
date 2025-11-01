@@ -48,7 +48,7 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
           font-weight: 400;
           white-space: nowrap;
           padding: 0 4px;
-          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+          text-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
         }
 
         .floating-label-container input:focus ~ .floating-label,
@@ -60,8 +60,7 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
           left: 12px;
           font-size: 11px;
           color: rgba(255, 255, 255, 0.7);
-          background: rgba(10, 10, 10, 0.6);
-          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+          text-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
         }
 
         .floating-label-textarea {
@@ -76,8 +75,7 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
           left: 12px;
           font-size: 11px;
           color: rgba(255, 255, 255, 0.7);
-          background: rgba(10, 10, 10, 0.6);
-          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+          text-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
         }
       `}</style>
       
