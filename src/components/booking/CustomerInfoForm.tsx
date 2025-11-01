@@ -206,7 +206,7 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
                 <SelectItem 
                   key={country} 
                   value={country}
-                  className="focus:bg-white/10 focus:text-white cursor-pointer"
+                  className="focus:bg-white/10 focus:text-white cursor-pointer py-3"
                 >
                   {country}
                 </SelectItem>
