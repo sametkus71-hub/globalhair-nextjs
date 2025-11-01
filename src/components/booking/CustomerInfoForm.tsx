@@ -43,29 +43,33 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
           font-size: 14px;
           color: rgba(255, 255, 255, 0.5);
           pointer-events: none;
-          transition: transform 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+          transition: all 0.3s ease;
           font-family: 'Inter', sans-serif;
           font-weight: 400;
           white-space: nowrap;
-          transform-origin: left center;
         }
 
         .floating-label-container input:focus ~ .floating-label,
         .floating-label-container input:not(:placeholder-shown) ~ .floating-label,
         .floating-label-container textarea:focus ~ .floating-label,
         .floating-label-container textarea:not(:placeholder-shown) ~ .floating-label {
-          transform: translateX(calc(100vw - 100% - 24px)) translateY(-50%) scale(0.786);
+          left: auto;
+          right: 12px;
+          font-size: 11px;
           color: rgba(255, 255, 255, 0.6);
         }
 
         .floating-label-textarea {
           top: 16px;
-          transform: translateY(0);
+          transform: none;
         }
 
         .floating-label-container textarea:focus ~ .floating-label-textarea,
         .floating-label-container textarea:not(:placeholder-shown) ~ .floating-label-textarea {
-          transform: translateX(calc(100vw - 100% - 24px)) translateY(-4px) scale(0.786);
+          top: 12px;
+          left: auto;
+          right: 12px;
+          font-size: 11px;
           color: rgba(255, 255, 255, 0.6);
         }
       `}</style>
