@@ -136,8 +136,10 @@ export const BookingWizard = () => {
         type="single" 
         value={currentStep}
         onValueChange={(value) => {
-          // Only allow navigation to completed steps or current step
-          if (value === 'step-1' || completedSteps.includes(value) || value === currentStep) {
+          // Allow navigation based on step completion
+          if (value === 'step-1' || 
+              (value === 'step-2' && completedSteps.includes('step-1')) ||
+              (value === 'step-3' && completedSteps.includes('step-2'))) {
             setCurrentStep(value);
           }
         }}
