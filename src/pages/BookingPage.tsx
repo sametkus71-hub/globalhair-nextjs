@@ -79,7 +79,8 @@ export const BookingPage = () => {
                     textShadow: '0px 3.39px 18.55px #FFFFFF40'
                   }}
                 >
-                  Boek een afspraak
+                  <span className="lg:hidden">Boek een<br />afspraak</span>
+                  <span className="hidden lg:inline">Boek een afspraak</span>
                 </h1>
                 <BookingWizard />
                 
