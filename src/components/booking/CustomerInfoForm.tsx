@@ -86,8 +86,8 @@ export const CustomerInfoForm = ({ onComplete, initialData }: CustomerInfoFormPr
           transform: translateY(-50%);
           left: 12px;
           font-size: 11px;
-          color: rgba(255, 255, 255, 0.7);
-          text-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+          color: rgba(255, 255, 255, 0.6);
+          text-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
         }
 
         .floating-label-textarea {
