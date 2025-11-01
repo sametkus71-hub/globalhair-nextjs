@@ -173,6 +173,18 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
     }
   };
 
+  const scrollTimeStrip = (direction: 'left' | 'right') => {
+    if (!timeStripRef.current) return;
+    const scrollAmount = 300;
+    const newScrollLeft = direction === 'left' 
+      ? timeStripRef.current.scrollLeft - scrollAmount
+      : timeStripRef.current.scrollLeft + scrollAmount;
+    timeStripRef.current.scrollTo({
+      left: newScrollLeft,
+      behavior: 'smooth'
+    });
+  };
+
   const handleMonthChange = (date: Date) => {
     setCurrentMonth(date);
   };
@@ -441,8 +453,14 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
           background: linear-gradient(269.87deg, #22c55e 3.18%, #4ade80 51.79%, #22c55e 76.09%, #16a34a 88.24%, #22c55e 100.39%);
         }
 
-        .cal-times-title {
+        .cal-times-header {
+          display: flex;
+          align-items: center;
+          gap: 8px;
           margin: 4px 0 6px;
+        }
+
+        .cal-times-title {
           font-size: 15px;
           font-weight: 400;
           background: linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%);
@@ -450,6 +468,46 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
           -webkit-text-fill-color: transparent;
           background-clip: text;
           text-shadow: 0px 3.39px 18.55px #FFFFFF40;
+          flex: 1;
+        }
+
+        .time-nav {
+          display: none;
+        }
+
+        @media (min-width: 1024px) {
+          .time-nav {
+            display: flex;
+            width: 32px;
+            height: 32px;
+            border-radius: 5.5px;
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(8px);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.15s ease, background 0.2s ease;
+            position: relative;
+          }
+
+          .time-nav::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            padding: 1px;
+            border-radius: inherit;
+            background: linear-gradient(269.87deg, #4B555E 3.18%, #ACB9C1 51.79%, #FFFFFF 76.09%, #ACB9C1 88.24%, #4B555E 100.39%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: 0;
+          }
+
+          .time-nav:hover {
+            transform: translateY(-1px);
+          }
         }
 
         .time-strip {
@@ -646,9 +704,25 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
 
           {selectedDate && (
             <div className="cal-times">
-              <h4 className="cal-times-title">
-                {language === 'nl' ? 'Selecteer tijd' : 'Select time'}
-              </h4>
+              <div className="cal-times-header">
+                <h4 className="cal-times-title">
+                  {language === 'nl' ? 'Selecteer tijd' : 'Select time'}
+                </h4>
+                <button 
+                  className="time-nav" 
+                  onClick={() => scrollTimeStrip('left')}
+                  aria-label={language === 'nl' ? 'Vorige tijden' : 'Previous times'}
+                >
+                  <ChevronLeft size={20} />
+                </button>
+                <button 
+                  className="time-nav" 
+                  onClick={() => scrollTimeStrip('right')}
+                  aria-label={language === 'nl' ? 'Volgende tijden' : 'Next times'}
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </div>
               {isSlotsLoading ? (
                 <div className="flex justify-center py-8">
                   <div className="animate-spin rounded-full h-8 w-8 border-2 border-white/20 border-t-white"></div>

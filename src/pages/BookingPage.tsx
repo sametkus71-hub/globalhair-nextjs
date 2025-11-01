@@ -79,7 +79,7 @@ export const BookingPage = () => {
                     textShadow: '0px 3.39px 18.55px #FFFFFF40'
                   }}
                 >
-                  Boek een<br />afspraak
+                  Boek een afspraak
                 </h1>
                 <BookingWizard />
                 
