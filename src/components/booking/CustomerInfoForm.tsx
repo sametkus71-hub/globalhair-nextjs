@@ -47,7 +47,6 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
           font-family: 'Inter', sans-serif;
           font-weight: 400;
           white-space: nowrap;
-          background: transparent;
           padding: 0 4px;
         }
 
@@ -60,7 +59,6 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
           left: 12px;
           font-size: 11px;
           color: rgba(255, 255, 255, 0.7);
-          background: linear-gradient(to bottom, transparent 0%, transparent 45%, #0A0A0A 45%, #0A0A0A 55%, transparent 55%, transparent 100%);
         }
 
         .floating-label-textarea {
@@ -75,7 +73,6 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
           left: 12px;
           font-size: 11px;
           color: rgba(255, 255, 255, 0.7);
-          background: linear-gradient(to bottom, transparent 0%, transparent 45%, #0A0A0A 45%, #0A0A0A 55%, transparent 55%, transparent 100%);
         }
       `}</style>
       
@@ -100,7 +97,7 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
             type="text"
             value={formData.name}
             onChange={(e) => handleChange('name', e.target.value)}
-            className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] border border-white/10 text-white focus:outline-none focus:border-white/30 font-inter transition-all duration-200"
+            className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] text-white focus:outline-none font-inter transition-all duration-200"
             placeholder=" "
             required
           />
@@ -114,7 +111,7 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
             type="email"
             value={formData.email}
             onChange={(e) => handleChange('email', e.target.value)}
-            className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] border border-white/10 text-white focus:outline-none focus:border-white/30 font-inter transition-all duration-200"
+            className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] text-white focus:outline-none font-inter transition-all duration-200"
             placeholder=" "
             required
           />
@@ -128,7 +125,7 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
             type="tel"
             value={formData.phone}
             onChange={(e) => handleChange('phone', e.target.value)}
-            className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] border border-white/10 text-white focus:outline-none focus:border-white/30 font-inter transition-all duration-200"
+            className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] text-white focus:outline-none font-inter transition-all duration-200"
             placeholder=" "
             required
           />
@@ -143,7 +140,7 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
               type="text"
               value={formData.postcode}
               onChange={(e) => handleChange('postcode', e.target.value)}
-              className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] border border-white/10 text-white focus:outline-none focus:border-white/30 font-inter transition-all duration-200"
+              className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] text-white focus:outline-none font-inter transition-all duration-200"
               placeholder=" "
               required
             />
@@ -157,7 +154,7 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
               type="text"
               value={formData.city}
               onChange={(e) => handleChange('city', e.target.value)}
-              className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] border border-white/10 text-white focus:outline-none focus:border-white/30 font-inter transition-all duration-200"
+              className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] text-white focus:outline-none font-inter transition-all duration-200"
               placeholder=" "
               required
             />
@@ -172,7 +169,7 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
             type="text"
             value={formData.country}
             onChange={(e) => handleChange('country', e.target.value)}
-            className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] border border-white/10 text-white focus:outline-none focus:border-white/30 font-inter transition-all duration-200"
+            className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] text-white focus:outline-none font-inter transition-all duration-200"
             placeholder=" "
             required
           />
@@ -185,7 +182,7 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
           <textarea
             value={formData.notes}
             onChange={(e) => handleChange('notes', e.target.value)}
-            className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] border border-white/10 text-white focus:outline-none focus:border-white/30 resize-none font-inter transition-all duration-200"
+            className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] text-white focus:outline-none resize-none font-inter transition-all duration-200"
             rows={2}
             placeholder=" "
           />
