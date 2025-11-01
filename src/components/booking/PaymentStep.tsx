@@ -7,7 +7,6 @@ import { getServiceConfig } from '@/lib/service-config';
 import { format } from 'date-fns';
 import { nl, enGB as enUS } from 'date-fns/locale';
 import { useTestMode } from '@/contexts/TestModeContext';
-import { Button } from '@/components/ui/button';
 
 interface PaymentStepProps {
   serviceType: ServiceType;
@@ -81,11 +80,11 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
   return (
     <>
       <style>{`
-        .silver-gradient-border {
+        .payment-button {
           position: relative;
         }
 
-        .silver-gradient-border::before {
+        .payment-button::before {
           content: "";
           position: absolute;
           inset: 0;
@@ -101,12 +100,12 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
           z-index: 0;
         }
 
-        .silver-gradient-border > * {
+        .payment-button > * {
           position: relative;
           z-index: 1;
         }
 
-        .button-glow::after {
+        .payment-button::after {
           content: "";
           position: absolute;
           bottom: -17px;
@@ -121,12 +120,17 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
           z-index: 0;
           pointer-events: none;
         }
+
+        .payment-button:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
       `}</style>
       <div className="flex flex-col space-y-4 pt-6 border-t border-white/10">
         <button
           onClick={handlePayment}
           disabled={!isFormComplete || isProcessing}
-          className="silver-gradient-border button-glow w-full px-4 rounded-full text-white font-inter font-normal transition-all duration-200 text-sm relative overflow-hidden"
+          className="payment-button w-full px-4 rounded-full text-white font-inter font-normal transition-all duration-200 text-sm relative overflow-hidden"
           style={{
             background: 'linear-gradient(93.06deg, rgba(255, 255, 255, 0) 1%, rgba(203, 203, 203, 0.2) 51.84%, rgba(153, 153, 153, 0) 100%)',
             backdropFilter: 'blur(5.435667037963867px)',
