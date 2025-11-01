@@ -30,106 +30,161 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
 
   return (
     <div className="flex flex-col space-y-3 py-4">
+      <style>{`
+        .floating-label-container {
+          position: relative;
+        }
+
+        .floating-label {
+          position: absolute;
+          left: 12px;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 14px;
+          color: rgba(255, 255, 255, 0.5);
+          pointer-events: none;
+          transition: all 0.3s ease;
+          font-family: 'Inter', sans-serif;
+          font-weight: 400;
+          white-space: nowrap;
+        }
+
+        .floating-label-container input:focus ~ .floating-label,
+        .floating-label-container input:not(:placeholder-shown) ~ .floating-label,
+        .floating-label-container textarea:focus ~ .floating-label,
+        .floating-label-container textarea:not(:placeholder-shown) ~ .floating-label {
+          left: auto;
+          right: 12px;
+          font-size: 11px;
+          color: rgba(255, 255, 255, 0.6);
+        }
+
+        .floating-label-textarea {
+          top: 16px;
+          transform: none;
+        }
+
+        .floating-label-container textarea:focus ~ .floating-label-textarea,
+        .floating-label-container textarea:not(:placeholder-shown) ~ .floating-label-textarea {
+          top: 12px;
+          left: auto;
+          right: 12px;
+          font-size: 11px;
+          color: rgba(255, 255, 255, 0.6);
+        }
+      `}</style>
+      
       <div className="space-y-3">
-        <h3 className="text-sm font-medium text-white/90 font-inter">
-          {language === 'nl' ? 'Uw gegevens' : 'Your details'}
+        <h3 
+          className="font-inter text-left"
+          style={{ 
+            fontWeight: 400,
+            fontSize: '15px',
+            background: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            textShadow: '0px 3.39px 18.55px #FFFFFF40'
+          }}
+        >
+          {language === 'nl' ? 'Vul je gegevens in' : 'Fill in your details'}
         </h3>
         
-        <div className="space-y-1.5">
-          <label className="text-xs font-medium text-white/70 font-inter">
-            {language === 'nl' ? 'Naam' : 'Name'} *
-          </label>
+        <div className="floating-label-container">
           <input
             type="text"
             value={formData.name}
             onChange={(e) => handleChange('name', e.target.value)}
-            className="w-full px-3 py-2 text-sm rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-white/30 font-inter"
-            placeholder={language === 'nl' ? 'Volledige naam' : 'Full name'}
+            className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] border border-white/10 text-white focus:outline-none focus:border-white/30 font-inter transition-all duration-200"
+            placeholder=" "
             required
           />
+          <label className="floating-label">
+            {language === 'nl' ? 'Naam' : 'Name'} *
+          </label>
         </div>
 
-        <div className="space-y-1.5">
-          <label className="text-xs font-medium text-white/70 font-inter">
-            Email *
-          </label>
+        <div className="floating-label-container">
           <input
             type="email"
             value={formData.email}
             onChange={(e) => handleChange('email', e.target.value)}
-            className="w-full px-3 py-2 text-sm rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-white/30 font-inter"
-            placeholder="email@voorbeeld.nl"
+            className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] border border-white/10 text-white focus:outline-none focus:border-white/30 font-inter transition-all duration-200"
+            placeholder=" "
             required
           />
+          <label className="floating-label">
+            Email *
+          </label>
         </div>
 
-        <div className="space-y-1.5">
-          <label className="text-xs font-medium text-white/70 font-inter">
-            {language === 'nl' ? 'Telefoonnummer' : 'Phone number'} *
-          </label>
+        <div className="floating-label-container">
           <input
             type="tel"
             value={formData.phone}
             onChange={(e) => handleChange('phone', e.target.value)}
-            className="w-full px-3 py-2 text-sm rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-white/30 font-inter"
-            placeholder="+31 6 12345678"
+            className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] border border-white/10 text-white focus:outline-none focus:border-white/30 font-inter transition-all duration-200"
+            placeholder=" "
             required
           />
+          <label className="floating-label">
+            {language === 'nl' ? 'Telefoonnummer' : 'Phone number'} *
+          </label>
         </div>
 
-        <div className="space-y-1.5">
-          <label className="text-xs font-medium text-white/70 font-inter">
-            {language === 'nl' ? 'Adres' : 'Address'} *
-          </label>
+        <div className="floating-label-container">
           <input
             type="text"
             value={formData.address}
             onChange={(e) => handleChange('address', e.target.value)}
-            className="w-full px-3 py-2 text-sm rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-white/30 font-inter"
-            placeholder={language === 'nl' ? 'Straat en huisnummer' : 'Street and house number'}
+            className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] border border-white/10 text-white focus:outline-none focus:border-white/30 font-inter transition-all duration-200"
+            placeholder=" "
             required
           />
+          <label className="floating-label">
+            {language === 'nl' ? 'Adres' : 'Address'} *
+          </label>
         </div>
 
-        <div className="space-y-1.5">
-          <label className="text-xs font-medium text-white/70 font-inter">
-            {language === 'nl' ? 'Plaats' : 'City'} *
-          </label>
+        <div className="floating-label-container">
           <input
             type="text"
             value={formData.city}
             onChange={(e) => handleChange('city', e.target.value)}
-            className="w-full px-3 py-2 text-sm rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-white/30 font-inter"
-            placeholder={language === 'nl' ? 'Stad' : 'City'}
+            className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] border border-white/10 text-white focus:outline-none focus:border-white/30 font-inter transition-all duration-200"
+            placeholder=" "
             required
           />
+          <label className="floating-label">
+            {language === 'nl' ? 'Plaats' : 'City'} *
+          </label>
         </div>
 
-        <div className="space-y-1.5">
-          <label className="text-xs font-medium text-white/70 font-inter">
-            {language === 'nl' ? 'Land' : 'Country'} *
-          </label>
+        <div className="floating-label-container">
           <input
             type="text"
             value={formData.country}
             onChange={(e) => handleChange('country', e.target.value)}
-            className="w-full px-3 py-2 text-sm rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-white/30 font-inter"
-            placeholder="Nederland"
+            className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] border border-white/10 text-white focus:outline-none focus:border-white/30 font-inter transition-all duration-200"
+            placeholder=" "
             required
           />
+          <label className="floating-label">
+            {language === 'nl' ? 'Land' : 'Country'} *
+          </label>
         </div>
 
-        <div className="space-y-1.5">
-          <label className="text-xs font-medium text-white/70 font-inter">
-            {language === 'nl' ? 'Opmerkingen (optioneel)' : 'Notes (optional)'}
-          </label>
+        <div className="floating-label-container">
           <textarea
             value={formData.notes}
             onChange={(e) => handleChange('notes', e.target.value)}
-            className="w-full px-3 py-2 text-sm rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-white/30 resize-none font-inter"
+            className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] border border-white/10 text-white focus:outline-none focus:border-white/30 resize-none font-inter transition-all duration-200"
             rows={2}
-            placeholder={language === 'nl' ? 'Extra informatie...' : 'Additional information...'}
+            placeholder=" "
           />
+          <label className="floating-label floating-label-textarea">
+            {language === 'nl' ? 'Opmerkingen (optioneel)' : 'Notes (optional)'}
+          </label>
         </div>
       </div>
     </div>
