@@ -133,7 +133,7 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
         </div>
 
         <div className="flex gap-3">
-          <div className="floating-label-container" style={{ width: '33%' }}>
+          <div className="floating-label-container" style={{ width: '40%' }}>
             <input
               type="text"
               value={formData.postcode}
@@ -147,7 +147,7 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
             </label>
           </div>
 
-          <div className="floating-label-container" style={{ width: '66%' }}>
+          <div className="floating-label-container" style={{ width: '60%' }}>
             <input
               type="text"
               value={formData.city}
