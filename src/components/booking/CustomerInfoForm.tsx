@@ -100,7 +100,7 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
             required
           />
           <label className="floating-label">
-            {language === 'nl' ? 'Naam' : 'Name'} *
+            {language === 'nl' ? 'Naam' : 'Name'}
           </label>
         </div>
 
@@ -114,7 +114,7 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
             required
           />
           <label className="floating-label">
-            Email *
+            Email
           </label>
         </div>
 
@@ -128,7 +128,7 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
             required
           />
           <label className="floating-label">
-            {language === 'nl' ? 'Telefoonnummer' : 'Phone number'} *
+            {language === 'nl' ? 'Telefoonnummer' : 'Phone number'}
           </label>
         </div>
 
@@ -142,7 +142,7 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
             required
           />
           <label className="floating-label">
-            {language === 'nl' ? 'Adres' : 'Address'} *
+            {language === 'nl' ? 'Adres' : 'Address'}
           </label>
         </div>
 
@@ -156,7 +156,7 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
             required
           />
           <label className="floating-label">
-            {language === 'nl' ? 'Plaats' : 'City'} *
+            {language === 'nl' ? 'Plaats' : 'City'}
           </label>
         </div>
 
@@ -170,7 +170,7 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
             required
           />
           <label className="floating-label">
-            {language === 'nl' ? 'Land' : 'Country'} *
+            {language === 'nl' ? 'Land' : 'Country'}
           </label>
         </div>
 
