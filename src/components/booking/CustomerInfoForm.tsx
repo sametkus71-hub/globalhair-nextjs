@@ -68,7 +68,7 @@ export const CustomerInfoForm = ({ onComplete, initialData }: CustomerInfoFormPr
           top: 50%;
           transform: translateY(-50%);
           font-size: 14px;
-          color: rgba(255, 255, 255, 0.5);
+          color: rgba(255, 255, 255, 0.6);
           pointer-events: none;
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           font-family: 'Inter', sans-serif;
