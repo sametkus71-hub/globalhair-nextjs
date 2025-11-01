@@ -331,16 +331,14 @@ export const BookingWizard = () => {
                 initialData={customerInfo || undefined}
               />
               
-              {serviceType && location && bookingSelection && getExtendedBookingSelection() ? (
+              {serviceType && location && (
                 <PaymentStep
                   serviceType={serviceType}
                   location={location}
-                  bookingSelection={getExtendedBookingSelection()!}
+                  bookingSelection={getExtendedBookingSelection()}
                   customerInfo={customerInfo}
                   price={price}
                 />
-              ) : (
-                <p className="text-sm text-white/60 pt-4">Selecteer eerst datum en tijd.</p>
               )}
             </div>
           </AccordionContent>

@@ -18,15 +18,8 @@ interface PaymentStepProps {
     staffName: string;
     serviceId: string;
     durationMinutes: number;
-  };
-  customerInfo: {
-    name: string;
-    email: string;
-    phone: string;
-    postcode: string;
-    city: string;
-    country: string;
-  };
+  } | null;
+  customerInfo: CustomerInfo | null;
   price: number;
 }
 
@@ -38,6 +31,7 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
   const config = getServiceConfig(serviceType, location);
   const isFormComplete = customerInfo && customerInfo.name && customerInfo.email && customerInfo.phone && 
                          customerInfo.postcode && customerInfo.city && customerInfo.country;
+  const canPay = isFormComplete && bookingSelection;
 
   const handlePayment = async () => {
     setIsProcessing(true);
@@ -71,11 +65,14 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
     }
   };
 
-  // Calculate end time for display
-  const [hours, minutes] = bookingSelection.time.split(':').map(Number);
-  const endDate = new Date();
-  endDate.setHours(hours, minutes + config.durationMinutes, 0, 0);
-  const endTime = `${String(endDate.getHours()).padStart(2, '0')}:${String(endDate.getMinutes()).padStart(2, '0')}`;
+  // Calculate end time for display (only if booking selection exists)
+  let endTime = '';
+  if (bookingSelection) {
+    const [hours, minutes] = bookingSelection.time.split(':').map(Number);
+    const endDate = new Date();
+    endDate.setHours(hours, minutes + config.durationMinutes, 0, 0);
+    endTime = `${String(endDate.getHours()).padStart(2, '0')}:${String(endDate.getMinutes()).padStart(2, '0')}`;
+  }
 
   return (
     <>
@@ -129,7 +126,7 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
       <div className="flex flex-col space-y-4 pt-6 border-t border-white/10">
         <button
           onClick={handlePayment}
-          disabled={!isFormComplete || isProcessing}
+          disabled={!canPay || isProcessing}
           className="payment-button w-full px-4 rounded-full text-white font-inter font-normal transition-all duration-200 text-sm relative overflow-hidden"
           style={{
             background: 'linear-gradient(93.06deg, rgba(255, 255, 255, 0) 1%, rgba(203, 203, 203, 0.2) 51.84%, rgba(153, 153, 153, 0) 100%)',
@@ -148,9 +145,12 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
           </span>
         </button>
         
-        {!isFormComplete && (
+        {!canPay && (
           <p className="text-xs text-center text-white/50 mt-2">
-            {language === 'nl' ? 'Vul alle velden in om te kunnen betalen' : 'Fill in all fields to proceed with payment'}
+            {!bookingSelection 
+              ? (language === 'nl' ? 'Selecteer eerst datum en tijd' : 'Select date and time first')
+              : (language === 'nl' ? 'Vul alle velden in om te kunnen betalen' : 'Fill in all fields to proceed with payment')
+            }
           </p>
         )}
       </div>
