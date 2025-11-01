@@ -117,21 +117,21 @@ export const BookingSuccessPage = () => {
           }}>
             {/* Booking Number Badge */}
             <div className="flex justify-center mb-5">
-              <Badge variant="secondary" className="bg-white/10 text-white border border-white rounded-full px-2.5 py-1 text-sm font-light font-inter">
-                {language === 'nl' ? 'Boeking' : 'Booking'} #{bookingNumber}
-              </Badge>
+            <Badge variant="secondary" className="bg-white/10 text-white border border-white rounded-full px-2.5 py-1 font-light font-inter" style={{ fontSize: '10px' }}>
+              {language === 'nl' ? 'Boeking' : 'Booking'} #{bookingNumber}
+            </Badge>
             </div>
 
             {/* Date and Time */}
             <div className="text-center mb-1">
-              <p className="font-normal font-inter" style={{ fontSize: '22px', color: '#DBDBDB' }}>
+              <p className="font-inter" style={{ fontSize: '22px', color: '#DBDBDB', fontWeight: 300 }}>
                 {bookingDateTime}
               </p>
             </div>
 
             {/* Confirmation Message */}
             <div className="text-center">
-              <p className="font-inter" style={{ fontSize: '20px', color: '#DBDBDB' }}>
+              <p className="font-inter" style={{ fontSize: '15px', color: '#DBDBDB', fontWeight: 300 }}>
                 {language === 'nl' 
                   ? 'Afspraak bevestiging staat in je e-mail' 
                   : 'Appointment confirmation is in your email'}
