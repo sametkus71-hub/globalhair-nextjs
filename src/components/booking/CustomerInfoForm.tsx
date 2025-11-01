@@ -1,6 +1,13 @@
 import { useState } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { CustomerInfo } from './BookingWizard';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface CustomerInfoFormProps {
   onComplete: (info: CustomerInfo) => void;
@@ -16,6 +23,26 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
     city: '',
     country: 'Nederland',
   });
+
+  const countries = [
+    'Nederland',
+    'Turkije',
+    'België',
+    'Duitsland',
+    'Frankrijk',
+    'Spanje',
+    'Italië',
+    'Verenigd Koninkrijk',
+    'Polen',
+    'Roemenië',
+    'Oostenrijk',
+    'Zweden',
+    'Denemarken',
+    'Finland',
+    'Noorwegen',
+    'Portugal',
+    'Griekenland',
+  ];
 
   const handleChange = (field: keyof typeof formData, value: string) => {
     const newData = { ...formData, [field]: value };
@@ -166,18 +193,31 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
           </div>
         </div>
 
-        <div className="floating-label-container">
-          <input
-            type="text"
+        <div className="relative">
+          <Select
             value={formData.country}
-            onChange={(e) => handleChange('country', e.target.value)}
-            className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] text-white focus:outline-none font-inter transition-all duration-200"
-            placeholder=" "
-            required
-          />
-          <label className="floating-label">
-            {language === 'nl' ? 'Land' : 'Country'}
-          </label>
+            onValueChange={(value) => handleChange('country', value)}
+          >
+            <SelectTrigger className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] text-white focus:outline-none font-inter border-0">
+              <SelectValue placeholder={language === 'nl' ? 'Selecteer land' : 'Select country'} />
+            </SelectTrigger>
+            <SelectContent className="bg-[#1A1A1A] border-white/10 text-white">
+              {countries.map((country) => (
+                <SelectItem 
+                  key={country} 
+                  value={country}
+                  className="focus:bg-white/10 focus:text-white cursor-pointer"
+                >
+                  {country}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          {formData.country && (
+            <label className="absolute left-[12px] bottom-0 transform translate-y-1/2 text-[11px] text-white/70 pointer-events-none font-inter" style={{ textShadow: '0 0 8px rgba(0, 0, 0, 0.5)' }}>
+              {language === 'nl' ? 'Land' : 'Country'}
+            </label>
+          )}
         </div>
       </div>
     </div>
