@@ -43,20 +43,24 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
           font-size: 14px;
           color: rgba(255, 255, 255, 0.5);
           pointer-events: none;
-          transition: all 0.3s ease;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           font-family: 'Inter', sans-serif;
           font-weight: 400;
           white-space: nowrap;
+          background: transparent;
+          padding: 0 4px;
         }
 
         .floating-label-container input:focus ~ .floating-label,
         .floating-label-container input:not(:placeholder-shown) ~ .floating-label,
         .floating-label-container textarea:focus ~ .floating-label,
         .floating-label-container textarea:not(:placeholder-shown) ~ .floating-label {
-          left: auto;
-          right: 12px;
+          top: 100%;
+          transform: translateY(-50%);
+          left: 12px;
           font-size: 11px;
-          color: rgba(255, 255, 255, 0.6);
+          color: rgba(255, 255, 255, 0.7);
+          background: linear-gradient(to bottom, transparent 0%, transparent 45%, #0A0A0A 45%, #0A0A0A 55%, transparent 55%, transparent 100%);
         }
 
         .floating-label-textarea {
@@ -66,11 +70,12 @@ export const CustomerInfoForm = ({ onComplete }: CustomerInfoFormProps) => {
 
         .floating-label-container textarea:focus ~ .floating-label-textarea,
         .floating-label-container textarea:not(:placeholder-shown) ~ .floating-label-textarea {
-          top: 12px;
-          left: auto;
-          right: 12px;
+          top: 100%;
+          transform: translateY(-50%);
+          left: 12px;
           font-size: 11px;
-          color: rgba(255, 255, 255, 0.6);
+          color: rgba(255, 255, 255, 0.7);
+          background: linear-gradient(to bottom, transparent 0%, transparent 45%, #0A0A0A 45%, #0A0A0A 55%, transparent 55%, transparent 100%);
         }
       `}</style>
       
