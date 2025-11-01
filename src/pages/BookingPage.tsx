@@ -67,7 +67,7 @@ export const BookingPage = () => {
                   titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}>
                 <h1 
-                  className="font-inter mb-6"
+                  className="font-inter mb-6 lg:text-center"
                   style={{
                     lineHeight: 1,
                     fontWeight: 400,
