@@ -87,7 +87,7 @@ export const CustomerInfoForm = ({ onComplete, initialData }: CustomerInfoFormPr
           left: 12px;
           font-size: 11px;
           color: rgba(255, 255, 255, 0.6);
-          background: linear-gradient(to bottom, transparent 0%, transparent 40%, #1a1a1a 40%, #1a1a1a 60%, transparent 60%, transparent 100%);
+          background: transparent;
           text-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
         }
 
@@ -103,7 +103,7 @@ export const CustomerInfoForm = ({ onComplete, initialData }: CustomerInfoFormPr
           left: 12px;
           font-size: 11px;
           color: rgba(255, 255, 255, 0.7);
-          background: linear-gradient(to bottom, transparent 0%, transparent 40%, #1a1a1a 40%, #1a1a1a 60%, transparent 60%, transparent 100%);
+          background: transparent;
           text-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
         }
       `}</style>
@@ -217,7 +217,7 @@ export const CustomerInfoForm = ({ onComplete, initialData }: CustomerInfoFormPr
             </SelectContent>
           </Select>
           {formData.country && (
-            <label className="absolute left-[12px] top-0 transform -translate-y-1/2 text-[11px] text-white/70 pointer-events-none font-inter px-1" style={{ textShadow: '0 0 8px rgba(0, 0, 0, 0.5)', background: 'linear-gradient(to bottom, transparent 0%, transparent 40%, #1a1a1a 40%, #1a1a1a 60%, transparent 60%, transparent 100%)' }}>
+            <label className="absolute left-[12px] top-0 transform -translate-y-1/2 text-[11px] text-white/70 pointer-events-none font-inter px-1" style={{ textShadow: '0 0 8px rgba(0, 0, 0, 0.5)', background: 'transparent' }}>
               {language === 'nl' ? 'Land' : 'Country'}
             </label>
           )}
