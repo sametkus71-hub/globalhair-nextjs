@@ -90,7 +90,7 @@ export const TreatmentsCarousel = () => {
 
       // Make the focused card visually on top
       card.style.zIndex = String(Math.round(scale * 100));
-      card.style.opacity = String(0.85 + (scale - 0.92)); // subtle fade-in to center
+      card.style.opacity = String(0.8 + (scale - 0.92) * 2.5); // fade non-focused cards
     });
   };
 
