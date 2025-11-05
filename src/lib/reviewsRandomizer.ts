@@ -9,49 +9,48 @@ export interface GridItem {
   id: string;
   type: ContentType;
   rowSpan: 1 | 2;
-  colSpan: 1 | 2;
   data: any; // Will be typed based on content type
 }
 
-// Grid layout structure - 3 rows, infinite columns
-// Some items span 2x2 for visual interest
-const GRID_LAYOUT: Array<{ rowSpan: 1 | 2; colSpan: 1 | 2; contentType?: 'video-only' | 'small-only' | 'large' }> = [
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 2, colSpan: 2, contentType: 'video-only' }, // Large video
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 2, colSpan: 1, contentType: 'video-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 2, colSpan: 2, contentType: 'large' }, // Large before/after
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 2, colSpan: 1, contentType: 'video-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 2, colSpan: 2, contentType: 'video-only' }, // Large video
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 2, colSpan: 1, contentType: 'video-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' },
-  { rowSpan: 1, colSpan: 1, contentType: 'small-only' }
+// Grid layout structure (36 items total for longer scrolling)
+// Videos distributed throughout: positions 4, 8, 11, 22, 26, 29
+const GRID_LAYOUT: Array<{ rowSpan: 1 | 2; contentType?: 'video-only' | 'small-only' }> = [
+  { rowSpan: 1, contentType: 'small-only' }, // Item 1 - Row 1, Col 1
+  { rowSpan: 1, contentType: 'small-only' }, // Item 2 - Row 1, Col 2
+  { rowSpan: 1, contentType: 'small-only' }, // Item 3 - Row 1, Col 3
+  { rowSpan: 2, contentType: 'video-only' }, // Item 4 - Rows 2-3, Col 1 (left)
+  { rowSpan: 1, contentType: 'small-only' }, // Item 5 - Row 2, Col 2
+  { rowSpan: 1, contentType: 'small-only' }, // Item 6 - Row 2, Col 3
+  { rowSpan: 1, contentType: 'small-only' }, // Item 7 - Row 3, Col 2
+  { rowSpan: 2, contentType: 'video-only' }, // Item 8 - Rows 3-4, Col 3 (right)
+  { rowSpan: 1, contentType: 'small-only' }, // Item 9 - Row 4, Col 1
+  { rowSpan: 1, contentType: 'small-only' }, // Item 10 - Row 4, Col 2
+  { rowSpan: 2, contentType: 'video-only' }, // Item 11 - Rows 5-6, Col 1 (left)
+  { rowSpan: 1, contentType: 'small-only' }, // Item 12 - Row 5, Col 2
+  { rowSpan: 1, contentType: 'small-only' }, // Item 13 - Row 5, Col 3
+  { rowSpan: 1, contentType: 'small-only' }, // Item 14 - Row 6, Col 2
+  { rowSpan: 1, contentType: 'small-only' }, // Item 15 - Row 6, Col 3
+  { rowSpan: 1, contentType: 'small-only' }, // Item 16 - Row 7, Col 1
+  { rowSpan: 1, contentType: 'small-only' }, // Item 17 - Row 7, Col 2
+  { rowSpan: 1, contentType: 'small-only' }, // Item 18 - Row 7, Col 3
+  { rowSpan: 1, contentType: 'small-only' }, // Item 19 - Row 8, Col 1
+  { rowSpan: 1, contentType: 'small-only' }, // Item 20 - Row 8, Col 2
+  { rowSpan: 1, contentType: 'small-only' }, // Item 21 - Row 8, Col 3
+  { rowSpan: 2, contentType: 'video-only' }, // Item 22 - Rows 9-10, Col 1 (left)
+  { rowSpan: 1, contentType: 'small-only' }, // Item 23 - Row 9, Col 2
+  { rowSpan: 1, contentType: 'small-only' }, // Item 24 - Row 9, Col 3
+  { rowSpan: 1, contentType: 'small-only' }, // Item 25 - Row 10, Col 2
+  { rowSpan: 2, contentType: 'video-only' }, // Item 26 - Rows 10-11, Col 3 (right)
+  { rowSpan: 1, contentType: 'small-only' }, // Item 27 - Row 11, Col 1
+  { rowSpan: 1, contentType: 'small-only' }, // Item 28 - Row 11, Col 2
+  { rowSpan: 2, contentType: 'video-only' }, // Item 29 - Rows 12-13, Col 1 (left)
+  { rowSpan: 1, contentType: 'small-only' }, // Item 30 - Row 12, Col 2
+  { rowSpan: 1, contentType: 'small-only' }, // Item 31 - Row 12, Col 3
+  { rowSpan: 1, contentType: 'small-only' }, // Item 32 - Row 13, Col 2
+  { rowSpan: 1, contentType: 'small-only' }, // Item 33 - Row 13, Col 3
+  { rowSpan: 1, contentType: 'small-only' }, // Item 34 - Row 14, Col 1
+  { rowSpan: 1, contentType: 'small-only' }, // Item 35 - Row 14, Col 2
+  { rowSpan: 1, contentType: 'small-only' }  // Item 36 - Row 14, Col 3
 ];
 
 // Shuffle array utility
@@ -78,12 +77,6 @@ export const generateRandomGrid = (): GridItem[] => {
     .map((layout, index) => ({ layout, index }))
     .filter(({ layout }) => layout.contentType === 'small-only')
     .map(({ index }) => index);
-  
-  // Find large (2x2) positions
-  const largePositions = GRID_LAYOUT
-    .map((layout, index) => ({ layout, index }))
-    .filter(({ layout }) => layout.contentType === 'large')
-    .map(({ index }) => index);
 
   // Randomly select 4 positions for quotes
   const shuffledPositions = shuffleArray(smallPositions);
@@ -92,10 +85,8 @@ export const generateRandomGrid = (): GridItem[] => {
   // Select content
   const selectedQuotes = shuffledQuotes.slice(0, Math.min(4, shuffledQuotes.length));
   
-  // Calculate how many before/after images we need (including large slots)
-  const videoSlots = GRID_LAYOUT.filter(l => l.contentType === 'video-only').length;
-  const largeSlots = largePositions.length;
-  const beforeAfterSlots = GRID_LAYOUT.length - videoSlots - Math.min(4, shuffledQuotes.length);
+  // Calculate how many before/after images we need
+  const beforeAfterSlots = GRID_LAYOUT.length - 6 - Math.min(4, shuffledQuotes.length); // 6 video slots, up to 4 quote slots
   
   // Ensure priority image is included, then fill with random others
   const priorityImage = BEFORE_AFTER_ITEMS.find(item => 
@@ -145,13 +136,6 @@ export const generateRandomGrid = (): GridItem[] => {
         };
         patientVideoIndex++;
       }
-    } else if (layout.contentType === 'large') {
-      // Large slots can be before/after only
-      content = {
-        type: 'before-after',
-        data: selectedBeforeAfter[beforeAfterIndex % Math.max(1, selectedBeforeAfter.length)]
-      };
-      beforeAfterIndex++;
     } else if (quotePositions.has(index)) {
       // Quote position
       content = {
@@ -172,7 +156,6 @@ export const generateRandomGrid = (): GridItem[] => {
       id: `item-${index}-${content?.data?.id ?? index}`,
       type: content.type,
       rowSpan: layout.rowSpan,
-      colSpan: layout.colSpan,
       data: content.data
     };
   });
