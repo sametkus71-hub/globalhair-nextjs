@@ -127,6 +127,16 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
   
   return (
     <div className={`fixed inset-0 overflow-hidden ${className}`} style={{ zIndex: 1 }}>
+      {/* Minimal blur overlay */}
+      <div 
+        className="fixed inset-0 pointer-events-none"
+        style={{ 
+          backgroundColor: 'rgba(0, 0, 0, 0.15)',
+          backdropFilter: 'blur(2px)',
+          zIndex: 2
+        }}
+      />
+      
       {/* Fallback background during loading */}
       {!isLoaded && (
         <div 

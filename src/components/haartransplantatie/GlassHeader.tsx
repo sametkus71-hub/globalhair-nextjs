@@ -17,7 +17,7 @@ export const GlassHeader = () => {
         {/* Logo */}
         <div className="flex items-center">
           <img 
-            src={logoHeader} 
+            src="/lovable-uploads/f090962b-0f2c-4b17-9a77-c7a3d700434f.png" 
             alt="GHI Hairtransplant Logo" 
             className="h-8"
           />
