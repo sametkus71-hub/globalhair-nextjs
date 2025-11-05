@@ -1,12 +1,24 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
+const FEATURES = [
+  "FUE Saffier / DHI",
+  "GHI Stemcell Repair™️",
+  "Full Comfort Anesthesia",
+  "V6 Hairboost ®️ - Prime",
+  "V6 Hairboost ®️ - Recovery"
+];
+
+const PACKAGE_VISIBILITY = {
+  standard: [0], // Only first item visible
+  premium: [0, 1, 3], // Items 1, 2, and 4 visible
+  advanced: [0, 1, 2, 3, 4] // All items visible
+};
+
 const BASE = [
   { 
     id: "standard", 
     title: "Standard", 
     bg: "https://globalhair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Standard%20V0.mp4", 
-    headline: "FUE Saffier / DHI", 
-    description: "Professional hair transplant using proven FUE Sapphire and DHI techniques for natural results.",
     link: "#",
     type: "video"
   },
@@ -14,8 +26,6 @@ const BASE = [
     id: "premium", 
     title: "Premium", 
     bg: "https://globalhair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Premium%20V0.mp4", 
-    headline: "GHI Stemcell Repair™", 
-    description: "Enhanced treatment with stem cell technology for superior hair growth and recovery.",
     link: "#",
     type: "video"
   },
@@ -23,8 +33,6 @@ const BASE = [
     id: "advanced", 
     title: "Advanced", 
     bg: "https://globalhair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Elite%20V0.mp4", 
-    headline: "GHI Stemcell + Prime", 
-    description: "Our most comprehensive hair restoration treatment combining advanced techniques with premium care.",
     link: "#",
     type: "video"
   },
@@ -226,8 +234,20 @@ export const TreatmentsCarousel = () => {
             <div className="treat-card-overlay" />
             <div className="treat-card-content">
               <div className="treat-pill">{it.title}</div>
-              <h3 className="treat-headline">{it.headline}</h3>
-              <p className="treat-description">{it.description}</p>
+              <ul className="treat-features-list">
+                {FEATURES.map((feature, idx) => {
+                  const visibleIndices = PACKAGE_VISIBILITY[it.id as keyof typeof PACKAGE_VISIBILITY];
+                  const isVisible = visibleIndices.includes(idx);
+                  return (
+                    <li 
+                      key={idx} 
+                      className={`treat-feature-item ${!isVisible ? 'treat-feature-faded' : ''}`}
+                    >
+                      {feature}
+                    </li>
+                  );
+                })}
+              </ul>
               <a className="treat-link" href={it.link}>Read more</a>
             </div>
           </article>
