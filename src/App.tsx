@@ -31,7 +31,17 @@ function AppBackground() {
 }
 
 function AppRootInit() {
-  // Zoho SalesIQ integration removed
+  useEffect(() => {
+    // Debug: Detect actual page reloads vs re-renders
+    const navEntry = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+    const navType = navEntry?.type || 'unknown';
+    const lastMount = sessionStorage.getItem('lastMount');
+    const now = Date.now();
+    
+    console.info('[MetaHead Debug] Navigation type:', navType, '| Last mount:', lastMount ? `${now - parseInt(lastMount)}ms ago` : 'first mount');
+    sessionStorage.setItem('lastMount', now.toString());
+  }, []);
+  
   return null;
 }
 
