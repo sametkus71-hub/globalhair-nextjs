@@ -7,7 +7,7 @@ interface GlassTabsProps {
   onTabChange: (tab: string) => void;
 }
 
-const tabs = ['Packages', 'Traject', 'Mission', 'Contact'];
+const tabs = ['Treatments', 'Reviews', 'How?', 'Mission', 'Contact'];
 
 export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
   const navigate = useNavigate();
@@ -18,8 +18,9 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
   const getTabPath = (tab: string) => {
     const basePath = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
     const tabPaths: Record<string, string> = {
-      'Packages': basePath,
-      'Traject': `${basePath}/traject`,
+      'Treatments': basePath,
+      'Reviews': `${basePath}/reviews`,
+      'How?': `${basePath}/how`,
       'Mission': `${basePath}/mission`,
       'Contact': `${basePath}/contact`,
     };

@@ -5,22 +5,20 @@ import { MetaHead } from '@/components/MetaHead';
 import { PageTransition } from '@/components/PageTransition';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
 import { GlassHeader } from '@/components/haartransplantatie/GlassHeader';
-import { HeadImage } from '@/components/haartransplantatie/HeadImage';
 import { AnimatedHeadHero } from '@/components/haartransplantatie/AnimatedHeadHero';
 import { GlassTabs } from '@/components/haartransplantatie/GlassTabs';
-import { PackageCardGlass } from '@/components/haartransplantatie/PackageCardGlass';
-import { ReviewsSectionGlass } from '@/components/haartransplantatie/ReviewsSectionGlass';
-import { StaticReviewGlass } from '@/components/haartransplantatie/StaticReviewGlass';
+import { TreatmentsTabContent } from '@/components/haartransplantatie/TreatmentsTabContent';
+import { ReviewsTabContent } from '@/components/haartransplantatie/ReviewsTabContent';
+import { HowTabContent } from '@/components/haartransplantatie/HowTabContent';
+import { MissionTabContent } from '@/components/haartransplantatie/MissionTabContent';
+import { ContactTabContent } from '@/components/haartransplantatie/ContactTabContent';
 import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
-import { TrajectCardGlass } from '@/components/haartransplantatie/TrajectCardGlass';
-import { MissionCardGlass } from '@/components/mission/MissionCardGlass';
-import { ContactCardGlass } from '@/components/haartransplantatie/ContactCardGlass';
 
 
 const HaartransplantatiePage = () => {
   const { language } = useLanguage();
   const location = useLocation();
-  const [activeTab, setActiveTab] = useState('Packages');
+  const [activeTab, setActiveTab] = useState('Treatments');
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -31,14 +29,15 @@ const HaartransplantatiePage = () => {
   const viewportRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   
-  const tabs = ['Packages', 'Traject', 'Mission', 'Contact'];
+  const tabs = ['Treatments', 'Reviews', 'How?', 'Mission', 'Contact'];
   const minSwipeDistance = 50;
   
   const getTabPath = (tab: string) => {
     const path = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
     const tabPaths: Record<string, string> = {
-      'Packages': path,
-      'Traject': `${path}/traject`,
+      'Treatments': path,
+      'Reviews': `${path}/reviews`,
+      'How?': `${path}/how`,
       'Mission': `${path}/mission`,
       'Contact': `${path}/contact`,
     };
@@ -96,14 +95,16 @@ const HaartransplantatiePage = () => {
   // Determine active tab from URL
   useEffect(() => {
     const path = location.pathname;
-    if (path.includes('/traject')) {
-      setActiveTab('Traject');
+    if (path.includes('/reviews')) {
+      setActiveTab('Reviews');
+    } else if (path.includes('/how')) {
+      setActiveTab('How?');
     } else if (path.includes('/mission')) {
       setActiveTab('Mission');
     } else if (path.includes('/contact')) {
       setActiveTab('Contact');
     } else {
-      setActiveTab('Packages');
+      setActiveTab('Treatments');
     }
   }, [location.pathname]);
 
@@ -193,11 +194,7 @@ const HaartransplantatiePage = () => {
     <>
       <MetaHead language={language} page="haartransplantatie" />
       
-      {/* Relative wrapper for absolute positioning context */}
       <div className="relative w-full min-h-screen">
-        {/* Absolute Positioned Head Image - Top right of viewport */}
-        <HeadImage />
-        
         <DesktopContainer>
           <PageTransition isNewPage={true}>
           {/* Glass Header */}
@@ -217,45 +214,58 @@ const HaartransplantatiePage = () => {
                 <GlassTabs activeTab={activeTab} onTabChange={setActiveTab} />
               </div>
 
-              {/* Tab Content - No scrolling, fit to available height */}
+              {/* Tab Content - Increased height (removed reviews section) */}
               <div 
-                className="relative flex-1 px-2 overflow-hidden flex flex-col justify-between" 
-                style={{ paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)', paddingBottom: 'clamp(2rem, 1vh, 1.2rem)' }}
+                className="relative flex-1 px-2 overflow-hidden flex flex-col" 
+                style={{ paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)', paddingBottom: 'clamp(3rem,4vh,4rem)' }}
                 onTouchStart={onTouchStart}
                 onTouchMove={onTouchMove}
                 onTouchEnd={onTouchEnd}
               >
               {/* Animated Tab Content Container */}
               <div ref={viewportRef} className="relative flex-1 overflow-hidden">
-                {(activeTab === 'Packages' || (isTransitioning && previousTab === 'Packages')) && (
+                {(activeTab === 'Treatments' || (isTransitioning && previousTab === 'Treatments')) && (
                   <div 
-                    className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Packages')}`}
+                    className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Treatments')}`}
                     style={{ 
-                      pointerEvents: activeTab === 'Packages' ? 'auto' : 'none'
+                      pointerEvents: activeTab === 'Treatments' ? 'auto' : 'none'
                     }}
                   >
-                    {/* Package Cards */}
-                    <PackageCardGlass />
-                    {/* Anchor for dots positioning */}
+                    <TreatmentsTabContent />
                     <div 
-                      ref={activeTab === 'Packages' ? contentRef : null} 
+                      ref={activeTab === 'Treatments' ? contentRef : null} 
                       data-dots-anchor 
                       style={{ height: 1 }} 
                     />
                   </div>
                 )}
 
-                {(activeTab === 'Traject' || (isTransitioning && previousTab === 'Traject')) && (
+                {(activeTab === 'Reviews' || (isTransitioning && previousTab === 'Reviews')) && (
                   <div 
-                    className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Traject')}`}
+                    className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Reviews')}`}
                     style={{ 
-                      pointerEvents: activeTab === 'Traject' ? 'auto' : 'none'
+                      pointerEvents: activeTab === 'Reviews' ? 'auto' : 'none'
                     }}
                   >
-                    <TrajectCardGlass />
-                    {/* Anchor for dots positioning */}
+                    <ReviewsTabContent />
                     <div 
-                      ref={activeTab === 'Traject' ? contentRef : null} 
+                      ref={activeTab === 'Reviews' ? contentRef : null} 
+                      data-dots-anchor 
+                      style={{ height: 1 }} 
+                    />
+                  </div>
+                )}
+
+                {(activeTab === 'How?' || (isTransitioning && previousTab === 'How?')) && (
+                  <div 
+                    className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('How?')}`}
+                    style={{ 
+                      pointerEvents: activeTab === 'How?' ? 'auto' : 'none'
+                    }}
+                  >
+                    <HowTabContent />
+                    <div 
+                      ref={activeTab === 'How?' ? contentRef : null} 
                       data-dots-anchor 
                       style={{ height: 1 }} 
                     />
@@ -269,8 +279,7 @@ const HaartransplantatiePage = () => {
                       pointerEvents: activeTab === 'Mission' ? 'auto' : 'none'
                     }}
                   >
-                    <MissionCardGlass />
-                    {/* Anchor for dots positioning */}
+                    <MissionTabContent />
                     <div 
                       ref={activeTab === 'Mission' ? contentRef : null} 
                       data-dots-anchor 
@@ -286,8 +295,7 @@ const HaartransplantatiePage = () => {
                       pointerEvents: activeTab === 'Contact' ? 'auto' : 'none'
                     }}
                   >
-                    <ContactCardGlass />
-                    {/* Anchor for dots positioning */}
+                    <ContactTabContent />
                     <div 
                       ref={activeTab === 'Contact' ? contentRef : null} 
                       data-dots-anchor 
@@ -297,7 +305,7 @@ const HaartransplantatiePage = () => {
                 )}
               </div>
 
-              {/* Pagination Dots - Always visible, positioned after tab content */}
+              {/* Pagination Dots */}
               <div className="flex-shrink-0 px-2 py-2">
                 <div className="flex items-center justify-center gap-[0.2rem] pointer-events-auto z-30">
                   {tabs.map((tab) => (
@@ -320,16 +328,11 @@ const HaartransplantatiePage = () => {
                   ))}
                 </div>
               </div>
-
-                {/* Static Review Section - Always visible at bottom */}
-                <div className="flex-shrink-0 px-2" style={{ paddingBottom: 'clamp(3rem,4vh,4rem)' }}>
-                  <StaticReviewGlass />
-                </div>
               </div>
             </div>
           </div>
 
-          {/* Footer CTA (replaces bottom nav) */}
+          {/* Footer CTA */}
           <FooterCTAGlass />
         </PageTransition>
       </DesktopContainer>
