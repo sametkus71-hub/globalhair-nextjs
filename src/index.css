@@ -1710,7 +1710,7 @@ html, body {
 .treat-scroller {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 65vw;
+  grid-auto-columns: 62vw;
   gap: 16px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -1726,14 +1726,32 @@ html, body {
 
 .treat-card {
   scroll-snap-align: center;
-  height: clamp(450px, 65vh, 600px);
-  max-height: calc(100vh - 420px);
-  border-radius: 20px;
-  border: 1px solid rgba(255,255,255,.25);
+  height: 100%;
+  /* max-height: calc(100vh - 420px); */
+  border-radius: 10px;
+  /* border: 1px solid rgba(255,255,255,.25); */
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(10px);
   background: rgba(0,0,0,.15);
+}
+
+.treat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  padding: 1px;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.4)
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .treat-card-bg {

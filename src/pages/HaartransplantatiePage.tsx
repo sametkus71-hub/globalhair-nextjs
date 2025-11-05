@@ -141,7 +141,7 @@ const HaartransplantatiePage = () => {
 
               {/* Tab Content - Flexible height with footer clearance */}
               <div 
-                className="relative flex-1 px-2 overflow-hidden flex flex-col" 
+                className="relative flex-1 overflow-hidden flex flex-col" 
                 style={{ 
                   paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)', 
                   paddingBottom: 'clamp(5rem, 12vh, 8rem)' // Clear the footer buttons
