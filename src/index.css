@@ -1710,13 +1710,13 @@ html, body {
 .treat-scroller {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 80vw;
+  grid-auto-columns: 65vw;
   gap: 16px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  scroll-padding: 10vw;
+  scroll-padding: 17.5vw;
   -webkit-overflow-scrolling: touch;
-  padding: 0 10vw;
+  padding: 0 17.5vw;
   flex: 1;
   align-items: center;
 }
@@ -1726,7 +1726,7 @@ html, body {
 
 .treat-card {
   scroll-snap-align: center;
-  height: clamp(420px, 62vh, 580px);
+  height: clamp(450px, 65vh, 600px);
   max-height: calc(100vh - 420px);
   border-radius: 20px;
   border: 1px solid rgba(255,255,255,.25);
@@ -1763,7 +1763,7 @@ html, body {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 24px;
+  padding: 24px 24px 28px 24px;
 }
 
 .treat-pill {
