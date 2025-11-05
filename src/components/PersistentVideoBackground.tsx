@@ -35,12 +35,6 @@ export const PersistentVideoBackground = () => {
         <source src={videoSrc} type="video/mp4" />
       </video>
       
-      {/* Blue-ish transparent overlay */}
-      <div 
-        className="absolute inset-0"
-        style={{ backgroundColor: 'rgb(12 35 71 / 50%)' }}
-      />
-      
       {/* Gradient overlay - upper half only */}
       <div 
         className="absolute inset-0"

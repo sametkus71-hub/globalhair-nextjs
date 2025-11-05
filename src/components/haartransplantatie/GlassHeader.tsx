@@ -19,7 +19,7 @@ export const GlassHeader = () => {
           <img 
             src={hairtransplantLogo} 
             alt="GHI Hairtransplant Logo" 
-            className="h-8"
+            style={{ height: '2.5rem' }}
           />
         </div>
       </div>
