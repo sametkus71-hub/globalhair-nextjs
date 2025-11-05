@@ -214,11 +214,16 @@ export const ReviewsGrid = () => {
     <div className="relative w-full h-full">
       <div
         className={cn(
-          "flex gap-1 h-full",
+          "grid h-full",
           isGridAnimated && "grid-animate"
         )}
         style={{
-          minWidth: 'fit-content'
+          gridTemplateRows: 'repeat(3, 1fr)',
+          gridAutoFlow: 'column',
+          gridAutoColumns: 'calc((100vh - 240px) / 3)',
+          gap: '4px',
+          width: 'fit-content',
+          minWidth: '100%'
         }}
       >
         {itemsToRender.map((item, index) => {
@@ -232,16 +237,14 @@ export const ReviewsGrid = () => {
             <div
               key={item.id}
               className={cn(
-                "grid-item-entrance cursor-default silver-grey-gradient-border flex-shrink-0",
-                item.rowSpan === 2 ? "h-full" : "h-1/2"
+                "grid-item-entrance cursor-default silver-grey-gradient-border",
+                item.rowSpan === 2 ? "row-span-2" : "row-span-1"
               )}
               style={{
                 '--delay': `${delay}ms`,
                 contain: 'content',
                 borderRadius: '12px',
-                overflow: 'hidden',
-                width: item.rowSpan === 2 ? 'calc(100vh - 200px)' : 'calc((100vh - 200px) / 2)',
-                aspectRatio: '9/16'
+                overflow: 'hidden'
               } as React.CSSProperties}
             >
               {item.type === 'quote' && (
@@ -268,7 +271,7 @@ export const ReviewsGrid = () => {
         {isMobile && visibleItemCount < gridItems.length && (
           <div
             ref={loadMoreRef}
-            className="h-full flex items-center justify-center flex-shrink-0 w-16"
+            className="col-span-1 row-span-3 flex items-center justify-center w-16"
           >
             <div className="w-2 h-2 bg-gray-300 rounded-full animate-pulse" />
           </div>
