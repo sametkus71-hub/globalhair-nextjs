@@ -211,17 +211,14 @@ export const ReviewsGrid = () => {
   const itemsToRender = gridItems.slice(0, visibleItemCount);
 
   return (
-    <div className="relative w-full min-h-full">
+    <div className="relative w-full h-full">
       <div
         className={cn(
-          "grid grid-cols-3",
+          "flex gap-1 h-full",
           isGridAnimated && "grid-animate"
         )}
         style={{
-          width: '100%',
-          gridAutoRows: 'calc((100vw - 16px) / 3)',
-          gap: '4px',
-          backgroundColor: 'transparent'
+          minWidth: 'fit-content'
         }}
       >
         {itemsToRender.map((item, index) => {
@@ -235,14 +232,16 @@ export const ReviewsGrid = () => {
             <div
               key={item.id}
               className={cn(
-                "grid-item-entrance cursor-default silver-grey-gradient-border",
-                item.rowSpan === 2 ? "row-span-2" : "row-span-1"
+                "grid-item-entrance cursor-default silver-grey-gradient-border flex-shrink-0",
+                item.rowSpan === 2 ? "h-full" : "h-1/2"
               )}
               style={{
                 '--delay': `${delay}ms`,
                 contain: 'content',
                 borderRadius: '12px',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                width: item.rowSpan === 2 ? 'calc(100vh - 200px)' : 'calc((100vh - 200px) / 2)',
+                aspectRatio: '9/16'
               } as React.CSSProperties}
             >
               {item.type === 'quote' && (
@@ -269,7 +268,7 @@ export const ReviewsGrid = () => {
         {isMobile && visibleItemCount < gridItems.length && (
           <div
             ref={loadMoreRef}
-            className="col-span-3 h-4 flex items-center justify-center"
+            className="h-full flex items-center justify-center flex-shrink-0 w-16"
           >
             <div className="w-2 h-2 bg-gray-300 rounded-full animate-pulse" />
           </div>
