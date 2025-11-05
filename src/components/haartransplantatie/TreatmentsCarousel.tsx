@@ -118,9 +118,9 @@ export const TreatmentsCarousel = () => {
             key={`${it.id}-${i}`}
             className="treat-card"
             style={{
-              transform: isActive ? 'scale(1.1)' : 'scale(0.9)',
+              transform: isActive ? 'scale(1.0)' : 'scale(0.8)',
               opacity: isActive ? 1 : 0.7,
-              transition: 'transform 0.3s ease, opacity 0.3s ease',
+              transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease',
               zIndex: isActive ? 10 : 1
             }}
           >

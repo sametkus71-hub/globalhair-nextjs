@@ -1711,7 +1711,7 @@ html, body {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 62vw;
-  gap: 16px;
+  gap: 8px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-padding: 17.5vw;
