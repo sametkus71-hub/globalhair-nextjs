@@ -233,10 +233,11 @@ export const ReviewsGrid = () => {
         style={{
           gridTemplateRows: 'repeat(3, 1fr)',
           gridAutoFlow: 'column',
-          gridAutoColumns: 'minmax(calc((100vh - 240px) / 3), 1fr)',
+          gridAutoColumns: '1fr',
           gap: '4px',
           width: 'max-content',
-          minWidth: '100%'
+          minWidth: '100%',
+          height: '100%'
         }}
       >
         {gridItems.map((item, index) => {
