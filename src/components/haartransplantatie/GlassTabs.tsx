@@ -29,7 +29,6 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
   
   const handleTabClick = (tab: string) => {
     onTabChange(tab);
-    navigate(getTabPath(tab));
   };
   
   useEffect(() => {

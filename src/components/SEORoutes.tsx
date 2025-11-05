@@ -44,6 +44,8 @@ export const SEORoutes = () => {
       {/* Dutch routes */}
       <Route path="/nl" element={<HaartransplantatiePage />} />
       <Route path="/nl/haartransplantatie" element={<HaartransplantatiePage />} />
+      <Route path="/nl/haartransplantatie/reviews" element={<HaartransplantatiePage />} />
+      <Route path="/nl/haartransplantatie/how" element={<HaartransplantatiePage />} />
       <Route path="/nl/haartransplantatie/traject" element={<HaartransplantatiePage />} />
       <Route path="/nl/haartransplantatie/mission" element={<HaartransplantatiePage />} />
       <Route path="/nl/haartransplantatie/contact" element={<HaartransplantatiePage />} />
@@ -77,6 +79,8 @@ export const SEORoutes = () => {
       <Route path="/en/haartransplantatie/mission" element={<HaartransplantatiePage />} />
       <Route path="/en/haartransplantatie/contact" element={<HaartransplantatiePage />} />
       <Route path="/en/hair-transplant" element={<HaartransplantatiePage />} />
+      <Route path="/en/hair-transplant/reviews" element={<HaartransplantatiePage />} />
+      <Route path="/en/hair-transplant/how" element={<HaartransplantatiePage />} />
       <Route path="/en/hair-transplant/traject" element={<HaartransplantatiePage />} />
       <Route path="/en/hair-transplant/mission" element={<HaartransplantatiePage />} />
       <Route path="/en/hair-transplant/contact" element={<HaartransplantatiePage />} />
