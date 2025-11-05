@@ -102,39 +102,28 @@ export const TreatmentsCarousel = () => {
     update3DTransforms();
   }, []);
 
-  // Continuous 3D transforms during scroll
+  // Consolidated scroll listener: 3D transforms + snap detection
   useEffect(() => {
     const el = scrollerRef.current;
     if (!el) return;
 
     let raf = 0;
+    let snapTimeout: number | undefined;
+
     const onScroll = () => {
+      // Add .is-scrolling class to disable CSS transitions during drag
+      el.classList.add("is-scrolling");
+      
+      // Update 3D transforms continuously
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(update3DTransforms);
-    };
 
-    // run once on mount and on resize
-    update3DTransforms();
-    const ro = new ResizeObserver(() => update3DTransforms());
-
-    el.addEventListener("scroll", onScroll, { passive: true });
-    ro.observe(el);
-
-    return () => {
-      el.removeEventListener("scroll", onScroll);
-      ro.disconnect();
-      cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  // listen for snap end & handle looping
-  useEffect(() => {
-    const el = scrollerRef.current;
-    if (!el) return;
-    let t: number | undefined;
-    const onScroll = () => {
-      clearTimeout(t);
-      t = window.setTimeout(() => {
+      // Detect snap end and handle looping
+      clearTimeout(snapTimeout);
+      snapTimeout = window.setTimeout(() => {
+        // Remove .is-scrolling class to re-enable CSS transitions
+        el.classList.remove("is-scrolling");
+        
         const cards = Array.from(el.querySelectorAll<HTMLElement>(".treat-card"));
         // find the closest centered card
         const mid = el.scrollLeft + el.clientWidth / 2;
@@ -159,8 +148,20 @@ export const TreatmentsCarousel = () => {
         update3DTransforms();
       }, 80);
     };
+
+    // run once on mount and on resize
+    update3DTransforms();
+    const ro = new ResizeObserver(() => update3DTransforms());
+
     el.addEventListener("scroll", onScroll, { passive: true });
-    return () => el.removeEventListener("scroll", onScroll);
+    ro.observe(el);
+
+    return () => {
+      el.removeEventListener("scroll", onScroll);
+      ro.disconnect();
+      cancelAnimationFrame(raf);
+      clearTimeout(snapTimeout);
+    };
   }, [items.length]);
 
   // keyboard arrows

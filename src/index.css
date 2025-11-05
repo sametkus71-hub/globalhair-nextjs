@@ -1740,6 +1740,11 @@ html, body {
   will-change: transform;
 }
 
+/* Disable transitions during user scroll/drag to prevent jitter */
+.treat-scroller.is-scrolling .treat-card {
+  transition: none;
+}
+
 .treat-card::before {
   content: '';
   position: absolute;
