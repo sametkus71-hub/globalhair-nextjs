@@ -1711,13 +1711,13 @@ html, body {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 62vw;
-  gap: 8px;
+  gap: 0px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-padding: 17.5vw;
   perspective: 1000px;
   -webkit-overflow-scrolling: touch;
-  padding: 0 17.5vw;
+  padding: 2px 17.5vw;
   flex: 1;
   align-items: center;
 }
@@ -1750,17 +1750,13 @@ html, body {
   position: absolute;
   inset: 0;
   border-radius: 10px;
-  padding: 1px;
-  background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.4),
-    rgba(255, 255, 255, 0.1),
-    rgba(255, 255, 255, 0.4)
-  );
+  padding: 1.8px;
+  background: linear-gradient(269.87deg, #4B555E 3.18%, #ACB9C1 51.79%, #FFFFFF 76.09%, #ACB9C1 88.24%, #4B555E 100.39%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
-  z-index: 1;
+  z-index: 99;
 }
 
 .treat-card-bg {
