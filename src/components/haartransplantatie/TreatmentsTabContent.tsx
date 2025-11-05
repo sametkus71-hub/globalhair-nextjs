@@ -1,9 +1,9 @@
-import { PackageCardGlass } from './PackageCardGlass';
+import { TreatmentsCarousel } from './TreatmentsCarousel';
 
 export const TreatmentsTabContent = () => {
   return (
     <div className="h-full">
-      <PackageCardGlass />
+      <TreatmentsCarousel />
     </div>
   );
 };
