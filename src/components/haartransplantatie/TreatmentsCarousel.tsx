@@ -53,6 +53,7 @@ export const TreatmentsCarousel = () => {
   const isSnappingRef = useRef(false);
   const isUserScrollingRef = useRef(false);
   const targetRealIndexRef = useRef<number | null>(null);
+  const prevRealIndexRef = useRef<number | null>(null);
   const [active, setActive] = useState(2); // start on the real middle slide (Premium)
   const [dotTransitioning, setDotTransitioning] = useState(false);
   const [pendingDot, setPendingDot] = useState<number | null>(null);
@@ -193,6 +194,7 @@ export const TreatmentsCarousel = () => {
             setPendingDot(null);
             setDotTransitioning(false);
             targetRealIndexRef.current = null;
+            prevRealIndexRef.current = null;
           }
         }
         // Update transforms after snap detection
@@ -232,17 +234,24 @@ export const TreatmentsCarousel = () => {
     : active - 1;
 
   // Reorder dots so active is always in center
+  // Reorder dots so active is always in center
   const getDisplayDots = () => {
     const totalDots = items.length;
     const centerIndex = Math.floor(totalDots / 2);
-    const offset = centerIndex - realIndex;
+
+    // During a dot transition, freeze the active dot to the previous real index
+    const effectiveRealIndex = (dotTransitioning && prevRealIndexRef.current !== null)
+      ? prevRealIndexRef.current!
+      : realIndex;
+
+    const offset = centerIndex - effectiveRealIndex;
     
     return items.map((_, i) => {
       let displayIndex = (i + offset + totalDots) % totalDots;
       return {
         originalIndex: i,
         displayIndex,
-        isActive: i === realIndex,
+        isActive: i === effectiveRealIndex,
         isPending: pendingDot !== null && i === pendingDot
       };
     }).sort((a, b) => a.displayIndex - b.displayIndex);
@@ -260,6 +269,9 @@ export const TreatmentsCarousel = () => {
     // Calculate the exact target real index (0..items.length-1)
     const target = (realIndex + direction + items.length) % items.length;
     targetRealIndexRef.current = target;
+    
+    // Freeze current active dot during transition
+    prevRealIndexRef.current = realIndex;
     
     // Show pending state for the target dot
     setPendingDot(target);
