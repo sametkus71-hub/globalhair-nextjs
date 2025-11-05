@@ -42,6 +42,7 @@ export const TreatmentsCarousel = () => {
   }, [items]);
 
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const isSnappingRef = useRef(false);
   const [active, setActive] = useState(2); // start on the real middle slide (Premium)
 
   // Helper functions for 3D animation
@@ -89,11 +90,15 @@ export const TreatmentsCarousel = () => {
   const snapTo = (idx: number, smooth = true) => {
     const el = scrollerRef.current;
     if (!el) return;
+    isSnappingRef.current = true;
     const card = el.querySelectorAll<HTMLElement>(".treat-card")[idx];
     if (!card) return;
     card.scrollIntoView({ behavior: smooth ? "smooth" : "instant", inline: "center", block: "nearest" });
-    // re-evaluate transforms next frame
-    requestAnimationFrame(update3DTransforms);
+    // re-evaluate transforms and reset flag after a frame
+    requestAnimationFrame(() => {
+      update3DTransforms();
+      setTimeout(() => { isSnappingRef.current = false; }, 150);
+    });
   };
 
   // initial center
@@ -121,6 +126,9 @@ export const TreatmentsCarousel = () => {
       // Detect snap end and handle looping
       clearTimeout(snapTimeout);
       snapTimeout = window.setTimeout(() => {
+        // Skip if we're in the middle of a programmatic snap
+        if (isSnappingRef.current) return;
+        
         // Remove .is-scrolling class to re-enable CSS transitions
         el.classList.remove("is-scrolling");
         
@@ -134,18 +142,21 @@ export const TreatmentsCarousel = () => {
           const d = Math.abs(center - mid);
           if (d < bestDist) { bestDist = d; best = i; }
         });
-        // loop logic
+        // loop logic with delayed class removal
         if (best === 0) { // at first clone → jump to last real
           setActive(items.length);
           snapTo(items.length, false);
+          // Keep .is-scrolling active during the jump
+          setTimeout(() => el.classList.remove("is-scrolling"), 100);
         } else if (best === items.length + 1) { // at last clone → jump to first real
           setActive(1);
           snapTo(1, false);
+          setTimeout(() => el.classList.remove("is-scrolling"), 100);
         } else {
           setActive(best); // 1..items.length
         }
         // Update transforms after snap detection
-        update3DTransforms();
+        requestAnimationFrame(update3DTransforms);
       }, 80);
     };
 
