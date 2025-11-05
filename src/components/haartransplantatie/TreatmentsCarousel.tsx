@@ -77,20 +77,20 @@ export const TreatmentsCarousel = () => {
       // progress: -1 (far left) → 0 (center) → +1 (far right)
       const progress = clamp((cardCenter - midX) / cardW);
 
-      // Scale from 0.8 at edges to 1.0 at center
-      const scale = 0.8 + (1 - Math.min(1, Math.abs(progress))) * 0.2;
+      // Scale from 0.92 at edges to 1.0 at center
+      const scale = 0.92 + (1 - Math.min(1, Math.abs(progress))) * 0.08;
 
       // Slight Y-rotation for depth (negative to the left, positive to the right)
       const rotateY = -12 * progress; // degrees
 
       // Small Z-translation to enhance depth
-      const translateZ = (scale - 0.8) * 120; // pixels in 3D space
+      const translateZ = (scale - 0.92) * 120; // pixels in 3D space
 
       card.style.transform = `translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`;
 
       // Make the focused card visually on top
       card.style.zIndex = String(Math.round(scale * 100));
-      card.style.opacity = String(0.85 + (scale - 0.8)); // subtle fade-in to center
+      card.style.opacity = String(0.85 + (scale - 0.92)); // subtle fade-in to center
     });
   };
 
