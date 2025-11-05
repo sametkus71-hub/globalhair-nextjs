@@ -126,7 +126,7 @@ const HaartransplantatiePage = () => {
           <GlassHeader />
 
           {/* Main Content - Single Screen with height-responsive scaling */}
-          <div className="relative z-10 flex flex-col h-screen overflow-hidden" style={{ paddingTop: 'min(20vh, 175px)' }}>
+          <div className="relative z-10 flex flex-col h-screen overflow-hidden" style={{ paddingTop: 'clamp(6rem, 15vh, 175px)' }}>
             {/* Content Flow Container */}
             <div className="relative flex flex-col flex-1 overflow-hidden" style={{ paddingTop: 'clamp(1.5rem, 2vh, 2.5rem)' }}>
               {/* Animated Head Hero (Button Only) */}
@@ -135,7 +135,7 @@ const HaartransplantatiePage = () => {
               </div>
 
               {/* Tabs */}
-              <div className="flex-shrink-0" style={{ paddingTop: 'clamp(0.25rem, 0.5vh, 0.5rem)' }}>
+              <div className="flex-shrink-0" style={{ padding: '1.8rem 0' }}>
                 <GlassTabs activeTab={activeTab} onTabChange={setActiveTab} />
               </div>
 

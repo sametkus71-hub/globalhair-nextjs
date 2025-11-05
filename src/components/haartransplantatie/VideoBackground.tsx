@@ -127,12 +127,12 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
   
   return (
     <div className={`fixed inset-0 overflow-hidden ${className}`} style={{ zIndex: 1 }}>
-      {/* Minimal blur overlay */}
+      {/* Minimal blur overlay with gradient */}
       <div 
         className="fixed inset-0 pointer-events-none"
         style={{ 
-          backgroundColor: 'rgba(0, 0, 0, 0.15)',
-          backdropFilter: 'blur(2px)',
+          background: 'linear-gradient(180deg, #040E15 0%, #333D46 100%)',
+          opacity: 0.5,
           zIndex: 2
         }}
       />

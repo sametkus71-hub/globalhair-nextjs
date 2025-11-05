@@ -22,18 +22,6 @@ export const GlassHeader = () => {
             className="h-8"
           />
         </div>
-
-        {/* Dashboard button */}
-        <button
-          onClick={() => navigate(language === 'nl' ? '/nl' : '/en')}
-          className="w-8 h-8 flex items-center justify-center transition-opacity duration-200 hover:opacity-70"
-        >
-          <img 
-            src="/assets/dashboard-icon.svg" 
-            alt="Dashboard" 
-            className="w-5 h-5"
-          />
-        </button>
       </div>
 
       <style>{`
