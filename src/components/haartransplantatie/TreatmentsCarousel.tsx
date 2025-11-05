@@ -2,15 +2,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 const BASE = [
   { 
-    id: "advanced", 
-    title: "Advanced", 
-    bg: "/lovable-uploads/49617091-42a9-4433-bd8b-df560cd352ac.png", 
-    headline: "GHI Stemcell + Prime", 
-    description: "Our most comprehensive hair restoration treatment combining advanced techniques with premium care.",
-    link: "#",
-    type: "image"
-  },
-  { 
     id: "standard", 
     title: "Standard", 
     bg: "https://globalhair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Standard%20V0.mp4", 
@@ -28,11 +19,20 @@ const BASE = [
     link: "#",
     type: "image"
   },
+  { 
+    id: "advanced", 
+    title: "Advanced", 
+    bg: "/lovable-uploads/49617091-42a9-4433-bd8b-df560cd352ac.png", 
+    headline: "GHI Stemcell + Prime", 
+    description: "Our most comprehensive hair restoration treatment combining advanced techniques with premium care.",
+    link: "#",
+    type: "image"
+  },
 ];
 
 export const TreatmentsCarousel = () => {
   const items = useMemo(() => {
-    // ensure Standard is the middle/initial item
+    // Order: Standard, Premium (middle/default), Advanced
     return [BASE[0], BASE[1], BASE[2]];
   }, []);
 
@@ -42,7 +42,7 @@ export const TreatmentsCarousel = () => {
   }, [items]);
 
   const scrollerRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(1); // start on the real middle slide (Standard)
+  const [active, setActive] = useState(1); // start on the real middle slide (Premium)
 
   // snap to index helper
   const snapTo = (idx: number, smooth = true) => {
