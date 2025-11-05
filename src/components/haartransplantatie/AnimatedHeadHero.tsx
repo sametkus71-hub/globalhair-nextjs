@@ -28,7 +28,7 @@ export const AnimatedHeadHero = () => {
           padding: 'clamp(0.25rem, 0.5vh, 0.4rem) clamp(0.35rem, 0.4vw, 0.5rem) clamp(0.25rem, 0.5vh, 0.4rem) clamp(1.8rem, 1.4vw, 1.6rem)',
           background: 'rgba(255, 255, 255, 0.08)',
           backdropFilter: 'blur(10px)',
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+          boxShadow: '0px 3.29px 3.29px 0px #00000040, 0px 3.29px 7.15px 0px #00000040 inset, 0px -0.82px 3.86px 0px #FFFFFF40 inset',
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = 'scale(1.05)';
