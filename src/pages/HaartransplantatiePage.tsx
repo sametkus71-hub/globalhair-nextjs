@@ -151,7 +151,7 @@ const HaartransplantatiePage = () => {
               <div ref={viewportRef} className="relative flex-1 overflow-hidden">
                 {(activeTab === 'Treatments' || (isTransitioning && previousTab === 'Treatments')) && (
                   <div 
-                    className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Treatments')}`}
+                    className={`overflow-hidden flex-shrink-0 absolute inset-0 ${getTabAnimationClass('Treatments')}`}
                     style={{ 
                       pointerEvents: activeTab === 'Treatments' ? 'auto' : 'none'
                     }}
@@ -167,7 +167,7 @@ const HaartransplantatiePage = () => {
 
                 {(activeTab === 'Reviews' || (isTransitioning && previousTab === 'Reviews')) && (
                   <div 
-                    className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Reviews')}`}
+                    className={`overflow-hidden flex-shrink-0 absolute inset-0 ${getTabAnimationClass('Reviews')}`}
                     style={{ 
                       pointerEvents: activeTab === 'Reviews' ? 'auto' : 'none'
                     }}
@@ -183,7 +183,7 @@ const HaartransplantatiePage = () => {
 
                 {(activeTab === 'How?' || (isTransitioning && previousTab === 'How?')) && (
                   <div 
-                    className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('How?')}`}
+                    className={`overflow-hidden flex-shrink-0 absolute inset-0 ${getTabAnimationClass('How?')}`}
                     style={{ 
                       pointerEvents: activeTab === 'How?' ? 'auto' : 'none'
                     }}
@@ -199,7 +199,7 @@ const HaartransplantatiePage = () => {
 
                  {(activeTab === 'Mission' || (isTransitioning && previousTab === 'Mission')) && (
                   <div 
-                    className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Mission')}`}
+                    className={`overflow-hidden flex-shrink-0 absolute inset-0 ${getTabAnimationClass('Mission')}`}
                     style={{ 
                       pointerEvents: activeTab === 'Mission' ? 'auto' : 'none'
                     }}
@@ -215,7 +215,7 @@ const HaartransplantatiePage = () => {
 
                 {(activeTab === 'Contact' || (isTransitioning && previousTab === 'Contact')) && (
                   <div 
-                    className={`overflow-hidden flex-shrink-0 absolute inset-0 px-2 ${getTabAnimationClass('Contact')}`}
+                    className={`overflow-hidden flex-shrink-0 absolute inset-0 ${getTabAnimationClass('Contact')}`}
                     style={{ 
                       pointerEvents: activeTab === 'Contact' ? 'auto' : 'none'
                     }}
