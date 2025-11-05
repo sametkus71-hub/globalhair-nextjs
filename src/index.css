@@ -1715,6 +1715,7 @@ html, body {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-padding: 17.5vw;
+  perspective: 1000px;
   -webkit-overflow-scrolling: touch;
   padding: 0 17.5vw;
   flex: 1;
@@ -1734,6 +1735,9 @@ html, body {
   overflow: hidden;
   backdrop-filter: blur(10px);
   background: rgba(0,0,0,.15);
+  transform-origin: center center;
+  transition: transform .28s cubic-bezier(.2,.7,.2,1), opacity .28s;
+  will-change: transform;
 }
 
 .treat-card::before {
@@ -1843,4 +1847,11 @@ html, body {
 .dot.is-active { 
   background: rgba(255,255,255,.95); 
   transform: scale(1.1); 
+}
+
+/* Accessibility: reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .treat-card {
+    transition: none;
+  }
 }

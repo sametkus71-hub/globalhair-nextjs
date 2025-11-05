@@ -44,6 +44,47 @@ export const TreatmentsCarousel = () => {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(2); // start on the real middle slide (Premium)
 
+  // Helper functions for 3D animation
+  const clamp = (n: number, min = -1, max = 1) => {
+    return Math.max(min, Math.min(max, n));
+  };
+
+  const update3DTransforms = () => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const cards = Array.from(el.querySelectorAll<HTMLElement>(".treat-card"));
+    if (!cards.length) return;
+
+    const scrollerRect = el.getBoundingClientRect();
+    const midX = scrollerRect.left + scrollerRect.width / 2;
+
+    // Card width used to normalize distance
+    const cardW = cards[0].getBoundingClientRect().width || 1;
+
+    cards.forEach((card) => {
+      const r = card.getBoundingClientRect();
+      const cardCenter = r.left + r.width / 2;
+
+      // progress: -1 (far left) → 0 (center) → +1 (far right)
+      const progress = clamp((cardCenter - midX) / cardW);
+
+      // Scale from 0.8 at edges to 1.0 at center
+      const scale = 0.8 + (1 - Math.min(1, Math.abs(progress))) * 0.2;
+
+      // Slight Y-rotation for depth (negative to the left, positive to the right)
+      const rotateY = -12 * progress; // degrees
+
+      // Small Z-translation to enhance depth
+      const translateZ = (scale - 0.8) * 120; // pixels in 3D space
+
+      card.style.transform = `translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`;
+
+      // Make the focused card visually on top
+      card.style.zIndex = String(Math.round(scale * 100));
+      card.style.opacity = String(0.85 + (scale - 0.8)); // subtle fade-in to center
+    });
+  };
+
   // snap to index helper
   const snapTo = (idx: number, smooth = true) => {
     const el = scrollerRef.current;
@@ -51,10 +92,40 @@ export const TreatmentsCarousel = () => {
     const card = el.querySelectorAll<HTMLElement>(".treat-card")[idx];
     if (!card) return;
     card.scrollIntoView({ behavior: smooth ? "smooth" : "instant", inline: "center", block: "nearest" });
+    // re-evaluate transforms next frame
+    requestAnimationFrame(update3DTransforms);
   };
 
   // initial center
-  useEffect(() => { snapTo(2, false); }, []);
+  useEffect(() => { 
+    snapTo(2, false);
+    update3DTransforms();
+  }, []);
+
+  // Continuous 3D transforms during scroll
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update3DTransforms);
+    };
+
+    // run once on mount and on resize
+    update3DTransforms();
+    const ro = new ResizeObserver(() => update3DTransforms());
+
+    el.addEventListener("scroll", onScroll, { passive: true });
+    ro.observe(el);
+
+    return () => {
+      el.removeEventListener("scroll", onScroll);
+      ro.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, []);
 
   // listen for snap end & handle looping
   useEffect(() => {
@@ -84,11 +155,13 @@ export const TreatmentsCarousel = () => {
         } else {
           setActive(best); // 1..items.length
         }
+        // Update transforms after snap detection
+        update3DTransforms();
       }, 80);
     };
     el.addEventListener("scroll", onScroll, { passive: true });
     return () => el.removeEventListener("scroll", onScroll);
-  }, [items.length, snapTo]);
+  }, [items.length]);
 
   // keyboard arrows
   const go = (dir: -1 | 1) => {
@@ -112,17 +185,10 @@ export const TreatmentsCarousel = () => {
         onKeyDown={(e) => { if (e.key === "ArrowLeft") go(-1); if (e.key === "ArrowRight") go(1); }}
       >
         {clones.map((it, i) => {
-          const isActive = i === active;
           return (
           <article
             key={`${it.id}-${i}`}
             className="treat-card"
-            style={{
-              transform: isActive ? 'scale(1.0)' : 'scale(0.8)',
-              opacity: isActive ? 1 : 0.7,
-              transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease',
-              zIndex: isActive ? 10 : 1
-            }}
           >
             {it.type === "video" ? (
               <video
