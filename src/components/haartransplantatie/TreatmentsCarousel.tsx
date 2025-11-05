@@ -51,6 +51,7 @@ export const TreatmentsCarousel = () => {
 
   const scrollerRef = useRef<HTMLDivElement>(null);
   const isSnappingRef = useRef(false);
+  const isUserScrollingRef = useRef(false);
   const targetRealIndexRef = useRef<number | null>(null);
   const [active, setActive] = useState(2); // start on the real middle slide (Premium)
   const [dotTransitioning, setDotTransitioning] = useState(false);
@@ -105,6 +106,10 @@ export const TreatmentsCarousel = () => {
   const snapTo = (idx: number, smooth = true) => {
     const el = scrollerRef.current;
     if (!el) return;
+    
+    // Don't snap if user is actively scrolling
+    if (isUserScrollingRef.current && smooth) return;
+    
     isSnappingRef.current = true;
     const card = el.querySelectorAll<HTMLElement>(".treat-card")[idx];
     if (!card) return;
@@ -112,7 +117,7 @@ export const TreatmentsCarousel = () => {
     // re-evaluate transforms and reset flag after a frame
     requestAnimationFrame(() => {
       update3DTransforms();
-      setTimeout(() => { isSnappingRef.current = false; }, 150);
+      setTimeout(() => { isSnappingRef.current = false; }, smooth ? 300 : 100);
     });
   };
 
@@ -131,6 +136,9 @@ export const TreatmentsCarousel = () => {
     let snapTimeout: number | undefined;
 
     const onScroll = () => {
+      // Mark that user is actively scrolling
+      isUserScrollingRef.current = true;
+      
       // Add .is-scrolling class to disable CSS transitions during drag
       el.classList.add("is-scrolling");
       
@@ -143,6 +151,9 @@ export const TreatmentsCarousel = () => {
       snapTimeout = window.setTimeout(() => {
         // Skip if we're in the middle of a programmatic snap
         if (isSnappingRef.current) return;
+        
+        // Mark that user has stopped scrolling
+        isUserScrollingRef.current = false;
         
         // Remove .is-scrolling class to re-enable CSS transitions
         el.classList.remove("is-scrolling");
@@ -157,6 +168,12 @@ export const TreatmentsCarousel = () => {
           const d = Math.abs(center - mid);
           if (d < bestDist) { bestDist = d; best = i; }
         });
+        
+        // Only proceed if we've actually moved to a different card
+        if (best === active && !dotTransitioning) {
+          return;
+        }
+        
         // loop logic: jump to real slide without updating active prematurely
         if (best === 0) { // at first clone → jump to last real
           snapTo(items.length, false);
@@ -180,7 +197,7 @@ export const TreatmentsCarousel = () => {
         }
         // Update transforms after snap detection
         requestAnimationFrame(update3DTransforms);
-      }, 80);
+      }, 150);
     };
 
     // run once on mount and on resize
@@ -198,8 +215,11 @@ export const TreatmentsCarousel = () => {
     };
   }, [items.length, dotTransitioning]);
 
-  // keyboard arrows
+  // keyboard arrows and dot navigation
   const go = (dir: -1 | 1) => {
+    // Prevent multiple rapid calls
+    if (isSnappingRef.current) return;
+    
     let next = active + dir;
     if (next < 0) next = 0;
     if (next > items.length + 1) next = items.length + 1;
