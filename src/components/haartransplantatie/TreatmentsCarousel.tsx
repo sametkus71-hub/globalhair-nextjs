@@ -42,7 +42,7 @@ export const TreatmentsCarousel = () => {
   }, [items]);
 
   const scrollerRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(1); // start on the real middle slide (Premium)
+  const [active, setActive] = useState(2); // start on the real middle slide (Premium)
 
   // snap to index helper
   const snapTo = (idx: number, smooth = true) => {
@@ -54,7 +54,7 @@ export const TreatmentsCarousel = () => {
   };
 
   // initial center
-  useEffect(() => { snapTo(1, false); }, []);
+  useEffect(() => { snapTo(2, false); }, []);
 
   // listen for snap end & handle looping
   useEffect(() => {
