@@ -148,7 +148,7 @@ export const FooterCTAGlass = () => {
             #C9A35D 15%,
             #E3C06B 30%,
             #F5E8C1 45%,
-            #FFFFFF 50%,
+            #F4E4B8 50%,
             #F5E8C1 55%,
             #E3C06B 70%,
             #C9A35D 85%,
