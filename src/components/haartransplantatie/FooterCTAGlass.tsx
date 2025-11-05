@@ -120,6 +120,18 @@ export const FooterCTAGlass = () => {
           }
         }
 
+        @keyframes border-shine-rotate {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+
         .gold-gradient-border {
           position: relative;
         }
@@ -130,12 +142,20 @@ export const FooterCTAGlass = () => {
           inset: 0;
           padding: 1px;
           border-radius: inherit;
-          background: linear-gradient(130deg,
-            #DDB961 0%,
-            #E3C06B 25%,
-            #EFECE6 50%,
-            #EFCF7C 75%,
-            #D8AF58 100%);
+          background: linear-gradient(
+            90deg,
+            #B8924A 0%,
+            #C9A35D 15%,
+            #E3C06B 30%,
+            #F5E8C1 45%,
+            #FFFFFF 50%,
+            #F5E8C1 55%,
+            #E3C06B 70%,
+            #C9A35D 85%,
+            #B8924A 100%
+          );
+          background-size: 300% 100%;
+          animation: border-shine-rotate 6s ease-in-out infinite;
           -webkit-mask: 
             linear-gradient(#fff 0 0) content-box,
             linear-gradient(#fff 0 0);
