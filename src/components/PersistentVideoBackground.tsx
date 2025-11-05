@@ -1,12 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useIsMobile } from '@/hooks/use-mobile';
 
 export const PersistentVideoBackground = () => {
   const [mounted, setMounted] = useState(false);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
-  const isMobile = useIsMobile();
   const { pathname } = useLocation();
   const videoRef = useRef<HTMLVideoElement>(null);
   
@@ -37,9 +35,7 @@ export const PersistentVideoBackground = () => {
 
   if (!mounted || isChat) return null;
 
-  const videoSrc = isMobile
-    ? 'https://GlobalHair.b-cdn.net/Bg%20Videos/S3.mp4'
-    : 'https://GlobalHair.b-cdn.net/Bg%20Videos/Horizontaal%20blue_1%20V2%20MP4.mp4';
+  const videoSrc = 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Basic%20BG%20V0.mp4';
 
   return (
     <div className="fixed inset-0 w-full h-screen overflow-hidden z-0">
