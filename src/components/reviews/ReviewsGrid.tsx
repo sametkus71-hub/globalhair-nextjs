@@ -15,14 +15,19 @@ import { useNavigate } from 'react-router-dom';
 
 // Remove interfaces - no longer needed for static implementation
 
-const QuoteCard = ({ quote }: { quote: QuoteImage }) => {
+const QuoteCard = ({ quote, shouldLoad }: { quote: QuoteImage; shouldLoad: boolean }) => {
   return (
-    <div className="w-full h-full relative overflow-hidden">
-      <img 
-        src={quote.src} 
-        alt={quote.alt}
-        className="w-full h-full object-cover"
-      />
+    <div className="w-full h-full relative overflow-hidden bg-gray-800">
+      {shouldLoad ? (
+        <img 
+          src={quote.src} 
+          alt={quote.alt}
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+      ) : (
+        <div className="w-full h-full bg-gray-800" />
+      )}
     </div>
   );
 };
@@ -111,15 +116,19 @@ const VideoCard = ({
   );
 };
 
-const BeforeAfterCard = ({ item }: { item: BeforeAfterItem }) => (
-  <div className="w-full h-full relative overflow-hidden">
-    <img 
-      src={item.image}
-      alt="Hair transplant before/after result"
-      className="w-full h-full object-cover"
-      loading="lazy"
-      decoding="async"
-    />
+const BeforeAfterCard = ({ item, shouldLoad }: { item: BeforeAfterItem; shouldLoad: boolean }) => (
+  <div className="w-full h-full relative overflow-hidden bg-gray-800">
+    {shouldLoad ? (
+      <img 
+        src={item.image}
+        alt="Hair transplant before/after result"
+        className="w-full h-full object-cover"
+        loading="lazy"
+        decoding="async"
+      />
+    ) : (
+      <div className="w-full h-full bg-gray-800" />
+    )}
   </div>
 );
 
@@ -132,26 +141,45 @@ export const ReviewsGrid = () => {
   // Generate random grid on component mount
   const [gridItems] = useState<GridItem[]>(() => generateRandomGrid());
   
-  // Progressive loading state
-  const [visibleItemCount, setVisibleItemCount] = useState(() => 
-    isMobile ? 18 : gridItems.length
-  );
+  // Track which items are in viewport for lazy loading
+  const [loadedItems, setLoadedItems] = useState<Set<string>>(new Set());
+  
+  // Refs for intersection observers
+  const itemRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   
   // State for video muting - track which video is currently unmuted (if any)
   const [unmutedVideoId, setUnmutedVideoId] = useState<string | null>(null);
   
   // Grid animation state - single boolean for triggering CSS animation
   const [isGridAnimated, setIsGridAnimated] = useState(false);
-  
-  // Intersection observer for progressive loading
-  const { isIntersecting: shouldLoadMore, elementRef: loadMoreRef } = useIntersection<HTMLDivElement>({
-    threshold: 0.1,
-    rootMargin: '100px'
-  });
 
-  // Find video items to determine which should autoplay
-  const videoItems = gridItems.filter(item => item.type === 'video' || item.type === 'berkant-video').slice(0, 6);
-  const videoItemIds = new Set(videoItems.map(item => item.id));
+  // Lazy loading with Intersection Observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const itemId = entry.target.getAttribute('data-item-id');
+            if (itemId) {
+              setLoadedItems(prev => new Set(prev).add(itemId));
+            }
+          }
+        });
+      },
+      {
+        rootMargin: '200px',
+        threshold: 0.01
+      }
+    );
+
+    itemRefs.current.forEach((element) => {
+      if (element) observer.observe(element);
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [gridItems]);
 
   // Handle click to navigate to item page with slide animation - only for videos now
   const handleItemClick = (item: GridItem) => {
@@ -178,18 +206,6 @@ export const ReviewsGrid = () => {
     setUnmutedVideoId(prevId => prevId === videoId ? null : videoId);
   };
 
-  // Progressive loading effect
-  useEffect(() => {
-    if (isMobile && shouldLoadMore && visibleItemCount < gridItems.length) {
-      const loadNextBatch = () => {
-        setVisibleItemCount(prev => Math.min(prev + 6, gridItems.length));
-      };
-      
-      // Small delay to prevent rapid loading
-      const timeoutId = setTimeout(loadNextBatch, 150);
-      return () => clearTimeout(timeoutId);
-    }
-  }, [shouldLoadMore, visibleItemCount, gridItems.length, isMobile]);
 
   // Trigger grid animation on mount
   useEffect(() => {
@@ -207,9 +223,6 @@ export const ReviewsGrid = () => {
     };
   }, []);
 
-  // Get the items to render based on progressive loading
-  const itemsToRender = gridItems.slice(0, visibleItemCount);
-
   return (
     <div className="relative w-full h-full">
       <div
@@ -220,25 +233,30 @@ export const ReviewsGrid = () => {
         style={{
           gridTemplateRows: 'repeat(3, 1fr)',
           gridAutoFlow: 'column',
-          gridAutoColumns: 'calc((100vh - 240px) / 3)',
+          gridAutoColumns: 'minmax(calc((100vh - 240px) / 3), 1fr)',
           gap: '4px',
-          width: 'fit-content',
+          width: 'max-content',
           minWidth: '100%'
         }}
       >
-        {itemsToRender.map((item, index) => {
+        {gridItems.map((item, index) => {
           // Guard against undefined data
           if (!item?.data) return null;
           
-          const delay = index * 50; // Staggered delay for CSS animation
-          const isVideoSlot = videoItemIds.has(item.id);
+          const delay = index * 50;
+          const isLoaded = loadedItems.has(item.id);
           
           return (
             <div
               key={item.id}
+              ref={(el) => {
+                if (el) itemRefs.current.set(item.id, el);
+              }}
+              data-item-id={item.id}
               className={cn(
                 "grid-item-entrance cursor-default silver-grey-gradient-border",
-                item.rowSpan === 2 ? "row-span-2" : "row-span-1"
+                item.rowSpan === 2 && "row-span-2",
+                item.colSpan === 2 && "col-span-2"
               )}
               style={{
                 '--delay': `${delay}ms`,
@@ -248,7 +266,7 @@ export const ReviewsGrid = () => {
               } as React.CSSProperties}
             >
               {item.type === 'quote' && (
-                <QuoteCard quote={item.data} />
+                <QuoteCard quote={item.data} shouldLoad={isLoaded} />
               )}
               {(item.type === 'video' || item.type === 'berkant-video') && (
                 <VideoCard 
@@ -256,26 +274,16 @@ export const ReviewsGrid = () => {
                   isMuted={unmutedVideoId !== item.id}
                   onToggleMute={() => handleVideoToggleMute(item.id, item)}
                   onMuteButtonClick={() => handleMuteButtonClick(item.id)}
-                  shouldLoad={isVideoSlot}
+                  shouldLoad={isLoaded}
                   isBerkantVideo={item.type === 'berkant-video'}
                 />
               )}
               {item.type === 'before-after' && (
-                <BeforeAfterCard item={item.data} />
+                <BeforeAfterCard item={item.data} shouldLoad={isLoaded} />
               )}
             </div>
           );
         })}
-        
-        {/* Load more trigger for mobile */}
-        {isMobile && visibleItemCount < gridItems.length && (
-          <div
-            ref={loadMoreRef}
-            className="col-span-1 row-span-3 flex items-center justify-center w-16"
-          >
-            <div className="w-2 h-2 bg-gray-300 rounded-full animate-pulse" />
-          </div>
-        )}
       </div>
 
       <style>{`
