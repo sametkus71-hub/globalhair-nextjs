@@ -13,20 +13,20 @@ const BASE = [
   { 
     id: "premium", 
     title: "Premium", 
-    bg: "/lovable-uploads/4f77654b-737b-493a-a695-ad8360dbeb0d.png", 
+    bg: "https://globalhair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Premium%20V0.mp4", 
     headline: "GHI Stemcell Repair™", 
     description: "Enhanced treatment with stem cell technology for superior hair growth and recovery.",
     link: "#",
-    type: "image"
+    type: "video"
   },
   { 
     id: "advanced", 
     title: "Advanced", 
-    bg: "/lovable-uploads/49617091-42a9-4433-bd8b-df560cd352ac.png", 
+    bg: "https://globalhair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Elite%20V0.mp4", 
     headline: "GHI Stemcell + Prime", 
     description: "Our most comprehensive hair restoration treatment combining advanced techniques with premium care.",
     link: "#",
-    type: "image"
+    type: "video"
   },
 ];
 
@@ -111,10 +111,18 @@ export const TreatmentsCarousel = () => {
         tabIndex={0}
         onKeyDown={(e) => { if (e.key === "ArrowLeft") go(-1); if (e.key === "ArrowRight") go(1); }}
       >
-        {clones.map((it, i) => (
+        {clones.map((it, i) => {
+          const isActive = i === active;
+          return (
           <article
             key={`${it.id}-${i}`}
             className="treat-card"
+            style={{
+              transform: isActive ? 'scale(1.1)' : 'scale(0.9)',
+              opacity: isActive ? 1 : 0.7,
+              transition: 'transform 0.3s ease, opacity 0.3s ease',
+              zIndex: isActive ? 10 : 1
+            }}
           >
             {it.type === "video" ? (
               <video
@@ -145,7 +153,8 @@ export const TreatmentsCarousel = () => {
               <a className="treat-link" href={it.link}>Read more</a>
             </div>
           </article>
-        ))}
+          );
+        })}
       </div>
 
       <div className="treat-dots" role="tablist" aria-label="Pagination">
