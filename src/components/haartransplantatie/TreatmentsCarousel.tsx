@@ -52,6 +52,8 @@ export const TreatmentsCarousel = () => {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const isSnappingRef = useRef(false);
   const [active, setActive] = useState(2); // start on the real middle slide (Premium)
+  const [dotTransitioning, setDotTransitioning] = useState(false);
+  const [pendingDot, setPendingDot] = useState<number | null>(null);
 
   // Helper functions for 3D animation
   const clamp = (n: number, min = -1, max = 1) => {
@@ -200,6 +202,40 @@ export const TreatmentsCarousel = () => {
     ? 1   // safety
     : active - 1;
 
+  // Reorder dots so active is always in center
+  const getDisplayDots = () => {
+    const totalDots = items.length;
+    const centerIndex = Math.floor(totalDots / 2);
+    const offset = centerIndex - realIndex;
+    
+    return items.map((_, i) => {
+      let displayIndex = (i + offset + totalDots) % totalDots;
+      return {
+        originalIndex: i,
+        displayIndex,
+        isActive: i === realIndex,
+        isPending: pendingDot !== null && i === pendingDot
+      };
+    }).sort((a, b) => a.displayIndex - b.displayIndex);
+  };
+
+  const handleDotClick = (originalIndex: number) => {
+    if (originalIndex === realIndex) return;
+    
+    // Show pending state briefly
+    setPendingDot(originalIndex);
+    setDotTransitioning(true);
+    
+    // Navigate to the card
+    snapTo(originalIndex + 1, true);
+    
+    // Clear pending state after transition
+    setTimeout(() => {
+      setPendingDot(null);
+      setDotTransitioning(false);
+    }, 400);
+  };
+
   return (
     <section className="treatments-tab" aria-label="Treatments">
       <div
@@ -260,13 +296,13 @@ export const TreatmentsCarousel = () => {
       </div>
 
       <div className="treat-dots" role="tablist" aria-label="Pagination">
-        {items.map((_, i) => (
+        {getDisplayDots().map((dot) => (
           <button
-            key={i}
+            key={dot.originalIndex}
             role="tab"
-            aria-selected={i === realIndex}
-            className={`dot ${i === realIndex ? "is-active" : ""}`}
-            onClick={() => snapTo(i + 1)}
+            aria-selected={dot.isActive}
+            className={`dot ${dot.isActive ? "is-active" : ""} ${dot.isPending ? "is-pending" : ""} ${dotTransitioning ? "is-transitioning" : ""}`}
+            onClick={() => handleDotClick(dot.originalIndex)}
           />
         ))}
       </div>

@@ -1864,10 +1864,18 @@ html, body {
   background: rgba(255,255,255,.35); 
   border: none; 
   cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .dot.is-active { 
   background: rgba(255,255,255,.95); 
   transform: scale(1.1); 
+}
+.dot.is-pending {
+  background: rgba(255,255,255,.7);
+  transform: scale(1.05);
+}
+.dot.is-transitioning {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Accessibility: reduce motion */
