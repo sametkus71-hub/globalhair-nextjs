@@ -1,9 +1,30 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 const BASE = [
-  { id: "advanced", title: "Advanced", bg: "/lovable-uploads/49617091-42a9-4433-bd8b-df560cd352ac.png", headline: "GHI Stemcell + Prime", link: "#" },
-  { id: "standard", title: "Standard", bg: "/lovable-uploads/44c091c7-1d26-4639-9646-99a6dc86cd14.png", headline: "FUE Saffier / DHI", link: "#" },
-  { id: "premium", title: "Premium", bg: "/lovable-uploads/4f77654b-737b-493a-a695-ad8360dbeb0d.png", headline: "GHI Stemcell Repair™", link: "#" },
+  { 
+    id: "advanced", 
+    title: "Advanced", 
+    bg: "/lovable-uploads/49617091-42a9-4433-bd8b-df560cd352ac.png", 
+    headline: "GHI Stemcell + Prime", 
+    description: "Our most comprehensive hair restoration treatment combining advanced techniques with premium care.",
+    link: "#" 
+  },
+  { 
+    id: "standard", 
+    title: "Standard", 
+    bg: "/lovable-uploads/44c091c7-1d26-4639-9646-99a6dc86cd14.png", 
+    headline: "FUE Saffier / DHI", 
+    description: "Professional hair transplant using proven FUE Sapphire and DHI techniques for natural results.",
+    link: "#" 
+  },
+  { 
+    id: "premium", 
+    title: "Premium", 
+    bg: "/lovable-uploads/4f77654b-737b-493a-a695-ad8360dbeb0d.png", 
+    headline: "GHI Stemcell Repair™", 
+    description: "Enhanced treatment with stem cell technology for superior hair growth and recovery.",
+    link: "#" 
+  },
 ];
 
 export const TreatmentsCarousel = () => {
@@ -91,11 +112,15 @@ export const TreatmentsCarousel = () => {
           <article
             key={`${it.id}-${i}`}
             className="treat-card"
-            style={{ backgroundImage: `url('${it.bg}')` }}
           >
-            <div className="treat-pill">{it.title}</div>
-            <h3 className="treat-headline">{it.headline}</h3>
-            <a className="treat-link" href={it.link}>Read more</a>
+            <div className="treat-card-bg" style={{ backgroundImage: `url('${it.bg}')` }} />
+            <div className="treat-card-overlay" />
+            <div className="treat-card-content">
+              <div className="treat-pill">{it.title}</div>
+              <h3 className="treat-headline">{it.headline}</h3>
+              <p className="treat-description">{it.description}</p>
+              <a className="treat-link" href={it.link}>Read more</a>
+            </div>
           </article>
         ))}
       </div>
