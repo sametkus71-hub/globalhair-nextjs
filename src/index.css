@@ -1701,7 +1701,10 @@ html, body {
 /* Treatments Carousel Styles */
 .treatments-tab { 
   width: 100%; 
-  padding: 12px 0 18px; 
+  padding: 12px 0 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .treat-scroller {
@@ -1714,6 +1717,8 @@ html, body {
   scroll-padding: 10vw;
   -webkit-overflow-scrolling: touch;
   padding: 0 10vw;
+  flex: 1;
+  align-items: center;
 }
 .treat-scroller::-webkit-scrollbar { 
   display: none; 
@@ -1721,7 +1726,8 @@ html, body {
 
 .treat-card {
   scroll-snap-align: center;
-  height: clamp(480px, 75vh, 720px);
+  height: clamp(420px, 62vh, 580px);
+  max-height: calc(100vh - 420px);
   border-radius: 20px;
   border: 1px solid rgba(255,255,255,.25);
   position: relative;
@@ -1805,7 +1811,8 @@ html, body {
   display: flex; 
   justify-content: center; 
   gap: 10px; 
-  margin-top: 10px; 
+  padding: 16px 0 clamp(1rem, 2vh, 2rem);
+  flex-shrink: 0;
 }
 .dot { 
   width: 8px; 
