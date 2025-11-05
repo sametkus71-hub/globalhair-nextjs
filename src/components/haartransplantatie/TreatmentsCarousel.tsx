@@ -80,6 +80,9 @@ export const TreatmentsCarousel = () => {
       // Scale from 0.92 at edges to 1.0 at center
       const scale = 0.92 + (1 - Math.min(1, Math.abs(progress))) * 0.08;
 
+      // Subtle blur for non-focused cards (0px at center, up to 2px at edges)
+      const blur = (1 - (scale - 0.92) / 0.08) * 2;
+
       // Slight Y-rotation for depth (negative to the left, positive to the right)
       const rotateY = -12 * progress; // degrees
 
@@ -87,6 +90,7 @@ export const TreatmentsCarousel = () => {
       const translateZ = (scale - 0.92) * 120; // pixels in 3D space
 
       card.style.transform = `translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`;
+      card.style.filter = `blur(${blur}px)`;
 
       // Make the focused card visually on top
       card.style.zIndex = String(Math.round(scale * 100));
