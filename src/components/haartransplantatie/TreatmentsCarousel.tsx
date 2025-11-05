@@ -140,8 +140,8 @@ export const TreatmentsCarousel = () => {
       // Detect snap end and handle looping
       clearTimeout(snapTimeout);
       snapTimeout = window.setTimeout(() => {
-        // Skip if we're in the middle of a programmatic snap
-        if (isSnappingRef.current) return;
+        // Skip if we're in the middle of a programmatic snap or dot transition
+        if (isSnappingRef.current || dotTransitioning) return;
         
         // Remove .is-scrolling class to re-enable CSS transitions
         el.classList.remove("is-scrolling");
@@ -187,7 +187,7 @@ export const TreatmentsCarousel = () => {
       cancelAnimationFrame(raf);
       clearTimeout(snapTimeout);
     };
-  }, [items.length]);
+  }, [items.length, dotTransitioning]);
 
   // keyboard arrows
   const go = (dir: -1 | 1) => {
