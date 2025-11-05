@@ -1,6 +1,7 @@
 import { useLanguage } from '@/hooks/useLanguage';
 import { useSession } from '@/hooks/useSession';
 import { useTranslation } from '@/lib/translations';
+import { useNavigate } from 'react-router-dom';
 import { MetaHead } from '@/components/MetaHead';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,6 +10,7 @@ const DashboardPage = () => {
   const { language } = useLanguage();
   const { profile } = useSession();
   const { t } = useTranslation(language);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -106,7 +108,7 @@ const DashboardPage = () => {
                 <Button 
                   size="lg"
                   className="font-header bg-gradient-primary"
-                  onClick={() => window.location.href = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant'}
+                  onClick={() => navigate(language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant')}
                 >
                   {language === 'nl' ? 'Boek Haartransplantatie' : 'Book Hair Transplant'}
                 </Button>
@@ -114,7 +116,7 @@ const DashboardPage = () => {
                   size="lg"
                   variant="outline"
                   className="font-header"
-                  onClick={() => window.location.href = language === 'nl' ? '/nl/v6-hairboost' : '/en/v6-hairboost'}
+                  onClick={() => navigate(language === 'nl' ? '/nl/v6-hairboost' : '/en/v6-hairboost')}
                 >
                   {language === 'nl' ? 'Boek V6 Hairboost' : 'Book V6 Hairboost'}
                 </Button>
@@ -122,7 +124,7 @@ const DashboardPage = () => {
                   size="lg"
                   variant="secondary"
                   className="font-header"
-                  onClick={() => window.location.href = language === 'nl' ? '/nl/form' : '/en/form'}
+                  onClick={() => navigate(language === 'nl' ? '/nl/form' : '/en/form')}
                 >
                   {language === 'nl' ? 'Haaranalyse' : 'Hair Analysis'}
                 </Button>

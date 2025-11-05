@@ -12,6 +12,7 @@ export const BookingPage = () => {
   const { language } = useLanguage();
   const navigate = useNavigate();
   const [isExiting, setIsExiting] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   // Staggered animations for entrance
   const [titleVisible, setTitleVisible] = useState(false);
@@ -82,10 +83,10 @@ export const BookingPage = () => {
                   <span className="lg:hidden">Boek een<br />afspraak</span>
                   <span className="hidden lg:inline">Boek een afspraak</span>
                 </h1>
-                <BookingWizard />
+                <BookingWizard key={refreshKey} />
                 
                 <div className="mt-12 pt-8 border-t border-white/5 flex justify-center">
-                  <StaffCodePopover onCodeVerified={() => window.location.reload()} />
+                  <StaffCodePopover onCodeVerified={() => setRefreshKey(prev => prev + 1)} />
                 </div>
               </div>
               </DesktopContainer>

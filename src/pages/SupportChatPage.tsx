@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
+import { useNavigate } from 'react-router-dom';
 import { waitForSalesIQ } from '@/lib/salesiq';
 import { SupportCloseBar } from '@/components/SupportCloseBar';
 
@@ -31,6 +32,7 @@ declare global {
 
 const SupportChatPage: React.FC = () => {
   const { language } = useLanguage();
+  const navigate = useNavigate();
 
   useEffect(() => {
     let didUnmount = false;
@@ -54,7 +56,7 @@ const SupportChatPage: React.FC = () => {
         siq?.chatwindow?.visible("hide");
         siq?.floatwindow?.visible("hide");
         // Navigate back to support landing page instead of haartransplantatie
-        window.location.href = language === 'nl' ? '/nl/support' : '/en/support';
+        navigate(language === 'nl' ? '/nl/support' : '/en/support');
       }
     };
     window.addEventListener("keydown", onKey);
