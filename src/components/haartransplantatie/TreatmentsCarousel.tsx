@@ -251,7 +251,9 @@ export const TreatmentsCarousel = () => {
       return {
         originalIndex: i,
         displayIndex,
-        isActive: i === effectiveRealIndex,
+        isActive: dotTransitioning 
+          ? (i === prevRealIndexRef.current)
+          : (i === realIndex),
         isPending: pendingDot !== null && i === pendingDot
       };
     }).sort((a, b) => a.displayIndex - b.displayIndex);
