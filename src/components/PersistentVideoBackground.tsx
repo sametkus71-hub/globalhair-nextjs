@@ -39,7 +39,8 @@ export const PersistentVideoBackground = () => {
       <div 
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(180deg, rgba(10, 37, 64, 0.6) 0%, rgba(17, 53, 86, 0.4) 25%, rgba(24, 24, 27, 0.2) 40%, transparent 50%)',
+          background: 'linear-gradient(rgba(10, 37, 64, 0.6) 10%, rgba(17, 53, 86, 0.4) 25%, rgba(24, 24, 27, 0.2) 40%, transparent 70%)',
+          backdropFilter: 'blur(6px)',
         }}
       />
       
