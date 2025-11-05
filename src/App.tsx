@@ -12,9 +12,11 @@ import { AnimatedBackground } from "@/components/homepage/AnimatedBackground";
 import { SEORoutes } from "@/components/SEORoutes";
 import ViewportHeightSetter from "@/components/ViewportHeightSetter";
 import { PasswordProtection } from "@/components/PasswordProtection";
-import { PersistentVideoBackground } from "@/components/PersistentVideoBackground";
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { waitForSalesIQ } from "@/lib/salesiq";
+
+// Lazy load the video background to reduce initial bundle
+const PersistentVideoBackground = lazy(() => import("@/components/PersistentVideoBackground").then(m => ({ default: m.PersistentVideoBackground })));
 
 const queryClient = new QueryClient();
 
@@ -46,7 +48,9 @@ const App = () => (
                   <AppRootInit />
                   <ViewportHeightSetter />
                   <AppBackground />
-                  <PersistentVideoBackground />
+                  <Suspense fallback={null}>
+                    <PersistentVideoBackground />
+                  </Suspense>
                   
                   <SEORoutes />
                 </PasswordProtection>

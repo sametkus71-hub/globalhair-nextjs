@@ -1,18 +1,39 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 export const PersistentVideoBackground = () => {
   const [mounted, setMounted] = useState(false);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
   const isMobile = useIsMobile();
   const { pathname } = useLocation();
+  const videoRef = useRef<HTMLVideoElement>(null);
   
   // Don't show video on chat pages
   const isChat = pathname.endsWith('/chat') || pathname.includes('/chat');
 
   useEffect(() => {
     setMounted(true);
+    
+    // Defer video loading until after initial render
+    const timer = setTimeout(() => {
+      setShouldLoadVideo(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (shouldLoadVideo && videoRef.current && !videoLoaded) {
+      // Start loading and playing the video
+      videoRef.current.load();
+      videoRef.current.play().catch(() => {
+        // Autoplay might be blocked, that's ok
+      });
+      setVideoLoaded(true);
+    }
+  }, [shouldLoadVideo, videoLoaded]);
 
   if (!mounted || isChat) return null;
 
@@ -22,18 +43,21 @@ export const PersistentVideoBackground = () => {
 
   return (
     <div className="fixed inset-0 w-full h-screen overflow-hidden z-0">
-      {/* Background video */}
-      <video
-        key={videoSrc}
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{ opacity: 1.0 }}
-      >
-        <source src={videoSrc} type="video/mp4" />
-      </video>
+      {/* Background video - only loads after delay */}
+      {shouldLoadVideo && (
+        <video
+          ref={videoRef}
+          key={videoSrc}
+          loop
+          muted
+          playsInline
+          preload="none"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ opacity: 1.0 }}
+        >
+          <source src={videoSrc} type="video/mp4" />
+        </video>
+      )}
       
       {/* Gradient overlay - upper half only */}
       <div 
