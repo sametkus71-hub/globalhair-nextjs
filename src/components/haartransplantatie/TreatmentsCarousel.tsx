@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useLanguage } from "@/hooks/useLanguage";
+import { useSession } from "@/hooks/useSession";
 
 const FEATURES = [
   "FUE Saffier / DHI",
@@ -19,30 +21,44 @@ const BASE = [
     id: "standard", 
     title: "Standard", 
     bg: "https://globalhair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Standard%20V0.mp4", 
-    link: "#",
     type: "video"
   },
   { 
     id: "premium", 
     title: "Premium", 
     bg: "https://globalhair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Premium%20V0.mp4", 
-    link: "#",
     type: "video"
   },
   { 
     id: "advanced", 
     title: "Advanced", 
     bg: "https://globalhair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Elite%20V0.mp4", 
-    link: "#",
     type: "video"
   },
 ];
 
 export const TreatmentsCarousel = () => {
+  const { language } = useLanguage();
+  const { profile } = useSession();
+
+  // Generate package detail link based on language and location
+  const getPackageLink = (packageId: string) => {
+    const country = profile.locatie.toLowerCase(); // 'nederland' or 'turkije'
+    const tier = packageId.toLowerCase(); // 'standard', 'premium', or 'advanced'
+    
+    if (language === 'en') {
+      return `/en/hair-transplant/${country}/${tier}`;
+    }
+    return `/nl/haartransplantatie/${country}/${tier}`;
+  };
+
   const items = useMemo(() => {
     // Order: Standard, Premium (middle/default), Advanced
-    return [BASE[0], BASE[1], BASE[2]];
-  }, []);
+    return BASE.map(pkg => ({
+      ...pkg,
+      link: getPackageLink(pkg.id)
+    }));
+  }, [language, profile.locatie]);
 
   const clones = useMemo(() => {
     const first = items[0], last = items[items.length - 1];
