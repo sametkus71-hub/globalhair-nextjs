@@ -219,15 +219,24 @@ export const TreatmentsCarousel = () => {
     }).sort((a, b) => a.displayIndex - b.displayIndex);
   };
 
-  const handleDotClick = (originalIndex: number) => {
-    if (originalIndex === realIndex) return;
+  const handleDotClick = (displayIndex: number) => {
+    const centerIndex = Math.floor(items.length / 2);
     
-    // Show pending state briefly
-    setPendingDot(originalIndex);
+    // Center dot - do nothing (already active)
+    if (displayIndex === centerIndex) return;
+    
+    // Determine direction: left dot = -1, right dot = +1
+    const direction = displayIndex < centerIndex ? -1 : 1;
+    
+    // Show pending state briefly for the clicked dot
+    const clickedOriginalIndex = realIndex + direction;
+    if (clickedOriginalIndex >= 0 && clickedOriginalIndex < items.length) {
+      setPendingDot(clickedOriginalIndex);
+    }
     setDotTransitioning(true);
     
-    // Navigate to the card
-    snapTo(originalIndex + 1, true);
+    // Navigate one card in the appropriate direction
+    go(direction);
     
     // Clear pending state after transition
     setTimeout(() => {
@@ -302,7 +311,7 @@ export const TreatmentsCarousel = () => {
             role="tab"
             aria-selected={dot.isActive}
             className={`dot ${dot.isActive ? "is-active" : ""} ${dot.isPending ? "is-pending" : ""} ${dotTransitioning ? "is-transitioning" : ""}`}
-            onClick={() => handleDotClick(dot.originalIndex)}
+            onClick={() => handleDotClick(dot.displayIndex)}
           />
         ))}
       </div>
