@@ -1710,7 +1710,7 @@ html, body {
 .treat-scroller {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 62vw;
+  grid-auto-columns: 58vw;
   gap: 0px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
