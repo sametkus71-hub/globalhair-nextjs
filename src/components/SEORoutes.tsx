@@ -1,34 +1,43 @@
+import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-// Pages
-import HomePage from '@/pages/HomePage';
-import HaartransplantatiePage from '@/pages/HaartransplantatiePage';
-import HaartransplantatieOldPage from '@/pages/HaartransplantatieOldPage';
-import HaaranalysePage from '@/pages/HaaranalysePage';
-import TreatmentOptionsPage from '@/pages/TreatmentOptionsPage';
-import InfoPage from '@/pages/InfoPage';
-import InfoMethodPage from '@/pages/InfoMethodPage';
-import InfoTrajectoryPage from '@/pages/InfoTrajectoryPage';
-import MissionPage from '@/pages/MissionPage';
-import SupportPage from '@/pages/SupportPage';
-import SupportChatPage from '@/pages/SupportChatPage';
-import ChatPage from '@/pages/ChatPage';
-import V6HairboostPage from '@/pages/V6HairboostPage';
-import { PackageStandardPage } from '@/pages/PackageStandardPage';
-import ComingSoon1Page from '@/pages/ComingSoon1Page';
-import ComingSoon2Page from '@/pages/ComingSoon2Page';
-import DashboardPage from '@/pages/DashboardPage';
-import FormPage from '@/pages/FormPage';
-import ReviewsPage from '@/pages/ReviewsPage';
-import ReviewItemPage from '@/pages/ReviewItemPage';
-import ContactPage from '@/pages/ContactPage';
-import BookingPage from '@/pages/BookingPage';
-import { BookingSuccessPage } from '@/pages/BookingSuccessPage';
-import NotFound from '@/pages/NotFound';
+// Lazy load all pages for code splitting
+const HomePage = lazy(() => import('@/pages/HomePage'));
+const HaartransplantatiePage = lazy(() => import('@/pages/HaartransplantatiePage'));
+const HaartransplantatieOldPage = lazy(() => import('@/pages/HaartransplantatieOldPage'));
+const HaaranalysePage = lazy(() => import('@/pages/HaaranalysePage'));
+const TreatmentOptionsPage = lazy(() => import('@/pages/TreatmentOptionsPage'));
+const InfoPage = lazy(() => import('@/pages/InfoPage'));
+const InfoMethodPage = lazy(() => import('@/pages/InfoMethodPage'));
+const InfoTrajectoryPage = lazy(() => import('@/pages/InfoTrajectoryPage'));
+const MissionPage = lazy(() => import('@/pages/MissionPage'));
+const SupportPage = lazy(() => import('@/pages/SupportPage'));
+const SupportChatPage = lazy(() => import('@/pages/SupportChatPage'));
+const ChatPage = lazy(() => import('@/pages/ChatPage'));
+const V6HairboostPage = lazy(() => import('@/pages/V6HairboostPage'));
+const PackageStandardPage = lazy(() => import('@/pages/PackageStandardPage').then(m => ({ default: m.PackageStandardPage })));
+const ComingSoon1Page = lazy(() => import('@/pages/ComingSoon1Page'));
+const ComingSoon2Page = lazy(() => import('@/pages/ComingSoon2Page'));
+const DashboardPage = lazy(() => import('@/pages/DashboardPage'));
+const FormPage = lazy(() => import('@/pages/FormPage'));
+const ReviewsPage = lazy(() => import('@/pages/ReviewsPage'));
+const ReviewItemPage = lazy(() => import('@/pages/ReviewItemPage'));
+const ContactPage = lazy(() => import('@/pages/ContactPage'));
+const BookingPage = lazy(() => import('@/pages/BookingPage'));
+const BookingSuccessPage = lazy(() => import('@/pages/BookingSuccessPage').then(m => ({ default: m.BookingSuccessPage })));
+const NotFound = lazy(() => import('@/pages/NotFound'));
+
+// Loading fallback component
+const PageLoader = () => (
+  <div className="flex items-center justify-center min-h-screen">
+    <div className="animate-pulse text-lg text-foreground/60">Loading...</div>
+  </div>
+);
 
 export const SEORoutes = () => {
   return (
-    <Routes>
+    <Suspense fallback={<PageLoader />}>
+      <Routes>
       {/* Root redirect - temporarily bypassing intro page */}
       <Route path="/" element={<HaartransplantatiePage />} />
       
@@ -100,6 +109,7 @@ export const SEORoutes = () => {
       
       {/* Catch-all 404 */}
       <Route path="*" element={<NotFound />} />
-    </Routes>
+      </Routes>
+    </Suspense>
   );
 };
