@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
-import logoHeader from '@/assets/logo-header.png';
+import hairtransplantLogo from '@/assets/hairtransplant-logo.png';
 
 export const GlassHeader = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export const GlassHeader = () => {
         {/* Logo */}
         <div className="flex items-center">
           <img 
-            src="/lovable-uploads/f090962b-0f2c-4b17-9a77-c7a3d700434f.png" 
+            src={hairtransplantLogo} 
             alt="GHI Hairtransplant Logo" 
             className="h-8"
           />
