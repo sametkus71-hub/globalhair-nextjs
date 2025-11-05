@@ -51,6 +51,7 @@ export const TreatmentsCarousel = () => {
 
   const scrollerRef = useRef<HTMLDivElement>(null);
   const isSnappingRef = useRef(false);
+  const targetRealIndexRef = useRef<number | null>(null);
   const [active, setActive] = useState(2); // start on the real middle slide (Premium)
   const [dotTransitioning, setDotTransitioning] = useState(false);
   const [pendingDot, setPendingDot] = useState<number | null>(null);
@@ -140,8 +141,8 @@ export const TreatmentsCarousel = () => {
       // Detect snap end and handle looping
       clearTimeout(snapTimeout);
       snapTimeout = window.setTimeout(() => {
-        // Skip if we're in the middle of a programmatic snap or dot transition
-        if (isSnappingRef.current || dotTransitioning) return;
+        // Skip if we're in the middle of a programmatic snap
+        if (isSnappingRef.current) return;
         
         // Remove .is-scrolling class to re-enable CSS transitions
         el.classList.remove("is-scrolling");
@@ -156,18 +157,26 @@ export const TreatmentsCarousel = () => {
           const d = Math.abs(center - mid);
           if (d < bestDist) { bestDist = d; best = i; }
         });
-        // loop logic with delayed class removal
+        // loop logic: jump to real slide without updating active prematurely
         if (best === 0) { // at first clone → jump to last real
-          setActive(items.length);
           snapTo(items.length, false);
-          // Keep .is-scrolling active during the jump
           setTimeout(() => el.classList.remove("is-scrolling"), 100);
+          return;
         } else if (best === items.length + 1) { // at last clone → jump to first real
-          setActive(1);
           snapTo(1, false);
           setTimeout(() => el.classList.remove("is-scrolling"), 100);
+          return;
         } else {
-          setActive(best); // 1..items.length
+          // Only update active for real slides (1..items.length)
+          setActive(best);
+          
+          // Clear pending state when we've reached the target
+          const reachedReal = best - 1; // 0..items.length-1
+          if (dotTransitioning && targetRealIndexRef.current === reachedReal) {
+            setPendingDot(null);
+            setDotTransitioning(false);
+            targetRealIndexRef.current = null;
+          }
         }
         // Update transforms after snap detection
         requestAnimationFrame(update3DTransforms);
@@ -228,21 +237,16 @@ export const TreatmentsCarousel = () => {
     // Determine direction: left dot = -1, right dot = +1
     const direction = displayIndex < centerIndex ? -1 : 1;
     
-    // Show pending state briefly for the clicked dot
-    const clickedOriginalIndex = realIndex + direction;
-    if (clickedOriginalIndex >= 0 && clickedOriginalIndex < items.length) {
-      setPendingDot(clickedOriginalIndex);
-    }
+    // Calculate the exact target real index (0..items.length-1)
+    const target = (realIndex + direction + items.length) % items.length;
+    targetRealIndexRef.current = target;
+    
+    // Show pending state for the target dot
+    setPendingDot(target);
     setDotTransitioning(true);
     
     // Navigate one card in the appropriate direction
     go(direction);
-    
-    // Clear pending state after transition
-    setTimeout(() => {
-      setPendingDot(null);
-      setDotTransitioning(false);
-    }, 400);
   };
 
   return (
