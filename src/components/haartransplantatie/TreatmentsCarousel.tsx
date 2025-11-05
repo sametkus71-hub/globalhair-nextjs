@@ -7,15 +7,17 @@ const BASE = [
     bg: "/lovable-uploads/49617091-42a9-4433-bd8b-df560cd352ac.png", 
     headline: "GHI Stemcell + Prime", 
     description: "Our most comprehensive hair restoration treatment combining advanced techniques with premium care.",
-    link: "#" 
+    link: "#",
+    type: "image"
   },
   { 
     id: "standard", 
     title: "Standard", 
-    bg: "/lovable-uploads/44c091c7-1d26-4639-9646-99a6dc86cd14.png", 
+    bg: "https://globalhair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Standard%20V0.mp4", 
     headline: "FUE Saffier / DHI", 
     description: "Professional hair transplant using proven FUE Sapphire and DHI techniques for natural results.",
-    link: "#" 
+    link: "#",
+    type: "video"
   },
   { 
     id: "premium", 
@@ -23,7 +25,8 @@ const BASE = [
     bg: "/lovable-uploads/4f77654b-737b-493a-a695-ad8360dbeb0d.png", 
     headline: "GHI Stemcell Repair™", 
     description: "Enhanced treatment with stem cell technology for superior hair growth and recovery.",
-    link: "#" 
+    link: "#",
+    type: "image"
   },
 ];
 
@@ -113,7 +116,27 @@ export const TreatmentsCarousel = () => {
             key={`${it.id}-${i}`}
             className="treat-card"
           >
-            <div className="treat-card-bg" style={{ backgroundImage: `url('${it.bg}')` }} />
+            {it.type === "video" ? (
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="treat-card-bg"
+                style={{ 
+                  position: 'absolute',
+                  inset: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  zIndex: 0
+                }}
+              >
+                <source src={it.bg} type="video/mp4" />
+              </video>
+            ) : (
+              <div className="treat-card-bg" style={{ backgroundImage: `url('${it.bg}')` }} />
+            )}
             <div className="treat-card-overlay" />
             <div className="treat-card-content">
               <div className="treat-pill">{it.title}</div>
