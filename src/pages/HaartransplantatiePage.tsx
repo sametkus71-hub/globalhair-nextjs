@@ -19,18 +19,14 @@ const HaartransplantatiePage = () => {
   const { language } = useLanguage();
   const location = useLocation();
   const [activeTab, setActiveTab] = useState('Treatments');
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [transitionDirection, setTransitionDirection] = useState<'left' | 'right' | null>(null);
   const [previousTab, setPreviousTab] = useState<string | null>(null);
-  const [dotsTop, setDotsTop] = useState(0);
   
   const viewportRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   
   const tabs = ['Treatments', 'Reviews', 'How?', 'Mission', 'Contact'];
-  const minSwipeDistance = 50;
   
   const getTabPath = (tab: string) => {
     const path = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
@@ -65,33 +61,6 @@ const HaartransplantatiePage = () => {
     }, 200);
   };
   
-  const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-  
-  const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-  
-  const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-    
-    const currentIndex = tabs.indexOf(activeTab);
-    
-    if (isLeftSwipe && currentIndex < tabs.length - 1) {
-      handleTabChange(tabs[currentIndex + 1], 'left');
-    }
-    
-    if (isRightSwipe && currentIndex > 0) {
-      handleTabChange(tabs[currentIndex - 1], 'right');
-    }
-  };
-  
   // Determine active tab from URL
   useEffect(() => {
     const path = location.pathname;
@@ -107,50 +76,6 @@ const HaartransplantatiePage = () => {
       setActiveTab('Treatments');
     }
   }, [location.pathname]);
-
-  // Measure and position dots dynamically
-  useEffect(() => {
-    const measureDotsPosition = () => {
-      requestAnimationFrame(() => {
-        if (viewportRef.current && contentRef.current) {
-          const viewportRect = viewportRef.current.getBoundingClientRect();
-          const anchorRect = contentRef.current.getBoundingClientRect();
-          const gap = 5;
-          // Use anchor's top position relative to viewport
-          const calculatedTop = (anchorRect.top - viewportRect.top) + gap;
-          // Clamp to viewport bounds
-          const maxTop = viewportRef.current.clientHeight - 12;
-          const clampedTop = Math.max(0, Math.min(calculatedTop, maxTop));
-          setDotsTop(clampedTop);
-        }
-      });
-    };
-
-    measureDotsPosition();
-
-    // Recalculate after transitions
-    if (!isTransitioning) {
-      setTimeout(measureDotsPosition, 50);
-    }
-
-    // Set up ResizeObserver for content changes
-    let resizeObserver: ResizeObserver | null = null;
-    if (contentRef.current && viewportRef.current) {
-      resizeObserver = new ResizeObserver(measureDotsPosition);
-      resizeObserver.observe(contentRef.current);
-      resizeObserver.observe(viewportRef.current);
-    }
-
-    // Recalculate on window resize
-    window.addEventListener('resize', measureDotsPosition);
-    
-    return () => {
-      window.removeEventListener('resize', measureDotsPosition);
-      if (resizeObserver) {
-        resizeObserver.disconnect();
-      }
-    };
-  }, [activeTab, isTransitioning]);
 
   // Enable scrolling on mount
   useLayoutEffect(() => {
@@ -218,9 +143,6 @@ const HaartransplantatiePage = () => {
               <div 
                 className="relative flex-1 px-2 overflow-hidden flex flex-col" 
                 style={{ paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)', paddingBottom: 'clamp(3rem,4vh,4rem)' }}
-                onTouchStart={onTouchStart}
-                onTouchMove={onTouchMove}
-                onTouchEnd={onTouchEnd}
               >
               {/* Animated Tab Content Container */}
               <div ref={viewportRef} className="relative flex-1 overflow-hidden">
@@ -305,29 +227,6 @@ const HaartransplantatiePage = () => {
                 )}
               </div>
 
-              {/* Pagination Dots */}
-              <div className="flex-shrink-0 px-2 py-2">
-                <div className="flex items-center justify-center gap-[0.2rem] pointer-events-auto z-30">
-                  {tabs.map((tab) => (
-                    <button
-                      key={tab}
-                      onClick={() => {
-                        const currentIndex = tabs.indexOf(activeTab);
-                        const targetIndex = tabs.indexOf(tab);
-                        const direction = targetIndex > currentIndex ? 'left' : 'right';
-                        handleTabChange(tab, direction);
-                      }}
-                      className="transition-all duration-300"
-                      style={{
-                        width: '6px',
-                        height: '6px',
-                        borderRadius: '50%',
-                        background: activeTab === tab ? 'rgba(255, 255, 255, 0.9)' : 'rgba(255, 255, 255, 0.3)',
-                      }}
-                    />
-                  ))}
-                </div>
-              </div>
               </div>
             </div>
           </div>
