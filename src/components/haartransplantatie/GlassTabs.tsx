@@ -109,7 +109,7 @@ export const GlassTabs = ({ activeTab }: GlassTabsProps) => {
       
       {/* Full width baseline */}
       <div 
-        className="absolute left-0 right-0 z-0"
+        className="absolute left-4 right-4 z-0"
         style={{
           bottom: '0px',
           height: '2.5px',
