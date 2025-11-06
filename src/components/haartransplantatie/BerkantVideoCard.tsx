@@ -156,7 +156,7 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
 
         .berkant-badge {
           position: relative;
-          padding: 0.85rem 1rem;
+          padding: 1rem 1.25rem;
           border-radius: 9999px;
           background: rgba(0, 0, 0, 0.35);
           backdrop-filter: blur(10px);
@@ -180,6 +180,7 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
           -webkit-mask-composite: xor;
           mask-composite: exclude;
           pointer-events: none;
+          opacity: 0.4;
         }
 
         .berkant-badge-text {
