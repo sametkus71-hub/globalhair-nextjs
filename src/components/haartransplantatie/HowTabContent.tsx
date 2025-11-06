@@ -21,7 +21,7 @@ export const HowTabContent = () => {
   };
 
   return (
-    <div className="h-full w-full overflow-hidden flex flex-col items-center justify-center">
+    <div className="h-full w-full overflow-hidden flex flex-col items-center">
       <div className="w-full flex flex-col items-center px-4" style={{ gap: 'clamp(0.3rem, 0.6vh, 0.5rem)' }}>
         {/* Phase Selector */}
         <div 
@@ -63,8 +63,9 @@ export const HowTabContent = () => {
           className="relative rounded-lg overflow-hidden mx-auto" 
           style={{ 
             aspectRatio: '3/4',
-            maxHeight: 'clamp(220px, 38vh, 320px)',
+            maxHeight: 'clamp(280px, 48vh, 400px)',
             width: 'auto',
+            marginTop: '-40px',
           }}
         >
           <video
