@@ -102,6 +102,11 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
           z-index: 0;
         }
 
+        .silver-grey-gradient-border > * {
+          position: relative;
+          z-index: 1;
+        }
+
       `}</style>
     </div>
   );
