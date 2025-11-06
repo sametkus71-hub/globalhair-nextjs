@@ -25,7 +25,7 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
   };
 
   return (
-    <div className="w-full h-full flex items-center justify-center p-4 sm:p-6">
+    <div className="w-[80%] h-full flex items-center justify-center mx-auto p-4 sm:p-6">
       <article 
         className="berkant-card"
         onClick={handleClick}
@@ -89,13 +89,25 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
         .berkant-card {
           position: relative;
           width: 100%;
-          max-width: 28rem;
+          max-width: 24rem;
           height: 100%;
           border-radius: 1rem;
           overflow: hidden;
           cursor: pointer;
           backdrop-filter: blur(10px);
           background: rgba(0,0,0,.15);
+        }
+
+        @media (min-width: 640px) {
+          .berkant-card {
+            max-width: 26rem;
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .berkant-card {
+            max-width: 28rem;
+          }
         }
 
         .berkant-card::before {
