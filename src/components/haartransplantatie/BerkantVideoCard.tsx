@@ -32,7 +32,7 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
       >
         {/* Video background */}
         <video
-          src={video.subbedUrl}
+          src={video.unsubbedUrl}
           autoPlay
           muted
           loop
