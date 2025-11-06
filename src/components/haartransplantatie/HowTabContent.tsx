@@ -21,22 +21,23 @@ export const HowTabContent = () => {
   };
 
   return (
-    <div className="h-full w-full overflow-y-auto px-4 py-8 flex flex-col items-center">
-      <div className="w-full max-w-2xl mx-auto space-y-6 flex flex-col items-center">
+    <div className="h-full w-full overflow-hidden px-4 flex flex-col items-center justify-center">
+      <div className="w-full max-w-md mx-auto flex flex-col items-center" style={{ gap: 'clamp(0.75rem, 2vh, 1.5rem)' }}>
         {/* Phase Selector */}
         <div 
-          className="relative flex items-center justify-center gap-0 p-1.5 rounded-full"
+          className="relative flex items-center justify-center gap-0 rounded-full"
           style={{
             background: 'rgba(255, 255, 255, 0.03)',
             backdropFilter: 'blur(10px)',
             border: '1px solid rgba(255, 255, 255, 0.08)',
+            padding: 'clamp(0.25rem, 0.5vh, 0.375rem)',
           }}
         >
           {phases.map((phase) => (
             <button
               key={phase}
               onClick={() => setActivePhase(phase)}
-              className={`relative px-8 py-2.5 rounded-full text-sm font-light transition-all duration-300 ${
+              className={`relative rounded-full text-sm font-light transition-all duration-300 ${
                 activePhase === phase
                   ? 'text-white'
                   : 'text-white/50 hover:text-white/70'
@@ -48,6 +49,8 @@ export const HowTabContent = () => {
                 border: activePhase === phase
                   ? '1px solid rgba(255, 255, 255, 0.2)'
                   : '1px solid transparent',
+                padding: 'clamp(0.375rem, 1vh, 0.625rem) clamp(1.5rem, 3vw, 2rem)',
+                fontSize: 'clamp(0.75rem, 1.5vh, 0.875rem)',
               }}
             >
               {phase}
@@ -56,7 +59,14 @@ export const HowTabContent = () => {
         </div>
 
         {/* Video */}
-        <div className="w-full aspect-[3/4] max-w-md relative rounded-lg overflow-hidden">
+        <div 
+          className="w-full relative rounded-lg overflow-hidden" 
+          style={{ 
+            aspectRatio: '3/4',
+            maxHeight: 'clamp(250px, 45vh, 400px)',
+            width: 'auto',
+          }}
+        >
           <video
             src="https://GlobalHair.b-cdn.net/Male%201K%20HT%20WEB.webm"
             autoPlay
@@ -71,7 +81,7 @@ export const HowTabContent = () => {
         <p 
           className="text-white/70 text-center"
           style={{
-            fontSize: '10px',
+            fontSize: 'clamp(9px, 1.2vh, 10px)',
             fontWeight: 400,
             fontFamily: 'Inter',
           }}
@@ -80,12 +90,14 @@ export const HowTabContent = () => {
         </p>
 
         {/* Timeline */}
-        <div className="w-full relative h-1 bg-white/20 rounded-full">
+        <div className="w-full relative bg-white/20 rounded-full" style={{ height: 'clamp(3px, 0.5vh, 4px)' }}>
           <div
-            className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full transition-all duration-500 ease-out"
+            className="absolute top-1/2 -translate-y-1/2 bg-white rounded-full transition-all duration-500 ease-out"
             style={{
               left: getTimelinePosition(),
               transform: `translate(-50%, -50%)`,
+              width: 'clamp(10px, 1.5vh, 12px)',
+              height: 'clamp(10px, 1.5vh, 12px)',
             }}
           />
         </div>
@@ -95,7 +107,7 @@ export const HowTabContent = () => {
           href="#"
           className="text-white hover:text-white/80 transition-colors"
           style={{
-            fontSize: '11px',
+            fontSize: 'clamp(10px, 1.3vh, 11px)',
             fontWeight: 500,
             textDecoration: 'underline',
           }}
