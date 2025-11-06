@@ -290,7 +290,7 @@ const BerkantDuralPage = () => {
         </button>
         
         {/* Content overlay */}
-        <div className="relative z-10 w-full h-full flex flex-col justify-between px-6 py-8 pb-32">
+        <div className="relative z-10 w-full h-full flex flex-col justify-between px-6 py-8 pb-[8vh] sm:pb-[10vh]">
           {/* Top container - Title */}
           <div className={`pt-6 text-center transition-all duration-500 ease-out ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-white leading-[0.85] tracking-wide">
