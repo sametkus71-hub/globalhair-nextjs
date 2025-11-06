@@ -1,69 +1,107 @@
+import { useState } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
-import { useTranslation } from '@/lib/translations';
+
+type Phase = 'Pre-' | 'Treatment' | 'After-';
 
 export const HowTabContent = () => {
   const { language } = useLanguage();
-  const { t } = useTranslation(language);
+  const [activePhase, setActivePhase] = useState<Phase>('Treatment');
+
+  const phases: Phase[] = ['Pre-', 'Treatment', 'After-'];
+
+  const getTimelinePosition = () => {
+    switch (activePhase) {
+      case 'Pre-':
+        return '0%';
+      case 'Treatment':
+        return '50%';
+      case 'After-':
+        return '100%';
+    }
+  };
 
   return (
-    <div className="h-full w-full overflow-y-auto px-4 py-8">
-      <div className="max-w-4xl mx-auto space-y-8">
-        <div className="space-y-4">
-          <h2 className="text-2xl font-light text-white">
-            {language === 'nl' ? 'Hoe werkt een haartransplantatie?' : 'How does a hair transplant work?'}
-          </h2>
-          <p className="text-white/70 leading-relaxed">
-            {language === 'nl' 
-              ? 'Een haartransplantatie is een geavanceerde procedure waarbij haarzakjes van een donorgebied (meestal de achterkant van het hoofd) worden verplaatst naar kale of dunner wordende gebieden.'
-              : 'A hair transplant is an advanced procedure where hair follicles from a donor area (usually the back of the head) are relocated to bald or thinning areas.'}
-          </p>
+    <div className="h-full w-full overflow-y-auto px-4 py-8 flex flex-col items-center">
+      <div className="w-full max-w-2xl mx-auto space-y-6 flex flex-col items-center">
+        {/* Phase Selector */}
+        <div 
+          className="relative flex items-center justify-center gap-0 p-1.5 rounded-full"
+          style={{
+            background: 'rgba(255, 255, 255, 0.03)',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid rgba(255, 255, 255, 0.08)',
+          }}
+        >
+          {phases.map((phase) => (
+            <button
+              key={phase}
+              onClick={() => setActivePhase(phase)}
+              className={`relative px-8 py-2.5 rounded-full text-sm font-light transition-all duration-300 ${
+                activePhase === phase
+                  ? 'text-white'
+                  : 'text-white/50 hover:text-white/70'
+              }`}
+              style={{
+                background: activePhase === phase
+                  ? 'rgba(255, 255, 255, 0.1)'
+                  : 'transparent',
+                border: activePhase === phase
+                  ? '1px solid rgba(255, 255, 255, 0.2)'
+                  : '1px solid transparent',
+              }}
+            >
+              {phase}
+            </button>
+          ))}
         </div>
 
-        <div className="space-y-6">
-          <div className="space-y-3">
-            <h3 className="text-xl font-light text-white">
-              {language === 'nl' ? '1. Consultatie & Planning' : '1. Consultation & Planning'}
-            </h3>
-            <p className="text-white/70 leading-relaxed">
-              {language === 'nl'
-                ? 'Tijdens het eerste consult analyseren we uw haarsituatie en bespreken we uw wensen en verwachtingen. We bepalen samen het beste behandelplan.'
-                : 'During the initial consultation, we analyze your hair situation and discuss your wishes and expectations. Together we determine the best treatment plan.'}
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            <h3 className="text-xl font-light text-white">
-              {language === 'nl' ? '2. Donorgebied Preparatie' : '2. Donor Area Preparation'}
-            </h3>
-            <p className="text-white/70 leading-relaxed">
-              {language === 'nl'
-                ? 'Het donorgebied wordt zorgvuldig voorbereid. Bij de FUE-methode worden individuele haarzakjes één voor één geëxtraheerd met microchirurgische precisie.'
-                : 'The donor area is carefully prepared. With the FUE method, individual hair follicles are extracted one by one with microsurgical precision.'}
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            <h3 className="text-xl font-light text-white">
-              {language === 'nl' ? '3. Grafts Plaatsing' : '3. Graft Placement'}
-            </h3>
-            <p className="text-white/70 leading-relaxed">
-              {language === 'nl'
-                ? 'De geëxtraheerde haarzakjes worden strategisch geplaatst in het ontvangende gebied, waarbij rekening wordt gehouden met natuurlijke haargroeipatronen en dichtheid.'
-                : 'The extracted hair follicles are strategically placed in the recipient area, taking into account natural hair growth patterns and density.'}
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            <h3 className="text-xl font-light text-white">
-              {language === 'nl' ? '4. Herstel & Resultaat' : '4. Recovery & Results'}
-            </h3>
-            <p className="text-white/70 leading-relaxed">
-              {language === 'nl'
-                ? 'Na de behandeling volgt een herstelperiode waarbij de getransplanteerde haren zich vestigen. Binnen 3-6 maanden begint het nieuwe haar te groeien, met volledige resultaten na 12-18 maanden.'
-                : 'After treatment, a recovery period follows during which the transplanted hairs settle. Within 3-6 months, new hair begins to grow, with full results after 12-18 months.'}
-            </p>
-          </div>
+        {/* Video */}
+        <div className="w-full aspect-[3/4] max-w-md relative rounded-lg overflow-hidden">
+          <video
+            src="https://GlobalHair.b-cdn.net/Male%201K%20HT%20WEB.webm"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+          />
         </div>
+
+        {/* Quote Text */}
+        <p 
+          className="text-white/70 text-center"
+          style={{
+            fontSize: '10px',
+            fontWeight: 400,
+            fontFamily: 'Inter',
+          }}
+        >
+          Inmiddels heb ik al drie vrienden doorverwezen. GlobalHair maakt meer waar dan ze beloven.
+        </p>
+
+        {/* Timeline */}
+        <div className="w-full relative h-1 bg-white/20 rounded-full">
+          <div
+            className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full transition-all duration-500 ease-out"
+            style={{
+              left: getTimelinePosition(),
+              transform: `translate(-50%, -50%)`,
+            }}
+          />
+        </div>
+
+        {/* Link */}
+        <a
+          href="#"
+          className="text-white hover:text-white/80 transition-colors"
+          style={{
+            fontSize: '11px',
+            fontWeight: 500,
+            textDecoration: 'underline',
+          }}
+        >
+          Bekijk onze methodes
+        </a>
       </div>
     </div>
   );
