@@ -491,7 +491,7 @@ export const PackageStandardPage = () => {
                         {feature.key === 'indicators' && (
                           <div className="flex gap-2 items-center">
                             <div
-                              className="silver-grey-gradient-border flex items-center justify-center"
+                              className="indicator-box"
                               style={{
                                 background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 80%)',
                                 padding: '.5rem',
@@ -523,7 +523,7 @@ export const PackageStandardPage = () => {
                               )}
                             </div>
                             <div
-                              className="silver-grey-gradient-border flex items-center justify-center gap-1"
+                              className="indicator-box"
                               style={{
                                 background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 80%)',
                                 padding: '.5rem',
@@ -564,26 +564,28 @@ export const PackageStandardPage = () => {
                             </div>
                           </div>
                         )}
-                        <span className="flex items-center gap-2 flex-wrap">
-                          {feature.exclusive && (
-                            <span 
-                              className="text-[8px] px-1.5 py-0.5 rounded-full font-medium"
-                              style={{
-                                background: activeTier === 'Advanced' 
-                                  ? 'linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(217, 119, 6, 0.15))'
-                                  : 'linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 193, 7, 0.15))',
-                                border: activeTier === 'Advanced'
-                                  ? '1px solid rgba(251, 191, 36, 0.3)'
-                                  : '1px solid rgba(255, 215, 0, 0.4)',
-                                color: activeTier === 'Advanced' ? '#fbbf24' : '#ffd700',
-                                boxShadow: activeTier === 'Advanced' ? 'none' : '0 0 8px rgba(255, 215, 0, 0.3)'
-                              }}
-                            >
-                              {activeTier}
-                            </span>
-                          )}
-                          <span className="feature-title text-white text-[12.5px] font-normal">{feature.title}</span>
-                        </span>
+                        {feature.key !== 'indicators' && (
+                          <span className="flex items-center gap-2 flex-wrap">
+                            {feature.exclusive && (
+                              <span 
+                                className="text-[8px] px-1.5 py-0.5 rounded-full font-medium"
+                                style={{
+                                  background: activeTier === 'Advanced' 
+                                    ? 'linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(217, 119, 6, 0.15))'
+                                    : 'linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 193, 7, 0.15))',
+                                  border: activeTier === 'Advanced'
+                                    ? '1px solid rgba(251, 191, 36, 0.3)'
+                                    : '1px solid rgba(255, 215, 0, 0.4)',
+                                  color: activeTier === 'Advanced' ? '#fbbf24' : '#ffd700',
+                                  boxShadow: activeTier === 'Advanced' ? 'none' : '0 0 8px rgba(255, 215, 0, 0.3)'
+                                }}
+                              >
+                                {activeTier}
+                              </span>
+                            )}
+                            <span className="feature-title text-white text-[12.5px] font-normal">{feature.title}</span>
+                          </span>
+                         )}
                       </div>
                       <span className="feature-toggle text-white/60 font-light text-xl leading-none">
                         {isOpen ? '–' : '+'}
@@ -644,6 +646,34 @@ export const PackageStandardPage = () => {
   }
 
   .popup-section-border > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .indicator-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-center;
+  }
+
+  .indicator-box::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #949494 7%, #ACB9C1 16%, #FFFFFF 34%, #ACB9C1 51%, #4B555E 78%, #fff 105%);
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .indicator-box > * {
     position: relative;
     z-index: 1;
   }
