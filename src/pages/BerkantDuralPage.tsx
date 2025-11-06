@@ -139,8 +139,8 @@ const BerkantDuralPage = () => {
         
         {/* Animated modal wrapper - only this slides up */}
         <div 
-          className={`absolute inset-0 flex justify-center px-4 pb-24 ${isEntering ? 'berkant-modal-enter' : ''} ${isExiting ? 'berkant-modal-exit' : ''}`}
-          style={{ zIndex: 3, paddingTop: '8vh' }}
+          className={`absolute inset-0 flex justify-center px-4 ${isEntering ? 'berkant-modal-enter' : ''} ${isExiting ? 'berkant-modal-exit' : ''}`}
+          style={{ zIndex: 3, paddingTop: '50px', paddingBottom: '100px' }}
         >
           <section
             className="relative rounded-[24px] p-6 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] w-full max-w-2xl h-[85%] max-h-[85vh] flex flex-col justify-between overflow-hidden"
