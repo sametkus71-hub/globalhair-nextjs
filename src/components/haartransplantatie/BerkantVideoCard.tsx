@@ -86,7 +86,7 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
 
           {/* Bottom left - List with bold header */}
           <div className="absolute bottom-4 left-4 flex flex-col gap-1.5">
-            <p className="text-sm font-semibold text-white/95 tracking-wide">CEO · GlobalHair Institute</p>
+            <p className="text-sm font-semibold text-white/95 tracking-wide">CEO - GlobalHair Institute</p>
             <div className="flex flex-col gap-0.5 pl-0.5">
               <p className="text-[11px] font-light text-white/80 tracking-wide">• Developed 6+ methods</p>
               <p className="text-[11px] font-light text-white/80 tracking-wide">• Opened 3 locations</p>
