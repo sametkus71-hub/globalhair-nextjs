@@ -52,8 +52,8 @@ export const HaartransplantatieLayout = () => {
       
       <div className="relative w-full min-h-screen">
         <DesktopContainer>
-          {/* Glass Header */}
-          <GlassHeader />
+          {/* Glass Header - hide on package popup routes */}
+          {!isPackageRoute && <GlassHeader />}
 
             {/* Main Content - Single Screen with height-responsive scaling */}
             <div className="relative z-10 flex flex-col h-screen overflow-hidden" style={{ paddingTop: 'clamp(6rem, 15vh, 175px)' }}>
