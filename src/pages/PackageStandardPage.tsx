@@ -380,7 +380,6 @@ export const PackageStandardPage = () => {
           className="absolute inset-0 w-full h-full object-cover"
           style={{
             pointerEvents: 'none',
-            filter: 'blur(8px) brightness(0.85) contrast(1.2) saturate(1.1)',
           }}
         />
         <div 

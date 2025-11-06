@@ -144,15 +144,14 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           ref={standardVideoRef}
           className="fixed"
           style={{ 
-            filter: 'blur(8px) brightness(0.85) contrast(1.2) saturate(1.1)',
             objectFit: 'cover',
             objectPosition: 'center center',
             zIndex: 1,
-            width: 'calc(100vw + 100px)',
-            height: 'calc(var(--app-height) + 100px)',
+            width: '100vw',
+            height: 'var(--app-height)',
             left: '50%',
-            top: '-50px',
-            transform: 'translateX(-50%) scale(1.05)'
+            top: 0,
+            transform: 'translateX(-50%)'
           }}
           autoPlay
           muted
@@ -171,15 +170,14 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           ref={premiumVideoRef}
           className="fixed"
           style={{ 
-            filter: 'blur(8px) brightness(0.85) contrast(1.2) saturate(1.1)',
             objectFit: 'cover',
             objectPosition: 'center center',
             zIndex: 1,
-            width: 'calc(100vw + 100px)',
-            height: 'calc(var(--app-height) + 100px)',
+            width: '100vw',
+            height: 'var(--app-height)',
             left: '50%',
-            top: '-50px',
-            transform: 'translateX(-50%) scale(1.05)'
+            top: 0,
+            transform: 'translateX(-50%)'
           }}
           autoPlay
           muted
@@ -198,15 +196,14 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           ref={advancedVideoRef}
           className="fixed"
           style={{ 
-            filter: 'blur(8px) brightness(0.85) contrast(1.2) saturate(1.1)',
             objectFit: 'cover',
             objectPosition: 'center center',
             zIndex: 1,
-            width: 'calc(100vw + 100px)',
-            height: 'calc(var(--app-height) + 100px)',
+            width: '100vw',
+            height: 'var(--app-height)',
             left: '50%',
-            top: '-50px',
-            transform: 'translateX(-50%) scale(1.05)'
+            top: 0,
+            transform: 'translateX(-50%)'
           }}
           autoPlay
           muted
