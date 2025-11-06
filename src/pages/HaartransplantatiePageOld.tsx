@@ -136,7 +136,7 @@ const HaartransplantatiePage = () => {
 
               {/* Tabs */}
               <div className="flex-shrink-0" style={{ padding: '1.8rem 0' }}>
-                <GlassTabs activeTab={activeTab} onTabChange={setActiveTab} />
+                <GlassTabs activeTab={activeTab} />
               </div>
 
               {/* Tab Content - Flexible height with footer clearance */}

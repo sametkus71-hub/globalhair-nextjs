@@ -4,12 +4,11 @@ import { useLanguage } from '@/hooks/useLanguage';
 
 interface GlassTabsProps {
   activeTab: string;
-  onTabChange: (tab: string) => void;
 }
 
 const tabs = ['Treatments', 'Reviews', 'How?', 'Mission', 'Contact'];
 
-export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
+export const GlassTabs = ({ activeTab }: GlassTabsProps) => {
   const navigate = useNavigate();
   const { language } = useLanguage();
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -28,7 +27,7 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
   };
   
   const handleTabClick = (tab: string) => {
-    onTabChange(tab);
+    navigate(getTabPath(tab));
   };
   
   useEffect(() => {
