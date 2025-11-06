@@ -84,17 +84,11 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
             </svg>
           </div>
 
-          {/* Bottom left - Achievement badges */}
-          <div className="absolute bottom-4 left-4 flex flex-col gap-1.5">
-            <div className="berkant-badge berkant-achievement-badge">
-              <span className="berkant-badge-text">CEO - GlobalHair Institute</span>
-            </div>
-            <div className="berkant-badge berkant-achievement-badge">
-              <span className="berkant-badge-text">Developed 6+ methods</span>
-            </div>
-            <div className="berkant-badge berkant-achievement-badge">
-              <span className="berkant-badge-text">Opened 3 locations</span>
-            </div>
+          {/* Bottom left - Clean text lines */}
+          <div className="absolute bottom-4 left-4 flex flex-col gap-1">
+            <p className="text-white/90 text-xs font-light tracking-wide">CEO - GlobalHair Institute</p>
+            <p className="text-white/90 text-xs font-light tracking-wide">Developed 6+ methods</p>
+            <p className="text-white/90 text-xs font-light tracking-wide">Opened 3 locations</p>
           </div>
         </div>
       </article>
@@ -194,26 +188,6 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
           z-index: 1;
         }
 
-        .berkant-achievement-badge {
-          padding: 0.45rem 0.8rem;
-          background: rgba(0, 0, 0, 0.35);
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
-        }
-
-        .berkant-achievement-badge::before {
-          opacity: 0.4;
-        }
-
-        .berkant-achievement-badge .berkant-badge-text {
-          color: white;
-          background: none;
-          -webkit-background-clip: unset;
-          background-clip: unset;
-          -webkit-text-fill-color: white;
-          font-size: 10px;
-          opacity: 0.9;
-        }
       `}</style>
     </div>
   );
