@@ -13,6 +13,9 @@ export const HaartransplantatieLayout = () => {
   const { language } = useLanguage();
   const location = useLocation();
   
+  // Check if we're on a package route (should render as overlay)
+  const isPackageRoute = /\/(nl|en)\/(haartransplantatie|hair-transplant)\/(nl|en|tr)\/(standard|premium|advanced)/.test(location.pathname);
+  
   // Determine active tab from URL
   const getActiveTab = () => {
     const path = location.pathname;
@@ -75,13 +78,15 @@ export const HaartransplantatieLayout = () => {
                   }}
                 >
                   {/* Content from specific page - smooth fade transition on content only */}
-                  <div 
-                    key={location.pathname}
-                    className="relative flex-1 overflow-hidden animate-fade-in"
-                    style={{ animationDuration: '150ms' }}
-                  >
-                    <Outlet />
-                  </div>
+                  {!isPackageRoute && (
+                    <div 
+                      key={location.pathname}
+                      className="relative flex-1 overflow-hidden animate-fade-in"
+                      style={{ animationDuration: '150ms' }}
+                    >
+                      <Outlet />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -90,6 +95,9 @@ export const HaartransplantatieLayout = () => {
           <FooterCTAGlass />
         </DesktopContainer>
       </div>
+      
+      {/* Package popup overlay - renders on top when package route is active */}
+      {isPackageRoute && <Outlet />}
     </>
   );
 };
