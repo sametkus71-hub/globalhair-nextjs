@@ -112,42 +112,6 @@ const BerkantDuralPage = () => {
           animation: border-shine-rotate 3s linear infinite;
           pointer-events: none;
         }
-
-        .silver-gradient-border::before {
-          content: '';
-          position: absolute;
-          inset: -1.5px;
-          border-radius: 50%;
-          padding: 1.5px;
-          background: linear-gradient(
-            180deg,
-            #4B555E 0%,
-            #ACB9C1 15.43%,
-            #FFFFFF 49.49%,
-            #ACB9C1 87.50%,
-            #4B555E 100%
-          );
-          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-          -webkit-mask-composite: xor;
-          mask-composite: exclude;
-          pointer-events: none;
-        }
-
-        .cta-button-glow::after {
-          content: '';
-          position: absolute;
-          inset: -10px;
-          border-radius: 50%;
-          background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
-          opacity: 0;
-          transition: opacity 0.3s ease;
-          pointer-events: none;
-          z-index: -1;
-        }
-
-        .animated-border-shine:hover .cta-button-glow::after {
-          opacity: 1;
-        }
       `}} />
       
       <div className={`fixed inset-0 w-full h-full overflow-hidden ${isEntering ? 'berkant-page-enter' : ''} ${isExiting ? 'reviews-page-exit' : ''}`}>
@@ -200,7 +164,7 @@ const BerkantDuralPage = () => {
           {/* Bottom container - Description and Buttons */}
           <div className="space-y-6">
             <div className={`max-w-md transition-all duration-500 ease-out ${contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              <p className="text-xs leading-snug font-light text-left text-white/90">
+              <p className="text-xs leading-relaxed font-normal text-left text-white/90 font-inter">
                 {video.description}
               </p>
             </div>
@@ -215,16 +179,16 @@ const BerkantDuralPage = () => {
                     position: 'relative',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '12px',
-                    padding: '14px 20px 14px 24px',
-                    background: 'rgba(0, 0, 0, 0.4)',
+                    justifyContent: 'center',
+                    padding: '12px 28px',
+                    background: 'rgba(0, 0, 0, 0.35)',
                     backdropFilter: 'blur(10px)',
                     WebkitBackdropFilter: 'blur(10px)',
                     border: 'none',
                     borderRadius: '9999px',
                     color: 'white',
-                    fontSize: '15px',
-                    fontWeight: 500,
+                    fontSize: '14px',
+                    fontWeight: 400,
                     cursor: 'pointer',
                     overflow: 'hidden',
                     transition: 'transform 0.2s ease'
@@ -239,22 +203,6 @@ const BerkantDuralPage = () => {
                   <span style={{ position: 'relative', zIndex: 1 }}>
                     {language === 'nl' ? 'Bekijk methodes' : 'View methods'}
                   </span>
-                  <div 
-                    className="silver-gradient-border cta-button-glow"
-                    style={{
-                      width: '32px',
-                      height: '32px',
-                      borderRadius: '50%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      background: 'rgba(255, 255, 255, 0.1)',
-                      position: 'relative',
-                      zIndex: 1
-                    }}
-                  >
-                    <ChevronRight size={18} strokeWidth={2.5} />
-                  </div>
                 </button>
 
                 {/* Next Video Control */}
