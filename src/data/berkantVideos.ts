@@ -21,7 +21,7 @@ export const BERKANT_VIDEOS: BerkantVideoItem[] = [
     unsubbedUrl: 'https://GlobalHair.b-cdn.net/Berkant%20videos/B1%20-%20COMPRESS.mp4',
     thumbnail: 'https://GlobalHair.b-cdn.net/Berkant%20videos/B1%20SUB%20-%20COMPRESS.mp4#t=1',
     duration: 45,
-    description: 'Founder Berkant Dural shares his vision and mission'
+    description: 'Founder & Medisch Directeur Berkant Dural zag al op jonge leeftijd wat erfelijk haarverlies met zijn vader deed en hij was ervan overtuigd dat dit voorkomen kon worden. Na jaren onderzoek en samenwerkingen met Tricho artsen ontwikkelde hij een werkwijze die verder gaat dan alleen haartransplantaties.'
   },
   {
     id: 'berkant-2', 
@@ -30,7 +30,7 @@ export const BERKANT_VIDEOS: BerkantVideoItem[] = [
     unsubbedUrl: 'https://GlobalHair.b-cdn.net/Berkant%20videos/B2%20-%20COMPRESS.mp4',
     thumbnail: 'https://GlobalHair.b-cdn.net/Berkant%20videos/B2%20SUB%20-%20COMPRESS.mp4#t=1',
     duration: 50,
-    description: 'The journey behind GlobalHair methodology'
+    description: 'De reis achter de GlobalHair methodologie begon met een simpele vraag: waarom wachten tot het te laat is? Berkant ontwikkelde een holistische aanpak die preventie en behandeling combineert voor optimale resultaten.'
   },
   {
     id: 'berkant-3',
@@ -39,7 +39,7 @@ export const BERKANT_VIDEOS: BerkantVideoItem[] = [
     unsubbedUrl: 'https://GlobalHair.b-cdn.net/Berkant%20videos/B3%20-%20COMPRESS.mp4',
     thumbnail: 'https://GlobalHair.b-cdn.net/Berkant%20videos/B3%20SUB%20-%20COMPRESS.mp4#t=1',
     duration: 40,
-    description: 'Innovation in hair restoration technology'
+    description: 'Innovatie in haartransplantatie technologie betekent voor GlobalHair niet alleen de nieuwste technieken toepassen, maar vooral het creëren van natuurlijke, blijvende resultaten die perfect aansluiten bij wie je bent.'
   },
   {
     id: 'berkant-4',
@@ -48,7 +48,7 @@ export const BERKANT_VIDEOS: BerkantVideoItem[] = [
     unsubbedUrl: 'https://GlobalHair.b-cdn.net/Berkant%20videos/B4%20-%20COMPRESS.mp4',
     thumbnail: 'https://GlobalHair.b-cdn.net/Berkant%20videos/B4%20SUB%20-%20COMPRESS.mp4#t=1',
     duration: 55,
-    description: 'The future of personalized hair treatments'
+    description: 'De toekomst van gepersonaliseerde haarbehandelingen ligt in het begrijpen van elke individuele cliënt. Berkant en zijn team ontwikkelden een aanpak waarbij jouw unieke situatie centraal staat voor de beste langetermijn resultaten.'
   }
 ];
 

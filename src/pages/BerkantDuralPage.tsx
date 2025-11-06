@@ -4,13 +4,11 @@ import { ChevronRight } from 'lucide-react';
 import { BERKANT_VIDEOS } from '@/data/berkantVideos';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
-import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
 
 const BerkantDuralPage = () => {
   const navigate = useNavigate();
   const { language } = useLanguage();
   const { t } = useTranslation(language);
-  const { handlePopupClose } = usePopupClose();
   const [searchParams, setSearchParams] = useSearchParams();
   const videoRef = useRef<HTMLVideoElement>(null);
   
@@ -47,8 +45,8 @@ const BerkantDuralPage = () => {
 
   const handleMethodsClick = () => {
     sessionStorage.setItem('previousPath', window.location.pathname);
-    const methodPath = language === 'nl' ? '/nl/info/methode' : '/en/info/method';
-    navigate(methodPath);
+    const homePath = language === 'nl' ? '/nl' : '/en';
+    navigate(homePath);
   };
 
   // Handle video loading and staggered entrance animations
@@ -270,8 +268,22 @@ const BerkantDuralPage = () => {
         {/* Gradient overlay */}
         <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-black/10 via-black/30 to-black/60"></div>
         
-        {/* Close button */}
-        <PopupCloseButton onClose={handleClose} />
+        {/* Close button with gradient border */}
+        <button
+          onClick={handleClose}
+          className="fixed top-4 left-4 z-50 w-10 h-10 flex items-center justify-center transition-opacity duration-200 hover:opacity-70 rounded-full"
+          style={{
+            background: 'linear-gradient(135deg, rgba(98, 145, 186, 0.3), rgba(105, 135, 159, 0.3)) padding-box, conic-gradient(from 0deg at center center, transparent, rgba(255, 255, 255, 0.3) 10%, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0.3) 30%, transparent 40%) border-box',
+            border: '1px solid transparent',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)'
+          }}
+          aria-label={language === 'nl' ? 'Sluiten' : 'Close'}
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 4L4 12M4 4L12 12" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
         
         {/* Content overlay */}
         <div className="relative z-10 w-full h-full flex flex-col justify-between px-6 py-8 pb-32">
