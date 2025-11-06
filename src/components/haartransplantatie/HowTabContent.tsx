@@ -85,11 +85,11 @@ export const HowTabContent = () => {
           className="text-white text-center max-w-xs mx-auto"
           style={{
             fontSize: 'clamp(8px, 1vh, 9px)',
-            fontWeight: 400,
+            fontWeight: 300,
             fontFamily: 'Inter',
             lineHeight: '1.3',
-            marginTop: '-10px',
-            marginBottom: 'clamp(8px, 1.5vh, 12px)',
+            marginTop: '-40px',
+            marginBottom: '0px',
           }}
         >
           Inmiddels heb ik al drie vrienden doorverwezen. <br />GlobalHair maakt meer waar dan ze beloven.
@@ -114,10 +114,11 @@ export const HowTabContent = () => {
           href="#"
           className="text-white hover:text-white/80 transition-colors"
           style={{
-            fontSize: 'clamp(9px, 1.2vh, 10px)',
-            fontWeight: 500,
+            fontSize: 'clamp(11px, 1.4vh, 12px)',
+            fontWeight: 300,
+            fontFamily: 'Inter',
             textDecoration: 'underline',
-            marginTop: 'clamp(4px, 0.8vh, 6px)',
+            marginTop: '1px',
           }}
         >
           Bekijk onze methodes
