@@ -129,7 +129,7 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
         .berkant-card-overlay {
           position: absolute;
           inset: 0;
-          background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0.2), transparent);
+          background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.1) 70%, transparent 100%);
           pointer-events: none;
           z-index: 1;
         }
