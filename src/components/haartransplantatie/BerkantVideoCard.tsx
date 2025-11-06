@@ -83,6 +83,19 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
               />
             </svg>
           </div>
+
+          {/* Bottom left - Achievement badges */}
+          <div className="absolute bottom-4 left-4 flex flex-col gap-2">
+            <div className="berkant-badge berkant-achievement-badge">
+              <span className="berkant-badge-text">CEO - GlobalHair Institute</span>
+            </div>
+            <div className="berkant-badge berkant-achievement-badge">
+              <span className="berkant-badge-text">Developed 6+ methods</span>
+            </div>
+            <div className="berkant-badge berkant-achievement-badge">
+              <span className="berkant-badge-text">Opened 3 locations</span>
+            </div>
+          </div>
         </div>
       </article>
       <style>{`
