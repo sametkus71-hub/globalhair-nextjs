@@ -299,19 +299,6 @@ export const PackageStandardPage = () => {
     return currentPackage.price;
   };
 
-  const getSectionBorderGradient = () => {
-    switch (activeTier) {
-      case 'Standard':
-        return 'linear-gradient(#040E15, #333D46), linear-gradient(180deg, #4B555E 0%, #ACB9C1 15%, #FFFFFF 50%, #ACB9C1 85%, #4B555E 100%)';
-      case 'Premium':
-        return 'linear-gradient(#040E15, #2D3E50), linear-gradient(180deg, #4B555E 0%, #ACB9C1 15%, #E0E8FF 50%, #ACB9C1 85%, #4B555E 100%)';
-      case 'Advanced':
-        return 'linear-gradient(#0A1628, #1E3A5F), linear-gradient(180deg, #5B7A9E 0%, #B0C4DE 15%, #E6F0FF 50%, #B0C4DE 85%, #5B7A9E 100%)';
-      default:
-        return 'linear-gradient(#040E15, #333D46), linear-gradient(180deg, #4B555E 0%, #ACB9C1 15%, #FFFFFF 50%, #ACB9C1 85%, #4B555E 100%)';
-    }
-  };
-
   const handleClose = () => {
     setIsExiting(true);
     handlePopupClose(350);
@@ -348,12 +335,12 @@ export const PackageStandardPage = () => {
           <main className="flex flex-col w-full max-w-2xl h-[calc(100vh-32px)]">
             <SwipeablePopupWrapper onClose={handleClose} className="h-full">
               <section
-                className="relative rounded-[24px] p-4 pb-6 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] h-[90%] flex flex-col"
+                className="relative rounded-[24px] p-4 pb-6 h-[90%] flex flex-col"
                 style={{ 
-                  border: '1px solid transparent',
-                  backgroundImage: getSectionBorderGradient(),
-                  backgroundOrigin: 'border-box',
-                  backgroundClip: 'padding-box, border-box',
+                  background: '#0000001A',
+                  backdropFilter: 'blur(42.5px)',
+                  boxShadow: '0px 4.01px 8.72px 0px #00000040 inset, 0px -1px 4.71px 0px #FFFFFF40 inset, 0px 3.01px 1px 0px #00000040',
+                  border: 'none',
                   opacity: isTransitioning ? 0.7 : 1,
                   transition: 'opacity 0.3s ease-in-out'
                 }}
