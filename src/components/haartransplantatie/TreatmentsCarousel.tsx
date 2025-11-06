@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useSession } from "@/hooks/useSession";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const FEATURES = [
   "FUE Saffier / DHI",
@@ -40,6 +41,7 @@ const BASE = [
 export const TreatmentsCarousel = () => {
   const { language } = useLanguage();
   const { profile } = useSession();
+  const isMobile = useIsMobile();
 
   // Generate package detail link based on language and location
   const getPackageLink = (packageId: string) => {
@@ -60,19 +62,11 @@ export const TreatmentsCarousel = () => {
     }));
   }, [language, profile.locatie]);
 
-  const clones = useMemo(() => {
-    const first = items[0], last = items[items.length - 1];
-    return [last, ...items, first];
-  }, [items]);
-
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const isSnappingRef = useRef(false);
   const isUserScrollingRef = useRef(false);
-  const targetRealIndexRef = useRef<number | null>(null);
-  const prevRealIndexRef = useRef<number | null>(null);
-  const [active, setActive] = useState(2); // start on the real middle slide (Premium)
-  const [dotTransitioning, setDotTransitioning] = useState(false);
-  const [pendingDot, setPendingDot] = useState<number | null>(null);
+  const [active, setActive] = useState(1); // start on Premium (middle of 3 items)
 
   // Helper functions for 3D animation
   const clamp = (n: number, min = -1, max = 1) => {
@@ -138,11 +132,32 @@ export const TreatmentsCarousel = () => {
     });
   };
 
-  // initial center
+  // initial center on Premium
   useEffect(() => { 
-    snapTo(2, false);
+    snapTo(1, false);
     update3DTransforms();
   }, []);
+
+  // Control video playback based on active state and device
+  useEffect(() => {
+    if (videoRefs.current.length === 0) return;
+
+    videoRefs.current.forEach((video, index) => {
+      if (!video) return;
+      
+      if (isMobile) {
+        // Mobile: only active video plays
+        if (index === active) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      } else {
+        // Desktop: all videos play
+        video.play().catch(() => {});
+      }
+    });
+  }, [active, isMobile]);
 
   // Consolidated scroll listener: 3D transforms + snap detection
   useEffect(() => {
@@ -163,7 +178,7 @@ export const TreatmentsCarousel = () => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(update3DTransforms);
 
-      // Detect snap end and handle looping
+      // Detect snap end
       clearTimeout(snapTimeout);
       snapTimeout = window.setTimeout(() => {
         // Skip if we're in the middle of a programmatic snap
@@ -186,33 +201,11 @@ export const TreatmentsCarousel = () => {
           if (d < bestDist) { bestDist = d; best = i; }
         });
         
-        // Only proceed if we've actually moved to a different card
-        if (best === active && !dotTransitioning) {
-          return;
+        // Update active if changed
+        if (best !== active) {
+          setActive(best);
         }
         
-        // loop logic: jump to real slide without updating active prematurely
-        if (best === 0) { // at first clone → jump to last real
-          snapTo(items.length, false);
-          setTimeout(() => el.classList.remove("is-scrolling"), 100);
-          return;
-        } else if (best === items.length + 1) { // at last clone → jump to first real
-          snapTo(1, false);
-          setTimeout(() => el.classList.remove("is-scrolling"), 100);
-          return;
-        } else {
-          // Only update active for real slides (1..items.length)
-          setActive(best);
-          
-          // Clear pending state when we've reached the target
-          const reachedReal = best - 1; // 0..items.length-1
-          if (dotTransitioning && targetRealIndexRef.current === reachedReal) {
-            setPendingDot(null);
-            setDotTransitioning(false);
-            targetRealIndexRef.current = null;
-            prevRealIndexRef.current = null;
-          }
-        }
         // Update transforms after snap detection
         requestAnimationFrame(update3DTransforms);
       }, 150);
@@ -231,72 +224,30 @@ export const TreatmentsCarousel = () => {
       cancelAnimationFrame(raf);
       clearTimeout(snapTimeout);
     };
-  }, [items.length, dotTransitioning]);
+  }, [active]);
 
-  // keyboard arrows and dot navigation
+  // keyboard arrows navigation
   const go = (dir: -1 | 1) => {
     // Prevent multiple rapid calls
     if (isSnappingRef.current) return;
     
     let next = active + dir;
+    // Clamp to valid range [0, 2]
     if (next < 0) next = 0;
-    if (next > items.length + 1) next = items.length + 1;
+    if (next > items.length - 1) next = items.length - 1;
     snapTo(next, true);
   };
 
-  // map active (1..3) → real index for dots (0..2)
-  const realIndex = (active <= 0 || active >= items.length + 1)
-    ? 1   // safety
-    : active - 1;
-
-  // Reorder dots so active is always in center
-  // Reorder dots so active is always in center
-  const getDisplayDots = () => {
-    const totalDots = items.length;
-    const centerIndex = Math.floor(totalDots / 2);
-
-    // During a dot transition, freeze the active dot to the previous real index
-    const effectiveRealIndex = (dotTransitioning && prevRealIndexRef.current !== null)
-      ? prevRealIndexRef.current!
-      : realIndex;
-
-    const offset = centerIndex - effectiveRealIndex;
-    
-    return items.map((_, i) => {
-      let displayIndex = (i + offset + totalDots) % totalDots;
-      return {
-        originalIndex: i,
-        displayIndex,
-        isActive: dotTransitioning 
-          ? (i === prevRealIndexRef.current)
-          : (i === realIndex),
-        isPending: pendingDot !== null && i === pendingDot
-      };
-    }).sort((a, b) => a.displayIndex - b.displayIndex);
+  const handleDotClick = (index: number) => {
+    if (index === active) return;
+    snapTo(index, true);
   };
 
-  const handleDotClick = (displayIndex: number) => {
-    const centerIndex = Math.floor(items.length / 2);
-    
-    // Center dot - do nothing (already active)
-    if (displayIndex === centerIndex) return;
-    
-    // Determine direction: left dot = -1, right dot = +1
-    const direction = displayIndex < centerIndex ? -1 : 1;
-    
-    // Calculate the exact target real index (0..items.length-1)
-    const target = (realIndex + direction + items.length) % items.length;
-    targetRealIndexRef.current = target;
-    
-    // Freeze current active dot during transition
-    prevRealIndexRef.current = realIndex;
-    
-    // Show pending state for the target dot
-    setPendingDot(target);
-    setDotTransitioning(true);
-    
-    // Navigate one card in the appropriate direction
-    go(direction);
+  const handleCardClick = (index: number) => {
+    // On mobile, clicking a non-active card should activate it
+    if (isMobile && index !== active) {
+      snapTo(index, true);
+    }
   };
 
   return (
@@ -307,14 +258,17 @@ export const TreatmentsCarousel = () => {
         tabIndex={0}
         onKeyDown={(e) => { if (e.key === "ArrowLeft") go(-1); if (e.key === "ArrowRight") go(1); }}
       >
-        {clones.map((it, i) => {
+        {items.map((it, i) => {
           return (
           <article
             key={`${it.id}-${i}`}
             className="treat-card"
+            onClick={() => handleCardClick(i)}
+            style={{ cursor: isMobile && i !== active ? 'pointer' : 'default' }}
           >
             {it.type === "video" ? (
               <video
+                ref={(el) => { videoRefs.current[i] = el; }}
                 autoPlay
                 loop
                 muted
@@ -359,13 +313,14 @@ export const TreatmentsCarousel = () => {
       </div>
 
       <div className="treat-dots" role="tablist" aria-label="Pagination">
-        {getDisplayDots().map((dot) => (
+        {items.map((item, index) => (
           <button
-            key={dot.originalIndex}
+            key={item.id}
             role="tab"
-            aria-selected={dot.isActive}
-            className={`dot ${dot.isActive ? "is-active" : ""} ${dot.isPending ? "is-pending" : ""} ${dotTransitioning ? "is-transitioning" : ""}`}
-            onClick={() => handleDotClick(dot.displayIndex)}
+            aria-selected={index === active}
+            aria-label={`View ${item.title} package`}
+            className={`dot ${index === active ? "is-active" : ""}`}
+            onClick={() => handleDotClick(index)}
           />
         ))}
       </div>
