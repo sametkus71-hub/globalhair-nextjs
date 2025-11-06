@@ -7,7 +7,7 @@ import leafSvg from '@/assets/leaf.svg';
 import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
 import { PopupCloseButton, usePopupClose, SwipeablePopupWrapper } from '@/components/PopupCloseButton';
 
-type FeatureKey = 'fue' | 'comfort' | 'followup' | 'support' | 'precision' | 'stemcell' | 'prime' | 'recovery' | 'anesthesia' | 'biotine' | 'shampoo' | 'washes' | 'followup2' | 'stemcellrepair' | 'v6prime' | 'v6recovery';
+type FeatureKey = 'fue' | 'comfort' | 'followup' | 'support' | 'precision' | 'stemcell' | 'prime' | 'recovery' | 'anesthesia' | 'biotine' | 'shampoo' | 'washes' | 'followup2' | 'stemcellrepair' | 'v6prime' | 'v6recovery' | 'speed' | 'natural';
 
 export const PackageStandardPage = () => {
   const { language } = useLanguage();
@@ -134,6 +134,18 @@ export const PackageStandardPage = () => {
       price: '€8.000',
       features: [
         {
+          key: 'speed' as FeatureKey,
+          title: 'Speed Level',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          exclusive: false
+        },
+        {
+          key: 'natural' as FeatureKey,
+          title: 'Natural & Sustainable',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          exclusive: false
+        },
+        {
           key: 'fue' as FeatureKey,
           title: 'FUE Saffier / DHI',
           description: 'FUE Saffier is de standaard in haartransplantatie: met ultradunne saffieren mesjes voor nauwkeurige plaatsing, minimale littekens en sneller herstel. DHI maakt directe implantatie mogelijk - zonder scheren, met maximale controle over richting en dichtheid.',
@@ -168,6 +180,18 @@ export const PackageStandardPage = () => {
     Premium: {
       price: '€16.000',
       features: [
+        {
+          key: 'speed' as FeatureKey,
+          title: 'Speed Level',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          exclusive: false
+        },
+        {
+          key: 'natural' as FeatureKey,
+          title: 'Natural & Sustainable',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          exclusive: false
+        },
         {
           key: 'stemcell' as FeatureKey,
           title: 'GHI Stemcell Repair™',
@@ -221,6 +245,18 @@ export const PackageStandardPage = () => {
     Advanced: {
       price: '€21.500',
       features: [
+        {
+          key: 'speed' as FeatureKey,
+          title: 'Speed Level',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          exclusive: false
+        },
+        {
+          key: 'natural' as FeatureKey,
+          title: 'Natural & Sustainable',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          exclusive: false
+        },
         {
           key: 'anesthesia' as FeatureKey,
           title: 'Full Comfort Anesthesia™',
@@ -439,97 +475,6 @@ export const PackageStandardPage = () => {
           </div>
         </div>
 
-        {/* Chips row */}
-        <div className="flex gap-2 items-center my-2 px-1">
-          <div
-            className="silver-grey-gradient-border flex items-center justify-center"
-            style={{
-              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 80%)',
-              padding: '.5rem',
-              borderRadius: '.4rem',
-            }}
-          >
-            <img src={chevronRightSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
-            {activeTier === 'Premium' && (
-              <img 
-                src={chevronRightSvg} 
-                alt="" 
-                className="animate-fade-in"
-                style={{ 
-                  width: '.8rem', 
-                  height: '.8rem', 
-                  marginLeft: '-4px',
-                  animationDelay: '50ms',
-                  animationFillMode: 'backwards'
-                }} 
-              />
-            )}
-            {activeTier === 'Advanced' && (
-              <img 
-                src={chevronRightSvg} 
-                alt="" 
-                className="animate-fade-in"
-                style={{ 
-                  width: '.8rem', 
-                  height: '.8rem', 
-                  marginLeft: '-4px',
-                  animationDelay: '50ms',
-                  animationFillMode: 'backwards'
-                }} 
-              />
-            )}
-          </div>
-          <div
-            className="silver-grey-gradient-border flex items-center justify-center gap-1"
-            style={{
-              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 80%)',
-              padding: '.5rem',
-              borderRadius: '.4rem',
-            }}
-          >
-            <img src={leafSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
-            {activeTier === 'Premium' && (
-              <img 
-                src={leafSvg} 
-                alt="" 
-                className="animate-fade-in"
-                style={{ 
-                  width: '.8rem', 
-                  height: '.8rem',
-                  animationDelay: '100ms',
-                  animationFillMode: 'backwards'
-                }} 
-              />
-            )}
-            {activeTier === 'Advanced' && (
-              <>
-                <img 
-                  src={leafSvg} 
-                  alt="" 
-                  className="animate-fade-in"
-                  style={{ 
-                    width: '.8rem', 
-                    height: '.8rem',
-                    animationDelay: '100ms',
-                    animationFillMode: 'backwards'
-                  }} 
-                />
-                <img 
-                  src={leafSvg} 
-                  alt="" 
-                  className="animate-fade-in"
-                  style={{ 
-                    width: '.8rem', 
-                    height: '.8rem',
-                    animationDelay: '150ms',
-                    animationFillMode: 'backwards'
-                  }} 
-                />
-              </>
-            )}
-          </div>
-        </div>
-
         {/* Scrollable package details */}
         <div className="package-details-scroll flex-1 overflow-y-auto px-1" style={{ minHeight: 0, scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {/* Feature accordion */}
@@ -560,6 +505,68 @@ export const PackageStandardPage = () => {
                       <div className="feature-left flex items-center gap-1.5">
                         {(feature.key === 'precision' || feature.key === 'support') && (
                           <Shield className="w-3 h-3 text-white/70 flex-shrink-0" strokeWidth={1.5} />
+                        )}
+                        {feature.key === 'speed' && (
+                          <div className="flex items-center">
+                            <img src={chevronRightSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
+                            {activeTier === 'Premium' && (
+                              <img 
+                                src={chevronRightSvg} 
+                                alt="" 
+                                style={{ 
+                                  width: '.8rem', 
+                                  height: '.8rem', 
+                                  marginLeft: '-4px'
+                                }} 
+                              />
+                            )}
+                            {activeTier === 'Advanced' && (
+                              <img 
+                                src={chevronRightSvg} 
+                                alt="" 
+                                style={{ 
+                                  width: '.8rem', 
+                                  height: '.8rem', 
+                                  marginLeft: '-4px'
+                                }} 
+                              />
+                            )}
+                          </div>
+                        )}
+                        {feature.key === 'natural' && (
+                          <div className="flex items-center gap-0.5">
+                            <img src={leafSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
+                            {activeTier === 'Premium' && (
+                              <img 
+                                src={leafSvg} 
+                                alt="" 
+                                style={{ 
+                                  width: '.8rem', 
+                                  height: '.8rem'
+                                }} 
+                              />
+                            )}
+                            {activeTier === 'Advanced' && (
+                              <>
+                                <img 
+                                  src={leafSvg} 
+                                  alt="" 
+                                  style={{ 
+                                    width: '.8rem', 
+                                    height: '.8rem'
+                                  }} 
+                                />
+                                <img 
+                                  src={leafSvg} 
+                                  alt="" 
+                                  style={{ 
+                                    width: '.8rem', 
+                                    height: '.8rem'
+                                  }} 
+                                />
+                              </>
+                            )}
+                          </div>
                         )}
                         <span className="flex items-center gap-2 flex-wrap">
                           {feature.exclusive && (
