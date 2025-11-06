@@ -14,9 +14,8 @@ export const PackageStandardPage = () => {
   const navigate = useNavigate();
   const { country: urlCountry, tier: urlTier } = useParams<{ country: string; tier: string }>();
   
-  const [activeCountry, setActiveCountry] = useState<'nl' | 'tr'>(
-    (urlCountry as 'nl' | 'tr') || 'nl'
-  );
+  // Always default to Nederland (nl) when popup opens
+  const [activeCountry, setActiveCountry] = useState<'nl' | 'tr'>('nl');
   const [activeTier, setActiveTier] = useState<'Standard' | 'Premium' | 'Advanced'>(
     urlTier ? (urlTier.charAt(0).toUpperCase() + urlTier.slice(1)) as 'Standard' | 'Premium' | 'Advanced' : 'Standard'
   );
@@ -50,14 +49,13 @@ export const PackageStandardPage = () => {
     });
   }, []);
 
-  // Sync URL with state when params change
+  // Sync tier from URL when params change (country always stays 'nl' by default)
   useEffect(() => {
-    if (urlCountry) setActiveCountry(urlCountry as 'nl' | 'tr');
     if (urlTier) {
       const normalizedTier = (urlTier.charAt(0).toUpperCase() + urlTier.slice(1)) as 'Standard' | 'Premium' | 'Advanced';
       setActiveTier(normalizedTier);
     }
-  }, [urlCountry, urlTier]);
+  }, [urlTier]);
 
   // Reset to Premium if switching to Turkey while Advanced is selected
   const handleCountryChange = (country: 'nl' | 'tr') => {
