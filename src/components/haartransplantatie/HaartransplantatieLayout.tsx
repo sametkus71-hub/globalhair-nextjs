@@ -2,12 +2,12 @@ import { useLayoutEffect } from 'react';
 import { useLocation, Outlet } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
 import { MetaHead } from '@/components/MetaHead';
-import { PageTransition } from '@/components/PageTransition';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
 import { GlassHeader } from '@/components/haartransplantatie/GlassHeader';
 import { AnimatedHeadHero } from '@/components/haartransplantatie/AnimatedHeadHero';
 import { GlassTabs } from '@/components/haartransplantatie/GlassTabs';
 import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
+import { TabPreloader } from '@/components/haartransplantatie/TabPreloader';
 
 export const HaartransplantatieLayout = () => {
   const { language } = useLanguage();
@@ -45,12 +45,12 @@ export const HaartransplantatieLayout = () => {
   return (
     <>
       <MetaHead language={language} page="haartransplantatie" />
+      <TabPreloader />
       
       <div className="relative w-full min-h-screen">
         <DesktopContainer>
-          <PageTransition isNewPage={true}>
-            {/* Glass Header */}
-            <GlassHeader />
+          {/* Glass Header */}
+          <GlassHeader />
 
             {/* Main Content - Single Screen with height-responsive scaling */}
             <div className="relative z-10 flex flex-col h-screen overflow-hidden" style={{ paddingTop: 'clamp(6rem, 15vh, 175px)' }}>
@@ -74,17 +74,20 @@ export const HaartransplantatieLayout = () => {
                     paddingBottom: 'clamp(5rem, 12vh, 8rem)' // Clear the footer buttons
                   }}
                 >
-                  {/* Content from specific page - outlet handles smooth content transitions */}
-                  <div className="relative flex-1 overflow-hidden transition-opacity duration-200">
+                  {/* Content from specific page - smooth fade transition on content only */}
+                  <div 
+                    key={location.pathname}
+                    className="relative flex-1 overflow-hidden animate-fade-in"
+                    style={{ animationDuration: '150ms' }}
+                  >
                     <Outlet />
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Footer CTA */}
-            <FooterCTAGlass />
-          </PageTransition>
+          {/* Footer CTA */}
+          <FooterCTAGlass />
         </DesktopContainer>
       </div>
     </>

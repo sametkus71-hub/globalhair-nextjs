@@ -14,10 +14,10 @@ export const PersistentVideoBackground = () => {
   useEffect(() => {
     setMounted(true);
     
-    // Defer video loading until after initial render
+    // Load video much faster for immediate playback
     const timer = setTimeout(() => {
       setShouldLoadVideo(true);
-    }, 1000);
+    }, 100);
 
     return () => clearTimeout(timer);
   }, []);
@@ -47,7 +47,7 @@ export const PersistentVideoBackground = () => {
           loop
           muted
           playsInline
-          preload="none"
+          preload="auto"
           className="absolute inset-0 w-full h-full object-cover"
           style={{ opacity: 1.0 }}
         >

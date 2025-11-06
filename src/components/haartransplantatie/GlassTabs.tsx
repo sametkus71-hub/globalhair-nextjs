@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
 
@@ -29,6 +29,22 @@ export const GlassTabs = ({ activeTab }: GlassTabsProps) => {
   const handleTabClick = (tab: string) => {
     navigate(getTabPath(tab));
   };
+  
+  // Prefetch tab component on hover for instant navigation
+  const handleTabHover = useCallback((tab: string) => {
+    const componentMap: Record<string, () => Promise<any>> = {
+      'Treatments': () => import('@/pages/TreatmentsPage'),
+      'Reviews': () => import('@/pages/HaartransplantatieReviewsPage'),
+      'How?': () => import('@/pages/HowItWorksPage'),
+      'Mission': () => import('@/pages/HaartransplantatieMissionPage'),
+      'Contact': () => import('@/pages/HaartransplantatieContactPage'),
+    };
+    
+    // Trigger prefetch
+    componentMap[tab]?.().catch(() => {
+      // Silent fail - prefetching is optional
+    });
+  }, []);
   
   useEffect(() => {
     const activeIndex = tabs.findIndex(tab => tab === activeTab);
@@ -62,6 +78,7 @@ export const GlassTabs = ({ activeTab }: GlassTabsProps) => {
               key={tab}
               ref={(el) => (tabRefs.current[index] = el)}
               onClick={() => handleTabClick(tab)}
+              onMouseEnter={() => handleTabHover(tab)}
               className="relative transition-all duration-300 z-10"
               style={{
                 paddingBottom: 'clamp(0.875rem, 1.5vh, 1.125rem)',

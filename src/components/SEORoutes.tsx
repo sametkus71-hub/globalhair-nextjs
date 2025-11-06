@@ -39,26 +39,33 @@ const PageLoader = () => (
   </div>
 );
 
+// Minimal fallback for tab content (very fast, no layout shift)
+const TabContentLoader = () => (
+  <div className="w-full h-full flex items-center justify-center opacity-0 animate-fade-in" style={{ animationDelay: '100ms' }}>
+    <div className="text-sm text-white/40">Loading...</div>
+  </div>
+);
+
 export const SEORoutes = () => {
   return (
     <Suspense fallback={<PageLoader />}>
       <Routes>
       {/* Root redirect - temporarily bypassing intro page */}
       <Route path="/" element={<HaartransplantatieLayoutPage />}>
-        <Route index element={<TreatmentsPage />} />
+        <Route index element={<Suspense fallback={<TabContentLoader />}><TreatmentsPage /></Suspense>} />
       </Route>
       
       {/* Dutch routes - nested for smooth tab transitions */}
       <Route path="/nl" element={<HaartransplantatieLayoutPage />}>
-        <Route index element={<TreatmentsPage />} />
+        <Route index element={<Suspense fallback={<TabContentLoader />}><TreatmentsPage /></Suspense>} />
       </Route>
       <Route path="/nl/haartransplantatie" element={<HaartransplantatieLayoutPage />}>
-        <Route index element={<TreatmentsPage />} />
-        <Route path="reviews" element={<HaartransplantatieReviewsPage />} />
-        <Route path="how" element={<HowItWorksPage />} />
-        <Route path="traject" element={<TreatmentsPage />} />
-        <Route path="mission" element={<HaartransplantatieMissionPage />} />
-        <Route path="contact" element={<HaartransplantatieContactPage />} />
+        <Route index element={<Suspense fallback={<TabContentLoader />}><TreatmentsPage /></Suspense>} />
+        <Route path="reviews" element={<Suspense fallback={<TabContentLoader />}><HaartransplantatieReviewsPage /></Suspense>} />
+        <Route path="how" element={<Suspense fallback={<TabContentLoader />}><HowItWorksPage /></Suspense>} />
+        <Route path="traject" element={<Suspense fallback={<TabContentLoader />}><TreatmentsPage /></Suspense>} />
+        <Route path="mission" element={<Suspense fallback={<TabContentLoader />}><HaartransplantatieMissionPage /></Suspense>} />
+        <Route path="contact" element={<Suspense fallback={<TabContentLoader />}><HaartransplantatieContactPage /></Suspense>} />
       </Route>
       <Route path="/nl/haartransplantatie-old" element={<HaartransplantatieOldPage />} />
       <Route path="/nl/haaranalyse" element={<HaaranalysePage />} />
@@ -85,21 +92,21 @@ export const SEORoutes = () => {
       
       {/* English routes - nested for smooth tab transitions */}
       <Route path="/en" element={<HaartransplantatieLayoutPage />}>
-        <Route index element={<TreatmentsPage />} />
+        <Route index element={<Suspense fallback={<TabContentLoader />}><TreatmentsPage /></Suspense>} />
       </Route>
       <Route path="/en/haartransplantatie" element={<HaartransplantatieLayoutPage />}>
-        <Route index element={<TreatmentsPage />} />
-        <Route path="traject" element={<TreatmentsPage />} />
-        <Route path="mission" element={<HaartransplantatieMissionPage />} />
-        <Route path="contact" element={<HaartransplantatieContactPage />} />
+        <Route index element={<Suspense fallback={<TabContentLoader />}><TreatmentsPage /></Suspense>} />
+        <Route path="traject" element={<Suspense fallback={<TabContentLoader />}><TreatmentsPage /></Suspense>} />
+        <Route path="mission" element={<Suspense fallback={<TabContentLoader />}><HaartransplantatieMissionPage /></Suspense>} />
+        <Route path="contact" element={<Suspense fallback={<TabContentLoader />}><HaartransplantatieContactPage /></Suspense>} />
       </Route>
       <Route path="/en/hair-transplant" element={<HaartransplantatieLayoutPage />}>
-        <Route index element={<TreatmentsPage />} />
-        <Route path="reviews" element={<HaartransplantatieReviewsPage />} />
-        <Route path="how" element={<HowItWorksPage />} />
-        <Route path="traject" element={<TreatmentsPage />} />
-        <Route path="mission" element={<HaartransplantatieMissionPage />} />
-        <Route path="contact" element={<HaartransplantatieContactPage />} />
+        <Route index element={<Suspense fallback={<TabContentLoader />}><TreatmentsPage /></Suspense>} />
+        <Route path="reviews" element={<Suspense fallback={<TabContentLoader />}><HaartransplantatieReviewsPage /></Suspense>} />
+        <Route path="how" element={<Suspense fallback={<TabContentLoader />}><HowItWorksPage /></Suspense>} />
+        <Route path="traject" element={<Suspense fallback={<TabContentLoader />}><TreatmentsPage /></Suspense>} />
+        <Route path="mission" element={<Suspense fallback={<TabContentLoader />}><HaartransplantatieMissionPage /></Suspense>} />
+        <Route path="contact" element={<Suspense fallback={<TabContentLoader />}><HaartransplantatieContactPage /></Suspense>} />
       </Route>
       <Route path="/en/hair-transplant-old" element={<HaartransplantatieOldPage />} />
       <Route path="/en/hair-analysis" element={<HaaranalysePage />} />
