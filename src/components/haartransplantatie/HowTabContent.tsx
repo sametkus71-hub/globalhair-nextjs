@@ -31,6 +31,7 @@ export const HowTabContent = () => {
             backdropFilter: 'blur(10px)',
             border: '1px solid rgba(255, 255, 255, 0.08)',
             padding: 'clamp(0.2rem, 0.4vh, 0.3rem)',
+            zIndex: 10,
           }}
         >
           {phases.map((phase) => (
