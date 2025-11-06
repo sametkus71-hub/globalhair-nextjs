@@ -89,13 +89,14 @@ export const HowTabContent = () => {
             fontFamily: 'Inter',
             lineHeight: '1.3',
             marginTop: '-10px',
+            marginBottom: 'clamp(8px, 1.5vh, 12px)',
           }}
         >
           Inmiddels heb ik al drie vrienden doorverwezen. <br />GlobalHair maakt meer waar dan ze beloven.
         </p>
 
         {/* Timeline - Full Width */}
-        <div className="w-full relative bg-white rounded-full" style={{ height: '1px', margin: '4px 0' }}>
+        <div className="w-full relative bg-white rounded-full" style={{ height: '1px', margin: 'clamp(8px, 1.5vh, 12px) 0' }}>
           <div
             className="absolute top-1/2 -translate-y-1/2 bg-white rounded-full transition-all duration-500 ease-out"
             style={{
@@ -116,6 +117,7 @@ export const HowTabContent = () => {
             fontSize: 'clamp(9px, 1.2vh, 10px)',
             fontWeight: 500,
             textDecoration: 'underline',
+            marginTop: 'clamp(4px, 0.8vh, 6px)',
           }}
         >
           Bekijk onze methodes
