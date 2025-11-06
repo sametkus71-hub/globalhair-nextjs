@@ -77,6 +77,32 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
           </div>
         </div>
       </div>
+      <style>{`
+        .silver-grey-gradient-border {
+          position: relative;
+        }
+
+        .silver-grey-gradient-border::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1px;
+          border-radius: inherit;
+          background: linear-gradient(90deg, #949494 7%, #ACB9C1 16%, #FFFFFF 34%, #ACB9C1 51%, #4B555E 78%, #fff 105%);
+          -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .silver-grey-gradient-border > * {
+          position: relative;
+          z-index: 1;
+        }
+      `}</style>
     </div>
   );
 };
