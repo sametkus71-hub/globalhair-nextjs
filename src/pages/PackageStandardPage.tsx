@@ -77,6 +77,15 @@ export const PackageStandardPage = () => {
     });
   }, [activeTier]);
 
+  // Defensive redirect: ensure package URLs always use correct format
+  useEffect(() => {
+    if (urlCountry && urlCountry !== 'nl' && urlCountry !== 'tr') {
+      // Redirect incorrect country codes to canonical Dutch path
+      const tier = urlTier || 'standard';
+      navigate(`/nl/haartransplantatie/nl/${tier}`, { replace: true });
+    }
+  }, [urlCountry, urlTier, navigate]);
+
   // Sync tier from URL when params change (country always stays 'nl' by default)
   useEffect(() => {
     if (urlTier) {

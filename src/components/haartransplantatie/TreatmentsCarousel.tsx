@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useSession } from "@/hooks/useSession";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -42,16 +43,12 @@ export const TreatmentsCarousel = () => {
   const { language } = useLanguage();
   const { profile } = useSession();
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
 
-  // Generate package detail link based on language and location
+  // Always generate Dutch package paths for consistency
   const getPackageLink = (packageId: string) => {
-    const country = profile.locatie.toLowerCase(); // 'nederland' or 'turkije'
     const tier = packageId.toLowerCase(); // 'standard', 'premium', or 'advanced'
-    
-    if (language === 'en') {
-      return `/en/hair-transplant/${country}/${tier}`;
-    }
-    return `/nl/haartransplantatie/${country}/${tier}`;
+    return `/nl/haartransplantatie/nl/${tier}`;
   };
 
   const items = useMemo(() => {
@@ -305,7 +302,16 @@ export const TreatmentsCarousel = () => {
                   );
                 })}
               </ul>
-              <a className="treat-link" href={it.link}>Read more</a>
+              <button 
+                className="treat-link" 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (typeof document !== 'undefined') document.body.classList.add('popup-open');
+                  navigate(it.link);
+                }}
+              >
+                Read more
+              </button>
             </div>
           </article>
           );
