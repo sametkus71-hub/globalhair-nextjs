@@ -12,6 +12,7 @@ const BerkantDuralPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const videoRef = useRef<HTMLVideoElement>(null);
   
+  const [isEntering, setIsEntering] = useState(true);
   const [isExiting, setIsExiting] = useState(false);
   const [titleVisible, setTitleVisible] = useState(false);
   const [contentVisible, setContentVisible] = useState(false);
@@ -55,6 +56,7 @@ const BerkantDuralPage = () => {
     const timer2 = setTimeout(() => setContentVisible(true), 300);
     const timer3 = setTimeout(() => setButtonVisible(true), 500);
     const timer4 = setTimeout(() => setNextButtonVisible(true), 8000);
+    const timerEnter = setTimeout(() => setIsEntering(false), 450);
 
     if (videoRef.current) {
       videoRef.current.play().catch(() => {});
@@ -65,6 +67,7 @@ const BerkantDuralPage = () => {
       clearTimeout(timer2);
       clearTimeout(timer3);
       clearTimeout(timer4);
+      clearTimeout(timerEnter);
     };
   }, [video.id]);
 
@@ -251,7 +254,7 @@ const BerkantDuralPage = () => {
         }
       `}} />
       
-      <div className={`fixed inset-0 w-full h-full overflow-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
+      <div className={`fixed inset-0 w-full h-full overflow-hidden ${isEntering ? 'berkant-page-enter' : ''} ${isExiting ? 'reviews-page-exit' : ''}`}>
         {/* Video Background */}
         <video
           ref={videoRef}

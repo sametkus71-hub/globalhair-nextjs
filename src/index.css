@@ -584,6 +584,12 @@ body.s-rood {
     will-change: transform, opacity;
   }
   
+  .berkant-page-enter {
+    animation: iosBottomSheetEnter 0.4s cubic-bezier(0.2, 0.0, 0, 1.0) forwards;
+    transform: translateY(100%) scale(0.97);
+    will-change: transform, opacity;
+  }
+  
   .reviews-page-exit,
   .booking-page-exit {
     animation: iosBottomSheetExit 0.35s cubic-bezier(0.4, 0.0, 1, 1.0) forwards;
