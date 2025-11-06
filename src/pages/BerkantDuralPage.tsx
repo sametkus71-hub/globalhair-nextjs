@@ -114,7 +114,10 @@ const BerkantDuralPage = () => {
         }
       `}} />
       
-      <div className={`fixed inset-0 w-full h-full overflow-hidden ${isEntering ? 'berkant-page-enter' : ''} ${isExiting ? 'reviews-page-exit' : ''}`}>
+      <div 
+        className={`fixed inset-0 w-full h-full overflow-hidden ${isEntering ? 'reviews-page-fullscreen' : ''} ${isExiting ? 'reviews-page-exit' : ''}`}
+        style={{ zIndex: 30 }}
+      >
         {/* Video Background */}
         <video
           ref={videoRef}
@@ -129,101 +132,111 @@ const BerkantDuralPage = () => {
         />
         
         {/* Gradient overlay */}
-        <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-black/5 via-black/20 to-black/50"></div>
+        <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-black/20 via-black/30 to-black/60"></div>
         
-        {/* Close button with gradient border */}
-        <button
-          onClick={handleClose}
-          className="fixed top-4 left-4 z-50 w-10 h-10 flex items-center justify-center transition-all duration-200 hover:opacity-80 rounded-full"
-          style={{
-            background: 'linear-gradient(135deg, rgba(98, 145, 186, 0.3), rgba(105, 135, 159, 0.3)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1)) border-box',
-            border: '1.5px solid transparent',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            boxShadow: 'inset 0 0 0 1px rgba(240, 240, 240, 0.1)'
-          }}
-          aria-label={language === 'nl' ? 'Sluiten' : 'Close'}
-        >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 4L4 12M4 4L12 12" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
-        
-        {/* Content overlay */}
-        <div className="relative z-10 w-full h-full flex flex-col justify-between px-6 py-8 pb-[8vh] sm:pb-[10vh]">
-          {/* Top container - Title */}
-          <div className={`pt-6 text-center transition-all duration-500 ease-out ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-white leading-[0.85] tracking-wide">
-              BERKANT
-            </h1>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl text-white leading-[0.85] tracking-wide font-medium">
-              DURAL
-            </h1>
-          </div>
-
-          {/* Bottom container - Description and Buttons */}
-          <div className="space-y-6">
-            <div className={`max-w-md transition-all duration-500 ease-out ${contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              <p className="text-xs leading-relaxed font-normal text-left text-white/90 font-inter">
-                {video.description}
-              </p>
+        {/* Centered Modal Container */}
+        <div className="h-full flex items-center justify-center p-4">
+          <section 
+            className="relative rounded-[24px] p-6 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] w-full max-w-2xl h-[90%] flex flex-col justify-between overflow-auto"
+            style={{ 
+              border: '1px solid transparent',
+              backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), linear-gradient(180deg, #4B555E 0%, #ACB9C1 15%, #FFFFFF 50%, #ACB9C1 85%, #4B555E 100%)',
+              backgroundOrigin: 'border-box',
+              backgroundClip: 'padding-box, border-box',
+            }}
+          >
+            {/* Close button inside modal */}
+            <button
+              onClick={handleClose}
+              className="absolute top-4 left-4 z-10 w-10 h-10 flex items-center justify-center transition-all duration-200 hover:opacity-80 rounded-full"
+              style={{
+                background: 'linear-gradient(135deg, rgba(98, 145, 186, 0.3), rgba(105, 135, 159, 0.3)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1)) border-box',
+                border: '1.5px solid transparent',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                boxShadow: 'inset 0 0 0 1px rgba(240, 240, 240, 0.1)'
+              }}
+              aria-label={language === 'nl' ? 'Sluiten' : 'Close'}
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 4L4 12M4 4L12 12" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+            
+            {/* Title at top */}
+            <div className={`text-center transition-all duration-500 ease-out pt-8 ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-white leading-[0.85] tracking-wide">
+                BERKANT
+              </h1>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl text-white leading-[0.85] tracking-wide font-medium">
+                DURAL
+              </h1>
             </div>
 
-            {/* Bottom Buttons */}
-            <div className={`transition-all duration-500 ease-out ${buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              <div className="flex flex-col items-start gap-4">
-                <button
-                  onClick={handleMethodsClick}
-                  className="animated-border-shine"
-                  style={{
-                    position: 'relative',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: '12px 28px',
-                    background: 'rgba(0, 0, 0, 0.35)',
-                    backdropFilter: 'blur(10px)',
-                    WebkitBackdropFilter: 'blur(10px)',
-                    border: 'none',
-                    borderRadius: '9999px',
-                    color: 'white',
-                    fontSize: '14px',
-                    fontWeight: 400,
-                    cursor: 'pointer',
-                    overflow: 'hidden',
-                    transition: 'transform 0.2s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'scale(1.02)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'scale(1)';
-                  }}
-                >
-                  <span style={{ position: 'relative', zIndex: 1 }}>
-                    {language === 'nl' ? 'Bekijk methodes' : 'View methods'}
-                  </span>
-                </button>
+            {/* Description and Buttons at bottom */}
+            <div className="space-y-6 mt-auto">
+              <div className={`max-w-md transition-all duration-500 ease-out ${contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                <p className="text-xs leading-relaxed font-normal text-left text-white/90 font-inter">
+                  {video.description}
+                </p>
+              </div>
 
-                {/* Next Video Control */}
-                {nextButtonVisible && (
-                  <div 
-                    onClick={handleNextVideo}
-                    className="cursor-pointer flex items-center gap-2 text-white/50 hover:text-white/90 transition-all duration-300 group ml-2"
+              {/* Bottom Buttons */}
+              <div className={`transition-all duration-500 ease-out ${buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                <div className="flex flex-col items-start gap-4">
+                  <button
+                    onClick={handleMethodsClick}
+                    className="animated-border-shine"
                     style={{
-                      opacity: nextButtonVisible ? 1 : 0,
-                      transform: nextButtonVisible ? 'translateY(0)' : 'translateY(10px)'
+                      position: 'relative',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: '12px 28px',
+                      background: 'rgba(0, 0, 0, 0.35)',
+                      backdropFilter: 'blur(10px)',
+                      WebkitBackdropFilter: 'blur(10px)',
+                      border: 'none',
+                      borderRadius: '9999px',
+                      color: 'white',
+                      fontSize: '14px',
+                      fontWeight: 400,
+                      cursor: 'pointer',
+                      overflow: 'hidden',
+                      transition: 'transform 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'scale(1.02)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'scale(1)';
                     }}
                   >
-                    <ChevronRight size={14} className="group-hover:translate-x-0.5 transition-transform duration-200" />
-                    <span className="text-xs font-light">
-                      {language === 'nl' ? 'Volgende video' : 'Next video'}
+                    <span style={{ position: 'relative', zIndex: 1 }}>
+                      {language === 'nl' ? 'Bekijk methodes' : 'View methods'}
                     </span>
-                  </div>
-                )}
+                  </button>
+
+                  {/* Next Video Control */}
+                  {nextButtonVisible && (
+                    <div 
+                      onClick={handleNextVideo}
+                      className="cursor-pointer flex items-center gap-2 text-white/50 hover:text-white/90 transition-all duration-300 group ml-2"
+                      style={{
+                        opacity: nextButtonVisible ? 1 : 0,
+                        transform: nextButtonVisible ? 'translateY(0)' : 'translateY(10px)'
+                      }}
+                    >
+                      <ChevronRight size={14} className="group-hover:translate-x-0.5 transition-transform duration-200" />
+                      <span className="text-xs font-light">
+                        {language === 'nl' ? 'Volgende video' : 'Next video'}
+                      </span>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
+          </section>
         </div>
       </div>
     </>
