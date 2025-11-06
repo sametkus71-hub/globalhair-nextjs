@@ -143,7 +143,7 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
 
         .berkant-badge {
           position: relative;
-          padding: 0.5rem 1rem;
+          padding: 0.65rem 1rem;
           border-radius: 9999px;
           background: linear-gradient(90deg, #132536 0%, #25496B 50%, #132536 100%);
           overflow: hidden;
@@ -173,7 +173,7 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
           font-size: 12px;
           line-height: 1;
           margin-top: -1px;
-          background: linear-gradient(119.16deg, #808080 -0.57%, #FFFFFF 60.78%, #808080 122.13%);
+          background: linear-gradient(119.16deg, #B8B8B8 -0.57%, #FFFFFF 60.78%, #B8B8B8 122.13%);
           -webkit-background-clip: text;
           background-clip: text;
           -webkit-text-fill-color: transparent;
