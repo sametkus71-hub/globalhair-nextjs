@@ -1,9 +1,9 @@
-import { MissionCardGlass } from '../mission/MissionCardGlass';
+import { BerkantVideoCard } from './BerkantVideoCard';
 
 export const MissionTabContent = () => {
   return (
-    <div className="h-full">
-      <MissionCardGlass />
+    <div className="h-full w-full">
+      <BerkantVideoCard />
     </div>
   );
 };
