@@ -12,17 +12,17 @@ export const HowTabContent = () => {
   const getTimelinePosition = () => {
     switch (activePhase) {
       case 'Pre-':
-        return '0%';
+        return '25%';
       case 'Treatment':
         return '50%';
       case 'After-':
-        return '100%';
+        return '75%';
     }
   };
 
   return (
-    <div className="h-full w-full overflow-hidden px-4 flex flex-col items-center justify-center">
-      <div className="w-full max-w-xs mx-auto flex flex-col items-center" style={{ gap: 'clamp(0.5rem, 1.2vh, 0.8rem)' }}>
+    <div className="h-full w-full overflow-hidden flex flex-col items-center justify-center">
+      <div className="w-full flex flex-col items-center px-4" style={{ gap: 'clamp(0.5rem, 1.2vh, 0.8rem)' }}>
         {/* Phase Selector */}
         <div 
           className="relative flex items-center justify-center gap-0 rounded-full"
@@ -60,7 +60,7 @@ export const HowTabContent = () => {
 
         {/* Video */}
         <div 
-          className="w-full relative rounded-lg overflow-hidden" 
+          className="relative rounded-lg overflow-hidden mx-auto" 
           style={{ 
             aspectRatio: '3/4',
             maxHeight: 'clamp(220px, 38vh, 320px)',
@@ -79,7 +79,7 @@ export const HowTabContent = () => {
 
         {/* Quote Text */}
         <p 
-          className="text-white/70 text-center"
+          className="text-white/70 text-center max-w-xs mx-auto"
           style={{
             fontSize: 'clamp(8px, 1vh, 9px)',
             fontWeight: 400,
@@ -90,7 +90,7 @@ export const HowTabContent = () => {
           Inmiddels heb ik al drie vrienden doorverwezen. GlobalHair maakt meer waar dan ze beloven.
         </p>
 
-        {/* Timeline */}
+        {/* Timeline - Full Width */}
         <div className="w-full relative bg-white/20 rounded-full" style={{ height: 'clamp(2px, 0.4vh, 3px)' }}>
           <div
             className="absolute top-1/2 -translate-y-1/2 bg-white rounded-full transition-all duration-500 ease-out"
