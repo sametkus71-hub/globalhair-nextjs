@@ -47,7 +47,7 @@ export const HowTabContent = () => {
               style={{
                 padding: 'clamp(0.3rem, 0.8vh, 0.5rem) clamp(1rem, 2.5vw, 1.5rem)',
                 fontSize: 'clamp(0.7rem, 1.3vh, 0.8rem)',
-                background: activePhase === phase ? '#00000033' : 'transparent',
+                backgroundColor: activePhase === phase ? '#00000033' : 'transparent',
                 backgroundImage: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
                 backgroundClip: 'text',
                 WebkitBackgroundClip: 'text',
