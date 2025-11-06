@@ -75,7 +75,7 @@ export const HowTabContent = () => {
             muted
             playsInline
             className="w-full h-full object-cover"
-            style={{ margin: '-30px' }}
+            style={{ marginTop: '-30px' }}
           />
         </div>
 
