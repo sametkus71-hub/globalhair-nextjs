@@ -1,5 +1,5 @@
 import { useLayoutEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Outlet } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
 import { MetaHead } from '@/components/MetaHead';
 import { PageTransition } from '@/components/PageTransition';
@@ -9,11 +9,7 @@ import { AnimatedHeadHero } from '@/components/haartransplantatie/AnimatedHeadHe
 import { GlassTabs } from '@/components/haartransplantatie/GlassTabs';
 import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
 
-interface HaartransplantatieLayoutProps {
-  children: React.ReactNode;
-}
-
-export const HaartransplantatieLayout = ({ children }: HaartransplantatieLayoutProps) => {
+export const HaartransplantatieLayout = () => {
   const { language } = useLanguage();
   const location = useLocation();
   
@@ -78,9 +74,9 @@ export const HaartransplantatieLayout = ({ children }: HaartransplantatieLayoutP
                     paddingBottom: 'clamp(5rem, 12vh, 8rem)' // Clear the footer buttons
                   }}
                 >
-                  {/* Content from specific page */}
-                  <div className="relative flex-1 overflow-hidden">
-                    {children}
+                  {/* Content from specific page - outlet handles smooth content transitions */}
+                  <div className="relative flex-1 overflow-hidden transition-opacity duration-200">
+                    <Outlet />
                   </div>
                 </div>
               </div>

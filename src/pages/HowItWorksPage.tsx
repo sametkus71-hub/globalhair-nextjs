@@ -1,12 +1,7 @@
-import { HaartransplantatieLayout } from '@/components/haartransplantatie/HaartransplantatieLayout';
 import { HowTabContent } from '@/components/haartransplantatie/HowTabContent';
 
 const HowItWorksPage = () => {
-  return (
-    <HaartransplantatieLayout>
-      <HowTabContent />
-    </HaartransplantatieLayout>
-  );
+  return <HowTabContent />;
 };
 
 export default HowItWorksPage;

@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 
 // Lazy load all pages for code splitting
 const HomePage = lazy(() => import('@/pages/HomePage'));
+const HaartransplantatieLayoutPage = lazy(() => import('@/pages/HaartransplantatieLayoutPage'));
 const TreatmentsPage = lazy(() => import('@/pages/TreatmentsPage'));
 const HaartransplantatieReviewsPage = lazy(() => import('@/pages/HaartransplantatieReviewsPage'));
 const HowItWorksPage = lazy(() => import('@/pages/HowItWorksPage'));
@@ -43,16 +44,22 @@ export const SEORoutes = () => {
     <Suspense fallback={<PageLoader />}>
       <Routes>
       {/* Root redirect - temporarily bypassing intro page */}
-      <Route path="/" element={<TreatmentsPage />} />
+      <Route path="/" element={<HaartransplantatieLayoutPage />}>
+        <Route index element={<TreatmentsPage />} />
+      </Route>
       
-      {/* Dutch routes */}
-      <Route path="/nl" element={<TreatmentsPage />} />
-      <Route path="/nl/haartransplantatie" element={<TreatmentsPage />} />
-      <Route path="/nl/haartransplantatie/reviews" element={<HaartransplantatieReviewsPage />} />
-      <Route path="/nl/haartransplantatie/how" element={<HowItWorksPage />} />
-      <Route path="/nl/haartransplantatie/traject" element={<TreatmentsPage />} />
-      <Route path="/nl/haartransplantatie/mission" element={<HaartransplantatieMissionPage />} />
-      <Route path="/nl/haartransplantatie/contact" element={<HaartransplantatieContactPage />} />
+      {/* Dutch routes - nested for smooth tab transitions */}
+      <Route path="/nl" element={<HaartransplantatieLayoutPage />}>
+        <Route index element={<TreatmentsPage />} />
+      </Route>
+      <Route path="/nl/haartransplantatie" element={<HaartransplantatieLayoutPage />}>
+        <Route index element={<TreatmentsPage />} />
+        <Route path="reviews" element={<HaartransplantatieReviewsPage />} />
+        <Route path="how" element={<HowItWorksPage />} />
+        <Route path="traject" element={<TreatmentsPage />} />
+        <Route path="mission" element={<HaartransplantatieMissionPage />} />
+        <Route path="contact" element={<HaartransplantatieContactPage />} />
+      </Route>
       <Route path="/nl/haartransplantatie-old" element={<HaartransplantatieOldPage />} />
       <Route path="/nl/haaranalyse" element={<HaaranalysePage />} />
       <Route path="/nl/behandelopties" element={<TreatmentOptionsPage />} />
@@ -76,18 +83,24 @@ export const SEORoutes = () => {
       <Route path="/nl/booking-success" element={<BookingSuccessPage />} />
       <Route path="/nl/contact" element={<ContactPage />} />
       
-      {/* English routes */}
-      <Route path="/en" element={<TreatmentsPage />} />
-      <Route path="/en/haartransplantatie" element={<TreatmentsPage />} />
-      <Route path="/en/haartransplantatie/traject" element={<TreatmentsPage />} />
-      <Route path="/en/haartransplantatie/mission" element={<HaartransplantatieMissionPage />} />
-      <Route path="/en/haartransplantatie/contact" element={<HaartransplantatieContactPage />} />
-      <Route path="/en/hair-transplant" element={<TreatmentsPage />} />
-      <Route path="/en/hair-transplant/reviews" element={<HaartransplantatieReviewsPage />} />
-      <Route path="/en/hair-transplant/how" element={<HowItWorksPage />} />
-      <Route path="/en/hair-transplant/traject" element={<TreatmentsPage />} />
-      <Route path="/en/hair-transplant/mission" element={<HaartransplantatieMissionPage />} />
-      <Route path="/en/hair-transplant/contact" element={<HaartransplantatieContactPage />} />
+      {/* English routes - nested for smooth tab transitions */}
+      <Route path="/en" element={<HaartransplantatieLayoutPage />}>
+        <Route index element={<TreatmentsPage />} />
+      </Route>
+      <Route path="/en/haartransplantatie" element={<HaartransplantatieLayoutPage />}>
+        <Route index element={<TreatmentsPage />} />
+        <Route path="traject" element={<TreatmentsPage />} />
+        <Route path="mission" element={<HaartransplantatieMissionPage />} />
+        <Route path="contact" element={<HaartransplantatieContactPage />} />
+      </Route>
+      <Route path="/en/hair-transplant" element={<HaartransplantatieLayoutPage />}>
+        <Route index element={<TreatmentsPage />} />
+        <Route path="reviews" element={<HaartransplantatieReviewsPage />} />
+        <Route path="how" element={<HowItWorksPage />} />
+        <Route path="traject" element={<TreatmentsPage />} />
+        <Route path="mission" element={<HaartransplantatieMissionPage />} />
+        <Route path="contact" element={<HaartransplantatieContactPage />} />
+      </Route>
       <Route path="/en/hair-transplant-old" element={<HaartransplantatieOldPage />} />
       <Route path="/en/hair-analysis" element={<HaaranalysePage />} />
       <Route path="/en/treatment-options" element={<TreatmentOptionsPage />} />
