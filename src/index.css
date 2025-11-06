@@ -204,6 +204,10 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
     font-size: 16px;
     touch-action: manipulation;
   }
+
+  /* Hide elements when package popup is opening/open */
+  body.popup-open .hide-when-popup { display: none !important; }
+
   
   /* Prevent double-tap zoom globally */
   * {

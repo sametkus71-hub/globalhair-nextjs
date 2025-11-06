@@ -133,6 +133,9 @@ export const usePopupClose = () => {
       sessionStorage.removeItem('previousPath');
       sessionStorage.removeItem('previousPage');
       sessionStorage.setItem('skipPageAnimations', 'true');
+
+      // Remove popup flag
+      if (typeof document !== 'undefined') document.body.classList.remove('popup-open');
       
       // Navigate to haartransplantatie
       navigate(getCloseTargetPath());

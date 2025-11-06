@@ -24,8 +24,11 @@ export const PackageStandardPage = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const { handlePopupClose } = usePopupClose();
 
-  // Preload haartransplantatie page assets for smooth navigation back
+  // Ensure base page assets are preloaded and mark body as popup-open
   useEffect(() => {
+    // Mark popup-open to hide header immediately on mount and during initial direct loads
+    if (typeof document !== 'undefined') document.body.classList.add('popup-open');
+
     const assetsToPreload = [
       '/assets/head-rotation.mp4',
       '/assets/placeholder-head.png',
@@ -47,6 +50,10 @@ export const PackageStandardPage = () => {
       link.href = asset;
       document.head.appendChild(link);
     });
+
+    return () => {
+      if (typeof document !== 'undefined') document.body.classList.remove('popup-open');
+    };
   }, []);
 
   // Sync tier from URL when params change (country always stays 'nl' by default)

@@ -37,6 +37,8 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
 
   const handlePackageClick = (tier: 'standard' | 'premium' | 'advanced') => {
     const basePath = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
+    // Add body flag immediately to avoid header flash before route change
+    if (typeof document !== 'undefined') document.body.classList.add('popup-open');
     navigate(`${basePath}/nl/${tier}`);
   };
 
