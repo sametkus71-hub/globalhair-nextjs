@@ -19,6 +19,9 @@ const BerkantDuralPage = () => {
   const [contentVisible, setContentVisible] = useState(false);
   const [buttonVisible, setButtonVisible] = useState(false);
   const [nextButtonVisible, setNextButtonVisible] = useState(false);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchCurrent, setTouchCurrent] = useState<number | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
 
   const videoId = searchParams.get('video');
   const video = BERKANT_VIDEOS.find(v => v.id === videoId) || BERKANT_VIDEOS[0];
@@ -49,6 +52,45 @@ const BerkantDuralPage = () => {
     sessionStorage.setItem('previousPath', window.location.pathname);
     const homePath = language === 'nl' ? '/nl' : '/en';
     navigate(homePath);
+  };
+
+  // Swipe down to close handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.touches[0].clientY);
+    setIsDragging(true);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!touchStart) return;
+    
+    const currentTouch = e.touches[0].clientY;
+    const diff = currentTouch - touchStart;
+    
+    // Only allow downward swipes
+    if (diff > 0) {
+      setTouchCurrent(currentTouch);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchCurrent) {
+      setTouchStart(null);
+      setTouchCurrent(null);
+      setIsDragging(false);
+      return;
+    }
+
+    const diff = touchCurrent - touchStart;
+    
+    // If swiped down more than 150px, close the modal
+    if (diff > 150) {
+      handleClose();
+    }
+    
+    // Reset states
+    setTouchStart(null);
+    setTouchCurrent(null);
+    setIsDragging(false);
   };
 
   // Handle video loading and staggered entrance animations
@@ -143,12 +185,19 @@ const BerkantDuralPage = () => {
           style={{ zIndex: 3, paddingTop: '50px', paddingBottom: '100px' }}
         >
           <section
-            className="relative rounded-[24px] p-6 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] w-full max-w-2xl flex-1 flex flex-col justify-between overflow-hidden"
-            style={{ 
+            className="relative rounded-[24px] p-6 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] w-full max-w-2xl flex-1 flex flex-col justify-between overflow-hidden touch-none"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            style={{
               border: '1px solid transparent',
               backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), linear-gradient(180deg, #4B555E 0%, #ACB9C1 15%, #FFFFFF 50%, #ACB9C1 85%, #4B555E 100%)',
               backgroundOrigin: 'border-box',
               backgroundClip: 'padding-box, border-box',
+              transform: isDragging && touchStart && touchCurrent 
+                ? `translateY(${Math.max(0, touchCurrent - touchStart)}px)` 
+                : 'translateY(0)',
+              transition: isDragging ? 'none' : 'transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1)'
             }}
           >
             {/* Berkant video as modal background */}
