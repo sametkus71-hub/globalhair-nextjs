@@ -40,21 +40,21 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
             loop
             playsInline
             preload="metadata"
-            className="w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover z-[1]"
           />
           
           {/* Gradient overlay - darker at bottom, transparent at top */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none z-[2]" />
           
           {/* Top left - Name badge */}
-          <div className="absolute top-4 left-4">
+          <div className="absolute top-4 left-4 z-[3]">
             <div className="px-4 py-2 rounded-full bg-black/30 backdrop-blur-sm border border-white/20">
               <span className="text-sm font-medium text-white">Berkant Dural</span>
             </div>
           </div>
           
           {/* Top right - Mute icon */}
-          <div className="absolute top-4 right-4">
+          <div className="absolute top-4 right-4 z-[3]">
             <svg 
               className="w-6 h-6 text-white/80" 
               fill="none" 
