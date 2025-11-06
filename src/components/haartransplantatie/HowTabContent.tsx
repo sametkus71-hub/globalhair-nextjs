@@ -25,12 +25,12 @@ export const HowTabContent = () => {
       <div className="w-full flex flex-col items-center px-4" style={{ gap: 'clamp(0.3rem, 0.6vh, 0.5rem)' }}>
         {/* Phase Selector */}
         <div 
-          className="relative flex items-center justify-center gap-0 rounded-full"
+          className="relative flex items-center justify-center gap-1 rounded-full border border-white/20"
           style={{
-            background: 'rgba(255, 255, 255, 0.03)',
-            backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
-            padding: 'clamp(0.2rem, 0.4vh, 0.3rem)',
+            background: 'rgba(255, 255, 255, 0.08)',
+            backdropFilter: 'blur(20px)',
+            borderRadius: '9999px',
+            padding: '5px',
             zIndex: 10,
           }}
         >
@@ -38,20 +38,14 @@ export const HowTabContent = () => {
             <button
               key={phase}
               onClick={() => setActivePhase(phase)}
-              className={`relative rounded-full font-light transition-all duration-300`}
+              className={`relative rounded-full font-light transition-all duration-300 ease-out ${
+                activePhase === phase
+                  ? 'silver-gradient-border bg-white/10 text-white scale-105'
+                  : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
+              }`}
               style={{
-                background: activePhase === phase
-                  ? 'rgba(255, 255, 255, 0.1)'
-                  : 'transparent',
-                border: activePhase === phase
-                  ? '1px solid rgba(255, 255, 255, 0.2)'
-                  : '1px solid transparent',
                 padding: 'clamp(0.3rem, 0.8vh, 0.5rem) clamp(1rem, 2.5vw, 1.5rem)',
                 fontSize: 'clamp(0.7rem, 1.3vh, 0.8rem)',
-                backgroundImage: 'linear-gradient(119.16deg, #808080 -0.57%, #FFFFFF 60.78%, #808080 122.13%)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
               }}
             >
               {phase}
@@ -121,6 +115,33 @@ export const HowTabContent = () => {
           Bekijk onze methodes
         </a>
       </div>
+
+      <style>{`
+        .silver-gradient-border {
+          position: relative;
+        }
+
+        .silver-gradient-border::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1px;
+          border-radius: inherit;
+          background: linear-gradient(80deg, #949494 7%, #838e94 16%, #b5b5b5 34%, #ACB9C1 51%, #4e5964 78%, #727272 105%);
+          -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .silver-gradient-border > * {
+          position: relative;
+          z-index: 1;
+        }
+      `}</style>
     </div>
   );
 };
