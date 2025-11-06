@@ -36,10 +36,9 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
   const navigate = useNavigate();
 
   const handlePackageClick = (tier: 'standard' | 'premium' | 'advanced') => {
-    const basePath = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
-    // Add body flag immediately to avoid header flash before route change
+    // Always use Dutch path for package popups
     if (typeof document !== 'undefined') document.body.classList.add('popup-open');
-    navigate(`${basePath}/nl/${tier}`);
+    navigate(`/nl/haartransplantatie/nl/${tier}`);
   };
 
   const renderActiveLeaves = (count: number) => {
