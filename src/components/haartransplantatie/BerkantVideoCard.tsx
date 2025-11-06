@@ -156,11 +156,9 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
 
         .berkant-badge {
           position: relative;
-          padding: 1rem 1.25rem;
+          padding: 0.65rem 1rem;
           border-radius: 9999px;
-          background: rgba(0, 0, 0, 0.35);
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
+          background: linear-gradient(90deg, #132536 0%, #25496B 50%, #132536 100%);
           overflow: hidden;
           display: flex;
           align-items: center;
@@ -180,7 +178,6 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
           -webkit-mask-composite: xor;
           mask-composite: exclude;
           pointer-events: none;
-          opacity: 0.4;
         }
 
         .berkant-badge-text {
@@ -189,9 +186,31 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
           font-size: 12px;
           line-height: 1;
           margin-top: -1px;
-          color: white;
+          background: linear-gradient(119.16deg, #B8B8B8 -0.57%, #FFFFFF 60.78%, #B8B8B8 122.13%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
           position: relative;
           z-index: 1;
+        }
+
+        .berkant-achievement-badge {
+          padding: 1rem 1.25rem;
+          background: rgba(0, 0, 0, 0.35);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+        }
+
+        .berkant-achievement-badge::before {
+          opacity: 0.4;
+        }
+
+        .berkant-achievement-badge .berkant-badge-text {
+          color: white;
+          background: none;
+          -webkit-background-clip: unset;
+          background-clip: unset;
+          -webkit-text-fill-color: white;
         }
       `}</style>
     </div>
