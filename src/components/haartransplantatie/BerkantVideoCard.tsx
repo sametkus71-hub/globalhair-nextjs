@@ -57,7 +57,7 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
           {/* Top left - Name badge */}
           <div className="absolute top-4 left-4">
             <div className="berkant-badge">
-              <span className="text-white" style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: '12px' }}>Berkant Dural</span>
+              <span className="berkant-badge-text">Berkant Dural</span>
             </div>
           </div>
           
@@ -147,6 +147,9 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
           border-radius: 9999px;
           background: linear-gradient(90deg, #132536 0%, #25496B 50%, #132536 100%);
           overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .berkant-badge::before {
@@ -162,6 +165,20 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
           -webkit-mask-composite: xor;
           mask-composite: exclude;
           pointer-events: none;
+        }
+
+        .berkant-badge-text {
+          font-family: Inter, sans-serif;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 1;
+          margin-top: -1px;
+          background: linear-gradient(119.16deg, #808080 -0.57%, #FFFFFF 60.78%, #808080 122.13%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          position: relative;
+          z-index: 1;
         }
       `}</style>
     </div>
