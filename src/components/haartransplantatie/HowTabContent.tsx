@@ -52,7 +52,6 @@ export const HowTabContent = () => {
                 backgroundClip: 'text',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                opacity: activePhase === phase ? 1 : 0.5,
               }}
             >
               {phase}
