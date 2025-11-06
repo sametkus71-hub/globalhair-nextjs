@@ -551,6 +551,17 @@ body.s-rood {
     will-change: transform, opacity;
   }
 
+  /* Berkant modal animations - only modal slides, not background */
+  .berkant-modal-enter {
+    animation: modalSlideUp 0.4s cubic-bezier(0.2, 0.0, 0, 1.0) forwards;
+    transform: translateY(100%) scale(0.97);
+    opacity: 0;
+  }
+
+  .berkant-modal-exit {
+    animation: modalSlideDown 0.35s cubic-bezier(0.4, 0.0, 1, 1.0) forwards;
+  }
+
   /* Grid Item Entrance Animation - Pure CSS with staggered delays */
   .grid-item-entrance {
     opacity: 0;
@@ -730,6 +741,32 @@ body.s-rood {
 @keyframes iosBottomSheetExit {
   0% {
     transform: translateY(0%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%) scale(0.97);
+    opacity: 0;
+  }
+}
+
+@keyframes modalSlideUp {
+  0% {
+    transform: translateY(100%) scale(0.97);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(-2%) scale(0.99);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideDown {
+  0% {
+    transform: translateY(0) scale(1);
     opacity: 1;
   }
   100% {

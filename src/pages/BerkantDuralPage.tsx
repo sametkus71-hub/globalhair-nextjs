@@ -116,27 +116,33 @@ const BerkantDuralPage = () => {
       `}} />
       
       <div 
-        className={`fixed inset-0 w-full h-full overflow-hidden ${isEntering ? 'reviews-page-fullscreen' : ''} ${isExiting ? 'reviews-page-exit' : ''}`}
+        className="fixed inset-0 w-full h-full overflow-hidden"
         style={{ zIndex: 30 }}
       >
-        {/* Main site background video */}
+        {/* Static background video - never animates */}
         <video
           autoPlay
           loop
           muted
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ opacity: 1.0 }}
+          style={{ zIndex: 1 }}
         >
           <source src="/assets/background-animation.mp4" type="video/mp4" />
         </video>
         
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-black/20 via-black/30 to-black/60"></div>
+        {/* Fade-in dark overlay */}
+        <div 
+          className={`absolute inset-0 bg-gradient-to-b from-black/20 via-black/30 to-black/60 transition-opacity duration-400 ${isEntering ? 'opacity-0' : 'opacity-100'}`}
+          style={{ zIndex: 2 }}
+        />
         
-        {/* Centered Modal Container */}
-        <div className="h-full flex items-center justify-center p-4">
-          <section 
+        {/* Animated modal wrapper - only this slides up */}
+        <div 
+          className={`absolute inset-0 flex items-center justify-center p-4 ${isEntering ? 'berkant-modal-enter' : ''} ${isExiting ? 'berkant-modal-exit' : ''}`}
+          style={{ zIndex: 3 }}
+        >
+          <section
             className="relative rounded-[24px] p-6 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] w-full max-w-2xl h-[90%] flex flex-col justify-between overflow-hidden"
             style={{ 
               border: '1px solid transparent',
