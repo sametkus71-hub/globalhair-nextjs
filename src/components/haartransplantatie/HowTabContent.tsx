@@ -37,11 +37,7 @@ export const HowTabContent = () => {
             <button
               key={phase}
               onClick={() => setActivePhase(phase)}
-              className={`relative rounded-full font-light transition-all duration-300 ${
-                activePhase === phase
-                  ? 'text-white'
-                  : 'text-white/50 hover:text-white/70'
-              }`}
+              className={`relative rounded-full font-light transition-all duration-300`}
               style={{
                 background: activePhase === phase
                   ? 'rgba(255, 255, 255, 0.1)'
@@ -51,6 +47,11 @@ export const HowTabContent = () => {
                   : '1px solid transparent',
                 padding: 'clamp(0.3rem, 0.8vh, 0.5rem) clamp(1rem, 2.5vw, 1.5rem)',
                 fontSize: 'clamp(0.7rem, 1.3vh, 0.8rem)',
+                backgroundImage: 'linear-gradient(119.16deg, #808080 -0.57%, #FFFFFF 60.78%, #808080 122.13%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                opacity: activePhase === phase ? 1 : 0.5,
               }}
             >
               {phase}
