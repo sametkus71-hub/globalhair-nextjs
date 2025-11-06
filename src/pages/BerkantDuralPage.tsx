@@ -271,12 +271,13 @@ const BerkantDuralPage = () => {
         {/* Close button with gradient border */}
         <button
           onClick={handleClose}
-          className="fixed top-4 left-4 z-50 w-10 h-10 flex items-center justify-center transition-opacity duration-200 hover:opacity-70 rounded-full"
+          className="fixed top-4 left-4 z-50 w-10 h-10 flex items-center justify-center transition-all duration-200 hover:opacity-80 rounded-full"
           style={{
-            background: 'linear-gradient(135deg, rgba(98, 145, 186, 0.3), rgba(105, 135, 159, 0.3)) padding-box, conic-gradient(from 0deg at center center, transparent, rgba(255, 255, 255, 0.3) 10%, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0.3) 30%, transparent 40%) border-box',
-            border: '1px solid transparent',
+            background: 'linear-gradient(135deg, rgba(98, 145, 186, 0.3), rgba(105, 135, 159, 0.3)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1)) border-box',
+            border: '1.5px solid transparent',
             backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)'
+            WebkitBackdropFilter: 'blur(20px)',
+            boxShadow: 'inset 0 0 0 1px rgba(240, 240, 240, 0.1)'
           }}
           aria-label={language === 'nl' ? 'Sluiten' : 'Close'}
         >
