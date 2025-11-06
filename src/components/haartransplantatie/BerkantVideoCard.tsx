@@ -21,7 +21,7 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
   }, [videoId]);
 
   const handleClick = () => {
-    navigate(`/${language}/mission?video=${video.id}`);
+    navigate(`/${language}/berkantdural?video=${video.id}`);
   };
 
   return (
