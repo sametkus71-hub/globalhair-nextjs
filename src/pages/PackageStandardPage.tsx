@@ -5,7 +5,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import chevronRightSvg from '@/assets/chevron-right.svg';
 import leafSvg from '@/assets/leaf.svg';
 import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
-import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
+import { PopupCloseButton, usePopupClose, SwipeablePopupWrapper } from '@/components/PopupCloseButton';
 
 type FeatureKey = 'fue' | 'comfort' | 'followup' | 'support' | 'precision' | 'stemcell' | 'prime' | 'recovery' | 'anesthesia' | 'biotine' | 'shampoo' | 'washes' | 'followup2' | 'stemcellrepair' | 'v6prime' | 'v6recovery';
 
@@ -350,17 +350,18 @@ export const PackageStandardPage = () => {
           className="h-full flex items-start justify-center p-4 pt-4"
         >
           <main className="flex flex-col w-full max-w-2xl h-[calc(100vh-32px)]">
-            <section 
-              className="relative rounded-[24px] p-4 pb-6 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] h-[90%] flex flex-col"
-              style={{ 
-                border: '1px solid transparent',
-                backgroundImage: getSectionBorderGradient(),
-                backgroundOrigin: 'border-box',
-                backgroundClip: 'padding-box, border-box',
-                opacity: isTransitioning ? 0.7 : 1,
-                transition: 'opacity 0.3s ease-in-out'
-              }}
-            >
+            <SwipeablePopupWrapper onClose={handleClose}>
+              <section 
+                className="relative rounded-[24px] p-4 pb-6 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] h-[90%] flex flex-col"
+                style={{ 
+                  border: '1px solid transparent',
+                  backgroundImage: getSectionBorderGradient(),
+                  backgroundOrigin: 'border-box',
+                  backgroundClip: 'padding-box, border-box',
+                  opacity: isTransitioning ? 0.7 : 1,
+                  transition: 'opacity 0.3s ease-in-out'
+                }}
+              >
               {/* Close button inside section */}
               <PopupCloseButton onClose={handleClose} className="absolute top-4 left-4 z-10" />
 
@@ -617,10 +618,11 @@ export const PackageStandardPage = () => {
               {getCurrentPrice()}
             </div>
           </div>
-        </div>
-      </section>
-    </main>
-  </div>
+          </div>
+        </section>
+            </SwipeablePopupWrapper>
+      </main>
+    </div>
 </div>
 <FooterCTAGlass />
 </>

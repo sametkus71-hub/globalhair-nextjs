@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,12 @@ interface PopupCloseButtonProps {
   className?: string;
   style?: React.CSSProperties;
   isBackButton?: boolean;
+}
+
+interface SwipeablePopupWrapperProps {
+  onClose: () => void;
+  children: React.ReactNode;
+  className?: string;
 }
 
 export const PopupCloseButton: React.FC<PopupCloseButtonProps> = ({ 
@@ -53,34 +59,84 @@ export const PopupCloseButton: React.FC<PopupCloseButtonProps> = ({
   );
 };
 
+// Swipeable wrapper component for popups
+export const SwipeablePopupWrapper: React.FC<SwipeablePopupWrapperProps> = ({ onClose, children, className = "" }) => {
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchCurrent, setTouchCurrent] = useState<number | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.touches[0].clientY);
+    setIsDragging(true);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!touchStart) return;
+    
+    const currentTouch = e.touches[0].clientY;
+    const diff = currentTouch - touchStart;
+    
+    if (diff > 0) {
+      setTouchCurrent(currentTouch);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchCurrent) {
+      setTouchStart(null);
+      setTouchCurrent(null);
+      setIsDragging(false);
+      return;
+    }
+
+    const diff = touchCurrent - touchStart;
+    
+    if (diff > 150) {
+      onClose();
+    }
+    
+    setTouchStart(null);
+    setTouchCurrent(null);
+    setIsDragging(false);
+  };
+
+  return (
+    <div
+      className={`touch-none ${className}`}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      style={{
+        transform: isDragging && touchStart && touchCurrent 
+          ? `translateY(${Math.max(0, touchCurrent - touchStart)}px)` 
+          : 'translateY(0)',
+        transition: isDragging ? 'none' : 'transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1)'
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
 // Hook for consistent popup close behavior
 export const usePopupClose = () => {
   const { language } = useLanguage();
   const navigate = useNavigate();
 
   const getCloseTargetPath = () => {
-    // Check if user came from v6hairboost
-    const previousPage = sessionStorage.getItem('previousPage');
-    
-    if (previousPage && previousPage.includes('v6hairboost')) {
-      return language === 'nl' ? '/nl/v6-hairboost' : '/en/v6-hairboost';
-    }
-    
-    // Default to haartransplantatie
+    // Always return to haartransplantatie
     return language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
   };
 
   const handlePopupClose = (delay: number = 200) => {
     setTimeout(() => {
-      // Clear stored paths
       sessionStorage.removeItem('previousPath');
       sessionStorage.removeItem('previousPage');
       sessionStorage.setItem('skipPageAnimations', 'true');
       
-      // Go back to previous page in browser history
-      navigate(-1);
+      // Navigate to haartransplantatie
+      navigate(getCloseTargetPath());
       
-      // Remove skip flag after navigation
       setTimeout(() => {
         sessionStorage.removeItem('skipPageAnimations');
       }, 100);
