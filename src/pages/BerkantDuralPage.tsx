@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Camera } from 'lucide-react';
 import { BERKANT_VIDEOS } from '@/data/berkantVideos';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
@@ -74,183 +74,79 @@ const BerkantDuralPage = () => {
   return (
     <>
       <style dangerouslySetInnerHTML={{__html: `
-        @property --gradient-opacity {
-          syntax: "<number>";
-          initial-value: 1;
-          inherits: false;
-        }
-
-        @property --gradient-angle {
-          syntax: "<angle>";
-          initial-value: 0deg;
-          inherits: false;
-        }
-
-        @property --gradient-angle-offset {
-          syntax: "<angle>";
-          initial-value: 0deg;
-          inherits: false;
-        }
-
-        @property --gradient-percent {
-          syntax: "<percentage>";
-          initial-value: 5%;
-          inherits: false;
-        }
-
-        @property --gradient-shine {
-          syntax: "<color>";
-          initial-value: white;
-          inherits: false;
-        }
-
-        .shiny-cta {
-          --shiny-cta-bg: linear-gradient(135deg, rgba(98, 145, 186, 0.3), rgba(105, 135, 159, 0.3));
-          --shiny-cta-bg-subtle: rgba(240, 240, 240, 0.1);
-          --shiny-cta-fg: #ffffff;
-          --shiny-cta-highlight: #ffffff;
-          --shiny-cta-highlight-subtle: #ffffff;
-          --animation: gradient-angle linear infinite;
-          --duration: 10s;
-          --shadow-size: 2px;
-          --transition: 800ms cubic-bezier(0.25, 1, 0.5, 1);
-          
-          isolation: isolate;
-          position: relative;
-          overflow: hidden;
-          cursor: pointer;
-          outline-offset: 4px;
-          padding: 0.75rem 3rem;
-          font-family: var(--font-body), -apple-system, BlinkMacSystemFont, sans-serif;
-          font-size: 0.75rem;
-          line-height: 1.2;
-          font-weight: 400;
-          letter-spacing: 0.025em;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 360px;
-          color: var(--shiny-cta-fg);
-          background: var(--shiny-cta-bg) padding-box,
-            conic-gradient(
-              from calc(var(--gradient-angle) - var(--gradient-angle-offset)) at center center,
-              transparent,
-              color-mix(in srgb, var(--shiny-cta-highlight) calc(var(--gradient-opacity) * 3%), transparent) var(--gradient-percent),
-              color-mix(in srgb, var(--gradient-shine) calc(var(--gradient-opacity) * 5%), transparent) calc(var(--gradient-percent) * 2),
-              color-mix(in srgb, var(--shiny-cta-highlight) calc(var(--gradient-opacity) * 3%), transparent) calc(var(--gradient-percent) * 3),
-              transparent calc(var(--gradient-percent) * 4)
-            ) border-box;
-          box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          transition: var(--transition);
-          transition-property: --gradient-angle-offset, --gradient-percent, --gradient-shine;
-        }
-
-        .shiny-cta::before,
-        .shiny-cta span::before {
-          content: "";
-          pointer-events: none;
-          position: absolute;
-          inset-inline-start: 50%;
-          inset-block-start: 50%;
-          translate: -50% -50%;
-          z-index: -1;
-        }
-
-        .shiny-cta::after {
-          content: "";
-          pointer-events: none;
-          position: absolute;
-          z-index: -1;
-          --animation: shimmer linear infinite;
-          width: 150%;
-          aspect-ratio: 1;
-          background: linear-gradient(
-            -50deg,
-            transparent,
-            var(--shiny-cta-highlight),
-            transparent
-          );
-          mask-image: radial-gradient(circle at bottom, transparent 40%, black);
-          opacity: 0.6;
-          inset-inline-start: 30%;
-          inset-block-start: 30%;
-          translate: -30% -30%;
-        }
-
-        .shiny-cta span {
-          z-index: 1;
-        }
-
-        .shiny-cta span::before {
-          --size: calc(100% + 1rem);
-          width: var(--size);
-          height: var(--size);
-          box-shadow: inset 0 -1ex 2rem 4px var(--shiny-cta-highlight);
-          opacity: 0;
-          transition: opacity var(--transition);
-          animation: calc(var(--duration) * 1.5) breathe linear infinite;
-        }
-
-        .shiny-cta,
-        .shiny-cta::before,
-        .shiny-cta::after {
-          animation: var(--animation) var(--duration),
-            var(--animation) calc(var(--duration) / 0.4) reverse paused;
-          animation-composition: add;
-        }
-
-        .shiny-cta:is(:hover, :focus-visible) {
-          --gradient-percent: 20%;
-          --gradient-angle-offset: 95deg;
-          --gradient-shine: var(--shiny-cta-highlight-subtle);
-        }
-
-        .shiny-cta:is(:hover, :focus-visible),
-        .shiny-cta:is(:hover, :focus-visible)::before,
-        .shiny-cta:is(:hover, :focus-visible)::after {
-          animation-play-state: running;
-        }
-
-        .shiny-cta:is(:hover, :focus-visible) span::before {
-          opacity: 1;
-        }
-
-        @keyframes gradient-angle {
+        @keyframes border-shine-rotate {
           0% {
-            --gradient-angle: 0deg;
-            --gradient-opacity: 0.1;
-          }
-          25% {
-            --gradient-angle: 90deg;
-            --gradient-opacity: 0.05;
+            background-position: 0% 50%;
           }
           50% {
-            --gradient-angle: 180deg;
-            --gradient-opacity: 0.02;
-          }
-          75% {
-            --gradient-angle: 270deg;
-            --gradient-opacity: 0.05;
+            background-position: 100% 50%;
           }
           100% {
-            --gradient-angle: 360deg;
-            --gradient-opacity: 0.1;
+            background-position: 0% 50%;
           }
         }
 
-        @keyframes shimmer {
-          to {
-            rotate: 360deg;
-          }
+        .animated-border-shine {
+          position: relative;
+          overflow: visible;
         }
 
-        @keyframes breathe {
-          from, to {
-            scale: 1;
-          }
-          50% {
-            scale: 1.2;
-          }
+        .animated-border-shine::before {
+          content: '';
+          position: absolute;
+          inset: -2px;
+          border-radius: 9999px;
+          padding: 2px;
+          background: linear-gradient(
+            90deg,
+            #4B555E 0%,
+            #ACB9C1 15.43%,
+            #FFFFFF 49.49%,
+            #ACB9C1 87.50%,
+            #4B555E 100%
+          );
+          background-size: 200% 100%;
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          animation: border-shine-rotate 3s linear infinite;
+          pointer-events: none;
+        }
+
+        .silver-gradient-border::before {
+          content: '';
+          position: absolute;
+          inset: -1.5px;
+          border-radius: 50%;
+          padding: 1.5px;
+          background: linear-gradient(
+            180deg,
+            #4B555E 0%,
+            #ACB9C1 15.43%,
+            #FFFFFF 49.49%,
+            #ACB9C1 87.50%,
+            #4B555E 100%
+          );
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+        }
+
+        .cta-button-glow::after {
+          content: '';
+          position: absolute;
+          inset: -10px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          pointer-events: none;
+          z-index: -1;
+        }
+
+        .animated-border-shine:hover .cta-button-glow::after {
+          opacity: 1;
         }
       `}} />
       
@@ -269,7 +165,7 @@ const BerkantDuralPage = () => {
         />
         
         {/* Gradient overlay */}
-        <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-black/10 via-black/30 to-black/60"></div>
+        <div className="absolute inset-0 w-full h-full bg-gradient-to-b from-black/5 via-black/20 to-black/50"></div>
         
         {/* Close button with gradient border */}
         <button
@@ -312,13 +208,53 @@ const BerkantDuralPage = () => {
             {/* Bottom Buttons */}
             <div className={`transition-all duration-500 ease-out ${buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
               <div className="flex flex-col items-start gap-4">
-                <button 
-                  onClick={handleMethodsClick} 
-                  className="shiny-cta"
+                <button
+                  onClick={handleMethodsClick}
+                  className="animated-border-shine"
+                  style={{
+                    position: 'relative',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '14px 20px 14px 24px',
+                    background: 'rgba(0, 0, 0, 0.4)',
+                    backdropFilter: 'blur(10px)',
+                    WebkitBackdropFilter: 'blur(10px)',
+                    border: 'none',
+                    borderRadius: '9999px',
+                    color: 'white',
+                    fontSize: '15px',
+                    fontWeight: 500,
+                    cursor: 'pointer',
+                    overflow: 'hidden',
+                    transition: 'transform 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'scale(1.02)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                  }}
                 >
-                  <span className="font-light">
+                  <span style={{ position: 'relative', zIndex: 1 }}>
                     {language === 'nl' ? 'Bekijk methodes' : 'View methods'}
                   </span>
+                  <div 
+                    className="silver-gradient-border cta-button-glow"
+                    style={{
+                      width: '32px',
+                      height: '32px',
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: 'rgba(255, 255, 255, 0.1)',
+                      position: 'relative',
+                      zIndex: 1
+                    }}
+                  >
+                    <ChevronRight size={18} strokeWidth={2.5} />
+                  </div>
                 </button>
 
                 {/* Next Video Control */}
