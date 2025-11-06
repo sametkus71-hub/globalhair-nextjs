@@ -25,10 +25,11 @@ export const HowTabContent = () => {
       <div className="w-full flex flex-col items-center px-4" style={{ gap: 'clamp(0.3rem, 0.6vh, 0.5rem)' }}>
         {/* Phase Selector */}
         <div 
-          className="relative flex items-center justify-center gap-1 rounded-full border border-white/20"
+          className="relative flex items-center justify-center gap-1 rounded-full"
           style={{
-            background: 'rgba(255, 255, 255, 0.08)',
+            background: '#FFFFFF0D',
             backdropFilter: 'blur(20px)',
+            border: '1px solid #FFFFFF12',
             borderRadius: '9999px',
             padding: '5px',
             zIndex: 10,
@@ -40,12 +41,17 @@ export const HowTabContent = () => {
               onClick={() => setActivePhase(phase)}
               className={`relative rounded-full font-light transition-all duration-300 ease-out ${
                 activePhase === phase
-                  ? 'silver-gradient-border bg-white/10 text-white scale-105'
-                  : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
+                  ? 'silver-gradient-border scale-105'
+                  : 'bg-transparent hover:opacity-80 scale-100'
               }`}
               style={{
                 padding: 'clamp(0.3rem, 0.8vh, 0.5rem) clamp(1rem, 2.5vw, 1.5rem)',
                 fontSize: 'clamp(0.7rem, 1.3vh, 0.8rem)',
+                background: activePhase === phase ? '#00000033' : 'transparent',
+                backgroundImage: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
               }}
             >
               {phase}
