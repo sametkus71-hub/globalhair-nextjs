@@ -6,7 +6,6 @@ import chevronRightSvg from '@/assets/chevron-right.svg';
 import leafSvg from '@/assets/leaf.svg';
 import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
 import { PopupCloseButton, usePopupClose, SwipeablePopupWrapper } from '@/components/PopupCloseButton';
-import Hls from 'hls.js';
 
 type FeatureKey = 'fue' | 'comfort' | 'followup' | 'support' | 'precision' | 'stemcell' | 'prime' | 'recovery' | 'anesthesia' | 'biotine' | 'shampoo' | 'washes' | 'followup2' | 'stemcellrepair' | 'v6prime' | 'v6recovery';
 
@@ -26,13 +25,12 @@ export const PackageStandardPage = () => {
   const { handlePopupClose } = usePopupClose();
 
   const videoRef = useRef<HTMLVideoElement>(null);
-  const hlsRef = useRef<Hls | null>(null);
 
-  // Video sources mapping - same as package cards
+  // Video sources mapping - correct URLs for each tier
   const videoSources = {
-    Standard: 'https://vz-104aba77-1e1.b-cdn.net/f360538a-73d6-4b0b-a2bc-c2f735dfb82a/playlist.m3u8',
-    Premium: 'https://vz-104aba77-1e1.b-cdn.net/c7fe692c-a489-4911-8363-9eee6efeff85/playlist.m3u8',
-    Advanced: 'https://vz-104aba77-1e1.b-cdn.net/3c893e3d-e19b-4543-8ed9-08a86fe43a67/playlist.m3u8'
+    Standard: 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Standard%20V0.mp4',
+    Premium: 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Premium%20V0.mp4',
+    Advanced: 'https://globalhair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Elite%20V0.mp4'
   };
 
   // Ensure base page assets are preloaded and mark body as popup-open
@@ -72,49 +70,11 @@ export const PackageStandardPage = () => {
     if (!videoElement) return;
 
     const videoUrl = videoSources[activeTier];
-
-    // Clean up existing HLS instance
-    if (hlsRef.current) {
-      hlsRef.current.destroy();
-      hlsRef.current = null;
-    }
-
-    if (Hls.isSupported()) {
-      const hls = new Hls({
-        enableWorker: false,
-        lowLatencyMode: false,
-        backBufferLength: 90
-      });
-
-      hlsRef.current = hls;
-      hls.loadSource(videoUrl);
-      hls.attachMedia(videoElement);
-
-      hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        videoElement.play().catch(() => {
-          // Autoplay might be blocked, that's ok
-        });
-      });
-
-      hls.on(Hls.Events.ERROR, (event, data) => {
-        console.error('HLS Error:', data);
-      });
-    } else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
-      // Native HLS support (Safari)
-      videoElement.src = videoUrl;
-      videoElement.addEventListener('loadeddata', () => {
-        videoElement.play().catch(() => {
-          // Autoplay might be blocked, that's ok
-        });
-      });
-    }
-
-    return () => {
-      if (hlsRef.current) {
-        hlsRef.current.destroy();
-        hlsRef.current = null;
-      }
-    };
+    videoElement.src = videoUrl;
+    videoElement.load();
+    videoElement.play().catch(() => {
+      // Autoplay might be blocked, that's ok
+    });
   }, [activeTier]);
 
   // Sync tier from URL when params change (country always stays 'nl' by default)
