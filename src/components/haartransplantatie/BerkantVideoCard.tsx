@@ -25,13 +25,13 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
   };
 
   return (
-    <div className="w-full h-full flex items-center justify-center p-3 sm:p-4">
+    <div className="w-full h-full flex items-center justify-center p-4 sm:p-6">
       <div 
-        className="relative w-full max-w-md h-full cursor-pointer group silver-grey-gradient-border"
+        className="relative w-full max-w-sm h-full cursor-pointer group"
         onClick={handleClick}
       >
         {/* Video container with gradient border */}
-        <div className="absolute inset-0 rounded-2xl overflow-hidden transition-all duration-300">
+        <div className="absolute inset-0 rounded-2xl overflow-hidden silver-grey-gradient-border transition-all duration-300">
           {/* Video */}
           <video
             src={video.subbedUrl}
@@ -74,19 +74,6 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
                 d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" 
               />
             </svg>
-          </div>
-          
-          {/* Bottom info badges */}
-          <div className="absolute bottom-6 left-0 right-0 flex flex-col items-center gap-3 px-4">
-            <div className="px-4 py-2 rounded-full bg-black/30 backdrop-blur-sm border border-white/20">
-              <span className="text-sm text-white">CEO - GlobalHair Institute</span>
-            </div>
-            <div className="px-4 py-2 rounded-full bg-black/30 backdrop-blur-sm border border-white/20">
-              <span className="text-sm text-white">Developed 6+ methods</span>
-            </div>
-            <div className="px-4 py-2 rounded-full bg-black/30 backdrop-blur-sm border border-white/20">
-              <span className="text-sm text-white">Opened 3 locations</span>
-            </div>
           </div>
         </div>
       </div>
