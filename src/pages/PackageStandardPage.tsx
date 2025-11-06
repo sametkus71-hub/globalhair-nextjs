@@ -549,7 +549,9 @@ export const PackageStandardPage = () => {
                       aria-expanded={isOpen}
                     >
                       <div className="feature-left flex items-center gap-1.5">
-                        <Shield className="w-3 h-3 text-white/70 flex-shrink-0" strokeWidth={1.5} />
+                        {(feature.key === 'precision' || feature.key === 'support') && (
+                          <Shield className="w-3 h-3 text-white/70 flex-shrink-0" strokeWidth={1.5} />
+                        )}
                         <span className="flex items-center gap-2 flex-wrap">
                           {feature.exclusive && (
                             <span 
