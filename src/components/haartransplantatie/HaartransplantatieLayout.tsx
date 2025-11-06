@@ -62,7 +62,7 @@ export const HaartransplantatieLayout = () => {
                 </div>
 
                 {/* Tabs */}
-                <div className="flex-shrink-0" style={{ padding: '1.8rem 0' }}>
+                <div className="flex-shrink-0" style={{ padding: '1.0rem 0' }}>
                   <GlassTabs activeTab={activeTab} />
                 </div>
 
@@ -70,8 +70,8 @@ export const HaartransplantatieLayout = () => {
                 <div 
                   className="relative flex-1 overflow-hidden flex flex-col" 
                   style={{ 
-                    paddingTop: 'clamp(0.5rem, 0.8vh, 1rem)', 
-                    paddingBottom: 'clamp(5rem, 12vh, 8rem)' // Clear the footer buttons
+                    paddingTop: 'clamp(0rem, 0.3vh, 0.6rem)', 
+                    paddingBottom: 'clamp(4rem, 10vh, 6rem)' // Clear the footer buttons
                   }}
                 >
                   {/* Content from specific page - smooth fade transition on content only */}
