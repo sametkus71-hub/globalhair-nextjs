@@ -26,39 +26,43 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
 
   return (
     <div className="w-full h-full flex items-center justify-center p-4 sm:p-6">
-      <div 
-        className="relative w-full max-w-sm h-full cursor-pointer group"
+      <article 
+        className="berkant-card"
         onClick={handleClick}
       >
-        {/* Video container with gradient border */}
-        <div className="absolute inset-0 rounded-2xl overflow-hidden silver-grey-gradient-border transition-all duration-300">
-          {/* Video */}
-          <video
-            src={video.subbedUrl}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            className="absolute inset-0 w-full h-full object-cover"
-            style={{ zIndex: 1 }}
-          />
-          
-          {/* Gradient overlay - darker at bottom, transparent at top */}
-          <div 
-            className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none"
-            style={{ zIndex: 2 }}
-          />
-          
+        {/* Video background */}
+        <video
+          src={video.subbedUrl}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className="berkant-card-bg"
+          style={{ 
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: 0
+          }}
+        />
+        
+        {/* Gradient overlay */}
+        <div className="berkant-card-overlay" />
+        
+        {/* Content on top */}
+        <div className="berkant-card-content">
           {/* Top left - Name badge */}
-          <div className="absolute top-4 left-4" style={{ zIndex: 3 }}>
+          <div className="absolute top-4 left-4">
             <div className="px-4 py-2 rounded-full bg-black/30 backdrop-blur-sm border border-white/20">
               <span className="text-sm font-medium text-white">Berkant Dural</span>
             </div>
           </div>
           
           {/* Top right - Mute icon */}
-          <div className="absolute top-4 right-4" style={{ zIndex: 3 }}>
+          <div className="absolute top-4 right-4">
             <svg 
               className="w-6 h-6 text-white/80" 
               fill="none" 
@@ -80,18 +84,26 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
             </svg>
           </div>
         </div>
-      </div>
+      </article>
       <style>{`
-        .silver-grey-gradient-border {
+        .berkant-card {
           position: relative;
+          width: 100%;
+          max-width: 28rem;
+          height: 100%;
+          border-radius: 1rem;
+          overflow: hidden;
+          cursor: pointer;
+          backdrop-filter: blur(10px);
+          background: rgba(0,0,0,.15);
         }
 
-        .silver-grey-gradient-border::before {
-          content: "";
+        .berkant-card::before {
+          content: '';
           position: absolute;
           inset: 0;
-          padding: 1px;
-          border-radius: inherit;
+          border-radius: 1rem;
+          padding: 1.8px;
           background: linear-gradient(90deg, #949494 7%, #ACB9C1 16%, #FFFFFF 34%, #ACB9C1 51%, #4B555E 78%, #fff 105%);
           -webkit-mask: 
             linear-gradient(#fff 0 0) content-box,
@@ -99,14 +111,23 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
           -webkit-mask-composite: xor;
           mask-composite: exclude;
           pointer-events: none;
-          z-index: 0;
+          z-index: 3;
         }
 
-        .silver-grey-gradient-border > * {
-          position: relative;
+        .berkant-card-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0.2), transparent);
+          pointer-events: none;
           z-index: 1;
         }
 
+        .berkant-card-content {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          z-index: 2;
+        }
       `}</style>
     </div>
   );
