@@ -350,8 +350,8 @@ export const PackageStandardPage = () => {
           className="h-full flex items-start justify-center p-4 pt-4"
         >
           <main className="flex flex-col w-full max-w-2xl h-[calc(100vh-32px)]">
-            <SwipeablePopupWrapper onClose={handleClose}>
-              <section 
+            <SwipeablePopupWrapper onClose={handleClose} className="h-full">
+              <section
                 className="relative rounded-[24px] p-4 pb-6 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] h-[90%] flex flex-col"
                 style={{ 
                   border: '1px solid transparent',
