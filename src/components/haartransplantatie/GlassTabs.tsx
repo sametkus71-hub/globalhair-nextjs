@@ -65,7 +65,7 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
               onClick={() => handleTabClick(tab)}
               className="relative transition-all duration-300 z-10"
               style={{
-                paddingBottom: 'clamp(0.625rem, 1.2vh, 0.875rem)',
+                paddingBottom: 'clamp(0.875rem, 1.5vh, 1.125rem)',
                 color: isActive ? 'white' : 'rgba(255, 255, 255, 0.5)',
                 fontFamily: 'Inter, system-ui, sans-serif',
                 fontWeight: 300,
@@ -83,7 +83,7 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
           className="absolute z-20 transition-all duration-300 ease-out"
           style={{
             bottom: '0px',
-            height: '2px',
+            height: '2.5px',
             background: 'white',
             left: `${underlineStyle.left}px`,
             width: `${underlineStyle.width + 12}px`,
@@ -96,7 +96,7 @@ export const GlassTabs = ({ activeTab, onTabChange }: GlassTabsProps) => {
         className="absolute left-0 right-0 z-0"
         style={{
           bottom: '0px',
-          height: '2px',
+          height: '2.5px',
           background: 'rgba(255, 255, 255, 0.2)',
         }}
       />
