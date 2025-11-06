@@ -84,11 +84,13 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
             </svg>
           </div>
 
-          {/* Bottom left - Clean text lines */}
-          <div className="absolute bottom-4 left-4 flex flex-col gap-1">
-            <p className="text-white/90 text-xs font-light tracking-wide">CEO - GlobalHair Institute</p>
-            <p className="text-white/90 text-xs font-light tracking-wide">Developed 6+ methods</p>
-            <p className="text-white/90 text-xs font-light tracking-wide">Opened 3 locations</p>
+          {/* Bottom left - List with bold header */}
+          <div className="absolute bottom-4 left-4 flex flex-col gap-1.5">
+            <p className="text-sm font-semibold text-white/95 tracking-wide">CEO · GlobalHair Institute</p>
+            <div className="flex flex-col gap-0.5 pl-0.5">
+              <p className="text-[11px] font-light text-white/80 tracking-wide">• Developed 6+ methods</p>
+              <p className="text-[11px] font-light text-white/80 tracking-wide">• Opened 3 locations</p>
+            </div>
           </div>
         </div>
       </article>
