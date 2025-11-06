@@ -7,7 +7,7 @@ import leafSvg from '@/assets/leaf.svg';
 import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
 import { PopupCloseButton, usePopupClose, SwipeablePopupWrapper } from '@/components/PopupCloseButton';
 
-type FeatureKey = 'fue' | 'comfort' | 'followup' | 'support' | 'precision' | 'stemcell' | 'prime' | 'recovery' | 'anesthesia' | 'biotine' | 'shampoo' | 'washes' | 'followup2' | 'stemcellrepair' | 'v6prime' | 'v6recovery' | 'speed' | 'natural';
+type FeatureKey = 'fue' | 'comfort' | 'followup' | 'support' | 'precision' | 'stemcell' | 'prime' | 'recovery' | 'anesthesia' | 'biotine' | 'shampoo' | 'washes' | 'followup2' | 'stemcellrepair' | 'v6prime' | 'v6recovery' | 'indicators';
 
 export const PackageStandardPage = () => {
   const { language } = useLanguage();
@@ -134,14 +134,8 @@ export const PackageStandardPage = () => {
       price: '€8.000',
       features: [
         {
-          key: 'speed' as FeatureKey,
-          title: 'Speed Level',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          exclusive: false
-        },
-        {
-          key: 'natural' as FeatureKey,
-          title: 'Natural & Sustainable',
+          key: 'indicators' as FeatureKey,
+          title: 'Package Indicators',
           description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
           exclusive: false
         },
@@ -181,14 +175,8 @@ export const PackageStandardPage = () => {
       price: '€16.000',
       features: [
         {
-          key: 'speed' as FeatureKey,
-          title: 'Speed Level',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          exclusive: false
-        },
-        {
-          key: 'natural' as FeatureKey,
-          title: 'Natural & Sustainable',
+          key: 'indicators' as FeatureKey,
+          title: 'Package Indicators',
           description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
           exclusive: false
         },
@@ -246,14 +234,8 @@ export const PackageStandardPage = () => {
       price: '€21.500',
       features: [
         {
-          key: 'speed' as FeatureKey,
-          title: 'Speed Level',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-          exclusive: false
-        },
-        {
-          key: 'natural' as FeatureKey,
-          title: 'Natural & Sustainable',
+          key: 'indicators' as FeatureKey,
+          title: 'Package Indicators',
           description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
           exclusive: false
         },
@@ -506,48 +488,50 @@ export const PackageStandardPage = () => {
                         {(feature.key === 'precision' || feature.key === 'support') && (
                           <Shield className="w-3 h-3 text-white/70 flex-shrink-0" strokeWidth={1.5} />
                         )}
-                        {feature.key === 'speed' && (
-                          <div className="flex items-center">
-                            <img src={chevronRightSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
-                            {activeTier === 'Premium' && (
-                              <img 
-                                src={chevronRightSvg} 
-                                alt="" 
-                                style={{ 
-                                  width: '.8rem', 
-                                  height: '.8rem', 
-                                  marginLeft: '-4px'
-                                }} 
-                              />
-                            )}
-                            {activeTier === 'Advanced' && (
-                              <img 
-                                src={chevronRightSvg} 
-                                alt="" 
-                                style={{ 
-                                  width: '.8rem', 
-                                  height: '.8rem', 
-                                  marginLeft: '-4px'
-                                }} 
-                              />
-                            )}
-                          </div>
-                        )}
-                        {feature.key === 'natural' && (
-                          <div className="flex items-center gap-0.5">
-                            <img src={leafSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
-                            {activeTier === 'Premium' && (
-                              <img 
-                                src={leafSvg} 
-                                alt="" 
-                                style={{ 
-                                  width: '.8rem', 
-                                  height: '.8rem'
-                                }} 
-                              />
-                            )}
-                            {activeTier === 'Advanced' && (
-                              <>
+                        {feature.key === 'indicators' && (
+                          <div className="flex gap-2 items-center">
+                            <div
+                              className="silver-grey-gradient-border flex items-center justify-center"
+                              style={{
+                                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 80%)',
+                                padding: '.5rem',
+                                borderRadius: '.4rem',
+                              }}
+                            >
+                              <img src={chevronRightSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
+                              {activeTier === 'Premium' && (
+                                <img 
+                                  src={chevronRightSvg} 
+                                  alt="" 
+                                  style={{ 
+                                    width: '.8rem', 
+                                    height: '.8rem', 
+                                    marginLeft: '-4px'
+                                  }} 
+                                />
+                              )}
+                              {activeTier === 'Advanced' && (
+                                <img 
+                                  src={chevronRightSvg} 
+                                  alt="" 
+                                  style={{ 
+                                    width: '.8rem', 
+                                    height: '.8rem', 
+                                    marginLeft: '-4px'
+                                  }} 
+                                />
+                              )}
+                            </div>
+                            <div
+                              className="silver-grey-gradient-border flex items-center justify-center gap-1"
+                              style={{
+                                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 80%)',
+                                padding: '.5rem',
+                                borderRadius: '.4rem',
+                              }}
+                            >
+                              <img src={leafSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
+                              {activeTier === 'Premium' && (
                                 <img 
                                   src={leafSvg} 
                                   alt="" 
@@ -556,16 +540,28 @@ export const PackageStandardPage = () => {
                                     height: '.8rem'
                                   }} 
                                 />
-                                <img 
-                                  src={leafSvg} 
-                                  alt="" 
-                                  style={{ 
-                                    width: '.8rem', 
-                                    height: '.8rem'
-                                  }} 
-                                />
-                              </>
-                            )}
+                              )}
+                              {activeTier === 'Advanced' && (
+                                <>
+                                  <img 
+                                    src={leafSvg} 
+                                    alt="" 
+                                    style={{ 
+                                      width: '.8rem', 
+                                      height: '.8rem'
+                                    }} 
+                                  />
+                                  <img 
+                                    src={leafSvg} 
+                                    alt="" 
+                                    style={{ 
+                                      width: '.8rem', 
+                                      height: '.8rem'
+                                    }} 
+                                  />
+                                </>
+                              )}
+                            </div>
                           </div>
                         )}
                         <span className="flex items-center gap-2 flex-wrap">
