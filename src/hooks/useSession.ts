@@ -7,7 +7,7 @@ export type Location = 'Nederland' | 'Turkije';
 export type Shaving = 'Met scheren' | 'Zonder scheren';
 export type Treatment = 'Normaal' | 'Stamcel';
 export type Language = 'nl' | 'en';
-export type Package = 'Standard' | 'Premium' | 'Advanced';
+export type Package = 'Standard' | 'Premium' | 'Elite';
 export type ActiveRoute = 'haartransplantatie' | 'v6-hairboost' | null;
 
 export interface UserProfile {
@@ -129,7 +129,7 @@ export const useSession = () => {
     const body = document.body;
     
     // Remove existing classes
-    body.className = body.className.replace(/s-(man|vrouw|fijn|stijl|krul|kroes|zwart|bruin|blond|rood|nederland|turkije|met-scheren|zonder-scheren|normaal|stamcel|nl|en|standard|premium|advanced)/g, '').trim();
+    body.className = body.className.replace(/s-(man|vrouw|fijn|stijl|krul|kroes|zwart|bruin|blond|rood|nederland|turkije|met-scheren|zonder-scheren|normaal|stamcel|nl|en|standard|premium|elite)/g, '').trim();
     
     // Add new classes
     const geslachtClass = `s-${newProfile.geslacht.toLowerCase()}`;

@@ -66,9 +66,9 @@ export const PackageDetailContent = () => {
         ideal: 'Ideal for those who want to recover faster and achieve maximum density.'
       }
     },
-    Advanced: {
+    Elite: {
       nl: {
-        title: 'Advanced Pakket',
+        title: 'Elite Pakket',
         subtitle: 'Het meest geavanceerde pakket met stamceltherapie',
         features: [
           { name: 'FUE Saffier / DHI techniek', description: 'Beste beschikbare technieken' },
@@ -83,7 +83,7 @@ export const PackageDetailContent = () => {
         ideal: 'Voor wie het beste van het beste wil en maximale resultaten nastreeft.'
       },
       en: {
-        title: 'Advanced Package',
+        title: 'Elite Package',
         subtitle: 'The most advanced package with stem cell therapy',
         features: [
           { name: 'FUE Sapphire / DHI technique', description: 'Best available techniques' },

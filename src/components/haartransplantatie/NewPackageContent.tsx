@@ -54,7 +54,7 @@ export const NewPackageContent = () => {
         ]
       }
     },
-    Advanced: {
+    Elite: {
       nl: {
         items: [
           { name: 'FUE Saffier / DHI', icon: <PenIcon /> },

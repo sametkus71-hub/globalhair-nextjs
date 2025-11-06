@@ -4,12 +4,12 @@ import { UserProfile, Package, Location } from '@/hooks/useSession';
 const PACKAGE_PRICES: Record<Package, number> = {
   'Standard': 6950,
   'Premium': 12450,
-  'Advanced': 14750
+  'Elite': 14750
 };
 
 // Location-based price adjustments (Netherlands is more expensive)
 const LOCATION_ADJUSTMENTS: Record<Location, number> = {
-  'Nederland': 2000, // Standard: +2000, Premium: +3500, Advanced: +4200
+  'Nederland': 2000, // Standard: +2000, Premium: +3500, Elite: +4200
   'Turkije': 0
 };
 
@@ -17,7 +17,7 @@ const LOCATION_ADJUSTMENTS: Record<Location, number> = {
 const NETHERLANDS_PACKAGE_ADJUSTMENTS: Record<Package, number> = {
   'Standard': 2000,  // 6950 + 2000 = 8950
   'Premium': 3500,   // 12450 + 3500 = 15950
-  'Advanced': 4200   // 14750 + 4200 = 18950
+  'Elite': 4200   // 14750 + 4200 = 18950
 };
 
 export const calculatePrice = (profile: UserProfile): number => {

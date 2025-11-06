@@ -22,12 +22,12 @@ const packageData = {
     recovery: 2,
     anchor: '#packages-premium',
   },
-  Advanced: {
+  Elite: {
     title: 'FUE Saffier / DHI',
     subtitle: 'V6 Hairboost® + GHI Stemcell repair™',
     growth: 3,
     recovery: 3,
-    anchor: '#packages-advanced',
+    anchor: '#packages-elite',
   },
 };
 
@@ -35,7 +35,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
   const { language } = useLanguage();
   const navigate = useNavigate();
 
-  const handlePackageClick = (tier: 'standard' | 'premium' | 'advanced') => {
+  const handlePackageClick = (tier: 'standard' | 'premium' | 'elite') => {
     // Always use Dutch path for package popups
     if (typeof document !== 'undefined') document.body.classList.add('popup-open');
     navigate(`/nl/haartransplantatie/nl/${tier}`);
@@ -166,7 +166,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
                 background: 'linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.35), transparent)',
               }}
             ></span>
-            <span className="seg seg--advanced flex items-center justify-center py-1.5" style={{ position: 'relative' }}>
+            <span className="seg seg--elite flex items-center justify-center py-1.5" style={{ position: 'relative' }}>
               <span style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
                 <span
                   className="seg-label seg-label-glow text-xs font-medium"
@@ -176,7 +176,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
                     fontWeight: 300,
                   }}
                 >
-                  Advanced
+                  Elite
                 </span>
                 <span
                   className="badge-new text-[8px] px-1.5 py-0.5 rounded-full"
@@ -333,10 +333,10 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           }}
         />
 
-        {/* Advanced Column */}
+        {/* Elite Column */}
         <div 
-          className="col col--advanced cursor-pointer" 
-          onClick={() => handlePackageClick('advanced')}
+          className="col col--elite cursor-pointer" 
+          onClick={() => handlePackageClick('elite')}
           style={{ cursor: 'pointer' }}
         >
           {/* Chip row */}

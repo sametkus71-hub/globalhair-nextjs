@@ -6,7 +6,7 @@ interface PackageTierSwitcherProps {
 const packages = [
   { id: 'Standard', label: 'Standard' },
   { id: 'Premium', label: 'Premium' },
-  { id: 'Advanced', label: 'Advanced', badge: 'New' },
+  { id: 'Elite', label: 'Elite', badge: 'New' },
 ];
 
 export const PackageTierSwitcher = ({ activePackage, onPackageChange }: PackageTierSwitcherProps) => {

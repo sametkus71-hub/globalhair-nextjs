@@ -15,7 +15,7 @@ const FEATURES = [
 const PACKAGE_VISIBILITY = {
   standard: [0], // Only first item visible
   premium: [0, 1, 3], // Items 1, 2, and 4 visible
-  advanced: [0, 1, 2, 3, 4] // All items visible
+  elite: [0, 1, 2, 3, 4] // All items visible
 };
 
 const BASE = [
@@ -32,8 +32,8 @@ const BASE = [
     type: "video"
   },
   { 
-    id: "advanced", 
-    title: "Advanced", 
+    id: "elite", 
+    title: "Elite",
     bg: "https://globalhair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Elite%20V0.mp4", 
     type: "video"
   },
@@ -47,12 +47,12 @@ export const TreatmentsCarousel = () => {
 
   // Always generate Dutch package paths for consistency
   const getPackageLink = (packageId: string) => {
-    const tier = packageId.toLowerCase(); // 'standard', 'premium', or 'advanced'
+    const tier = packageId.toLowerCase(); // 'standard', 'premium', or 'elite'
     return `/nl/haartransplantatie/nl/${tier}`;
   };
 
   const items = useMemo(() => {
-    // Order: Standard, Premium (middle/default), Advanced
+    // Order: Standard, Premium (middle/default), Elite
     return BASE.map(pkg => ({
       ...pkg,
       link: getPackageLink(pkg.id)

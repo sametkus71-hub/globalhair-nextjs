@@ -17,8 +17,8 @@ export const PackageLocationSelector = () => {
       isNew: false
     },
     { 
-      id: 'Advanced', 
-      label: 'Advanced',
+      id: 'Elite', 
+      label: 'Elite',
       isNew: true
     }
   ];

@@ -14,7 +14,7 @@ const packageData = {
     growth: 2,
     recovery: 2,
   },
-  Advanced: {
+  Elite: {
     title: 'FUE Saffier / DHI',
     subtitle: 'V6 Hairboost® + GHI Stemcell repair™',
     growth: 3,
@@ -95,7 +95,7 @@ export const PackageComparisonGlass = () => {
                 >
                   {pkg}
                 </span>
-                {pkg === 'Advanced' && (
+                {pkg === 'Elite' && (
                   <span
                     className="absolute -top-1 -right-1 text-[9px] px-1.5 py-0.5 rounded-full"
                     style={{

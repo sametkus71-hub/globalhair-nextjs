@@ -4,7 +4,7 @@ import { AnimatedRecoveryIcon } from '@/components/icons/AnimatedRecoveryIcon';
 import { useLanguage } from '@/hooks/useLanguage';
 
 interface StrengthMeterProps {
-  package: 'Standard' | 'Premium' | 'Advanced';
+  package: 'Standard' | 'Premium' | 'Elite';
   className?: string;
 }
 
@@ -15,7 +15,7 @@ export const StrengthMeter = ({ package: packageName, className }: StrengthMeter
   const strengthLevels = {
     Standard: { growth: 1, recovery: 1 },
     Premium: { growth: 2, recovery: 2 },
-    Advanced: { growth: 3, recovery: 3 }
+    Elite: { growth: 3, recovery: 3 }
   };
 
   const levels = strengthLevels[packageName];

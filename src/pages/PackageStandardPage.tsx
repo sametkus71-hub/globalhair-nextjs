@@ -16,8 +16,8 @@ export const PackageStandardPage = () => {
   
   // Always default to Nederland (nl) when popup opens
   const [activeCountry, setActiveCountry] = useState<'nl' | 'tr'>('nl');
-  const [activeTier, setActiveTier] = useState<'Standard' | 'Premium' | 'Advanced'>(
-    urlTier ? (urlTier.charAt(0).toUpperCase() + urlTier.slice(1)) as 'Standard' | 'Premium' | 'Advanced' : 'Standard'
+  const [activeTier, setActiveTier] = useState<'Standard' | 'Premium' | 'Elite'>(
+    urlTier ? (urlTier.charAt(0).toUpperCase() + urlTier.slice(1)) as 'Standard' | 'Premium' | 'Elite' : 'Standard'
   );
   const [isExiting, setIsExiting] = useState(false);
   const [openFeatures, setOpenFeatures] = useState<Set<FeatureKey>>(new Set());
@@ -30,7 +30,7 @@ export const PackageStandardPage = () => {
   const videoSources = {
     Standard: 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Standard%20V0.mp4',
     Premium: 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Premium%20V0.mp4',
-    Advanced: 'https://globalhair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Elite%20V0.mp4'
+    Elite: 'https://globalhair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Elite%20V0.mp4'
   };
 
   // Ensure base page assets are preloaded and mark body as popup-open
@@ -89,16 +89,16 @@ export const PackageStandardPage = () => {
   // Sync tier from URL when params change (country always stays 'nl' by default)
   useEffect(() => {
     if (urlTier) {
-      const normalizedTier = (urlTier.charAt(0).toUpperCase() + urlTier.slice(1)) as 'Standard' | 'Premium' | 'Advanced';
+      const normalizedTier = (urlTier.charAt(0).toUpperCase() + urlTier.slice(1)) as 'Standard' | 'Premium' | 'Elite';
       setActiveTier(normalizedTier);
     }
   }, [urlTier]);
 
-  // Reset to Premium if switching to Turkey while Advanced is selected
+  // Reset to Premium if switching to Turkey while Elite is selected
   const handleCountryChange = (country: 'nl' | 'tr') => {
     setIsTransitioning(true);
     setTimeout(() => {
-      const newTier = country === 'tr' && activeTier === 'Advanced' ? 'Premium' : activeTier;
+      const newTier = country === 'tr' && activeTier === 'Elite' ? 'Premium' : activeTier;
       const basePath = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
       navigate(`${basePath}/${country}/${newTier.toLowerCase()}`);
       setActiveCountry(country);
@@ -107,7 +107,7 @@ export const PackageStandardPage = () => {
     }, 150);
   };
 
-  const handleTierChange = (tier: 'Standard' | 'Premium' | 'Advanced') => {
+  const handleTierChange = (tier: 'Standard' | 'Premium' | 'Elite') => {
     setIsTransitioning(true);
     setTimeout(() => {
       const basePath = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
@@ -230,7 +230,7 @@ export const PackageStandardPage = () => {
         }
       ]
     },
-    Advanced: {
+    Elite: {
       price: '€21.500',
       features: [
         {
@@ -445,13 +445,13 @@ export const PackageStandardPage = () => {
             {activeCountry === 'nl' && (
               <button
                 className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
-                  activeTier === 'Advanced'
+                  activeTier === 'Elite'
                     ? 'silver-gradient-border bg-white/10 text-white scale-105'
                     : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
                 }`}
-                onClick={() => handleTierChange('Advanced')}
+                onClick={() => handleTierChange('Elite')}
               >
-                Advanced
+                Elite
               </button>
             )}
           </div>
@@ -510,7 +510,7 @@ export const PackageStandardPage = () => {
                                   }} 
                                 />
                               )}
-                              {activeTier === 'Advanced' && (
+                              {activeTier === 'Elite' && (
                                 <img 
                                   src={chevronRightSvg} 
                                   alt="" 
@@ -541,7 +541,7 @@ export const PackageStandardPage = () => {
                                   }} 
                                 />
                               )}
-                              {activeTier === 'Advanced' && (
+                              {activeTier === 'Elite' && (
                                 <>
                                   <img 
                                     src={leafSvg} 
@@ -570,14 +570,14 @@ export const PackageStandardPage = () => {
                               <span 
                                 className="text-[8px] px-1.5 py-0.5 rounded-full font-medium"
                                 style={{
-                                  background: activeTier === 'Advanced' 
+                                  background: activeTier === 'Elite' 
                                     ? 'linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(217, 119, 6, 0.15))'
                                     : 'linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 193, 7, 0.15))',
-                                  border: activeTier === 'Advanced'
+                                  border: activeTier === 'Elite'
                                     ? '1px solid rgba(251, 191, 36, 0.3)'
                                     : '1px solid rgba(255, 215, 0, 0.4)',
-                                  color: activeTier === 'Advanced' ? '#fbbf24' : '#ffd700',
-                                  boxShadow: activeTier === 'Advanced' ? 'none' : '0 0 8px rgba(255, 215, 0, 0.3)'
+                                  color: activeTier === 'Elite' ? '#fbbf24' : '#ffd700',
+                                  boxShadow: activeTier === 'Elite' ? 'none' : '0 0 8px rgba(255, 215, 0, 0.3)'
                                 }}
                               >
                                 {activeTier}

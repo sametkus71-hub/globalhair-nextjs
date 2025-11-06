@@ -14,7 +14,7 @@ export const HaartransplantatieLayout = () => {
   const location = useLocation();
   
   // Check if we're on a package route (should render as overlay)
-  const isPackageRoute = /\/(nl|en)\/(haartransplantatie|hair-transplant)\/(nl|tr)\/(standard|premium|advanced)/.test(location.pathname);
+  const isPackageRoute = /\/(nl|en)\/(haartransplantatie|hair-transplant)\/(nl|tr)\/(standard|premium|elite)/.test(location.pathname);
   
   // Determine active tab from URL
   const getActiveTab = () => {

@@ -13,7 +13,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
   
   const standardVideoRef = useRef<HTMLVideoElement>(null);
   const premiumVideoRef = useRef<HTMLVideoElement>(null);
-  const advancedVideoRef = useRef<HTMLVideoElement>(null);
+  const eliteVideoRef = useRef<HTMLVideoElement>(null);
   
   const hlsInstancesRef = useRef<Hls[]>([]);
   
@@ -21,7 +21,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
   const videoSources = {
     Standard: 'https://vz-104aba77-1e1.b-cdn.net/f360538a-73d6-4b0b-a2bc-c2f735dfb82a/playlist.m3u8',
     Premium: 'https://vz-104aba77-1e1.b-cdn.net/c7fe692c-a489-4911-8363-9eee6efeff85/playlist.m3u8',
-    Advanced: 'https://vz-104aba77-1e1.b-cdn.net/3c893e3d-e19b-4543-8ed9-08a86fe43a67/playlist.m3u8'
+    Elite: 'https://vz-104aba77-1e1.b-cdn.net/3c893e3d-e19b-4543-8ed9-08a86fe43a67/playlist.m3u8'
   };
   
   // Initialize HLS players
@@ -29,7 +29,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
     const videos = [
       { ref: standardVideoRef, src: videoSources.Standard },
       { ref: premiumVideoRef, src: videoSources.Premium },
-      { ref: advancedVideoRef, src: videoSources.Advanced }
+      { ref: eliteVideoRef, src: videoSources.Elite }
     ];
     
     let loadedVideos = 0;
@@ -102,8 +102,8 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
         return 'standard';
       case 'Premium':
         return 'premium';
-      case 'Advanced':
-        return 'advanced';
+      case 'Elite':
+        return 'elite';
       default:
         return 'standard';
     }
@@ -118,7 +118,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
         return '#E4E5E0'; // Current background color
       case 'Premium':
         return '#E8E4E0'; // Slightly warmer
-      case 'Advanced':
+      case 'Elite':
         return '#E0E8E4'; // Slightly cooler
       default:
         return '#E4E5E0';
@@ -187,13 +187,13 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
         />
       </div>
       
-      {/* Advanced Package Video - Multi-layer camera lens blur */}
+      {/* Elite Package Video - Multi-layer camera lens blur */}
       <div className={`fixed inset-0 transition-opacity duration-500 ${
-        activeVideo === 'advanced' ? 'opacity-100' : 'opacity-0'
+        activeVideo === 'elite' ? 'opacity-100' : 'opacity-0'
       }`}>
         {/* Main video with camera lens blur */}
         <video
-          ref={advancedVideoRef}
+          ref={eliteVideoRef}
           className="fixed"
           style={{ 
             objectFit: 'cover',
