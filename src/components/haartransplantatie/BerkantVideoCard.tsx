@@ -56,8 +56,8 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
         <div className="berkant-card-content">
           {/* Top left - Name badge */}
           <div className="absolute top-4 left-4">
-            <div className="px-4 py-2 rounded-full bg-black/30 backdrop-blur-sm border border-white/20">
-              <span className="text-sm font-medium text-white">Berkant Dural</span>
+            <div className="berkant-badge">
+              <span className="text-white" style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: '12px' }}>Berkant Dural</span>
             </div>
           </div>
           
@@ -139,6 +139,29 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
           width: 100%;
           height: 100%;
           z-index: 2;
+        }
+
+        .berkant-badge {
+          position: relative;
+          padding: 0.5rem 1rem;
+          border-radius: 9999px;
+          background: linear-gradient(90deg, #132536 0%, #25496B 50%, #132536 100%);
+          overflow: hidden;
+        }
+
+        .berkant-badge::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: 9999px;
+          padding: 1.5px;
+          background: linear-gradient(90deg, #949494 7%, #ACB9C1 16%, #FFFFFF 34%, #ACB9C1 51%, #4B555E 78%, #fff 105%);
+          -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
         }
       `}</style>
     </div>
