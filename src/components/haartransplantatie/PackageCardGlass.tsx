@@ -35,6 +35,11 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
   const { language } = useLanguage();
   const navigate = useNavigate();
 
+  const handlePackageClick = (tier: 'standard' | 'premium' | 'advanced') => {
+    const basePath = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
+    navigate(`${basePath}/nl/${tier}`);
+  };
+
   const renderActiveLeaves = (count: number) => {
     return (
       <>
@@ -192,7 +197,11 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         </div>
 
         {/* Standard Column */}
-        <div className="col col--standard">
+        <div 
+          className="col col--standard cursor-pointer" 
+          onClick={() => handlePackageClick('standard')}
+          style={{ cursor: 'pointer' }}
+        >
           {/* Chip row */}
           <div
             className="chiprow flex justify-center"
@@ -249,7 +258,11 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         />
 
         {/* Premium Column */}
-        <div className="col col--premium">
+        <div 
+          className="col col--premium cursor-pointer" 
+          onClick={() => handlePackageClick('premium')}
+          style={{ cursor: 'pointer' }}
+        >
           {/* Chip row */}
           <div
             className="chiprow flex justify-center"
@@ -320,7 +333,11 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         />
 
         {/* Advanced Column */}
-        <div className="col col--advanced">
+        <div 
+          className="col col--advanced cursor-pointer" 
+          onClick={() => handlePackageClick('advanced')}
+          style={{ cursor: 'pointer' }}
+        >
           {/* Chip row */}
           <div
             className="chiprow flex justify-center"
@@ -404,7 +421,7 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         }}
       >
         <button
-          onClick={() => navigate(language === 'nl' ? '/nl/pakket-standaard' : '/en/package-standard')}
+          onClick={() => handlePackageClick('standard')}
           className="readmore-link"
           style={{
             color: 'white',
