@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Shield } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
@@ -6,6 +6,7 @@ import chevronRightSvg from '@/assets/chevron-right.svg';
 import leafSvg from '@/assets/leaf.svg';
 import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
 import { PopupCloseButton, usePopupClose, SwipeablePopupWrapper } from '@/components/PopupCloseButton';
+import Hls from 'hls.js';
 
 type FeatureKey = 'fue' | 'comfort' | 'followup' | 'support' | 'precision' | 'stemcell' | 'prime' | 'recovery' | 'anesthesia' | 'biotine' | 'shampoo' | 'washes' | 'followup2' | 'stemcellrepair' | 'v6prime' | 'v6recovery';
 
@@ -24,6 +25,16 @@ export const PackageStandardPage = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const { handlePopupClose } = usePopupClose();
 
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const hlsRef = useRef<Hls | null>(null);
+
+  // Video sources mapping - same as package cards
+  const videoSources = {
+    Standard: 'https://vz-104aba77-1e1.b-cdn.net/f360538a-73d6-4b0b-a2bc-c2f735dfb82a/playlist.m3u8',
+    Premium: 'https://vz-104aba77-1e1.b-cdn.net/c7fe692c-a489-4911-8363-9eee6efeff85/playlist.m3u8',
+    Advanced: 'https://vz-104aba77-1e1.b-cdn.net/3c893e3d-e19b-4543-8ed9-08a86fe43a67/playlist.m3u8'
+  };
+
   // Ensure base page assets are preloaded and mark body as popup-open
   useEffect(() => {
     // Mark popup-open to hide header immediately on mount and during initial direct loads
@@ -32,7 +43,6 @@ export const PackageStandardPage = () => {
     const assetsToPreload = [
       '/assets/head-rotation.mp4',
       '/assets/placeholder-head.png',
-      '/assets/background-animation.mp4',
       '/assets/logo-header.png'
     ];
 
@@ -55,6 +65,57 @@ export const PackageStandardPage = () => {
       if (typeof document !== 'undefined') document.body.classList.remove('popup-open');
     };
   }, []);
+
+  // Load video based on active tier
+  useEffect(() => {
+    const videoElement = videoRef.current;
+    if (!videoElement) return;
+
+    const videoUrl = videoSources[activeTier];
+
+    // Clean up existing HLS instance
+    if (hlsRef.current) {
+      hlsRef.current.destroy();
+      hlsRef.current = null;
+    }
+
+    if (Hls.isSupported()) {
+      const hls = new Hls({
+        enableWorker: false,
+        lowLatencyMode: false,
+        backBufferLength: 90
+      });
+
+      hlsRef.current = hls;
+      hls.loadSource(videoUrl);
+      hls.attachMedia(videoElement);
+
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        videoElement.play().catch(() => {
+          // Autoplay might be blocked, that's ok
+        });
+      });
+
+      hls.on(Hls.Events.ERROR, (event, data) => {
+        console.error('HLS Error:', data);
+      });
+    } else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
+      // Native HLS support (Safari)
+      videoElement.src = videoUrl;
+      videoElement.addEventListener('loadeddata', () => {
+        videoElement.play().catch(() => {
+          // Autoplay might be blocked, that's ok
+        });
+      });
+    }
+
+    return () => {
+      if (hlsRef.current) {
+        hlsRef.current.destroy();
+        hlsRef.current = null;
+      }
+    };
+  }, [activeTier]);
 
   // Sync tier from URL when params change (country always stays 'nl' by default)
   useEffect(() => {
@@ -278,32 +339,6 @@ export const PackageStandardPage = () => {
     return currentPackage.price;
   };
 
-  const getBackgroundGradient = () => {
-    switch (activeTier) {
-      case 'Standard':
-        return 'linear-gradient(180deg, #040E15 0%, #333D46 100%)';
-      case 'Premium':
-        return 'linear-gradient(180deg, #040E15 0%, #2D3E50 100%)';
-      case 'Advanced':
-        return 'linear-gradient(180deg, #0A1628 0%, #1E3A5F 100%)';
-      default:
-        return 'linear-gradient(180deg, #040E15 0%, #333D46 100%)';
-    }
-  };
-
-  const getVideoOpacity = () => {
-    switch (activeTier) {
-      case 'Standard':
-        return 0;
-      case 'Premium':
-        return 0.3;
-      case 'Advanced':
-        return 0.8;
-      default:
-        return 0;
-    }
-  };
-
   const getSectionBorderGradient = () => {
     switch (activeTier) {
       case 'Standard':
@@ -327,30 +362,27 @@ export const PackageStandardPage = () => {
       <div
         className={`reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}
         style={{
-          background: getBackgroundGradient(),
           overflow: 'hidden',
           position: 'fixed',
           inset: 0,
           zIndex: 30,
           opacity: isTransitioning ? 0.7 : 1,
-          transition: 'opacity 0.6s ease-in-out, background 0.2s ease-in-out'
+          transition: 'opacity 0.6s ease-in-out'
         }}
       >
-        {/* Background Video */}
+        {/* Background Video - No overlays */}
         <video
+          ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
           style={{
-            opacity: getVideoOpacity(),
-            transition: 'opacity 0.2s ease-in-out',
-            pointerEvents: 'none'
+            pointerEvents: 'none',
+            filter: 'blur(8px) brightness(0.85) contrast(1.2) saturate(1.1)',
           }}
-        >
-          <source src="/assets/background-animation.mp4" type="video/mp4" />
-        </video>
+        />
         <div 
           className="h-full flex items-start justify-center p-4 pt-4"
         >
