@@ -65,7 +65,7 @@ export const HowTabContent = () => {
             aspectRatio: '3/4',
             maxHeight: 'clamp(280px, 48vh, 400px)',
             width: 'auto',
-            marginTop: '-40px',
+            marginTop: '-30px',
           }}
         >
           <video
@@ -86,13 +86,14 @@ export const HowTabContent = () => {
             fontWeight: 400,
             fontFamily: 'Inter',
             lineHeight: '1.3',
+            marginTop: '-10px',
           }}
         >
           Inmiddels heb ik al drie vrienden doorverwezen. <br />GlobalHair maakt meer waar dan ze beloven.
         </p>
 
         {/* Timeline - Full Width */}
-        <div className="w-full relative bg-white rounded-full" style={{ height: '1px' }}>
+        <div className="w-full relative bg-white rounded-full" style={{ height: '1px', margin: '4px 0' }}>
           <div
             className="absolute top-1/2 -translate-y-1/2 bg-white rounded-full transition-all duration-500 ease-out"
             style={{
@@ -100,6 +101,7 @@ export const HowTabContent = () => {
               transform: `translate(-50%, -50%)`,
               width: 'clamp(8px, 1.2vh, 10px)',
               height: 'clamp(8px, 1.2vh, 10px)',
+              boxShadow: '0px 0px 6.8px 3px #FFFFFF40',
             }}
           />
         </div>
