@@ -335,12 +335,11 @@ export const PackageStandardPage = () => {
           <main className="flex flex-col w-full max-w-2xl h-[calc(100vh-32px)]">
             <SwipeablePopupWrapper onClose={handleClose} className="h-full">
               <section
-                className="relative rounded-[24px] p-4 pb-6 h-[90%] flex flex-col"
+                className="relative rounded-[24px] p-4 pb-6 h-[90%] flex flex-col popup-section-border"
                 style={{ 
                   background: '#0000001A',
                   backdropFilter: 'blur(42.5px)',
                   boxShadow: '0px 4.01px 8.72px 0px #00000040 inset, 0px -1px 4.71px 0px #FFFFFF40 inset, 0px 3.01px 1px 0px #00000040',
-                  border: 'none',
                   opacity: isTransitioning ? 0.7 : 1,
                   transition: 'opacity 0.3s ease-in-out'
                 }}
@@ -601,13 +600,40 @@ export const PackageStandardPage = () => {
               {getCurrentPrice()}
             </div>
           </div>
-          </div>
+           </div>
         </section>
             </SwipeablePopupWrapper>
       </main>
     </div>
 </div>
 <FooterCTAGlass />
+
+<style>{`
+  .popup-section-border {
+    position: relative;
+  }
+
+  .popup-section-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #949494 7%, #ACB9C1 16%, #FFFFFF 34%, #ACB9C1 51%, #4B555E 78%, #fff 105%);
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .popup-section-border > * {
+    position: relative;
+    z-index: 1;
+  }
+`}</style>
 </>
 );
 };
