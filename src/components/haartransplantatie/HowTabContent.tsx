@@ -22,7 +22,7 @@ export const HowTabContent = () => {
 
   return (
     <div className="h-full w-full overflow-hidden flex flex-col items-center justify-center">
-      <div className="w-full flex flex-col items-center px-4" style={{ gap: 'clamp(0.5rem, 1.2vh, 0.8rem)' }}>
+      <div className="w-full flex flex-col items-center px-4" style={{ gap: 'clamp(0.3rem, 0.6vh, 0.5rem)' }}>
         {/* Phase Selector */}
         <div 
           className="relative flex items-center justify-center gap-0 rounded-full"
@@ -79,7 +79,7 @@ export const HowTabContent = () => {
 
         {/* Quote Text */}
         <p 
-          className="text-white/70 text-center max-w-xs mx-auto"
+          className="text-white text-center max-w-xs mx-auto"
           style={{
             fontSize: 'clamp(8px, 1vh, 9px)',
             fontWeight: 400,
@@ -87,11 +87,11 @@ export const HowTabContent = () => {
             lineHeight: '1.3',
           }}
         >
-          Inmiddels heb ik al drie vrienden doorverwezen. GlobalHair maakt meer waar dan ze beloven.
+          Inmiddels heb ik al drie vrienden doorverwezen. <br />GlobalHair maakt meer waar dan ze beloven.
         </p>
 
         {/* Timeline - Full Width */}
-        <div className="w-full relative bg-white/20 rounded-full" style={{ height: 'clamp(2px, 0.4vh, 3px)' }}>
+        <div className="w-full relative bg-white rounded-full" style={{ height: '1px' }}>
           <div
             className="absolute top-1/2 -translate-y-1/2 bg-white rounded-full transition-all duration-500 ease-out"
             style={{
