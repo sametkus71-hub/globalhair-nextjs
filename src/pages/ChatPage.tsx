@@ -1091,7 +1091,7 @@ const ChatPage = () => {
           >
             {/* Messages */}
             <div 
-              className="messages-container flex-1 overflow-y-auto px-4 pt-24 pb-28 space-y-4 hide-scrollbar"
+              className="messages-container flex-1 overflow-y-auto px-4 pt-24 pb-48 space-y-4 hide-scrollbar"
               style={{
                 position: 'relative',
                 scrollSnapType: 'none',
@@ -1310,7 +1310,7 @@ const ChatPage = () => {
               <div
                 className="fixed left-0 right-0 lg:left-auto lg:right-auto lg:max-w-[500px] lg:mx-auto"
                 style={{
-                  bottom: 'max(env(safe-area-inset-bottom, 0px), 60px)',
+                  bottom: 'max(env(safe-area-inset-bottom, 0px), 100px)',
                   padding: '1rem 0.5rem 1.5rem 0.5rem',
                   zIndex: 50,
                   maxHeight: '30vh',
