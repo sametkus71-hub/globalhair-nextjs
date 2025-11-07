@@ -372,17 +372,41 @@ const ChatPage = () => {
       <div
         className={`reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}
         style={{
-          background: 'linear-gradient(180deg, rgb(4, 14, 21) 0%, rgb(51, 61, 70) 100%)',
           overflow: 'hidden',
           position: 'fixed',
           inset: 0,
           zIndex: 50
         }}
       >
+        {/* Video Background with Heavy Blur */}
+        <div className="absolute inset-0 w-full h-full overflow-hidden">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{
+              filter: 'blur(40px)',
+              transform: 'scale(1.1)', // Prevent blur edges
+            }}
+          >
+            <source src="https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Basic%20BG%20V0.mp4" type="video/mp4" />
+          </video>
+          
+          {/* Dark overlay for readability */}
+          <div 
+            className="absolute inset-0"
+            style={{
+              background: 'linear-gradient(180deg, rgba(4, 14, 21, 0.75) 0%, rgba(17, 24, 39, 0.85) 50%, rgba(4, 14, 21, 0.75) 100%)',
+            }}
+          />
+        </div>
         <div
-          className="min-h-[var(--app-height)] flex flex-col"
+          className="min-h-[var(--app-height)] flex flex-col relative"
           style={{
             scrollSnapType: 'none',
+            zIndex: 1,
           }}
         >
           {/* Header with Logo and Close Button */}
