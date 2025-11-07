@@ -87,86 +87,90 @@ async function sendMessageStreaming(
         while (true) {
           const { done, value } = await reader.read();
           
+          // Process value FIRST (before checking done)
+          if (value && value.length > 0) {
+            hasReceivedData = true;
+            lastChunkTime = Date.now();
+            buffer += decoder.decode(value, { stream: !done });
+            
+            // Try to process the buffer as different formats
+            let processed = false;
+
+            // Format 1: SSE format with data: prefix
+            if (buffer.includes('data: ')) {
+              const events = buffer.split('\n\n');
+              buffer = events.pop() || '';
+
+              for (const event of events) {
+                const lines = event.split('\n');
+                for (const line of lines) {
+                  if (line.startsWith('data: ')) {
+                    const data = line.slice(6).trim();
+                    
+                    if (data === '[DONE]') {
+                      console.log('[Chat] Received [DONE] signal');
+                      return;
+                    }
+
+                    try {
+                      const parsed = JSON.parse(data);
+                      const content = parsed.output || parsed.answer || parsed.response || parsed.content || parsed.text || '';
+                      if (content) {
+                        console.log('[Chat] SSE chunk:', content.substring(0, 50));
+                        onChunk(content);
+                        processed = true;
+                      }
+                    } catch (e) {
+                      // If not JSON, treat as plain text
+                      if (data) {
+                        console.log('[Chat] Plain text chunk:', data.substring(0, 50));
+                        onChunk(data);
+                        processed = true;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+
+            // Format 2: Raw JSON chunks (n8n streaming format)
+            if (!processed && buffer.includes('{')) {
+              try {
+                // Try to find complete JSON objects in the buffer
+                const jsonMatch = buffer.match(/\{[^}]*\}/g);
+                if (jsonMatch) {
+                  for (const jsonStr of jsonMatch) {
+                    try {
+                      const parsed = JSON.parse(jsonStr);
+                      const content = parsed.output || parsed.answer || parsed.response || parsed.content || parsed.text || '';
+                      if (content) {
+                        console.log('[Chat] JSON chunk:', content.substring(0, 50));
+                        onChunk(content);
+                        processed = true;
+                        // Remove processed JSON from buffer
+                        buffer = buffer.replace(jsonStr, '');
+                      }
+                    } catch (e) {
+                      // Not a complete JSON object yet, keep in buffer
+                    }
+                  }
+                }
+              } catch (e) {
+                // Keep accumulating
+              }
+            }
+          }
+          
+          // THEN check if done
           if (done) {
             console.log('[Chat] Stream complete');
             break;
           }
-
-          hasReceivedData = true;
-          lastChunkTime = Date.now();
-          buffer += decoder.decode(value, { stream: true });
           
           // Check for timeout
           if (Date.now() - lastChunkTime > STREAM_TIMEOUT) {
             console.log('[Chat] Stream timeout - no data received for 30s');
             break;
-          }
-
-          // Try to process the buffer as different formats
-          let processed = false;
-
-          // Format 1: SSE format with data: prefix
-          if (buffer.includes('data: ')) {
-            const events = buffer.split('\n\n');
-            buffer = events.pop() || '';
-
-            for (const event of events) {
-              const lines = event.split('\n');
-              for (const line of lines) {
-                if (line.startsWith('data: ')) {
-                  const data = line.slice(6).trim();
-                  
-                  if (data === '[DONE]') {
-                    console.log('[Chat] Received [DONE] signal');
-                    return;
-                  }
-
-                  try {
-                    const parsed = JSON.parse(data);
-                    const content = parsed.output || parsed.answer || parsed.response || parsed.content || parsed.text || '';
-                    if (content) {
-                      console.log('[Chat] SSE chunk:', content.substring(0, 50));
-                      onChunk(content);
-                      processed = true;
-                    }
-                  } catch (e) {
-                    // If not JSON, treat as plain text
-                    if (data) {
-                      console.log('[Chat] Plain text chunk:', data.substring(0, 50));
-                      onChunk(data);
-                      processed = true;
-                    }
-                  }
-                }
-              }
-            }
-          }
-
-          // Format 2: Raw JSON chunks (n8n streaming format)
-          if (!processed && buffer.includes('{')) {
-            try {
-              // Try to find complete JSON objects in the buffer
-              const jsonMatch = buffer.match(/\{[^}]*\}/g);
-              if (jsonMatch) {
-                for (const jsonStr of jsonMatch) {
-                  try {
-                    const parsed = JSON.parse(jsonStr);
-                    const content = parsed.output || parsed.answer || parsed.response || parsed.content || parsed.text || '';
-                    if (content) {
-                      console.log('[Chat] JSON chunk:', content.substring(0, 50));
-                      onChunk(content);
-                      processed = true;
-                      // Remove processed JSON from buffer
-                      buffer = buffer.replace(jsonStr, '');
-                    }
-                  } catch (e) {
-                    // Not a complete JSON object yet, keep in buffer
-                  }
-                }
-              }
-            } catch (e) {
-              // Keep accumulating
-            }
           }
         }
 
