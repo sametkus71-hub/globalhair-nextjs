@@ -1790,7 +1790,9 @@ html, body {
   grid-auto-columns: 62vw;
   gap: 12px;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: visible;
+  overscroll-behavior-y: none;
+  touch-action: pan-x;
   scroll-snap-type: x mandatory;
   scroll-padding: 17.5vw;
   perspective: 1000px;
