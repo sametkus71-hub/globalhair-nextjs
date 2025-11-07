@@ -414,21 +414,22 @@ const ChatPage = () => {
       
       setMessages(prev => [...prev, userMessage]);
       
-      // Transition to ASKING_CUSTOM_QUESTION state
+      // Add streaming message IMMEDIATELY (before state change)
+      const askQuestionMessage: Message = {
+        role: 'bot',
+        content: '',
+        timestamp: new Date().toISOString(),
+        senderLabel: 'GlobalHair bot',
+        isStreaming: true
+      };
+      
+      setMessages(prev => [...prev, askQuestionMessage]);
+      
+      // Transition to ASKING_CUSTOM_QUESTION state AFTER adding streaming message
       setConversationState(ConversationState.ASKING_CUSTOM_QUESTION);
       
       // Ask for the custom question with streaming
       setTimeout(async () => {
-        const askQuestionMessage: Message = {
-          role: 'bot',
-          content: '',
-          timestamp: new Date().toISOString(),
-          senderLabel: 'GlobalHair bot',
-          isStreaming: true
-        };
-        
-        setMessages(prev => [...prev, askQuestionMessage]);
-        
         await streamStaticText(
           'Waar zou je meer over willen weten?',
           (chunk) => {
@@ -460,20 +461,23 @@ const ChatPage = () => {
     };
     
     setMessages(prev => [...prev, userMessage]);
+    
+    // Add streaming message IMMEDIATELY (before state change)
+    const askNameMessage: Message = {
+      role: 'bot',
+      content: '',
+      timestamp: new Date().toISOString(),
+      senderLabel: 'GlobalHair bot',
+      isStreaming: true
+    };
+    
+    setMessages(prev => [...prev, askNameMessage]);
+    
+    // Transition to ASKING_NAME state AFTER adding streaming message
     setConversationState(ConversationState.ASKING_NAME);
     
     // Ask for name with streaming
     setTimeout(async () => {
-      const askNameMessage: Message = {
-        role: 'bot',
-        content: '',
-        timestamp: new Date().toISOString(),
-        senderLabel: 'GlobalHair bot',
-        isStreaming: true
-      };
-      
-      setMessages(prev => [...prev, askNameMessage]);
-      
       // Stream the question
       await streamStaticText(
         'Voordat we verder gaan, mag ik je naam weten?',
@@ -514,20 +518,21 @@ const ChatPage = () => {
     setSelectedSubject(`Ik heb een andere vraag: ${question}`);
     setCustomQuestion('');
     
-    // Now ask for name
+    // Add streaming message IMMEDIATELY (before state change)
+    const askNameMessage: Message = {
+      role: 'bot',
+      content: '',
+      timestamp: new Date().toISOString(),
+      senderLabel: 'GlobalHair bot',
+      isStreaming: true
+    };
+    
+    setMessages(prev => [...prev, askNameMessage]);
+    
+    // Now ask for name AFTER adding streaming message
     setConversationState(ConversationState.ASKING_NAME);
     
     setTimeout(async () => {
-      const askNameMessage: Message = {
-        role: 'bot',
-        content: '',
-        timestamp: new Date().toISOString(),
-        senderLabel: 'GlobalHair bot',
-        isStreaming: true
-      };
-      
-      setMessages(prev => [...prev, askNameMessage]);
-      
       await streamStaticText(
         'Voordat we verder gaan, mag ik je naam weten?',
         (chunk) => {
