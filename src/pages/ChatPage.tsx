@@ -4,6 +4,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { X, Send, Loader2, ExternalLink } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import hairtransplantLogo from '@/assets/hairtransplant-logo.png';
+import { usePopupClose } from '@/components/PopupCloseButton';
 
 interface Message {
   role: 'user' | 'bot';
@@ -133,9 +134,11 @@ const ChatPage = () => {
   const [sessionId, setSessionId] = useState<string>('');
   const [showOptions, setShowOptions] = useState(false);
   const [userName, setUserName] = useState<string>('');
+  const [isExiting, setIsExiting] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const preloadTimeoutsRef = useRef<number[]>([]);
+  const { handlePopupClose } = usePopupClose();
 
   // Initialize session ID
   useEffect(() => {
@@ -351,6 +354,17 @@ const ChatPage = () => {
     }
   };
 
+  const handleClose = () => {
+    setIsExiting(true);
+    if (window.history.length > 1) {
+      setTimeout(() => {
+        navigate(-1);
+      }, 350);
+    } else {
+      handlePopupClose(350);
+    }
+  };
+
   return (
     <>
       <style>{chatInputStyles}</style>
@@ -361,12 +375,21 @@ const ChatPage = () => {
       />
       
       <div
-        className="min-h-[var(--app-height)] flex flex-col"
+        className={`reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}
         style={{
-          background: 'linear-gradient(180deg, #040E15 0%, #333D46 100%)',
-          scrollSnapType: 'none',
+          background: 'linear-gradient(180deg, rgb(4, 14, 21) 0%, rgb(51, 61, 70) 100%)',
+          overflow: 'hidden',
+          position: 'fixed',
+          inset: 0,
+          zIndex: 50
         }}
       >
+        <div
+          className="min-h-[var(--app-height)] flex flex-col"
+          style={{
+            scrollSnapType: 'none',
+          }}
+        >
         {/* Header with Logo and Close Button */}
         <div
           className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-4"
@@ -382,13 +405,7 @@ const ChatPage = () => {
 
           {/* Close Button */}
           <button
-            onClick={() => {
-              if (window.history.length > 1) {
-                navigate(-1);
-              } else {
-                navigate(language === 'nl' ? '/nl' : '/en');
-              }
-            }}
+            onClick={handleClose}
             className="p-2 text-white/80 hover:text-white transition-colors rounded-lg hover:bg-white/5"
             aria-label="Close chat"
           >
@@ -632,6 +649,7 @@ const ChatPage = () => {
               )}
             </button>
           </div>
+        </div>
         </div>
       </div>
     </>
