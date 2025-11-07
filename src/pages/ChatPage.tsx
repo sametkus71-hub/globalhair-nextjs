@@ -32,6 +32,24 @@ interface ChatResponse {
   [key: string]: any;
 }
 
+// Helper function to stream static text word by word
+async function streamStaticText(
+  text: string,
+  onChunk: (chunk: string) => void
+): Promise<void> {
+  const words = text.split(/(\s+)/);
+  let accumulatedText = '';
+  
+  for (let i = 0; i < words.length; i++) {
+    accumulatedText += words[i];
+    onChunk(accumulatedText);
+    
+    if (i < words.length - 1) {
+      await new Promise(resolve => setTimeout(resolve, 35));
+    }
+  }
+}
+
 async function sendMessageStreaming(
   message: string, 
   sessionId: string,
@@ -264,32 +282,72 @@ const ChatPage = () => {
     };
   }, []);
 
-  const startConversationFlow = () => {
+  const startConversationFlow = async () => {
     preloadTimeoutsRef.current.forEach(clearTimeout);
     preloadTimeoutsRef.current = [];
     
-    // State 1: GREETING
+    // State 1: GREETING - with streaming
     const greetingMessage: Message = {
       role: 'bot',
-      content: 'Hallo, ik ben je persoonlijke assistent - hier om al je vragen over haartransplantatie te beantwoorden.',
+      content: '',
       timestamp: new Date().toISOString(),
-      senderLabel: 'GlobalHair bot'
+      senderLabel: 'GlobalHair bot',
+      isStreaming: true
     };
     
     setMessages([greetingMessage]);
     
+    // Stream the greeting text
+    await streamStaticText(
+      'Hallo, ik ben je persoonlijke assistent - hier om al je vragen over haartransplantatie te beantwoorden.',
+      (chunk) => {
+        setMessages(prev => 
+          prev.map((msg, idx) => 
+            idx === 0 ? { ...msg, content: chunk } : msg
+          )
+        );
+      }
+    );
+    
+    // Mark greeting as complete
+    setMessages(prev => 
+      prev.map((msg, idx) => 
+        idx === 0 ? { ...msg, isStreaming: false } : msg
+      )
+    );
+    
     // Transition to ASKING_SUBJECT after 800ms
-    const timeout1 = window.setTimeout(() => {
+    const timeout1 = window.setTimeout(async () => {
       setConversationState(ConversationState.ASKING_SUBJECT);
       
       const askSubjectMessage: Message = {
         role: 'bot',
-        content: 'Waar kan ik je vandaag mee helpen?',
+        content: '',
         timestamp: new Date().toISOString(),
-        senderLabel: 'GlobalHair bot'
+        senderLabel: 'GlobalHair bot',
+        isStreaming: true
       };
       
       setMessages(prev => [...prev, askSubjectMessage]);
+      
+      // Stream the question
+      await streamStaticText(
+        'Waar kan ik je vandaag mee helpen?',
+        (chunk) => {
+          setMessages(prev => 
+            prev.map((msg, idx) => 
+              idx === prev.length - 1 ? { ...msg, content: chunk } : msg
+            )
+          );
+        }
+      );
+      
+      // Mark as complete
+      setMessages(prev => 
+        prev.map((msg, idx) => 
+          idx === prev.length - 1 ? { ...msg, isStreaming: false } : msg
+        )
+      );
       
       // Transition to SHOWING_OPTIONS after 800ms
       const timeout2 = window.setTimeout(() => {
@@ -316,16 +374,36 @@ const ChatPage = () => {
     setMessages(prev => [...prev, userMessage]);
     setConversationState(ConversationState.ASKING_NAME);
     
-    // Ask for name
-    setTimeout(() => {
+    // Ask for name with streaming
+    setTimeout(async () => {
       const askNameMessage: Message = {
         role: 'bot',
-        content: 'Voordat we verder gaan, mag ik je naam weten?',
+        content: '',
         timestamp: new Date().toISOString(),
-        senderLabel: 'GlobalHair bot'
+        senderLabel: 'GlobalHair bot',
+        isStreaming: true
       };
       
       setMessages(prev => [...prev, askNameMessage]);
+      
+      // Stream the question
+      await streamStaticText(
+        'Voordat we verder gaan, mag ik je naam weten?',
+        (chunk) => {
+          setMessages(prev => 
+            prev.map((msg, idx) => 
+              idx === prev.length - 1 ? { ...msg, content: chunk } : msg
+            )
+          );
+        }
+      );
+      
+      // Mark as complete
+      setMessages(prev => 
+        prev.map((msg, idx) => 
+          idx === prev.length - 1 ? { ...msg, isStreaming: false } : msg
+        )
+      );
     }, 800);
   };
 
