@@ -135,6 +135,7 @@ const ChatPage = () => {
   const [showOptions, setShowOptions] = useState(false);
   const [userName, setUserName] = useState<string>('');
   const [isExiting, setIsExiting] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const preloadTimeoutsRef = useRef<number[]>([]);
@@ -245,6 +246,27 @@ const ChatPage = () => {
       }
     }
   }, [messages]);
+
+  // Detect scroll for header background
+  useEffect(() => {
+    const messagesContainer = document.querySelector('.messages-container');
+    
+    const handleScroll = () => {
+      if (messagesContainer) {
+        setIsScrolled(messagesContainer.scrollTop > 20);
+      }
+    };
+    
+    if (messagesContainer) {
+      messagesContainer.addEventListener('scroll', handleScroll);
+    }
+    
+    return () => {
+      if (messagesContainer) {
+        messagesContainer.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
 
   const handleOptionClick = (optionText: string) => {
     setShowOptions(false);
@@ -404,7 +426,16 @@ const ChatPage = () => {
           />
         </div>
         {/* Header with Logo and Close Button - SIBLING TO MAIN CONTENT */}
-        <div className="fixed top-0 left-0 right-0" style={{ zIndex: 100 }}>
+        <div 
+          className="fixed top-0 left-0 right-0 transition-all duration-300" 
+          style={{ 
+            zIndex: 100,
+            backdropFilter: isScrolled ? 'blur(12px)' : 'none',
+            background: isScrolled 
+              ? 'linear-gradient(180deg, rgba(4, 14, 21, 0.85) 0%, rgba(17, 24, 39, 0.80) 100%)' 
+              : 'transparent',
+          }}
+        >
           {/* Swipeable drag indicator */}
           <SwipeablePopupWrapper onClose={handleClose}>
             <div className="flex justify-center pt-2 pb-1">
@@ -445,7 +476,7 @@ const ChatPage = () => {
 
         {/* Messages */}
         <div 
-          className="flex-1 overflow-y-auto px-4 pt-24 pb-28 space-y-4 hide-scrollbar"
+          className="messages-container flex-1 overflow-y-auto px-4 pt-24 pb-28 space-y-4 hide-scrollbar"
           style={{
             position: 'relative',
             scrollSnapType: 'none',
