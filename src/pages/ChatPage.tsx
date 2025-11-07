@@ -4,7 +4,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { X, Send, Loader2, ExternalLink } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import hairtransplantLogo from '@/assets/hairtransplant-logo.png';
-import { usePopupClose } from '@/components/PopupCloseButton';
+import { usePopupClose, SwipeablePopupWrapper } from '@/components/PopupCloseButton';
 
 interface Message {
   role: 'user' | 'bot';
@@ -374,26 +374,27 @@ const ChatPage = () => {
         language={language}
       />
       
-      <div
-        className={`reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}
-        style={{
-          background: 'linear-gradient(180deg, rgb(4, 14, 21) 0%, rgb(51, 61, 70) 100%)',
-          overflow: 'hidden',
-          position: 'fixed',
-          inset: 0,
-          zIndex: 50
-        }}
-      >
+      <SwipeablePopupWrapper onClose={handleClose}>
         <div
-          className="min-h-[var(--app-height)] flex flex-col"
+          className={`reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}
           style={{
-            scrollSnapType: 'none',
+            background: 'linear-gradient(180deg, rgb(4, 14, 21) 0%, rgb(51, 61, 70) 100%)',
+            overflow: 'hidden',
+            position: 'fixed',
+            inset: 0,
+            zIndex: 50
           }}
         >
-        {/* Header with Logo and Close Button */}
-        <div
-          className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-4"
-        >
+          <div
+            className="min-h-[var(--app-height)] flex flex-col"
+            style={{
+              scrollSnapType: 'none',
+            }}
+          >
+          {/* Header with Logo and Close Button */}
+          <div
+            className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-4"
+          >
           {/* Logo */}
           <div className="flex items-center">
             <img 
@@ -650,8 +651,9 @@ const ChatPage = () => {
             </button>
           </div>
         </div>
+          </div>
         </div>
-      </div>
+      </SwipeablePopupWrapper>
     </>
   );
 };
