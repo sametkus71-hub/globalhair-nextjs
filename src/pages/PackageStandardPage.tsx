@@ -23,7 +23,7 @@ export const PackageStandardPage = () => {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const { handlePopupClose } = usePopupClose();
 
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoContainerRef = useRef<HTMLDivElement>(null);
 
   // Video sources mapping - correct URLs for each tier
   const videoSources = {
@@ -63,18 +63,30 @@ export const PackageStandardPage = () => {
     };
   }, []);
 
-  // Load video based on active tier
+  // Initialize first video on mount
   useEffect(() => {
-    const videoElement = videoRef.current;
-    if (!videoElement) return;
-
-    const videoUrl = videoSources[activeTier];
-    videoElement.src = videoUrl;
-    videoElement.load();
-    videoElement.play().catch(() => {
-      // Autoplay might be blocked, that's ok
-    });
-  }, [activeTier]);
+    if (!videoContainerRef.current) return;
+    
+    const initialVideo = document.createElement('video');
+    initialVideo.src = videoSources[activeTier];
+    initialVideo.autoplay = true;
+    initialVideo.loop = true;
+    initialVideo.muted = true;
+    initialVideo.playsInline = true;
+    initialVideo.className = 'absolute inset-0 w-full h-full object-cover';
+    initialVideo.style.opacity = '1';
+    initialVideo.style.zIndex = '1';
+    
+    videoContainerRef.current.appendChild(initialVideo);
+    initialVideo.load();
+    initialVideo.play().catch(() => {});
+    
+    return () => {
+      if (videoContainerRef.current) {
+        videoContainerRef.current.innerHTML = '';
+      }
+    };
+  }, []);
 
   // Defensive redirect: ensure package URLs always use correct format
   useEffect(() => {
@@ -93,27 +105,127 @@ export const PackageStandardPage = () => {
     }
   }, [urlTier]);
 
-  // Reset to Premium if switching to Turkey while Elite is selected
-  const handleCountryChange = (country: 'nl' | 'tr') => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      const newTier = country === 'tr' && activeTier === 'Elite' ? 'Premium' : activeTier;
-      const basePath = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
-      navigate(`${basePath}/${country}/${newTier.toLowerCase()}`);
-      setActiveCountry(country);
-      setActiveTier(newTier);
-      setIsTransitioning(false);
-    }, 150);
+  // Load video dynamically in background for smooth crossfade
+  const loadVideoInBackground = (src: string): Promise<HTMLVideoElement> => {
+    return new Promise((resolve, reject) => {
+      const newVideo = document.createElement('video');
+      newVideo.src = src;
+      newVideo.autoplay = true;
+      newVideo.loop = true;
+      newVideo.muted = true;
+      newVideo.playsInline = true;
+      newVideo.className = 'absolute inset-0 w-full h-full object-cover';
+      newVideo.style.opacity = '0';
+      newVideo.style.zIndex = '0';
+      
+      newVideo.addEventListener('canplay', () => {
+        newVideo.play().then(() => resolve(newVideo)).catch(reject);
+      }, { once: true });
+      
+      newVideo.addEventListener('error', reject, { once: true });
+      
+      newVideo.load();
+      videoContainerRef.current?.appendChild(newVideo);
+    });
   };
 
-  const handleTierChange = (tier: 'Standard' | 'Premium' | 'Elite') => {
+  // Reset to Premium if switching to Turkey while Elite is selected
+  const handleCountryChange = async (country: 'nl' | 'tr') => {
+    if (isTransitioning) return;
+    
     setIsTransitioning(true);
-    setTimeout(() => {
-      const basePath = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
-      navigate(`${basePath}/${activeCountry}/${tier.toLowerCase()}`);
-      setActiveTier(tier);
+    
+    const newTier = country === 'tr' && activeTier === 'Elite' ? 'Premium' : activeTier;
+    const basePath = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
+    
+    // Update URL without navigation
+    window.history.replaceState(null, '', `${basePath}/${country}/${newTier.toLowerCase()}`);
+    
+    // Get current video
+    const currentVideo = videoContainerRef.current?.querySelector('video[style*="opacity: 1"]') as HTMLVideoElement;
+    
+    try {
+      // Load new video in background
+      const newVideoSrc = videoSources[newTier];
+      const newVideo = await loadVideoInBackground(newVideoSrc);
+      
+      // Prepare for crossfade
+      newVideo.style.zIndex = '1';
+      
+      // Start crossfade after short delay
+      setTimeout(() => {
+        newVideo.style.transition = 'opacity 400ms ease-in-out';
+        newVideo.style.opacity = '1';
+        
+        if (currentVideo) {
+          currentVideo.style.transition = 'opacity 400ms ease-in-out';
+          currentVideo.style.opacity = '0';
+          
+          setTimeout(() => {
+            currentVideo.remove();
+          }, 400);
+        }
+      }, 50);
+      
+      // Update state
+      setActiveCountry(country);
+      setActiveTier(newTier);
+      
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, 450);
+    } catch (error) {
+      console.error('Video load failed:', error);
       setIsTransitioning(false);
-    }, 150);
+    }
+  };
+
+  const handleTierChange = async (tier: 'Standard' | 'Premium' | 'Elite') => {
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
+    
+    const basePath = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
+    
+    // Update URL without navigation
+    window.history.replaceState(null, '', `${basePath}/${activeCountry}/${tier.toLowerCase()}`);
+    
+    // Get current video
+    const currentVideo = videoContainerRef.current?.querySelector('video[style*="opacity: 1"]') as HTMLVideoElement;
+    
+    try {
+      // Load new video in background
+      const newVideoSrc = videoSources[tier];
+      const newVideo = await loadVideoInBackground(newVideoSrc);
+      
+      // Prepare for crossfade
+      newVideo.style.zIndex = '1';
+      
+      // Start crossfade after short delay
+      setTimeout(() => {
+        newVideo.style.transition = 'opacity 400ms ease-in-out';
+        newVideo.style.opacity = '1';
+        
+        if (currentVideo) {
+          currentVideo.style.transition = 'opacity 400ms ease-in-out';
+          currentVideo.style.opacity = '0';
+          
+          setTimeout(() => {
+            currentVideo.remove();
+          }, 400);
+        }
+      }, 50);
+      
+      // Update state
+      setActiveTier(tier);
+      
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, 450);
+    } catch (error) {
+      console.error('Video load failed:', error);
+      setIsTransitioning(false);
+    }
   };
 
   const toggleFeature = (key: FeatureKey) => {
@@ -339,21 +451,13 @@ export const PackageStandardPage = () => {
           position: 'fixed',
           inset: 0,
           zIndex: 30,
-          opacity: isTransitioning ? 0.7 : 1,
-          transition: 'opacity 0.6s ease-in-out'
         }}
       >
-        {/* Background Video - No overlays */}
-        <video
-          ref={videoRef}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{
-            pointerEvents: 'none',
-          }}
+        {/* Video Container - holds dynamically loaded videos */}
+        <div 
+          ref={videoContainerRef}
+          className="absolute inset-0 w-full h-full"
+          style={{ pointerEvents: 'none' }}
         />
         <div 
           className="h-full flex items-start justify-center p-4 pt-4"
@@ -366,8 +470,6 @@ export const PackageStandardPage = () => {
                   background: '#0000001A',
                   backdropFilter: 'blur(42.5px)',
                   boxShadow: '0px 4.01px 8.72px 0px #00000040 inset, 0px -1px 4.71px 0px #FFFFFF40 inset, 0px 3.01px 1px 0px #00000040',
-                  opacity: isTransitioning ? 0.7 : 1,
-                  transition: 'opacity 0.3s ease-in-out',
                   paddingBottom: 'clamp(1.5rem, 3vh, 2rem)'
                 }}
               >
