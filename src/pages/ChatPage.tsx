@@ -1310,7 +1310,7 @@ const ChatPage = () => {
               <div
                 className="fixed left-0 right-0 lg:left-auto lg:right-auto lg:max-w-[500px] lg:mx-auto"
                 style={{
-                  bottom: 0,
+                  bottom: 'max(env(safe-area-inset-bottom, 0px), 20px)',
                   padding: '1rem 0.5rem 1.5rem 0.5rem',
                   zIndex: 50,
                   maxHeight: '30vh',
