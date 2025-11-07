@@ -1287,7 +1287,7 @@ const ChatPage = () => {
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
                     placeholder="Typ een bericht..."
-                    className="flex-1 bg-transparent text-white placeholder-white/40 resize-none outline-none px-2 max-h-32 hide-scrollbar"
+                    className="flex-1 bg-transparent text-white placeholder-white/40 resize-none outline-none border-none px-2 max-h-32 hide-scrollbar"
                     style={{
                       fontFamily: 'Inter',
                       fontSize: '16px',
