@@ -25,7 +25,7 @@ export const AnimatedHeadHero = () => {
         onClick={handleAnalyzeClick}
         className="animated-border-shine cursor-pointer group z-10 relative rounded-full flex items-center gap-2 transition-all duration-300"
         style={{
-          padding: 'clamp(0.25rem, 0.5vh, 0.4rem) clamp(0.35rem, 0.4vw, 0.5rem) clamp(0.25rem, 0.5vh, 0.4rem) clamp(1.8rem, 1.4vw, 1.6rem)',
+          padding: 'clamp(0.15rem, 0.3vh, 0.25rem) clamp(0.35rem, 0.4vw, 0.5rem) clamp(0.15rem, 0.3vh, 0.25rem) clamp(1.8rem, 1.4vw, 1.6rem)',
           background: 'rgba(255, 255, 255, 0.08)',
           backdropFilter: 'blur(10px)',
           boxShadow: '0px 3.29px 3.29px 0px #00000040, 0px 3.29px 7.15px 0px #00000040 inset, 0px -0.82px 3.86px 0px #FFFFFF40 inset',
