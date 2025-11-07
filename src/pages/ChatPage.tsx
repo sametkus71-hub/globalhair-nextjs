@@ -5,6 +5,7 @@ import { X, Send, Loader2, ExternalLink } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import hairtransplantLogo from '@/assets/hairtransplant-logo.png';
 import { usePopupClose } from '@/components/PopupCloseButton';
+import { DesktopContainer } from '@/components/layout/DesktopContainer';
 
 enum ConversationState {
   GREETING = 'greeting',
@@ -927,14 +928,15 @@ const ChatPage = () => {
             zIndex: 2,
           }}
         >
-          {/* Messages */}
-          <div 
-            className="messages-container flex-1 overflow-y-auto px-4 pt-24 pb-28 space-y-4 hide-scrollbar"
-            style={{
-              position: 'relative',
-              scrollSnapType: 'none',
-            }}
-          >
+          <DesktopContainer>
+            {/* Messages */}
+            <div 
+              className="messages-container flex-1 overflow-y-auto px-4 pt-24 pb-28 space-y-4 hide-scrollbar"
+              style={{
+                position: 'relative',
+                scrollSnapType: 'none',
+              }}
+            >
             {messages.map((msg, idx) => (
               <div
                 key={idx}
@@ -1141,63 +1143,64 @@ const ChatPage = () => {
             )}
             
             <div ref={messagesEndRef} />
-          </div>
+            </div>
 
-          {/* Input - Only show in ACTIVE_CHAT state */}
-          {conversationState === ConversationState.ACTIVE_CHAT && (
-            <div
-              className="sticky bottom-0"
-              style={{
-                padding: '1rem 0.5rem',
-                zIndex: 3,
-              }}
-            >
+            {/* Input - Only show in ACTIVE_CHAT state */}
+            {conversationState === ConversationState.ACTIVE_CHAT && (
               <div
-                className="flex items-end gap-2 p-2 chat-input-wrapper"
+                className="sticky bottom-0"
                 style={{
-                  borderRadius: '9999px',
-                  background: 'linear-gradient(100deg, rgba(44, 54, 62, 0.05) 0%, rgba(234, 234, 234, 0.15) 50%, rgba(44, 54, 62, 0.05) 100%)',
-                  backdropFilter: 'blur(10px)',
-                  position: 'relative',
-                  padding: '0.3rem 0.3rem 0.3rem 1rem',
+                  padding: '1rem 0.5rem',
+                  zIndex: 3,
                 }}
               >
-                <textarea
-                  ref={textareaRef}
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  placeholder="Typ een bericht..."
-                  className="flex-1 bg-transparent text-white placeholder-white/40 resize-none outline-none px-2 max-h-32 hide-scrollbar"
+                <div
+                  className="flex items-end gap-2 p-2 chat-input-wrapper"
                   style={{
-                    fontFamily: 'Inter',
-                    fontSize: '16px',
-                    paddingTop: '0.6rem',
-                    paddingBottom: '0.6rem',
-                  }}
-                  rows={1}
-                  disabled={isLoading}
-                />
-                <button
-                  onClick={handleSend}
-                  disabled={!input.trim() || isLoading}
-                  className="silver-gradient-border-round transition-all disabled:opacity-30"
-                  style={{
-                    padding: '0.8rem',
                     borderRadius: '9999px',
-                    background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.02) 100%)',
+                    background: 'linear-gradient(100deg, rgba(44, 54, 62, 0.05) 0%, rgba(234, 234, 234, 0.15) 50%, rgba(44, 54, 62, 0.05) 100%)',
+                    backdropFilter: 'blur(10px)',
                     position: 'relative',
+                    padding: '0.3rem 0.3rem 0.3rem 1rem',
                   }}
                 >
-                  {isLoading ? (
-                    <Loader2 className="animate-spin text-white" size={20} />
-                  ) : (
-                    <Send className="text-white" size={20} />
-                  )}
-                </button>
+                  <textarea
+                    ref={textareaRef}
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    placeholder="Typ een bericht..."
+                    className="flex-1 bg-transparent text-white placeholder-white/40 resize-none outline-none px-2 max-h-32 hide-scrollbar"
+                    style={{
+                      fontFamily: 'Inter',
+                      fontSize: '16px',
+                      paddingTop: '0.6rem',
+                      paddingBottom: '0.6rem',
+                    }}
+                    rows={1}
+                    disabled={isLoading}
+                  />
+                  <button
+                    onClick={handleSend}
+                    disabled={!input.trim() || isLoading}
+                    className="silver-gradient-border-round transition-all disabled:opacity-30"
+                    style={{
+                      padding: '0.8rem',
+                      borderRadius: '9999px',
+                      background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.02) 100%)',
+                      position: 'relative',
+                    }}
+                  >
+                    {isLoading ? (
+                      <Loader2 className="animate-spin text-white" size={20} />
+                    ) : (
+                      <Send className="text-white" size={20} />
+                    )}
+                  </button>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </DesktopContainer>
         </div>
       </div>
     </>
