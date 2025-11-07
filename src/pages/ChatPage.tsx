@@ -420,7 +420,7 @@ const ChatPage = () => {
           <div 
             className="absolute inset-0"
             style={{
-              background: 'linear-gradient(180deg, rgba(4, 14, 21, 0.75) 0%, rgba(17, 24, 39, 0.85) 50%, rgba(4, 14, 21, 0.75) 100%)',
+              background: 'linear-gradient(180deg, rgba(4, 14, 21, 0.80) 0%, rgba(51, 61, 70, 0.85) 100%)',
               zIndex: 1,
             }}
           />
