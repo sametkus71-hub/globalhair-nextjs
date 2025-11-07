@@ -11,6 +11,7 @@ interface Message {
   content: string;
   source?: string;
   error?: boolean;
+  timestamp?: string;
 }
 
 interface ChatResponse {
@@ -183,8 +184,8 @@ const ChatPage = () => {
       : 'Hallo, ik ben je persoonlijke assistent - hier om al je vragen over haartransplantatie te beantwoorden.';
     
     const preloadedMessages: Message[] = [
-      { role: 'bot', content: greeting },
-      { role: 'bot', content: 'Waar kan ik je vandaag mee helpen?' }
+      { role: 'bot', content: greeting, timestamp: new Date().toISOString() },
+      { role: 'bot', content: 'Waar kan ik je vandaag mee helpen?', timestamp: new Date().toISOString() }
     ];
 
     let index = 0;
@@ -270,30 +271,30 @@ const ChatPage = () => {
 
   const handleOptionClick = (optionText: string) => {
     setShowOptions(false);
-    setMessages(prev => [...prev, { role: 'user', content: optionText }]);
+    setMessages(prev => [...prev, { role: 'user', content: optionText, timestamp: new Date().toISOString() }]);
 
     setTimeout(() => {
       if (optionText.includes('werkwijze')) {
         setMessages(prev => [...prev, 
-          { role: 'bot', content: 'Natuurlijk. We combineren medische precisie met persoonlijke zorg. Elke behandeling begint met een uitgebreide analyse, gevolgd door een behandeling op maat — uitgevoerd door ervaren specialisten.' }
+          { role: 'bot', content: 'Natuurlijk. We combineren medische precisie met persoonlijke zorg. Elke behandeling begint met een uitgebreide analyse, gevolgd door een behandeling op maat — uitgevoerd door ervaren specialisten.', timestamp: new Date().toISOString() }
         ]);
         setTimeout(() => {
           setMessages(prev => [...prev,
-            { role: 'bot', content: 'Wil je daarna meer weten over de pakketten, of meteen een consult plannen?' }
+            { role: 'bot', content: 'Wil je daarna meer weten over de pakketten, of meteen een consult plannen?', timestamp: new Date().toISOString() }
           ]);
         }, 800);
       } else if (optionText.includes('pakket')) {
         setMessages(prev => [...prev,
-          { role: 'bot', content: 'Uitstekend. Ik kan je helpen bepalen welk pakket het best bij jouw situatie past.' }
+          { role: 'bot', content: 'Uitstekend. Ik kan je helpen bepalen welk pakket het best bij jouw situatie past.', timestamp: new Date().toISOString() }
         ]);
         setTimeout(() => {
           setMessages(prev => [...prev,
-            { role: 'bot', content: 'Wil je me eerst iets vertellen over je huidige haarstatus of je gewenste resultaat?' }
+            { role: 'bot', content: 'Wil je me eerst iets vertellen over je huidige haarstatus of je gewenste resultaat?', timestamp: new Date().toISOString() }
           ]);
         }, 800);
       } else {
         setMessages(prev => [...prev,
-          { role: 'bot', content: 'Geen probleem 👍. Stel gerust je vraag — ik help je zo goed mogelijk verder.' }
+          { role: 'bot', content: 'Geen probleem 👍. Stel gerust je vraag — ik help je zo goed mogelijk verder.', timestamp: new Date().toISOString() }
         ]);
       }
     }, 800);
@@ -331,7 +332,7 @@ const ChatPage = () => {
     console.log('[Chat] Adding user message:', userMessage);
     setInput('');
     setMessages(prev => {
-      const updated = [...prev, { role: 'user' as const, content: userMessage }];
+      const updated = [...prev, { role: 'user' as const, content: userMessage, timestamp: new Date().toISOString() }];
       console.log('[Chat] Messages after user add:', updated.length);
       return updated;
     });
@@ -346,6 +347,7 @@ const ChatPage = () => {
           role: 'bot' as const,
           content: response.answer || 'No response',
           source: response.source,
+          timestamp: new Date().toISOString(),
         }];
         console.log('[Chat] Messages after bot add:', updated.length);
         return updated;
@@ -358,6 +360,7 @@ const ChatPage = () => {
           ? 'Sorry, er is iets fout gegaan.' 
           : 'Sorry, something went wrong.',
         error: true,
+        timestamp: new Date().toISOString(),
       }]);
     } finally {
       setIsLoading(false);
@@ -461,19 +464,27 @@ const ChatPage = () => {
             </div>
           )}
           
-          {messages.map((msg, idx) => (
-            <div
-              key={idx}
-              className={`flex animate-fade-in-up ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-            >
-              {msg.role === 'user' ? (
+          {messages.map((msg, idx) => {
+            const formatTime = (timestamp?: string) => {
+              if (!timestamp) return '';
+              const date = new Date(timestamp);
+              return date.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' });
+            };
+
+            return (
+              <div
+                key={idx}
+                className={`flex flex-col animate-fade-in-up ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
+              >
                 <div
-                  className="max-w-[80%] px-4 py-3"
+                  className={`max-w-[80%] px-4 py-3 ${msg.role === 'user' ? '' : ''}`}
                   style={{
-                    background: 'linear-gradient(135deg, rgba(234, 234, 234, 0.18) 0%, rgba(234, 234, 234, 0.12) 100%)',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
-                    borderRadius: '18px 18px 4px 18px',
-                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+                    background: msg.role === 'user'
+                      ? 'linear-gradient(135deg, rgba(234, 234, 234, 0.18) 0%, rgba(234, 234, 234, 0.12) 100%)'
+                      : 'linear-gradient(135deg, rgba(44, 54, 62, 0.5) 0%, rgba(44, 54, 62, 0.3) 100%)',
+                    border: msg.role === 'user' ? '1px solid rgba(255, 255, 255, 0.15)' : 'none',
+                    borderRadius: msg.role === 'user' ? '12px 12px 2px 12px' : '12px 12px 12px 2px',
+                    boxShadow: msg.role === 'user' ? '0 2px 8px rgba(0, 0, 0, 0.2)' : 'none',
                     color: 'rgba(255, 255, 255, 0.95)',
                     fontFamily: 'Inter, system-ui, sans-serif',
                     fontSize: '14px',
@@ -481,25 +492,10 @@ const ChatPage = () => {
                     position: 'relative',
                   }}
                 >
-                  <p className="whitespace-pre-wrap">{msg.content}</p>
-                </div>
-              ) : (
-                <div
-                  className="max-w-[80%] px-4 py-3"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(44, 54, 62, 0.5) 0%, rgba(44, 54, 62, 0.3) 100%)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    borderRadius: '18px 18px 18px 4px',
-                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
-                    fontFamily: 'Inter, system-ui, sans-serif',
-                    fontSize: '14px',
-                    lineHeight: '1.5',
-                  }}
-                >
                   <p 
                     className="whitespace-pre-wrap"
                     style={{
-                      color: 'rgb(220, 220, 220)',
+                      color: msg.role === 'user' ? 'rgba(255, 255, 255, 0.95)' : 'rgb(220, 220, 220)',
                     }}
                   >
                     {msg.content}
@@ -524,9 +520,20 @@ const ChatPage = () => {
                     <span className="text-red-400/80 text-sm ml-2">⚠</span>
                   )}
                 </div>
-              )}
-            </div>
-          ))}
+                {msg.timestamp && (
+                  <span 
+                    className="text-xs mt-1 px-1"
+                    style={{
+                      color: 'rgba(255, 255, 255, 0.4)',
+                      fontFamily: 'Inter, system-ui, sans-serif',
+                    }}
+                  >
+                    {formatTime(msg.timestamp)}
+                  </span>
+                )}
+              </div>
+            );
+          })}
           
           {isLoading && (
             <div className="flex justify-start">
