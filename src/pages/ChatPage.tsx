@@ -604,6 +604,21 @@ const ChatPage = () => {
     return date.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' });
   };
 
+  // Helper function to check if we should show the sender label
+  const shouldShowSenderLabel = (currentIndex: number, messages: Message[]): boolean => {
+    if (currentIndex === 0) return true; // Always show on first message
+    
+    const currentMsg = messages[currentIndex];
+    const previousMsg = messages[currentIndex - 1];
+    
+    // Hide label if both current and previous are bot messages
+    if (currentMsg.role === 'bot' && previousMsg.role === 'bot') {
+      return false;
+    }
+    
+    return true;
+  };
+
   return (
     <>
       <style>{chatInputStyles}</style>
@@ -688,12 +703,14 @@ const ChatPage = () => {
                 className={`flex flex-col animate-fade-in-up ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
               >
                 {/* Sender Label */}
-                {msg.senderLabel && (
+                {msg.senderLabel && shouldShowSenderLabel(idx, messages) && (
                   <span 
-                    className="text-xs mb-1 px-1"
+                    className="text-[10px] mb-0.5 px-1"
                     style={{
-                      color: 'rgba(255, 255, 255, 0.5)',
+                      color: 'rgba(255, 255, 255, 0.35)',
                       fontFamily: 'Inter, system-ui, sans-serif',
+                      fontWeight: '400',
+                      letterSpacing: '0.02em'
                     }}
                   >
                     {msg.senderLabel}
