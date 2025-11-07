@@ -403,43 +403,45 @@ const ChatPage = () => {
             }}
           />
         </div>
+        {/* Header with Logo and Close Button - SIBLING TO MAIN CONTENT */}
+        <div className="fixed top-0 left-0 right-0" style={{ zIndex: 100 }}>
+          {/* Swipeable drag indicator */}
+          <SwipeablePopupWrapper onClose={handleClose}>
+            <div className="flex justify-center pt-2 pb-1">
+              <div className="w-12 h-1 bg-white/20 rounded-full" />
+            </div>
+          </SwipeablePopupWrapper>
+          
+          {/* Header content */}
+          <div className="flex items-center justify-between px-4 pb-4">
+            {/* Logo */}
+            <div className="flex items-center">
+              <img 
+                src={hairtransplantLogo} 
+                alt="GHI Hairtransplant Logo" 
+                style={{ height: '2.5rem' }}
+              />
+            </div>
+
+            {/* Close Button */}
+            <button
+              onClick={handleClose}
+              className="p-2 text-white/80 hover:text-white transition-colors rounded-lg hover:bg-white/5 relative z-10"
+              aria-label="Close chat"
+            >
+              <X size={24} />
+            </button>
+          </div>
+        </div>
+
+        {/* Main Content Container - SIBLING TO HEADER */}
         <div
-          className="min-h-[var(--app-height)] flex flex-col relative"
+          className="h-[var(--app-height)] flex flex-col relative"
           style={{
             scrollSnapType: 'none',
             zIndex: 2,
           }}
         >
-          {/* Header with Logo and Close Button */}
-          <div className="fixed top-0 left-0 right-0" style={{ zIndex: 100 }}>
-            {/* Swipeable drag indicator */}
-            <SwipeablePopupWrapper onClose={handleClose}>
-              <div className="flex justify-center pt-2 pb-1">
-                <div className="w-12 h-1 bg-white/20 rounded-full" />
-              </div>
-            </SwipeablePopupWrapper>
-            
-            {/* Header content */}
-            <div className="flex items-center justify-between px-4 pb-4">
-              {/* Logo */}
-              <div className="flex items-center">
-                <img 
-                  src={hairtransplantLogo} 
-                  alt="GHI Hairtransplant Logo" 
-                  style={{ height: '2.5rem' }}
-                />
-              </div>
-
-              {/* Close Button */}
-              <button
-                onClick={handleClose}
-                className="p-2 text-white/80 hover:text-white transition-colors rounded-lg hover:bg-white/5 relative z-10"
-                aria-label="Close chat"
-              >
-                <X size={24} />
-              </button>
-            </div>
-          </div>
 
         {/* Messages */}
         <div 
