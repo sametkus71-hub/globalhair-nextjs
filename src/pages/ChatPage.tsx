@@ -729,6 +729,9 @@ const ChatPage = () => {
     return true;
   };
 
+  // Check if any message is currently streaming
+  const isAnyMessageStreaming = messages.some(msg => msg.isStreaming === true);
+
   return (
     <>
       <style>{chatInputStyles}</style>
@@ -976,7 +979,7 @@ const ChatPage = () => {
             )}
 
             {/* Custom Question Input */}
-            {conversationState === ConversationState.ASKING_CUSTOM_QUESTION && (
+            {conversationState === ConversationState.ASKING_CUSTOM_QUESTION && !isAnyMessageStreaming && (
               <div className="flex flex-col gap-2 mt-4 animate-fade-in-up">
                 <div className="flex items-center gap-2">
                   <input
@@ -1013,7 +1016,7 @@ const ChatPage = () => {
             )}
 
             {/* Name Input */}
-            {conversationState === ConversationState.ASKING_NAME && (
+            {conversationState === ConversationState.ASKING_NAME && !isAnyMessageStreaming && (
               <div className="flex flex-col gap-2 mt-4 animate-fade-in-up">
                 <div className="flex items-center gap-2">
                   <input
