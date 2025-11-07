@@ -222,38 +222,32 @@ const ChatPage = () => {
       overflow: hidden;
       background: linear-gradient(
         135deg, 
-        rgba(255, 255, 255, 0.08) 0%, 
-        rgba(255, 255, 255, 0.12) 50%, 
-        rgba(255, 255, 255, 0.08) 100%
+        rgba(255, 255, 255, 0.04) 0%, 
+        rgba(255, 255, 255, 0.08) 50%, 
+        rgba(255, 255, 255, 0.04) 100%
       );
       background-size: 200% 100%;
-      animation: shine 3s ease-in-out infinite;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 
-        0 2px 8px rgba(0, 0, 0, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      animation: shine 4s ease-in-out infinite;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .subject-button:hover {
       background: linear-gradient(
         135deg, 
-        rgba(255, 255, 255, 0.15) 0%, 
-        rgba(255, 255, 255, 0.2) 50%, 
-        rgba(255, 255, 255, 0.15) 100%
+        rgba(255, 255, 255, 0.08) 0%, 
+        rgba(255, 255, 255, 0.12) 50%, 
+        rgba(255, 255, 255, 0.08) 100%
       );
-      border-color: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.1);
       transform: translateY(-1px);
-      box-shadow: 
-        0 4px 12px rgba(0, 0, 0, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     }
 
     .subject-button:active {
       transform: translateY(0);
-      box-shadow: 
-        0 2px 6px rgba(0, 0, 0, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     }
   `;
   
@@ -994,13 +988,13 @@ const ChatPage = () => {
                   onClick={() => handleSubjectClick('Vertel me meer over de werkwijze')}
                   className="subject-button text-left"
                   style={{
-                    color: 'rgba(255, 255, 255, 0.95)',
-                    borderRadius: '6px',
-                    padding: '8px 14px',
-                    fontFamily: 'system-ui, -apple-system, sans-serif',
+                    color: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '5px',
+                    padding: '7px 12px',
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
                     fontSize: '13px',
                     fontWeight: 400,
-                    maxWidth: '75%',
+                    maxWidth: '70%',
                     cursor: 'pointer',
                   }}
                 >
@@ -1010,13 +1004,13 @@ const ChatPage = () => {
                   onClick={() => handleSubjectClick('Help me het juiste pakket kiezen')}
                   className="subject-button text-left"
                   style={{
-                    color: 'rgba(255, 255, 255, 0.95)',
-                    borderRadius: '6px',
-                    padding: '8px 14px',
-                    fontFamily: 'system-ui, -apple-system, sans-serif',
+                    color: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '5px',
+                    padding: '7px 12px',
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
                     fontSize: '13px',
                     fontWeight: 400,
-                    maxWidth: '75%',
+                    maxWidth: '70%',
                     cursor: 'pointer',
                   }}
                 >
@@ -1026,13 +1020,13 @@ const ChatPage = () => {
                   onClick={() => handleSubjectClick('Ik heb een andere vraag')}
                   className="subject-button text-left"
                   style={{
-                    color: 'rgba(255, 255, 255, 0.95)',
-                    borderRadius: '6px',
-                    padding: '8px 14px',
-                    fontFamily: 'system-ui, -apple-system, sans-serif',
+                    color: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '5px',
+                    padding: '7px 12px',
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
                     fontSize: '13px',
                     fontWeight: 400,
-                    maxWidth: '75%',
+                    maxWidth: '70%',
                     cursor: 'pointer',
                   }}
                 >
