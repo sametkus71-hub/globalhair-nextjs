@@ -379,7 +379,7 @@ const ChatPage = () => {
         }}
       >
         {/* Video Background with Heavy Blur */}
-        <div className="absolute inset-0 w-full h-full overflow-hidden">
+        <div className="absolute inset-0 w-full h-full overflow-hidden" style={{ zIndex: 0 }}>
           <video
             autoPlay
             loop
@@ -399,6 +399,7 @@ const ChatPage = () => {
             className="absolute inset-0"
             style={{
               background: 'linear-gradient(180deg, rgba(4, 14, 21, 0.75) 0%, rgba(17, 24, 39, 0.85) 50%, rgba(4, 14, 21, 0.75) 100%)',
+              zIndex: 1,
             }}
           />
         </div>
@@ -406,11 +407,11 @@ const ChatPage = () => {
           className="min-h-[var(--app-height)] flex flex-col relative"
           style={{
             scrollSnapType: 'none',
-            zIndex: 1,
+            zIndex: 2,
           }}
         >
           {/* Header with Logo and Close Button */}
-          <div className="fixed top-0 left-0 right-0 z-50">
+          <div className="fixed top-0 left-0 right-0" style={{ zIndex: 100 }}>
             {/* Swipeable drag indicator */}
             <SwipeablePopupWrapper onClose={handleClose}>
               <div className="flex justify-center pt-2 pb-1">
@@ -445,7 +446,6 @@ const ChatPage = () => {
           className="flex-1 overflow-y-auto px-4 pt-24 pb-28 space-y-4 hide-scrollbar"
           style={{
             position: 'relative',
-            zIndex: 0,
             scrollSnapType: 'none',
           }}
         >
@@ -629,7 +629,7 @@ const ChatPage = () => {
           className="sticky bottom-0"
           style={{
             padding: '1rem 0.5rem',
-            zIndex: 10,
+            zIndex: 3,
           }}
         >
           <div
