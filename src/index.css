@@ -155,6 +155,12 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
   max-height: none;
 }
 
+/* Ensure chat input is always visible and on top */
+.chat-page .chat-input-wrapper {
+  position: relative;
+  z-index: 100;
+}
+
 @layer base {
   * {
     @apply border-border;
