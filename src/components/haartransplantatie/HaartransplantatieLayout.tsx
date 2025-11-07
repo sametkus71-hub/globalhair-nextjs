@@ -60,7 +60,7 @@ export const HaartransplantatieLayout = () => {
           )}
 
             {/* Main Content - Single Screen with height-responsive scaling */}
-            <div className="relative z-10 flex flex-col h-screen overflow-hidden" style={{ paddingTop: 'clamp(6rem, 15vh, 175px)' }}>
+            <div className="relative z-10 flex flex-col h-screen overflow-hidden" style={{ paddingTop: 'clamp(2rem, 8vh, 120px)' }}>
               {/* Content Flow Container */}
               <div className="relative flex flex-col flex-1 overflow-hidden" style={{ paddingTop: 'clamp(1.5rem, 2vh, 2.5rem)' }}>
                 {/* Animated Head Hero (Button Only) */}
