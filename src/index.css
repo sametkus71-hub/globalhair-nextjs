@@ -132,22 +132,22 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
   left: 0 !important;
   right: 0 !important;
   bottom: 0 !important;
-  height: var(--app-height, 100vh) !important;
-  max-height: var(--app-height, 100vh) !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
   overflow: hidden !important;
   width: 100vw !important;
   max-width: 100vw !important;
 }
 
 .chat-page .chat-root {
-  height: var(--app-height, 100vh) !important;
-  max-height: var(--app-height, 100vh) !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
   overflow: hidden !important;
 }
 
 /* Prevent any child from extending beyond viewport */
 .chat-page * {
-  max-height: var(--app-height, 100vh);
+  max-height: 100vh;
 }
 
 /* Except the scrollable messages area */

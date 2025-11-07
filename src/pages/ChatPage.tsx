@@ -171,6 +171,64 @@ const ChatPage = () => {
   const { language } = useLanguage();
   const navigate = useNavigate();
 
+  // Aggressive layout locking for mobile keyboard
+  useLayoutEffect(() => {
+    // Lock body
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+    document.body.style.height = '100vh';
+    document.body.style.maxHeight = '100vh';
+    document.body.style.top = '0';
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.bottom = '0';
+    
+    // Lock HTML element too
+    document.documentElement.style.overflow = 'hidden';
+    document.documentElement.style.height = '100vh';
+    document.documentElement.style.maxHeight = '100vh';
+    
+    // Prevent browser scroll restoration
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    
+    // Prevent touch scrolling except in messages container
+    const preventScroll = (e: TouchEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest('.messages-container')) {
+        e.preventDefault();
+      }
+    };
+    
+    document.addEventListener('touchmove', preventScroll, { passive: false });
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.height = '';
+      document.body.style.maxHeight = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.bottom = '';
+      
+      document.documentElement.style.overflow = '';
+      document.documentElement.style.height = '';
+      document.documentElement.style.maxHeight = '';
+      
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'auto';
+      }
+      
+      document.removeEventListener('touchmove', preventScroll);
+    };
+  }, []);
+
   // Add styles for gradient borders and hide scrollbars
   const chatInputStyles = `
     .chat-input-wrapper::before {
