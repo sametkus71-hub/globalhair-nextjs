@@ -8,7 +8,7 @@ export const PersistentVideoBackground = () => {
   const { pathname } = useLocation();
   const videoRef = useRef<HTMLVideoElement>(null);
   
-  // Don't show video on chat pages
+  // Detect if we're on chat page for styling
   const isChat = pathname.endsWith('/chat') || pathname.includes('/chat');
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export const PersistentVideoBackground = () => {
     }
   }, [shouldLoadVideo, videoLoaded]);
 
-  if (!mounted || isChat) return null;
+  if (!mounted) return null;
 
   const videoSrc = 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Basic%20BG%20V0.mp4';
 
@@ -49,18 +49,24 @@ export const PersistentVideoBackground = () => {
           playsInline
           preload="auto"
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ opacity: 1.0 }}
+          style={{ 
+            opacity: 1.0,
+            filter: isChat ? 'blur(40px)' : 'none',
+            transform: isChat ? 'scale(1.1)' : 'scale(1.0)',
+          }}
         >
           <source src={videoSrc} type="video/mp4" />
         </video>
       )}
       
-      {/* Gradient overlay - upper half only */}
+      {/* Gradient overlay - conditional based on chat page */}
       <div 
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(rgba(10, 37, 64, 0.6) 10%, rgba(17, 53, 86, 0.4) 25%, rgba(24, 24, 27, 0.2) 40%, transparent 70%)',
-          backdropFilter: 'blur(6px)',
+          background: isChat 
+            ? 'linear-gradient(180deg, rgba(4, 14, 21, 0.80) 0%, rgba(51, 61, 70, 0.85) 100%)'
+            : 'linear-gradient(rgba(10, 37, 64, 0.6) 10%, rgba(17, 53, 86, 0.4) 25%, rgba(24, 24, 27, 0.2) 40%, transparent 70%)',
+          backdropFilter: isChat ? 'none' : 'blur(6px)',
         }}
       />
       

@@ -4,7 +4,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { X, Send, Loader2, ExternalLink } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import hairtransplantLogo from '@/assets/hairtransplant-logo.png';
-import { usePopupClose, SwipeablePopupWrapper } from '@/components/PopupCloseButton';
+import { usePopupClose } from '@/components/PopupCloseButton';
 
 interface Message {
   role: 'user' | 'bot';
@@ -400,31 +400,6 @@ const ChatPage = () => {
           zIndex: 50
         }}
       >
-        {/* Video Background with Heavy Blur */}
-        <div className="absolute inset-0 w-full h-full overflow-hidden" style={{ zIndex: 0 }}>
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-            style={{
-              filter: 'blur(40px)',
-              transform: 'scale(1.1)', // Prevent blur edges
-            }}
-          >
-            <source src="https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Basic%20BG%20V0.mp4" type="video/mp4" />
-          </video>
-          
-          {/* Dark overlay for readability */}
-          <div 
-            className="absolute inset-0"
-            style={{
-              background: 'linear-gradient(180deg, rgba(4, 14, 21, 0.80) 0%, rgba(51, 61, 70, 0.85) 100%)',
-              zIndex: 1,
-            }}
-          />
-        </div>
         {/* Header with Logo and Close Button - SIBLING TO MAIN CONTENT */}
         <div 
           className="fixed top-0 left-0 right-0 transition-all duration-300" 
@@ -436,13 +411,6 @@ const ChatPage = () => {
               : 'transparent',
           }}
         >
-          {/* Swipeable drag indicator */}
-          <SwipeablePopupWrapper onClose={handleClose}>
-            <div className="flex justify-center pt-2 pb-1">
-              <div className="w-12 h-1 bg-white/20 rounded-full" />
-            </div>
-          </SwipeablePopupWrapper>
-          
           {/* Header content */}
           <div className="flex items-center justify-between px-4 pb-4">
             {/* Logo */}
