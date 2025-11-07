@@ -173,16 +173,10 @@ const ChatPage = () => {
 
   // Aggressive layout locking for mobile keyboard
   useLayoutEffect(() => {
-    // Lock body
+    // Lock body - prevent scrolling but don't fix position
     document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.width = '100%';
     document.body.style.height = '100vh';
     document.body.style.maxHeight = '100vh';
-    document.body.style.top = '0';
-    document.body.style.left = '0';
-    document.body.style.right = '0';
-    document.body.style.bottom = '0';
     
     // Lock HTML element too
     document.documentElement.style.overflow = 'hidden';
@@ -208,14 +202,8 @@ const ChatPage = () => {
     // Cleanup on unmount
     return () => {
       document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
       document.body.style.height = '';
       document.body.style.maxHeight = '';
-      document.body.style.top = '';
-      document.body.style.left = '';
-      document.body.style.right = '';
-      document.body.style.bottom = '';
       
       document.documentElement.style.overflow = '';
       document.documentElement.style.height = '';
