@@ -218,6 +218,7 @@ const ChatPage = () => {
   const [selectedSubject, setSelectedSubject] = useState<string>('');
   const [customQuestion, setCustomQuestion] = useState('');
   const [isExiting, setIsExiting] = useState(false);
+  const [showInputField, setShowInputField] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -401,6 +402,7 @@ const ChatPage = () => {
 
   const handleSubjectClick = (subject: string) => {
     setSelectedSubject(subject);
+    setShowInputField(false); // Reset input visibility
     
     // Special handling for "Ik heb een andere vraag"
     if (subject === 'Ik heb een andere vraag') {
@@ -447,6 +449,11 @@ const ChatPage = () => {
             idx === prev.length - 1 ? { ...msg, isStreaming: false } : msg
           )
         );
+        
+        // Add breathing time before showing input
+        setTimeout(() => {
+          setShowInputField(true);
+        }, 600);
       }, 800);
       return;
     }
@@ -496,12 +503,18 @@ const ChatPage = () => {
           idx === prev.length - 1 ? { ...msg, isStreaming: false } : msg
         )
       );
+      
+      // Add breathing time before showing input
+      setTimeout(() => {
+        setShowInputField(true);
+      }, 600);
     }, 800);
   };
 
   const handleCustomQuestionSubmit = () => {
     if (!customQuestion.trim()) return;
     
+    setShowInputField(false); // Reset input visibility
     const question = customQuestion.trim();
     
     // Add user's custom question as a message
@@ -549,6 +562,11 @@ const ChatPage = () => {
           idx === prev.length - 1 ? { ...msg, isStreaming: false } : msg
         )
       );
+      
+      // Add breathing time before showing input
+      setTimeout(() => {
+        setShowInputField(true);
+      }, 600);
     }, 800);
   };
 
@@ -984,7 +1002,7 @@ const ChatPage = () => {
             )}
 
             {/* Custom Question Input */}
-            {conversationState === ConversationState.ASKING_CUSTOM_QUESTION && !isAnyMessageStreaming && (
+            {conversationState === ConversationState.ASKING_CUSTOM_QUESTION && !isAnyMessageStreaming && showInputField && (
               <div className="flex flex-col gap-2 mt-4 animate-fade-in-up">
                 <div className="flex items-center gap-2">
                   <input
@@ -1021,7 +1039,7 @@ const ChatPage = () => {
             )}
 
             {/* Name Input */}
-            {conversationState === ConversationState.ASKING_NAME && !isAnyMessageStreaming && (
+            {conversationState === ConversationState.ASKING_NAME && !isAnyMessageStreaming && showInputField && (
               <div className="flex flex-col gap-2 mt-4 animate-fade-in-up">
                 <div className="flex items-center gap-2">
                   <input
