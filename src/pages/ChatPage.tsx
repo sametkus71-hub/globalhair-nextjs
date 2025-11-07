@@ -839,8 +839,10 @@ const ChatPage = () => {
                     boxShadow: msg.role === 'user' ? '0 2px 8px rgba(0, 0, 0, 0.2)' : 'none',
                     color: 'rgba(255, 255, 255, 0.95)',
                     fontFamily: 'Inter, system-ui, sans-serif',
-                    fontSize: '14px',
-                    lineHeight: '1.5',
+                    fontSize: '12px',
+                    fontWeight: 400,
+                    lineHeight: '160%',
+                    letterSpacing: '-0.04em',
                     position: 'relative',
                   }}
                 >
