@@ -432,7 +432,7 @@ const ChatPage = () => {
             zIndex: 100,
             backdropFilter: isScrolled ? 'blur(12px)' : 'none',
             background: isScrolled 
-              ? 'linear-gradient(180deg, rgba(4, 14, 21, 0.80) 0%, rgba(51, 61, 70, 0.85) 100%)' 
+              ? 'linear-gradient(180deg, rgba(4, 14, 21, 0.95) 0%, rgba(51, 61, 70, 0.60) 60%, transparent 100%)' 
               : 'transparent',
           }}
         >
