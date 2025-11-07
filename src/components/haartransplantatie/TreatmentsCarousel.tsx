@@ -243,10 +243,16 @@ export const TreatmentsCarousel = () => {
   };
 
   const handleCardClick = (index: number) => {
-    // On mobile, clicking a non-active card should activate it
+    // On mobile, clicking a non-active card should activate it first
     if (isMobile && index !== active) {
       snapTo(index, true);
+      return;
     }
+    
+    // If card is active (or on desktop), navigate to package detail
+    const item = items[index];
+    if (typeof document !== 'undefined') document.body.classList.add('popup-open');
+    navigate(item.link);
   };
 
   return (
@@ -263,7 +269,7 @@ export const TreatmentsCarousel = () => {
             key={`${it.id}-${i}`}
             className="treat-card"
             onClick={() => handleCardClick(i)}
-            style={{ cursor: isMobile && i !== active ? 'pointer' : 'default' }}
+            style={{ cursor: 'pointer' }}
           >
             {it.type === "video" ? (
               <video
