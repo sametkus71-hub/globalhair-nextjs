@@ -1778,7 +1778,7 @@ html, body {
 /* Treatments Carousel Styles */
 .treatments-tab { 
   width: 100%; 
-  padding: 12px 0 0;
+  padding: 16px 0 20px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -1788,8 +1788,9 @@ html, body {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 62vw;
-  gap: 0px;
+  gap: 12px;
   overflow-x: auto;
+  overflow-y: hidden;
   scroll-snap-type: x mandatory;
   scroll-padding: 17.5vw;
   perspective: 1000px;
