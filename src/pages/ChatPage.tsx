@@ -3,7 +3,7 @@ import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { X, Send, Loader2, ExternalLink } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import globalhairLogo from '@/assets/globalhair-logo.png';
+import hairtransplantLogo from '@/assets/hairtransplant-logo.png';
 
 interface Message {
   role: 'user' | 'bot';
@@ -367,13 +367,20 @@ const ChatPage = () => {
           scrollSnapType: 'none',
         }}
       >
-        {/* Minimal Header with Close Button */}
+        {/* Header with Logo and Close Button */}
         <div
-          className="fixed top-0 left-0 right-0 z-50 flex items-center justify-end px-4 py-3"
-          style={{
-            height: '60px',
-          }}
+          className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-4"
         >
+          {/* Logo */}
+          <div className="flex items-center">
+            <img 
+              src={hairtransplantLogo} 
+              alt="GHI Hairtransplant Logo" 
+              style={{ height: '2.5rem' }}
+            />
+          </div>
+
+          {/* Close Button */}
           <button
             onClick={() => {
               if (window.history.length > 1) {

@@ -7,13 +7,12 @@ export const GlobalCentralLogo = () => {
   const location = useLocation();
   const { transitionState } = useTransition();
   
-  // Show on home page and chat page
+  // Only show on home page
   const isHomePage = location.pathname === '/' || 
                      location.pathname === '/nl' || 
                      location.pathname === '/en';
-  const isChatPage = location.pathname.endsWith('/chat');
   
-  if (!isHomePage && !isChatPage) {
+  if (!isHomePage) {
     return null;
   }
 
