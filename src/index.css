@@ -142,6 +142,7 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
 .chat-page .chat-root {
   height: 100vh !important;
   max-height: 100vh !important;
+  overflow: hidden !important;
 }
 
 /* Prevent any child from extending beyond viewport */
