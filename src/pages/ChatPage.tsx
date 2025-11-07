@@ -32,59 +32,34 @@ interface ChatResponse {
   [key: string]: any;
 }
 
-// Helper function to calculate smart delays for natural streaming with adaptive speed
-function getSmartDelay(
-  previousWord: string, 
-  currentWord: string,
-  totalWords: number,
+// Helper function to calculate intelligent character delays for ultra-smooth streaming
+function getCharacterDelay(
+  char: string,
+  totalLength: number,
   currentIndex: number
 ): number {
-  const baseDelay = 20;
-  const randomVariance = Math.random() * 12;
+  const baseDelay = 15; // Base typing speed (60-70 WPM human average)
+  const variance = Math.random() * 8; // Natural variance
   
   // Adaptive speed based on message length
   let speedMultiplier = 1;
+  if (totalLength <= 50) speedMultiplier = 1.8;       // Very short: slower
+  else if (totalLength <= 120) speedMultiplier = 1.4; // Short: slightly slower
+  else if (totalLength <= 300) speedMultiplier = 1.1; // Medium: barely slower
+  // Long messages: normal speed
   
-  if (totalWords <= 8) {
-    // Very short messages: MUCH slower (2.5x)
-    speedMultiplier = 2.5;
-  } else if (totalWords <= 15) {
-    // Short messages: slower (1.8x)
-    speedMultiplier = 1.8;
-  } else if (totalWords <= 30) {
-    // Medium messages: slightly slower (1.3x)
-    speedMultiplier = 1.3;
-  }
-  
-  // Apply multiplier to base delay
   const adjustedBase = baseDelay * speedMultiplier;
   
-  // Longer pauses after sentence endings (scaled by message length)
-  if (previousWord.match(/[.!?]$/)) {
-    return (180 * speedMultiplier) + randomVariance;
-  }
+  // Punctuation-based natural pauses
+  if (char.match(/[.!?]/)) return 250 + variance; // End of sentence
+  if (char.match(/[,;:]/)) return 150 + variance;  // Clause break
+  if (char === '\n') return 200 + variance;        // Line break
+  if (char === ' ') return adjustedBase - 3 + variance; // Spaces are quick
   
-  // Medium pause after commas, colons, semicolons (scaled)
-  if (previousWord.match(/[,;:]$/)) {
-    return (90 * speedMultiplier) + randomVariance;
-  }
-  
-  // Very short pause for articles and short words
-  const trimmedCurrent = currentWord.trim();
-  if (trimmedCurrent.length <= 2 && trimmedCurrent.length > 0) {
-    return adjustedBase - 8 + randomVariance;
-  }
-  
-  // Slightly longer for long words
-  if (trimmedCurrent.length > 12) {
-    return adjustedBase + 25 + randomVariance;
-  }
-  
-  // Default with slight randomness
-  return adjustedBase + randomVariance;
+  return adjustedBase + variance;
 }
 
-// Helper function to stream static text word by word with natural delays
+// Helper function to stream static text character by character for ultra-smooth animation
 async function streamStaticText(
   text: string,
   onChunk: (chunk: string) => void
@@ -92,19 +67,16 @@ async function streamStaticText(
   // Initial delay to let bubble settle in
   await new Promise(resolve => setTimeout(resolve, 250));
   
-  const words = text.split(/(\s+)/);
-  const totalWords = words.filter(w => w.trim().length > 0).length;
+  const chars = text.split('');
   let accumulatedText = '';
   
-  for (let i = 0; i < words.length; i++) {
-    const currentWord = words[i];
-    const previousWord = i > 0 ? words[i - 1] : '';
-    
-    accumulatedText += currentWord;
+  for (let i = 0; i < chars.length; i++) {
+    const currentChar = chars[i];
+    accumulatedText += currentChar;
     onChunk(accumulatedText);
     
-    if (i < words.length - 1) {
-      const delay = getSmartDelay(previousWord, currentWord, totalWords, i);
+    if (i < chars.length - 1) {
+      const delay = getCharacterDelay(currentChar, text.length, i);
       await new Promise(resolve => setTimeout(resolve, delay));
     }
   }
@@ -135,22 +107,19 @@ async function sendMessageStreaming(
     const content = data.output || data.answer || data.response || data.content || data.text || '';
     
     if (content) {
-      // Split into words while preserving spaces and punctuation
-      const words = content.split(/(\s+)/);
-      const totalWords = words.filter(w => w.trim().length > 0).length;
+      // Stream character by character for ultra-smooth animation
+      const chars = content.split('');
       let accumulatedText = '';
       
-      // Stream word by word with natural, human-like delays
-      for (let i = 0; i < words.length; i++) {
-        const currentWord = words[i];
-        const previousWord = i > 0 ? words[i - 1] : '';
+      for (let i = 0; i < chars.length; i++) {
+        const currentChar = chars[i];
         
-        accumulatedText += currentWord;
+        accumulatedText += currentChar;
         onChunk(accumulatedText);
         
-        // Smart delay based on context and message length
-        if (i < words.length - 1) {
-          const delay = getSmartDelay(previousWord, currentWord, totalWords, i);
+        // Intelligent delay based on character and message length
+        if (i < chars.length - 1) {
+          const delay = getCharacterDelay(currentChar, content.length, i);
           await new Promise(resolve => setTimeout(resolve, delay));
         }
       }
@@ -754,9 +723,22 @@ const ChatPage = () => {
                       color: msg.role === 'user' ? 'rgba(255, 255, 255, 0.95)' : 'rgb(220, 220, 220)',
                     }}
                   >
-                    {msg.content}
+                    <span style={{
+                      transition: 'opacity 0.08s ease-out',
+                      opacity: 1
+                    }}>
+                      {msg.content}
+                    </span>
                     {msg.isStreaming && (
-                      <span className="inline-block ml-1 w-1 h-4 bg-white/60 animate-pulse" style={{ verticalAlign: 'middle' }} />
+                      <span 
+                        className="inline-block ml-0.5 w-0.5 h-4"
+                        style={{ 
+                          verticalAlign: 'middle',
+                          backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                          animation: 'pulse 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                          transition: 'transform 0.05s cubic-bezier(0.4, 0, 0.2, 1)'
+                        }} 
+                      />
                     )}
                   </p>
                   {msg.source && typeof msg.source === 'string' && msg.source.startsWith('http') && (
