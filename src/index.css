@@ -1906,8 +1906,8 @@ html, body {
 .treat-feature-item {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-weight: 500;
-  font-size: 21.72px;
-  line-height: 150%;
+  font-size: 16px;
+  line-height: 120%;
   letter-spacing: -0.04em;
   color: #fff;
   text-shadow: 0 2px 8px rgba(0,0,0,.5);
