@@ -33,6 +33,39 @@ interface ChatResponse {
   [key: string]: any;
 }
 
+// Question pool for dynamic starting questions
+const STARTING_QUESTIONS = [
+  // General + Trust
+  'Hoe werkt een haartransplantatie bij jullie?',
+  'Hoe ziet het stappenplan eruit van intake tot nazorg?',
+  'Hoe waarborgen jullie veiligheid & kwaliteit?',
+  
+  // Personal Fit
+  'Past een haartransplantatie bij mijn situatie?',
+  'Kan ik voorbeelden zien die lijken op mijn haarlijn?',
+  
+  // Packages & Pricing
+  'Welk pakket past het beste bij mij?',
+  'Wat zijn de kosten en welke factoren bepalen de prijs?',
+  'Wat is het verschil tussen behandeling in Nederland en Istanbul?',
+  
+  // Comfort & Medical
+  'Hoe lang duurt het herstel?',
+  'Doet een haartransplantatie pijn? Wat kan ik verwachten?',
+  
+  // Practical / Conversion
+  'Wat is de wachttijd?',
+  'Kan ik een consult inplannen?',
+];
+
+const FIXED_QUESTION = 'Ik heb een andere vraag';
+
+// Helper function to get random questions from the pool
+function getRandomQuestions(pool: string[], count: number): string[] {
+  const shuffled = [...pool].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, count);
+}
+
 // Helper function to calculate intelligent character delays for ultra-smooth streaming
 function getCharacterDelay(
   char: string,
@@ -263,6 +296,7 @@ const ChatPage = () => {
   const [isExiting, setIsExiting] = useState(false);
   const [showInputField, setShowInputField] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [displayedQuestions, setDisplayedQuestions] = useState<string[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
@@ -289,6 +323,7 @@ const ChatPage = () => {
     const savedName = localStorage.getItem('chat-user-name');
     const savedState = localStorage.getItem('chat-conversation-state');
     const savedSubject = localStorage.getItem('chat-selected-subject');
+    const savedQuestions = localStorage.getItem('chat-displayed-questions');
     
     if (savedName) {
       setUserName(savedName);
@@ -300,6 +335,23 @@ const ChatPage = () => {
     
     if (savedSubject) {
       setSelectedSubject(savedSubject);
+    }
+
+    // Load or generate random questions
+    if (savedQuestions) {
+      try {
+        const parsed = JSON.parse(savedQuestions);
+        setDisplayedQuestions(parsed);
+      } catch (e) {
+        console.error('Failed to parse saved questions:', e);
+        // Generate new questions if parsing fails
+        const randomQuestions = getRandomQuestions(STARTING_QUESTIONS, 2);
+        setDisplayedQuestions([...randomQuestions, FIXED_QUESTION]);
+      }
+    } else {
+      // Generate new random questions on first load
+      const randomQuestions = getRandomQuestions(STARTING_QUESTIONS, 2);
+      setDisplayedQuestions([...randomQuestions, FIXED_QUESTION]);
     }
     
     if (savedMessages) {
@@ -343,6 +395,13 @@ const ChatPage = () => {
       localStorage.setItem('chat-user-name', userName);
     }
   }, [userName]);
+
+  // Persist displayed questions to localStorage
+  useEffect(() => {
+    if (displayedQuestions.length > 0) {
+      localStorage.setItem('chat-displayed-questions', JSON.stringify(displayedQuestions));
+    }
+  }, [displayedQuestions]);
 
   // Detect scroll for header background
   useEffect(() => {
@@ -984,54 +1043,25 @@ const ChatPage = () => {
             {/* Subject Options */}
             {conversationState === ConversationState.SHOWING_OPTIONS && (
               <div className="flex flex-col gap-2 mt-4 items-end">
-                <button
-                  onClick={() => handleSubjectClick('Vertel me meer over de werkwijze')}
-                  className="subject-button text-left"
-                  style={{
-                    color: 'rgba(255, 255, 255, 0.9)',
-                    borderRadius: '5px',
-                    padding: '7px 12px',
-                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                    fontSize: '13px',
-                    fontWeight: 400,
-                    maxWidth: '70%',
-                    cursor: 'pointer',
-                  }}
-                >
-                  Vertel me meer over de werkwijze
-                </button>
-                <button
-                  onClick={() => handleSubjectClick('Help me het juiste pakket kiezen')}
-                  className="subject-button text-left"
-                  style={{
-                    color: 'rgba(255, 255, 255, 0.9)',
-                    borderRadius: '5px',
-                    padding: '7px 12px',
-                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                    fontSize: '13px',
-                    fontWeight: 400,
-                    maxWidth: '70%',
-                    cursor: 'pointer',
-                  }}
-                >
-                  Help me het juiste pakket kiezen
-                </button>
-                <button
-                  onClick={() => handleSubjectClick('Ik heb een andere vraag')}
-                  className="subject-button text-left"
-                  style={{
-                    color: 'rgba(255, 255, 255, 0.9)',
-                    borderRadius: '5px',
-                    padding: '7px 12px',
-                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                    fontSize: '13px',
-                    fontWeight: 400,
-                    maxWidth: '70%',
-                    cursor: 'pointer',
-                  }}
-                >
-                  Ik heb een andere vraag
-                </button>
+                {displayedQuestions.map((question, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleSubjectClick(question)}
+                    className="subject-button text-left"
+                    style={{
+                      color: 'rgba(255, 255, 255, 0.9)',
+                      borderRadius: '5px',
+                      padding: '7px 12px',
+                      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                      fontSize: '13px',
+                      fontWeight: 400,
+                      maxWidth: '70%',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    {question}
+                  </button>
+                ))}
               </div>
             )}
 
