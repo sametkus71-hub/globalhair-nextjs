@@ -876,59 +876,59 @@ const ChatPage = () => {
           zIndex: 50
         }}
       >
-        {/* Header with Logo and Close Button */}
-        <div 
-          className="fixed top-0 left-0 right-0 transition-all duration-500" 
-          style={{ 
-            zIndex: 100,
-            backdropFilter: isScrolled ? 'blur(60px) saturate(200%)' : 'none',
-            WebkitBackdropFilter: isScrolled ? 'blur(60px) saturate(200%)' : 'none',
-            background: isScrolled 
-              ? 'linear-gradient(180deg, rgba(4, 14, 21, 0.92) 0%, rgba(4, 14, 21, 0.88) 20%, rgba(8, 20, 30, 0.75) 40%, rgba(12, 25, 35, 0.45) 70%, transparent 100%)' 
-              : 'transparent',
-          }}
-        >
-          <div className="flex items-center justify-between px-4 py-4">
-            <div className="flex items-center">
-              <img 
-                src={hairtransplantLogo} 
-                alt="GHI Hairtransplant Logo" 
-                style={{ height: '2.5rem' }}
-              />
-            </div>
+        <DesktopContainer>
+          {/* Header with Logo and Close Button */}
+          <div 
+            className="fixed top-0 left-0 right-0 lg:left-auto lg:right-auto lg:max-w-[500px] lg:mx-auto transition-all duration-500" 
+            style={{ 
+              zIndex: 100,
+              backdropFilter: isScrolled ? 'blur(60px) saturate(200%)' : 'none',
+              WebkitBackdropFilter: isScrolled ? 'blur(60px) saturate(200%)' : 'none',
+              background: isScrolled 
+                ? 'linear-gradient(180deg, rgba(4, 14, 21, 0.92) 0%, rgba(4, 14, 21, 0.88) 20%, rgba(8, 20, 30, 0.75) 40%, rgba(12, 25, 35, 0.45) 70%, transparent 100%)' 
+                : 'transparent',
+            }}
+          >
+            <div className="flex items-center justify-between px-4 py-4">
+              <div className="flex items-center">
+                <img 
+                  src={hairtransplantLogo} 
+                  alt="GHI Hairtransplant Logo" 
+                  style={{ height: '2.5rem' }}
+                />
+              </div>
 
-            <div className="flex items-center gap-2">
-              {/* Dev-only restart button */}
-              {isDevEnvironment && (
+              <div className="flex items-center gap-2">
+                {/* Dev-only restart button */}
+                {isDevEnvironment && (
+                  <button
+                    onClick={handleRestart}
+                    className="px-3 py-1.5 text-xs text-white/70 hover:text-white transition-colors rounded-lg hover:bg-white/10 border border-white/20"
+                    aria-label="Restart chat"
+                  >
+                    Restart
+                  </button>
+                )}
+                
                 <button
-                  onClick={handleRestart}
-                  className="px-3 py-1.5 text-xs text-white/70 hover:text-white transition-colors rounded-lg hover:bg-white/10 border border-white/20"
-                  aria-label="Restart chat"
+                  onClick={handleClose}
+                  className="p-2 text-white/80 hover:text-white transition-colors rounded-lg hover:bg-white/5 relative z-10"
+                  aria-label="Close chat"
                 >
-                  Restart
+                  <X size={24} />
                 </button>
-              )}
-              
-              <button
-                onClick={handleClose}
-                className="p-2 text-white/80 hover:text-white transition-colors rounded-lg hover:bg-white/5 relative z-10"
-                aria-label="Close chat"
-              >
-                <X size={24} />
-              </button>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Main Content Container */}
-        <div
-          className="h-[var(--app-height)] flex flex-col relative"
-          style={{
-            scrollSnapType: 'none',
-            zIndex: 2,
-          }}
-        >
-          <DesktopContainer>
+          {/* Main Content Container */}
+          <div
+            className="h-[var(--app-height)] flex flex-col relative"
+            style={{
+              scrollSnapType: 'none',
+              zIndex: 2,
+            }}
+          >
             {/* Messages */}
             <div 
               className="messages-container flex-1 overflow-y-auto px-4 pt-24 pb-28 space-y-4 hide-scrollbar"
@@ -1200,8 +1200,8 @@ const ChatPage = () => {
                 </div>
               </div>
             )}
-          </DesktopContainer>
-        </div>
+          </div>
+        </DesktopContainer>
       </div>
     </>
   );
