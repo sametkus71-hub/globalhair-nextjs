@@ -21,6 +21,7 @@ interface Message {
   error?: boolean;
   timestamp?: string;
   senderLabel?: string;
+  isStreaming?: boolean;
 }
 
 interface ChatResponse {
@@ -31,37 +32,108 @@ interface ChatResponse {
   [key: string]: any;
 }
 
-async function sendMessage(message: string, sessionId: string): Promise<ChatResponse> {
+async function sendMessageStreaming(
+  message: string, 
+  sessionId: string,
+  onChunk: (chunk: string) => void
+): Promise<void> {
   const url = 'https://radux.app.n8n.cloud/webhook/438ccf83-5a80-4605-8195-a586e4e03c34/chat?action=sendMessage';
   
-  console.log('[Chat] Sending message:', { chatInput: message, sessionId });
+  console.log('[Chat] Sending message (streaming):', { chatInput: message, sessionId });
   
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ 
-      chatInput: message,
-      sessionId: sessionId 
-    }),
-  });
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 
+        chatInput: message,
+        sessionId: sessionId 
+      }),
+    });
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    console.error('[Chat] Error response:', response.status, errorText);
-    throw new Error(`Network error: ${response.status}`);
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('[Chat] Error response:', response.status, errorText);
+      throw new Error(`Network error: ${response.status}`);
+    }
+
+    const contentType = response.headers.get('content-type');
+    const isStreaming = contentType?.includes('text/event-stream') || contentType?.includes('text/plain');
+
+    if (isStreaming && response.body) {
+      console.log('[Chat] Detected streaming response');
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        
+        if (done) {
+          console.log('[Chat] Stream complete');
+          break;
+        }
+
+        buffer += decoder.decode(value, { stream: true });
+        
+        // Process complete SSE events (separated by double newlines)
+        const events = buffer.split('\n\n');
+        buffer = events.pop() || '';
+
+        for (const event of events) {
+          const lines = event.split('\n');
+          for (const line of lines) {
+            if (line.startsWith('data: ')) {
+              const data = line.slice(6).trim();
+              
+              if (data === '[DONE]') {
+                console.log('[Chat] Received [DONE] signal');
+                return;
+              }
+
+              try {
+                const parsed = JSON.parse(data);
+                const content = parsed.output || parsed.answer || parsed.response || parsed.content || '';
+                if (content) {
+                  console.log('[Chat] Chunk received:', content.substring(0, 50));
+                  onChunk(content);
+                }
+              } catch (e) {
+                // If not JSON, treat as plain text
+                if (data) {
+                  console.log('[Chat] Plain text chunk:', data.substring(0, 50));
+                  onChunk(data);
+                }
+              }
+            }
+          }
+        }
+      }
+
+      // Process any remaining buffer
+      if (buffer.trim()) {
+        try {
+          const parsed = JSON.parse(buffer);
+          const content = parsed.output || parsed.answer || parsed.response || parsed.content || '';
+          if (content) onChunk(content);
+        } catch (e) {
+          if (buffer) onChunk(buffer);
+        }
+      }
+    } else {
+      // Fallback for non-streaming responses
+      console.log('[Chat] Non-streaming response');
+      const data = await response.json();
+      console.log('[Chat] Response received:', data);
+      const content = data.output || data.answer || data.response || 'No response';
+      onChunk(content);
+    }
+  } catch (error) {
+    console.error('[Chat] Error:', error);
+    onChunk('Sorry, er is iets fout gegaan bij het verwerken van je vraag.');
   }
-
-  const data = await response.json();
-  console.log('[Chat] Response received:', data);
-  
-  return {
-    answer: data.output || data.answer || data.response || 'No response',
-    source: data.source,
-    canEscalate: data.canEscalate,
-    ...data
-  };
 }
 
 const ChatPage = () => {
@@ -334,33 +406,43 @@ const ChatPage = () => {
     setMessages(prev => [...prev, userMessage]);
     setConversationState(ConversationState.ACTIVE_CHAT);
     
-    // Send first message to n8n with context
+    // Create placeholder bot message for streaming
+    const placeholderBot: Message = {
+      role: 'bot',
+      content: '',
+      timestamp: new Date().toISOString(),
+      senderLabel: 'GlobalHair bot',
+      isStreaming: true
+    };
+    setMessages(prev => [...prev, placeholderBot]);
     setIsLoading(true);
     
-    try {
-      const contextMessage = `Gebruiker ${name} heeft als onderwerp gekozen: "${selectedSubject}". ${selectedSubject === "Ik heb een andere vraag" ? "De gebruiker heeft een andere vraag." : ""}`;
-      
-      const response = await sendMessage(contextMessage, sessionId);
-      
-      setMessages(prev => [...prev, {
-        role: 'bot',
-        content: response.answer || 'Hoe kan ik je helpen?',
-        source: response.source,
-        timestamp: new Date().toISOString(),
-        senderLabel: 'GlobalHair bot'
-      }]);
-    } catch (error) {
-      console.error('[Chat] Error initializing chat:', error);
-      setMessages(prev => [...prev, {
-        role: 'bot',
-        content: 'Sorry, er is iets fout gegaan bij het starten van de chat.',
-        error: true,
-        timestamp: new Date().toISOString(),
-        senderLabel: 'GlobalHair bot'
-      }]);
-    } finally {
-      setIsLoading(false);
-    }
+    // Send first message to n8n with context and stream response
+    const contextMessage = `Gebruiker ${name} heeft als onderwerp gekozen: "${selectedSubject}". ${selectedSubject === "Ik heb een andere vraag" ? "De gebruiker heeft een andere vraag." : ""}`;
+    
+    let accumulatedContent = '';
+    
+    await sendMessageStreaming(
+      contextMessage, 
+      sessionId,
+      (chunk) => {
+        accumulatedContent += chunk;
+        setMessages(prev => 
+          prev.map((msg, idx) => 
+            idx === prev.length - 1 ? { ...msg, content: accumulatedContent } : msg
+          )
+        );
+        scrollToBottom();
+      }
+    );
+
+    // Finalize the message
+    setMessages(prev => 
+      prev.map((msg, idx) => 
+        idx === prev.length - 1 ? { ...msg, isStreaming: false } : msg
+      )
+    );
+    setIsLoading(false);
   };
 
   const scrollToBottom = () => {
@@ -385,32 +467,45 @@ const ChatPage = () => {
       timestamp: new Date().toISOString(),
       senderLabel: userName
     }]);
+
+    // Create placeholder bot message for streaming
+    const placeholderBot: Message = {
+      role: 'bot',
+      content: '',
+      timestamp: new Date().toISOString(),
+      senderLabel: 'GlobalHair bot',
+      isStreaming: true
+    };
+    setMessages(prev => [...prev, placeholderBot]);
     setIsLoading(true);
 
-    try {
-      const response = await sendMessage(userMessage, sessionId);
-      setMessages(prev => [...prev, {
-        role: 'bot',
-        content: response.answer || 'No response',
-        source: response.source,
-        timestamp: new Date().toISOString(),
-        senderLabel: 'GlobalHair bot'
-      }]);
-    } catch (error) {
-      console.error('[Chat] Error:', error);
-      setMessages(prev => [...prev, {
-        role: 'bot',
-        content: 'Sorry, er is iets fout gegaan.',
-        error: true,
-        timestamp: new Date().toISOString(),
-        senderLabel: 'GlobalHair bot'
-      }]);
-    } finally {
-      setIsLoading(false);
-      setTimeout(() => {
-        textareaRef.current?.focus();
-      }, 100);
-    }
+    let accumulatedContent = '';
+    
+    await sendMessageStreaming(
+      userMessage,
+      sessionId,
+      (chunk) => {
+        accumulatedContent += chunk;
+        setMessages(prev => 
+          prev.map((msg, idx) => 
+            idx === prev.length - 1 ? { ...msg, content: accumulatedContent } : msg
+          )
+        );
+        scrollToBottom();
+      }
+    );
+
+    // Finalize the message
+    setMessages(prev => 
+      prev.map((msg, idx) => 
+        idx === prev.length - 1 ? { ...msg, isStreaming: false } : msg
+      )
+    );
+    setIsLoading(false);
+    
+    setTimeout(() => {
+      textareaRef.current?.focus();
+    }, 100);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -579,6 +674,9 @@ const ChatPage = () => {
                     }}
                   >
                     {msg.content}
+                    {msg.isStreaming && (
+                      <span className="inline-block ml-1 w-1 h-4 bg-white/60 animate-pulse" style={{ verticalAlign: 'middle' }} />
+                    )}
                   </p>
                   {msg.source && typeof msg.source === 'string' && msg.source.startsWith('http') && (
                     <a
