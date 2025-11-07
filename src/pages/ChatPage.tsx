@@ -54,7 +54,20 @@ async function sendMessageStreaming(
     const content = data.output || data.answer || data.response || data.content || data.text || '';
     
     if (content) {
-      onChunk(content);
+      // Split into words while preserving spaces and punctuation
+      const words = content.split(/(\s+)/);
+      let accumulatedText = '';
+      
+      // Stream word by word with delay for ChatGPT-like effect
+      for (let i = 0; i < words.length; i++) {
+        accumulatedText += words[i];
+        onChunk(accumulatedText);
+        
+        // 35ms delay between words for natural streaming
+        if (i < words.length - 1) {
+          await new Promise(resolve => setTimeout(resolve, 35));
+        }
+      }
     } else {
       onChunk('Geen antwoord ontvangen.');
     }
