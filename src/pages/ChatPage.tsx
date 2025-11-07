@@ -10,6 +10,7 @@ enum ConversationState {
   GREETING = 'greeting',
   ASKING_SUBJECT = 'asking_subject',
   SHOWING_OPTIONS = 'showing_options',
+  ASKING_CUSTOM_QUESTION = 'asking_custom_question',
   ASKING_NAME = 'asking_name',
   ACTIVE_CHAT = 'active_chat'
 }
@@ -215,6 +216,7 @@ const ChatPage = () => {
   const [nameInput, setNameInput] = useState('');
   const [conversationState, setConversationState] = useState<ConversationState>(ConversationState.GREETING);
   const [selectedSubject, setSelectedSubject] = useState<string>('');
+  const [customQuestion, setCustomQuestion] = useState('');
   const [isExiting, setIsExiting] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -400,6 +402,55 @@ const ChatPage = () => {
   const handleSubjectClick = (subject: string) => {
     setSelectedSubject(subject);
     
+    // Special handling for "Ik heb een andere vraag"
+    if (subject === 'Ik heb een andere vraag') {
+      // Add user message
+      const userMessage: Message = {
+        role: 'user',
+        content: subject,
+        timestamp: new Date().toISOString(),
+        senderLabel: userName || 'Jij'
+      };
+      
+      setMessages(prev => [...prev, userMessage]);
+      
+      // Transition to ASKING_CUSTOM_QUESTION state
+      setConversationState(ConversationState.ASKING_CUSTOM_QUESTION);
+      
+      // Ask for the custom question with streaming
+      setTimeout(async () => {
+        const askQuestionMessage: Message = {
+          role: 'bot',
+          content: '',
+          timestamp: new Date().toISOString(),
+          senderLabel: 'GlobalHair bot',
+          isStreaming: true
+        };
+        
+        setMessages(prev => [...prev, askQuestionMessage]);
+        
+        await streamStaticText(
+          'Waar zou je meer over willen weten?',
+          (chunk) => {
+            setMessages(prev => 
+              prev.map((msg, idx) => 
+                idx === prev.length - 1 ? { ...msg, content: chunk } : msg
+              )
+            );
+          }
+        );
+        
+        // Mark as complete
+        setMessages(prev => 
+          prev.map((msg, idx) => 
+            idx === prev.length - 1 ? { ...msg, isStreaming: false } : msg
+          )
+        );
+      }, 800);
+      return;
+    }
+    
+    // For other options, continue with the existing flow
     // Add user message
     const userMessage: Message = {
       role: 'user',
@@ -442,6 +493,65 @@ const ChatPage = () => {
         )
       );
     }, 800);
+  };
+
+  const handleCustomQuestionSubmit = () => {
+    if (!customQuestion.trim()) return;
+    
+    const question = customQuestion.trim();
+    
+    // Add user's custom question as a message
+    const userMessage: Message = {
+      role: 'user',
+      content: question,
+      timestamp: new Date().toISOString(),
+      senderLabel: userName || 'Jij'
+    };
+    
+    setMessages(prev => [...prev, userMessage]);
+    
+    // Update selectedSubject to include the custom question
+    setSelectedSubject(`Ik heb een andere vraag: ${question}`);
+    setCustomQuestion('');
+    
+    // Now ask for name
+    setConversationState(ConversationState.ASKING_NAME);
+    
+    setTimeout(async () => {
+      const askNameMessage: Message = {
+        role: 'bot',
+        content: '',
+        timestamp: new Date().toISOString(),
+        senderLabel: 'GlobalHair bot',
+        isStreaming: true
+      };
+      
+      setMessages(prev => [...prev, askNameMessage]);
+      
+      await streamStaticText(
+        'Voordat we verder gaan, mag ik je naam weten?',
+        (chunk) => {
+          setMessages(prev => 
+            prev.map((msg, idx) => 
+              idx === prev.length - 1 ? { ...msg, content: chunk } : msg
+            )
+          );
+        }
+      );
+      
+      setMessages(prev => 
+        prev.map((msg, idx) => 
+          idx === prev.length - 1 ? { ...msg, isStreaming: false } : msg
+        )
+      );
+    }, 800);
+  };
+
+  const handleCustomQuestionKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleCustomQuestionSubmit();
+    }
   };
 
   const handleNameSubmit = async () => {
@@ -802,22 +912,22 @@ const ChatPage = () => {
 
             {/* Subject Options */}
             {conversationState === ConversationState.SHOWING_OPTIONS && (
-              <div className="flex flex-col gap-3 mt-4">
+              <div className="flex flex-col gap-2 mt-4 items-end">
                 <button
                   onClick={() => handleSubjectClick('Vertel me meer over de werkwijze')}
                   className="text-left"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
-                    color: 'rgba(255, 255, 255, 0.95)',
-                    borderRadius: '12px',
-                    padding: '16px 24px',
-                    backdropFilter: 'blur(10px)',
-                    transition: 'all 0.3s ease',
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    color: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '6px',
+                    padding: '10px 16px',
                     fontFamily: 'Inter, system-ui, sans-serif',
-                    fontSize: '15px',
+                    fontSize: '14px',
                     fontWeight: 400,
+                    maxWidth: '75%',
+                    transition: 'all 0.2s ease',
+                    cursor: 'pointer',
                   }}
                 >
                   Vertel me meer over de werkwijze
@@ -826,17 +936,17 @@ const ChatPage = () => {
                   onClick={() => handleSubjectClick('Help me het juiste pakket kiezen')}
                   className="text-left"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
-                    color: 'rgba(255, 255, 255, 0.95)',
-                    borderRadius: '12px',
-                    padding: '16px 24px',
-                    backdropFilter: 'blur(10px)',
-                    transition: 'all 0.3s ease',
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    color: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '6px',
+                    padding: '10px 16px',
                     fontFamily: 'Inter, system-ui, sans-serif',
-                    fontSize: '15px',
+                    fontSize: '14px',
                     fontWeight: 400,
+                    maxWidth: '75%',
+                    transition: 'all 0.2s ease',
+                    cursor: 'pointer',
                   }}
                 >
                   Help me het juiste pakket kiezen
@@ -845,21 +955,58 @@ const ChatPage = () => {
                   onClick={() => handleSubjectClick('Ik heb een andere vraag')}
                   className="text-left"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)',
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
-                    color: 'rgba(255, 255, 255, 0.95)',
-                    borderRadius: '12px',
-                    padding: '16px 24px',
-                    backdropFilter: 'blur(10px)',
-                    transition: 'all 0.3s ease',
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    color: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '6px',
+                    padding: '10px 16px',
                     fontFamily: 'Inter, system-ui, sans-serif',
-                    fontSize: '15px',
+                    fontSize: '14px',
                     fontWeight: 400,
+                    maxWidth: '75%',
+                    transition: 'all 0.2s ease',
+                    cursor: 'pointer',
                   }}
                 >
                   Ik heb een andere vraag
                 </button>
+              </div>
+            )}
+
+            {/* Custom Question Input */}
+            {conversationState === ConversationState.ASKING_CUSTOM_QUESTION && (
+              <div className="flex flex-col gap-2 mt-4 animate-fade-in-up">
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={customQuestion}
+                    onChange={(e) => setCustomQuestion(e.target.value)}
+                    onKeyDown={handleCustomQuestionKeyDown}
+                    placeholder="Typ je vraag..."
+                    className="flex-1 bg-transparent text-white placeholder-white/40 outline-none px-4 py-3"
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.05)',
+                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                      borderRadius: '8px',
+                      fontFamily: 'Inter, system-ui, sans-serif',
+                      fontSize: '15px',
+                    }}
+                    autoFocus
+                  />
+                  <button
+                    onClick={handleCustomQuestionSubmit}
+                    disabled={!customQuestion.trim()}
+                    className="silver-gradient-border-round transition-all disabled:opacity-30"
+                    style={{
+                      padding: '0.8rem',
+                      borderRadius: '9999px',
+                      background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.02) 100%)',
+                      position: 'relative',
+                    }}
+                  >
+                    <Send className="text-white" size={20} />
+                  </button>
+                </div>
               </div>
             )}
 
