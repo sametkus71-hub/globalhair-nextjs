@@ -4,7 +4,6 @@ import { Shield } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 import chevronRightSvg from '@/assets/chevron-right.svg';
 import leafSvg from '@/assets/leaf.svg';
-import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
 import { PopupCloseButton, usePopupClose, SwipeablePopupWrapper } from '@/components/PopupCloseButton';
 
 type FeatureKey = 'fue' | 'comfort' | 'followup' | 'support' | 'precision' | 'stemcell' | 'prime' | 'recovery' | 'anesthesia' | 'biotine' | 'shampoo' | 'washes' | 'followup2' | 'stemcellrepair' | 'v6prime' | 'v6recovery' | 'indicators';
@@ -615,14 +614,13 @@ export const PackageStandardPage = () => {
             <div className="px-3 py-1 rounded-full text-white text-[13px] backdrop-blur-md transition-all duration-300 animate-scale-in" style={{ background: '#FFFFFF1A', fontWeight: 300 }}>
               {getCurrentPrice()}
             </div>
-          </div>
            </div>
+            </div>
         </section>
             </SwipeablePopupWrapper>
       </main>
     </div>
 </div>
-<FooterCTAGlass />
 
 <style>{`
   .popup-section-border {
