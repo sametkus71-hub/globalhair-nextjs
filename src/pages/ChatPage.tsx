@@ -320,17 +320,20 @@ const ChatPage = () => {
 
   // Cleanup interrupted streaming state on mount (e.g., after page reload)
   useEffect(() => {
-    // Always reset loading state on mount
-    setIsLoading(false);
-    
-    // Clean up any messages stuck in streaming state
-    setMessages(prev => 
-      prev.map(msg => 
-        msg.isStreaming ? { ...msg, isStreaming: false } : msg
-      )
-    );
-    
-    console.log('[Chat] Cleaned up interrupted streaming state on mount');
+    // Only run cleanup if we have messages that might be stuck
+    if (messages.length > 0) {
+      // Always reset loading state on mount
+      setIsLoading(false);
+      
+      // Clean up any messages stuck in streaming state
+      setMessages(prev => 
+        prev.map(msg => 
+          msg.isStreaming ? { ...msg, isStreaming: false } : msg
+        )
+      );
+      
+      console.log('[Chat] Cleaned up interrupted streaming state on mount');
+    }
   }, []); // Empty deps = run once on mount
 
   // Aggressive layout locking for mobile keyboard
@@ -365,13 +368,15 @@ const ChatPage = () => {
       // 1. Messages container (for scrolling)
       // 2. Input/textarea elements (for typing)
       // 3. Buttons (for clicking)
+      // 4. Chat input wrapper (the bottom input area)
       const isInteractiveElement = 
         target.tagName === 'INPUT' || 
         target.tagName === 'TEXTAREA' || 
         target.tagName === 'BUTTON' ||
         target.closest('input') ||
         target.closest('textarea') ||
-        target.closest('button');
+        target.closest('button') ||
+        target.closest('.chat-input-wrapper'); // Allow the entire input area
       
       const isInMessagesContainer = target.closest('.messages-container');
       
@@ -878,9 +883,13 @@ const ChatPage = () => {
     );
     setIsLoading(false);
     
+    // Wait for state to update and DOM to settle before focusing
     setTimeout(() => {
-      textareaRef.current?.focus();
-    }, 100);
+      if (conversationState === ConversationState.ACTIVE_CHAT && textareaRef.current) {
+        textareaRef.current.focus();
+        console.log('[Chat] Refocused input after message send');
+      }
+    }, 200); // Increased delay to ensure DOM is ready
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
