@@ -38,7 +38,13 @@ export const PersistentVideoBackground = () => {
   const videoSrc = 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Basic%20BG%20V0.mp4';
 
   return (
-    <div className="fixed inset-0 w-full h-screen overflow-hidden z-0">
+    <div 
+      className="fixed inset-0 w-full h-screen overflow-hidden z-0"
+      style={{
+        height: '100vh',
+        maxHeight: '100vh',
+      }}
+    >
       {/* Background video - only loads after delay */}
       {shouldLoadVideo && (
         <video

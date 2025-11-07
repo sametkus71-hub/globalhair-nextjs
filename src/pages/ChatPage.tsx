@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { X, Send, Loader2, ExternalLink } from 'lucide-react';
@@ -316,6 +316,64 @@ const ChatPage = () => {
       setSessionId(newSessionId);
       console.log('[Chat] Created new session:', newSessionId);
     }
+  }, []);
+
+  // Aggressive layout locking for mobile keyboard
+  useLayoutEffect(() => {
+    // Lock body
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+    document.body.style.height = '100vh';
+    document.body.style.maxHeight = '100vh';
+    document.body.style.top = '0';
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.bottom = '0';
+    
+    // Lock HTML element
+    document.documentElement.style.overflow = 'hidden';
+    document.documentElement.style.height = '100vh';
+    document.documentElement.style.maxHeight = '100vh';
+    
+    // Prevent browser scroll restoration
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    
+    // Prevent touch scrolling except in messages container
+    const preventScroll = (e: TouchEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest('.messages-container')) {
+        e.preventDefault();
+      }
+    };
+    
+    document.addEventListener('touchmove', preventScroll, { passive: false });
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.height = '';
+      document.body.style.maxHeight = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.bottom = '';
+      
+      document.documentElement.style.overflow = '';
+      document.documentElement.style.height = '';
+      document.documentElement.style.maxHeight = '';
+      
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'auto';
+      }
+      
+      document.removeEventListener('touchmove', preventScroll);
+    };
   }, []);
 
   // Load saved data on mount
@@ -868,11 +926,18 @@ const ChatPage = () => {
       />
       
       <div
-        className={`reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}
+        className={`chat-page reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}
         style={{
-          overflow: 'hidden',
           position: 'fixed',
-          inset: 0,
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          height: '100vh',
+          maxHeight: '100vh',
+          overflow: 'hidden',
+          width: '100vw',
+          maxWidth: '100vw',
           zIndex: 50
         }}
       >
@@ -923,8 +988,9 @@ const ChatPage = () => {
 
           {/* Main Content Container */}
           <div
-            className="h-[var(--app-height)] flex flex-col relative"
+            className="chat-root h-[100vh] flex flex-col relative"
             style={{
+              maxHeight: '100vh',
               scrollSnapType: 'none',
               zIndex: 2,
             }}
@@ -1148,7 +1214,7 @@ const ChatPage = () => {
             {/* Input - Only show in ACTIVE_CHAT state */}
             {conversationState === ConversationState.ACTIVE_CHAT && (
               <div
-                className="sticky bottom-0"
+                className="fixed bottom-0 left-0 right-0 lg:left-auto lg:right-auto lg:max-w-[500px] lg:mx-auto"
                 style={{
                   padding: '1rem 0.5rem',
                   zIndex: 3,
