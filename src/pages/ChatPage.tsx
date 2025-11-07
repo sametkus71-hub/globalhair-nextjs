@@ -60,74 +60,158 @@ async function sendMessageStreaming(
     }
 
     const contentType = response.headers.get('content-type');
-    const isStreaming = contentType?.includes('text/event-stream') || contentType?.includes('text/plain');
+    console.log('[Chat] Response content-type:', contentType);
 
-    if (isStreaming && response.body) {
-      console.log('[Chat] Detected streaming response');
+    // Always try streaming if body exists (n8n sends application/json even when streaming)
+    if (response.body) {
+      console.log('[Chat] Attempting to read as stream...');
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
       let buffer = '';
+      let hasReceivedData = false;
+      let lastChunkTime = Date.now();
+      const STREAM_TIMEOUT = 30000; // 30 seconds
 
-      while (true) {
-        const { done, value } = await reader.read();
-        
-        if (done) {
-          console.log('[Chat] Stream complete');
-          break;
-        }
+      try {
+        while (true) {
+          const { done, value } = await reader.read();
+          
+          if (done) {
+            console.log('[Chat] Stream complete');
+            break;
+          }
 
-        buffer += decoder.decode(value, { stream: true });
-        
-        // Process complete SSE events (separated by double newlines)
-        const events = buffer.split('\n\n');
-        buffer = events.pop() || '';
+          hasReceivedData = true;
+          lastChunkTime = Date.now();
+          buffer += decoder.decode(value, { stream: true });
+          
+          // Check for timeout
+          if (Date.now() - lastChunkTime > STREAM_TIMEOUT) {
+            console.log('[Chat] Stream timeout - no data received for 30s');
+            break;
+          }
 
-        for (const event of events) {
-          const lines = event.split('\n');
-          for (const line of lines) {
-            if (line.startsWith('data: ')) {
-              const data = line.slice(6).trim();
-              
-              if (data === '[DONE]') {
-                console.log('[Chat] Received [DONE] signal');
-                return;
-              }
+          // Try to process the buffer as different formats
+          let processed = false;
 
-              try {
-                const parsed = JSON.parse(data);
-                const content = parsed.output || parsed.answer || parsed.response || parsed.content || '';
-                if (content) {
-                  console.log('[Chat] Chunk received:', content.substring(0, 50));
-                  onChunk(content);
-                }
-              } catch (e) {
-                // If not JSON, treat as plain text
-                if (data) {
-                  console.log('[Chat] Plain text chunk:', data.substring(0, 50));
-                  onChunk(data);
+          // Format 1: SSE format with data: prefix
+          if (buffer.includes('data: ')) {
+            const events = buffer.split('\n\n');
+            buffer = events.pop() || '';
+
+            for (const event of events) {
+              const lines = event.split('\n');
+              for (const line of lines) {
+                if (line.startsWith('data: ')) {
+                  const data = line.slice(6).trim();
+                  
+                  if (data === '[DONE]') {
+                    console.log('[Chat] Received [DONE] signal');
+                    return;
+                  }
+
+                  try {
+                    const parsed = JSON.parse(data);
+                    const content = parsed.output || parsed.answer || parsed.response || parsed.content || parsed.text || '';
+                    if (content) {
+                      console.log('[Chat] SSE chunk:', content.substring(0, 50));
+                      onChunk(content);
+                      processed = true;
+                    }
+                  } catch (e) {
+                    // If not JSON, treat as plain text
+                    if (data) {
+                      console.log('[Chat] Plain text chunk:', data.substring(0, 50));
+                      onChunk(data);
+                      processed = true;
+                    }
+                  }
                 }
               }
             }
           }
-        }
-      }
 
-      // Process any remaining buffer
-      if (buffer.trim()) {
-        try {
-          const parsed = JSON.parse(buffer);
-          const content = parsed.output || parsed.answer || parsed.response || parsed.content || '';
-          if (content) onChunk(content);
-        } catch (e) {
-          if (buffer) onChunk(buffer);
+          // Format 2: Raw JSON chunks (n8n streaming format)
+          if (!processed && buffer.includes('{')) {
+            try {
+              // Try to find complete JSON objects in the buffer
+              const jsonMatch = buffer.match(/\{[^}]*\}/g);
+              if (jsonMatch) {
+                for (const jsonStr of jsonMatch) {
+                  try {
+                    const parsed = JSON.parse(jsonStr);
+                    const content = parsed.output || parsed.answer || parsed.response || parsed.content || parsed.text || '';
+                    if (content) {
+                      console.log('[Chat] JSON chunk:', content.substring(0, 50));
+                      onChunk(content);
+                      processed = true;
+                      // Remove processed JSON from buffer
+                      buffer = buffer.replace(jsonStr, '');
+                    }
+                  } catch (e) {
+                    // Not a complete JSON object yet, keep in buffer
+                  }
+                }
+              }
+            } catch (e) {
+              // Keep accumulating
+            }
+          }
         }
+
+        // Process any remaining buffer
+        if (buffer.trim()) {
+          console.log('[Chat] Processing remaining buffer:', buffer.substring(0, 100));
+          try {
+            // Try SSE format
+            if (buffer.startsWith('data: ')) {
+              const data = buffer.slice(6).trim();
+              const parsed = JSON.parse(data);
+              const content = parsed.output || parsed.answer || parsed.response || parsed.content || parsed.text || '';
+              if (content) onChunk(content);
+            } else {
+              // Try plain JSON
+              const parsed = JSON.parse(buffer);
+              const content = parsed.output || parsed.answer || parsed.response || parsed.content || parsed.text || '';
+              if (content) onChunk(content);
+            }
+          } catch (e) {
+            // If not JSON, use as plain text
+            if (buffer.trim()) onChunk(buffer);
+          }
+        }
+
+        // If no data was received at all through streaming, it might not actually be a stream
+        if (!hasReceivedData) {
+          console.log('[Chat] No streaming data received, trying as JSON response');
+          throw new Error('No streaming data');
+        }
+
+      } catch (streamError) {
+        console.error('[Chat] Stream reading error:', streamError);
+        // If streaming failed and we haven't received data, try parsing as regular JSON
+        if (!hasReceivedData) {
+          console.log('[Chat] Falling back to JSON parse');
+          const text = await response.text();
+          console.log('[Chat] Response text (first 200 chars):', text.substring(0, 200));
+          try {
+            const data = JSON.parse(text);
+            const content = data.output || data.answer || data.response || data.content || data.text || 'No response';
+            onChunk(content);
+            return;
+          } catch (e) {
+            console.error('[Chat] Failed to parse as JSON:', e);
+            throw streamError;
+          }
+        }
+        throw streamError;
       }
     } else {
-      // Fallback for non-streaming responses
-      console.log('[Chat] Non-streaming response');
+      // No body at all - try to parse response
+      console.log('[Chat] No response body');
       const data = await response.json();
       console.log('[Chat] Response received:', data);
-      const content = data.output || data.answer || data.response || 'No response';
+      const content = data.output || data.answer || data.response || data.content || data.text || 'No response';
       onChunk(content);
     }
   } catch (error) {
