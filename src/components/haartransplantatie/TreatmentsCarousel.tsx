@@ -91,21 +91,21 @@ export const TreatmentsCarousel = () => {
       // progress: -1 (far left) → 0 (center) → +1 (far right)
       const progress = clamp((cardCenter - midX) / cardW);
 
-      // Scale from 0.92 at edges to 1.0 at center
-      const scale = 0.92 + (1 - Math.min(1, Math.abs(progress))) * 0.08;
+      // Scale from 0.85 at edges to 1.0 at center
+      const scale = 0.85 + (1 - Math.min(1, Math.abs(progress))) * 0.15;
 
       // Subtle blur for non-focused cards (0px at center, up to 0.8px at edges)
-      const blur = (1 - (scale - 0.92) / 0.08) * 0.8;
+      const blur = (1 - (scale - 0.85) / 0.15) * 0.8;
 
       // Small Z-translation to enhance depth
-      const translateZ = (scale - 0.92) * 120; // pixels in 3D space
+      const translateZ = (scale - 0.85) * 120; // pixels in 3D space
 
       card.style.transform = `translateZ(${translateZ}px) scale(${scale})`;
       card.style.filter = `blur(${blur}px)`;
 
       // Make the focused card visually on top
       card.style.zIndex = String(Math.round(scale * 100));
-      card.style.opacity = String(0.8 + (scale - 0.92) * 2.5); // fade non-focused cards
+      card.style.opacity = String(0.7 + (scale - 0.85) * 2); // fade non-focused cards
     });
   };
 
