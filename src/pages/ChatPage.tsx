@@ -1262,12 +1262,13 @@ const ChatPage = () => {
             {/* Input - Only show in ACTIVE_CHAT state */}
             {conversationState === ConversationState.ACTIVE_CHAT && (
               <div
-                className="fixed left-0 right-0 lg:left-auto lg:right-auto lg:max-w-[500px] lg:mx-auto"
+                className="fixed left-0 right-0 lg:left-auto lg:right-auto lg:max-w-[500px] lg:mx-auto chat-input-wrapper"
                 style={{
-                  bottom: 'env(safe-area-inset-bottom, 0px)',
-                  padding: '1rem 0.5rem calc(env(safe-area-inset-bottom, 0px) + 0.5rem) 0.5rem',
+                  bottom: 0,
+                  padding: '1rem 0.5rem 1.5rem 0.5rem',
                   zIndex: 50,
                   maxHeight: '30vh',
+                  backgroundColor: 'transparent',
                 }}
               >
                 <div
