@@ -206,6 +206,55 @@ const ChatPage = () => {
     .animate-fade-in-up {
       animation: fade-in-up 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
+
+    /* Shine effect for subject buttons */
+    @keyframes shine {
+      0% {
+        background-position: -200% center;
+      }
+      100% {
+        background-position: 200% center;
+      }
+    }
+
+    .subject-button {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(
+        135deg, 
+        rgba(255, 255, 255, 0.08) 0%, 
+        rgba(255, 255, 255, 0.12) 50%, 
+        rgba(255, 255, 255, 0.08) 100%
+      );
+      background-size: 200% 100%;
+      animation: shine 3s ease-in-out infinite;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .subject-button:hover {
+      background: linear-gradient(
+        135deg, 
+        rgba(255, 255, 255, 0.15) 0%, 
+        rgba(255, 255, 255, 0.2) 50%, 
+        rgba(255, 255, 255, 0.15) 100%
+      );
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+      box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .subject-button:active {
+      transform: translateY(0);
+      box-shadow: 
+        0 2px 6px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
   `;
   
   const [messages, setMessages] = useState<Message[]>([]);
@@ -940,60 +989,54 @@ const ChatPage = () => {
 
             {/* Subject Options */}
             {conversationState === ConversationState.SHOWING_OPTIONS && (
-              <div className="flex flex-col gap-2 mt-4 items-end">
+              <div className="flex flex-col gap-3 mt-4 items-end">
                 <button
                   onClick={() => handleSubjectClick('Vertel me meer over de werkwijze')}
-                  className="text-left"
+                  className="subject-button text-left"
                   style={{
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    color: 'rgba(255, 255, 255, 0.9)',
-                    borderRadius: '6px',
-                    padding: '10px 16px',
+                    color: 'rgba(255, 255, 255, 0.95)',
+                    borderRadius: '10px',
+                    padding: '12px 18px',
                     fontFamily: 'Inter, system-ui, sans-serif',
                     fontSize: '14px',
-                    fontWeight: 400,
-                    maxWidth: '75%',
-                    transition: 'all 0.2s ease',
+                    fontWeight: 500,
+                    maxWidth: '80%',
                     cursor: 'pointer',
+                    letterSpacing: '0.01em',
                   }}
                 >
                   Vertel me meer over de werkwijze
                 </button>
                 <button
                   onClick={() => handleSubjectClick('Help me het juiste pakket kiezen')}
-                  className="text-left"
+                  className="subject-button text-left"
                   style={{
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    color: 'rgba(255, 255, 255, 0.9)',
-                    borderRadius: '6px',
-                    padding: '10px 16px',
+                    color: 'rgba(255, 255, 255, 0.95)',
+                    borderRadius: '10px',
+                    padding: '12px 18px',
                     fontFamily: 'Inter, system-ui, sans-serif',
                     fontSize: '14px',
-                    fontWeight: 400,
-                    maxWidth: '75%',
-                    transition: 'all 0.2s ease',
+                    fontWeight: 500,
+                    maxWidth: '80%',
                     cursor: 'pointer',
+                    letterSpacing: '0.01em',
                   }}
                 >
                   Help me het juiste pakket kiezen
                 </button>
                 <button
                   onClick={() => handleSubjectClick('Ik heb een andere vraag')}
-                  className="text-left"
+                  className="subject-button text-left"
                   style={{
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                    color: 'rgba(255, 255, 255, 0.9)',
-                    borderRadius: '6px',
-                    padding: '10px 16px',
+                    color: 'rgba(255, 255, 255, 0.95)',
+                    borderRadius: '10px',
+                    padding: '12px 18px',
                     fontFamily: 'Inter, system-ui, sans-serif',
                     fontSize: '14px',
-                    fontWeight: 400,
-                    maxWidth: '75%',
-                    transition: 'all 0.2s ease',
+                    fontWeight: 500,
+                    maxWidth: '80%',
                     cursor: 'pointer',
+                    letterSpacing: '0.01em',
                   }}
                 >
                   Ik heb een andere vraag
