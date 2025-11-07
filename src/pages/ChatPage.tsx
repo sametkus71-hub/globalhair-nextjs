@@ -32,34 +32,56 @@ interface ChatResponse {
   [key: string]: any;
 }
 
-// Helper function to calculate smart delays for natural streaming
-function getSmartDelay(previousWord: string, currentWord: string): number {
-  const baseDelay = 20; // Base typing speed (slightly faster than before)
-  const randomVariance = Math.random() * 12; // 0-12ms variance for natural feel
+// Helper function to calculate smart delays for natural streaming with adaptive speed
+function getSmartDelay(
+  previousWord: string, 
+  currentWord: string,
+  totalWords: number,
+  currentIndex: number
+): number {
+  const baseDelay = 20;
+  const randomVariance = Math.random() * 12;
   
-  // Longer pauses after sentence endings (like taking a breath)
+  // Adaptive speed based on message length
+  let speedMultiplier = 1;
+  
+  if (totalWords <= 8) {
+    // Very short messages: MUCH slower (2.5x)
+    speedMultiplier = 2.5;
+  } else if (totalWords <= 15) {
+    // Short messages: slower (1.8x)
+    speedMultiplier = 1.8;
+  } else if (totalWords <= 30) {
+    // Medium messages: slightly slower (1.3x)
+    speedMultiplier = 1.3;
+  }
+  
+  // Apply multiplier to base delay
+  const adjustedBase = baseDelay * speedMultiplier;
+  
+  // Longer pauses after sentence endings (scaled by message length)
   if (previousWord.match(/[.!?]$/)) {
-    return 180 + randomVariance;
+    return (180 * speedMultiplier) + randomVariance;
   }
   
-  // Medium pause after commas, colons, semicolons (natural reading rhythm)
+  // Medium pause after commas, colons, semicolons (scaled)
   if (previousWord.match(/[,;:]$/)) {
-    return 90 + randomVariance;
+    return (90 * speedMultiplier) + randomVariance;
   }
   
-  // Very short pause for articles and short words (feels faster, more fluent)
+  // Very short pause for articles and short words
   const trimmedCurrent = currentWord.trim();
   if (trimmedCurrent.length <= 2 && trimmedCurrent.length > 0) {
-    return baseDelay - 8 + randomVariance;
+    return adjustedBase - 8 + randomVariance;
   }
   
-  // Slightly longer for long words (simulates thinking/processing)
+  // Slightly longer for long words
   if (trimmedCurrent.length > 12) {
-    return baseDelay + 25 + randomVariance;
+    return adjustedBase + 25 + randomVariance;
   }
   
-  // Default with slight randomness for natural variation
-  return baseDelay + randomVariance;
+  // Default with slight randomness
+  return adjustedBase + randomVariance;
 }
 
 // Helper function to stream static text word by word with natural delays
@@ -67,7 +89,11 @@ async function streamStaticText(
   text: string,
   onChunk: (chunk: string) => void
 ): Promise<void> {
+  // Initial delay to let bubble settle in
+  await new Promise(resolve => setTimeout(resolve, 250));
+  
   const words = text.split(/(\s+)/);
+  const totalWords = words.filter(w => w.trim().length > 0).length;
   let accumulatedText = '';
   
   for (let i = 0; i < words.length; i++) {
@@ -78,7 +104,7 @@ async function streamStaticText(
     onChunk(accumulatedText);
     
     if (i < words.length - 1) {
-      const delay = getSmartDelay(previousWord, currentWord);
+      const delay = getSmartDelay(previousWord, currentWord, totalWords, i);
       await new Promise(resolve => setTimeout(resolve, delay));
     }
   }
@@ -92,6 +118,9 @@ async function sendMessageStreaming(
   const url = 'https://radux.app.n8n.cloud/webhook/438ccf83-5a80-4605-8195-a586e4e03c34/chat?action=sendMessage';
   
   try {
+    // Initial delay before streaming starts
+    await new Promise(resolve => setTimeout(resolve, 250));
+    
     const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -108,6 +137,7 @@ async function sendMessageStreaming(
     if (content) {
       // Split into words while preserving spaces and punctuation
       const words = content.split(/(\s+)/);
+      const totalWords = words.filter(w => w.trim().length > 0).length;
       let accumulatedText = '';
       
       // Stream word by word with natural, human-like delays
@@ -118,9 +148,9 @@ async function sendMessageStreaming(
         accumulatedText += currentWord;
         onChunk(accumulatedText);
         
-        // Smart delay based on context for natural feel
+        // Smart delay based on context and message length
         if (i < words.length - 1) {
-          const delay = getSmartDelay(previousWord, currentWord);
+          const delay = getSmartDelay(previousWord, currentWord, totalWords, i);
           await new Promise(resolve => setTimeout(resolve, delay));
         }
       }
