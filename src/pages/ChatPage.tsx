@@ -989,20 +989,19 @@ const ChatPage = () => {
 
             {/* Subject Options */}
             {conversationState === ConversationState.SHOWING_OPTIONS && (
-              <div className="flex flex-col gap-3 mt-4 items-end">
+              <div className="flex flex-col gap-2 mt-4 items-end">
                 <button
                   onClick={() => handleSubjectClick('Vertel me meer over de werkwijze')}
                   className="subject-button text-left"
                   style={{
                     color: 'rgba(255, 255, 255, 0.95)',
-                    borderRadius: '10px',
-                    padding: '12px 18px',
-                    fontFamily: 'Inter, system-ui, sans-serif',
-                    fontSize: '14px',
-                    fontWeight: 500,
-                    maxWidth: '80%',
+                    borderRadius: '6px',
+                    padding: '8px 14px',
+                    fontFamily: 'system-ui, -apple-system, sans-serif',
+                    fontSize: '13px',
+                    fontWeight: 400,
+                    maxWidth: '75%',
                     cursor: 'pointer',
-                    letterSpacing: '0.01em',
                   }}
                 >
                   Vertel me meer over de werkwijze
@@ -1012,14 +1011,13 @@ const ChatPage = () => {
                   className="subject-button text-left"
                   style={{
                     color: 'rgba(255, 255, 255, 0.95)',
-                    borderRadius: '10px',
-                    padding: '12px 18px',
-                    fontFamily: 'Inter, system-ui, sans-serif',
-                    fontSize: '14px',
-                    fontWeight: 500,
-                    maxWidth: '80%',
+                    borderRadius: '6px',
+                    padding: '8px 14px',
+                    fontFamily: 'system-ui, -apple-system, sans-serif',
+                    fontSize: '13px',
+                    fontWeight: 400,
+                    maxWidth: '75%',
                     cursor: 'pointer',
-                    letterSpacing: '0.01em',
                   }}
                 >
                   Help me het juiste pakket kiezen
@@ -1029,14 +1027,13 @@ const ChatPage = () => {
                   className="subject-button text-left"
                   style={{
                     color: 'rgba(255, 255, 255, 0.95)',
-                    borderRadius: '10px',
-                    padding: '12px 18px',
-                    fontFamily: 'Inter, system-ui, sans-serif',
-                    fontSize: '14px',
-                    fontWeight: 500,
-                    maxWidth: '80%',
+                    borderRadius: '6px',
+                    padding: '8px 14px',
+                    fontFamily: 'system-ui, -apple-system, sans-serif',
+                    fontSize: '13px',
+                    fontWeight: 400,
+                    maxWidth: '75%',
                     cursor: 'pointer',
-                    letterSpacing: '0.01em',
                   }}
                 >
                   Ik heb een andere vraag
