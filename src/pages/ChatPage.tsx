@@ -39,216 +39,24 @@ async function sendMessageStreaming(
 ): Promise<void> {
   const url = 'https://radux.app.n8n.cloud/webhook/438ccf83-5a80-4605-8195-a586e4e03c34/chat?action=sendMessage';
   
-  console.log('[Chat] Sending message (streaming):', { chatInput: message, sessionId });
-  
   try {
     const response = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ 
-        chatInput: message,
-        sessionId: sessionId 
-      }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chatInput: message, sessionId }),
     });
 
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error('[Chat] Error response:', response.status, errorText);
-      throw new Error(`Network error: ${response.status}`);
+      throw new Error(`Request failed: ${response.status}`);
     }
 
-    // Clone response before reading body (allows fallback to original)
-    const clonedResponse = response.clone();
-
-    // Log all relevant headers for debugging
-    const contentType = response.headers.get('content-type');
-    const transferEncoding = response.headers.get('transfer-encoding');
-    const xAccelBuffering = response.headers.get('x-accel-buffering');
-    console.log('[Chat] Response headers:', { 
-      contentType, 
-      transferEncoding, 
-      xAccelBuffering,
-      isChunked: transferEncoding === 'chunked'
-    });
-
-    // Always try streaming if body exists (n8n sends application/json even when streaming)
-    if (clonedResponse.body) {
-      console.log('[Chat] Attempting to read as stream with cloned response...');
-      const reader = clonedResponse.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = '';
-      let hasReceivedData = false;
-      let lastChunkTime = Date.now();
-      const STREAM_TIMEOUT = 30000; // 30 seconds
-
-      try {
-        while (true) {
-          const { done, value } = await reader.read();
-          
-          // Process value FIRST (before checking done)
-          if (value && value.length > 0) {
-            hasReceivedData = true;
-            lastChunkTime = Date.now();
-            buffer += decoder.decode(value, { stream: !done });
-            
-            // Try to process the buffer as different formats
-            let processed = false;
-
-            // Format 1: SSE format with data: prefix
-            if (buffer.includes('data: ')) {
-              const events = buffer.split('\n\n');
-              buffer = events.pop() || '';
-
-              for (const event of events) {
-                const lines = event.split('\n');
-                for (const line of lines) {
-                  if (line.startsWith('data: ')) {
-                    const data = line.slice(6).trim();
-                    
-                    if (data === '[DONE]') {
-                      console.log('[Chat] Received [DONE] signal');
-                      return;
-                    }
-
-                    try {
-                      const parsed = JSON.parse(data);
-                      const content = parsed.output || parsed.answer || parsed.response || parsed.content || parsed.text || '';
-                      if (content) {
-                        console.log('[Chat] SSE chunk:', content.substring(0, 50));
-                        onChunk(content);
-                        processed = true;
-                      }
-                    } catch (e) {
-                      // If not JSON, treat as plain text
-                      if (data) {
-                        console.log('[Chat] Plain text chunk:', data.substring(0, 50));
-                        onChunk(data);
-                        processed = true;
-                      }
-                    }
-                  }
-                }
-              }
-            }
-
-            // Format 2: Raw JSON chunks (n8n streaming format)
-            if (!processed && buffer.includes('{')) {
-              try {
-                // Try to find complete JSON objects in the buffer
-                const jsonMatch = buffer.match(/\{[^}]*\}/g);
-                if (jsonMatch) {
-                  for (const jsonStr of jsonMatch) {
-                    try {
-                      const parsed = JSON.parse(jsonStr);
-                      const content = parsed.output || parsed.answer || parsed.response || parsed.content || parsed.text || '';
-                      if (content) {
-                        console.log('[Chat] JSON chunk:', content.substring(0, 50));
-                        onChunk(content);
-                        processed = true;
-                        // Remove processed JSON from buffer
-                        buffer = buffer.replace(jsonStr, '');
-                      }
-                    } catch (e) {
-                      // Not a complete JSON object yet, keep in buffer
-                    }
-                  }
-                }
-              } catch (e) {
-                // Keep accumulating
-              }
-            }
-          }
-          
-          // THEN check if done
-          if (done) {
-            console.log('[Chat] Stream complete');
-            break;
-          }
-          
-          // Check for timeout
-          if (Date.now() - lastChunkTime > STREAM_TIMEOUT) {
-            console.log('[Chat] Stream timeout - no data received for 30s');
-            break;
-          }
-        }
-
-        // Process any remaining buffer
-        if (buffer.trim()) {
-          console.log('[Chat] Processing remaining buffer:', buffer.substring(0, 100));
-          try {
-            // Try SSE format
-            if (buffer.startsWith('data: ')) {
-              const data = buffer.slice(6).trim();
-              const parsed = JSON.parse(data);
-              const content = parsed.output || parsed.answer || parsed.response || parsed.content || parsed.text || '';
-              if (content) onChunk(content);
-            } else {
-              // Try plain JSON
-              const parsed = JSON.parse(buffer);
-              const content = parsed.output || parsed.answer || parsed.response || parsed.content || parsed.text || '';
-              if (content) onChunk(content);
-            }
-          } catch (e) {
-            // If not JSON, use as plain text
-            if (buffer.trim()) onChunk(buffer);
-          }
-        }
-
-        // If no data was received at all through streaming, it might not actually be a stream
-        if (!hasReceivedData) {
-          console.log('[Chat] No streaming data received from cloned response');
-          throw new Error('No streaming data');
-        }
-
-      } catch (streamError) {
-        console.error('[Chat] Stream reading error:', streamError);
-        // If streaming failed and we haven't received data, use ORIGINAL response for fallback
-        if (!hasReceivedData) {
-          console.log('[Chat] Falling back to original response.text()');
-          try {
-            const text = await response.text();
-            console.log('[Chat] Response text (first 200 chars):', text.substring(0, 200));
-            
-            try {
-              const data = JSON.parse(text);
-              const content = data.output || data.answer || data.response || data.content || data.text || '';
-              if (content) {
-                console.log('[Chat] Parsed complete JSON response, simulating streaming...');
-                // Simulate streaming word by word for better UX
-                const words = content.split(' ');
-                for (let i = 0; i < words.length; i++) {
-                  onChunk(words.slice(0, i + 1).join(' '));
-                  await new Promise(resolve => setTimeout(resolve, 50)); // 50ms delay between words
-                }
-              } else {
-                onChunk('No response');
-              }
-              return;
-            } catch (e) {
-              console.error('[Chat] Failed to parse as JSON:', e);
-              // If not JSON, use plain text
-              if (text.trim()) {
-                onChunk(text);
-              } else {
-                throw streamError;
-              }
-            }
-          } catch (textError) {
-            console.error('[Chat] Failed to read response.text():', textError);
-            throw streamError;
-          }
-        }
-        throw streamError;
-      }
-    } else {
-      // No body at all - try to parse response
-      console.log('[Chat] No response body');
-      const data = await response.json();
-      console.log('[Chat] Response received:', data);
-      const content = data.output || data.answer || data.response || data.content || data.text || 'No response';
+    const data = await response.json();
+    const content = data.output || data.answer || data.response || data.content || data.text || '';
+    
+    if (content) {
       onChunk(content);
+    } else {
+      onChunk('Geen antwoord ontvangen.');
     }
   } catch (error) {
     console.error('[Chat] Error:', error);
