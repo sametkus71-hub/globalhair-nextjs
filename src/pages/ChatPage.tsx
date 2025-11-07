@@ -107,6 +107,25 @@ const ChatPage = () => {
     .hide-scrollbar::-webkit-scrollbar {
       display: none;  /* Chrome, Safari and Opera */
     }
+
+    /* Message entrance animation */
+    @keyframes fade-in-up {
+      0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+      }
+      50% {
+        opacity: 0.5;
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .animate-fade-in-up {
+      animation: fade-in-up 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
   `;
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -176,7 +195,7 @@ const ChatPage = () => {
           return [...prev, nextMsg];
         });
         index++;
-        const delay = 700 + Math.random() * 200;
+        const delay = 800;
         const id = window.setTimeout(displayNextMessage, delay);
         preloadTimeoutsRef.current.push(id);
       } else {
@@ -402,18 +421,20 @@ const ChatPage = () => {
           {messages.map((msg, idx) => (
             <div
               key={idx}
-              className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              className={`flex animate-fade-in-up ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               {msg.role === 'user' ? (
                 <div
-                  className="max-w-[80%] px-4 py-3 silver-gradient-border"
+                  className="max-w-[80%] px-4 py-3"
                   style={{
-                    background: 'linear-gradient(100deg, rgba(44, 54, 62, 0.03) 0%, rgba(234, 234, 234, 0.15) 50%, rgba(44, 54, 62, 0.03) 100%)',
-                    color: 'rgba(255, 255, 255, 0.9)',
+                    background: 'linear-gradient(135deg, rgba(234, 234, 234, 0.18) 0%, rgba(234, 234, 234, 0.12) 100%)',
+                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                    borderRadius: '18px 18px 4px 18px',
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+                    color: 'rgba(255, 255, 255, 0.95)',
                     fontFamily: 'Inter, system-ui, sans-serif',
-                    fontSize: '12px',
-                    lineHeight: '1.4',
-                    borderRadius: '12px',
+                    fontSize: '14px',
+                    lineHeight: '1.5',
                     position: 'relative',
                   }}
                 >
@@ -423,17 +444,19 @@ const ChatPage = () => {
                 <div
                   className="max-w-[80%] px-4 py-3"
                   style={{
-                    background: 'rgba(44, 54, 62, 0.4)',
-                    borderRadius: '12px',
+                    background: 'linear-gradient(135deg, rgba(44, 54, 62, 0.5) 0%, rgba(44, 54, 62, 0.3) 100%)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    borderRadius: '18px 18px 18px 4px',
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
                     fontFamily: 'Inter, system-ui, sans-serif',
-                    fontSize: '12px',
-                    lineHeight: '1.4',
+                    fontSize: '14px',
+                    lineHeight: '1.5',
                   }}
                 >
                   <p 
                     className="whitespace-pre-wrap"
                     style={{
-                      color: '#CBCBCB',
+                      color: 'rgb(220, 220, 220)',
                     }}
                   >
                     {msg.content}
@@ -443,7 +466,12 @@ const ChatPage = () => {
                       href={msg.source}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 mt-2 text-sm text-white/70 hover:text-white/90 underline"
+                      className="inline-flex items-center gap-1 mt-2 text-sm underline transition-colors"
+                      style={{
+                        color: 'rgba(255, 255, 255, 0.7)',
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.9)'}
+                      onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.7)'}
                     >
                       {language === 'nl' ? 'Bron' : 'Source'}
                       <ExternalLink size={14} />
@@ -459,66 +487,93 @@ const ChatPage = () => {
           
           {isLoading && (
             <div className="flex justify-start">
-              <Loader2 className="animate-spin text-white/60" size={20} />
+              <Loader2 className="animate-spin" style={{ color: 'rgba(255, 255, 255, 0.6)' }} size={20} />
             </div>
           )}
 
           {showOptions && (
-            <div className="flex flex-col gap-2 mt-4">
+            <div className="flex flex-col gap-3 mt-4">
               <button
                 onClick={() => handleOptionClick('Vertel me meer over de werkwijze')}
-                className="silver-gradient-border text-left"
+                className="text-left"
                 style={{
-                  background: 'rgba(255, 255, 255, 0.06)',
-                  color: '#fff',
-                  borderRadius: '12px',
-                  padding: '12px 16px',
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+                  color: 'rgba(255, 255, 255, 0.95)',
+                  borderRadius: '14px',
+                  padding: '16px 24px',
                   backdropFilter: 'blur(10px)',
-                  transition: 'background 0.3s',
+                  transition: 'all 0.3s ease',
                   fontFamily: 'Inter, system-ui, sans-serif',
-                  fontSize: '14px',
+                  fontSize: '15px',
+                  fontWeight: 400,
                   position: 'relative',
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'}
-                onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)'}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)';
+                  e.currentTarget.style.transform = 'scale(1.01)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)';
+                  e.currentTarget.style.transform = 'scale(1)';
+                }}
               >
                 Vertel me meer over de werkwijze
               </button>
               <button
                 onClick={() => handleOptionClick('Help me het juiste pakket kiezen')}
-                className="silver-gradient-border text-left"
+                className="text-left"
                 style={{
-                  background: 'rgba(255, 255, 255, 0.06)',
-                  color: '#fff',
-                  borderRadius: '12px',
-                  padding: '12px 16px',
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+                  color: 'rgba(255, 255, 255, 0.95)',
+                  borderRadius: '14px',
+                  padding: '16px 24px',
                   backdropFilter: 'blur(10px)',
-                  transition: 'background 0.3s',
+                  transition: 'all 0.3s ease',
                   fontFamily: 'Inter, system-ui, sans-serif',
-                  fontSize: '14px',
+                  fontSize: '15px',
+                  fontWeight: 400,
                   position: 'relative',
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'}
-                onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)'}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)';
+                  e.currentTarget.style.transform = 'scale(1.01)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)';
+                  e.currentTarget.style.transform = 'scale(1)';
+                }}
               >
                 Help me het juiste pakket kiezen
               </button>
               <button
                 onClick={() => handleOptionClick('Ik heb een andere vraag')}
-                className="silver-gradient-border text-left"
+                className="text-left"
                 style={{
-                  background: 'rgba(255, 255, 255, 0.06)',
-                  color: '#fff',
-                  borderRadius: '12px',
-                  padding: '12px 16px',
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+                  color: 'rgba(255, 255, 255, 0.95)',
+                  borderRadius: '14px',
+                  padding: '16px 24px',
                   backdropFilter: 'blur(10px)',
-                  transition: 'background 0.3s',
+                  transition: 'all 0.3s ease',
                   fontFamily: 'Inter, system-ui, sans-serif',
-                  fontSize: '14px',
+                  fontSize: '15px',
+                  fontWeight: 400,
                   position: 'relative',
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'}
-                onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)'}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)';
+                  e.currentTarget.style.transform = 'scale(1.01)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)';
+                  e.currentTarget.style.transform = 'scale(1)';
+                }}
               >
                 Ik heb een andere vraag
               </button>
