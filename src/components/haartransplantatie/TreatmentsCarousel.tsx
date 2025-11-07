@@ -4,39 +4,20 @@ import { useLanguage } from "@/hooks/useLanguage";
 import { useSession } from "@/hooks/useSession";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-// Features per package with visibility
-const PACKAGE_FEATURES = {
-  standard: {
-    features: [
-      "FUE Saffier / DHI",
-      "Comfort ...",
-      "1 Person ...",
-      "1 ...",
-      "GHI ..."
-    ],
-    visibleIndices: [0] // Only first item visible
-  },
-  premium: {
-    features: [
-      "GHI Stemcell Repair™",
-      "V6 Hairboost ® - Prime",
-      "Recovery ...",
-      "Comfort ...",
-      "1 Person ..."
-    ],
-    visibleIndices: [0, 1] // First two items visible
-  },
-  elite: {
-    features: [
-      "GHI Stemcell Repair™",
-      "Full Comfort Anesthesia",
-      "V6 Hairboost ® - Prime",
-      "Recovery ...",
-      "VIP ...",
-      "GHI ..."
-    ],
-    visibleIndices: [0, 1, 2] // First three items visible
-  }
+// All packages show these 5 features
+const FEATURES = [
+  "FUE Saffier / DHI",
+  "GHI Stemcell Repair™",
+  "Full Comfort Anesthesia",
+  "V6 Hairboost ® - Prime",
+  "V6 Hairboost ® - Recovery"
+];
+
+// Which features are visible (not blurred) for each package
+const PACKAGE_VISIBILITY = {
+  standard: [0], // Only FUE Saffier / DHI visible
+  premium: [1, 3], // GHI Stemcell Repair™ and V6 Hairboost ® - Prime visible
+  elite: [1, 2, 3] // GHI Stemcell Repair™, Full Comfort Anesthesia, and V6 Hairboost ® - Prime visible
 };
 
 const BASE = [
@@ -310,20 +291,18 @@ export const TreatmentsCarousel = () => {
             <div className="treat-card-content">
               <div className="treat-pill">{it.title}</div>
               <ul className="treat-features-list">
-                {(() => {
-                  const packageData = PACKAGE_FEATURES[it.id as keyof typeof PACKAGE_FEATURES];
-                  return packageData.features.map((feature, idx) => {
-                    const isVisible = packageData.visibleIndices.includes(idx);
-                    return (
-                      <li 
-                        key={idx} 
-                        className={`treat-feature-item ${!isVisible ? 'treat-feature-faded' : ''}`}
-                      >
-                        {feature}
-                      </li>
-                    );
-                  });
-                })()}
+                {FEATURES.map((feature, idx) => {
+                  const visibleIndices = PACKAGE_VISIBILITY[it.id as keyof typeof PACKAGE_VISIBILITY];
+                  const isVisible = visibleIndices.includes(idx);
+                  return (
+                    <li 
+                      key={idx} 
+                      className={`treat-feature-item ${!isVisible ? 'treat-feature-faded' : ''}`}
+                    >
+                      {feature}
+                    </li>
+                  );
+                })}
               </ul>
               <button 
                 className="treat-link" 
