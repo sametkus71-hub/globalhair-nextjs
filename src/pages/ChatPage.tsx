@@ -32,7 +32,37 @@ interface ChatResponse {
   [key: string]: any;
 }
 
-// Helper function to stream static text word by word
+// Helper function to calculate smart delays for natural streaming
+function getSmartDelay(previousWord: string, currentWord: string): number {
+  const baseDelay = 20; // Base typing speed (slightly faster than before)
+  const randomVariance = Math.random() * 12; // 0-12ms variance for natural feel
+  
+  // Longer pauses after sentence endings (like taking a breath)
+  if (previousWord.match(/[.!?]$/)) {
+    return 180 + randomVariance;
+  }
+  
+  // Medium pause after commas, colons, semicolons (natural reading rhythm)
+  if (previousWord.match(/[,;:]$/)) {
+    return 90 + randomVariance;
+  }
+  
+  // Very short pause for articles and short words (feels faster, more fluent)
+  const trimmedCurrent = currentWord.trim();
+  if (trimmedCurrent.length <= 2 && trimmedCurrent.length > 0) {
+    return baseDelay - 8 + randomVariance;
+  }
+  
+  // Slightly longer for long words (simulates thinking/processing)
+  if (trimmedCurrent.length > 12) {
+    return baseDelay + 25 + randomVariance;
+  }
+  
+  // Default with slight randomness for natural variation
+  return baseDelay + randomVariance;
+}
+
+// Helper function to stream static text word by word with natural delays
 async function streamStaticText(
   text: string,
   onChunk: (chunk: string) => void
@@ -41,11 +71,15 @@ async function streamStaticText(
   let accumulatedText = '';
   
   for (let i = 0; i < words.length; i++) {
-    accumulatedText += words[i];
+    const currentWord = words[i];
+    const previousWord = i > 0 ? words[i - 1] : '';
+    
+    accumulatedText += currentWord;
     onChunk(accumulatedText);
     
     if (i < words.length - 1) {
-      await new Promise(resolve => setTimeout(resolve, 35));
+      const delay = getSmartDelay(previousWord, currentWord);
+      await new Promise(resolve => setTimeout(resolve, delay));
     }
   }
 }
@@ -76,14 +110,18 @@ async function sendMessageStreaming(
       const words = content.split(/(\s+)/);
       let accumulatedText = '';
       
-      // Stream word by word with delay for ChatGPT-like effect
+      // Stream word by word with natural, human-like delays
       for (let i = 0; i < words.length; i++) {
-        accumulatedText += words[i];
+        const currentWord = words[i];
+        const previousWord = i > 0 ? words[i - 1] : '';
+        
+        accumulatedText += currentWord;
         onChunk(accumulatedText);
         
-        // 35ms delay between words for natural streaming
+        // Smart delay based on context for natural feel
         if (i < words.length - 1) {
-          await new Promise(resolve => setTimeout(resolve, 35));
+          const delay = getSmartDelay(previousWord, currentWord);
+          await new Promise(resolve => setTimeout(resolve, delay));
         }
       }
     } else {
