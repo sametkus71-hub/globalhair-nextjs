@@ -356,13 +356,8 @@ const ChatPage = () => {
 
   const handleClose = () => {
     setIsExiting(true);
-    if (window.history.length > 1) {
-      setTimeout(() => {
-        navigate(-1);
-      }, 350);
-    } else {
-      handlePopupClose(350);
-    }
+    // Always use the popup close handler which navigates to haartransplantatie
+    handlePopupClose(350);
   };
 
   return (
