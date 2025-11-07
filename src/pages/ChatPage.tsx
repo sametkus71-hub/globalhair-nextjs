@@ -849,7 +849,7 @@ const ChatPage = () => {
                   <p 
                     className="whitespace-pre-wrap"
                     style={{
-                      color: msg.role === 'user' ? 'rgba(255, 255, 255, 0.95)' : 'rgb(220, 220, 220)',
+                      color: msg.role === 'user' ? 'rgb(255, 255, 255)' : 'rgb(220, 220, 220)',
                     }}
                   >
                     <span style={{
