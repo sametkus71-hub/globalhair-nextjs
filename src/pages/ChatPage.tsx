@@ -357,10 +357,26 @@ const ChatPage = () => {
       window.history.scrollRestoration = 'manual';
     }
     
-    // Prevent touch scrolling except in messages container
+    // Prevent touch scrolling except in messages container and interactive elements
     const preventScroll = (e: TouchEvent) => {
       const target = e.target as HTMLElement;
-      if (!target.closest('.messages-container')) {
+      
+      // Allow touches on:
+      // 1. Messages container (for scrolling)
+      // 2. Input/textarea elements (for typing)
+      // 3. Buttons (for clicking)
+      const isInteractiveElement = 
+        target.tagName === 'INPUT' || 
+        target.tagName === 'TEXTAREA' || 
+        target.tagName === 'BUTTON' ||
+        target.closest('input') ||
+        target.closest('textarea') ||
+        target.closest('button');
+      
+      const isInMessagesContainer = target.closest('.messages-container');
+      
+      // Only prevent if NOT in messages container AND NOT an interactive element
+      if (!isInMessagesContainer && !isInteractiveElement) {
         e.preventDefault();
       }
     };
