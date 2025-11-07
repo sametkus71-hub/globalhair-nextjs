@@ -53,7 +53,7 @@ export const useSession = () => {
       const savedLocatie = sessionStorage.getItem('gh_locatie') as Location;
       const savedScheren = sessionStorage.getItem('gh_scheren') as Shaving;
       const savedBehandeling = sessionStorage.getItem('gh_behandeling') as Treatment;
-      const savedSelectedPackage = sessionStorage.getItem('gh_selectedPackage') as Package;
+      // Always default to Premium - don't persist package selection
       const savedActiveRoute = localStorage.getItem('gh_activeRoute') as ActiveRoute;
       
       // Language detection: prioritize sessionStorage, then localStorage, then browser
@@ -76,7 +76,7 @@ export const useSession = () => {
         scheren: savedScheren || defaultProfile.scheren,
         behandeling: savedBehandeling || defaultProfile.behandeling,
         language: detectedLanguage,
-        selectedPackage: savedSelectedPackage || defaultProfile.selectedPackage,
+        selectedPackage: defaultProfile.selectedPackage, // Always default to Premium
         activeRoute: savedActiveRoute || defaultProfile.activeRoute
       };
 
@@ -89,7 +89,7 @@ export const useSession = () => {
       if (!savedLocatie) sessionStorage.setItem('gh_locatie', currentProfile.locatie);
       if (!savedScheren) sessionStorage.setItem('gh_scheren', currentProfile.scheren);
       if (!savedBehandeling) sessionStorage.setItem('gh_behandeling', currentProfile.behandeling);
-      if (!savedSelectedPackage) sessionStorage.setItem('gh_selectedPackage', currentProfile.selectedPackage);
+      // Don't persist selectedPackage - always default to Premium
       if (!savedActiveRoute) localStorage.setItem('gh_activeRoute', currentProfile.activeRoute || '');
       
       // Sync language in both storages
@@ -155,6 +155,9 @@ export const useSession = () => {
       localStorage.setItem('gh_lang', value);
     } else if (field === 'activeRoute') {
       localStorage.setItem('gh_activeRoute', value);
+    } else if (field === 'selectedPackage') {
+      // Don't persist selectedPackage to storage - always default to Premium on page load
+      // Just update the state, no storage
     } else {
       sessionStorage.setItem(`gh_${field}`, value);
     }
