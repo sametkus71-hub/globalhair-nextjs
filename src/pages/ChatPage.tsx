@@ -391,33 +391,39 @@ const ChatPage = () => {
           }}
         >
           {/* Header with Logo and Close Button */}
-          <SwipeablePopupWrapper onClose={handleClose}>
-            <div
-              className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-4"
-            >
-          {/* Logo */}
-          <div className="flex items-center">
-            <img 
-              src={hairtransplantLogo} 
-              alt="GHI Hairtransplant Logo" 
-              style={{ height: '2.5rem' }}
-            />
-          </div>
+          <div className="fixed top-0 left-0 right-0 z-50">
+            {/* Swipeable drag indicator */}
+            <SwipeablePopupWrapper onClose={handleClose}>
+              <div className="flex justify-center pt-2 pb-1">
+                <div className="w-12 h-1 bg-white/20 rounded-full" />
+              </div>
+            </SwipeablePopupWrapper>
+            
+            {/* Header content */}
+            <div className="flex items-center justify-between px-4 pb-4">
+              {/* Logo */}
+              <div className="flex items-center">
+                <img 
+                  src={hairtransplantLogo} 
+                  alt="GHI Hairtransplant Logo" 
+                  style={{ height: '2.5rem' }}
+                />
+              </div>
 
-          {/* Close Button */}
-          <button
-            onClick={handleClose}
-            className="p-2 text-white/80 hover:text-white transition-colors rounded-lg hover:bg-white/5"
-            aria-label="Close chat"
-          >
-            <X size={24} />
-          </button>
-        </div>
-          </SwipeablePopupWrapper>
+              {/* Close Button */}
+              <button
+                onClick={handleClose}
+                className="p-2 text-white/80 hover:text-white transition-colors rounded-lg hover:bg-white/5 relative z-10"
+                aria-label="Close chat"
+              >
+                <X size={24} />
+              </button>
+            </div>
+          </div>
 
         {/* Messages */}
         <div 
-          className="flex-1 overflow-y-auto px-4 pt-20 pb-28 space-y-4 hide-scrollbar"
+          className="flex-1 overflow-y-auto px-4 pt-24 pb-28 space-y-4 hide-scrollbar"
           style={{
             position: 'relative',
             zIndex: 0,
