@@ -408,9 +408,8 @@ const ChatPage = () => {
             backdropFilter: isScrolled ? 'blur(50px) saturate(200%)' : 'none',
             WebkitBackdropFilter: isScrolled ? 'blur(50px) saturate(200%)' : 'none',
             background: isScrolled 
-              ? 'linear-gradient(180deg, rgba(4, 14, 21, 0.98) 0%, rgba(8, 20, 30, 0.85) 30%, rgba(12, 25, 35, 0.50) 60%, rgba(16, 30, 40, 0.20) 85%, transparent 100%)' 
+              ? 'linear-gradient(180deg, rgba(4, 14, 21, 0.65) 0%, rgba(8, 20, 30, 0.45) 35%, rgba(12, 25, 35, 0.25) 65%, transparent 100%)' 
               : 'transparent',
-            boxShadow: isScrolled ? '0 4px 30px rgba(0, 0, 0, 0.3)' : 'none',
           }}
         >
           {/* Header content */}
