@@ -58,11 +58,12 @@ const App = () => (
                   <AppRootInit />
                   <ViewportHeightSetter />
                   <AppBackground />
-                  <Suspense fallback={null}>
-                    <PersistentVideoBackground />
-                  </Suspense>
-                  
-                  <SEORoutes />
+        <Suspense fallback={null}>
+          <PersistentVideoBackground />
+        </Suspense>
+        <GlobalCentralLogo />
+        
+        <SEORoutes />
                 </PasswordProtection>
               </TransitionProvider>
             </LanguageWrapper>

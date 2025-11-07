@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
-import { ArrowLeft, Send, Loader2, ExternalLink } from 'lucide-react';
+import { X, Send, Loader2, ExternalLink } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import globalhairLogo from '@/assets/globalhair-logo.png';
 
@@ -367,41 +367,31 @@ const ChatPage = () => {
           scrollSnapType: 'none',
         }}
       >
-        {/* Header */}
+        {/* Minimal Header with Close Button */}
         <div
-          className="sticky top-0 z-10 flex items-center px-4 py-3"
+          className="fixed top-0 left-0 right-0 z-50 flex items-center justify-end px-4 py-3"
           style={{
-            background: 'rgba(4, 14, 21, 0.8)',
-            backdropFilter: 'blur(20px)',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+            height: '60px',
           }}
         >
           <button
-            onClick={() => navigate(-1)}
-            className="p-2 -ml-2 text-white/80 hover:text-white transition-colors"
+            onClick={() => {
+              if (window.history.length > 1) {
+                navigate(-1);
+              } else {
+                navigate(language === 'nl' ? '/nl' : '/en');
+              }
+            }}
+            className="p-2 text-white/80 hover:text-white transition-colors rounded-lg hover:bg-white/5"
+            aria-label="Close chat"
           >
-            <ArrowLeft size={24} />
+            <X size={24} />
           </button>
-          <div
-            className="flex-1 flex items-center justify-center gap-2 pr-10"
-          >
-            <img 
-              src={globalhairLogo} 
-              alt="Globalhair Logo" 
-              className="w-6"
-            />
-            <h1
-              className="text-white text-lg font-medium"
-              style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}
-            >
-              Globalhair Chat
-            </h1>
-          </div>
         </div>
 
         {/* Messages */}
         <div 
-          className="flex-1 overflow-y-auto px-4 py-6 pb-28 space-y-4 hide-scrollbar"
+          className="flex-1 overflow-y-auto px-4 pt-20 pb-28 space-y-4 hide-scrollbar"
           style={{
             position: 'relative',
             zIndex: 0,
