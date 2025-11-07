@@ -432,6 +432,27 @@ const ChatPage = () => {
     handlePopupClose(350);
   };
 
+  const handleRestart = () => {
+    // Clear all localStorage
+    localStorage.removeItem('chat-messages');
+    localStorage.removeItem('chat-user-name');
+    localStorage.removeItem('chat-conversation-state');
+    localStorage.removeItem('chat-selected-subject');
+    
+    // Reset state
+    setMessages([]);
+    setUserName('');
+    setSelectedSubject('');
+    setConversationState(ConversationState.GREETING);
+    
+    // Restart conversation flow
+    startConversationFlow();
+  };
+
+  // Only show restart button in development (Lovable environment)
+  const isDevEnvironment = window.location.hostname.includes('lovable') || 
+                           window.location.hostname.includes('localhost');
+
   const formatTime = (timestamp?: string) => {
     if (!timestamp) return '';
     const date = new Date(timestamp);
@@ -477,13 +498,26 @@ const ChatPage = () => {
               />
             </div>
 
-            <button
-              onClick={handleClose}
-              className="p-2 text-white/80 hover:text-white transition-colors rounded-lg hover:bg-white/5 relative z-10"
-              aria-label="Close chat"
-            >
-              <X size={24} />
-            </button>
+            <div className="flex items-center gap-2">
+              {/* Dev-only restart button */}
+              {isDevEnvironment && (
+                <button
+                  onClick={handleRestart}
+                  className="px-3 py-1.5 text-xs text-white/70 hover:text-white transition-colors rounded-lg hover:bg-white/10 border border-white/20"
+                  aria-label="Restart chat"
+                >
+                  Restart
+                </button>
+              )}
+              
+              <button
+                onClick={handleClose}
+                className="p-2 text-white/80 hover:text-white transition-colors rounded-lg hover:bg-white/5 relative z-10"
+                aria-label="Close chat"
+              >
+                <X size={24} />
+              </button>
+            </div>
           </div>
         </div>
 
