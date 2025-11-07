@@ -61,7 +61,6 @@ const App = () => (
         <Suspense fallback={null}>
           <PersistentVideoBackground />
         </Suspense>
-        <GlobalCentralLogo />
         
         <SEORoutes />
                 </PasswordProtection>

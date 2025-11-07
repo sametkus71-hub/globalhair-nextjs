@@ -374,27 +374,27 @@ const ChatPage = () => {
         language={language}
       />
       
-      <SwipeablePopupWrapper onClose={handleClose}>
+      <div
+        className={`reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}
+        style={{
+          background: 'linear-gradient(180deg, rgb(4, 14, 21) 0%, rgb(51, 61, 70) 100%)',
+          overflow: 'hidden',
+          position: 'fixed',
+          inset: 0,
+          zIndex: 50
+        }}
+      >
         <div
-          className={`reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}
+          className="min-h-[var(--app-height)] flex flex-col"
           style={{
-            background: 'linear-gradient(180deg, rgb(4, 14, 21) 0%, rgb(51, 61, 70) 100%)',
-            overflow: 'hidden',
-            position: 'fixed',
-            inset: 0,
-            zIndex: 50
+            scrollSnapType: 'none',
           }}
         >
-          <div
-            className="min-h-[var(--app-height)] flex flex-col"
-            style={{
-              scrollSnapType: 'none',
-            }}
-          >
           {/* Header with Logo and Close Button */}
-          <div
-            className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-4"
-          >
+          <SwipeablePopupWrapper onClose={handleClose}>
+            <div
+              className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-4"
+            >
           {/* Logo */}
           <div className="flex items-center">
             <img 
@@ -413,6 +413,7 @@ const ChatPage = () => {
             <X size={24} />
           </button>
         </div>
+          </SwipeablePopupWrapper>
 
         {/* Messages */}
         <div 
@@ -651,9 +652,8 @@ const ChatPage = () => {
             </button>
           </div>
         </div>
-          </div>
         </div>
-      </SwipeablePopupWrapper>
+      </div>
     </>
   );
 };
