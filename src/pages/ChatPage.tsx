@@ -1262,7 +1262,7 @@ const ChatPage = () => {
             {/* Input - Only show in ACTIVE_CHAT state */}
             {conversationState === ConversationState.ACTIVE_CHAT && (
               <div
-                className="fixed left-0 right-0 lg:left-auto lg:right-auto lg:max-w-[500px] lg:mx-auto"
+                className="fixed left-0 right-0 lg:left-auto lg:right-auto lg:max-w-[500px] lg:mx-auto chat-input-wrapper"
                 style={{
                   bottom: 0,
                   padding: '1rem 0.5rem 1.5rem 0.5rem',
@@ -1272,7 +1272,7 @@ const ChatPage = () => {
                 }}
               >
                 <div
-                  className="flex items-end gap-2 p-2"
+                  className="flex items-end gap-2 p-2 chat-input-wrapper"
                   style={{
                     borderRadius: '9999px',
                     background: 'linear-gradient(100deg, rgba(44, 54, 62, 0.05) 0%, rgba(234, 234, 234, 0.15) 50%, rgba(44, 54, 62, 0.05) 100%)',
@@ -1287,7 +1287,7 @@ const ChatPage = () => {
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
                     placeholder="Typ een bericht..."
-                    className="flex-1 bg-transparent text-white placeholder-white/40 resize-none outline-none border border-white/20 rounded-lg px-2 max-h-32 hide-scrollbar"
+                    className="flex-1 bg-transparent text-white placeholder-white/40 resize-none outline-none border-none px-2 max-h-32 hide-scrollbar"
                     style={{
                       fontFamily: 'Inter',
                       fontSize: '16px',
