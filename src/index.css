@@ -1797,7 +1797,7 @@ html, body {
   scroll-padding: 17.5vw;
   perspective: 1000px;
   -webkit-overflow-scrolling: touch;
-  padding: 2px 17.5vw;
+  padding: 8px 17.5vw;
   flex: 1;
   align-items: center;
 }
