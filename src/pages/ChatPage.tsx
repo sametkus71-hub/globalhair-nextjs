@@ -1272,7 +1272,7 @@ const ChatPage = () => {
                 }}
               >
                 <div
-                  className="flex items-end gap-2 p-2 chat-input-wrapper"
+                  className="flex items-end gap-2 p-2"
                   style={{
                     borderRadius: '9999px',
                     background: 'linear-gradient(100deg, rgba(44, 54, 62, 0.05) 0%, rgba(234, 234, 234, 0.15) 50%, rgba(44, 54, 62, 0.05) 100%)',
