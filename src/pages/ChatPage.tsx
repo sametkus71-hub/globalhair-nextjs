@@ -59,13 +59,24 @@ async function sendMessageStreaming(
       throw new Error(`Network error: ${response.status}`);
     }
 
+    // Clone response before reading body (allows fallback to original)
+    const clonedResponse = response.clone();
+
+    // Log all relevant headers for debugging
     const contentType = response.headers.get('content-type');
-    console.log('[Chat] Response content-type:', contentType);
+    const transferEncoding = response.headers.get('transfer-encoding');
+    const xAccelBuffering = response.headers.get('x-accel-buffering');
+    console.log('[Chat] Response headers:', { 
+      contentType, 
+      transferEncoding, 
+      xAccelBuffering,
+      isChunked: transferEncoding === 'chunked'
+    });
 
     // Always try streaming if body exists (n8n sends application/json even when streaming)
-    if (response.body) {
-      console.log('[Chat] Attempting to read as stream...');
-      const reader = response.body.getReader();
+    if (clonedResponse.body) {
+      console.log('[Chat] Attempting to read as stream with cloned response...');
+      const reader = clonedResponse.body.getReader();
       const decoder = new TextDecoder();
       let buffer = '';
       let hasReceivedData = false;
@@ -183,24 +194,45 @@ async function sendMessageStreaming(
 
         // If no data was received at all through streaming, it might not actually be a stream
         if (!hasReceivedData) {
-          console.log('[Chat] No streaming data received, trying as JSON response');
+          console.log('[Chat] No streaming data received from cloned response');
           throw new Error('No streaming data');
         }
 
       } catch (streamError) {
         console.error('[Chat] Stream reading error:', streamError);
-        // If streaming failed and we haven't received data, try parsing as regular JSON
+        // If streaming failed and we haven't received data, use ORIGINAL response for fallback
         if (!hasReceivedData) {
-          console.log('[Chat] Falling back to JSON parse');
-          const text = await response.text();
-          console.log('[Chat] Response text (first 200 chars):', text.substring(0, 200));
+          console.log('[Chat] Falling back to original response.text()');
           try {
-            const data = JSON.parse(text);
-            const content = data.output || data.answer || data.response || data.content || data.text || 'No response';
-            onChunk(content);
-            return;
-          } catch (e) {
-            console.error('[Chat] Failed to parse as JSON:', e);
+            const text = await response.text();
+            console.log('[Chat] Response text (first 200 chars):', text.substring(0, 200));
+            
+            try {
+              const data = JSON.parse(text);
+              const content = data.output || data.answer || data.response || data.content || data.text || '';
+              if (content) {
+                console.log('[Chat] Parsed complete JSON response, simulating streaming...');
+                // Simulate streaming word by word for better UX
+                const words = content.split(' ');
+                for (let i = 0; i < words.length; i++) {
+                  onChunk(words.slice(0, i + 1).join(' '));
+                  await new Promise(resolve => setTimeout(resolve, 50)); // 50ms delay between words
+                }
+              } else {
+                onChunk('No response');
+              }
+              return;
+            } catch (e) {
+              console.error('[Chat] Failed to parse as JSON:', e);
+              // If not JSON, use plain text
+              if (text.trim()) {
+                onChunk(text);
+              } else {
+                throw streamError;
+              }
+            }
+          } catch (textError) {
+            console.error('[Chat] Failed to read response.text():', textError);
             throw streamError;
           }
         }
