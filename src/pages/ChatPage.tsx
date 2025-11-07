@@ -826,6 +826,14 @@ const ChatPage = () => {
       )
     );
     setIsLoading(false);
+    
+    // Focus the textarea after webhook completes and state settles
+    setTimeout(() => {
+      if (conversationState === ConversationState.ACTIVE_CHAT && textareaRef.current) {
+        textareaRef.current.focus();
+        console.log('[Chat] Focused textarea after name submission and webhook');
+      }
+    }, 200);
   };
 
   const scrollToBottom = () => {
