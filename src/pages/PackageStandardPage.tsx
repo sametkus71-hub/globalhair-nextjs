@@ -361,14 +361,14 @@ export const PackageStandardPage = () => {
           <main className="flex flex-col w-full max-w-2xl h-[calc(100vh-32px)]">
             <SwipeablePopupWrapper onClose={handleClose} className="h-full">
               <section
-                className="relative rounded-[24px] p-4 pb-6 h-[90%] flex flex-col popup-section-border"
+                className="relative rounded-[24px] p-4 h-[90%] flex flex-col popup-section-border"
                 style={{ 
                   background: '#0000001A',
                   backdropFilter: 'blur(42.5px)',
                   boxShadow: '0px 4.01px 8.72px 0px #00000040 inset, 0px -1px 4.71px 0px #FFFFFF40 inset, 0px 3.01px 1px 0px #00000040',
                   opacity: isTransitioning ? 0.7 : 1,
                   transition: 'opacity 0.3s ease-in-out',
-                  paddingBottom: 'clamp(4rem, 10vh, 6rem)'
+                  paddingBottom: 'clamp(8rem, 18vh, 12rem)'
                 }}
               >
               {/* Close button inside section */}
