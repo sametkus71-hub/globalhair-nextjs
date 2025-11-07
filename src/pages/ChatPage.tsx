@@ -412,7 +412,7 @@ const ChatPage = () => {
           }}
         >
           {/* Header content */}
-          <div className="flex items-center justify-between px-4 pb-4">
+          <div className="flex items-center justify-between px-4 py-4">
             {/* Logo */}
             <div className="flex items-center">
               <img 
