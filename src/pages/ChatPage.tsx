@@ -405,10 +405,10 @@ const ChatPage = () => {
           className="fixed top-0 left-0 right-0 transition-all duration-500" 
           style={{ 
             zIndex: 100,
-            backdropFilter: isScrolled ? 'blur(50px) saturate(200%)' : 'none',
-            WebkitBackdropFilter: isScrolled ? 'blur(50px) saturate(200%)' : 'none',
+            backdropFilter: isScrolled ? 'blur(60px) saturate(200%)' : 'none',
+            WebkitBackdropFilter: isScrolled ? 'blur(60px) saturate(200%)' : 'none',
             background: isScrolled 
-              ? 'linear-gradient(180deg, rgba(4, 14, 21, 0.65) 0%, rgba(8, 20, 30, 0.45) 35%, rgba(12, 25, 35, 0.25) 65%, transparent 100%)' 
+              ? 'linear-gradient(180deg, rgba(4, 14, 21, 0.92) 0%, rgba(4, 14, 21, 0.88) 20%, rgba(8, 20, 30, 0.75) 40%, rgba(12, 25, 35, 0.45) 70%, transparent 100%)' 
               : 'transparent',
           }}
         >
