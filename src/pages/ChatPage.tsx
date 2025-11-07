@@ -402,14 +402,15 @@ const ChatPage = () => {
       >
         {/* Header with Logo and Close Button - SIBLING TO MAIN CONTENT */}
         <div 
-          className="fixed top-0 left-0 right-0 transition-all duration-300" 
+          className="fixed top-0 left-0 right-0 transition-all duration-500" 
           style={{ 
             zIndex: 100,
-            backdropFilter: isScrolled ? 'blur(40px) saturate(180%)' : 'none',
-            WebkitBackdropFilter: isScrolled ? 'blur(40px) saturate(180%)' : 'none',
+            backdropFilter: isScrolled ? 'blur(50px) saturate(200%)' : 'none',
+            WebkitBackdropFilter: isScrolled ? 'blur(50px) saturate(200%)' : 'none',
             background: isScrolled 
-              ? 'linear-gradient(180deg, rgba(4, 14, 21, 0.95) 0%, rgba(4, 14, 21, 0.70) 40%, rgba(4, 14, 21, 0.30) 70%, transparent 100%)' 
+              ? 'linear-gradient(180deg, rgba(4, 14, 21, 0.98) 0%, rgba(8, 20, 30, 0.85) 30%, rgba(12, 25, 35, 0.50) 60%, rgba(16, 30, 40, 0.20) 85%, transparent 100%)' 
               : 'transparent',
+            boxShadow: isScrolled ? '0 4px 30px rgba(0, 0, 0, 0.3)' : 'none',
           }}
         >
           {/* Header content */}
