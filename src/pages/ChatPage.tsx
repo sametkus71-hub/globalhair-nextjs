@@ -361,16 +361,13 @@ const ChatPage = () => {
     // Send first message to n8n with context and stream response
     const contextMessage = `Gebruiker ${name} heeft als onderwerp gekozen: "${selectedSubject}". ${selectedSubject === "Ik heb een andere vraag" ? "De gebruiker heeft een andere vraag." : ""}`;
     
-    let accumulatedContent = '';
-    
     await sendMessageStreaming(
       contextMessage, 
       sessionId,
       (chunk) => {
-        accumulatedContent += chunk;
         setMessages(prev => 
           prev.map((msg, idx) => 
-            idx === prev.length - 1 ? { ...msg, content: accumulatedContent } : msg
+            idx === prev.length - 1 ? { ...msg, content: chunk } : msg
           )
         );
         scrollToBottom();
@@ -420,16 +417,13 @@ const ChatPage = () => {
     setMessages(prev => [...prev, placeholderBot]);
     setIsLoading(true);
 
-    let accumulatedContent = '';
-    
     await sendMessageStreaming(
       userMessage,
       sessionId,
       (chunk) => {
-        accumulatedContent += chunk;
         setMessages(prev => 
           prev.map((msg, idx) => 
-            idx === prev.length - 1 ? { ...msg, content: accumulatedContent } : msg
+            idx === prev.length - 1 ? { ...msg, content: chunk } : msg
           )
         );
         scrollToBottom();
