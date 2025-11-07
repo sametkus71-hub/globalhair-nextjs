@@ -318,6 +318,21 @@ const ChatPage = () => {
     }
   }, []);
 
+  // Cleanup interrupted streaming state on mount (e.g., after page reload)
+  useEffect(() => {
+    // Always reset loading state on mount
+    setIsLoading(false);
+    
+    // Clean up any messages stuck in streaming state
+    setMessages(prev => 
+      prev.map(msg => 
+        msg.isStreaming ? { ...msg, isStreaming: false } : msg
+      )
+    );
+    
+    console.log('[Chat] Cleaned up interrupted streaming state on mount');
+  }, []); // Empty deps = run once on mount
+
   // Aggressive layout locking for mobile keyboard
   useLayoutEffect(() => {
     // Lock body
