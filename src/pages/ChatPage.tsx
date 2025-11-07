@@ -6,12 +6,21 @@ import { useNavigate } from 'react-router-dom';
 import hairtransplantLogo from '@/assets/hairtransplant-logo.png';
 import { usePopupClose } from '@/components/PopupCloseButton';
 
+enum ConversationState {
+  GREETING = 'greeting',
+  ASKING_SUBJECT = 'asking_subject',
+  SHOWING_OPTIONS = 'showing_options',
+  ASKING_NAME = 'asking_name',
+  ACTIVE_CHAT = 'active_chat'
+}
+
 interface Message {
   role: 'user' | 'bot';
   content: string;
   source?: string;
   error?: boolean;
   timestamp?: string;
+  senderLabel?: string;
 }
 
 interface ChatResponse {
@@ -129,16 +138,20 @@ const ChatPage = () => {
       animation: fade-in-up 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
   `;
+  
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId, setSessionId] = useState<string>('');
-  const [showOptions, setShowOptions] = useState(false);
   const [userName, setUserName] = useState<string>('');
+  const [nameInput, setNameInput] = useState('');
+  const [conversationState, setConversationState] = useState<ConversationState>(ConversationState.GREETING);
+  const [selectedSubject, setSelectedSubject] = useState<string>('');
   const [isExiting, setIsExiting] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const nameInputRef = useRef<HTMLInputElement>(null);
   const preloadTimeoutsRef = useRef<number[]>([]);
   const { handlePopupClose } = usePopupClose();
 
@@ -160,9 +173,19 @@ const ChatPage = () => {
   useEffect(() => {
     const savedMessages = localStorage.getItem('chat-messages');
     const savedName = localStorage.getItem('chat-user-name');
+    const savedState = localStorage.getItem('chat-conversation-state');
+    const savedSubject = localStorage.getItem('chat-selected-subject');
     
     if (savedName) {
       setUserName(savedName);
+    }
+    
+    if (savedState) {
+      setConversationState(savedState as ConversationState);
+    }
+    
+    if (savedSubject) {
+      setSelectedSubject(savedSubject);
     }
     
     if (savedMessages) {
@@ -175,40 +198,8 @@ const ChatPage = () => {
       }
     }
     
-    // Only show preloaded messages if no saved messages exist
-    preloadTimeoutsRef.current.forEach(clearTimeout);
-    preloadTimeoutsRef.current = [];
-    
-    const greeting = savedName 
-      ? `Hallo ${savedName}, ik ben je persoonlijke assistent - hier om al je vragen over haartransplantatie te beantwoorden.`
-      : 'Hallo, ik ben je persoonlijke assistent - hier om al je vragen over haartransplantatie te beantwoorden.';
-    
-    const preloadedMessages: Message[] = [
-      { role: 'bot', content: greeting, timestamp: new Date().toISOString() },
-      { role: 'bot', content: 'Waar kan ik je vandaag mee helpen?', timestamp: new Date().toISOString() }
-    ];
-
-    let index = 0;
-    const displayNextMessage = () => {
-      if (index < preloadedMessages.length) {
-        const nextMsg = preloadedMessages[index];
-        setMessages(prev => {
-          const last = prev[prev.length - 1];
-          if (last && last.role === nextMsg.role && last.content === nextMsg.content) {
-            return prev;
-          }
-          return [...prev, nextMsg];
-        });
-        index++;
-        const delay = 800;
-        const id = window.setTimeout(displayNextMessage, delay);
-        preloadTimeoutsRef.current.push(id);
-      } else {
-        setShowOptions(true);
-      }
-    };
-    
-    displayNextMessage();
+    // Start conversation flow from GREETING
+    startConversationFlow();
     
     return () => {
       preloadTimeoutsRef.current.forEach(clearTimeout);
@@ -216,37 +207,28 @@ const ChatPage = () => {
     };
   }, []);
 
-  // Save messages to localStorage whenever they change
+  // Save data to localStorage
   useEffect(() => {
     if (messages.length > 0) {
       localStorage.setItem('chat-messages', JSON.stringify(messages));
     }
   }, [messages]);
 
-  // Detect and save user name from messages
   useEffect(() => {
-    if (messages.length === 0) return;
-    
-    const lastMessage = messages[messages.length - 1];
-    if (lastMessage.role !== 'user') return;
-    
-    // Look for name patterns in Dutch
-    const patterns = [
-      /(?:mijn naam is|ik ben|ik heet|naam is)\s+([A-Z][a-zéèêëàâäôöûüïíóúñ]+)/i,
-      /^([A-Z][a-zéèêëàâäôöûüïíóúñ]+)$/
-    ];
-    
-    for (const pattern of patterns) {
-      const match = lastMessage.content.match(pattern);
-      if (match && match[1]) {
-        const detectedName = match[1].charAt(0).toUpperCase() + match[1].slice(1).toLowerCase();
-        setUserName(detectedName);
-        localStorage.setItem('chat-user-name', detectedName);
-        console.log('[Chat] Detected user name:', detectedName);
-        break;
-      }
+    localStorage.setItem('chat-conversation-state', conversationState);
+  }, [conversationState]);
+
+  useEffect(() => {
+    if (selectedSubject) {
+      localStorage.setItem('chat-selected-subject', selectedSubject);
     }
-  }, [messages]);
+  }, [selectedSubject]);
+
+  useEffect(() => {
+    if (userName) {
+      localStorage.setItem('chat-user-name', userName);
+    }
+  }, [userName]);
 
   // Detect scroll for header background
   useEffect(() => {
@@ -269,35 +251,116 @@ const ChatPage = () => {
     };
   }, []);
 
-  const handleOptionClick = (optionText: string) => {
-    setShowOptions(false);
-    setMessages(prev => [...prev, { role: 'user', content: optionText, timestamp: new Date().toISOString() }]);
-
-    setTimeout(() => {
-      if (optionText.includes('werkwijze')) {
-        setMessages(prev => [...prev, 
-          { role: 'bot', content: 'Natuurlijk. We combineren medische precisie met persoonlijke zorg. Elke behandeling begint met een uitgebreide analyse, gevolgd door een behandeling op maat — uitgevoerd door ervaren specialisten.', timestamp: new Date().toISOString() }
-        ]);
-        setTimeout(() => {
-          setMessages(prev => [...prev,
-            { role: 'bot', content: 'Wil je daarna meer weten over de pakketten, of meteen een consult plannen?', timestamp: new Date().toISOString() }
-          ]);
-        }, 800);
-      } else if (optionText.includes('pakket')) {
-        setMessages(prev => [...prev,
-          { role: 'bot', content: 'Uitstekend. Ik kan je helpen bepalen welk pakket het best bij jouw situatie past.', timestamp: new Date().toISOString() }
-        ]);
-        setTimeout(() => {
-          setMessages(prev => [...prev,
-            { role: 'bot', content: 'Wil je me eerst iets vertellen over je huidige haarstatus of je gewenste resultaat?', timestamp: new Date().toISOString() }
-          ]);
-        }, 800);
-      } else {
-        setMessages(prev => [...prev,
-          { role: 'bot', content: 'Geen probleem 👍. Stel gerust je vraag — ik help je zo goed mogelijk verder.', timestamp: new Date().toISOString() }
-        ]);
-      }
+  const startConversationFlow = () => {
+    preloadTimeoutsRef.current.forEach(clearTimeout);
+    preloadTimeoutsRef.current = [];
+    
+    // State 1: GREETING
+    const greetingMessage: Message = {
+      role: 'bot',
+      content: 'Hallo, ik ben je persoonlijke assistent - hier om al je vragen over haartransplantatie te beantwoorden.',
+      timestamp: new Date().toISOString(),
+      senderLabel: 'GlobalHair bot'
+    };
+    
+    setMessages([greetingMessage]);
+    
+    // Transition to ASKING_SUBJECT after 800ms
+    const timeout1 = window.setTimeout(() => {
+      setConversationState(ConversationState.ASKING_SUBJECT);
+      
+      const askSubjectMessage: Message = {
+        role: 'bot',
+        content: 'Waar kan ik je vandaag mee helpen?',
+        timestamp: new Date().toISOString(),
+        senderLabel: 'GlobalHair bot'
+      };
+      
+      setMessages(prev => [...prev, askSubjectMessage]);
+      
+      // Transition to SHOWING_OPTIONS after 800ms
+      const timeout2 = window.setTimeout(() => {
+        setConversationState(ConversationState.SHOWING_OPTIONS);
+      }, 800);
+      
+      preloadTimeoutsRef.current.push(timeout2);
     }, 800);
+    
+    preloadTimeoutsRef.current.push(timeout1);
+  };
+
+  const handleSubjectClick = (subject: string) => {
+    setSelectedSubject(subject);
+    
+    // Add user message
+    const userMessage: Message = {
+      role: 'user',
+      content: subject,
+      timestamp: new Date().toISOString(),
+      senderLabel: userName || 'Jij'
+    };
+    
+    setMessages(prev => [...prev, userMessage]);
+    setConversationState(ConversationState.ASKING_NAME);
+    
+    // Ask for name
+    setTimeout(() => {
+      const askNameMessage: Message = {
+        role: 'bot',
+        content: 'Voordat we verder gaan, mag ik je naam weten?',
+        timestamp: new Date().toISOString(),
+        senderLabel: 'GlobalHair bot'
+      };
+      
+      setMessages(prev => [...prev, askNameMessage]);
+    }, 800);
+  };
+
+  const handleNameSubmit = async () => {
+    if (!nameInput.trim()) return;
+    
+    const name = nameInput.trim();
+    setUserName(name);
+    setNameInput('');
+    
+    // Add user message with name
+    const userMessage: Message = {
+      role: 'user',
+      content: name,
+      timestamp: new Date().toISOString(),
+      senderLabel: name
+    };
+    
+    setMessages(prev => [...prev, userMessage]);
+    setConversationState(ConversationState.ACTIVE_CHAT);
+    
+    // Send first message to n8n with context
+    setIsLoading(true);
+    
+    try {
+      const contextMessage = `Gebruiker ${name} heeft als onderwerp gekozen: "${selectedSubject}". ${selectedSubject === "Ik heb een andere vraag" ? "De gebruiker heeft een andere vraag." : ""}`;
+      
+      const response = await sendMessage(contextMessage, sessionId);
+      
+      setMessages(prev => [...prev, {
+        role: 'bot',
+        content: response.answer || 'Hoe kan ik je helpen?',
+        source: response.source,
+        timestamp: new Date().toISOString(),
+        senderLabel: 'GlobalHair bot'
+      }]);
+    } catch (error) {
+      console.error('[Chat] Error initializing chat:', error);
+      setMessages(prev => [...prev, {
+        role: 'bot',
+        content: 'Sorry, er is iets fout gegaan bij het starten van de chat.',
+        error: true,
+        timestamp: new Date().toISOString(),
+        senderLabel: 'GlobalHair bot'
+      }]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const scrollToBottom = () => {
@@ -308,64 +371,42 @@ const ChatPage = () => {
 
   useEffect(() => {
     scrollToBottom();
-    console.log('[Chat] messages updated:', messages);
   }, [messages]);
 
   const handleSend = async () => {
-    console.log('[Chat] handleSend called, input:', input, 'isLoading:', isLoading);
-    if (!input.trim() || isLoading) return;
-
-    // Ensure we have a sessionId
-    let currentSessionId = sessionId;
-    if (!currentSessionId) {
-      const storedSessionId = localStorage.getItem('n8n-chat-session-id');
-      if (storedSessionId) {
-        currentSessionId = storedSessionId;
-      } else {
-        currentSessionId = crypto.randomUUID();
-        localStorage.setItem('n8n-chat-session-id', currentSessionId);
-      }
-      setSessionId(currentSessionId);
-    }
+    if (!input.trim() || isLoading || conversationState !== ConversationState.ACTIVE_CHAT) return;
 
     const userMessage = input.trim();
-    console.log('[Chat] Adding user message:', userMessage);
     setInput('');
-    setMessages(prev => {
-      const updated = [...prev, { role: 'user' as const, content: userMessage, timestamp: new Date().toISOString() }];
-      console.log('[Chat] Messages after user add:', updated.length);
-      return updated;
-    });
+    
+    setMessages(prev => [...prev, { 
+      role: 'user', 
+      content: userMessage, 
+      timestamp: new Date().toISOString(),
+      senderLabel: userName
+    }]);
     setIsLoading(true);
 
     try {
-      console.log('[Chat] Sending to API...');
-      const response = await sendMessage(userMessage, currentSessionId);
-      console.log('[Chat] API response received:', response);
-      setMessages(prev => {
-        const updated = [...prev, {
-          role: 'bot' as const,
-          content: response.answer || 'No response',
-          source: response.source,
-          timestamp: new Date().toISOString(),
-        }];
-        console.log('[Chat] Messages after bot add:', updated.length);
-        return updated;
-      });
+      const response = await sendMessage(userMessage, sessionId);
+      setMessages(prev => [...prev, {
+        role: 'bot',
+        content: response.answer || 'No response',
+        source: response.source,
+        timestamp: new Date().toISOString(),
+        senderLabel: 'GlobalHair bot'
+      }]);
     } catch (error) {
       console.error('[Chat] Error:', error);
       setMessages(prev => [...prev, {
         role: 'bot',
-        content: language === 'nl' 
-          ? 'Sorry, er is iets fout gegaan.' 
-          : 'Sorry, something went wrong.',
+        content: 'Sorry, er is iets fout gegaan.',
         error: true,
         timestamp: new Date().toISOString(),
+        senderLabel: 'GlobalHair bot'
       }]);
     } finally {
       setIsLoading(false);
-      console.log('[Chat] handleSend complete');
-      // Focus back on input after message is sent
       setTimeout(() => {
         textareaRef.current?.focus();
       }, 100);
@@ -379,10 +420,22 @@ const ChatPage = () => {
     }
   };
 
+  const handleNameInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleNameSubmit();
+    }
+  };
+
   const handleClose = () => {
     setIsExiting(true);
-    // Always use the popup close handler which navigates to haartransplantatie
     handlePopupClose(350);
+  };
+
+  const formatTime = (timestamp?: string) => {
+    if (!timestamp) return '';
+    const date = new Date(timestamp);
+    return date.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' });
   };
 
   return (
@@ -403,7 +456,7 @@ const ChatPage = () => {
           zIndex: 50
         }}
       >
-        {/* Header with Logo and Close Button - SIBLING TO MAIN CONTENT */}
+        {/* Header with Logo and Close Button */}
         <div 
           className="fixed top-0 left-0 right-0 transition-all duration-500" 
           style={{ 
@@ -415,9 +468,7 @@ const ChatPage = () => {
               : 'transparent',
           }}
         >
-          {/* Header content */}
           <div className="flex items-center justify-between px-4 py-4">
-            {/* Logo */}
             <div className="flex items-center">
               <img 
                 src={hairtransplantLogo} 
@@ -426,7 +477,6 @@ const ChatPage = () => {
               />
             </div>
 
-            {/* Close Button */}
             <button
               onClick={handleClose}
               className="p-2 text-white/80 hover:text-white transition-colors rounded-lg hover:bg-white/5 relative z-10"
@@ -437,7 +487,7 @@ const ChatPage = () => {
           </div>
         </div>
 
-        {/* Main Content Container - SIBLING TO HEADER */}
+        {/* Main Content Container */}
         <div
           className="h-[var(--app-height)] flex flex-col relative"
           style={{
@@ -445,39 +495,35 @@ const ChatPage = () => {
             zIndex: 2,
           }}
         >
-
-        {/* Messages */}
-        <div 
-          className="messages-container flex-1 overflow-y-auto px-4 pt-24 pb-28 space-y-4 hide-scrollbar"
-          style={{
-            position: 'relative',
-            scrollSnapType: 'none',
-          }}
-        >
-          {messages.length === 0 && (
-            <div className="text-center text-white/60 mt-20">
-              <p style={{ fontFamily: 'SF Pro Display, Inter, system-ui, sans-serif' }}>
-                {language === 'nl' 
-                  ? 'Stel een vraag om te beginnen' 
-                  : 'Ask a question to start'}
-              </p>
-            </div>
-          )}
-          
-          {messages.map((msg, idx) => {
-            const formatTime = (timestamp?: string) => {
-              if (!timestamp) return '';
-              const date = new Date(timestamp);
-              return date.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' });
-            };
-
-            return (
+          {/* Messages */}
+          <div 
+            className="messages-container flex-1 overflow-y-auto px-4 pt-24 pb-28 space-y-4 hide-scrollbar"
+            style={{
+              position: 'relative',
+              scrollSnapType: 'none',
+            }}
+          >
+            {messages.map((msg, idx) => (
               <div
                 key={idx}
                 className={`flex flex-col animate-fade-in-up ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
               >
+                {/* Sender Label */}
+                {msg.senderLabel && (
+                  <span 
+                    className="text-xs mb-1 px-1"
+                    style={{
+                      color: 'rgba(255, 255, 255, 0.5)',
+                      fontFamily: 'Inter, system-ui, sans-serif',
+                    }}
+                  >
+                    {msg.senderLabel}
+                  </span>
+                )}
+                
+                {/* Message Bubble */}
                 <div
-                  className={`max-w-[80%] px-4 py-3 ${msg.role === 'user' ? '' : ''}`}
+                  className={`max-w-[80%] px-4 py-3`}
                   style={{
                     background: msg.role === 'user'
                       ? 'linear-gradient(135deg, rgba(234, 234, 234, 0.18) 0%, rgba(234, 234, 234, 0.12) 100%)'
@@ -512,7 +558,7 @@ const ChatPage = () => {
                       onMouseEnter={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.9)'}
                       onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.7)'}
                     >
-                      {language === 'nl' ? 'Bron' : 'Source'}
+                      Bron
                       <ExternalLink size={14} />
                     </a>
                   )}
@@ -520,6 +566,8 @@ const ChatPage = () => {
                     <span className="text-red-400/80 text-sm ml-2">⚠</span>
                   )}
                 </div>
+                
+                {/* Timestamp */}
                 {msg.timestamp && (
                   <span 
                     className="text-xs mt-1 px-1"
@@ -532,160 +580,173 @@ const ChatPage = () => {
                   </span>
                 )}
               </div>
-            );
-          })}
-          
-          {isLoading && (
-            <div className="flex justify-start">
-              <Loader2 className="animate-spin" style={{ color: 'rgba(255, 255, 255, 0.6)' }} size={20} />
-            </div>
-          )}
+            ))}
+            
+            {isLoading && (
+              <div className="flex justify-start">
+                <Loader2 className="animate-spin" style={{ color: 'rgba(255, 255, 255, 0.6)' }} size={20} />
+              </div>
+            )}
 
-          {showOptions && (
-            <div className="flex flex-col gap-3 mt-4">
-              <button
-                onClick={() => handleOptionClick('Vertel me meer over de werkwijze')}
-                className="text-left"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)',
-                  border: '1px solid rgba(255, 255, 255, 0.12)',
-                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
-                  color: 'rgba(255, 255, 255, 0.95)',
-                  borderRadius: '14px',
-                  padding: '16px 24px',
-                  backdropFilter: 'blur(10px)',
-                  transition: 'all 0.3s ease',
-                  fontFamily: 'Inter, system-ui, sans-serif',
-                  fontSize: '15px',
-                  fontWeight: 400,
-                  position: 'relative',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)';
-                  e.currentTarget.style.transform = 'scale(1.01)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)';
-                  e.currentTarget.style.transform = 'scale(1)';
-                }}
-              >
-                Vertel me meer over de werkwijze
-              </button>
-              <button
-                onClick={() => handleOptionClick('Help me het juiste pakket kiezen')}
-                className="text-left"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)',
-                  border: '1px solid rgba(255, 255, 255, 0.12)',
-                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
-                  color: 'rgba(255, 255, 255, 0.95)',
-                  borderRadius: '14px',
-                  padding: '16px 24px',
-                  backdropFilter: 'blur(10px)',
-                  transition: 'all 0.3s ease',
-                  fontFamily: 'Inter, system-ui, sans-serif',
-                  fontSize: '15px',
-                  fontWeight: 400,
-                  position: 'relative',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)';
-                  e.currentTarget.style.transform = 'scale(1.01)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)';
-                  e.currentTarget.style.transform = 'scale(1)';
-                }}
-              >
-                Help me het juiste pakket kiezen
-              </button>
-              <button
-                onClick={() => handleOptionClick('Ik heb een andere vraag')}
-                className="text-left"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)',
-                  border: '1px solid rgba(255, 255, 255, 0.12)',
-                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
-                  color: 'rgba(255, 255, 255, 0.95)',
-                  borderRadius: '14px',
-                  padding: '16px 24px',
-                  backdropFilter: 'blur(10px)',
-                  transition: 'all 0.3s ease',
-                  fontFamily: 'Inter, system-ui, sans-serif',
-                  fontSize: '15px',
-                  fontWeight: 400,
-                  position: 'relative',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)';
-                  e.currentTarget.style.transform = 'scale(1.01)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)';
-                  e.currentTarget.style.transform = 'scale(1)';
-                }}
-              >
-                Ik heb een andere vraag
-              </button>
-            </div>
-          )}
-          
-          <div ref={messagesEndRef} />
-        </div>
+            {/* Subject Options */}
+            {conversationState === ConversationState.SHOWING_OPTIONS && (
+              <div className="flex flex-col gap-3 mt-4">
+                <button
+                  onClick={() => handleSubjectClick('Vertel me meer over de werkwijze')}
+                  className="text-left"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+                    color: 'rgba(255, 255, 255, 0.95)',
+                    borderRadius: '12px',
+                    padding: '16px 24px',
+                    backdropFilter: 'blur(10px)',
+                    transition: 'all 0.3s ease',
+                    fontFamily: 'Inter, system-ui, sans-serif',
+                    fontSize: '15px',
+                    fontWeight: 400,
+                  }}
+                >
+                  Vertel me meer over de werkwijze
+                </button>
+                <button
+                  onClick={() => handleSubjectClick('Help me het juiste pakket kiezen')}
+                  className="text-left"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+                    color: 'rgba(255, 255, 255, 0.95)',
+                    borderRadius: '12px',
+                    padding: '16px 24px',
+                    backdropFilter: 'blur(10px)',
+                    transition: 'all 0.3s ease',
+                    fontFamily: 'Inter, system-ui, sans-serif',
+                    fontSize: '15px',
+                    fontWeight: 400,
+                  }}
+                >
+                  Help me het juiste pakket kiezen
+                </button>
+                <button
+                  onClick={() => handleSubjectClick('Ik heb een andere vraag')}
+                  className="text-left"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+                    color: 'rgba(255, 255, 255, 0.95)',
+                    borderRadius: '12px',
+                    padding: '16px 24px',
+                    backdropFilter: 'blur(10px)',
+                    transition: 'all 0.3s ease',
+                    fontFamily: 'Inter, system-ui, sans-serif',
+                    fontSize: '15px',
+                    fontWeight: 400,
+                  }}
+                >
+                  Ik heb een andere vraag
+                </button>
+              </div>
+            )}
 
-        {/* Input */}
-        <div
-          className="sticky bottom-0"
-          style={{
-            padding: '1rem 0.5rem',
-            zIndex: 3,
-          }}
-        >
-          <div
-            className="flex items-end gap-2 p-2 chat-input-wrapper"
-            style={{
-              borderRadius: '9999px',
-              background: 'linear-gradient(100deg, rgba(44, 54, 62, 0.05) 0%, rgba(234, 234, 234, 0.15) 50%, rgba(44, 54, 62, 0.05) 100%)',
-              backdropFilter: 'blur(10px)',
-              position: 'relative',
-              padding: '0.3rem 0.3rem 0.3rem 1rem',
-            }}
-          >
-            <textarea
-              ref={textareaRef}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder={language === 'nl' ? 'Typ een bericht...' : 'Type a message...'}
-              className="flex-1 bg-transparent text-white placeholder-white/40 resize-none outline-none px-2 max-h-32 hide-scrollbar"
+            {/* Name Input */}
+            {conversationState === ConversationState.ASKING_NAME && (
+              <div className="flex flex-col gap-2 mt-4 animate-fade-in-up">
+                <div className="flex items-center gap-2">
+                  <input
+                    ref={nameInputRef}
+                    type="text"
+                    value={nameInput}
+                    onChange={(e) => setNameInput(e.target.value)}
+                    onKeyDown={handleNameInputKeyDown}
+                    placeholder="Vul je naam in..."
+                    className="flex-1 bg-transparent text-white placeholder-white/40 outline-none px-4 py-3"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%)',
+                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                      borderRadius: '12px',
+                      fontFamily: 'Inter, system-ui, sans-serif',
+                      fontSize: '15px',
+                    }}
+                    autoFocus
+                  />
+                  <button
+                    onClick={handleNameSubmit}
+                    disabled={!nameInput.trim()}
+                    className="silver-gradient-border-round transition-all disabled:opacity-30"
+                    style={{
+                      padding: '0.8rem',
+                      borderRadius: '9999px',
+                      background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.02) 100%)',
+                      position: 'relative',
+                    }}
+                  >
+                    <Send className="text-white" size={20} />
+                  </button>
+                </div>
+              </div>
+            )}
+            
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Input - Only show in ACTIVE_CHAT state */}
+          {conversationState === ConversationState.ACTIVE_CHAT && (
+            <div
+              className="sticky bottom-0"
               style={{
-                fontFamily: 'Inter',
-                fontSize: '16px',
-                paddingTop: '0.6rem',
-                paddingBottom: '0.6rem',
-              }}
-              rows={1}
-              disabled={isLoading}
-            />
-            <button
-              onClick={handleSend}
-              disabled={!input.trim() || isLoading}
-              className="silver-gradient-border-round transition-all disabled:opacity-30"
-              style={{
-                padding: '0.8rem',
-                borderRadius: '9999px',
-                background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.02) 100%)',
-                position: 'relative',
+                padding: '1rem 0.5rem',
+                zIndex: 3,
               }}
             >
-              {isLoading ? (
-                <Loader2 className="animate-spin text-white" size={20} />
-              ) : (
-                <Send className="text-white" size={20} />
-              )}
-            </button>
-          </div>
-        </div>
+              <div
+                className="flex items-end gap-2 p-2 chat-input-wrapper"
+                style={{
+                  borderRadius: '9999px',
+                  background: 'linear-gradient(100deg, rgba(44, 54, 62, 0.05) 0%, rgba(234, 234, 234, 0.15) 50%, rgba(44, 54, 62, 0.05) 100%)',
+                  backdropFilter: 'blur(10px)',
+                  position: 'relative',
+                  padding: '0.3rem 0.3rem 0.3rem 1rem',
+                }}
+              >
+                <textarea
+                  ref={textareaRef}
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Typ een bericht..."
+                  className="flex-1 bg-transparent text-white placeholder-white/40 resize-none outline-none px-2 max-h-32 hide-scrollbar"
+                  style={{
+                    fontFamily: 'Inter',
+                    fontSize: '16px',
+                    paddingTop: '0.6rem',
+                    paddingBottom: '0.6rem',
+                  }}
+                  rows={1}
+                  disabled={isLoading}
+                />
+                <button
+                  onClick={handleSend}
+                  disabled={!input.trim() || isLoading}
+                  className="silver-gradient-border-round transition-all disabled:opacity-30"
+                  style={{
+                    padding: '0.8rem',
+                    borderRadius: '9999px',
+                    background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.02) 100%)',
+                    position: 'relative',
+                  }}
+                >
+                  {isLoading ? (
+                    <Loader2 className="animate-spin text-white" size={20} />
+                  ) : (
+                    <Send className="text-white" size={20} />
+                  )}
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>
