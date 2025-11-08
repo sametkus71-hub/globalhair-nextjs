@@ -528,7 +528,7 @@ export const PackageStandardPage = () => {
             padding: '5px',
           }}
         >
-          <div className={`grid gap-1 ${activeCountry === 'nl' ? 'grid-cols-3' : 'grid-cols-2'}`}>
+          <div className="grid gap-1 grid-cols-3">
             <button
               className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
                 activeTier === 'Standard'
@@ -549,18 +549,19 @@ export const PackageStandardPage = () => {
             >
               Premium
             </button>
-            {activeCountry === 'nl' && (
-              <button
-                className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
-                  activeTier === 'Elite'
+            <button
+              className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
+                activeCountry === 'tr' 
+                  ? 'bg-transparent text-white/20 cursor-not-allowed scale-100' 
+                  : activeTier === 'Elite'
                     ? 'silver-gradient-border bg-white/10 text-white scale-105'
                     : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
-                }`}
-                onClick={() => handleTierChange('Elite')}
-              >
-                Elite
-              </button>
-            )}
+              }`}
+              onClick={() => activeCountry === 'nl' && handleTierChange('Elite')}
+              disabled={activeCountry === 'tr'}
+            >
+              Elite
+            </button>
           </div>
         </div>
 
