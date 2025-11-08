@@ -5,6 +5,7 @@ import { BERKANT_VIDEOS } from '@/data/berkantVideos';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
 import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
+import { MetaHead } from '@/components/MetaHead';
 
 const BerkantDuralPage = () => {
   const navigate = useNavigate();
@@ -116,6 +117,11 @@ const BerkantDuralPage = () => {
 
   return (
     <>
+      <MetaHead
+        title="Berkant Dural - CEO GlobalHair Institute"
+        description="CEO Berkant Dural groeide op in een familie waar kaalheid vanzelfsprekend was, en dat werd zijn drijfveer. GlobalHair ontstond uit die persoonlijke zoektocht: een kliniek gebouwd op aandacht, rust en vakmanschap. Met zijn team werkt hij elke dag aan één doel; het herstellen van zelfvertrouwen, met precisie en respect voor het ambacht."
+        language={language}
+      />
       <style dangerouslySetInnerHTML={{__html: `
         @keyframes border-shine-rotate {
           0% {
