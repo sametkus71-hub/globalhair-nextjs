@@ -86,7 +86,7 @@ export const ContactTabContent = () => {
                 <h2 className="text-white mb-1" style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: '22px', lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
                   Barendrecht
                 </h2>
-                <p className="text-white opacity-90 mb-2" style={{ fontFamily: 'Inter, sans-serif', fontSize: '14px', fontWeight: 400 }}>
+                <p className="text-white opacity-90 mb-2" style={{ fontFamily: 'Inter, sans-serif', fontSize: '12px', fontWeight: 300 }}>
                   Pesetastraat 72, 2991 XT
                 </p>
                 <span 
@@ -110,7 +110,7 @@ export const ContactTabContent = () => {
                 <h2 className="text-white mb-1" style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: '22px', lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
                   Leiden
                 </h2>
-                <p className="text-white opacity-90" style={{ fontFamily: 'Inter, sans-serif', fontSize: '14px', fontWeight: 400 }}>
+                <p className="text-white opacity-90" style={{ fontFamily: 'Inter, sans-serif', fontSize: '12px', fontWeight: 300 }}>
                   Fruitweg 22, 2321 GK
                 </p>
               </div>
@@ -124,7 +124,7 @@ export const ContactTabContent = () => {
                 <h2 className="text-white mb-1" style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: '22px', lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
                   İstanbul
                 </h2>
-                <p className="text-white opacity-90" style={{ fontFamily: 'Inter, sans-serif', fontSize: '14px', fontWeight: 400 }}>
+                <p className="text-white opacity-90" style={{ fontFamily: 'Inter, sans-serif', fontSize: '12px', fontWeight: 300 }}>
                   Kaynarca, Erol Kaya Cd No:204,<br />
                   34890 Pendik
                 </p>
