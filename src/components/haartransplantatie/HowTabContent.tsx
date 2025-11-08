@@ -102,15 +102,8 @@ export const HowTabContent = () => {
     }
   };
 
-  // Swipe gesture handlers
+  // Swipe gesture handlers (only for video area)
   const handleTouchStart = (e: React.TouchEvent) => {
-    const target = e.target as HTMLElement;
-    
-    // Ignore touches on interactive elements (buttons and dots)
-    if (target.closest('button') || target.closest('[data-phase-dot]')) {
-      return;
-    }
-    
     touchStartX.current = e.touches[0].clientX;
   };
 
@@ -119,23 +112,17 @@ export const HowTabContent = () => {
   };
 
   const handleTouchEnd = () => {
-    // If touchStartX was never set (touched a button/dot), ignore
-    if (touchStartX.current === 0) return;
-    
     const swipeDistance = touchStartX.current - touchEndX.current;
     const swipeThreshold = 50;
 
     if (Math.abs(swipeDistance) > swipeThreshold) {
       if (swipeDistance > 0) {
-        // Swiped left - go to next
         goToNextPhase();
       } else {
-        // Swiped right - go to previous
         goToPreviousPhase();
       }
     }
     
-    // Reset touch positions
     touchStartX.current = 0;
     touchEndX.current = 0;
   };
@@ -161,9 +148,6 @@ export const HowTabContent = () => {
     <div 
       ref={containerRef}
       className="h-full w-full overflow-hidden flex flex-col items-center"
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
     >
       <div className="w-full flex flex-col items-center px-4" style={{ 
         gap: heightBreakpoint === 'small' 
@@ -222,6 +206,9 @@ export const HowTabContent = () => {
             width: 'auto',
             marginTop: heightBreakpoint === 'small' ? '-20px' : '-30px',
           }}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
           <video
             key={isIOSorSafari ? 'mp4' : 'webm'}
@@ -293,7 +280,7 @@ export const HowTabContent = () => {
           </div>
 
           {/* Dots and Line - Viewport wrapper */}
-          <div className="w-full overflow-visible relative" style={{ height: 'clamp(30px, 4vh, 40px)', padding: '8px 0' }}>
+          <div className="w-full overflow-visible relative" style={{ height: 'clamp(30px, 4vh, 40px)', padding: '8px 0', position: 'relative', zIndex: 15 }}>
             <div 
               className="relative transition-transform" 
               style={{ 
@@ -314,7 +301,7 @@ export const HowTabContent = () => {
                   transform: 'translateY(-50%)' 
                 }}
               >
-                <div style={{ width: '100%', height: '1px', background: 'rgba(255, 255, 255, 0.2)' }} />
+                <div style={{ width: '100%', height: '1px', background: 'rgba(255, 255, 255, 0.2)', pointerEvents: 'none' }} />
               </div>
 
               {/* Filled line (progressive) - grows from first dot to active dot */}
@@ -334,6 +321,7 @@ export const HowTabContent = () => {
                     background: 'linear-gradient(to right, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 1) 100%)',
                     transitionDuration: '900ms',
                     transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                    pointerEvents: 'none',
                   }}
                 />
               </div>
@@ -361,6 +349,8 @@ export const HowTabContent = () => {
                       zIndex: isActive ? 20 : 10,
                       transitionDuration: '900ms',
                       transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                      touchAction: 'manipulation',
+                      WebkitTapHighlightColor: 'transparent',
                     }}
                     onClick={(e) => {
                       e.stopPropagation();
