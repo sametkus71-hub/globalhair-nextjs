@@ -75,7 +75,7 @@ export const PackageStandardPage = () => {
     initialVideo.playsInline = true;
     initialVideo.className = 'absolute inset-0 w-full h-full object-cover';
     initialVideo.style.opacity = '1';
-    initialVideo.style.zIndex = '1';
+    initialVideo.style.zIndex = '0';
     
     videoContainerRef.current.appendChild(initialVideo);
     initialVideo.load();
@@ -116,7 +116,7 @@ export const PackageStandardPage = () => {
       newVideo.playsInline = true;
       newVideo.className = 'absolute inset-0 w-full h-full object-cover';
       newVideo.style.opacity = '0';
-      newVideo.style.zIndex = '0';
+      newVideo.style.zIndex = '-1';
       
       newVideo.addEventListener('canplay', () => {
         newVideo.play().then(() => resolve(newVideo)).catch(reject);
@@ -150,7 +150,7 @@ export const PackageStandardPage = () => {
       const newVideo = await loadVideoInBackground(newVideoSrc);
       
       // Prepare for crossfade
-      newVideo.style.zIndex = '1';
+      newVideo.style.zIndex = '0';
       
       // Start crossfade after short delay
       setTimeout(() => {
@@ -199,7 +199,7 @@ export const PackageStandardPage = () => {
       const newVideo = await loadVideoInBackground(newVideoSrc);
       
       // Prepare for crossfade
-      newVideo.style.zIndex = '1';
+      newVideo.style.zIndex = '0';
       
       // Start crossfade after short delay
       setTimeout(() => {
@@ -457,7 +457,7 @@ export const PackageStandardPage = () => {
         <div 
           ref={videoContainerRef}
           className="absolute inset-0 w-full h-full"
-          style={{ pointerEvents: 'none' }}
+          style={{ pointerEvents: 'none', zIndex: 0 }}
         />
         <div 
           className="h-full flex items-start justify-center p-4 pt-4"
@@ -470,7 +470,8 @@ export const PackageStandardPage = () => {
                   background: '#0000001A',
                   backdropFilter: 'blur(42.5px)',
                   boxShadow: '0px 4.01px 8.72px 0px #00000040 inset, 0px -1px 4.71px 0px #FFFFFF40 inset, 0px 3.01px 1px 0px #00000040',
-                  paddingBottom: 'clamp(1.5rem, 3vh, 2rem)'
+                  paddingBottom: 'clamp(1.5rem, 3vh, 2rem)',
+                  zIndex: 10
                 }}
               >
               {/* Close button inside section */}
