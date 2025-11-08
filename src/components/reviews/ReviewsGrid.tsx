@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, memo } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useSlideTransition } from '@/hooks/useSlideTransition';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -15,19 +15,21 @@ import { useNavigate } from 'react-router-dom';
 
 // Remove interfaces - no longer needed for static implementation
 
-const QuoteCard = ({ quote }: { quote: QuoteImage }) => {
+const QuoteCard = memo(({ quote, priority = false }: { quote: QuoteImage; priority?: boolean }) => {
   return (
     <div className="w-full h-full relative overflow-hidden">
       <img 
         src={quote.src} 
         alt={quote.alt}
         className="w-full h-full object-cover"
+        loading={priority ? "eager" : "lazy"}
+        decoding="async"
       />
     </div>
   );
-};
+});
 
-const VideoCard = ({ 
+const VideoCard = memo(({ 
   video, 
   isMuted, 
   onToggleMute,
@@ -109,19 +111,19 @@ const VideoCard = ({
       </button>
     </div>
   );
-};
+});
 
-const BeforeAfterCard = ({ item }: { item: BeforeAfterItem }) => (
+const BeforeAfterCard = memo(({ item, priority = false }: { item: BeforeAfterItem; priority?: boolean }) => (
   <div className="w-full h-full relative overflow-hidden">
     <img 
       src={item.image}
       alt="Hair transplant before/after result"
       className="w-full h-full object-cover"
-      loading="lazy"
+      loading={priority ? "eager" : "lazy"}
       decoding="async"
     />
   </div>
-);
+));
 
 export const ReviewsGrid = () => {
   const { language } = useLanguage();
@@ -134,7 +136,7 @@ export const ReviewsGrid = () => {
   
   // Progressive loading state
   const [visibleItemCount, setVisibleItemCount] = useState(() => 
-    isMobile ? 18 : gridItems.length
+    isMobile ? 12 : 24
   );
   
   // State for video muting - track which video is currently unmuted (if any)
@@ -180,16 +182,16 @@ export const ReviewsGrid = () => {
 
   // Progressive loading effect
   useEffect(() => {
-    if (isMobile && shouldLoadMore && visibleItemCount < gridItems.length) {
+    if (shouldLoadMore && visibleItemCount < gridItems.length) {
       const loadNextBatch = () => {
-        setVisibleItemCount(prev => Math.min(prev + 6, gridItems.length));
+        setVisibleItemCount(prev => Math.min(prev + 12, gridItems.length));
       };
       
       // Small delay to prevent rapid loading
       const timeoutId = setTimeout(loadNextBatch, 150);
       return () => clearTimeout(timeoutId);
     }
-  }, [shouldLoadMore, visibleItemCount, gridItems.length, isMobile]);
+  }, [shouldLoadMore, visibleItemCount, gridItems.length]);
 
   // Trigger grid animation on mount
   useEffect(() => {
@@ -229,7 +231,7 @@ export const ReviewsGrid = () => {
           // Guard against undefined data
           if (!item?.data) return null;
           
-          const delay = index * 50; // Staggered delay for CSS animation
+          const delay = Math.min(index * 50, 2000); // Staggered delay capped at 2s for CSS animation
           const isVideoSlot = videoItemIds.has(item.id);
           
           return (
@@ -250,7 +252,7 @@ export const ReviewsGrid = () => {
               } as React.CSSProperties}
             >
               {item.type === 'quote' && (
-                <QuoteCard quote={item.data} />
+                <QuoteCard quote={item.data} priority={index < 3} />
               )}
               {(item.type === 'video' || item.type === 'berkant-video') && (
                 <VideoCard 
@@ -263,14 +265,14 @@ export const ReviewsGrid = () => {
                 />
               )}
               {item.type === 'before-after' && (
-                <BeforeAfterCard item={item.data} />
+                <BeforeAfterCard item={item.data} priority={index < 3} />
               )}
             </div>
           );
         })}
         
-        {/* Load more trigger for mobile */}
-        {isMobile && visibleItemCount < gridItems.length && (
+        {/* Load more trigger */}
+        {visibleItemCount < gridItems.length && (
           <div
             ref={loadMoreRef}
             className="row-span-3 w-4 flex items-center justify-center"
@@ -283,6 +285,7 @@ export const ReviewsGrid = () => {
       <style>{`
         .silver-grey-gradient-border {
           position: relative;
+          will-change: transform;
         }
 
         .silver-grey-gradient-border::before {
@@ -299,6 +302,7 @@ export const ReviewsGrid = () => {
           mask-composite: exclude;
           pointer-events: none;
           z-index: 3;
+          will-change: opacity;
         }
 
         .silver-grey-gradient-border > * {
