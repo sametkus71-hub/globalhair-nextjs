@@ -136,7 +136,7 @@ export const ContactTabContent = () => {
 
       {/* Footer Row - Fixed at Bottom */}
       <footer 
-        className="flex flex-col gap-3 px-2"
+        className="flex flex-col gap-5 px-2"
         style={{
           padding: '16px 8px',
         }}
@@ -147,18 +147,20 @@ export const ContactTabContent = () => {
             width: '100%',
             maxWidth: '280px',
             height: '1px',
-            background: 'rgba(255, 255, 255, 0.2)',
+            background: 'rgba(255, 255, 255, 0.08)',
             margin: '0 auto',
           }}
         />
         
         {/* Contact Info Row */}
         <div className="flex justify-between items-center px-4">
-          <span className="text-white text-xs opacity-90">Ma – Za 10:00 – 19:00</span>
-          <a href="mailto:info@globalhair.nl" className="text-white text-xs opacity-90 no-underline hover:opacity-100 transition-opacity">
+          <span className="text-white" style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '120%', letterSpacing: '-4%', opacity: 0.9 }}>
+            Ma – Za 10:00 – 19:00
+          </span>
+          <a href="mailto:info@globalhair.nl" className="text-white no-underline hover:opacity-100 transition-opacity" style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '120%', letterSpacing: '-4%', opacity: 0.9 }}>
             info@globalhair.nl
           </a>
-          <a href="tel:0857500577" className="text-white text-xs opacity-90 no-underline hover:opacity-100 transition-opacity">
+          <a href="tel:0857500577" className="text-white no-underline hover:opacity-100 transition-opacity" style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: '12px', lineHeight: '120%', letterSpacing: '-4%', opacity: 0.9 }}>
             085 750 0577
           </a>
         </div>
