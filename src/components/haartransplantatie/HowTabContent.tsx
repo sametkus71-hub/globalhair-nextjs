@@ -284,7 +284,7 @@ export const HowTabContent = () => {
         @keyframes slide-in-from-right {
           from {
             opacity: 0;
-            transform: translateX(80px) scale(0.85);
+            transform: translateX(150px) scale(0.85);
           }
           to {
             opacity: 1;
@@ -295,7 +295,7 @@ export const HowTabContent = () => {
         @keyframes slide-in-from-left {
           from {
             opacity: 0;
-            transform: translateX(-80px) scale(0.85);
+            transform: translateX(-150px) scale(0.85);
           }
           to {
             opacity: 1;
