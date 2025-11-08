@@ -14,7 +14,6 @@ export const HowTabContent = () => {
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
   const containerRef = useRef<HTMLDivElement>(null);
-  const lastClickTime = useRef<number>(0); // Simple debounce for accidental double-clicks
 
   // Detect iOS/Safari for proper video format
   const isIOSorSafari = useMemo(() => {
@@ -73,15 +72,10 @@ export const HowTabContent = () => {
     }
   };
 
-  // Change phase immediately with simple debounce
+  // Change phase immediately - no artificial delays
   const changePhase = (newPhase: Phase) => {
-    const now = Date.now();
-    const timeSinceLastClick = now - lastClickTime.current;
-    
-    // Prevent same phase or accidental double-clicks within 100ms
-    if (newPhase === activePhase || timeSinceLastClick < 100) return;
-    
-    lastClickTime.current = now;
+    // Only prevent clicking the already-active phase
+    if (newPhase === activePhase) return;
     
     const currentIndex = phases.indexOf(activePhase);
     const newIndex = phases.indexOf(newPhase);
@@ -110,6 +104,13 @@ export const HowTabContent = () => {
 
   // Swipe gesture handlers
   const handleTouchStart = (e: React.TouchEvent) => {
+    const target = e.target as HTMLElement;
+    
+    // Ignore touches on interactive elements (buttons and dots)
+    if (target.closest('button') || target.closest('[data-phase-dot]')) {
+      return;
+    }
+    
     touchStartX.current = e.touches[0].clientX;
   };
 
@@ -118,6 +119,9 @@ export const HowTabContent = () => {
   };
 
   const handleTouchEnd = () => {
+    // If touchStartX was never set (touched a button/dot), ignore
+    if (touchStartX.current === 0) return;
+    
     const swipeDistance = touchStartX.current - touchEndX.current;
     const swipeThreshold = 50;
 
@@ -130,6 +134,10 @@ export const HowTabContent = () => {
         goToPreviousPhase();
       }
     }
+    
+    // Reset touch positions
+    touchStartX.current = 0;
+    touchEndX.current = 0;
   };
 
   // Keyboard navigation
@@ -341,6 +349,7 @@ export const HowTabContent = () => {
                 return (
                   <div
                     key={phase}
+                    data-phase-dot="true"
                     className="absolute top-1/2 bg-white rounded-full transition-all cursor-pointer"
                     style={{
                       left: `${position}%`,
