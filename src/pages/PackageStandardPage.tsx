@@ -542,9 +542,14 @@ export const PackageStandardPage = () => {
             <button
               className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
                 activeTier === 'Premium'
-                  ? 'silver-gradient-border bg-white/10 text-white scale-105'
+                  ? 'bg-white/10 text-white scale-105'
                   : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
               }`}
+              style={activeTier === 'Premium' ? {
+                border: '1.28px solid',
+                borderImageSource: 'linear-gradient(285.06deg, rgba(221, 97, 126, 0.25) 2.5%, #E3C06B 16.59%, #EFECE6 48.17%, #EFCF7C 83.98%, rgba(221, 97, 126, 0.25) 95.62%)',
+                borderImageSlice: 1
+              } : undefined}
               onClick={() => handleTierChange('Premium')}
             >
               Premium
@@ -554,9 +559,14 @@ export const PackageStandardPage = () => {
                 activeCountry === 'tr' 
                   ? 'bg-transparent text-white/20 cursor-not-allowed scale-100' 
                   : activeTier === 'Elite'
-                    ? 'silver-gradient-border bg-white/10 text-white scale-105'
+                    ? 'bg-white/10 text-white scale-105'
                     : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
               }`}
+              style={activeCountry === 'nl' && activeTier === 'Elite' ? {
+                border: '1.28px solid',
+                borderImageSource: 'linear-gradient(285.06deg, rgba(221, 97, 126, 0.25) 2.5%, #E3C06B 16.59%, #EFECE6 48.17%, #EFCF7C 83.98%, rgba(221, 97, 126, 0.25) 95.62%)',
+                borderImageSlice: 1
+              } : undefined}
               onClick={() => activeCountry === 'nl' && handleTierChange('Elite')}
               disabled={activeCountry === 'tr'}
             >
