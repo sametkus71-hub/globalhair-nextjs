@@ -139,18 +139,27 @@ export const ContactTabContent = () => {
         className="flex flex-col gap-3 px-2"
         style={{
           padding: '16px 8px',
-          background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.03) 100%)',
-          borderTop: '1px solid rgba(255, 255, 255, 0.1)',
         }}
       >
+        {/* Separator Line */}
+        <div 
+          style={{
+            width: '100%',
+            maxWidth: '280px',
+            height: '1px',
+            background: 'rgba(255, 255, 255, 0.2)',
+            margin: '0 auto',
+          }}
+        />
+        
         {/* Contact Info Row */}
         <div className="flex justify-between items-center px-4">
           <span className="text-white text-xs opacity-90">Ma – Za 10:00 – 19:00</span>
-          <a href="mailto:info@globalhair.nl" className="text-white text-xs opacity-90 no-underline hover:opacity-100">
+          <a href="mailto:info@globalhair.nl" className="text-white text-xs opacity-90 no-underline hover:opacity-100 transition-opacity">
             info@globalhair.nl
           </a>
-          <a href="tel:+31696969696" className="text-white text-xs opacity-90 no-underline hover:opacity-100">
-            +31 6 96969696
+          <a href="tel:0857500577" className="text-white text-xs opacity-90 no-underline hover:opacity-100 transition-opacity">
+            085 750 0577
           </a>
         </div>
         
