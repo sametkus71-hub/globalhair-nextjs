@@ -21,15 +21,15 @@ export const HowTabContent = () => {
 
   const phases: Phase[] = ['Pre-', 'Treatment', 'After-'];
 
-  // Timeline positioning for journey effect
-  const getTimelineData = () => {
+  // Timeline positioning - dot stays centered, line moves
+  const getTimelineTransform = () => {
     switch (activePhase) {
       case 'Pre-':
-        return { dotPosition: '3%', leftLineWidth: '0%', rightLineWidth: '97%' };
+        return 'translateX(0%)'; // Line starts at center, extends right
       case 'Treatment':
-        return { dotPosition: '50%', leftLineWidth: '50%', rightLineWidth: '50%' };
+        return 'translateX(-50%)'; // Line centered, extends both ways
       case 'After-':
-        return { dotPosition: '97%', leftLineWidth: '97%', rightLineWidth: '0%' };
+        return 'translateX(-100%)'; // Line ends at center, extends left
     }
   };
 
@@ -112,7 +112,7 @@ export const HowTabContent = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [activePhase]);
 
-  const timelineData = getTimelineData();
+  const timelineTransform = getTimelineTransform();
   const phaseContent = getPhaseContent();
 
   return (
@@ -202,38 +202,30 @@ export const HowTabContent = () => {
         />
 
         {/* Journey Timeline */}
-        <div className="w-full relative" style={{ height: '1px', margin: 'clamp(8px, 1.5vh, 12px) 0' }}>
-          {/* Left line segment */}
+        <div className="w-full relative overflow-hidden" style={{ height: '1px', margin: 'clamp(8px, 1.5vh, 12px) 0' }}>
+          {/* Moving timeline line - 200% width */}
           <div
-            className="absolute left-0 top-0 bg-white rounded-full transition-all duration-500 ease-out"
+            className="absolute top-0 left-0 transition-transform duration-600 ease-out"
             style={{
-              width: timelineData.leftLineWidth,
+              width: '200%',
               height: '1px',
-              transitionDelay: '100ms',
+              transform: timelineTransform,
+              transitionDuration: '600ms',
+              transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
             }}
-          />
+          >
+            <div className="absolute top-0 left-0 w-full h-full bg-white" />
+          </div>
           
-          {/* Journey Dot */}
+          {/* Fixed center dot */}
           <div
-            className="absolute top-1/2 bg-white rounded-full transition-all duration-600 ease-out"
+            className="absolute top-1/2 left-1/2 bg-white rounded-full"
             style={{
-              left: timelineData.dotPosition,
               transform: `translate(-50%, -50%)`,
               width: 'clamp(8px, 1.2vh, 10px)',
               height: 'clamp(8px, 1.2vh, 10px)',
               boxShadow: '0px 0px 6.8px 3px #FFFFFF40',
-              transitionDuration: '600ms',
-              transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
-            }}
-          />
-          
-          {/* Right line segment */}
-          <div
-            className="absolute right-0 top-0 bg-white rounded-full transition-all duration-500 ease-out"
-            style={{
-              width: timelineData.rightLineWidth,
-              height: '1px',
-              transitionDelay: '100ms',
+              zIndex: 10,
             }}
           />
         </div>
