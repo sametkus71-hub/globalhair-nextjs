@@ -21,7 +21,7 @@ export const BERKANT_VIDEOS: BerkantVideoItem[] = [
     unsubbedUrl: 'https://GlobalHair.b-cdn.net/Berkant%20videos/B1%20-%20COMPRESS.mp4',
     thumbnail: 'https://GlobalHair.b-cdn.net/Berkant%20videos/B1%20SUB%20-%20COMPRESS.mp4#t=1',
     duration: 45,
-    description: 'Founder & Medisch Directeur Berkant Dural zag al op jonge leeftijd wat erfelijk haarverlies met zijn vader deed en hij was ervan overtuigd dat dit voorkomen kon worden. Na jaren onderzoek en samenwerkingen met Tricho artsen ontwikkelde hij een werkwijze die verder gaat dan alleen haartransplantaties.'
+    description: 'CEO Berkant Dural groeide op in een familie waar kaalheid vanzelfsprekend was, en dat werd zijn drijfveer. GlobalHair ontstond uit die persoonlijke zoektocht: een kliniek gebouwd op aandacht, rust en vakmanschap. Met zijn team werkt hij elke dag aan één doel; het herstellen van zelfvertrouwen, met precisie en respect voor het ambacht.'
   },
   {
     id: 'berkant-2', 
