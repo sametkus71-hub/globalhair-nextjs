@@ -395,7 +395,7 @@ export const PackageStandardPage = () => {
   return (
     <>
       <div
-        className={`reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}
+        className={`popup-wrapper-fade ${isExiting ? 'popup-wrapper-fade-out' : ''}`}
         style={{
           overflow: 'hidden',
           position: 'fixed',
@@ -415,7 +415,7 @@ export const PackageStandardPage = () => {
           <main className="flex flex-col w-full max-w-2xl h-[calc(100vh-32px)]">
             <SwipeablePopupWrapper onClose={handleClose} className="h-full">
               <section
-                className="relative rounded-[24px] p-4 h-[75%] flex flex-col popup-section-border"
+                className={`relative rounded-[24px] p-4 h-[75%] flex flex-col popup-section-border reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}
                 style={{
                   background: '#0000001A',
                   backdropFilter: 'blur(20px)',

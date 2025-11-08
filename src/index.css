@@ -1280,6 +1280,33 @@ html, body {
   }
 }
 
+/* Popup wrapper fade animations */
+@keyframes popupWrapperFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes popupWrapperFadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.popup-wrapper-fade {
+  animation: popupWrapperFadeIn 0.3s ease-out forwards;
+}
+
+.popup-wrapper-fade-out {
+  animation: popupWrapperFadeOut 0.3s ease-out forwards;
+}
+
 @keyframes popup-overlay-fade {
   0% {
     opacity: 0;
