@@ -166,13 +166,7 @@ export const ContactTabContent = () => {
         {/* Social Icons Row */}
         <div className="flex items-center justify-center gap-4">
           <button 
-            className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
-            style={{
-              background: 'rgba(255, 255, 255, 0.12)',
-              backdropFilter: 'blur(20px)',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-            }}
+            className="transition-all duration-200 hover:scale-105"
             aria-label="Chat"
           >
             <img src={chatIcon} alt="Chat" className="w-5 h-5" />
@@ -181,13 +175,7 @@ export const ContactTabContent = () => {
             href="https://wa.me/31696969696"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
-            style={{
-              background: 'rgba(255, 255, 255, 0.12)',
-              backdropFilter: 'blur(20px)',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-            }}
+            className="transition-all duration-200 hover:scale-105"
             aria-label="WhatsApp"
           >
             <img src={whatsappIcon} alt="WhatsApp" className="w-5 h-5" />
@@ -196,13 +184,7 @@ export const ContactTabContent = () => {
             href="https://instagram.com/yourhandle"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
-            style={{
-              background: 'rgba(255, 255, 255, 0.12)',
-              backdropFilter: 'blur(20px)',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-            }}
+            className="transition-all duration-200 hover:scale-105"
             aria-label="Instagram"
           >
             <img src={instagramIcon} alt="Instagram" className="w-5 h-5" />
