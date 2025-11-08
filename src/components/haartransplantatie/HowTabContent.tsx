@@ -70,14 +70,16 @@ export const HowTabContent = () => {
           }}
         >
           <video
-            src="https://GlobalHair.b-cdn.net/Male%201K%20HT%20WEB.webm"
             autoPlay
             loop
             muted
             playsInline
             className="w-full h-full object-cover"
             style={{ marginTop: '-30px', zIndex: -1 }}
-          />
+          >
+            <source src="https://GlobalHair.b-cdn.net/Male%201K%20HT%20WEB.webm" type="video/webm" />
+            <source src="https://GlobalHair.b-cdn.net/Male%201K%20HT%20WEB.mp4" type="video/mp4" />
+          </video>
         </div>
 
         {/* Quote Text */}
