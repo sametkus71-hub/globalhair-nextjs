@@ -8,14 +8,14 @@ import instagramIcon from '@/assets/instagram-icon-new.svg';
 
 export const ContactTabContent = () => {
   const [activeTab, setActiveTab] = useState<'nl' | 'tr'>('nl');
-  const { height } = useViewportHeight();
+  useViewportHeight();
 
   return (
     <div 
       className="h-full w-full flex flex-col"
       style={{
-        height: `${height}px`,
-        minHeight: '100svh',
+        height: 'calc(var(--app-height, 100vh))',
+        minHeight: '-webkit-fill-available',
       }}
     >
       {/* Tabs Section */}
@@ -72,11 +72,10 @@ export const ContactTabContent = () => {
         </div>
       </div>
 
-      {/* Content Area - Flex Grow */}
-      <div className="flex-1 flex flex-col px-2" style={{ minHeight: 0 }}>
-        {/* Darker Blue Container */}
+      {/* Middle Content Area - Flex Grow */}
+      <div className="flex-1 flex flex-col px-2" style={{ minHeight: 0, overflow: 'hidden' }}>
         <div 
-          className="flex-1 rounded-3xl overflow-hidden flex flex-col"
+          className="flex-1 rounded-3xl overflow-hidden flex flex-col p-6"
           style={{
             background: 'rgba(10, 30, 50, 0.6)',
             backdropFilter: 'blur(10px)',
@@ -85,7 +84,7 @@ export const ContactTabContent = () => {
           }}
         >
           {/* Content based on active tab */}
-          <div className="flex-1 flex flex-col justify-center p-6">
+          <div className="flex-1 flex flex-col justify-center">
             {activeTab === 'nl' ? (
               <div className="flex flex-col h-full">
                 {/* Locations */}
@@ -180,60 +179,61 @@ export const ContactTabContent = () => {
               </div>
             )}
           </div>
-
-          {/* Footer with Socials */}
-          <footer 
-            className="flex items-center justify-center gap-4 py-4"
-            style={{
-              background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.03) 100%)',
-              borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-            }}
-          >
-            <button 
-              className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
-              style={{
-                background: 'rgba(255, 255, 255, 0.12)',
-                backdropFilter: 'blur(20px)',
-                boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-              }}
-              aria-label="Chat"
-            >
-              <img src={chatIcon} alt="Chat" className="w-5 h-5" />
-            </button>
-            <a 
-              href="https://wa.me/31696969696"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
-              style={{
-                background: 'rgba(255, 255, 255, 0.12)',
-                backdropFilter: 'blur(20px)',
-                boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-              }}
-              aria-label="WhatsApp"
-            >
-              <img src={whatsappIcon} alt="WhatsApp" className="w-5 h-5" />
-            </a>
-            <a 
-              href="https://instagram.com/yourhandle"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
-              style={{
-                background: 'rgba(255, 255, 255, 0.12)',
-                backdropFilter: 'blur(20px)',
-                boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-              }}
-              aria-label="Instagram"
-            >
-              <img src={instagramIcon} alt="Instagram" className="w-5 h-5" />
-            </a>
-          </footer>
         </div>
       </div>
+
+      {/* Footer Row - Fixed at Bottom */}
+      <footer 
+        className="flex items-center justify-center gap-4 px-2"
+        style={{
+          padding: '16px 8px',
+          background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.03) 100%)',
+          borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+        }}
+      >
+        <button 
+          className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
+          style={{
+            background: 'rgba(255, 255, 255, 0.12)',
+            backdropFilter: 'blur(20px)',
+            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+          }}
+          aria-label="Chat"
+        >
+          <img src={chatIcon} alt="Chat" className="w-5 h-5" />
+        </button>
+        <a 
+          href="https://wa.me/31696969696"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
+          style={{
+            background: 'rgba(255, 255, 255, 0.12)',
+            backdropFilter: 'blur(20px)',
+            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+          }}
+          aria-label="WhatsApp"
+        >
+          <img src={whatsappIcon} alt="WhatsApp" className="w-5 h-5" />
+        </a>
+        <a 
+          href="https://instagram.com/yourhandle"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
+          style={{
+            background: 'rgba(255, 255, 255, 0.12)',
+            backdropFilter: 'blur(20px)',
+            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+          }}
+          aria-label="Instagram"
+        >
+          <img src={instagramIcon} alt="Instagram" className="w-5 h-5" />
+        </a>
+      </footer>
 
       <style>{`
         .silver-gradient-border {
