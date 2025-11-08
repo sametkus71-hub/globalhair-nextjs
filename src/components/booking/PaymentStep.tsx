@@ -7,6 +7,8 @@ import { getServiceConfig } from '@/lib/service-config';
 import { format } from 'date-fns';
 import { nl, enGB as enUS } from 'date-fns/locale';
 import { useTestMode } from '@/contexts/TestModeContext';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
 
 interface PaymentStepProps {
   serviceType: ServiceType;
@@ -27,11 +29,13 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
   const { language } = useLanguage();
   const { isTestMode } = useTestMode();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [acceptPrivacy, setAcceptPrivacy] = useState(false);
 
   const config = getServiceConfig(serviceType, location);
   const isFormComplete = customerInfo && customerInfo.name && customerInfo.email && customerInfo.phone && 
                          customerInfo.postcode && customerInfo.city && customerInfo.country;
-  const canPay = isFormComplete && bookingSelection;
+  const canPay = isFormComplete && bookingSelection && acceptTerms && acceptPrivacy;
 
   const handlePayment = async () => {
     setIsProcessing(true);
@@ -124,6 +128,92 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
         }
       `}</style>
       <div className="flex flex-col space-y-4 pt-6 border-t border-white/10">
+        <div className="flex flex-col space-y-3 pb-4">
+          {/* Terms and Conditions Checkbox */}
+          <div className="flex items-start gap-3">
+            <Checkbox
+              id="accept-terms"
+              checked={acceptTerms}
+              onCheckedChange={(checked) => setAcceptTerms(checked === true)}
+              className="mt-1 border-white/30 data-[state=checked]:bg-white/20 data-[state=checked]:border-white/50"
+            />
+            <Label
+              htmlFor="accept-terms"
+              className="text-xs text-white/70 leading-relaxed cursor-pointer font-inter"
+            >
+              {language === 'nl' ? (
+                <>
+                  Ik ga akkoord met de{' '}
+                  <a
+                    href="https://cdn.sanity.io/files/ajju5i5a/production/d026e616f0b4fe37db0a1ec8b1688e175e689a72.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white underline hover:text-white/80 transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    algemene voorwaarden
+                  </a>
+                </>
+              ) : (
+                <>
+                  I agree to the{' '}
+                  <a
+                    href="https://cdn.sanity.io/files/ajju5i5a/production/d026e616f0b4fe37db0a1ec8b1688e175e689a72.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white underline hover:text-white/80 transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    terms and conditions
+                  </a>
+                </>
+              )}
+            </Label>
+          </div>
+
+          {/* Privacy Policy Checkbox */}
+          <div className="flex items-start gap-3">
+            <Checkbox
+              id="accept-privacy"
+              checked={acceptPrivacy}
+              onCheckedChange={(checked) => setAcceptPrivacy(checked === true)}
+              className="mt-1 border-white/30 data-[state=checked]:bg-white/20 data-[state=checked]:border-white/50"
+            />
+            <Label
+              htmlFor="accept-privacy"
+              className="text-xs text-white/70 leading-relaxed cursor-pointer font-inter"
+            >
+              {language === 'nl' ? (
+                <>
+                  Ik ga akkoord met het{' '}
+                  <a
+                    href="https://globalhair.nl/nl/privacy-policy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white underline hover:text-white/80 transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    privacy policy
+                  </a>
+                </>
+              ) : (
+                <>
+                  I agree to the{' '}
+                  <a
+                    href="https://globalhair.nl/nl/privacy-policy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white underline hover:text-white/80 transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    privacy policy
+                  </a>
+                </>
+              )}
+            </Label>
+          </div>
+        </div>
+
         <button
           onClick={handlePayment}
           disabled={!canPay || isProcessing}
@@ -149,7 +239,9 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
           <p className="text-xs text-center text-white/50 mt-2">
             {!bookingSelection 
               ? (language === 'nl' ? 'Selecteer eerst datum en tijd' : 'Select date and time first')
-              : (language === 'nl' ? 'Vul alle velden in om te kunnen betalen' : 'Fill in all fields to proceed with payment')
+              : !isFormComplete
+              ? (language === 'nl' ? 'Vul alle velden in om te kunnen betalen' : 'Fill in all fields to proceed with payment')
+              : (language === 'nl' ? 'Accepteer de algemene voorwaarden en privacy policy om verder te gaan' : 'Accept the terms and conditions and privacy policy to continue')
             }
           </p>
         )}
