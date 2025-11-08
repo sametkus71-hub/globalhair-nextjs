@@ -415,7 +415,7 @@ export const PackageStandardPage = () => {
           <main className="flex flex-col w-full max-w-2xl h-[calc(100vh-32px)]">
             <SwipeablePopupWrapper onClose={handleClose} className="h-full">
               <section
-                className={`relative rounded-[24px] p-4 h-[75%] flex flex-col popup-section-border reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}
+                className={`relative rounded-[24px] p-4 flex-1 mb-16 flex flex-col popup-section-border reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}
                 style={{
                   background: '#0000001A',
                   backdropFilter: 'blur(20px)',
