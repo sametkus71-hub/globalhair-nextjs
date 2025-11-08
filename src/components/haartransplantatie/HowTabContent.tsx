@@ -284,31 +284,31 @@ export const HowTabContent = () => {
         @keyframes slide-in-from-right {
           from {
             opacity: 0;
-            transform: translateX(30px);
+            transform: translateX(80px) scale(0.85);
           }
           to {
             opacity: 1;
-            transform: translateX(0);
+            transform: translateX(0) scale(1);
           }
         }
 
         @keyframes slide-in-from-left {
           from {
             opacity: 0;
-            transform: translateX(-30px);
+            transform: translateX(-80px) scale(0.85);
           }
           to {
             opacity: 1;
-            transform: translateX(0);
+            transform: translateX(0) scale(1);
           }
         }
 
         .animate-slide-left {
-          animation: slide-in-from-right 400ms ease-out forwards;
+          animation: slide-in-from-right 500ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
         .animate-slide-right {
-          animation: slide-in-from-left 400ms ease-out forwards;
+          animation: slide-in-from-left 500ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
       `}</style>
     </div>
