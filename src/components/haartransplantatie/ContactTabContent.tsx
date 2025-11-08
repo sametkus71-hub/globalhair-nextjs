@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useViewportHeight } from '@/hooks/useViewportHeight';
 import shieldIcon from '@/assets/shield-icon.svg';
 import v6HairboostIcon from '@/assets/v6-hairboost.png';
 import chatIcon from '@/assets/chat-icon.svg';
@@ -8,16 +7,9 @@ import instagramIcon from '@/assets/instagram-icon-new.svg';
 
 export const ContactTabContent = () => {
   const [activeTab, setActiveTab] = useState<'nl' | 'tr'>('nl');
-  useViewportHeight();
 
   return (
-    <div 
-      className="h-full w-full flex flex-col"
-      style={{
-        height: 'calc(var(--app-height, 100vh))',
-        minHeight: '-webkit-fill-available',
-      }}
-    >
+    <div className="h-full w-full flex flex-col">
       {/* Tabs Section */}
       <div className="w-full flex justify-center px-4" style={{ paddingTop: '12px', paddingBottom: '12px' }}>
         <div 
