@@ -73,9 +73,9 @@ export const ContactTabContent = () => {
       </div>
 
       {/* Middle Content Area - Flex Grow */}
-      <div className="flex-1 flex flex-col px-2" style={{ minHeight: 0, overflow: 'hidden' }}>
+      <div className="flex-1 px-2" style={{ minHeight: 0 }}>
         <div 
-          className="flex-1 rounded-3xl overflow-hidden flex flex-col p-6"
+          className="h-full rounded-3xl flex flex-col justify-between p-6"
           style={{
             background: 'rgba(10, 30, 50, 0.6)',
             backdropFilter: 'blur(10px)',
@@ -84,101 +84,99 @@ export const ContactTabContent = () => {
           }}
         >
           {/* Content based on active tab */}
-          <div className="flex-1 flex flex-col justify-center">
-            {activeTab === 'nl' ? (
-              <div className="flex flex-col h-full">
-                {/* Locations */}
-                <div className="grid grid-cols-2 gap-8 mb-8">
-                  {/* Barendrecht */}
-                  <div className="text-center">
-                    <div className="flex gap-2 justify-center items-center mb-2">
-                      <img src={shieldIcon} alt="Shield" className="w-4 h-4 opacity-95" />
-                      <img src={v6HairboostIcon} alt="V6 Hairboost" className="w-6 h-6" />
-                    </div>
-                    <h2 className="text-white font-normal mb-1" style={{ fontSize: 'clamp(14px, 3vw, 18px)' }}>
-                      Barendrecht
-                    </h2>
-                    <p className="text-white text-xs opacity-90 mb-2">
-                      Pesetastraat 72, 2991 XT
-                    </p>
-                    <span 
-                      className="inline-block px-3 py-1 rounded-full text-white"
-                      style={{
-                        background: 'rgba(255, 255, 255, 0.15)',
-                        fontSize: '10px',
-                        border: '1px solid rgba(255, 255, 255, 0.2)',
-                      }}
-                    >
-                      Hoofdvestiging
-                    </span>
+          {activeTab === 'nl' ? (
+            <>
+              {/* Locations */}
+              <div className="grid grid-cols-2 gap-8">
+                {/* Barendrecht */}
+                <div className="text-center">
+                  <div className="flex gap-2 justify-center items-center mb-2">
+                    <img src={shieldIcon} alt="Shield" className="w-4 h-4 opacity-95" />
+                    <img src={v6HairboostIcon} alt="V6 Hairboost" className="w-6 h-6" />
                   </div>
-
-                  {/* Leiden */}
-                  <div className="text-center">
-                    <div className="flex gap-2 justify-center items-center mb-2">
-                      <img src={v6HairboostIcon} alt="V6 Hairboost" className="w-6 h-6" />
-                    </div>
-                    <h2 className="text-white font-normal mb-1" style={{ fontSize: 'clamp(14px, 3vw, 18px)' }}>
-                      Leiden
-                    </h2>
-                    <p className="text-white text-xs opacity-90">
-                      Fruitweg 22, 2321 GK
-                    </p>
-                  </div>
+                  <h2 className="text-white font-normal mb-1" style={{ fontSize: 'clamp(14px, 3vw, 18px)' }}>
+                    Barendrecht
+                  </h2>
+                  <p className="text-white text-xs opacity-90 mb-2">
+                    Pesetastraat 72, 2991 XT
+                  </p>
+                  <span 
+                    className="inline-block px-3 py-1 rounded-full text-white"
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.15)',
+                      fontSize: '10px',
+                      border: '1px solid rgba(255, 255, 255, 0.2)',
+                    }}
+                  >
+                    Hoofdvestiging
+                  </span>
                 </div>
 
-                {/* Contact Info */}
-                <div 
-                  className="flex justify-between items-center px-8 py-4 mt-auto"
-                  style={{
-                    borderTop: '1px solid rgba(255, 255, 255, 0.25)',
-                  }}
-                >
-                  <span className="text-white text-xs opacity-90">Ma – Za 10:00 – 19:00</span>
-                  <a href="mailto:info@globalhair.nl" className="text-white text-xs opacity-90 no-underline hover:opacity-100">
-                    info@globalhair.nl
-                  </a>
-                  <a href="tel:+31696969696" className="text-white text-xs opacity-90 no-underline hover:opacity-100">
-                    +31 6 96969696
-                  </a>
+                {/* Leiden */}
+                <div className="text-center">
+                  <div className="flex gap-2 justify-center items-center mb-2">
+                    <img src={v6HairboostIcon} alt="V6 Hairboost" className="w-6 h-6" />
+                  </div>
+                  <h2 className="text-white font-normal mb-1" style={{ fontSize: 'clamp(14px, 3vw, 18px)' }}>
+                    Leiden
+                  </h2>
+                  <p className="text-white text-xs opacity-90">
+                    Fruitweg 22, 2321 GK
+                  </p>
                 </div>
               </div>
-            ) : (
-              <div className="flex flex-col h-full">
-                {/* Istanbul Location */}
-                <div className="flex justify-center mb-8">
-                  <div className="text-center">
-                    <div className="flex gap-2 justify-center items-center mb-2">
-                      <img src={shieldIcon} alt="Shield" className="w-4 h-4 opacity-95" />
-                    </div>
-                    <h2 className="text-white font-normal mb-1" style={{ fontSize: 'clamp(14px, 3vw, 18px)' }}>
-                      İstanbul
-                    </h2>
-                    <p className="text-white text-xs opacity-90">
-                      Kaynarca, Erol Kaya Cd No:204,<br />
-                      34890 Pendik
-                    </p>
-                  </div>
-                </div>
 
-                {/* Contact Info */}
-                <div 
-                  className="flex justify-between items-center px-8 py-4 mt-auto"
-                  style={{
-                    borderTop: '1px solid rgba(255, 255, 255, 0.25)',
-                  }}
-                >
-                  <span className="text-white text-xs opacity-90">Ma – Za 10:00 – 19:00</span>
-                  <a href="mailto:info@globalhair.nl" className="text-white text-xs opacity-90 no-underline hover:opacity-100">
-                    info@globalhair.nl
-                  </a>
-                  <a href="tel:+31696969696" className="text-white text-xs opacity-90 no-underline hover:opacity-100">
-                    +31 6 96969696
-                  </a>
+              {/* Contact Info */}
+              <div 
+                className="flex justify-between items-center px-8 py-4"
+                style={{
+                  borderTop: '1px solid rgba(255, 255, 255, 0.25)',
+                }}
+              >
+                <span className="text-white text-xs opacity-90">Ma – Za 10:00 – 19:00</span>
+                <a href="mailto:info@globalhair.nl" className="text-white text-xs opacity-90 no-underline hover:opacity-100">
+                  info@globalhair.nl
+                </a>
+                <a href="tel:+31696969696" className="text-white text-xs opacity-90 no-underline hover:opacity-100">
+                  +31 6 96969696
+                </a>
+              </div>
+            </>
+          ) : (
+            <>
+              {/* Istanbul Location */}
+              <div className="flex justify-center">
+                <div className="text-center">
+                  <div className="flex gap-2 justify-center items-center mb-2">
+                    <img src={shieldIcon} alt="Shield" className="w-4 h-4 opacity-95" />
+                  </div>
+                  <h2 className="text-white font-normal mb-1" style={{ fontSize: 'clamp(14px, 3vw, 18px)' }}>
+                    İstanbul
+                  </h2>
+                  <p className="text-white text-xs opacity-90">
+                    Kaynarca, Erol Kaya Cd No:204,<br />
+                    34890 Pendik
+                  </p>
                 </div>
               </div>
-            )}
-          </div>
+
+              {/* Contact Info */}
+              <div 
+                className="flex justify-between items-center px-8 py-4"
+                style={{
+                  borderTop: '1px solid rgba(255, 255, 255, 0.25)',
+                }}
+              >
+                <span className="text-white text-xs opacity-90">Ma – Za 10:00 – 19:00</span>
+                <a href="mailto:info@globalhair.nl" className="text-white text-xs opacity-90 no-underline hover:opacity-100">
+                  info@globalhair.nl
+                </a>
+                <a href="tel:+31696969696" className="text-white text-xs opacity-90 no-underline hover:opacity-100">
+                  +31 6 96969696
+                </a>
+              </div>
+            </>
+          )}
         </div>
       </div>
 
