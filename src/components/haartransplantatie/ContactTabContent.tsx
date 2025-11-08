@@ -83,10 +83,10 @@ export const ContactTabContent = () => {
                   <img src={shieldIcon} alt="Shield" className="w-4 h-4 opacity-95" />
                   <img src={v6HairboostIcon} alt="V6 Hairboost" className="w-6 h-6" />
                 </div>
-                <h2 className="text-white font-normal mb-1" style={{ fontSize: 'clamp(14px, 3vw, 18px)' }}>
+                <h2 className="text-white font-normal mb-1" style={{ fontSize: 'clamp(18px, 4vw, 24px)', fontFamily: 'Inter, sans-serif' }}>
                   Barendrecht
                 </h2>
-                <p className="text-white text-xs opacity-90 mb-2">
+                <p className="text-white text-xs opacity-90 mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>
                   Pesetastraat 72, 2991 XT
                 </p>
                 <span 
@@ -95,6 +95,7 @@ export const ContactTabContent = () => {
                     background: 'rgba(255, 255, 255, 0.15)',
                     fontSize: '10px',
                     border: '1px solid rgba(255, 255, 255, 0.2)',
+                    fontFamily: 'Inter, sans-serif',
                   }}
                 >
                   Hoofdvestiging
@@ -106,10 +107,10 @@ export const ContactTabContent = () => {
                 <div className="flex gap-2 justify-center items-center mb-2">
                   <img src={v6HairboostIcon} alt="V6 Hairboost" className="w-6 h-6" />
                 </div>
-                <h2 className="text-white font-normal mb-1" style={{ fontSize: 'clamp(14px, 3vw, 18px)' }}>
+                <h2 className="text-white font-normal mb-1" style={{ fontSize: 'clamp(18px, 4vw, 24px)', fontFamily: 'Inter, sans-serif' }}>
                   Leiden
                 </h2>
-                <p className="text-white text-xs opacity-90">
+                <p className="text-white text-xs opacity-90" style={{ fontFamily: 'Inter, sans-serif' }}>
                   Fruitweg 22, 2321 GK
                 </p>
               </div>
@@ -120,10 +121,10 @@ export const ContactTabContent = () => {
                 <div className="flex gap-2 justify-center items-center mb-2">
                   <img src={shieldIcon} alt="Shield" className="w-4 h-4 opacity-95" />
                 </div>
-                <h2 className="text-white font-normal mb-1" style={{ fontSize: 'clamp(14px, 3vw, 18px)' }}>
+                <h2 className="text-white font-normal mb-1" style={{ fontSize: 'clamp(18px, 4vw, 24px)', fontFamily: 'Inter, sans-serif' }}>
                   İstanbul
                 </h2>
-                <p className="text-white text-xs opacity-90">
+                <p className="text-white text-xs opacity-90" style={{ fontFamily: 'Inter, sans-serif' }}>
                   Kaynarca, Erol Kaya Cd No:204,<br />
                   34890 Pendik
                 </p>
