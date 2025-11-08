@@ -1119,12 +1119,11 @@ const ChatPage = () => {
                 
                 {/* Message Bubble */}
                 <div
-                  className={`max-w-[80%] px-4 py-3`}
+                  className={`max-w-[80%] px-4 py-3 ${msg.role === 'user' ? 'silver-gradient-border' : ''}`}
                   style={{
                     background: msg.role === 'user'
                       ? 'linear-gradient(135deg, rgba(234, 234, 234, 0.18) 0%, rgba(234, 234, 234, 0.12) 100%)'
                       : 'linear-gradient(135deg, rgba(44, 54, 62, 0.5) 0%, rgba(44, 54, 62, 0.3) 100%)',
-                    border: msg.role === 'user' ? '1px solid rgba(255, 255, 255, 0.15)' : 'none',
                     borderRadius: msg.role === 'user' ? '12px 12px 2px 12px' : '12px 12px 12px 2px',
                     boxShadow: msg.role === 'user' ? '0 2px 8px rgba(0, 0, 0, 0.2)' : 'none',
                     color: 'rgba(255, 255, 255, 0.95)',
