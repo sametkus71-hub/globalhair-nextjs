@@ -8,69 +8,63 @@ export type ContentType = 'quote' | 'before-after' | 'video' | 'berkant-video';
 export interface GridItem {
   id: string;
   type: ContentType;
-  colSpan: 1 | 2;
+  width: 1 | 2;  // Column span
+  height: 1 | 2; // Row span
   data: any; // Will be typed based on content type
 }
 
-// Grid layout structure for horizontal scrolling - 3 rows, multiple columns
-// Videos distributed throughout for visual interest
-const GRID_LAYOUT: Array<{ colSpan: 1 | 2; contentType?: 'video-only' | 'small-only' }> = [
-  // Column 1 (3 small items stacked)
-  { colSpan: 1, contentType: 'small-only' }, // Row 1
-  { colSpan: 1, contentType: 'small-only' }, // Row 2
-  { colSpan: 1, contentType: 'small-only' }, // Row 3
+// Grid layout structure - Instagram-style with mixed sizes
+// Includes 1×1 (small), 1×2 (tall), 2×1 (wide), and 2×2 (big square) items
+const GRID_LAYOUT: Array<{ width: 1 | 2; height: 1 | 2; contentType?: 'video-only' | 'small-only' }> = [
+  // Pattern 1: Big square video + small items
+  { width: 2, height: 2, contentType: 'video-only' },  // Big square video
+  { width: 1, height: 1, contentType: 'small-only' },
+  { width: 1, height: 1, contentType: 'small-only' },
   
-  // Column 2 (video spanning 2 rows + 1 small)
-  { colSpan: 2, contentType: 'video-only' }, // Rows 1-2
-  { colSpan: 1, contentType: 'small-only' }, // Row 3
+  // Pattern 2: Column of 3 small items
+  { width: 1, height: 1, contentType: 'small-only' },
+  { width: 1, height: 1, contentType: 'small-only' },
+  { width: 1, height: 1, contentType: 'small-only' },
   
-  // Column 3-4 (1 small + wide item)
-  { colSpan: 1, contentType: 'small-only' }, // Row 1
-  { colSpan: 2, contentType: 'small-only' }, // Rows 2-3
+  // Pattern 3: Tall video + 2 small
+  { width: 1, height: 2, contentType: 'video-only' },  // Tall video
+  { width: 1, height: 1, contentType: 'small-only' },
+  { width: 1, height: 1, contentType: 'small-only' },
   
-  // Column 5 (3 small items)
-  { colSpan: 1, contentType: 'small-only' }, // Row 1
-  { colSpan: 1, contentType: 'small-only' }, // Row 2
-  { colSpan: 1, contentType: 'small-only' }, // Row 3
+  // Pattern 4: Big square + small
+  { width: 2, height: 2, contentType: 'small-only' },  // Big square
+  { width: 1, height: 1, contentType: 'small-only' },
+  { width: 1, height: 1, contentType: 'small-only' },
   
-  // Column 6-7 (wide item + small)
-  { colSpan: 2, contentType: 'small-only' }, // Rows 1-2
-  { colSpan: 1, contentType: 'small-only' }, // Row 3
+  // Pattern 5: 3 small stacked
+  { width: 1, height: 1, contentType: 'small-only' },
+  { width: 1, height: 1, contentType: 'small-only' },
+  { width: 1, height: 1, contentType: 'small-only' },
   
-  // Column 8 (video spanning 2 rows + small)
-  { colSpan: 1, contentType: 'small-only' }, // Row 1
-  { colSpan: 2, contentType: 'video-only' }, // Rows 2-3
+  // Pattern 6: Tall video + wide item
+  { width: 1, height: 2, contentType: 'video-only' },
+  { width: 2, height: 1, contentType: 'small-only' },  // Wide
+  { width: 1, height: 1, contentType: 'small-only' },
   
-  // Column 9 (3 small items)
-  { colSpan: 1, contentType: 'small-only' }, // Row 1
-  { colSpan: 1, contentType: 'small-only' }, // Row 2
-  { colSpan: 1, contentType: 'small-only' }, // Row 3
+  // Pattern 7: Big square video + tall
+  { width: 2, height: 2, contentType: 'video-only' },  // Big square
+  { width: 1, height: 2, contentType: 'small-only' },  // Tall
+  { width: 1, height: 1, contentType: 'small-only' },
   
-  // Column 10-11 (small + wide video)
-  { colSpan: 1, contentType: 'small-only' }, // Row 1
-  { colSpan: 2, contentType: 'video-only' }, // Rows 2-3
+  // Pattern 8: Small column
+  { width: 1, height: 1, contentType: 'small-only' },
+  { width: 1, height: 1, contentType: 'small-only' },
+  { width: 1, height: 1, contentType: 'small-only' },
   
-  // Column 12 (3 small items)
-  { colSpan: 1, contentType: 'small-only' }, // Row 1
-  { colSpan: 1, contentType: 'small-only' }, // Row 2
-  { colSpan: 1, contentType: 'small-only' }, // Row 3
+  // Pattern 9: Wide + tall video
+  { width: 2, height: 1, contentType: 'small-only' },  // Wide
+  { width: 1, height: 2, contentType: 'video-only' },  // Tall
+  { width: 1, height: 1, contentType: 'small-only' },
   
-  // Column 13-14 (video + small)
-  { colSpan: 2, contentType: 'video-only' }, // Rows 1-2
-  { colSpan: 1, contentType: 'small-only' }, // Row 3
-  
-  // Column 15 (3 small items)
-  { colSpan: 1, contentType: 'small-only' }, // Row 1
-  { colSpan: 1, contentType: 'small-only' }, // Row 2
-  { colSpan: 1, contentType: 'small-only' }, // Row 3
-  
-  // Column 16-17 (wide item + small)
-  { colSpan: 2, contentType: 'small-only' }, // Rows 1-2
-  { colSpan: 1, contentType: 'small-only' }, // Row 3
-  
-  // Column 18 (video + 2 small)
-  { colSpan: 2, contentType: 'video-only' }, // Rows 1-2
-  { colSpan: 1, contentType: 'small-only' }  // Row 3
+  // Pattern 10: Big square + small
+  { width: 2, height: 2, contentType: 'small-only' },
+  { width: 1, height: 1, contentType: 'small-only' },
+  { width: 1, height: 1, contentType: 'small-only' }
 ];
 
 // Shuffle array utility
@@ -175,7 +169,8 @@ export const generateRandomGrid = (): GridItem[] => {
     return {
       id: `item-${index}-${content?.data?.id ?? index}`,
       type: content.type,
-      colSpan: layout.colSpan,
+      width: layout.width,
+      height: layout.height,
       data: content.data
     };
   });

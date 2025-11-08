@@ -218,10 +218,10 @@ export const ReviewsGrid = () => {
           isGridAnimated && "grid-animate"
         )}
         style={{
-          height: '450px',
-          gridAutoColumns: '150px',
-          gridAutoFlow: 'column',
-          gap: '4px',
+          height: '370px',  // 3 rows × 120px + 2 gaps × 5px
+          gridAutoColumns: '120px',
+          gridAutoFlow: 'dense',
+          gap: '5px',
           backgroundColor: 'transparent'
         }}
       >
@@ -237,13 +237,16 @@ export const ReviewsGrid = () => {
               key={item.id}
               className={cn(
                 "grid-item-entrance cursor-default silver-grey-gradient-border",
-                item.colSpan === 2 ? "col-span-2" : "col-span-1"
+                item.width === 2 && "col-span-2",
+                item.height === 2 && "row-span-2"
               )}
               style={{
                 '--delay': `${delay}ms`,
                 contain: 'content',
                 borderRadius: '12px',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                ...(item.width === 2 && { gridColumn: 'span 2' }),
+                ...(item.height === 2 && { gridRow: 'span 2' })
               } as React.CSSProperties}
             >
               {item.type === 'quote' && (
@@ -301,6 +304,14 @@ export const ReviewsGrid = () => {
         .silver-grey-gradient-border > * {
           position: relative;
           z-index: 1;
+        }
+
+        .row-span-2 {
+          grid-row: span 2;
+        }
+
+        .col-span-2 {
+          grid-column: span 2;
         }
       `}</style>
     </div>
