@@ -30,12 +30,11 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
   const { isTestMode } = useTestMode();
   const [isProcessing, setIsProcessing] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
-  const [acceptPrivacy, setAcceptPrivacy] = useState(false);
 
   const config = getServiceConfig(serviceType, location);
   const isFormComplete = customerInfo && customerInfo.name && customerInfo.email && customerInfo.phone && 
                          customerInfo.postcode && customerInfo.city && customerInfo.country;
-  const canPay = isFormComplete && bookingSelection && acceptTerms && acceptPrivacy;
+  const canPay = isFormComplete && bookingSelection && acceptTerms;
 
   const handlePayment = async () => {
     setIsProcessing(true);
@@ -128,90 +127,65 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
         }
       `}</style>
       <div className="flex flex-col space-y-4 pt-6 border-t border-white/10">
-        <div className="flex flex-col space-y-3 pb-4">
-          {/* Terms and Conditions Checkbox */}
-          <div className="flex items-start gap-3">
-            <Checkbox
-              id="accept-terms"
-              checked={acceptTerms}
-              onCheckedChange={(checked) => setAcceptTerms(checked === true)}
-              className="mt-1 border-white/30 data-[state=checked]:bg-white/20 data-[state=checked]:border-white/50"
-            />
-            <Label
-              htmlFor="accept-terms"
-              className="text-xs text-white/70 leading-relaxed cursor-pointer font-inter"
-            >
-              {language === 'nl' ? (
-                <>
-                  Ik ga akkoord met de{' '}
-                  <a
-                    href="https://cdn.sanity.io/files/ajju5i5a/production/d026e616f0b4fe37db0a1ec8b1688e175e689a72.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white underline hover:text-white/80 transition-colors"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    algemene voorwaarden
-                  </a>
-                </>
-              ) : (
-                <>
-                  I agree to the{' '}
-                  <a
-                    href="https://cdn.sanity.io/files/ajju5i5a/production/d026e616f0b4fe37db0a1ec8b1688e175e689a72.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white underline hover:text-white/80 transition-colors"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    terms and conditions
-                  </a>
-                </>
-              )}
-            </Label>
-          </div>
-
-          {/* Privacy Policy Checkbox */}
-          <div className="flex items-start gap-3">
-            <Checkbox
-              id="accept-privacy"
-              checked={acceptPrivacy}
-              onCheckedChange={(checked) => setAcceptPrivacy(checked === true)}
-              className="mt-1 border-white/30 data-[state=checked]:bg-white/20 data-[state=checked]:border-white/50"
-            />
-            <Label
-              htmlFor="accept-privacy"
-              className="text-xs text-white/70 leading-relaxed cursor-pointer font-inter"
-            >
-              {language === 'nl' ? (
-                <>
-                  Ik ga akkoord met het{' '}
-                  <a
-                    href="https://globalhair.nl/nl/privacy-policy"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white underline hover:text-white/80 transition-colors"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    privacy policy
-                  </a>
-                </>
-              ) : (
-                <>
-                  I agree to the{' '}
-                  <a
-                    href="https://globalhair.nl/nl/privacy-policy"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white underline hover:text-white/80 transition-colors"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    privacy policy
-                  </a>
-                </>
-              )}
-            </Label>
-          </div>
+        <div className="flex items-start gap-2 pb-3">
+          <Checkbox
+            id="accept-terms"
+            checked={acceptTerms}
+            onCheckedChange={(checked) => setAcceptTerms(checked === true)}
+            className="mt-0.5 border-white/30 data-[state=checked]:bg-white/20 data-[state=checked]:border-white/50"
+          />
+          <Label
+            htmlFor="accept-terms"
+            className="text-xs text-white/60 leading-relaxed cursor-pointer font-inter"
+          >
+            {language === 'nl' ? (
+              <>
+                Ik ga akkoord met de{' '}
+                <a
+                  href="https://cdn.sanity.io/files/ajju5i5a/production/d026e616f0b4fe37db0a1ec8b1688e175e689a72.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/80 underline hover:text-white transition-colors"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  algemene voorwaarden
+                </a>
+                {' '}en het{' '}
+                <a
+                  href="https://globalhair.nl/nl/privacy-policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/80 underline hover:text-white transition-colors"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  privacy policy
+                </a>
+              </>
+            ) : (
+              <>
+                I agree to the{' '}
+                <a
+                  href="https://cdn.sanity.io/files/ajju5i5a/production/d026e616f0b4fe37db0a1ec8b1688e175e689a72.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/80 underline hover:text-white transition-colors"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  terms and conditions
+                </a>
+                {' '}and{' '}
+                <a
+                  href="https://globalhair.nl/nl/privacy-policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/80 underline hover:text-white transition-colors"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  privacy policy
+                </a>
+              </>
+            )}
+          </Label>
         </div>
 
         <button
@@ -241,7 +215,7 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
               ? (language === 'nl' ? 'Selecteer eerst datum en tijd' : 'Select date and time first')
               : !isFormComplete
               ? (language === 'nl' ? 'Vul alle velden in om te kunnen betalen' : 'Fill in all fields to proceed with payment')
-              : (language === 'nl' ? 'Accepteer de algemene voorwaarden en privacy policy om verder te gaan' : 'Accept the terms and conditions and privacy policy to continue')
+              : (language === 'nl' ? 'Accepteer de voorwaarden om verder te gaan' : 'Accept the terms to continue')
             }
           </p>
         )}
