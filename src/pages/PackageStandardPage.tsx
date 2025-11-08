@@ -251,7 +251,7 @@ export const PackageStandardPage = () => {
         {
           key: 'indicators' as FeatureKey,
           title: 'Package Indicators',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          description: 'Natuurlijk herstel, zichtbaar resultaat',
           exclusive: false
         },
         {
@@ -280,7 +280,7 @@ export const PackageStandardPage = () => {
         {
           key: 'indicators' as FeatureKey,
           title: 'Package Indicators',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          description: 'Recovery x2 sneller\nMeer dichtheid & langdurige groei',
           exclusive: false
         },
         {
@@ -321,7 +321,7 @@ export const PackageStandardPage = () => {
         {
           key: 'indicators' as FeatureKey,
           title: 'Package Indicators',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+          description: 'Recovery x2 sneller\nMaximale dichtheid, volume & groei',
           exclusive: false
         },
         {
