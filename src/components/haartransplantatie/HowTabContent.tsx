@@ -216,9 +216,10 @@ export const HowTabContent = () => {
           {/* Line container with overflow */}
           <div className="absolute top-1/2 left-0 w-full overflow-hidden" style={{ height: '1px', transform: 'translateY(-50%)' }}>
             <div
-              className="absolute top-0 left-0 w-full bg-white transition-all"
+              className="absolute top-0 left-0 w-full transition-all"
               style={{
                 height: '1px',
+                background: 'linear-gradient(to right, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0.7) 100%)',
                 clipPath: timelineClipPath,
                 transitionDuration: '1200ms',
                 transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
