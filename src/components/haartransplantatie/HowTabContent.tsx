@@ -223,109 +223,132 @@ export const HowTabContent = () => {
           />
         </div>
 
-        {/* Journey Timeline - Viewport wrapper */}
-        <div className="w-full overflow-hidden relative" style={{ 
-          height: 'clamp(30px, 4vh, 40px)', 
-          margin: heightBreakpoint === 'small'
-            ? 'clamp(6px, 1vh, 8px) 0 clamp(3px, 0.5vh, 4px) 0'
-            : 'clamp(8px, 1.5vh, 12px) 0 clamp(4px, 0.75vh, 6px) 0' 
+        {/* Journey Timeline Container */}
+        <div className="w-full relative" style={{ 
+          marginTop: heightBreakpoint === 'small' ? 'clamp(6px, 1vh, 8px)' : 'clamp(8px, 1.5vh, 12px)',
+          marginBottom: heightBreakpoint === 'small' ? 'clamp(3px, 0.5vh, 4px)' : 'clamp(4px, 0.75vh, 6px)',
         }}>
-          {/* Wide timeline container (300% width) */}
-          <div 
-            className="relative transition-transform" 
-            style={{ 
-              width: '300%',
-              height: '100%',
-              transform: `translateX(-${translateX}%)`,
-              transitionDuration: '900ms',
-              transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
-            }}
-          >
-            {/* Base line (unfilled) */}
-            <div className="absolute top-1/2 left-0 w-full" style={{ height: '1px', transform: 'translateY(-50%)' }}>
-              <div
-                style={{
-                  width: '100%',
-                  height: '1px',
-                  background: 'rgba(255, 255, 255, 0.2)',
+          {/* Dots and Line - Viewport wrapper */}
+          <div className="w-full overflow-hidden relative" style={{ height: 'clamp(30px, 4vh, 40px)' }}>
+            <div 
+              className="relative transition-transform" 
+              style={{ 
+                width: '300%',
+                height: '100%',
+                transform: `translateX(-${translateX}%)`,
+                transitionDuration: '900ms',
+                transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+              }}
+            >
+              {/* Base line (unfilled) - starts at first dot, ends at last dot */}
+              <div 
+                className="absolute top-1/2" 
+                style={{ 
+                  left: '16.67%',
+                  width: '66.66%',
+                  height: '1px', 
+                  transform: 'translateY(-50%)' 
                 }}
-              />
-            </div>
+              >
+                <div style={{ width: '100%', height: '1px', background: 'rgba(255, 255, 255, 0.2)' }} />
+              </div>
 
-            {/* Filled line (progressive) */}
-            <div className="absolute top-1/2 left-0" style={{ height: '1px', transform: 'translateY(-50%)' }}>
-              <div
-                className="transition-all"
-                style={{
-                  width: `${lineFillPercentage}%`,
-                  height: '1px',
-                  background: 'linear-gradient(to right, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 1) 100%)',
-                  transitionDuration: '900ms',
-                  transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+              {/* Filled line (progressive) - grows from first dot to active dot */}
+              <div 
+                className="absolute top-1/2" 
+                style={{ 
+                  left: '16.67%',
+                  height: '1px', 
+                  transform: 'translateY(-50%)' 
                 }}
-              />
-            </div>
-            
-            {/* Three journey dots */}
-            {phases.map((phase) => {
-              const position = getPhasePosition(phase);
-              const isActive = phase === activePhase;
-              const currentIndex = phases.indexOf(activePhase);
-              const dotIndex = phases.indexOf(phase);
-              const isCompleted = dotIndex < currentIndex;
-              const isFuture = dotIndex > currentIndex;
-
-              return (
+              >
                 <div
-                  key={phase}
-                  className="absolute top-1/2 bg-white rounded-full transition-all"
+                  className="transition-all"
                   style={{
-                    left: `${position}%`,
-                    transform: `translate(-50%, -50%) scale(${isActive ? 1.4 : 0.8})`,
-                    width: 'clamp(8px, 1.2vh, 10px)',
-                    height: 'clamp(8px, 1.2vh, 10px)',
-                    opacity: isActive ? 1 : isCompleted ? 0.6 : 0.3,
-                    boxShadow: isActive ? '0px 0px 12px 4px rgba(255, 255, 255, 0.5)' : 'none',
-                    zIndex: isActive ? 20 : 10,
+                    width: `${lineFillPercentage - 16.67}%`,
+                    height: '1px',
+                    background: 'linear-gradient(to right, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 1) 100%)',
                     transitionDuration: '900ms',
                     transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
                   }}
                 />
-              );
-            })}
+              </div>
+              
+              {/* Three journey dots */}
+              {phases.map((phase) => {
+                const position = getPhasePosition(phase);
+                const isActive = phase === activePhase;
+                const currentIndex = phases.indexOf(activePhase);
+                const dotIndex = phases.indexOf(phase);
+                const isCompleted = dotIndex < currentIndex;
 
-            {/* All 3 texts rendered simultaneously */}
-            {phases.map((phase) => {
-              const position = getPhasePosition(phase);
-              const isActive = phase === activePhase;
-              const content = getPhaseContent(phase);
-
-              return (
-                <div
-                  key={phase}
-                  className="absolute transition-opacity"
-                  style={{
-                    left: `${position}%`,
-                    top: 'calc(100% + 4px)',
-                    transform: 'translateX(-50%)',
-                    opacity: isActive ? 1 : 0.3,
-                    transitionDuration: '900ms',
-                    transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
-                  }}
-                >
-                  <p 
-                    className="text-white text-center max-w-xs mx-auto"
+                return (
+                  <div
+                    key={phase}
+                    className="absolute top-1/2 bg-white rounded-full transition-all cursor-pointer"
                     style={{
-                      fontSize: 'clamp(8px, 1vh, 9px)',
-                      fontWeight: 300,
-                      fontFamily: 'Inter',
-                      lineHeight: '1.3',
+                      left: `${position}%`,
+                      transform: `translate(-50%, -50%) scale(${isActive ? 1.4 : 0.8})`,
+                      width: 'clamp(8px, 1.2vh, 10px)',
+                      height: 'clamp(8px, 1.2vh, 10px)',
+                      opacity: isActive ? 1 : isCompleted ? 0.6 : 0.3,
+                      boxShadow: isActive ? '0px 0px 12px 4px rgba(255, 255, 255, 0.5)' : 'none',
+                      zIndex: isActive ? 20 : 10,
+                      transitionDuration: '900ms',
+                      transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
                     }}
-                    dangerouslySetInnerHTML={{ __html: content.quote }}
+                    onClick={() => changePhase(phase)}
                   />
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Text - Separate viewport wrapper */}
+          <div className="w-full overflow-hidden relative" style={{ marginTop: '8px' }}>
+            <div 
+              className="relative transition-transform" 
+              style={{ 
+                width: '300%',
+                transform: `translateX(-${translateX}%)`,
+                transitionDuration: '900ms',
+                transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+              }}
+            >
+              {/* All 3 texts rendered simultaneously */}
+              {phases.map((phase) => {
+                const position = getPhasePosition(phase);
+                const isActive = phase === activePhase;
+                const content = getPhaseContent(phase);
+
+                return (
+                  <div
+                    key={phase}
+                    className="absolute transition-opacity"
+                    style={{
+                      left: `${position}%`,
+                      transform: 'translateX(-50%)',
+                      opacity: isActive ? 1 : 0.3,
+                      width: 'clamp(100px, 35vw, 180px)',
+                      textAlign: 'center',
+                      transitionDuration: '900ms',
+                      transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                    }}
+                  >
+                    <p 
+                      className="text-white"
+                      style={{
+                        fontSize: 'clamp(8px, 1vh, 9px)',
+                        fontWeight: 300,
+                        fontFamily: 'Inter',
+                        lineHeight: '1.3',
+                      }}
+                      dangerouslySetInnerHTML={{ __html: content.quote }}
+                    />
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
 
