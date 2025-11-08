@@ -97,21 +97,34 @@ function getCharacterDelay(
 // Helper function to stream static text character by character for ultra-smooth animation
 async function streamStaticText(
   text: string,
-  onChunk: (chunk: string) => void
+  onChunk: (chunk: string) => void,
+  isMountedRef: React.RefObject<boolean>,
+  timeoutsRef: React.RefObject<number[]>
 ): Promise<void> {
+  // Check if still mounted
+  if (!isMountedRef.current) return;
+  
   // Initial delay to let bubble settle in
+  const initialTimeout = window.setTimeout(() => {}, 250);
+  timeoutsRef.current?.push(initialTimeout);
   await new Promise(resolve => setTimeout(resolve, 250));
+  
+  if (!isMountedRef.current) return;
   
   const chars = text.split('');
   let accumulatedText = '';
   
   for (let i = 0; i < chars.length; i++) {
+    if (!isMountedRef.current) return; // Check mounted status before each update
+    
     const currentChar = chars[i];
     accumulatedText += currentChar;
     onChunk(accumulatedText);
     
     if (i < chars.length - 1) {
       const delay = getCharacterDelay(currentChar, text.length, i);
+      const timeoutId = window.setTimeout(() => {}, delay);
+      timeoutsRef.current?.push(timeoutId);
       await new Promise(resolve => setTimeout(resolve, delay));
     }
   }
@@ -120,23 +133,36 @@ async function streamStaticText(
 async function sendMessageStreaming(
   message: string, 
   sessionId: string,
-  onChunk: (chunk: string) => void
+  onChunk: (chunk: string) => void,
+  abortSignal: AbortSignal,
+  isMountedRef: React.RefObject<boolean>,
+  timeoutsRef: React.RefObject<number[]>
 ): Promise<void> {
   const url = 'https://radux.app.n8n.cloud/webhook/438ccf83-5a80-4605-8195-a586e4e03c34/chat?action=sendMessage';
   
   try {
+    // Check if still mounted
+    if (!isMountedRef.current) return;
+    
     // Initial delay before streaming starts
+    const initialTimeout = window.setTimeout(() => {}, 250);
+    timeoutsRef.current?.push(initialTimeout);
     await new Promise(resolve => setTimeout(resolve, 250));
+    
+    if (!isMountedRef.current) return;
     
     const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ chatInput: message, sessionId }),
+      signal: abortSignal, // Use abort signal
     });
 
     if (!response.ok) {
       throw new Error(`Request failed: ${response.status}`);
     }
+
+    if (!isMountedRef.current) return;
 
     const data = await response.json();
     const content = data.output || data.answer || data.response || data.content || data.text || '';
@@ -147,6 +173,8 @@ async function sendMessageStreaming(
       let accumulatedText = '';
       
       for (let i = 0; i < chars.length; i++) {
+        if (!isMountedRef.current) return; // Check before each update
+        
         const currentChar = chars[i];
         
         accumulatedText += currentChar;
@@ -155,15 +183,27 @@ async function sendMessageStreaming(
         // Intelligent delay based on character and message length
         if (i < chars.length - 1) {
           const delay = getCharacterDelay(currentChar, content.length, i);
+          const timeoutId = window.setTimeout(() => {}, delay);
+          timeoutsRef.current?.push(timeoutId);
           await new Promise(resolve => setTimeout(resolve, delay));
         }
       }
     } else {
-      onChunk('Geen antwoord ontvangen.');
+      if (isMountedRef.current) {
+        onChunk('Geen antwoord ontvangen.');
+      }
     }
   } catch (error) {
+    // Handle abort errors gracefully
+    if (error instanceof Error && error.name === 'AbortError') {
+      console.log('[Chat] Request aborted');
+      return;
+    }
+    
     console.error('[Chat] Error:', error);
-    onChunk('Sorry, er is iets fout gegaan bij het verwerken van je vraag.');
+    if (isMountedRef.current) {
+      onChunk('Sorry, er is iets fout gegaan bij het verwerken van je vraag.');
+    }
   }
 }
 
@@ -349,6 +389,11 @@ const ChatPage = () => {
   const nameInputRef = useRef<HTMLInputElement>(null);
   const preloadTimeoutsRef = useRef<number[]>([]);
   const { handlePopupClose } = usePopupClose();
+  
+  // Refs for preventing stuck states
+  const abortControllerRef = useRef<AbortController | null>(null);
+  const streamingTimeoutsRef = useRef<number[]>([]);
+  const isMountedRef = useRef(true);
 
   // Initialize session ID
   useEffect(() => {
@@ -366,6 +411,9 @@ const ChatPage = () => {
 
   // Cleanup interrupted streaming state on mount (e.g., after page reload)
   useEffect(() => {
+    // Mark as mounted
+    isMountedRef.current = true;
+    
     // Only run cleanup if we have messages that might be stuck
     if (messages.length > 0) {
       // Always reset loading state on mount
@@ -381,6 +429,31 @@ const ChatPage = () => {
       console.log('[Chat] Cleaned up interrupted streaming state on mount');
     }
   }, []); // Empty deps = run once on mount
+
+  // Comprehensive unmount cleanup
+  useEffect(() => {
+    return () => {
+      console.log('[Chat] Component unmounting - cleaning up streaming operations...');
+      
+      // Mark as unmounted to prevent state updates
+      isMountedRef.current = false;
+      
+      // Cancel any ongoing fetch requests
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+        abortControllerRef.current = null;
+        console.log('[Chat] Aborted fetch request');
+      }
+      
+      // Clear all streaming timeouts
+      streamingTimeoutsRef.current.forEach(clearTimeout);
+      streamingTimeoutsRef.current = [];
+      console.log('[Chat] Cleared streaming timeouts');
+      
+      // Note: We don't set state here as component is unmounting
+      // The state will be cleaned up on next mount via the mount cleanup above
+    };
+  }, []);
 
   // Aggressive layout locking for mobile keyboard
   useLayoutEffect(() => {
@@ -589,7 +662,9 @@ const ChatPage = () => {
             idx === 0 ? { ...msg, content: chunk } : msg
           )
         );
-      }
+      },
+      isMountedRef,
+      streamingTimeoutsRef
     );
     
     // Mark greeting as complete
@@ -622,7 +697,9 @@ const ChatPage = () => {
               idx === prev.length - 1 ? { ...msg, content: chunk } : msg
             )
           );
-        }
+        },
+        isMountedRef,
+        streamingTimeoutsRef
       );
       
       // Mark as complete
@@ -683,7 +760,9 @@ const ChatPage = () => {
                 idx === prev.length - 1 ? { ...msg, content: chunk } : msg
               )
             );
-          }
+          },
+          isMountedRef,
+          streamingTimeoutsRef
         );
         
         // Mark as complete
@@ -737,7 +816,9 @@ const ChatPage = () => {
               idx === prev.length - 1 ? { ...msg, content: chunk } : msg
             )
           );
-        }
+        },
+        isMountedRef,
+        streamingTimeoutsRef
       );
       
       // Mark as complete
@@ -797,7 +878,9 @@ const ChatPage = () => {
               idx === prev.length - 1 ? { ...msg, content: chunk } : msg
             )
           );
-        }
+        },
+        isMountedRef,
+        streamingTimeoutsRef
       );
       
       setMessages(prev => 
@@ -852,6 +935,9 @@ const ChatPage = () => {
     // Send first message to n8n with context and stream response
     const contextMessage = `Gebruiker ${name} heeft als onderwerp gekozen: "${selectedSubject}". ${selectedSubject === "Ik heb een andere vraag" ? "De gebruiker heeft een andere vraag." : ""}`;
     
+    // Create new abort controller for this request
+    abortControllerRef.current = new AbortController();
+    
     await sendMessageStreaming(
       contextMessage, 
       sessionId,
@@ -862,7 +948,10 @@ const ChatPage = () => {
           )
         );
         scrollToBottom();
-      }
+      },
+      abortControllerRef.current.signal,
+      isMountedRef,
+      streamingTimeoutsRef
     );
 
     // Finalize the message
@@ -916,6 +1005,9 @@ const ChatPage = () => {
     setMessages(prev => [...prev, placeholderBot]);
     setIsLoading(true);
 
+    // Create new abort controller for this request
+    abortControllerRef.current = new AbortController();
+
     await sendMessageStreaming(
       userMessage,
       sessionId,
@@ -926,7 +1018,10 @@ const ChatPage = () => {
           )
         );
         scrollToBottom();
-      }
+      },
+      abortControllerRef.current.signal,
+      isMountedRef,
+      streamingTimeoutsRef
     );
 
     // Finalize the message
