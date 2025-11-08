@@ -144,7 +144,7 @@ export const HowTabContent = () => {
         <div 
           className="relative flex items-center justify-center gap-1 rounded-full"
           style={{
-            background: '#FFFFFF0D',
+            background: 'rgba(24, 47, 60, 0.15)',
             backdropFilter: 'blur(20px)',
             border: '1px solid #FFFFFF12',
             borderRadius: '9999px',
