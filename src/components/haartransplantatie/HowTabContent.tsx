@@ -10,12 +10,11 @@ export const HowTabContent = () => {
   const { language } = useLanguage();
   const { heightBreakpoint } = useViewportHeight();
   const [activePhase, setActivePhase] = useState<Phase>('Treatment');
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('left');
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
   const containerRef = useRef<HTMLDivElement>(null);
-  const isTransitioningRef = useRef(false); // Synchronous lock for immediate checks
+  const lastClickTime = useRef<number>(0); // Simple debounce for accidental double-clicks
 
   // Detect iOS/Safari for proper video format
   const isIOSorSafari = useMemo(() => {
@@ -74,26 +73,24 @@ export const HowTabContent = () => {
     }
   };
 
-  // Change phase with transition lock
+  // Change phase immediately with simple debounce
   const changePhase = (newPhase: Phase) => {
-    // Check synchronous ref first to prevent race conditions
-    if (isTransitioningRef.current || newPhase === activePhase) return;
+    const now = Date.now();
+    const timeSinceLastClick = now - lastClickTime.current;
     
-    // Set synchronous lock immediately
-    isTransitioningRef.current = true;
+    // Prevent same phase or accidental double-clicks within 100ms
+    if (newPhase === activePhase || timeSinceLastClick < 100) return;
+    
+    lastClickTime.current = now;
     
     const currentIndex = phases.indexOf(activePhase);
     const newIndex = phases.indexOf(newPhase);
     
-    // Determine slide direction based on index comparison
+    // Determine slide direction for visual consistency
     setSlideDirection(newIndex > currentIndex ? 'left' : 'right');
     
-    setIsTransitioning(true);
+    // Immediate state update - CSS handles the smooth animation
     setActivePhase(newPhase);
-    setTimeout(() => {
-      setIsTransitioning(false);
-      isTransitioningRef.current = false;
-    }, 1200);
   };
 
   // Navigate to next/previous phase
@@ -184,7 +181,6 @@ export const HowTabContent = () => {
                 e.stopPropagation();
                 changePhase(phase);
               }}
-              disabled={isTransitioning}
               className={`relative rounded-full font-light transition-all duration-300 ease-out ${
                 activePhase === phase
                   ? 'silver-gradient-border scale-105'
@@ -198,7 +194,6 @@ export const HowTabContent = () => {
                 backgroundClip: 'text',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                pointerEvents: isTransitioning ? 'none' : 'auto',
               }}
             >
               {phase}
@@ -357,7 +352,6 @@ export const HowTabContent = () => {
                       zIndex: isActive ? 20 : 10,
                       transitionDuration: '900ms',
                       transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
-                      pointerEvents: isTransitioning ? 'none' : 'auto',
                     }}
                     onClick={(e) => {
                       e.stopPropagation();
