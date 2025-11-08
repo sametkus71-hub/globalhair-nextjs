@@ -44,7 +44,7 @@ export const BookingWizard = () => {
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
   
   // Step 1 data
-  const [consultType, setConsultType] = useState<'v6_hairboost' | 'haartransplantatie'>('v6_hairboost');
+  const [consultType, setConsultType] = useState<'v6_hairboost' | 'haartransplantatie'>('haartransplantatie');
   const [location, setLocation] = useState<LocationType>('onsite');
   const [consultant, setConsultant] = useState<'trichoTeam' | 'ceo'>('trichoTeam');
   const [serviceType, setServiceType] = useState<ServiceType | null>(null);

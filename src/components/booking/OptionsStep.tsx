@@ -43,12 +43,12 @@ export const OptionsStep = ({
       return language === 'nl'
         ? (
             <>
-              Uitgebreid consult met TrichoScan™ analyse voor haartransplantatie. Bespreek jouw wensen, krijg een professionele haaranalyse en ontvang een persoonlijk behandelplan. <span style={{ color: '#FFFFFF' }}>Duur: 45 minuten</span>
+              Persoonlijk consult voor haartransplantatie. Ontvang professioneel advies over de beste behandeling voor jouw situatie en ontdek welke transplantatiemethode het beste resultaat biedt. <span style={{ color: '#FFFFFF' }}>Duur: 45 minuten</span>
             </>
           )
         : (
             <>
-              Comprehensive consultation with TrichoScan™ analysis for hair transplantation. Discuss your wishes, receive a professional hair analysis and get a personal treatment plan. <span style={{ color: '#FFFFFF' }}>Duration: 45 minutes</span>
+              Personal consultation for hair transplantation. Receive professional advice about the best treatment for your situation and discover which transplantation method provides the best results. <span style={{ color: '#FFFFFF' }}>Duration: 45 minutes</span>
             </>
           );
     }
@@ -64,17 +64,6 @@ export const OptionsStep = ({
         <div className="flex justify-center" style={{ marginTop: '4px' }}>
           <div className="inline-flex rounded-full bg-white/5 p-1.5 gap-2 w-full">
             <button
-              onClick={() => onConsultTypeChange('v6_hairboost')}
-              className={`flex-1 px-4 rounded-full text-xs font-inter font-normal transition-all duration-300 ease-out ${
-                consultType === 'v6_hairboost'
-                  ? 'silver-gradient-border text-white scale-105'
-                  : 'text-white/60 hover:text-white scale-100'
-              }`}
-              style={consultType === 'v6_hairboost' ? { textShadow: '0 0 20px rgba(255, 255, 255, 0.6)', paddingTop: '0.775rem', paddingBottom: '0.775rem' } : { paddingTop: '0.775rem', paddingBottom: '0.775rem' }}
-            >
-              V6 Hairboost
-            </button>
-            <button
               onClick={() => onConsultTypeChange('haartransplantatie')}
               className={`flex-1 px-4 rounded-full text-xs font-inter font-normal transition-all duration-300 ease-out ${
                 consultType === 'haartransplantatie'
@@ -84,6 +73,17 @@ export const OptionsStep = ({
               style={consultType === 'haartransplantatie' ? { textShadow: '0 0 20px rgba(255, 255, 255, 0.6)', paddingTop: '0.775rem', paddingBottom: '0.775rem' } : { paddingTop: '0.775rem', paddingBottom: '0.775rem' }}
             >
               Haartransplantatie
+            </button>
+            <button
+              onClick={() => onConsultTypeChange('v6_hairboost')}
+              className={`flex-1 px-4 rounded-full text-xs font-inter font-normal transition-all duration-300 ease-out ${
+                consultType === 'v6_hairboost'
+                  ? 'silver-gradient-border text-white scale-105'
+                  : 'text-white/60 hover:text-white scale-100'
+              }`}
+              style={consultType === 'v6_hairboost' ? { textShadow: '0 0 20px rgba(255, 255, 255, 0.6)', paddingTop: '0.775rem', paddingBottom: '0.775rem' } : { paddingTop: '0.775rem', paddingBottom: '0.775rem' }}
+            >
+              V6 Hairboost
             </button>
           </div>
         </div>
