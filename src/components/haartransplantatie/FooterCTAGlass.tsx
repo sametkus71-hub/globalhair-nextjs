@@ -1,6 +1,7 @@
-import { ArrowUpRight, MessageCircle } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
+import chatIcon from '@/assets/chat-icon.svg';
 
 export const FooterCTAGlass = () => {
   const navigate = useNavigate();
@@ -100,7 +101,7 @@ export const FooterCTAGlass = () => {
               e.currentTarget.style.transform = 'scale(1)';
             }}
           >
-            <MessageCircle style={{ width: 'clamp(18px, 2vh, 20px)', height: 'clamp(18px, 2vh, 20px)' }} className="text-white" strokeWidth={1.5} />
+            <img src={chatIcon} alt="Chat" style={{ width: 'clamp(18px, 2vh, 20px)', height: 'clamp(18px, 2vh, 20px)' }} />
           </button>
         </div>
       </div>
