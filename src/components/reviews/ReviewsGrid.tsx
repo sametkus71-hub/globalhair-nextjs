@@ -16,14 +16,20 @@ import { useNavigate } from 'react-router-dom';
 // Remove interfaces - no longer needed for static implementation
 
 const QuoteCard = memo(({ quote, priority = false }: { quote: QuoteImage; priority?: boolean }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  
   return (
     <div className="w-full h-full relative overflow-hidden">
+      {!imageLoaded && (
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 animate-pulse" />
+      )}
       <img 
         src={quote.src} 
         alt={quote.alt}
         className="w-full h-full object-cover"
         loading={priority ? "eager" : "lazy"}
         decoding="async"
+        onLoad={() => setImageLoaded(true)}
       />
     </div>
   );
@@ -113,17 +119,25 @@ const VideoCard = memo(({
   );
 });
 
-const BeforeAfterCard = memo(({ item, priority = false }: { item: BeforeAfterItem; priority?: boolean }) => (
-  <div className="w-full h-full relative overflow-hidden">
-    <img 
-      src={item.image}
-      alt="Hair transplant before/after result"
-      className="w-full h-full object-cover"
-      loading={priority ? "eager" : "lazy"}
-      decoding="async"
-    />
-  </div>
-));
+const BeforeAfterCard = memo(({ item, priority = false }: { item: BeforeAfterItem; priority?: boolean }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  
+  return (
+    <div className="w-full h-full relative overflow-hidden">
+      {!imageLoaded && (
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 animate-pulse" />
+      )}
+      <img 
+        src={item.image}
+        alt="Hair transplant before/after result"
+        className="w-full h-full object-cover"
+        loading={priority ? "eager" : "lazy"}
+        decoding="async"
+        onLoad={() => setImageLoaded(true)}
+      />
+    </div>
+  );
+});
 
 export const ReviewsGrid = () => {
   const { language } = useLanguage();
@@ -134,9 +148,9 @@ export const ReviewsGrid = () => {
   // Generate random grid on component mount
   const [gridItems] = useState<GridItem[]>(() => generateRandomGrid());
   
-  // Progressive loading state
+  // Progressive loading state - start with only 6 items for faster initial load
   const [visibleItemCount, setVisibleItemCount] = useState(() => 
-    isMobile ? 12 : 24
+    isMobile ? 6 : 12
   );
   
   // State for video muting - track which video is currently unmuted (if any)
@@ -145,10 +159,10 @@ export const ReviewsGrid = () => {
   // Grid animation state - single boolean for triggering CSS animation
   const [isGridAnimated, setIsGridAnimated] = useState(false);
   
-  // Intersection observer for progressive loading
+  // Intersection observer for progressive loading - increased rootMargin for better preloading
   const { isIntersecting: shouldLoadMore, elementRef: loadMoreRef } = useIntersection<HTMLDivElement>({
     threshold: 0.1,
-    rootMargin: '100px'
+    rootMargin: '500px'
   });
 
   // Find video items to determine which should autoplay
@@ -180,11 +194,11 @@ export const ReviewsGrid = () => {
     setUnmutedVideoId(prevId => prevId === videoId ? null : videoId);
   };
 
-  // Progressive loading effect
+  // Progressive loading effect - load 6 items at a time for smoother experience
   useEffect(() => {
     if (shouldLoadMore && visibleItemCount < gridItems.length) {
       const loadNextBatch = () => {
-        setVisibleItemCount(prev => Math.min(prev + 12, gridItems.length));
+        setVisibleItemCount(prev => Math.min(prev + 6, gridItems.length));
       };
       
       // Small delay to prevent rapid loading
@@ -252,7 +266,7 @@ export const ReviewsGrid = () => {
               } as React.CSSProperties}
             >
               {item.type === 'quote' && (
-                <QuoteCard quote={item.data} priority={index < 3} />
+                <QuoteCard quote={item.data} priority={index < 6} />
               )}
               {(item.type === 'video' || item.type === 'berkant-video') && (
                 <VideoCard 
@@ -265,7 +279,7 @@ export const ReviewsGrid = () => {
                 />
               )}
               {item.type === 'before-after' && (
-                <BeforeAfterCard item={item.data} priority={index < 3} />
+                <BeforeAfterCard item={item.data} priority={index < 6} />
               )}
             </div>
           );
