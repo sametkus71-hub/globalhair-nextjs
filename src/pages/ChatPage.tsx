@@ -395,8 +395,14 @@ const ChatPage = () => {
   const streamingTimeoutsRef = useRef<number[]>([]);
   const isMountedRef = useRef(true);
 
-  // Initialize session ID
+  // Single robust mount handler - initializes everything in correct order
   useEffect(() => {
+    console.log('[Chat] Component mounting - initializing...');
+    
+    // STEP 1: Mark as mounted
+    isMountedRef.current = true;
+    
+    // STEP 2: Load or create session ID
     const storedSessionId = localStorage.getItem('n8n-chat-session-id');
     if (storedSessionId) {
       setSessionId(storedSessionId);
@@ -407,42 +413,94 @@ const ChatPage = () => {
       setSessionId(newSessionId);
       console.log('[Chat] Created new session:', newSessionId);
     }
-  }, []);
-
-  // Cleanup interrupted streaming state on mount (e.g., after page reload)
-  useEffect(() => {
-    // Mark as mounted
-    isMountedRef.current = true;
     
-    // Only run cleanup if we have messages that might be stuck
-    if (messages.length > 0) {
-      // Always reset loading state on mount
-      setIsLoading(false);
+    // STEP 3: Load all saved data at once
+    const savedData = {
+      messages: localStorage.getItem('chat-messages'),
+      name: localStorage.getItem('chat-user-name'),
+      state: localStorage.getItem('chat-conversation-state'),
+      subject: localStorage.getItem('chat-selected-subject'),
+      questions: localStorage.getItem('chat-displayed-questions'),
+      showInput: localStorage.getItem('chat-show-input-field')
+    };
+    
+    // STEP 4: Sanitize and restore saved data
+    let hasSavedConversation = false;
+    
+    if (savedData.messages) {
+      try {
+        const parsed = JSON.parse(savedData.messages);
+        // CRITICAL: Force all messages to non-streaming state
+        const sanitizedMessages = parsed.map((msg: Message) => ({
+          ...msg,
+          isStreaming: false  // Never restore streaming state
+        }));
+        setMessages(sanitizedMessages);
+        hasSavedConversation = true;
+        console.log('[Chat] Restored', sanitizedMessages.length, 'messages');
+      } catch (e) {
+        console.error('Failed to parse saved messages:', e);
+      }
+    }
+    
+    if (savedData.name) {
+      setUserName(savedData.name);
+      console.log('[Chat] Restored user name');
+    }
+    
+    if (savedData.subject) {
+      setSelectedSubject(savedData.subject);
+      console.log('[Chat] Restored subject');
+    }
+    
+    // Restore or generate questions
+    if (savedData.questions) {
+      try {
+        setDisplayedQuestions(JSON.parse(savedData.questions));
+      } catch (e) {
+        console.error('Failed to parse saved questions:', e);
+        const randomQuestions = getRandomQuestions(STARTING_QUESTIONS, 2);
+        setDisplayedQuestions([...randomQuestions, FIXED_QUESTION]);
+      }
+    } else {
+      const randomQuestions = getRandomQuestions(STARTING_QUESTIONS, 2);
+      setDisplayedQuestions([...randomQuestions, FIXED_QUESTION]);
+    }
+    
+    // STEP 5: Determine conversation state and input visibility
+    if (hasSavedConversation && savedData.state) {
+      // Restore conversation state
+      const restoredState = savedData.state as ConversationState;
+      setConversationState(restoredState);
       
-      // Clean up any messages stuck in streaming state
-      setMessages(prev => 
-        prev.map(msg => 
-          msg.isStreaming ? { ...msg, isStreaming: false } : msg
-        )
-      );
-      
-      // Smart input field recovery - auto-show if conversation state requires it
-      const savedState = localStorage.getItem('chat-conversation-state');
-      if (savedState === ConversationState.ASKING_CUSTOM_QUESTION || 
-          savedState === ConversationState.ASKING_NAME) {
-        setTimeout(() => {
+      // CRITICAL: Always show input if in an input-requiring state
+      if (restoredState === ConversationState.ASKING_CUSTOM_QUESTION ||
+          restoredState === ConversationState.ASKING_NAME ||
+          restoredState === ConversationState.ACTIVE_CHAT) {
+        setShowInputField(true);
+        console.log('[Chat] Auto-enabled input field for state:', restoredState);
+      } else if (savedData.showInput) {
+        try {
+          setShowInputField(JSON.parse(savedData.showInput));
+        } catch (e) {
+          // Default to true if conversation exists
           setShowInputField(true);
-        }, 300);
+        }
       }
       
-      console.log('[Chat] Cleaned up interrupted streaming state on mount');
+      // CRITICAL: Always clear loading state for saved conversations
+      setIsLoading(false);
+      
+      console.log('[Chat] Restored saved conversation in state:', restoredState);
+    } else {
+      // STEP 6: Start fresh conversation if no saved data
+      console.log('[Chat] No saved conversation - starting fresh');
+      startConversationFlow();
     }
-  }, []); // Empty deps = run once on mount
-
-  // Comprehensive unmount cleanup
-  useEffect(() => {
+    
+    // Cleanup function
     return () => {
-      console.log('[Chat] Component unmounting - cleaning up streaming operations...');
+      console.log('[Chat] Component unmounting - cleaning up...');
       
       // Mark as unmounted to prevent state updates
       isMountedRef.current = false;
@@ -451,18 +509,17 @@ const ChatPage = () => {
       if (abortControllerRef.current) {
         abortControllerRef.current.abort();
         abortControllerRef.current = null;
-        console.log('[Chat] Aborted fetch request');
       }
       
       // Clear all streaming timeouts
       streamingTimeoutsRef.current.forEach(clearTimeout);
       streamingTimeoutsRef.current = [];
-      console.log('[Chat] Cleared streaming timeouts');
       
-      // Note: We don't set state here as component is unmounting
-      // The state will be cleaned up on next mount via the mount cleanup above
+      // Clear preload timeouts
+      preloadTimeoutsRef.current.forEach(clearTimeout);
+      preloadTimeoutsRef.current = [];
     };
-  }, []);
+  }, []); // Run once on mount
 
   // Aggressive layout locking for mobile keyboard
   useLayoutEffect(() => {
@@ -540,76 +597,16 @@ const ChatPage = () => {
     };
   }, []);
 
-  // Load saved data on mount
-  useEffect(() => {
-    const savedMessages = localStorage.getItem('chat-messages');
-    const savedName = localStorage.getItem('chat-user-name');
-    const savedState = localStorage.getItem('chat-conversation-state');
-    const savedSubject = localStorage.getItem('chat-selected-subject');
-    const savedQuestions = localStorage.getItem('chat-displayed-questions');
-    const savedShowInputField = localStorage.getItem('chat-show-input-field');
-    
-    if (savedName) {
-      setUserName(savedName);
-    }
-    
-    if (savedState) {
-      setConversationState(savedState as ConversationState);
-    }
-    
-    if (savedSubject) {
-      setSelectedSubject(savedSubject);
-    }
-    
-    // Restore showInputField state
-    if (savedShowInputField) {
-      try {
-        setShowInputField(JSON.parse(savedShowInputField));
-      } catch (e) {
-        console.error('Failed to parse saved showInputField:', e);
-      }
-    }
+  // This effect is now merged into the single mount handler above
 
-    // Load or generate random questions
-    if (savedQuestions) {
-      try {
-        const parsed = JSON.parse(savedQuestions);
-        setDisplayedQuestions(parsed);
-      } catch (e) {
-        console.error('Failed to parse saved questions:', e);
-        // Generate new questions if parsing fails
-        const randomQuestions = getRandomQuestions(STARTING_QUESTIONS, 2);
-        setDisplayedQuestions([...randomQuestions, FIXED_QUESTION]);
-      }
-    } else {
-      // Generate new random questions on first load
-      const randomQuestions = getRandomQuestions(STARTING_QUESTIONS, 2);
-      setDisplayedQuestions([...randomQuestions, FIXED_QUESTION]);
-    }
-    
-    if (savedMessages) {
-      try {
-        const parsed = JSON.parse(savedMessages);
-        setMessages(parsed);
-        return; // Skip preloaded messages if we have saved ones
-      } catch (e) {
-        console.error('Failed to parse saved messages:', e);
-      }
-    }
-    
-    // Start conversation flow from GREETING
-    startConversationFlow();
-    
-    return () => {
-      preloadTimeoutsRef.current.forEach(clearTimeout);
-      preloadTimeoutsRef.current = [];
-    };
-  }, []);
-
-  // Save data to localStorage
+  // Save data to localStorage - CRITICAL: Never persist streaming state
   useEffect(() => {
     if (messages.length > 0) {
-      localStorage.setItem('chat-messages', JSON.stringify(messages));
+      const cleanMessages = messages.map(msg => ({
+        ...msg,
+        isStreaming: false  // Never persist streaming state
+      }));
+      localStorage.setItem('chat-messages', JSON.stringify(cleanMessages));
     }
   }, [messages]);
 
