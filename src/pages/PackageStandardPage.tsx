@@ -257,19 +257,19 @@ export const PackageStandardPage = () => {
         {
           key: 'fue' as FeatureKey,
           title: 'FUE Saffier / DHI',
-          description: 'FUE Saffier is de standaard in haartransplantatie: met ultradunne saffieren mesjes voor nauwkeurige plaatsing, minimale littekens en sneller herstel. DHI maakt directe implantatie mogelijk - zonder scheren, met maximale controle over richting en dichtheid.',
+          description: 'FUE Saffier is de standaard in haartransplantatie: met ultradunne saffieren mesjes voor nauwkeurige plaatsing, minimale littekens en sneller herstel. DHI maakt directe implantatie mogelijk zonder scheren, met maximale controle over richting en dichtheid.',
           exclusive: false
         },
         {
           key: 'precision' as FeatureKey,
           title: 'GHI Precision Method™',
-          description: 'De exclusieve methode van Berkant Dural, waarmee al onze artsen persoonlijk zijn opgeleid. Een unieke werkwijze die ambacht, precisie en rust combineert - zonder tijdsdruk, in perfecte omstandigheden, om elk resultaat tot een meesterwerk in haartransplantatie te maken.',
+          description: 'GHI Precision Method™ is een exclusief chirurgisch protocol ontwikkeld en gecertificeerd door Berkant Dural. Het is de methode waarmee al onze artsen & trichologen persoonlijk worden opgeleid om dezelfde hoge standaard en precisie te waarborgen. Een unieke werkwijze die ambacht, detail en rust combineert in perfecte omstandigheden zodat elk resultaat een meesterwerk in haartransplantatie wordt.',
           exclusive: false
         },
         {
           key: 'support' as FeatureKey,
           title: '1 Year Personal Aftercare',
-          description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon. Onze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen - altijd bereikbaar, altijd persoonlijk.',
+          description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon. Onze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen altijd bereikbaar, altijd persoonlijk.',
           exclusive: false
         }
       ]
@@ -286,31 +286,31 @@ export const PackageStandardPage = () => {
         {
           key: 'fue' as FeatureKey,
           title: 'FUE Saffier / DHI',
-          description: 'FUE Saffier is de standaard in haartransplantatie: met ultradunne saffieren mesjes voor nauwkeurige plaatsing, minimale littekens en sneller herstel. DHI maakt directe implantatie mogelijk - zonder scheren, met maximale controle over richting en dichtheid.',
+          description: 'FUE Saffier is de standaard in haartransplantatie: met ultradunne saffieren mesjes voor nauwkeurige plaatsing, minimale littekens en sneller herstel. DHI maakt directe implantatie mogelijk zonder scheren, met maximale controle over richting en dichtheid.',
           exclusive: false
         },
         {
           key: 'comfort' as FeatureKey,
-          title: 'Comfort verdoving',
-          description: 'Een naaldloze verdoving die zonder prikken wordt aangebracht. Je voelt nog iets, maar veel minder intens - voor een rustige, comfortabele ervaring zonder scherpe pijn.',
+          title: 'Comfort Verdoving',
+          description: 'Een naaldloze verdoving die zonder prikken wordt aangebracht. Je voelt nog iets, maar veel minder intens voor een rustige, comfortabele ervaring zonder scherpe pijn.',
           exclusive: false
         },
         {
           key: 'v6year' as FeatureKey,
           title: 'V6 Hairboost® - 1 Year',
-          description: 'Een volledig jaarprogramma met voor- en nabehandelingen. Het donorgebied wordt versterkt en de haarwortels geactiveerd voor optimale oogst. Daarna versnelt het herstel tot twee keer sneller dankzij onze exclusieve vitaminekuur - waardoor je na 6 maanden al het resultaat ziet dat normaal pas na 12 maanden optreedt.',
+          description: 'Acht nabehandelingen die het herstel tot twee keer sneller maken. Dankzij onze exclusieve vitaminekuur stimuleert dit het groeiproces waardoor je na 6 maanden al het resultaat ziet dat normaal pas na 12 maanden optreedt.',
           exclusive: false
         },
         {
           key: 'precision' as FeatureKey,
           title: 'GHI Precision Method™',
-          description: 'De exclusieve methode van Berkant Dural, waarmee al onze artsen persoonlijk zijn opgeleid. Een unieke werkwijze die ambacht, precisie en rust combineert - zonder tijdsdruk, in perfecte omstandigheden, om elk resultaat tot een meesterwerk in haartransplantatie te maken.',
+          description: 'GHI Precision Method™ is een exclusief chirurgisch protocol ontwikkeld en gecertificeerd door Berkant Dural. Het is de methode waarmee al onze artsen & trichologen persoonlijk worden opgeleid om dezelfde hoge standaard en precisie te waarborgen. Een unieke werkwijze die ambacht, detail en rust combineert in perfecte omstandigheden zodat elk resultaat een meesterwerk in haartransplantatie wordt.',
           exclusive: false
         },
         {
           key: 'support' as FeatureKey,
           title: '1 Year Personal Aftercare',
-          description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon. Onze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen - altijd bereikbaar, altijd persoonlijk.',
+          description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon. Onze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen altijd bereikbaar, altijd persoonlijk.',
           exclusive: false
         }
       ]
@@ -327,19 +327,19 @@ export const PackageStandardPage = () => {
         {
           key: 'fue' as FeatureKey,
           title: 'FUE Saffier / DHI',
-          description: 'FUE Saffier is de standaard in haartransplantatie: met ultradunne saffieren mesjes voor nauwkeurige plaatsing, minimale littekens en sneller herstel. DHI maakt directe implantatie mogelijk - zonder scheren, met maximale controle over richting en dichtheid.',
+          description: 'FUE Saffier is de standaard in haartransplantatie: met ultradunne saffieren mesjes voor nauwkeurige plaatsing, minimale littekens en sneller herstel. DHI maakt directe implantatie mogelijk zonder scheren, met maximale controle over richting en dichtheid.',
           exclusive: false
         },
         {
           key: 'stemcellrepair' as FeatureKey,
           title: 'GHI Stemcell Repair™',
-          description: 'Een stamceltherapie, exclusief ontwikkeld en uitgevoerd door GlobalHair Institute. We oogsten lichaamseigen stamcellen om beschadigde haarzakjes te herstellen en het transplantatiegebied te versterken - wat resulteert in 20-35% meer dichtheid en langdurige stabiliteit.',
+          description: 'Een stamceltherapie, exclusief ontwikkeld en uitgevoerd door GlobalHair Institute. We oogsten lichaamseigen stamcellen om beschadigde haarzakjes te herstellen en het transplantatiegebied te versterken wat resulteert in 20-35% meer dichtheid en langdurige stabiliteit.',
           exclusive: false
         },
         {
           key: 'comfort' as FeatureKey,
-          title: 'Comfort verdoving',
-          description: 'Een naaldloze verdoving die zonder prikken wordt aangebracht. Je voelt nog iets, maar veel minder intens - voor een rustige, comfortabele ervaring zonder scherpe pijn.',
+          title: 'Comfort Verdoving',
+          description: 'Een naaldloze verdoving die zonder prikken wordt aangebracht. Je voelt nog iets, maar veel minder intens voor een rustige, comfortabele ervaring zonder scherpe pijn.',
           exclusive: false
         },
         {
@@ -351,19 +351,19 @@ export const PackageStandardPage = () => {
         {
           key: 'v6year' as FeatureKey,
           title: 'V6 Hairboost® - 1 Year',
-          description: 'Acht nabehandelingen die het herstel tot twee keer sneller maken. Dankzij onze exclusieve vitaminekuur stimuleert dit het groeiproces - waardoor je na 6 maanden al het resultaat ziet dat normaal pas na 12 maanden optreedt.',
+          description: 'Acht nabehandelingen die het herstel tot twee keer sneller maken. Dankzij onze exclusieve vitaminekuur stimuleert dit het groeiproces waardoor je na 6 maanden al het resultaat ziet dat normaal pas na 12 maanden optreedt.',
           exclusive: false
         },
         {
           key: 'precision' as FeatureKey,
           title: 'GHI Precision Method™',
-          description: 'De exclusieve methode van Berkant Dural, waarmee al onze artsen persoonlijk zijn opgeleid. Een unieke werkwijze die ambacht, precisie en rust combineert - zonder tijdsdruk, in perfecte omstandigheden, om elk resultaat tot een meesterwerk in haartransplantatie te maken.',
+          description: 'GHI Precision Method™ is een exclusief chirurgisch protocol ontwikkeld en gecertificeerd door Berkant Dural. Het is de methode waarmee al onze artsen & trichologen persoonlijk worden opgeleid om dezelfde hoge standaard en precisie te waarborgen. Een unieke werkwijze die ambacht, detail en rust combineert in perfecte omstandigheden zodat elk resultaat een meesterwerk in haartransplantatie wordt.',
           exclusive: false
         },
         {
           key: 'support' as FeatureKey,
           title: '1 Year Personal Aftercare',
-          description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon. Onze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen - altijd bereikbaar, altijd persoonlijk.',
+          description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon. Onze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen altijd bereikbaar, altijd persoonlijk.',
           exclusive: false
         }
       ]
