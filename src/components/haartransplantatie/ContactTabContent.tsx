@@ -83,7 +83,7 @@ export const ContactTabContent = () => {
                   <img src={shieldIcon} alt="Shield" className="w-4 h-4 opacity-95" />
                   <img src={v6HairboostIcon} alt="V6 Hairboost" className="w-6 h-6" />
                 </div>
-                <h2 className="text-white font-normal mb-1" style={{ fontSize: 'clamp(18px, 4vw, 24px)', fontFamily: 'Inter, sans-serif' }}>
+                <h2 className="text-white mb-1" style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: '24px', lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
                   Barendrecht
                 </h2>
                 <p className="text-white text-xs opacity-90 mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>
@@ -107,7 +107,7 @@ export const ContactTabContent = () => {
                 <div className="flex gap-2 justify-center items-center mb-2">
                   <img src={v6HairboostIcon} alt="V6 Hairboost" className="w-6 h-6" />
                 </div>
-                <h2 className="text-white font-normal mb-1" style={{ fontSize: 'clamp(18px, 4vw, 24px)', fontFamily: 'Inter, sans-serif' }}>
+                <h2 className="text-white mb-1" style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: '24px', lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
                   Leiden
                 </h2>
                 <p className="text-white text-xs opacity-90" style={{ fontFamily: 'Inter, sans-serif' }}>
@@ -121,7 +121,7 @@ export const ContactTabContent = () => {
                 <div className="flex gap-2 justify-center items-center mb-2">
                   <img src={shieldIcon} alt="Shield" className="w-4 h-4 opacity-95" />
                 </div>
-                <h2 className="text-white font-normal mb-1" style={{ fontSize: 'clamp(18px, 4vw, 24px)', fontFamily: 'Inter, sans-serif' }}>
+                <h2 className="text-white mb-1" style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: '24px', lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
                   İstanbul
                 </h2>
                 <p className="text-white text-xs opacity-90" style={{ fontFamily: 'Inter, sans-serif' }}>
