@@ -280,15 +280,19 @@ export const HowTabContent = () => {
           </div>
 
           {/* Dots and Line - Viewport wrapper */}
-          <div className="w-full overflow-visible relative" style={{ height: 'clamp(30px, 4vh, 40px)', padding: '8px 0', position: 'relative', zIndex: 15 }}>
+          <div className="w-full overflow-visible relative" style={{ height: 'clamp(30px, 4vh, 40px)', padding: '8px 0', zIndex: 15, isolation: 'isolate' }}>
             <div 
               className="relative transition-transform" 
               style={{ 
                 width: '300%',
                 height: '100%',
-                transform: `translateX(-${translateX}%)`,
+                transform: `translate3d(-${translateX}%, 0, 0)`,
+                WebkitTransform: `translate3d(-${translateX}%, 0, 0)`,
                 transitionDuration: '900ms',
                 transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                willChange: 'transform',
+                transformStyle: 'preserve-3d',
+                WebkitTransformStyle: 'preserve-3d',
               }}
             >
               {/* Base line (unfilled) - starts at first dot, ends at last dot */}
@@ -298,7 +302,7 @@ export const HowTabContent = () => {
                   left: '16.67%',
                   width: '66.66%',
                   height: '1px', 
-                  transform: 'translateY(-50%)' 
+                  transform: 'translate3d(0, -50%, 0)' 
                 }}
               >
                 <div style={{ width: '100%', height: '1px', background: 'rgba(255, 255, 255, 0.2)', pointerEvents: 'none' }} />
@@ -310,7 +314,7 @@ export const HowTabContent = () => {
                 style={{ 
                   left: '16.67%',
                   height: '1px', 
-                  transform: 'translateY(-50%)' 
+                  transform: 'translate3d(0, -50%, 0)' 
                 }}
               >
                 <div
@@ -341,7 +345,7 @@ export const HowTabContent = () => {
                     className="absolute top-1/2 bg-white rounded-full transition-all cursor-pointer"
                     style={{
                       left: `${position}%`,
-                      transform: `translate(-50%, -50%) scale(${isActive ? 1.4 : 0.8})`,
+                      transform: `translate3d(-50%, -50%, 0) scale(${isActive ? 1.4 : 0.8})`,
                       width: 'clamp(8px, 1.2vh, 10px)',
                       height: 'clamp(8px, 1.2vh, 10px)',
                       opacity: isActive ? 1 : isCompleted ? 0.6 : 0.3,
