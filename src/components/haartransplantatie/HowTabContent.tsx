@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 
 type Phase = 'Pre-' | 'Treatment' | 'After-';
@@ -6,6 +6,10 @@ type Phase = 'Pre-' | 'Treatment' | 'After-';
 export const HowTabContent = () => {
   const { language } = useLanguage();
   const [activePhase, setActivePhase] = useState<Phase>('Treatment');
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const touchStartX = useRef<number>(0);
+  const touchEndX = useRef<number>(0);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // Detect iOS/Safari for proper video format
   const isIOSorSafari = useMemo(() => {
@@ -17,19 +21,108 @@ export const HowTabContent = () => {
 
   const phases: Phase[] = ['Pre-', 'Treatment', 'After-'];
 
-  const getTimelinePosition = () => {
+  // Timeline positioning for journey effect
+  const getTimelineData = () => {
     switch (activePhase) {
       case 'Pre-':
-        return '25%';
+        return { dotPosition: '3%', leftLineWidth: '0%', rightLineWidth: '97%' };
       case 'Treatment':
-        return '50%';
+        return { dotPosition: '50%', leftLineWidth: '50%', rightLineWidth: '50%' };
       case 'After-':
-        return '75%';
+        return { dotPosition: '97%', leftLineWidth: '97%', rightLineWidth: '0%' };
     }
   };
 
+  // Dynamic content per phase
+  const getPhaseContent = () => {
+    switch (activePhase) {
+      case 'Pre-':
+        return {
+          quote: "De haarscan was super professioneel. <br />Ze namen alle tijd om mijn verwachtingen te bespreken.",
+        };
+      case 'Treatment':
+        return {
+          quote: "Inmiddels heb ik al drie vrienden doorverwezen. <br />GlobalHair maakt meer waar dan ze beloven.",
+        };
+      case 'After-':
+        return {
+          quote: "Na 6 maanden zie ik geweldige resultaten. <br />Ik voel me een stuk zelfverzekerder!",
+        };
+    }
+  };
+
+  // Change phase with transition lock
+  const changePhase = (newPhase: Phase) => {
+    if (isTransitioning || newPhase === activePhase) return;
+    setIsTransitioning(true);
+    setActivePhase(newPhase);
+    setTimeout(() => setIsTransitioning(false), 600);
+  };
+
+  // Navigate to next/previous phase
+  const goToNextPhase = () => {
+    const currentIndex = phases.indexOf(activePhase);
+    if (currentIndex < phases.length - 1) {
+      changePhase(phases[currentIndex + 1]);
+    }
+  };
+
+  const goToPreviousPhase = () => {
+    const currentIndex = phases.indexOf(activePhase);
+    if (currentIndex > 0) {
+      changePhase(phases[currentIndex - 1]);
+    }
+  };
+
+  // Swipe gesture handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const swipeDistance = touchStartX.current - touchEndX.current;
+    const swipeThreshold = 50;
+
+    if (Math.abs(swipeDistance) > swipeThreshold) {
+      if (swipeDistance > 0) {
+        // Swiped left - go to next
+        goToNextPhase();
+      } else {
+        // Swiped right - go to previous
+        goToPreviousPhase();
+      }
+    }
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        goToPreviousPhase();
+      } else if (e.key === 'ArrowRight') {
+        goToNextPhase();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activePhase]);
+
+  const timelineData = getTimelineData();
+  const phaseContent = getPhaseContent();
+
   return (
-    <div className="h-full w-full overflow-hidden flex flex-col items-center">
+    <div 
+      ref={containerRef}
+      className="h-full w-full overflow-hidden flex flex-col items-center"
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       <div className="w-full flex flex-col items-center px-4" style={{ gap: 'clamp(0.3rem, 0.6vh, 0.5rem)' }}>
         {/* Phase Selector */}
         <div 
@@ -46,7 +139,8 @@ export const HowTabContent = () => {
           {phases.map((phase) => (
             <button
               key={phase}
-              onClick={() => setActivePhase(phase)}
+              onClick={() => changePhase(phase)}
+              disabled={isTransitioning}
               className={`relative rounded-full font-light transition-all duration-300 ease-out ${
                 activePhase === phase
                   ? 'silver-gradient-border scale-105'
@@ -94,7 +188,8 @@ export const HowTabContent = () => {
 
         {/* Quote Text */}
         <p 
-          className="text-white text-center max-w-xs mx-auto"
+          key={activePhase}
+          className="text-white text-center max-w-xs mx-auto animate-fade-in"
           style={{
             fontSize: 'clamp(8px, 1vh, 9px)',
             fontWeight: 300,
@@ -103,20 +198,42 @@ export const HowTabContent = () => {
             marginTop: '-40px',
             marginBottom: '0px',
           }}
-        >
-          Inmiddels heb ik al drie vrienden doorverwezen. <br />GlobalHair maakt meer waar dan ze beloven.
-        </p>
+          dangerouslySetInnerHTML={{ __html: phaseContent.quote }}
+        />
 
-        {/* Timeline - Full Width */}
-        <div className="w-full relative bg-white rounded-full" style={{ height: '1px', margin: 'clamp(8px, 1.5vh, 12px) 0' }}>
+        {/* Journey Timeline */}
+        <div className="w-full relative" style={{ height: '1px', margin: 'clamp(8px, 1.5vh, 12px) 0' }}>
+          {/* Left line segment */}
           <div
-            className="absolute top-1/2 -translate-y-1/2 bg-white rounded-full transition-all duration-500 ease-out"
+            className="absolute left-0 top-0 bg-white rounded-full transition-all duration-500 ease-out"
             style={{
-              left: getTimelinePosition(),
+              width: timelineData.leftLineWidth,
+              height: '1px',
+              transitionDelay: '100ms',
+            }}
+          />
+          
+          {/* Journey Dot */}
+          <div
+            className="absolute top-1/2 bg-white rounded-full transition-all duration-600 ease-out"
+            style={{
+              left: timelineData.dotPosition,
               transform: `translate(-50%, -50%)`,
               width: 'clamp(8px, 1.2vh, 10px)',
               height: 'clamp(8px, 1.2vh, 10px)',
               boxShadow: '0px 0px 6.8px 3px #FFFFFF40',
+              transitionDuration: '600ms',
+              transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+            }}
+          />
+          
+          {/* Right line segment */}
+          <div
+            className="absolute right-0 top-0 bg-white rounded-full transition-all duration-500 ease-out"
+            style={{
+              width: timelineData.rightLineWidth,
+              height: '1px',
+              transitionDelay: '100ms',
             }}
           />
         </div>
