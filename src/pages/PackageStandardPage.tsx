@@ -413,7 +413,7 @@ export const PackageStandardPage = () => {
           className="h-full flex items-start justify-center p-4 pt-4"
         >
           <main className="flex flex-col w-full max-w-2xl h-[calc(100vh-32px)]">
-            <SwipeablePopupWrapper onClose={handleClose} className="h-full">
+            <SwipeablePopupWrapper onClose={handleClose} className="h-full flex flex-col">
               <section
                 className={`relative rounded-[24px] p-4 flex-1 mb-16 flex flex-col popup-section-border reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}
                 style={{
