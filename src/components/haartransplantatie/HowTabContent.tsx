@@ -21,15 +21,15 @@ export const HowTabContent = () => {
 
   const phases: Phase[] = ['Pre-', 'Treatment', 'After-'];
 
-  // Timeline positioning - dot stays centered, line moves
-  const getTimelineTransform = () => {
+  // Timeline clip-path for journey effect
+  const getTimelineClipPath = () => {
     switch (activePhase) {
       case 'Pre-':
-        return 'translateX(0%)'; // Line starts at center, extends right
+        return 'inset(0 0 0 50%)'; // Show right half - journey starts
       case 'Treatment':
-        return 'translateX(-50%)'; // Line centered, extends both ways
+        return 'inset(0 0 0 0)'; // Show full line - in the middle
       case 'After-':
-        return 'translateX(-100%)'; // Line ends at center, extends left
+        return 'inset(0 50% 0 0)'; // Show left half - journey ends
     }
   };
 
@@ -112,7 +112,7 @@ export const HowTabContent = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [activePhase]);
 
-  const timelineTransform = getTimelineTransform();
+  const timelineClipPath = getTimelineClipPath();
   const phaseContent = getPhaseContent();
 
   return (
@@ -202,26 +202,25 @@ export const HowTabContent = () => {
         />
 
         {/* Journey Timeline */}
-        <div className="w-full relative overflow-hidden" style={{ height: '1px', margin: 'clamp(8px, 1.5vh, 12px) 0' }}>
-          {/* Moving timeline line - 200% width */}
-          <div
-            className="absolute top-0 left-0 transition-transform duration-600 ease-out"
-            style={{
-              width: '200%',
-              height: '1px',
-              transform: timelineTransform,
-              transitionDuration: '600ms',
-              transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
-            }}
-          >
-            <div className="absolute top-0 left-0 w-full h-full bg-white" />
+        <div className="w-full relative" style={{ height: 'clamp(12px, 2vh, 16px)', margin: 'clamp(8px, 1.5vh, 12px) 0' }}>
+          {/* Line container with overflow */}
+          <div className="absolute top-1/2 left-0 w-full overflow-hidden" style={{ height: '1px', transform: 'translateY(-50%)' }}>
+            <div
+              className="absolute top-0 left-0 w-full bg-white transition-all"
+              style={{
+                height: '1px',
+                clipPath: timelineClipPath,
+                transitionDuration: '600ms',
+                transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+              }}
+            />
           </div>
           
-          {/* Fixed center dot */}
+          {/* Fixed center dot - always visible */}
           <div
             className="absolute top-1/2 left-1/2 bg-white rounded-full"
             style={{
-              transform: `translate(-50%, -50%)`,
+              transform: 'translate(-50%, -50%)',
               width: 'clamp(8px, 1.2vh, 10px)',
               height: 'clamp(8px, 1.2vh, 10px)',
               boxShadow: '0px 0px 6.8px 3px #FFFFFF40',
