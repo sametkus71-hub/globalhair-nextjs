@@ -418,7 +418,7 @@ export const PackageStandardPage = () => {
                 className="relative rounded-[24px] p-4 h-[75%] flex flex-col popup-section-border"
                 style={{
                   background: '#0000001A',
-                  backdropFilter: 'blur(42.5px)',
+                  backdropFilter: 'blur(20px)',
                   boxShadow: '0px 4.01px 8.72px 0px #00000040 inset, 0px -1px 4.71px 0px #FFFFFF40 inset, 0px 3.01px 1px 0px #00000040',
                   paddingBottom: 'clamp(1.5rem, 3vh, 2rem)',
                   zIndex: 10
