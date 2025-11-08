@@ -169,7 +169,7 @@ export const ContactTabContent = () => {
             className="transition-all duration-200 hover:scale-105"
             aria-label="Chat"
           >
-            <img src={chatIcon} alt="Chat" className="w-5 h-5" />
+            <img src={chatIcon} alt="Chat" className="w-6 h-6" />
           </button>
           <a 
             href="https://wa.me/31696969696"
@@ -178,7 +178,7 @@ export const ContactTabContent = () => {
             className="transition-all duration-200 hover:scale-105"
             aria-label="WhatsApp"
           >
-            <img src={whatsappIcon} alt="WhatsApp" className="w-5 h-5" />
+            <img src={whatsappIcon} alt="WhatsApp" className="w-10 h-10" />
           </a>
           <a 
             href="https://instagram.com/yourhandle"
@@ -187,7 +187,7 @@ export const ContactTabContent = () => {
             className="transition-all duration-200 hover:scale-105"
             aria-label="Instagram"
           >
-            <img src={instagramIcon} alt="Instagram" className="w-5 h-5" />
+            <img src={instagramIcon} alt="Instagram" className="w-6 h-6" />
           </a>
         </div>
       </footer>
