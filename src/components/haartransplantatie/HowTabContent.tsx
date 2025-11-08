@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 
 type Phase = 'Pre-' | 'Treatment' | 'After-';
@@ -6,6 +6,14 @@ type Phase = 'Pre-' | 'Treatment' | 'After-';
 export const HowTabContent = () => {
   const { language } = useLanguage();
   const [activePhase, setActivePhase] = useState<Phase>('Treatment');
+
+  // Detect iOS/Safari for proper video format
+  const isIOSorSafari = useMemo(() => {
+    const ua = navigator.userAgent;
+    const isIOS = /iPad|iPhone|iPod/.test(ua);
+    const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
+    return isIOS || isSafari;
+  }, []);
 
   const phases: Phase[] = ['Pre-', 'Treatment', 'After-'];
 
@@ -70,16 +78,18 @@ export const HowTabContent = () => {
           }}
         >
           <video
+            key={isIOSorSafari ? 'mp4' : 'webm'}
+            src={isIOSorSafari 
+              ? "https://GlobalHair.b-cdn.net/Male%201K%20HT%20WEB.mp4"
+              : "https://GlobalHair.b-cdn.net/Male%201K%20HT%20WEB.webm"
+            }
             autoPlay
             loop
             muted
             playsInline
             className="w-full h-full object-cover"
             style={{ marginTop: '-30px', zIndex: -1 }}
-          >
-            <source src="https://GlobalHair.b-cdn.net/Male%201K%20HT%20WEB.webm" type="video/webm" />
-            <source src="https://GlobalHair.b-cdn.net/Male%201K%20HT%20WEB.mp4" type="video/mp4" />
-          </video>
+          />
         </div>
 
         {/* Quote Text */}
