@@ -228,6 +228,55 @@ export const HowTabContent = () => {
           marginTop: heightBreakpoint === 'small' ? 'clamp(6px, 1vh, 8px)' : 'clamp(8px, 1.5vh, 12px)',
           marginBottom: heightBreakpoint === 'small' ? 'clamp(3px, 0.5vh, 4px)' : 'clamp(4px, 0.75vh, 6px)',
         }}>
+          {/* Text - Separate viewport wrapper (above the line) */}
+          <div className="w-full overflow-hidden relative" style={{ marginBottom: '8px', minHeight: 'clamp(40px, 8vh, 60px)' }}>
+            <div 
+              className="relative transition-transform" 
+              style={{ 
+                width: '300%',
+                height: '100%',
+                transform: `translateX(-${translateX}%)`,
+                transitionDuration: '900ms',
+                transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+              }}
+            >
+              {/* All 3 texts rendered simultaneously */}
+              {phases.map((phase) => {
+                const position = getPhasePosition(phase);
+                const isActive = phase === activePhase;
+                const content = getPhaseContent(phase);
+
+                return (
+                  <div
+                    key={phase}
+                    className="absolute transition-opacity"
+                    style={{
+                      left: `${position}%`,
+                      top: 0,
+                      transform: 'translateX(-50%)',
+                      opacity: isActive ? 1 : 0.3,
+                      width: 'clamp(150px, 50vw, 280px)',
+                      textAlign: 'center',
+                      transitionDuration: '900ms',
+                      transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                    }}
+                  >
+                    <p 
+                      className="text-white"
+                      style={{
+                        fontSize: 'clamp(8px, 1vh, 9px)',
+                        fontWeight: 300,
+                        fontFamily: 'Inter',
+                        lineHeight: '1.3',
+                      }}
+                      dangerouslySetInnerHTML={{ __html: content.quote }}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
           {/* Dots and Line - Viewport wrapper */}
           <div className="w-full overflow-hidden relative" style={{ height: 'clamp(30px, 4vh, 40px)' }}>
             <div 
@@ -299,55 +348,6 @@ export const HowTabContent = () => {
                     }}
                     onClick={() => changePhase(phase)}
                   />
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Text - Separate viewport wrapper */}
-          <div className="w-full overflow-hidden relative" style={{ marginTop: '8px', minHeight: 'clamp(40px, 8vh, 60px)' }}>
-            <div 
-              className="relative transition-transform" 
-              style={{ 
-                width: '300%',
-                height: '100%',
-                transform: `translateX(-${translateX}%)`,
-                transitionDuration: '900ms',
-                transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
-              }}
-            >
-              {/* All 3 texts rendered simultaneously */}
-              {phases.map((phase) => {
-                const position = getPhasePosition(phase);
-                const isActive = phase === activePhase;
-                const content = getPhaseContent(phase);
-
-                return (
-                  <div
-                    key={phase}
-                    className="absolute transition-opacity"
-                    style={{
-                      left: `${position}%`,
-                      top: 0,
-                      transform: 'translateX(-50%)',
-                      opacity: isActive ? 1 : 0.3,
-                      width: 'clamp(100px, 35vw, 180px)',
-                      textAlign: 'center',
-                      transitionDuration: '900ms',
-                      transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
-                    }}
-                  >
-                    <p 
-                      className="text-white"
-                      style={{
-                        fontSize: 'clamp(8px, 1vh, 9px)',
-                        fontWeight: 300,
-                        fontFamily: 'Inter',
-                        lineHeight: '1.3',
-                      }}
-                      dangerouslySetInnerHTML={{ __html: content.quote }}
-                    />
-                  </div>
                 );
               })}
             </div>
