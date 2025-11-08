@@ -148,7 +148,7 @@ export const HowTabContent = () => {
             backdropFilter: 'blur(20px)',
             border: '1px solid #FFFFFF12',
             borderRadius: '9999px',
-            padding: '5px',
+            padding: '3px',
             zIndex: 10,
           }}
         >
@@ -163,7 +163,7 @@ export const HowTabContent = () => {
                   : 'bg-transparent hover:opacity-80 scale-100'
               }`}
               style={{
-                padding: 'clamp(0.3rem, 0.8vh, 0.5rem) clamp(1rem, 2.5vw, 1.5rem)',
+                padding: 'clamp(0.2rem, 0.5vh, 0.35rem) clamp(1rem, 2.5vw, 1.5rem)',
                 fontSize: 'clamp(0.7rem, 1.3vh, 0.8rem)',
                 backgroundColor: activePhase === phase ? '#00000033' : 'transparent',
                 backgroundImage: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
