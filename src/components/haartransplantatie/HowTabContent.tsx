@@ -255,7 +255,7 @@ export const HowTabContent = () => {
                       top: 0,
                       transform: 'translateX(-50%)',
                       opacity: isActive ? 1 : 0.3,
-                      width: 'clamp(150px, 50vw, 280px)',
+                      width: 'clamp(200px, 70vw, 400px)',
                       textAlign: 'center',
                       transitionDuration: '900ms',
                       transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
