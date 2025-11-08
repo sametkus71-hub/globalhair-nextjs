@@ -6,7 +6,7 @@ import chevronRightSvg from '@/assets/chevron-right.svg';
 import leafSvg from '@/assets/leaf.svg';
 import { PopupCloseButton, usePopupClose, SwipeablePopupWrapper } from '@/components/PopupCloseButton';
 
-type FeatureKey = 'fue' | 'comfort' | 'support' | 'precision' | 'stemcellrepair' | 'v6prime' | 'v6year' | 'indicators';
+type FeatureKey = 'fue' | 'comfort' | 'fullcomfort' | 'support' | 'precision' | 'stemcellrepair' | 'v6prime' | 'v6recovery' | 'followup' | 'followup2' | 'biotine' | 'shampoo' | 'washes' | 'indicators';
 
 export const PackageStandardPage = () => {
   const { language } = useLanguage();
@@ -246,7 +246,7 @@ export const PackageStandardPage = () => {
 
   const packageData = {
     Standard: {
-      price: '€8.950',
+      price: '€7.500',
       features: [
         {
           key: 'indicators' as FeatureKey,
@@ -261,15 +261,27 @@ export const PackageStandardPage = () => {
           exclusive: false
         },
         {
-          key: 'precision' as FeatureKey,
-          title: 'GHI Precision Method™',
-          description: 'GHI Precision Method™ is een exclusief chirurgisch protocol ontwikkeld en gecertificeerd door Berkant Dural. Het is de methode waarmee al onze artsen & trichologen persoonlijk worden opgeleid om dezelfde hoge standaard en precisie te waarborgen. Een unieke werkwijze die ambacht, detail en rust combineert in perfecte omstandigheden zodat elk resultaat een meesterwerk in haartransplantatie wordt.',
+          key: 'comfort' as FeatureKey,
+          title: 'Comfort Verdoving',
+          description: 'Een naaldloze verdoving die zonder prikken wordt aangebracht. Je voelt nog iets, maar veel minder intens. Voor een rustige, comfortabele ervaring zonder scherpe pijn.',
+          exclusive: false
+        },
+        {
+          key: 'followup' as FeatureKey,
+          title: '1 Personal Follow-Up',
+          description: 'Een persoonlijke check-up in onze kliniek in Barendrecht, uitgevoerd door een tricholoog (haarspecialist). Hier wordt je groei, herstel en hoofdhuidconditie gecontroleerd voor een optimale voortgang van het resultaat.',
           exclusive: false
         },
         {
           key: 'support' as FeatureKey,
-          title: '1 Year Personal Aftercare',
-          description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon. Onze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen altijd bereikbaar, altijd persoonlijk.',
+          title: '1 Year GHI Support',
+          description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon. Onze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen. Altijd bereikbaar, altijd persoonlijk.',
+          exclusive: false
+        },
+        {
+          key: 'precision' as FeatureKey,
+          title: 'GHI Precision Method™',
+          description: 'Een exclusief chirurgisch protocol ontwikkeld en gecertificeerd door Berkant Dural. Het is de methode waarmee al onze artsen & trichologen persoonlijk worden opgeleid om dezelfde hoge standaard en precisie te waarborgen. Een unieke werkwijze die ambacht, detail en rust combineert in perfecte omstandigheden zodat elk resultaat een meesterwerk in haartransplantatie wordt.',
           exclusive: false
         }
       ]
@@ -290,27 +302,45 @@ export const PackageStandardPage = () => {
           exclusive: false
         },
         {
+          key: 'stemcellrepair' as FeatureKey,
+          title: 'GHI Stemcell Repair™',
+          description: 'Een stamceltherapie, exclusief ontwikkeld en uitgevoerd door GlobalHair Institute. We oogsten lichaamseigen stamcellen om beschadigde haarzakjes te herstellen en het transplantatiegebied te versterken, wat resulteert in 20-35% meer dichtheid en langdurige stabiliteit.',
+          exclusive: true
+        },
+        {
           key: 'comfort' as FeatureKey,
           title: 'Comfort Verdoving',
-          description: 'Een naaldloze verdoving die zonder prikken wordt aangebracht. Je voelt nog iets, maar veel minder intens voor een rustige, comfortabele ervaring zonder scherpe pijn.',
+          description: 'Een naaldloze verdoving die zonder prikken wordt aangebracht. Je voelt nog iets, maar veel minder intens. Voor een rustige, comfortabele ervaring zonder scherpe pijn.',
           exclusive: false
         },
         {
-          key: 'v6year' as FeatureKey,
-          title: 'V6 Hairboost® - 1 Year',
-          description: 'Acht nabehandelingen die het herstel tot twee keer sneller maken. Dankzij onze exclusieve vitaminekuur stimuleert dit het groeiproces waardoor je na 6 maanden al het resultaat ziet dat normaal pas na 12 maanden optreedt.',
+          key: 'v6prime' as FeatureKey,
+          title: 'V6 Hairboost® - Prime',
+          description: 'Twee voor-behandelingen die het donorgebied versterken en de haarwortels activeren. Hierdoor kan er meer veilig geoogst worden en blijft het donorgebied vol, gezond en vrijwel onzichtbaar behandeld.',
+          exclusive: true
+        },
+        {
+          key: 'v6recovery' as FeatureKey,
+          title: 'V6 Hairboost® - Recovery',
+          description: 'Acht na-behandelingen die het herstel tot twee keer sneller maken. Dankzij onze exclusieve vitaminekuur stimuleert dit het groeiproces, waardoor je na 6 maanden al het resultaat ziet dat normaal pas na 12 maanden optreedt.',
+          exclusive: true
+        },
+        {
+          key: 'followup' as FeatureKey,
+          title: '1 Personal Follow-Up',
+          description: 'Een persoonlijke check-up in onze kliniek in Barendrecht, uitgevoerd door een tricholoog (haarspecialist). Hier wordt je groei, herstel en hoofdhuidconditie gecontroleerd voor een optimale voortgang van het resultaat.',
+          exclusive: false
+        },
+        {
+          key: 'support' as FeatureKey,
+          title: '1 Year GHI Support',
+          description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon. Onze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen. Altijd bereikbaar, altijd persoonlijk.',
           exclusive: false
         },
         {
           key: 'precision' as FeatureKey,
           title: 'GHI Precision Method™',
-          description: 'GHI Precision Method™ is een exclusief chirurgisch protocol ontwikkeld en gecertificeerd door Berkant Dural. Het is de methode waarmee al onze artsen & trichologen persoonlijk worden opgeleid om dezelfde hoge standaard en precisie te waarborgen. Een unieke werkwijze die ambacht, detail en rust combineert in perfecte omstandigheden zodat elk resultaat een meesterwerk in haartransplantatie wordt.',
-          exclusive: false
-        },
-        {
-          key: 'support' as FeatureKey,
-          title: '1 Year Personal Aftercare',
-          description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon. Onze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen altijd bereikbaar, altijd persoonlijk.',
+          description: 'Een exclusief chirurgisch protocol ontwikkeld en gecertificeerd door Berkant Dural. Het is de methode waarmee al onze artsen & trichologen persoonlijk worden opgeleid om dezelfde hoge standaard en precisie te waarborgen. Een unieke werkwijze die ambacht, detail en rust combineert in perfecte omstandigheden zodat elk resultaat een meesterwerk in haartransplantatie wordt.',
           exclusive: false
         }
       ]
@@ -333,37 +363,61 @@ export const PackageStandardPage = () => {
         {
           key: 'stemcellrepair' as FeatureKey,
           title: 'GHI Stemcell Repair™',
-          description: 'Een stamceltherapie, exclusief ontwikkeld en uitgevoerd door GlobalHair Institute. We oogsten lichaamseigen stamcellen om beschadigde haarzakjes te herstellen en het transplantatiegebied te versterken wat resulteert in 20-35% meer dichtheid en langdurige stabiliteit.',
+          description: 'Een stamceltherapie, exclusief ontwikkeld en uitgevoerd door GlobalHair Institute. We oogsten lichaamseigen stamcellen om beschadigde haarzakjes te herstellen en het transplantatiegebied te versterken, wat resulteert in 20-35% meer dichtheid en langdurige stabiliteit.',
           exclusive: false
         },
         {
-          key: 'comfort' as FeatureKey,
-          title: 'Comfort Verdoving',
-          description: 'Een naaldloze verdoving die zonder prikken wordt aangebracht. Je voelt nog iets, maar veel minder intens voor een rustige, comfortabele ervaring zonder scherpe pijn.',
-          exclusive: false
+          key: 'fullcomfort' as FeatureKey,
+          title: 'Full Comfort Anesthesia',
+          description: 'Een korte, gecontroleerde narcose die zorgt dat de ingreep volledig pijnloos en ontspannen verloopt. Ideaal voor wie het hoogste niveau van comfort en rust wil tijdens de behandeling.',
+          exclusive: true
         },
         {
           key: 'v6prime' as FeatureKey,
-          title: 'V6 Hairboost® - Pre-Treatment',
-          description: 'Twee voorbehandelingen die het donorgebied versterken en de haarwortels activeren. Hierdoor kan er meer veilig geoogst worden en blijft het donorgebied vol, gezond en vrijwel onzichtbaar behandeld.',
+          title: 'V6 Hairboost® - Prime',
+          description: 'Twee voor-behandelingen die het donorgebied versterken en de haarwortels activeren. Hierdoor kan er meer veilig geoogst worden en blijft het donorgebied vol, gezond en vrijwel onzichtbaar behandeld.',
           exclusive: false
         },
         {
-          key: 'v6year' as FeatureKey,
-          title: 'V6 Hairboost® - 1 Year',
-          description: 'Acht nabehandelingen die het herstel tot twee keer sneller maken. Dankzij onze exclusieve vitaminekuur stimuleert dit het groeiproces waardoor je na 6 maanden al het resultaat ziet dat normaal pas na 12 maanden optreedt.',
+          key: 'v6recovery' as FeatureKey,
+          title: 'V6 Hairboost® - Recovery',
+          description: 'Acht na-behandelingen die het herstel tot twee keer sneller maken. Dankzij onze exclusieve vitaminekuur stimuleert dit het groeiproces, waardoor je na 6 maanden al het resultaat ziet dat normaal pas na 12 maanden optreedt.',
+          exclusive: false
+        },
+        {
+          key: 'biotine' as FeatureKey,
+          title: '1 Year Biotine Cure',
+          description: 'Een kuur van 12 potjes met onze eigen formule, rijk aan biotine en essentiële voedingsstoffen. Ontwikkeld om de haargroei van binnenuit te versterken en het resultaat van de behandeling langdurig te ondersteunen.',
+          exclusive: true
+        },
+        {
+          key: 'shampoo' as FeatureKey,
+          title: '1 Year Shampoo Care',
+          description: 'Een set van 6 flessen shampoo uit onze eigen formule, speciaal ontwikkeld om de hoofdhuid te kalmeren en de haargroei te stimuleren. Zorgt voor gezonde, sterke haren en ondersteunt het herstel na de behandeling.',
+          exclusive: true
+        },
+        {
+          key: 'washes' as FeatureKey,
+          title: '2 Washes',
+          description: 'Twee professionele wassingen op locatie, kort na de behandeling. Uitgevoerd door onze specialisten om de hoofdhuid te reinigen en complicaties te minimaliseren voor een veilig en optimaal herstel.',
+          exclusive: true
+        },
+        {
+          key: 'followup2' as FeatureKey,
+          title: '2 Personal Follow-Ups',
+          description: 'Twee persoonlijke check-ups in onze kliniek in Barendrecht, uitgevoerd door een tricholoog. We volgen je herstel en haargroei nauwgezet op, voor maximale controle en het beste eindresultaat.',
+          exclusive: true
+        },
+        {
+          key: 'support' as FeatureKey,
+          title: '1 Year GHI Support',
+          description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon. Onze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen. Altijd bereikbaar, altijd persoonlijk.',
           exclusive: false
         },
         {
           key: 'precision' as FeatureKey,
           title: 'GHI Precision Method™',
-          description: 'GHI Precision Method™ is een exclusief chirurgisch protocol ontwikkeld en gecertificeerd door Berkant Dural. Het is de methode waarmee al onze artsen & trichologen persoonlijk worden opgeleid om dezelfde hoge standaard en precisie te waarborgen. Een unieke werkwijze die ambacht, detail en rust combineert in perfecte omstandigheden zodat elk resultaat een meesterwerk in haartransplantatie wordt.',
-          exclusive: false
-        },
-        {
-          key: 'support' as FeatureKey,
-          title: '1 Year Personal Aftercare',
-          description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon. Onze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen altijd bereikbaar, altijd persoonlijk.',
+          description: 'Een exclusief chirurgisch protocol ontwikkeld en gecertificeerd door Berkant Dural. Het is de methode waarmee al onze artsen & trichologen persoonlijk worden opgeleid om dezelfde hoge standaard en precisie te waarborgen. Een unieke werkwijze die ambacht, detail en rust combineert in perfecte omstandigheden zodat elk resultaat een meesterwerk in haartransplantatie wordt.',
           exclusive: false
         }
       ]
@@ -377,9 +431,9 @@ export const PackageStandardPage = () => {
     if (activeCountry === 'tr') {
       switch (activeTier) {
         case 'Standard':
-          return '€5.950';
+          return '€4.950';
         case 'Premium':
-          return '€12.450';
+          return '€8.950';
         default:
           return currentPackage.price;
       }
