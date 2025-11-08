@@ -494,7 +494,7 @@ export const PackageStandardPage = () => {
               style={{
                 background: activeTier === 'Premium' 
                   ? 'rgba(30, 58, 138, 0.25)' 
-                  : 'rgba(30, 58, 138, 0.12)'
+                  : 'transparent'
               }}
               onClick={() => handleTierChange('Premium')}
             >
@@ -509,11 +509,9 @@ export const PackageStandardPage = () => {
                     : 'text-white/50 hover:text-white/70 scale-100'
               }`}
               style={{
-                background: activeCountry === 'tr' 
-                  ? 'transparent'
-                  : activeTier === 'Elite'
-                    ? 'rgba(88, 28, 135, 0.25)'
-                    : 'rgba(88, 28, 135, 0.12)'
+                background: activeTier === 'Elite' && activeCountry === 'nl'
+                  ? 'rgba(88, 28, 135, 0.25)'
+                  : 'transparent'
               }}
               onClick={() => activeCountry === 'nl' && handleTierChange('Elite')}
               disabled={activeCountry === 'tr'}
