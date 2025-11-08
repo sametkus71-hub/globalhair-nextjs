@@ -19,41 +19,57 @@ export const ContactTabContent = () => {
       }}
     >
       {/* Tabs Section */}
-      <div 
-        className="flex justify-center items-center gap-8 px-4"
-        style={{
-          paddingTop: '12px',
-          paddingBottom: '12px',
-        }}
-      >
-        <button
-          onClick={() => setActiveTab('nl')}
-          className="relative text-white transition-all duration-300"
+      <div className="w-full flex justify-center px-4" style={{ paddingTop: '12px', paddingBottom: '12px' }}>
+        <div 
+          className="relative flex items-center justify-center gap-1 rounded-full"
           style={{
-            fontSize: 'clamp(14px, 3vw, 18px)',
-            fontWeight: activeTab === 'nl' ? 500 : 300,
-            opacity: activeTab === 'nl' ? 1 : 0.5,
-            textDecoration: activeTab === 'nl' ? 'underline' : 'none',
-            textUnderlineOffset: '4px',
-            textDecorationThickness: '2px',
+            background: '#FFFFFF0D',
+            backdropFilter: 'blur(20px)',
+            border: '1px solid #FFFFFF12',
+            borderRadius: '9999px',
+            padding: '3px',
+            zIndex: 10,
           }}
         >
-          Nederland
-        </button>
-        <button
-          onClick={() => setActiveTab('tr')}
-          className="relative text-white transition-all duration-300"
-          style={{
-            fontSize: 'clamp(14px, 3vw, 18px)',
-            fontWeight: activeTab === 'tr' ? 500 : 300,
-            opacity: activeTab === 'tr' ? 1 : 0.5,
-            textDecoration: activeTab === 'tr' ? 'underline' : 'none',
-            textUnderlineOffset: '4px',
-            textDecorationThickness: '2px',
-          }}
-        >
-          Turkije
-        </button>
+          <button
+            onClick={() => setActiveTab('nl')}
+            className={`relative rounded-full font-light transition-all duration-300 ease-out ${
+              activeTab === 'nl'
+                ? 'silver-gradient-border scale-105'
+                : 'bg-transparent hover:opacity-80 scale-100'
+            }`}
+            style={{
+              padding: 'clamp(0.2rem, 0.5vh, 0.35rem) clamp(1rem, 2.5vw, 1.5rem)',
+              fontSize: 'clamp(0.7rem, 1.3vh, 0.8rem)',
+              backgroundColor: activeTab === 'nl' ? 'rgba(24, 47, 60, 0.3)' : 'transparent',
+              backgroundImage: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            Nederland
+          </button>
+          <button
+            onClick={() => setActiveTab('tr')}
+            className={`relative rounded-full font-light transition-all duration-300 ease-out ${
+              activeTab === 'tr'
+                ? 'silver-gradient-border scale-105'
+                : 'bg-transparent hover:opacity-80 scale-100'
+            }`}
+            style={{
+              padding: 'clamp(0.2rem, 0.5vh, 0.35rem) clamp(1rem, 2.5vw, 1.5rem)',
+              fontSize: 'clamp(0.7rem, 1.3vh, 0.8rem)',
+              backgroundColor: activeTab === 'tr' ? 'rgba(24, 47, 60, 0.3)' : 'transparent',
+              backgroundImage: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            Turkije
+          </button>
+        </div>
       </div>
 
       {/* Content Area - Flex Grow */}
@@ -218,6 +234,33 @@ export const ContactTabContent = () => {
           </footer>
         </div>
       </div>
+
+      <style>{`
+        .silver-gradient-border {
+          position: relative;
+        }
+
+        .silver-gradient-border::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1px;
+          border-radius: inherit;
+          background: linear-gradient(80deg, #949494 7%, #838e94 16%, #b5b5b5 34%, #ACB9C1 51%, #4e5964 78%, #727272 105%);
+          -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .silver-gradient-border > * {
+          position: relative;
+          z-index: 1;
+        }
+      `}</style>
     </div>
   );
 };
