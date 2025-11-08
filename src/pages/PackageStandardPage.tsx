@@ -698,7 +698,7 @@ export const PackageStandardPage = () => {
                         paddingBottom: isOpen ? '0.5rem' : '0'
                       }}
                     >
-                      <p className="text-white/80 font-light leading-relaxed" style={{ fontSize: '11px' }}>
+                      <p className="text-white/80 font-light leading-relaxed" style={{ fontSize: '11px', whiteSpace: 'pre-line' }}>
                         {feature.description}
                       </p>
                     </div>
