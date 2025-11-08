@@ -157,7 +157,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
         />
       </div>
       
@@ -183,7 +183,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
         />
       </div>
       
@@ -209,7 +209,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
         />
       </div>
     </div>
