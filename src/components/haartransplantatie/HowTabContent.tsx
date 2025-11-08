@@ -15,6 +15,7 @@ export const HowTabContent = () => {
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const isTransitioningRef = useRef(false); // Synchronous lock for immediate checks
 
   // Detect iOS/Safari for proper video format
   const isIOSorSafari = useMemo(() => {
@@ -75,7 +76,11 @@ export const HowTabContent = () => {
 
   // Change phase with transition lock
   const changePhase = (newPhase: Phase) => {
-    if (isTransitioning || newPhase === activePhase) return;
+    // Check synchronous ref first to prevent race conditions
+    if (isTransitioningRef.current || newPhase === activePhase) return;
+    
+    // Set synchronous lock immediately
+    isTransitioningRef.current = true;
     
     const currentIndex = phases.indexOf(activePhase);
     const newIndex = phases.indexOf(newPhase);
@@ -85,7 +90,10 @@ export const HowTabContent = () => {
     
     setIsTransitioning(true);
     setActivePhase(newPhase);
-    setTimeout(() => setIsTransitioning(false), 1200);
+    setTimeout(() => {
+      setIsTransitioning(false);
+      isTransitioningRef.current = false;
+    }, 1200);
   };
 
   // Navigate to next/previous phase
@@ -172,7 +180,10 @@ export const HowTabContent = () => {
           {phases.map((phase) => (
             <button
               key={phase}
-              onClick={() => changePhase(phase)}
+              onClick={(e) => {
+                e.stopPropagation();
+                changePhase(phase);
+              }}
               disabled={isTransitioning}
               className={`relative rounded-full font-light transition-all duration-300 ease-out ${
                 activePhase === phase
@@ -187,6 +198,7 @@ export const HowTabContent = () => {
                 backgroundClip: 'text',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
+                pointerEvents: isTransitioning ? 'none' : 'auto',
               }}
             >
               {phase}
@@ -345,8 +357,12 @@ export const HowTabContent = () => {
                       zIndex: isActive ? 20 : 10,
                       transitionDuration: '900ms',
                       transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                      pointerEvents: isTransitioning ? 'none' : 'auto',
                     }}
-                    onClick={() => changePhase(phase)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      changePhase(phase);
+                    }}
                   />
                 );
               })}
