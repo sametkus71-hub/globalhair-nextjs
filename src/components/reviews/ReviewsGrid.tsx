@@ -218,8 +218,8 @@ export const ReviewsGrid = () => {
           isGridAnimated && "grid-animate"
         )}
         style={{
-          height: 'calc(100vh - 80px)',
-          gridAutoColumns: 'calc((100vh - 80px) / 3)',
+          height: '450px',
+          gridAutoColumns: '150px',
           gridAutoFlow: 'column',
           gap: '4px',
           backgroundColor: 'transparent'
