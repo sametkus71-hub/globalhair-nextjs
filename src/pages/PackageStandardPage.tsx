@@ -488,9 +488,14 @@ export const PackageStandardPage = () => {
             <button
               className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
                 activeTier === 'Premium'
-                  ? 'gold-gradient-border bg-white/10 text-white scale-105'
-                  : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
+                  ? 'gold-gradient-border text-white scale-105'
+                  : 'text-white/50 hover:text-white/70 scale-100'
               }`}
+              style={{
+                background: activeTier === 'Premium' 
+                  ? 'rgba(30, 58, 138, 0.25)' 
+                  : 'rgba(30, 58, 138, 0.12)'
+              }}
               onClick={() => handleTierChange('Premium')}
             >
               Premium
@@ -498,11 +503,18 @@ export const PackageStandardPage = () => {
             <button
               className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
                 activeCountry === 'tr' 
-                  ? 'bg-transparent text-white/20 cursor-not-allowed scale-100' 
+                  ? 'text-white/20 cursor-not-allowed scale-100' 
                   : activeTier === 'Elite'
-                    ? 'gold-gradient-border bg-white/10 text-white scale-105'
-                    : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
+                    ? 'gold-gradient-border text-white scale-105'
+                    : 'text-white/50 hover:text-white/70 scale-100'
               }`}
+              style={{
+                background: activeCountry === 'tr' 
+                  ? 'transparent'
+                  : activeTier === 'Elite'
+                    ? 'rgba(88, 28, 135, 0.25)'
+                    : 'rgba(88, 28, 135, 0.12)'
+              }}
               onClick={() => activeCountry === 'nl' && handleTierChange('Elite')}
               disabled={activeCountry === 'tr'}
             >
