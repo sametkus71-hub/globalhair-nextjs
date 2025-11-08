@@ -77,152 +77,128 @@ export const ContactTabContent = () => {
         >
           {/* Content based on active tab */}
           {activeTab === 'nl' ? (
-            <>
-              {/* Locations */}
-              <div className="grid grid-cols-2 gap-8">
-                {/* Barendrecht */}
-                <div className="text-center">
-                  <div className="flex gap-2 justify-center items-center mb-2">
-                    <img src={shieldIcon} alt="Shield" className="w-4 h-4 opacity-95" />
-                    <img src={v6HairboostIcon} alt="V6 Hairboost" className="w-6 h-6" />
-                  </div>
-                  <h2 className="text-white font-normal mb-1" style={{ fontSize: 'clamp(14px, 3vw, 18px)' }}>
-                    Barendrecht
-                  </h2>
-                  <p className="text-white text-xs opacity-90 mb-2">
-                    Pesetastraat 72, 2991 XT
-                  </p>
-                  <span 
-                    className="inline-block px-3 py-1 rounded-full text-white"
-                    style={{
-                      background: 'rgba(255, 255, 255, 0.15)',
-                      fontSize: '10px',
-                      border: '1px solid rgba(255, 255, 255, 0.2)',
-                    }}
-                  >
-                    Hoofdvestiging
-                  </span>
+            <div className="grid grid-cols-2 gap-8">
+              {/* Barendrecht */}
+              <div className="text-center">
+                <div className="flex gap-2 justify-center items-center mb-2">
+                  <img src={shieldIcon} alt="Shield" className="w-4 h-4 opacity-95" />
+                  <img src={v6HairboostIcon} alt="V6 Hairboost" className="w-6 h-6" />
                 </div>
-
-                {/* Leiden */}
-                <div className="text-center">
-                  <div className="flex gap-2 justify-center items-center mb-2">
-                    <img src={v6HairboostIcon} alt="V6 Hairboost" className="w-6 h-6" />
-                  </div>
-                  <h2 className="text-white font-normal mb-1" style={{ fontSize: 'clamp(14px, 3vw, 18px)' }}>
-                    Leiden
-                  </h2>
-                  <p className="text-white text-xs opacity-90">
-                    Fruitweg 22, 2321 GK
-                  </p>
-                </div>
+                <h2 className="text-white font-normal mb-1" style={{ fontSize: 'clamp(14px, 3vw, 18px)' }}>
+                  Barendrecht
+                </h2>
+                <p className="text-white text-xs opacity-90 mb-2">
+                  Pesetastraat 72, 2991 XT
+                </p>
+                <span 
+                  className="inline-block px-3 py-1 rounded-full text-white"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.15)',
+                    fontSize: '10px',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                  }}
+                >
+                  Hoofdvestiging
+                </span>
               </div>
 
-              {/* Contact Info */}
-              <div 
-                className="flex justify-between items-center px-8 py-4"
-                style={{
-                  borderTop: '1px solid rgba(255, 255, 255, 0.25)',
-                }}
-              >
-                <span className="text-white text-xs opacity-90">Ma – Za 10:00 – 19:00</span>
-                <a href="mailto:info@globalhair.nl" className="text-white text-xs opacity-90 no-underline hover:opacity-100">
-                  info@globalhair.nl
-                </a>
-                <a href="tel:+31696969696" className="text-white text-xs opacity-90 no-underline hover:opacity-100">
-                  +31 6 96969696
-                </a>
+              {/* Leiden */}
+              <div className="text-center">
+                <div className="flex gap-2 justify-center items-center mb-2">
+                  <img src={v6HairboostIcon} alt="V6 Hairboost" className="w-6 h-6" />
+                </div>
+                <h2 className="text-white font-normal mb-1" style={{ fontSize: 'clamp(14px, 3vw, 18px)' }}>
+                  Leiden
+                </h2>
+                <p className="text-white text-xs opacity-90">
+                  Fruitweg 22, 2321 GK
+                </p>
               </div>
-            </>
+            </div>
           ) : (
-            <>
-              {/* Istanbul Location */}
-              <div className="flex justify-center">
-                <div className="text-center">
-                  <div className="flex gap-2 justify-center items-center mb-2">
-                    <img src={shieldIcon} alt="Shield" className="w-4 h-4 opacity-95" />
-                  </div>
-                  <h2 className="text-white font-normal mb-1" style={{ fontSize: 'clamp(14px, 3vw, 18px)' }}>
-                    İstanbul
-                  </h2>
-                  <p className="text-white text-xs opacity-90">
-                    Kaynarca, Erol Kaya Cd No:204,<br />
-                    34890 Pendik
-                  </p>
+            <div className="flex justify-center">
+              <div className="text-center">
+                <div className="flex gap-2 justify-center items-center mb-2">
+                  <img src={shieldIcon} alt="Shield" className="w-4 h-4 opacity-95" />
                 </div>
+                <h2 className="text-white font-normal mb-1" style={{ fontSize: 'clamp(14px, 3vw, 18px)' }}>
+                  İstanbul
+                </h2>
+                <p className="text-white text-xs opacity-90">
+                  Kaynarca, Erol Kaya Cd No:204,<br />
+                  34890 Pendik
+                </p>
               </div>
-
-              {/* Contact Info */}
-              <div 
-                className="flex justify-between items-center px-8 py-4"
-                style={{
-                  borderTop: '1px solid rgba(255, 255, 255, 0.25)',
-                }}
-              >
-                <span className="text-white text-xs opacity-90">Ma – Za 10:00 – 19:00</span>
-                <a href="mailto:info@globalhair.nl" className="text-white text-xs opacity-90 no-underline hover:opacity-100">
-                  info@globalhair.nl
-                </a>
-                <a href="tel:+31696969696" className="text-white text-xs opacity-90 no-underline hover:opacity-100">
-                  +31 6 96969696
-                </a>
-              </div>
-            </>
+            </div>
           )}
         </div>
       </div>
 
       {/* Footer Row - Fixed at Bottom */}
       <footer 
-        className="flex items-center justify-center gap-4 px-2"
+        className="flex flex-col gap-3 px-2"
         style={{
           padding: '16px 8px',
           background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.03) 100%)',
           borderTop: '1px solid rgba(255, 255, 255, 0.1)',
         }}
       >
-        <button 
-          className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
-          style={{
-            background: 'rgba(255, 255, 255, 0.12)',
-            backdropFilter: 'blur(20px)',
-            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-          }}
-          aria-label="Chat"
-        >
-          <img src={chatIcon} alt="Chat" className="w-5 h-5" />
-        </button>
-        <a 
-          href="https://wa.me/31696969696"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
-          style={{
-            background: 'rgba(255, 255, 255, 0.12)',
-            backdropFilter: 'blur(20px)',
-            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-          }}
-          aria-label="WhatsApp"
-        >
-          <img src={whatsappIcon} alt="WhatsApp" className="w-5 h-5" />
-        </a>
-        <a 
-          href="https://instagram.com/yourhandle"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
-          style={{
-            background: 'rgba(255, 255, 255, 0.12)',
-            backdropFilter: 'blur(20px)',
-            boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
-          }}
-          aria-label="Instagram"
-        >
-          <img src={instagramIcon} alt="Instagram" className="w-5 h-5" />
-        </a>
+        {/* Contact Info Row */}
+        <div className="flex justify-between items-center px-4">
+          <span className="text-white text-xs opacity-90">Ma – Za 10:00 – 19:00</span>
+          <a href="mailto:info@globalhair.nl" className="text-white text-xs opacity-90 no-underline hover:opacity-100">
+            info@globalhair.nl
+          </a>
+          <a href="tel:+31696969696" className="text-white text-xs opacity-90 no-underline hover:opacity-100">
+            +31 6 96969696
+          </a>
+        </div>
+        
+        {/* Social Icons Row */}
+        <div className="flex items-center justify-center gap-4">
+          <button 
+            className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
+            style={{
+              background: 'rgba(255, 255, 255, 0.12)',
+              backdropFilter: 'blur(20px)',
+              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+            }}
+            aria-label="Chat"
+          >
+            <img src={chatIcon} alt="Chat" className="w-5 h-5" />
+          </button>
+          <a 
+            href="https://wa.me/31696969696"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
+            style={{
+              background: 'rgba(255, 255, 255, 0.12)',
+              backdropFilter: 'blur(20px)',
+              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+            }}
+            aria-label="WhatsApp"
+          >
+            <img src={whatsappIcon} alt="WhatsApp" className="w-5 h-5" />
+          </a>
+          <a 
+            href="https://instagram.com/yourhandle"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-105"
+            style={{
+              background: 'rgba(255, 255, 255, 0.12)',
+              backdropFilter: 'blur(20px)',
+              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+            }}
+            aria-label="Instagram"
+          >
+            <img src={instagramIcon} alt="Instagram" className="w-5 h-5" />
+          </a>
+        </div>
       </footer>
 
       <style>{`
