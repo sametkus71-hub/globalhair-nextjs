@@ -198,11 +198,17 @@ export const HowTabContent = () => {
           className="relative rounded-lg overflow-hidden mx-auto" 
           style={{ 
             aspectRatio: '3/4',
-            maxHeight: heightBreakpoint === 'small' 
-              ? 'clamp(220px, 38vh, 300px)'
-              : heightBreakpoint === 'medium'
-              ? 'clamp(250px, 43vh, 350px)'
-              : 'clamp(280px, 48vh, 400px)',
+            maxHeight: isIOSorSafari 
+              ? (heightBreakpoint === 'small' 
+                ? 'clamp(200px, 35vh, 280px)' 
+                : heightBreakpoint === 'medium'
+                ? 'clamp(230px, 40vh, 330px)'
+                : 'clamp(260px, 45vh, 380px)')
+              : (heightBreakpoint === 'small' 
+                ? 'clamp(220px, 38vh, 300px)'
+                : heightBreakpoint === 'medium'
+                ? 'clamp(250px, 43vh, 350px)'
+                : 'clamp(280px, 48vh, 400px)'),
             width: 'auto',
             marginTop: heightBreakpoint === 'small' ? '-20px' : '-30px',
           }}
@@ -227,11 +233,13 @@ export const HowTabContent = () => {
 
         {/* Journey Timeline Container */}
         <div className="w-full relative" style={{ 
-          marginTop: heightBreakpoint === 'small' ? 'clamp(6px, 1vh, 8px)' : 'clamp(8px, 1.5vh, 12px)',
+          marginTop: isIOSorSafari
+            ? (heightBreakpoint === 'small' ? 'clamp(-5px, -0.5vh, -3px)' : 'clamp(-8px, -1vh, -5px)')
+            : (heightBreakpoint === 'small' ? 'clamp(6px, 1vh, 8px)' : 'clamp(8px, 1.5vh, 12px)'),
           marginBottom: heightBreakpoint === 'small' ? 'clamp(3px, 0.5vh, 4px)' : 'clamp(4px, 0.75vh, 6px)',
         }}>
           {/* Text - Separate viewport wrapper (above the line) */}
-          <div className="w-full overflow-hidden relative" style={{ marginBottom: '8px', minHeight: 'clamp(40px, 8vh, 60px)' }}>
+          <div className="w-full overflow-hidden relative" style={{ marginBottom: '8px', minHeight: isIOSorSafari ? 'clamp(35px, 7vh, 50px)' : 'clamp(40px, 8vh, 60px)' }}>
             <div 
               className="relative transition-transform" 
               style={{ 
@@ -280,7 +288,7 @@ export const HowTabContent = () => {
           </div>
 
           {/* Dots and Line - Viewport wrapper */}
-          <div className="w-full overflow-visible relative" style={{ height: 'clamp(30px, 4vh, 40px)', padding: '8px 0', zIndex: 15, isolation: 'isolate' }}>
+          <div className="w-full overflow-visible relative" style={{ height: isIOSorSafari ? 'clamp(25px, 3.5vh, 35px)' : 'clamp(30px, 4vh, 40px)', padding: '8px 0', zIndex: 15, isolation: 'isolate' }}>
             <div 
               className="relative transition-transform" 
               style={{ 
