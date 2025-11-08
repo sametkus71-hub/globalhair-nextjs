@@ -102,8 +102,50 @@ const BerkantDuralPage = () => {
     const timer4 = setTimeout(() => setNextButtonVisible(true), 8000);
     const timerEnter = setTimeout(() => setIsEntering(false), 450);
 
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {});
+    const videoElement = videoRef.current;
+    
+    // Function to attempt video playback
+    const playVideo = async () => {
+      if (!videoElement) return;
+      
+      try {
+        // Reset video to start
+        videoElement.currentTime = 0;
+        
+        // Attempt to play
+        await videoElement.play();
+        console.log('✅ Video playing successfully');
+      } catch (error) {
+        console.error('❌ Video playback failed:', error);
+        
+        // Retry after a short delay
+        setTimeout(async () => {
+          try {
+            await videoElement.play();
+            console.log('✅ Video playing on retry');
+          } catch (retryError) {
+            console.error('❌ Video playback retry failed:', retryError);
+          }
+        }, 100);
+      }
+    };
+
+    // Wait for video to have loaded enough data before playing
+    const handleCanPlay = () => {
+      console.log('🎬 Video ready, starting playback');
+      playVideo();
+    };
+
+    if (videoElement) {
+      // If video is already ready (cached), play immediately
+      if (videoElement.readyState >= 3) { // HAVE_FUTURE_DATA or higher
+        console.log('🎬 Video already loaded, playing immediately');
+        playVideo();
+      } else {
+        // Otherwise wait for it to be ready
+        console.log('⏳ Waiting for video to load...');
+        videoElement.addEventListener('canplay', handleCanPlay, { once: true });
+      }
     }
 
     return () => {
@@ -112,6 +154,13 @@ const BerkantDuralPage = () => {
       clearTimeout(timer3);
       clearTimeout(timer4);
       clearTimeout(timerEnter);
+      
+      // Cleanup event listener
+      if (videoElement) {
+        videoElement.removeEventListener('canplay', handleCanPlay);
+        videoElement.pause();
+        videoElement.currentTime = 0;
+      }
     };
   }, [video.id]);
 
@@ -211,11 +260,10 @@ const BerkantDuralPage = () => {
               ref={videoRef}
               key={video.id}
               src={video.unsubbedUrl}
-              autoPlay
               loop
               muted={false}
               playsInline
-              preload="metadata"
+              preload="auto"
               className="absolute inset-0 w-full h-full object-cover rounded-[24px]"
               style={{ zIndex: 0 }}
             />
