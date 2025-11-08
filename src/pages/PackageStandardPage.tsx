@@ -167,9 +167,11 @@ export const PackageStandardPage = () => {
         }
       }, 50);
       
-      // Update state
-      setActiveCountry(country);
-      setActiveTier(newTier);
+      // Delay state update until video crossfade is mostly complete
+      setTimeout(() => {
+        setActiveCountry(country);
+        setActiveTier(newTier);
+      }, 300);
       
       setTimeout(() => {
         setIsTransitioning(false);
@@ -216,8 +218,10 @@ export const PackageStandardPage = () => {
         }
       }, 50);
       
-      // Update state
-      setActiveTier(tier);
+      // Delay state update until video crossfade is mostly complete
+      setTimeout(() => {
+        setActiveTier(tier);
+      }, 300);
       
       setTimeout(() => {
         setIsTransitioning(false);
