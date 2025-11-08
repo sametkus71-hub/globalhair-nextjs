@@ -1109,7 +1109,7 @@ const ChatPage = () => {
                     style={{
                       color: 'rgba(255, 255, 255, 0.35)',
                       fontFamily: 'Inter, system-ui, sans-serif',
-                      fontWeight: '400',
+                      fontWeight: '300',
                       letterSpacing: '0.02em'
                     }}
                   >
