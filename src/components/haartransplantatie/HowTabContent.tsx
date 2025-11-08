@@ -1,10 +1,12 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
 
 type Phase = 'Pre-' | 'Treatment' | 'After-';
 
 export const HowTabContent = () => {
+  const navigate = useNavigate();
   const { language } = useLanguage();
   const { heightBreakpoint } = useViewportHeight();
   const [activePhase, setActivePhase] = useState<Phase>('Treatment');
@@ -256,19 +258,25 @@ export const HowTabContent = () => {
         </div>
 
         {/* Link */}
-        <a
-          href="#"
-          className="text-white hover:text-white/80 transition-colors"
+        <button
+          onClick={() => {
+            if (typeof document !== 'undefined') document.body.classList.add('popup-open');
+            navigate('/nl/haartransplantatie/nl/premium');
+          }}
+          className="text-white hover:text-white/80 transition-colors cursor-pointer"
           style={{
             fontSize: 'clamp(11px, 1.4vh, 12px)',
             fontWeight: 300,
             fontFamily: 'Inter',
             textDecoration: 'underline',
             marginTop: '1px',
+            background: 'none',
+            border: 'none',
+            padding: 0,
           }}
         >
           Bekijk onze methodes
-        </a>
+        </button>
       </div>
 
       <style>{`
