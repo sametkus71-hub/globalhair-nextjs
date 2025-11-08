@@ -214,12 +214,13 @@ export const ReviewsGrid = () => {
     <div className="relative w-full min-h-full">
       <div
         className={cn(
-          "grid grid-cols-3",
+          "grid grid-rows-3",
           isGridAnimated && "grid-animate"
         )}
         style={{
-          width: '100%',
-          gridAutoRows: 'calc((100vw - 16px) / 3)',
+          height: 'calc(100vh - 80px)',
+          gridAutoColumns: 'calc((100vh - 80px) / 3)',
+          gridAutoFlow: 'column',
           gap: '4px',
           backgroundColor: 'transparent'
         }}
@@ -236,7 +237,7 @@ export const ReviewsGrid = () => {
               key={item.id}
               className={cn(
                 "grid-item-entrance cursor-default silver-grey-gradient-border",
-                item.rowSpan === 2 ? "row-span-2" : "row-span-1"
+                item.colSpan === 2 ? "col-span-2" : "col-span-1"
               )}
               style={{
                 '--delay': `${delay}ms`,
@@ -269,7 +270,7 @@ export const ReviewsGrid = () => {
         {isMobile && visibleItemCount < gridItems.length && (
           <div
             ref={loadMoreRef}
-            className="col-span-3 h-4 flex items-center justify-center"
+            className="row-span-3 w-4 flex items-center justify-center"
           >
             <div className="w-2 h-2 bg-gray-300 rounded-full animate-pulse" />
           </div>

@@ -8,49 +8,69 @@ export type ContentType = 'quote' | 'before-after' | 'video' | 'berkant-video';
 export interface GridItem {
   id: string;
   type: ContentType;
-  rowSpan: 1 | 2;
+  colSpan: 1 | 2;
   data: any; // Will be typed based on content type
 }
 
-// Grid layout structure (36 items total for longer scrolling)
-// Videos distributed throughout: positions 4, 8, 11, 22, 26, 29
-const GRID_LAYOUT: Array<{ rowSpan: 1 | 2; contentType?: 'video-only' | 'small-only' }> = [
-  { rowSpan: 1, contentType: 'small-only' }, // Item 1 - Row 1, Col 1
-  { rowSpan: 1, contentType: 'small-only' }, // Item 2 - Row 1, Col 2
-  { rowSpan: 1, contentType: 'small-only' }, // Item 3 - Row 1, Col 3
-  { rowSpan: 2, contentType: 'video-only' }, // Item 4 - Rows 2-3, Col 1 (left)
-  { rowSpan: 1, contentType: 'small-only' }, // Item 5 - Row 2, Col 2
-  { rowSpan: 1, contentType: 'small-only' }, // Item 6 - Row 2, Col 3
-  { rowSpan: 1, contentType: 'small-only' }, // Item 7 - Row 3, Col 2
-  { rowSpan: 2, contentType: 'video-only' }, // Item 8 - Rows 3-4, Col 3 (right)
-  { rowSpan: 1, contentType: 'small-only' }, // Item 9 - Row 4, Col 1
-  { rowSpan: 1, contentType: 'small-only' }, // Item 10 - Row 4, Col 2
-  { rowSpan: 2, contentType: 'video-only' }, // Item 11 - Rows 5-6, Col 1 (left)
-  { rowSpan: 1, contentType: 'small-only' }, // Item 12 - Row 5, Col 2
-  { rowSpan: 1, contentType: 'small-only' }, // Item 13 - Row 5, Col 3
-  { rowSpan: 1, contentType: 'small-only' }, // Item 14 - Row 6, Col 2
-  { rowSpan: 1, contentType: 'small-only' }, // Item 15 - Row 6, Col 3
-  { rowSpan: 1, contentType: 'small-only' }, // Item 16 - Row 7, Col 1
-  { rowSpan: 1, contentType: 'small-only' }, // Item 17 - Row 7, Col 2
-  { rowSpan: 1, contentType: 'small-only' }, // Item 18 - Row 7, Col 3
-  { rowSpan: 1, contentType: 'small-only' }, // Item 19 - Row 8, Col 1
-  { rowSpan: 1, contentType: 'small-only' }, // Item 20 - Row 8, Col 2
-  { rowSpan: 1, contentType: 'small-only' }, // Item 21 - Row 8, Col 3
-  { rowSpan: 2, contentType: 'video-only' }, // Item 22 - Rows 9-10, Col 1 (left)
-  { rowSpan: 1, contentType: 'small-only' }, // Item 23 - Row 9, Col 2
-  { rowSpan: 1, contentType: 'small-only' }, // Item 24 - Row 9, Col 3
-  { rowSpan: 1, contentType: 'small-only' }, // Item 25 - Row 10, Col 2
-  { rowSpan: 2, contentType: 'video-only' }, // Item 26 - Rows 10-11, Col 3 (right)
-  { rowSpan: 1, contentType: 'small-only' }, // Item 27 - Row 11, Col 1
-  { rowSpan: 1, contentType: 'small-only' }, // Item 28 - Row 11, Col 2
-  { rowSpan: 2, contentType: 'video-only' }, // Item 29 - Rows 12-13, Col 1 (left)
-  { rowSpan: 1, contentType: 'small-only' }, // Item 30 - Row 12, Col 2
-  { rowSpan: 1, contentType: 'small-only' }, // Item 31 - Row 12, Col 3
-  { rowSpan: 1, contentType: 'small-only' }, // Item 32 - Row 13, Col 2
-  { rowSpan: 1, contentType: 'small-only' }, // Item 33 - Row 13, Col 3
-  { rowSpan: 1, contentType: 'small-only' }, // Item 34 - Row 14, Col 1
-  { rowSpan: 1, contentType: 'small-only' }, // Item 35 - Row 14, Col 2
-  { rowSpan: 1, contentType: 'small-only' }  // Item 36 - Row 14, Col 3
+// Grid layout structure for horizontal scrolling - 3 rows, multiple columns
+// Videos distributed throughout for visual interest
+const GRID_LAYOUT: Array<{ colSpan: 1 | 2; contentType?: 'video-only' | 'small-only' }> = [
+  // Column 1 (3 small items stacked)
+  { colSpan: 1, contentType: 'small-only' }, // Row 1
+  { colSpan: 1, contentType: 'small-only' }, // Row 2
+  { colSpan: 1, contentType: 'small-only' }, // Row 3
+  
+  // Column 2 (video spanning 2 rows + 1 small)
+  { colSpan: 2, contentType: 'video-only' }, // Rows 1-2
+  { colSpan: 1, contentType: 'small-only' }, // Row 3
+  
+  // Column 3-4 (1 small + wide item)
+  { colSpan: 1, contentType: 'small-only' }, // Row 1
+  { colSpan: 2, contentType: 'small-only' }, // Rows 2-3
+  
+  // Column 5 (3 small items)
+  { colSpan: 1, contentType: 'small-only' }, // Row 1
+  { colSpan: 1, contentType: 'small-only' }, // Row 2
+  { colSpan: 1, contentType: 'small-only' }, // Row 3
+  
+  // Column 6-7 (wide item + small)
+  { colSpan: 2, contentType: 'small-only' }, // Rows 1-2
+  { colSpan: 1, contentType: 'small-only' }, // Row 3
+  
+  // Column 8 (video spanning 2 rows + small)
+  { colSpan: 1, contentType: 'small-only' }, // Row 1
+  { colSpan: 2, contentType: 'video-only' }, // Rows 2-3
+  
+  // Column 9 (3 small items)
+  { colSpan: 1, contentType: 'small-only' }, // Row 1
+  { colSpan: 1, contentType: 'small-only' }, // Row 2
+  { colSpan: 1, contentType: 'small-only' }, // Row 3
+  
+  // Column 10-11 (small + wide video)
+  { colSpan: 1, contentType: 'small-only' }, // Row 1
+  { colSpan: 2, contentType: 'video-only' }, // Rows 2-3
+  
+  // Column 12 (3 small items)
+  { colSpan: 1, contentType: 'small-only' }, // Row 1
+  { colSpan: 1, contentType: 'small-only' }, // Row 2
+  { colSpan: 1, contentType: 'small-only' }, // Row 3
+  
+  // Column 13-14 (video + small)
+  { colSpan: 2, contentType: 'video-only' }, // Rows 1-2
+  { colSpan: 1, contentType: 'small-only' }, // Row 3
+  
+  // Column 15 (3 small items)
+  { colSpan: 1, contentType: 'small-only' }, // Row 1
+  { colSpan: 1, contentType: 'small-only' }, // Row 2
+  { colSpan: 1, contentType: 'small-only' }, // Row 3
+  
+  // Column 16-17 (wide item + small)
+  { colSpan: 2, contentType: 'small-only' }, // Rows 1-2
+  { colSpan: 1, contentType: 'small-only' }, // Row 3
+  
+  // Column 18 (video + 2 small)
+  { colSpan: 2, contentType: 'video-only' }, // Rows 1-2
+  { colSpan: 1, contentType: 'small-only' }  // Row 3
 ];
 
 // Shuffle array utility
@@ -155,7 +175,7 @@ export const generateRandomGrid = (): GridItem[] => {
     return {
       id: `item-${index}-${content?.data?.id ?? index}`,
       type: content.type,
-      rowSpan: layout.rowSpan,
+      colSpan: layout.colSpan,
       data: content.data
     };
   });
