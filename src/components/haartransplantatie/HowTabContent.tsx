@@ -290,7 +290,7 @@ export const HowTabContent = () => {
           </div>
 
           {/* Dots and Line - Viewport wrapper */}
-          <div className="w-full overflow-hidden relative" style={{ height: 'clamp(30px, 4vh, 40px)' }}>
+          <div className="w-full overflow-visible relative" style={{ height: 'clamp(30px, 4vh, 40px)', padding: '8px 0' }}>
             <div 
               className="relative transition-transform" 
               style={{ 
@@ -353,7 +353,7 @@ export const HowTabContent = () => {
                       width: 'clamp(8px, 1.2vh, 10px)',
                       height: 'clamp(8px, 1.2vh, 10px)',
                       opacity: isActive ? 1 : isCompleted ? 0.6 : 0.3,
-                      boxShadow: isActive ? '0px 0px 12px 4px rgba(255, 255, 255, 0.5)' : 'none',
+                      boxShadow: isActive ? '0px 0px 6px 2px rgba(255, 255, 255, 0.25)' : 'none',
                       zIndex: isActive ? 20 : 10,
                       transitionDuration: '900ms',
                       transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
