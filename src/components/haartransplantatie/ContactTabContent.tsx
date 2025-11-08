@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import shieldIcon from '@/assets/shield-icon.svg';
 import v6HairboostIcon from '@/assets/v6-hairboost.png';
 import chatIcon from '@/assets/chat-icon.svg';
@@ -6,6 +7,7 @@ import whatsappIcon from '@/assets/whatsapp-icon-new.svg';
 import instagramIcon from '@/assets/instagram-icon-new.svg';
 
 export const ContactTabContent = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'nl' | 'tr'>('nl');
 
   return (
@@ -166,13 +168,14 @@ export const ContactTabContent = () => {
         {/* Social Icons Row */}
         <div className="flex items-center justify-center gap-6">
           <button 
-            className="transition-all duration-200 hover:scale-105"
+            onClick={() => navigate('/nl/chat')}
+            className="transition-all duration-200 hover:scale-105 cursor-pointer"
             aria-label="Chat"
           >
             <img src={chatIcon} alt="Chat" className="w-6 h-6" />
           </button>
           <a 
-            href="https://wa.me/31696969696"
+            href="https://wa.me/31857500577"
             target="_blank"
             rel="noopener noreferrer"
             className="transition-all duration-200 hover:scale-105"
@@ -181,7 +184,7 @@ export const ContactTabContent = () => {
             <img src={whatsappIcon} alt="WhatsApp" className="w-10 h-10" />
           </a>
           <a 
-            href="https://instagram.com/yourhandle"
+            href="https://www.instagram.com/globalhair.institute/"
             target="_blank"
             rel="noopener noreferrer"
             className="transition-all duration-200 hover:scale-105"
