@@ -26,16 +26,21 @@ export const HowTabContent = () => {
 
   const phases: Phase[] = ['Pre-', 'Treatment', 'After-'];
 
-  // Timeline clip-path for journey effect
-  const getTimelineClipPath = () => {
-    switch (activePhase) {
+  // Get position percentage for each phase (journey stops)
+  const getPhasePosition = (phase: Phase) => {
+    switch (phase) {
       case 'Pre-':
-        return 'inset(0 0 0 50%)'; // Show right half - journey starts
+        return 25;
       case 'Treatment':
-        return 'inset(0 0 0 0)'; // Show full line - in the middle
+        return 50;
       case 'After-':
-        return 'inset(0 50% 0 0)'; // Show left half - journey ends
+        return 75;
     }
+  };
+
+  // Get line fill percentage based on active phase
+  const getLineFillPercentage = () => {
+    return getPhasePosition(activePhase);
   };
 
   // Dynamic content per phase
@@ -124,7 +129,7 @@ export const HowTabContent = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [activePhase]);
 
-  const timelineClipPath = getTimelineClipPath();
+  const lineFillPercentage = getLineFillPercentage();
   const phaseContent = getPhaseContent();
 
   return (
@@ -206,55 +211,89 @@ export const HowTabContent = () => {
           />
         </div>
 
-        {/* Quote Text */}
-        <p 
-          key={activePhase}
-          className={`text-white text-center max-w-xs mx-auto ${
-            slideDirection === 'left' ? 'animate-slide-left' : 'animate-slide-right'
-          }`}
-          style={{
-            fontSize: 'clamp(8px, 1vh, 9px)',
-            fontWeight: 300,
-            fontFamily: 'Inter',
-            lineHeight: '1.3',
-            marginTop: heightBreakpoint === 'small' ? '-25px' : '-40px',
-            marginBottom: '0px',
-          }}
-          dangerouslySetInnerHTML={{ __html: phaseContent.quote }}
-        />
-
         {/* Journey Timeline */}
         <div className="w-full relative" style={{ 
-          height: 'clamp(12px, 2vh, 16px)', 
+          height: 'clamp(30px, 4vh, 40px)', 
           margin: heightBreakpoint === 'small'
-            ? 'clamp(6px, 1vh, 8px) 0'
-            : 'clamp(8px, 1.5vh, 12px) 0' 
+            ? 'clamp(6px, 1vh, 8px) 0 clamp(3px, 0.5vh, 4px) 0'
+            : 'clamp(8px, 1.5vh, 12px) 0 clamp(4px, 0.75vh, 6px) 0' 
         }}>
-          {/* Line container with overflow */}
-          <div className="absolute top-1/2 left-0 w-full overflow-hidden" style={{ height: '1px', transform: 'translateY(-50%)' }}>
+          {/* Base line (unfilled) */}
+          <div className="absolute top-1/2 left-0 w-full" style={{ height: '1px', transform: 'translateY(-50%)' }}>
             <div
-              className="absolute top-0 left-0 w-full transition-all"
               style={{
+                width: '100%',
                 height: '1px',
-                background: 'linear-gradient(to right, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.6) 25%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0.6) 75%, rgba(255, 255, 255, 0.3) 100%)',
-                clipPath: timelineClipPath,
-                transitionDuration: '1200ms',
+                background: 'rgba(255, 255, 255, 0.2)',
+              }}
+            />
+          </div>
+
+          {/* Filled line (progressive) */}
+          <div className="absolute top-1/2 left-0" style={{ height: '1px', transform: 'translateY(-50%)' }}>
+            <div
+              className="transition-all"
+              style={{
+                width: `${lineFillPercentage}%`,
+                height: '1px',
+                background: 'linear-gradient(to right, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 1) 100%)',
+                transitionDuration: '900ms',
                 transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
               }}
             />
           </div>
           
-          {/* Fixed center dot - always visible */}
+          {/* Three journey dots */}
+          {phases.map((phase) => {
+            const position = getPhasePosition(phase);
+            const isActive = phase === activePhase;
+            const currentIndex = phases.indexOf(activePhase);
+            const dotIndex = phases.indexOf(phase);
+            const isCompleted = dotIndex < currentIndex;
+            const isFuture = dotIndex > currentIndex;
+
+            return (
+              <div
+                key={phase}
+                className="absolute top-1/2 bg-white rounded-full transition-all"
+                style={{
+                  left: `${position}%`,
+                  transform: `translate(-50%, -50%) scale(${isActive ? 1.4 : 0.8})`,
+                  width: 'clamp(8px, 1.2vh, 10px)',
+                  height: 'clamp(8px, 1.2vh, 10px)',
+                  opacity: isActive ? 1 : isCompleted ? 0.6 : 0.3,
+                  boxShadow: isActive ? '0px 0px 12px 4px rgba(255, 255, 255, 0.5)' : 'none',
+                  zIndex: isActive ? 20 : 10,
+                  transitionDuration: '900ms',
+                  transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                }}
+              />
+            );
+          })}
+
+          {/* Text positioned at active dot */}
           <div
-            className="absolute top-1/2 left-1/2 bg-white rounded-full"
+            className="absolute w-full transition-all"
             style={{
-              transform: 'translate(-50%, -50%)',
-              width: 'clamp(8px, 1.2vh, 10px)',
-              height: 'clamp(8px, 1.2vh, 10px)',
-              boxShadow: '0px 0px 6.8px 3px #FFFFFF40',
-              zIndex: 10,
+              left: `${getPhasePosition(activePhase)}%`,
+              top: 'calc(100% + 4px)',
+              transform: 'translateX(-50%)',
+              transitionDuration: '900ms',
+              transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
             }}
-          />
+          >
+            <p 
+              key={activePhase}
+              className="text-white text-center max-w-xs mx-auto animate-fade-scale"
+              style={{
+                fontSize: 'clamp(8px, 1vh, 9px)',
+                fontWeight: 300,
+                fontFamily: 'Inter',
+                lineHeight: '1.3',
+              }}
+              dangerouslySetInnerHTML={{ __html: phaseContent.quote }}
+            />
+          </div>
         </div>
 
         {/* Link */}
@@ -305,34 +344,19 @@ export const HowTabContent = () => {
           z-index: 1;
         }
 
-        @keyframes slide-in-from-right {
+        @keyframes fade-scale {
           from {
             opacity: 0;
-            transform: translateX(150px) scale(0.85);
+            transform: scale(0.9);
           }
           to {
             opacity: 1;
-            transform: translateX(0) scale(1);
+            transform: scale(1);
           }
         }
 
-        @keyframes slide-in-from-left {
-          from {
-            opacity: 0;
-            transform: translateX(-150px) scale(0.85);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0) scale(1);
-          }
-        }
-
-        .animate-slide-left {
-          animation: slide-in-from-right 900ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-
-        .animate-slide-right {
-          animation: slide-in-from-left 900ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        .animate-fade-scale {
+          animation: fade-scale 900ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
       `}</style>
     </div>
