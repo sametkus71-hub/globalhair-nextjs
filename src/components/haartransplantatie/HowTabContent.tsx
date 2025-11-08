@@ -1,10 +1,12 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
+import { useViewportHeight } from '@/hooks/useViewportHeight';
 
 type Phase = 'Pre-' | 'Treatment' | 'After-';
 
 export const HowTabContent = () => {
   const { language } = useLanguage();
+  const { heightBreakpoint } = useViewportHeight();
   const [activePhase, setActivePhase] = useState<Phase>('Treatment');
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('left');
@@ -131,7 +133,11 @@ export const HowTabContent = () => {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      <div className="w-full flex flex-col items-center px-4" style={{ gap: 'clamp(0.3rem, 0.6vh, 0.5rem)' }}>
+      <div className="w-full flex flex-col items-center px-4" style={{ 
+        gap: heightBreakpoint === 'small' 
+          ? 'clamp(0.2rem, 0.4vh, 0.3rem)'
+          : 'clamp(0.3rem, 0.6vh, 0.5rem)' 
+      }}>
         {/* Phase Selector */}
         <div 
           className="relative flex items-center justify-center gap-1 rounded-full"
@@ -174,9 +180,13 @@ export const HowTabContent = () => {
           className="relative rounded-lg overflow-hidden mx-auto" 
           style={{ 
             aspectRatio: '3/4',
-            maxHeight: 'clamp(280px, 48vh, 400px)',
+            maxHeight: heightBreakpoint === 'small' 
+              ? 'clamp(220px, 38vh, 300px)'
+              : heightBreakpoint === 'medium'
+              ? 'clamp(250px, 43vh, 350px)'
+              : 'clamp(280px, 48vh, 400px)',
             width: 'auto',
-            marginTop: '-30px',
+            marginTop: heightBreakpoint === 'small' ? '-20px' : '-30px',
           }}
         >
           <video
@@ -190,7 +200,7 @@ export const HowTabContent = () => {
             muted
             playsInline
             className="w-full h-full object-cover"
-            style={{ marginTop: '-30px', zIndex: -1 }}
+            style={{ marginTop: heightBreakpoint === 'small' ? '-20px' : '-30px', zIndex: -1 }}
           />
         </div>
 
@@ -205,14 +215,19 @@ export const HowTabContent = () => {
             fontWeight: 300,
             fontFamily: 'Inter',
             lineHeight: '1.3',
-            marginTop: '-40px',
+            marginTop: heightBreakpoint === 'small' ? '-25px' : '-40px',
             marginBottom: '0px',
           }}
           dangerouslySetInnerHTML={{ __html: phaseContent.quote }}
         />
 
         {/* Journey Timeline */}
-        <div className="w-full relative" style={{ height: 'clamp(12px, 2vh, 16px)', margin: 'clamp(8px, 1.5vh, 12px) 0' }}>
+        <div className="w-full relative" style={{ 
+          height: 'clamp(12px, 2vh, 16px)', 
+          margin: heightBreakpoint === 'small'
+            ? 'clamp(6px, 1vh, 8px) 0'
+            : 'clamp(8px, 1.5vh, 12px) 0' 
+        }}>
           {/* Line container with overflow */}
           <div className="absolute top-1/2 left-0 w-full overflow-hidden" style={{ height: '1px', transform: 'translateY(-50%)' }}>
             <div
