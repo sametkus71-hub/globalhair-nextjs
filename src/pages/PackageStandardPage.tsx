@@ -154,16 +154,16 @@ export const PackageStandardPage = () => {
       
       // Start crossfade after short delay
       setTimeout(() => {
-        newVideo.style.transition = 'opacity 400ms ease-in-out';
+        newVideo.style.transition = 'opacity 250ms ease-in-out';
         newVideo.style.opacity = '1';
         
         if (currentVideo) {
-          currentVideo.style.transition = 'opacity 400ms ease-in-out';
+          currentVideo.style.transition = 'opacity 250ms ease-in-out';
           currentVideo.style.opacity = '0';
           
           setTimeout(() => {
             currentVideo.remove();
-          }, 400);
+          }, 250);
         }
       }, 50);
       
@@ -171,11 +171,11 @@ export const PackageStandardPage = () => {
       setTimeout(() => {
         setActiveCountry(country);
         setActiveTier(newTier);
-      }, 300);
+      }, 100);
       
       setTimeout(() => {
         setIsTransitioning(false);
-      }, 450);
+      }, 300);
     } catch (error) {
       console.error('Video load failed:', error);
       setIsTransitioning(false);
@@ -205,27 +205,27 @@ export const PackageStandardPage = () => {
       
       // Start crossfade after short delay
       setTimeout(() => {
-        newVideo.style.transition = 'opacity 400ms ease-in-out';
+        newVideo.style.transition = 'opacity 250ms ease-in-out';
         newVideo.style.opacity = '1';
         
         if (currentVideo) {
-          currentVideo.style.transition = 'opacity 400ms ease-in-out';
+          currentVideo.style.transition = 'opacity 250ms ease-in-out';
           currentVideo.style.opacity = '0';
           
           setTimeout(() => {
             currentVideo.remove();
-          }, 400);
+          }, 250);
         }
       }, 50);
       
       // Delay state update until video crossfade is mostly complete
       setTimeout(() => {
         setActiveTier(tier);
-      }, 300);
+      }, 100);
       
       setTimeout(() => {
         setIsTransitioning(false);
-      }, 450);
+      }, 300);
     } catch (error) {
       console.error('Video load failed:', error);
       setIsTransitioning(false);
