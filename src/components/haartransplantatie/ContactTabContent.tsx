@@ -164,7 +164,7 @@ export const ContactTabContent = () => {
         </div>
         
         {/* Social Icons Row */}
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-6">
           <button 
             className="transition-all duration-200 hover:scale-105"
             aria-label="Chat"
