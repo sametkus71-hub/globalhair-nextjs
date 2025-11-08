@@ -76,7 +76,7 @@ export const ContactTabContent = () => {
         >
           {/* Content based on active tab */}
           {activeTab === 'nl' ? (
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-8 mx-auto" style={{ width: '220px' }}>
               {/* Barendrecht */}
               <div className="text-center">
                 <div className="flex gap-2 justify-center items-center mb-2">
@@ -115,7 +115,7 @@ export const ContactTabContent = () => {
               </div>
             </div>
           ) : (
-            <div className="flex justify-center">
+            <div className="flex justify-center mx-auto" style={{ width: '220px' }}>
               <div className="text-center">
                 <div className="flex gap-2 justify-center items-center mb-2">
                   <img src={shieldIcon} alt="Shield" className="w-4 h-4 opacity-95" />
