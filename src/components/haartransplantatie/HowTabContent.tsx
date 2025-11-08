@@ -219,7 +219,7 @@ export const HowTabContent = () => {
               className="absolute top-0 left-0 w-full transition-all"
               style={{
                 height: '1px',
-                background: 'linear-gradient(to right, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0.7) 100%)',
+                background: 'linear-gradient(to right, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.6) 25%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0.6) 75%, rgba(255, 255, 255, 0.3) 100%)',
                 clipPath: timelineClipPath,
                 transitionDuration: '1200ms',
                 transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
