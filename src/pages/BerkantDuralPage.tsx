@@ -260,7 +260,7 @@ const BerkantDuralPage = () => {
             <div className="relative z-10 space-y-6 mt-auto">
               <div className={`max-w-md transition-all duration-500 ease-out ${contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                 <p className="text-xs leading-relaxed font-normal text-left text-white/90 font-inter">
-                  {video.description}
+                  CEO Berkant Dural groeide op in een familie waar kaalheid vanzelfsprekend was, en dat werd zijn drijfveer. GlobalHair ontstond uit die persoonlijke zoektocht: een kliniek gebouwd op aandacht, rust en vakmanschap. Met zijn team werkt hij elke dag aan één doel; het herstellen van zelfvertrouwen, met precisie en respect voor het ambacht.
                 </p>
               </div>
 
