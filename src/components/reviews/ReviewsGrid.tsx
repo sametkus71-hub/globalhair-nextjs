@@ -220,7 +220,7 @@ export const ReviewsGrid = () => {
         style={{
           height: '370px',  // 3 rows × 120px + 2 gaps × 5px
           gridAutoColumns: '120px',
-          gridAutoFlow: 'dense',
+          gridAutoFlow: 'column dense',  // Flow horizontally and fill gaps intelligently
           gap: '5px',
           backgroundColor: 'transparent'
         }}

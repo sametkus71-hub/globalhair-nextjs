@@ -14,7 +14,7 @@ export interface GridItem {
 }
 
 // Grid layout structure - Instagram-style with mixed sizes
-// Includes 1×1 (small), 1×2 (tall), 2×1 (wide), and 2×2 (big square) items
+// Includes 1×1 (small), 1×2 (tall), and 2×2 (big square) items only
 const GRID_LAYOUT: Array<{ width: 1 | 2; height: 1 | 2; contentType?: 'video-only' | 'small-only' }> = [
   // Pattern 1: Big square video + small items
   { width: 2, height: 2, contentType: 'video-only' },  // Big square video
@@ -41,9 +41,9 @@ const GRID_LAYOUT: Array<{ width: 1 | 2; height: 1 | 2; contentType?: 'video-onl
   { width: 1, height: 1, contentType: 'small-only' },
   { width: 1, height: 1, contentType: 'small-only' },
   
-  // Pattern 6: Tall video + wide item
+  // Pattern 6: Tall video + small items
   { width: 1, height: 2, contentType: 'video-only' },
-  { width: 2, height: 1, contentType: 'small-only' },  // Wide
+  { width: 1, height: 1, contentType: 'small-only' },
   { width: 1, height: 1, contentType: 'small-only' },
   
   // Pattern 7: Big square video + tall
@@ -56,9 +56,9 @@ const GRID_LAYOUT: Array<{ width: 1 | 2; height: 1 | 2; contentType?: 'video-onl
   { width: 1, height: 1, contentType: 'small-only' },
   { width: 1, height: 1, contentType: 'small-only' },
   
-  // Pattern 9: Wide + tall video
-  { width: 2, height: 1, contentType: 'small-only' },  // Wide
+  // Pattern 9: Tall video + small items
   { width: 1, height: 2, contentType: 'video-only' },  // Tall
+  { width: 1, height: 1, contentType: 'small-only' },
   { width: 1, height: 1, contentType: 'small-only' },
   
   // Pattern 10: Big square + small
