@@ -246,7 +246,7 @@ export const PackageStandardPage = () => {
 
   const packageData = {
     Standard: {
-      price: '€8.000',
+      price: '€8.950',
       features: [
         {
           key: 'indicators' as FeatureKey,
@@ -275,7 +275,7 @@ export const PackageStandardPage = () => {
       ]
     },
     Premium: {
-      price: '€16.000',
+      price: '€15.950',
       features: [
         {
           key: 'indicators' as FeatureKey,
@@ -316,7 +316,7 @@ export const PackageStandardPage = () => {
       ]
     },
     Elite: {
-      price: '€21.500',
+      price: '€21.950',
       features: [
         {
           key: 'indicators' as FeatureKey,
@@ -377,9 +377,9 @@ export const PackageStandardPage = () => {
     if (activeCountry === 'tr') {
       switch (activeTier) {
         case 'Standard':
-          return '€6.500';
+          return '€5.950';
         case 'Premium':
-          return '€13.000';
+          return '€12.450';
         default:
           return currentPackage.price;
       }
