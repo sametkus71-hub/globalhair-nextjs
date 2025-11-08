@@ -542,14 +542,9 @@ export const PackageStandardPage = () => {
             <button
               className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
                 activeTier === 'Premium'
-                  ? 'bg-white/10 text-white scale-105'
+                  ? 'gold-gradient-border bg-white/10 text-white scale-105'
                   : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
               }`}
-              style={activeTier === 'Premium' ? {
-                border: '1.28px solid',
-                borderImageSource: 'linear-gradient(285.06deg, rgba(221, 97, 126, 0.25) 2.5%, #E3C06B 16.59%, #EFECE6 48.17%, #EFCF7C 83.98%, rgba(221, 97, 126, 0.25) 95.62%)',
-                borderImageSlice: 1
-              } : undefined}
               onClick={() => handleTierChange('Premium')}
             >
               Premium
@@ -559,14 +554,9 @@ export const PackageStandardPage = () => {
                 activeCountry === 'tr' 
                   ? 'bg-transparent text-white/20 cursor-not-allowed scale-100' 
                   : activeTier === 'Elite'
-                    ? 'bg-white/10 text-white scale-105'
+                    ? 'gold-gradient-border bg-white/10 text-white scale-105'
                     : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
               }`}
-              style={activeCountry === 'nl' && activeTier === 'Elite' ? {
-                border: '1.28px solid',
-                borderImageSource: 'linear-gradient(285.06deg, rgba(221, 97, 126, 0.25) 2.5%, #E3C06B 16.59%, #EFECE6 48.17%, #EFCF7C 83.98%, rgba(221, 97, 126, 0.25) 95.62%)',
-                borderImageSlice: 1
-              } : undefined}
               onClick={() => activeCountry === 'nl' && handleTierChange('Elite')}
               disabled={activeCountry === 'tr'}
             >
@@ -742,6 +732,56 @@ export const PackageStandardPage = () => {
 </div>
 
 <style>{`
+  .silver-gradient-border {
+    position: relative;
+  }
+
+  .silver-gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1.28px;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #949494 7%, #ACB9C1 16%, #FFFFFF 34%, #ACB9C1 51%, #4B555E 78%, #fff 105%);
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .silver-gradient-border > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .gold-gradient-border {
+    position: relative;
+  }
+
+  .gold-gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1.28px;
+    border-radius: inherit;
+    background: linear-gradient(285.06deg, rgba(221, 97, 126, 0.25) 2.5%, #E3C06B 16.59%, #EFECE6 48.17%, #EFCF7C 83.98%, rgba(221, 97, 126, 0.25) 95.62%);
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .gold-gradient-border > * {
+    position: relative;
+    z-index: 1;
+  }
+
   .popup-section-border {
     position: relative;
   }
