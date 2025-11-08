@@ -305,11 +305,12 @@ export const HowTabContent = () => {
           </div>
 
           {/* Text - Separate viewport wrapper */}
-          <div className="w-full overflow-hidden relative" style={{ marginTop: '8px' }}>
+          <div className="w-full overflow-hidden relative" style={{ marginTop: '8px', minHeight: 'clamp(40px, 8vh, 60px)' }}>
             <div 
               className="relative transition-transform" 
               style={{ 
                 width: '300%',
+                height: '100%',
                 transform: `translateX(-${translateX}%)`,
                 transitionDuration: '900ms',
                 transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
@@ -327,6 +328,7 @@ export const HowTabContent = () => {
                     className="absolute transition-opacity"
                     style={{
                       left: `${position}%`,
+                      top: 0,
                       transform: 'translateX(-50%)',
                       opacity: isActive ? 1 : 0.3,
                       width: 'clamp(100px, 35vw, 180px)',
