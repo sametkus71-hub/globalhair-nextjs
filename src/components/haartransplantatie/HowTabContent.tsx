@@ -64,7 +64,7 @@ export const HowTabContent = () => {
     
     setIsTransitioning(true);
     setActivePhase(newPhase);
-    setTimeout(() => setIsTransitioning(false), 600);
+    setTimeout(() => setIsTransitioning(false), 1200);
   };
 
   // Navigate to next/previous phase
@@ -220,7 +220,7 @@ export const HowTabContent = () => {
               style={{
                 height: '1px',
                 clipPath: timelineClipPath,
-                transitionDuration: '600ms',
+                transitionDuration: '1200ms',
                 transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
               }}
             />
@@ -304,11 +304,11 @@ export const HowTabContent = () => {
         }
 
         .animate-slide-left {
-          animation: slide-in-from-right 500ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+          animation: slide-in-from-right 900ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
         .animate-slide-right {
-          animation: slide-in-from-left 500ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+          animation: slide-in-from-left 900ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
       `}</style>
     </div>
