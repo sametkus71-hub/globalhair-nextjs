@@ -76,7 +76,7 @@ export const ContactTabContent = () => {
         >
           {/* Content based on active tab */}
           {activeTab === 'nl' ? (
-            <div className="grid grid-cols-2 gap-8">
+            <div className="flex flex-col gap-8">
               {/* Barendrecht */}
               <div className="text-center">
                 <div className="flex gap-2 justify-center items-center mb-2">
