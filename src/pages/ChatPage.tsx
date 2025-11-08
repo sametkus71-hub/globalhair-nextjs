@@ -426,6 +426,15 @@ const ChatPage = () => {
         )
       );
       
+      // Smart input field recovery - auto-show if conversation state requires it
+      const savedState = localStorage.getItem('chat-conversation-state');
+      if (savedState === ConversationState.ASKING_CUSTOM_QUESTION || 
+          savedState === ConversationState.ASKING_NAME) {
+        setTimeout(() => {
+          setShowInputField(true);
+        }, 300);
+      }
+      
       console.log('[Chat] Cleaned up interrupted streaming state on mount');
     }
   }, []); // Empty deps = run once on mount
@@ -538,6 +547,7 @@ const ChatPage = () => {
     const savedState = localStorage.getItem('chat-conversation-state');
     const savedSubject = localStorage.getItem('chat-selected-subject');
     const savedQuestions = localStorage.getItem('chat-displayed-questions');
+    const savedShowInputField = localStorage.getItem('chat-show-input-field');
     
     if (savedName) {
       setUserName(savedName);
@@ -549,6 +559,15 @@ const ChatPage = () => {
     
     if (savedSubject) {
       setSelectedSubject(savedSubject);
+    }
+    
+    // Restore showInputField state
+    if (savedShowInputField) {
+      try {
+        setShowInputField(JSON.parse(savedShowInputField));
+      } catch (e) {
+        console.error('Failed to parse saved showInputField:', e);
+      }
     }
 
     // Load or generate random questions
@@ -597,6 +616,10 @@ const ChatPage = () => {
   useEffect(() => {
     localStorage.setItem('chat-conversation-state', conversationState);
   }, [conversationState]);
+
+  useEffect(() => {
+    localStorage.setItem('chat-show-input-field', JSON.stringify(showInputField));
+  }, [showInputField]);
 
   useEffect(() => {
     if (selectedSubject) {
