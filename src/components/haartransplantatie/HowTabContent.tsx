@@ -7,6 +7,7 @@ export const HowTabContent = () => {
   const { language } = useLanguage();
   const [activePhase, setActivePhase] = useState<Phase>('Treatment');
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('left');
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -54,6 +55,13 @@ export const HowTabContent = () => {
   // Change phase with transition lock
   const changePhase = (newPhase: Phase) => {
     if (isTransitioning || newPhase === activePhase) return;
+    
+    const currentIndex = phases.indexOf(activePhase);
+    const newIndex = phases.indexOf(newPhase);
+    
+    // Determine slide direction based on index comparison
+    setSlideDirection(newIndex > currentIndex ? 'left' : 'right');
+    
     setIsTransitioning(true);
     setActivePhase(newPhase);
     setTimeout(() => setIsTransitioning(false), 600);
@@ -189,7 +197,9 @@ export const HowTabContent = () => {
         {/* Quote Text */}
         <p 
           key={activePhase}
-          className="text-white text-center max-w-xs mx-auto animate-fade-in"
+          className={`text-white text-center max-w-xs mx-auto ${
+            slideDirection === 'left' ? 'animate-slide-left' : 'animate-slide-right'
+          }`}
           style={{
             fontSize: 'clamp(8px, 1vh, 9px)',
             fontWeight: 300,
@@ -269,6 +279,36 @@ export const HowTabContent = () => {
         .silver-gradient-border > * {
           position: relative;
           z-index: 1;
+        }
+
+        @keyframes slide-in-from-right {
+          from {
+            opacity: 0;
+            transform: translateX(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes slide-in-from-left {
+          from {
+            opacity: 0;
+            transform: translateX(-30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        .animate-slide-left {
+          animation: slide-in-from-right 400ms ease-out forwards;
+        }
+
+        .animate-slide-right {
+          animation: slide-in-from-left 400ms ease-out forwards;
         }
       `}</style>
     </div>
