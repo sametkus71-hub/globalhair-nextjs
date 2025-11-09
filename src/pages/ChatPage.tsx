@@ -94,7 +94,7 @@ function getCharacterDelay(
   return adjustedBase + variance;
 }
 
-// Phase 4: Simplified message display (keeps streaming cursor, removes character-by-character complexity)
+// Character-by-character streaming for all chat messages (ChatGPT-like typing effect)
 async function streamStaticText(
   text: string,
   onChunk: (chunk: string) => void,
@@ -103,13 +103,30 @@ async function streamStaticText(
 ): Promise<void> {
   if (!isMountedRef.current) return;
   
-  // Small delay for visual settling
-  await new Promise(resolve => setTimeout(resolve, 300));
+  // Small initial delay before typing starts (feels more natural)
+  await new Promise(resolve => setTimeout(resolve, 200));
   
   if (!isMountedRef.current) return;
   
-  // Display message instantly
-  onChunk(text);
+  // Stream character by character using the same logic as API responses
+  const chars = text.split('');
+  let accumulatedText = '';
+  
+  for (let i = 0; i < chars.length; i++) {
+    if (!isMountedRef.current) return;
+    
+    const currentChar = chars[i];
+    accumulatedText += currentChar;
+    onChunk(accumulatedText);
+    
+    // Use the same intelligent delay calculation as API responses
+    if (i < chars.length - 1) {
+      const delay = getCharacterDelay(currentChar, text.length, i);
+      const timeoutId = window.setTimeout(() => {}, delay);
+      timeoutsRef.current?.push(timeoutId);
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
 }
 
 async function sendMessageStreaming(
