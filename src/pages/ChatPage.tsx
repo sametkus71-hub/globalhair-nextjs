@@ -5,6 +5,7 @@ import { X, Send, Loader2, ExternalLink } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import hairtransplantLogo from '@/assets/hairtransplant-logo.png';
 import { usePopupClose } from '@/components/PopupCloseButton';
+import { LinkifiedText } from '@/components/chat/LinkifiedText';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
 
 enum ConversationState {
@@ -1229,12 +1230,12 @@ const ChatPage = () => {
                       color: msg.role === 'user' ? 'rgb(255, 255, 255)' : 'rgb(220, 220, 220)',
                     }}
                   >
-                    <span style={{
-                      transition: 'opacity 0.08s ease-out',
-                      opacity: 1
-                    }}>
-                      {msg.content}
-                    </span>
+                      <span style={{
+                        transition: 'opacity 0.08s ease-out',
+                        opacity: 1
+                      }}>
+                        <LinkifiedText text={msg.content} />
+                      </span>
                     {msg.isStreaming && (
                       <span 
                         className="inline-block ml-0.5 w-0.5 h-4"
