@@ -94,40 +94,22 @@ function getCharacterDelay(
   return adjustedBase + variance;
 }
 
-// Helper function to stream static text character by character for ultra-smooth animation
+// Phase 4: Simplified message display (keeps streaming cursor, removes character-by-character complexity)
 async function streamStaticText(
   text: string,
   onChunk: (chunk: string) => void,
   isMountedRef: React.RefObject<boolean>,
   timeoutsRef: React.RefObject<number[]>
 ): Promise<void> {
-  // Check if still mounted
   if (!isMountedRef.current) return;
   
-  // Initial delay to let bubble settle in
-  const initialTimeout = window.setTimeout(() => {}, 250);
-  timeoutsRef.current?.push(initialTimeout);
-  await new Promise(resolve => setTimeout(resolve, 250));
+  // Small delay for visual settling
+  await new Promise(resolve => setTimeout(resolve, 300));
   
   if (!isMountedRef.current) return;
   
-  const chars = text.split('');
-  let accumulatedText = '';
-  
-  for (let i = 0; i < chars.length; i++) {
-    if (!isMountedRef.current) return; // Check mounted status before each update
-    
-    const currentChar = chars[i];
-    accumulatedText += currentChar;
-    onChunk(accumulatedText);
-    
-    if (i < chars.length - 1) {
-      const delay = getCharacterDelay(currentChar, text.length, i);
-      const timeoutId = window.setTimeout(() => {}, delay);
-      timeoutsRef.current?.push(timeoutId);
-      await new Promise(resolve => setTimeout(resolve, delay));
-    }
-  }
+  // Display message instantly
+  onChunk(text);
 }
 
 async function sendMessageStreaming(
@@ -394,6 +376,7 @@ const ChatPage = () => {
   const abortControllerRef = useRef<AbortController | null>(null);
   const streamingTimeoutsRef = useRef<number[]>([]);
   const isMountedRef = useRef(true);
+  const streamingFailsafeRef = useRef<number | null>(null); // Phase 3: Failsafe timer
 
   // Single robust mount handler - initializes everything in correct order
   useEffect(() => {
@@ -402,101 +385,72 @@ const ChatPage = () => {
     // STEP 1: Mark as mounted
     isMountedRef.current = true;
     
-    // STEP 2: Load or create session ID
-    const storedSessionId = localStorage.getItem('n8n-chat-session-id');
+    // STEP 2: Load or create session ID (Phase 1: sessionStorage)
+    const storedSessionId = sessionStorage.getItem('n8n-chat-session-id');
     if (storedSessionId) {
       setSessionId(storedSessionId);
       console.log('[Chat] Loaded existing session:', storedSessionId);
     } else {
       const newSessionId = crypto.randomUUID();
-      localStorage.setItem('n8n-chat-session-id', newSessionId);
+      sessionStorage.setItem('n8n-chat-session-id', newSessionId);
       setSessionId(newSessionId);
       console.log('[Chat] Created new session:', newSessionId);
     }
     
-    // STEP 3: Load all saved data at once
-    const savedData = {
-      messages: localStorage.getItem('chat-messages'),
-      name: localStorage.getItem('chat-user-name'),
-      state: localStorage.getItem('chat-conversation-state'),
-      subject: localStorage.getItem('chat-selected-subject'),
-      questions: localStorage.getItem('chat-displayed-questions'),
-      showInput: localStorage.getItem('chat-show-input-field')
-    };
-    
-    // STEP 4: Sanitize and restore saved data
+    // STEP 3: Load unified chat state (Phase 2: Unified state management)
+    const savedStateStr = sessionStorage.getItem('chat-state');
     let hasSavedConversation = false;
     
-    if (savedData.messages) {
+    // STEP 4: Restore saved state if exists (Phase 2: Unified state)
+    if (savedStateStr) {
       try {
-        const parsed = JSON.parse(savedData.messages);
+        const savedState = JSON.parse(savedStateStr);
+        
         // CRITICAL: Force all messages to non-streaming state
-        const sanitizedMessages = parsed.map((msg: Message) => ({
+        const sanitizedMessages = savedState.messages?.map((msg: Message) => ({
           ...msg,
-          isStreaming: false  // Never restore streaming state
-        }));
+          isStreaming: false
+        })) || [];
+        
         setMessages(sanitizedMessages);
-        hasSavedConversation = true;
-        console.log('[Chat] Restored', sanitizedMessages.length, 'messages');
-      } catch (e) {
-        console.error('Failed to parse saved messages:', e);
-      }
-    }
-    
-    if (savedData.name) {
-      setUserName(savedData.name);
-      console.log('[Chat] Restored user name');
-    }
-    
-    if (savedData.subject) {
-      setSelectedSubject(savedData.subject);
-      console.log('[Chat] Restored subject');
-    }
-    
-    // Restore or generate questions
-    if (savedData.questions) {
-      try {
-        setDisplayedQuestions(JSON.parse(savedData.questions));
-      } catch (e) {
-        console.error('Failed to parse saved questions:', e);
-        const randomQuestions = getRandomQuestions(STARTING_QUESTIONS, 2);
-        setDisplayedQuestions([...randomQuestions, FIXED_QUESTION]);
-      }
-    } else {
-      const randomQuestions = getRandomQuestions(STARTING_QUESTIONS, 2);
-      setDisplayedQuestions([...randomQuestions, FIXED_QUESTION]);
-    }
-    
-    // STEP 5: Determine conversation state and input visibility
-    if (hasSavedConversation && savedData.state) {
-      // Restore conversation state
-      const restoredState = savedData.state as ConversationState;
-      setConversationState(restoredState);
-      
-      // CRITICAL: Always show input if in an input-requiring state
-      if (restoredState === ConversationState.ASKING_CUSTOM_QUESTION ||
-          restoredState === ConversationState.ASKING_NAME ||
-          restoredState === ConversationState.ACTIVE_CHAT) {
-        setShowInputField(true);
-        console.log('[Chat] Auto-enabled input field for state:', restoredState);
-      } else if (savedData.showInput) {
-        try {
-          setShowInputField(JSON.parse(savedData.showInput));
-        } catch (e) {
-          // Default to true if conversation exists
+        setConversationState(savedState.conversationState || ConversationState.GREETING);
+        setShowInputField(savedState.showInputField || false);
+        setSelectedSubject(savedState.selectedSubject || '');
+        setUserName(savedState.userName || '');
+        setDisplayedQuestions(savedState.displayedQuestions || []);
+        
+        hasSavedConversation = sanitizedMessages.length > 0;
+        
+        // CRITICAL: Always show input if in an input-requiring state
+        const restoredState = savedState.conversationState;
+        if (restoredState === ConversationState.ASKING_CUSTOM_QUESTION ||
+            restoredState === ConversationState.ASKING_NAME ||
+            restoredState === ConversationState.ACTIVE_CHAT) {
           setShowInputField(true);
         }
+        
+        setIsLoading(false);
+        console.log('[Chat] Restored conversation:', { messages: sanitizedMessages.length, state: restoredState });
+      } catch (e) {
+        console.error('[Chat] Failed to parse saved state:', e);
+        const randomQuestions = getRandomQuestions(STARTING_QUESTIONS, 2);
+        setDisplayedQuestions([...randomQuestions, FIXED_QUESTION]);
+        startConversationFlow();
       }
-      
-      // CRITICAL: Always clear loading state for saved conversations
-      setIsLoading(false);
-      
-      console.log('[Chat] Restored saved conversation in state:', restoredState);
     } else {
-      // STEP 6: Start fresh conversation if no saved data
+      // STEP 5: Start fresh conversation if no saved data
+      const randomQuestions = getRandomQuestions(STARTING_QUESTIONS, 2);
+      setDisplayedQuestions([...randomQuestions, FIXED_QUESTION]);
       console.log('[Chat] No saved conversation - starting fresh');
       startConversationFlow();
     }
+    
+    // Phase 3: Failsafe timer to clear stuck streaming states
+    streamingFailsafeRef.current = window.setTimeout(() => {
+      setMessages(prev => prev.map(msg => ({ ...msg, isStreaming: false })));
+      setIsLoading(false);
+      console.log('[Chat] Failsafe: Cleared stuck streaming state');
+    }, 10000);
     
     // Cleanup function
     return () => {
@@ -518,6 +472,12 @@ const ChatPage = () => {
       // Clear preload timeouts
       preloadTimeoutsRef.current.forEach(clearTimeout);
       preloadTimeoutsRef.current = [];
+      
+      // Phase 3: Clear failsafe timer
+      if (streamingFailsafeRef.current) {
+        clearTimeout(streamingFailsafeRef.current);
+        streamingFailsafeRef.current = null;
+      }
     };
   }, []); // Run once on mount
 
@@ -597,45 +557,31 @@ const ChatPage = () => {
     };
   }, []);
 
-  // This effect is now merged into the single mount handler above
-
-  // Save data to localStorage - CRITICAL: Never persist streaming state
+  // Phase 2: Unified state management - single save effect replaces 6 separate effects
   useEffect(() => {
-    if (messages.length > 0) {
-      const cleanMessages = messages.map(msg => ({
-        ...msg,
-        isStreaming: false  // Never persist streaming state
-      }));
-      localStorage.setItem('chat-messages', JSON.stringify(cleanMessages));
+    // Only save if we have actual content
+    if (messages.length > 0 || userName) {
+      const chatState = {
+        messages: messages.map(msg => ({ ...msg, isStreaming: false })), // Never persist streaming
+        conversationState,
+        showInputField,
+        selectedSubject,
+        userName,
+        displayedQuestions
+      };
+      
+      sessionStorage.setItem('chat-state', JSON.stringify(chatState));
+    }
+  }, [messages, conversationState, showInputField, selectedSubject, userName, displayedQuestions]);
+  
+  // Phase 3: Reset failsafe when streaming completes
+  useEffect(() => {
+    const hasStreaming = messages.some(msg => msg.isStreaming);
+    if (!hasStreaming && streamingFailsafeRef.current) {
+      clearTimeout(streamingFailsafeRef.current);
+      streamingFailsafeRef.current = null;
     }
   }, [messages]);
-
-  useEffect(() => {
-    localStorage.setItem('chat-conversation-state', conversationState);
-  }, [conversationState]);
-
-  useEffect(() => {
-    localStorage.setItem('chat-show-input-field', JSON.stringify(showInputField));
-  }, [showInputField]);
-
-  useEffect(() => {
-    if (selectedSubject) {
-      localStorage.setItem('chat-selected-subject', selectedSubject);
-    }
-  }, [selectedSubject]);
-
-  useEffect(() => {
-    if (userName) {
-      localStorage.setItem('chat-user-name', userName);
-    }
-  }, [userName]);
-
-  // Persist displayed questions to localStorage
-  useEffect(() => {
-    if (displayedQuestions.length > 0) {
-      localStorage.setItem('chat-displayed-questions', JSON.stringify(displayedQuestions));
-    }
-  }, [displayedQuestions]);
 
   // Detect scroll for header background
   useEffect(() => {
@@ -1081,11 +1027,9 @@ const ChatPage = () => {
   };
 
   const handleRestart = () => {
-    // Clear all localStorage
-    localStorage.removeItem('chat-messages');
-    localStorage.removeItem('chat-user-name');
-    localStorage.removeItem('chat-conversation-state');
-    localStorage.removeItem('chat-selected-subject');
+    // Phase 1: Clear sessionStorage instead of localStorage
+    sessionStorage.removeItem('chat-state');
+    sessionStorage.removeItem('n8n-chat-session-id');
     
     // Reset state
     setMessages([]);
@@ -1173,15 +1117,27 @@ const ChatPage = () => {
               </div>
 
               <div className="flex items-center gap-2">
-                {/* Dev-only restart button */}
+                {/* Phase 5: Dev-only buttons */}
                 {isDevEnvironment && (
-                  <button
-                    onClick={handleRestart}
-                    className="px-3 py-1.5 text-xs text-white/70 hover:text-white transition-colors rounded-lg hover:bg-white/10 border border-white/20"
-                    aria-label="Restart chat"
-                  >
-                    Restart
-                  </button>
+                  <>
+                    <button
+                      onClick={handleRestart}
+                      className="px-3 py-1.5 text-xs text-white/70 hover:text-white transition-colors rounded-lg hover:bg-white/10 border border-white/20"
+                      aria-label="Restart chat"
+                    >
+                      Restart
+                    </button>
+                    <button
+                      onClick={() => {
+                        sessionStorage.clear();
+                        window.location.reload();
+                      }}
+                      className="px-3 py-1.5 text-xs text-white/70 hover:text-white transition-colors rounded-lg hover:bg-white/10 border border-white/20"
+                      aria-label="Clear session"
+                    >
+                      Clear
+                    </button>
+                  </>
                 )}
                 
                 <button
@@ -1341,8 +1297,8 @@ const ChatPage = () => {
               </div>
             )}
 
-            {/* Custom Question Input */}
-            {conversationState === ConversationState.ASKING_CUSTOM_QUESTION && !isAnyMessageStreaming && showInputField && (
+            {/* Custom Question Input - Phase 3: Removed !isAnyMessageStreaming check */}
+            {conversationState === ConversationState.ASKING_CUSTOM_QUESTION && showInputField && (
               <div className="flex flex-col gap-2 mt-4 animate-fade-in-up">
                 <div className="flex items-center gap-2">
                   <input
@@ -1378,8 +1334,8 @@ const ChatPage = () => {
               </div>
             )}
 
-            {/* Name Input */}
-            {conversationState === ConversationState.ASKING_NAME && !isAnyMessageStreaming && showInputField && (
+            {/* Name Input - Phase 3: Removed !isAnyMessageStreaming check */}
+            {conversationState === ConversationState.ASKING_NAME && showInputField && (
               <div className="flex flex-col gap-2 mt-4 animate-fade-in-up">
                 <div className="flex items-center gap-2">
                   <input
