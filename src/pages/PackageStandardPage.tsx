@@ -574,9 +574,9 @@ export const PackageStandardPage = () => {
             >
               Premium
             </button>
-            <div className="relative">
+            <div className="relative w-full">
               <button
-                className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
+                className={`relative w-full text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
                   activeCountry === 'tr' 
                     ? 'text-white/15 cursor-not-allowed scale-100' 
                     : activeTier === 'Elite'
@@ -602,7 +602,8 @@ export const PackageStandardPage = () => {
               
               {activeCountry === 'tr' && showEliteTooltip && (
                 <div 
-                  className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-black/90 border border-white/20 rounded px-3 py-1.5 z-[100] whitespace-nowrap"
+                  className="fixed left-1/2 -translate-x-1/2 bg-black/90 border border-white/20 rounded px-3 py-1.5 z-[100] max-w-[calc(100vw-2rem)] text-center"
+                  style={{ top: 'calc(50% + 80px)' }}
                   onClick={(e) => e.stopPropagation()}
                 >
                   <p className="text-[10px] font-light text-white">
