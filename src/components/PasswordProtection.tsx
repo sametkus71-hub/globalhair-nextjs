@@ -29,8 +29,8 @@ export const PasswordProtection = ({ children }: PasswordProtectionProps) => {
   const [isChecking, setIsChecking] = useState(true);
 
   useEffect(() => {
-    // Check if user is already authenticated in this session
-    const authStatus = sessionStorage.getItem('app_authenticated');
+    // Check if user is already authenticated
+    const authStatus = localStorage.getItem('app_authenticated');
     if (authStatus === 'true') {
       setIsAuthenticated(true);
     }
@@ -58,7 +58,7 @@ const handleSubmit = async (e: React.FormEvent) => {
     }
 
     if (providedHash === expectedHash) {
-      sessionStorage.setItem('app_authenticated', 'true');
+      localStorage.setItem('app_authenticated', 'true');
       setIsAuthenticated(true);
     } else {
       setError('Incorrect password');
