@@ -602,17 +602,14 @@ export const PackageStandardPage = () => {
               
               {activeCountry === 'tr' && showEliteTooltip && (
                 <div 
-                  className="fixed left-1/2 -translate-x-1/2 bg-black/90 border border-white/20 rounded px-3 py-1.5 z-[100] max-w-[calc(100vw-2rem)] text-center"
-                  style={{ top: 'calc(50% + 80px)' }}
+                  className="absolute top-full right-0 mt-2 bg-black/90 border border-white/20 rounded px-3 py-1.5 z-50"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <p className="text-[10px] font-light text-white">
+                  <p className="text-[10px] font-light text-white whitespace-nowrap">
                     {language === 'nl' 
-                      ? 'Elite pakket is alleen beschikbaar in Nederland'
-                      : 'Elite package is only available in the Netherlands'}
+                      ? 'Alleen in Nederland'
+                      : 'Only in Netherlands'}
                   </p>
-                  {/* Small arrow pointing up */}
-                  <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-black/90 border-l border-t border-white/20 rotate-45" />
                 </div>
               )}
             </div>
