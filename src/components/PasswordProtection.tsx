@@ -129,7 +129,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Development code"
-                  className="w-full h-11 text-center"
+                  className="w-full h-11 text-center border-black focus-visible:ring-black"
                   autoFocus
                 />
                 
@@ -139,10 +139,14 @@ const handleSubmit = async (e: React.FormEvent) => {
                 
                 <Button
                   type="submit"
-                  className="w-full h-11"
+                  className="w-full h-11 bg-black text-white hover:bg-black/90 rounded-none"
                 >
                   Access Site
                 </Button>
+
+                <p className="text-xs text-gray-500 text-center leading-relaxed">
+                  This site is currently in development. To request access, please contact our marketing team.
+                </p>
               </form>
             </div>
           </div>
