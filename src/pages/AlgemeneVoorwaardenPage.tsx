@@ -110,16 +110,15 @@ const AlgemeneVoorwaardenPage = () => {
       />
       
       <div 
-        className={`fixed inset-0 z-50 overflow-y-auto transition-opacity duration-300 ${
+        className={`fixed inset-0 z-50 overflow-y-auto bg-white transition-opacity duration-300 ${
           isExiting ? 'opacity-0' : 'opacity-100'
         }`}
-        style={{ backgroundColor: '#0F1924' }}
       >
         <PopupCloseButton onClose={handleClose} />
         
-        <div className="min-h-screen py-20 px-4">
+        <div className="min-h-screen py-20 px-6 md:px-8">
           <div 
-            className="max-w-[800px] mx-auto bg-white/95 backdrop-blur-sm rounded-[20px] shadow-2xl p-8 md:p-12"
+            className="max-w-[800px] mx-auto"
             style={{
               animation: isExiting ? 'none' : 'fade-in 0.3s ease-out'
             }}
