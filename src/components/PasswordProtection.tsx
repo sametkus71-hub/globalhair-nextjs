@@ -158,9 +158,8 @@ const handleSubmit = async (e: React.FormEvent) => {
                 rel="noopener noreferrer"
                 className="hover:text-white transition-colors underline"
               >
-                Visit current site
+                globalhair.nl
               </a>
-              <span className="text-white/40">•</span>
               <a 
                 href="https://www.instagram.com/globalhair.institute/" 
                 target="_blank" 
