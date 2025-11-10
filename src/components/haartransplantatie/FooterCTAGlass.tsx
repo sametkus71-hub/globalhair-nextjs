@@ -26,7 +26,9 @@ export const FooterCTAGlass = () => {
             className="gold-gradient-border cta-button-glow flex-1 flex items-center rounded-full transition-all duration-200"
             style={{
               padding: '0.4rem',
-              background: 'rgba(20, 30, 48, 0.6)',
+              background: 'linear-gradient(90deg, rgba(20, 30, 48, 0.6), rgba(30, 40, 60, 0.7), rgba(25, 35, 55, 0.65), rgba(20, 30, 48, 0.6))',
+              backgroundSize: '200% 100%',
+              animation: 'background-gradient-shift 9s ease-in-out infinite',
               backdropFilter: 'blur(20px)',
               boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1)',
               justifyContent: 'center',
@@ -35,14 +37,10 @@ export const FooterCTAGlass = () => {
               overflow: 'hidden',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(20, 30, 48, 0.7)';
               e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)';
-              e.currentTarget.style.transform = 'scale(1.02)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(20, 30, 48, 0.6)';
               e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1)';
-              e.currentTarget.style.transform = 'scale(1)';
             }}
           >
             <span
@@ -94,11 +92,9 @@ export const FooterCTAGlass = () => {
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = 'rgba(255, 255, 255, 0.16)';
-              e.currentTarget.style.transform = 'scale(1.05)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
-              e.currentTarget.style.transform = 'scale(1)';
             }}
           >
             <img src={chatIcon} alt="Chat" style={{ width: 'clamp(18px, 2vh, 20px)', height: 'clamp(18px, 2vh, 20px)' }} />
@@ -118,6 +114,15 @@ export const FooterCTAGlass = () => {
           }
         }
 
+        @keyframes background-gradient-shift {
+          0%, 100% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+        }
+
         @keyframes border-shine-rotate {
           0% {
             background-position: 0% 50%;
@@ -127,6 +132,15 @@ export const FooterCTAGlass = () => {
           }
           100% {
             background-position: 0% 50%;
+          }
+        }
+
+        @keyframes glow-pulse {
+          0%, 100% {
+            opacity: 0.9;
+          }
+          50% {
+            opacity: 1;
           }
         }
 
@@ -182,6 +196,7 @@ export const FooterCTAGlass = () => {
           opacity: 1;
           z-index: 1;
           pointer-events: none;
+          animation: glow-pulse 4s ease-in-out infinite;
         }
 
         .silver-gradient-border {
