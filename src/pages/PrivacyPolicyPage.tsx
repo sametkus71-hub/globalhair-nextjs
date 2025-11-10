@@ -94,11 +94,19 @@ const PrivacyPolicyPage = () => {
       />
       
       <div 
-        className={`fixed inset-0 z-50 overflow-y-auto bg-white transition-opacity duration-300 ${
+        className={`fixed inset-0 z-50 overflow-y-auto bg-white transition-opacity duration-300 font-['Inter'] ${
           isExiting ? 'opacity-0' : 'opacity-100'
         }`}
       >
-        <PopupCloseButton onClose={handleClose} />
+        <button
+          onClick={handleClose}
+          className="fixed top-6 right-6 z-50 w-8 h-8 flex items-center justify-center text-gray-800 hover:text-gray-600 transition-colors"
+          aria-label={language === 'nl' ? 'Sluiten' : 'Close'}
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+          </svg>
+        </button>
         
         <div className="min-h-screen py-20 px-6 md:px-8">
           <div 
@@ -107,20 +115,20 @@ const PrivacyPolicyPage = () => {
               animation: isExiting ? 'none' : 'fade-in 0.3s ease-out'
             }}
           >
-            <h1 className="text-3xl md:text-4xl font-semibold mb-2" style={{ color: '#4A2C2A' }}>
+            <h1 className="text-3xl md:text-4xl font-normal mb-2 text-gray-900">
               {content.title}
             </h1>
-            <p className="text-sm mb-8 opacity-70" style={{ color: '#4A2C2A' }}>
+            <p className="text-sm mb-12 text-gray-500">
               {content.lastUpdated}
             </p>
 
-            <div className="space-y-6">
+            <div className="space-y-8">
               {content.sections.map((section, index) => (
                 <div key={index}>
-                  <h2 className="text-xl font-semibold mb-3" style={{ color: '#4A2C2A' }}>
+                  <h2 className="text-lg font-medium mb-2 text-gray-900">
                     {section.heading}
                   </h2>
-                  <p className="text-sm md:text-base leading-relaxed" style={{ color: '#4A2C2A' }}>
+                  <p className="text-base leading-relaxed text-gray-700">
                     {section.content}
                   </p>
                 </div>
