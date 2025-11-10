@@ -67,7 +67,7 @@ export const HowTabContent = () => {
         };
       case 'After-':
         return {
-          quote: "Na de transplantatie kunt u dezelfde dag naar&nbsp;huis.<br />Na 3 dagen rust hervat u lichte activiteiten en na 1 week kunt u weer werken.",
+          quote: "Na de transplantatie kunt u dezelfde dag naar huis. Na 3 dagen rust hervat u lichte activiteiten<br />en na 1 week kunt u weer werken.",
         };
     }
   };
