@@ -5,6 +5,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import chevronRightSvg from '@/assets/chevron-right.svg';
 import leafSvg from '@/assets/leaf.svg';
 import { PopupCloseButton, usePopupClose, SwipeablePopupWrapper } from '@/components/PopupCloseButton';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 type FeatureKey = 'fue' | 'comfort' | 'fullcomfort' | 'support' | 'precision' | 'stemcellrepair' | 'v6prime' | 'v6recovery' | 'followup' | 'followup2' | 'biotine' | 'shampoo' | 'washes' | 'indicators';
 
@@ -501,7 +502,7 @@ export const PackageStandardPage = () => {
             className={`flex-1 px-3 rounded-full text-[10px] font-light transition-all duration-300 ease-out ${
               activeCountry === 'nl' 
                 ? 'silver-gradient-border bg-white/10 text-white scale-105' 
-                : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
+                : 'bg-transparent text-white hover:text-white/90 scale-100'
             }`}
             style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}
             onClick={() => handleCountryChange('nl')}
@@ -512,7 +513,7 @@ export const PackageStandardPage = () => {
             className={`flex-1 px-3 rounded-full text-[10px] font-light transition-all duration-300 ease-out ${
               activeCountry === 'tr' 
                 ? 'silver-gradient-border bg-white/10 text-white scale-105' 
-                : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
+                : 'bg-transparent text-white hover:text-white/90 scale-100'
             }`}
             style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}
             onClick={() => handleCountryChange('tr')}
@@ -537,7 +538,7 @@ export const PackageStandardPage = () => {
               className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
                 activeTier === 'Standard'
                   ? 'silver-gradient-border bg-white/10 text-white scale-105'
-                  : 'bg-transparent text-white/50 hover:text-white/70 scale-100'
+                  : 'bg-transparent text-white hover:text-white/90 scale-100'
               }`}
               onClick={() => handleTierChange('Standard')}
             >
@@ -547,7 +548,7 @@ export const PackageStandardPage = () => {
               className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
                 activeTier === 'Premium'
                   ? 'gold-gradient-border text-white scale-105'
-                  : 'text-white/50 hover:text-white/70 scale-100'
+                  : 'text-white hover:text-white/90 scale-100'
               }`}
               style={{
                 background: activeTier === 'Premium' 
@@ -558,24 +559,39 @@ export const PackageStandardPage = () => {
             >
               Premium
             </button>
-            <button
-              className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
-                activeCountry === 'tr' 
-                  ? 'text-white/20 cursor-not-allowed scale-100' 
-                  : activeTier === 'Elite'
-                    ? 'gold-gradient-border text-white scale-105'
-                    : 'text-white/50 hover:text-white/70 scale-100'
-              }`}
-              style={{
-                background: activeTier === 'Elite' && activeCountry === 'nl'
-                  ? 'rgba(88, 28, 135, 0.15)'
-                  : 'transparent'
-              }}
-              onClick={() => activeCountry === 'nl' && handleTierChange('Elite')}
-              disabled={activeCountry === 'tr'}
-            >
-              Elite
-            </button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
+                      activeCountry === 'tr' 
+                        ? 'text-white/15 cursor-not-allowed scale-100' 
+                        : activeTier === 'Elite'
+                          ? 'gold-gradient-border text-white scale-105'
+                          : 'text-white hover:text-white/90 scale-100'
+                    }`}
+                    style={{
+                      background: activeTier === 'Elite' && activeCountry === 'nl'
+                        ? 'rgba(88, 28, 135, 0.15)'
+                        : 'transparent'
+                    }}
+                    onClick={() => activeCountry === 'nl' && handleTierChange('Elite')}
+                    disabled={activeCountry === 'tr'}
+                  >
+                    Elite
+                  </button>
+                </TooltipTrigger>
+                {activeCountry === 'tr' && (
+                  <TooltipContent side="bottom" className="bg-black/90 border-white/20">
+                    <p className="text-sm text-white">
+                      {language === 'nl' 
+                        ? 'Elite pakket is alleen beschikbaar in Nederland'
+                        : 'Elite package is only available in the Netherlands'}
+                    </p>
+                  </TooltipContent>
+                )}
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </div>
 
