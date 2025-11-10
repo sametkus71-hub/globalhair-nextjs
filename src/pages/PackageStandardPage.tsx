@@ -573,10 +573,17 @@ export const PackageStandardPage = () => {
                     style={{
                       background: activeTier === 'Elite' && activeCountry === 'nl'
                         ? 'rgba(88, 28, 135, 0.15)'
-                        : 'transparent'
+                        : 'transparent',
+                      pointerEvents: activeCountry === 'tr' ? 'auto' : undefined
                     }}
-                    onClick={() => activeCountry === 'nl' && handleTierChange('Elite')}
-                    disabled={activeCountry === 'tr'}
+                    onClick={(e) => {
+                      if (activeCountry === 'tr') {
+                        e.preventDefault();
+                        return;
+                      }
+                      handleTierChange('Elite');
+                    }}
+                    aria-disabled={activeCountry === 'tr'}
                   >
                     Elite
                   </button>
