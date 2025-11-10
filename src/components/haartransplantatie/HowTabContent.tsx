@@ -59,15 +59,15 @@ export const HowTabContent = () => {
     switch (phase) {
       case 'Pre-':
         return {
-          quote: "Vooraf krijgt u de eerste V6 Hairboost-behandeling om de haarzakjes te versterken.<br />U bereidt zich vijf dagen voor zonder nicotine, alcohol of bloedverdunners.",
+          quote: "Vooraf krijgt u de eerste V6 Hairboost-<br />behandeling om de haarzakjes te versterken.<br />U bereidt zich vijf dagen voor zonder nicotine,<br />alcohol of bloedverdunners.",
         };
       case 'Treatment':
         return {
-          quote: "Tijdens de behandeling worden gezonde haarzakjes verplaatst naar de kalende zones.<br />De ingreep gebeurt onder lokale verdoving en duurt gemiddeld 6 tot 8 uur.",
+          quote: "Tijdens de behandeling worden gezonde<br />haarzakjes verplaatst naar de kalende zones.<br />De ingreep gebeurt onder lokale verdoving en<br />duurt gemiddeld 6 tot 8 uur.",
         };
       case 'After-':
         return {
-          quote: "Na de transplantatie kunt u dezelfde dag naar huis. Na 3 dagen rust hervat u lichte activiteiten<br />en na 1 week kunt u weer werken.",
+          quote: "Na de transplantatie kunt u dezelfde dag naar<br />huis. Na 3 dagen rust hervat u lichte activiteiten<br />en na 1 week kunt u weer werken.",
         };
     }
   };
