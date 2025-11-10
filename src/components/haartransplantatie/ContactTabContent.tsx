@@ -74,26 +74,22 @@ export const ContactTabContent = () => {
             background: 'rgba(0, 0, 0, 0.25)',
             backdropFilter: 'blur(10px)',
             WebkitBackdropFilter: 'blur(10px)',
-            padding: 'clamp(1rem, 2.5vh, 2rem) 1.5rem',
-            maxHeight: 'clamp(280px, 45vh, 400px)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            padding: 'clamp(0.75rem, 2vh, 2rem) clamp(1rem, 3vw, 1.5rem)',
           }}
         >
           {/* Content based on active tab */}
           {activeTab === 'nl' ? (
-            <div className="flex flex-col mx-auto" style={{ width: '220px', gap: 'clamp(1.25rem, 2.5vh, 2rem)' }}>
+            <div className="flex flex-col mx-auto" style={{ width: '220px', gap: 'clamp(1rem, 2vh, 2rem)' }}>
               {/* Barendrecht */}
               <div className="text-center">
                 <div className="flex gap-1 justify-center items-center mb-2">
                   <img src={shieldIcon} alt="Shield" className="w-5 h-5" style={{ filter: 'brightness(0) invert(1)' }} />
                   <img src={v6HairboostIcon} alt="V6 Hairboost" className="w-7 h-7" style={{ filter: 'brightness(0) invert(1)' }} />
                 </div>
-                <h2 className="text-white mb-1" style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: '22px', lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
+                <h2 className="text-white mb-1" style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: 'clamp(18px, 3.5vh, 22px)', lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
                   Barendrecht
                 </h2>
-                <p className="text-white opacity-90 mb-2" style={{ fontFamily: 'Inter, sans-serif', fontSize: '12px', fontWeight: 300 }}>
+                <p className="text-white opacity-90 mb-2" style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(10px, 1.8vh, 12px)', fontWeight: 300 }}>
                   Pesetastraat 72, 2991 XT
                 </p>
                 <span 
@@ -114,10 +110,10 @@ export const ContactTabContent = () => {
                 <div className="flex gap-1 justify-center items-center mb-2">
                   <img src={v6HairboostIcon} alt="V6 Hairboost" className="w-7 h-7" style={{ filter: 'brightness(0) invert(1)' }} />
                 </div>
-                <h2 className="text-white mb-1" style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: '22px', lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
+                <h2 className="text-white mb-1" style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: 'clamp(18px, 3.5vh, 22px)', lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
                   Leiden
                 </h2>
-                <p className="text-white opacity-90" style={{ fontFamily: 'Inter, sans-serif', fontSize: '12px', fontWeight: 300 }}>
+                <p className="text-white opacity-90" style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(10px, 1.8vh, 12px)', fontWeight: 300 }}>
                   Fruitweg 22, 2321 GK
                 </p>
               </div>
@@ -128,10 +124,10 @@ export const ContactTabContent = () => {
                 <div className="flex gap-1 justify-center items-center mb-2">
                   <img src={shieldIcon} alt="Shield" className="w-5 h-5" style={{ filter: 'brightness(0) invert(1)' }} />
                 </div>
-                <h2 className="text-white mb-1" style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: '22px', lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
+                <h2 className="text-white mb-1" style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: 'clamp(18px, 3.5vh, 22px)', lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
                   İstanbul
                 </h2>
-                <p className="text-white opacity-90" style={{ fontFamily: 'Inter, sans-serif', fontSize: '12px', fontWeight: 300 }}>
+                <p className="text-white opacity-90" style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(10px, 1.8vh, 12px)', fontWeight: 300 }}>
                   Kaynarca, Erol Kaya Cd No:204,<br />
                   34890 Pendik
                 </p>
