@@ -67,19 +67,19 @@ export const ContactTabContent = () => {
       </div>
 
       {/* Middle Content Area - Flex Grow with Centered Inner Box */}
-      <div className="flex-1 px-2 flex items-center justify-center" style={{ minHeight: 0, maxWidth: 'clamp(260px, 85vw, 340px)', margin: '0 auto' }}>
+      <div className="flex-1 px-2 flex items-center justify-center" style={{ minHeight: 0, maxWidth: '280px', margin: '0 auto' }}>
         <div 
           className="w-full rounded-3xl silver-gradient-border"
           style={{
             background: 'rgba(0, 0, 0, 0.25)',
             backdropFilter: 'blur(10px)',
             WebkitBackdropFilter: 'blur(10px)',
-            padding: 'clamp(1rem, 3vh, 2rem) clamp(0.75rem, 4vw, 1.5rem)',
+            padding: 'clamp(1rem, 3vh, 2rem) 1.5rem',
           }}
         >
           {/* Content based on active tab */}
           {activeTab === 'nl' ? (
-            <div className="flex flex-col gap-8 mx-auto" style={{ width: 'clamp(200px, 90%, 240px)' }}>
+            <div className="flex flex-col mx-auto" style={{ width: '220px', gap: 'clamp(1.5rem, 3vh, 2rem)' }}>
               {/* Barendrecht */}
               <div className="text-center">
                 <div className="flex gap-1 justify-center items-center mb-2">
@@ -119,7 +119,7 @@ export const ContactTabContent = () => {
               </div>
             </div>
           ) : (
-            <div className="flex justify-center mx-auto" style={{ width: 'clamp(200px, 90%, 240px)' }}>
+            <div className="flex justify-center mx-auto" style={{ width: '220px' }}>
               <div className="text-center">
                 <div className="flex gap-1 justify-center items-center mb-2">
                   <img src={shieldIcon} alt="Shield" className="w-5 h-5" style={{ filter: 'brightness(0) invert(1)' }} />
