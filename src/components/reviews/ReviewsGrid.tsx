@@ -227,7 +227,7 @@ export const ReviewsGrid = () => {
   const itemsToRender = gridItems.slice(0, visibleItemCount);
 
   return (
-    <div className="relative w-full min-h-full">
+    <div className="relative w-full">
       <div
         className={cn(
           "grid grid-rows-3",
