@@ -582,8 +582,11 @@ export const PackageStandardPage = () => {
                   </button>
                 </TooltipTrigger>
                 {activeCountry === 'tr' && (
-                  <TooltipContent side="bottom" className="bg-black/90 border-white/20">
-                    <p className="text-sm text-white">
+                  <TooltipContent 
+                    side="bottom" 
+                    className="bg-black/90 border-white/20 px-2 py-1 z-[100]"
+                  >
+                    <p className="text-[10px] font-light text-white">
                       {language === 'nl' 
                         ? 'Elite pakket is alleen beschikbaar in Nederland'
                         : 'Elite package is only available in the Netherlands'}
