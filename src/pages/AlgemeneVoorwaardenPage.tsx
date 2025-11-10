@@ -138,13 +138,13 @@ const AlgemeneVoorwaardenPage = () => {
               {content.lastUpdated}
             </p>
 
-            <div className="space-y-8">
+            <div className="space-y-6">
               {content.sections.map((section, index) => (
                 <div key={index}>
-                  <h2 className="text-lg font-medium mb-2 text-gray-900">
+                  <h2 className="text-sm font-normal mb-1.5 text-gray-900">
                     {section.heading}
                   </h2>
-                  <p className="text-base leading-relaxed text-gray-700">
+                  <p className="text-xs leading-relaxed text-gray-600 font-light">
                     {section.content}
                   </p>
                 </div>
