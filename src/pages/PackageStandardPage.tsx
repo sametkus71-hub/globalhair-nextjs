@@ -5,7 +5,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import chevronRightSvg from '@/assets/chevron-right.svg';
 import leafSvg from '@/assets/leaf.svg';
 import { PopupCloseButton, usePopupClose, SwipeablePopupWrapper } from '@/components/PopupCloseButton';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+
 
 type FeatureKey = 'fue' | 'comfort' | 'fullcomfort' | 'support' | 'precision' | 'stemcellrepair' | 'v6prime' | 'v6recovery' | 'followup' | 'followup2' | 'biotine' | 'shampoo' | 'washes' | 'indicators';
 
@@ -22,6 +22,7 @@ export const PackageStandardPage = () => {
   const [isExiting, setIsExiting] = useState(false);
   const [openFeatures, setOpenFeatures] = useState<Set<FeatureKey>>(new Set());
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [showEliteTooltip, setShowEliteTooltip] = useState(false);
   const { handlePopupClose } = usePopupClose();
 
   const videoContainerRef = useRef<HTMLDivElement>(null);
@@ -105,6 +106,20 @@ export const PackageStandardPage = () => {
       setActiveTier(normalizedTier);
     }
   }, [urlTier]);
+
+  // Handle click outside to dismiss tooltip
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (showEliteTooltip) {
+        setShowEliteTooltip(false);
+      }
+    };
+    
+    if (showEliteTooltip) {
+      document.addEventListener('click', handleClickOutside);
+      return () => document.removeEventListener('click', handleClickOutside);
+    }
+  }, [showEliteTooltip]);
 
   // Load video dynamically in background for smooth crossfade
   const loadVideoInBackground = (src: string): Promise<HTMLVideoElement> => {
@@ -559,49 +574,47 @@ export const PackageStandardPage = () => {
             >
               Premium
             </button>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button
-                    className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
-                      activeCountry === 'tr' 
-                        ? 'text-white/15 cursor-not-allowed scale-100' 
-                        : activeTier === 'Elite'
-                          ? 'gold-gradient-border text-white scale-105'
-                          : 'text-white hover:text-white/90 scale-100'
-                    }`}
-                    style={{
-                      background: activeTier === 'Elite' && activeCountry === 'nl'
-                        ? 'rgba(88, 28, 135, 0.15)'
-                        : 'transparent',
-                      pointerEvents: activeCountry === 'tr' ? 'auto' : undefined
-                    }}
-                    onClick={(e) => {
-                      if (activeCountry === 'tr') {
-                        e.preventDefault();
-                        return;
-                      }
-                      handleTierChange('Elite');
-                    }}
-                    aria-disabled={activeCountry === 'tr'}
-                  >
-                    Elite
-                  </button>
-                </TooltipTrigger>
-                {activeCountry === 'tr' && (
-                  <TooltipContent 
-                    side="bottom" 
-                    className="bg-black/90 border-white/20 px-2 py-1 z-[100]"
-                  >
-                    <p className="text-[10px] font-light text-white">
-                      {language === 'nl' 
-                        ? 'Elite pakket is alleen beschikbaar in Nederland'
-                        : 'Elite package is only available in the Netherlands'}
-                    </p>
-                  </TooltipContent>
-                )}
-              </Tooltip>
-            </TooltipProvider>
+            <div className="relative">
+              <button
+                className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
+                  activeCountry === 'tr' 
+                    ? 'text-white/15 cursor-not-allowed scale-100' 
+                    : activeTier === 'Elite'
+                      ? 'gold-gradient-border text-white scale-105'
+                      : 'text-white hover:text-white/90 scale-100'
+                }`}
+                style={{
+                  background: activeTier === 'Elite' && activeCountry === 'nl'
+                    ? 'rgba(88, 28, 135, 0.15)'
+                    : 'transparent'
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (activeCountry === 'tr') {
+                    setShowEliteTooltip(!showEliteTooltip);
+                    return;
+                  }
+                  handleTierChange('Elite');
+                }}
+              >
+                Elite
+              </button>
+              
+              {activeCountry === 'tr' && showEliteTooltip && (
+                <div 
+                  className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-black/90 border border-white/20 rounded px-3 py-1.5 z-[100] whitespace-nowrap"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <p className="text-[10px] font-light text-white">
+                    {language === 'nl' 
+                      ? 'Elite pakket is alleen beschikbaar in Nederland'
+                      : 'Elite package is only available in the Netherlands'}
+                  </p>
+                  {/* Small arrow pointing up */}
+                  <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-black/90 border-l border-t border-white/20 rotate-45" />
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
