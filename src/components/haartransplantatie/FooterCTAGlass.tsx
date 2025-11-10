@@ -50,11 +50,11 @@ export const FooterCTAGlass = () => {
                 position: 'absolute',
                 top: 0,
                 left: 0,
-                width: '50%',
+                width: '60%',
                 height: '100%',
-                background: 'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%)',
+                background: 'linear-gradient(90deg, rgba(255,250,235,0) 0%, rgba(255,250,235,0.3) 50%, rgba(255,250,235,0) 100%)',
                 transform: 'translateX(-100%) skewX(-15deg)',
-                animation: 'shine-sweep 5s ease-in-out infinite',
+                animation: 'shine-sweep 4.5s ease-in-out infinite',
                 pointerEvents: 'none',
                 zIndex: 3,
               }}
@@ -167,7 +167,7 @@ export const FooterCTAGlass = () => {
             opacity: 0;
           }
           50% {
-            opacity: 0.4;
+            opacity: 0.2;
           }
           100% {
             transform: translateX(200%) skewX(-15deg);
