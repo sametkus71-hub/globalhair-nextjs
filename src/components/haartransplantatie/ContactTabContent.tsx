@@ -74,12 +74,16 @@ export const ContactTabContent = () => {
             background: 'rgba(0, 0, 0, 0.25)',
             backdropFilter: 'blur(10px)',
             WebkitBackdropFilter: 'blur(10px)',
-            padding: 'clamp(1rem, 3vh, 2rem) 1.5rem',
+            padding: 'clamp(1rem, 2.5vh, 2rem) 1.5rem',
+            maxHeight: 'clamp(280px, 45vh, 400px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
           {/* Content based on active tab */}
           {activeTab === 'nl' ? (
-            <div className="flex flex-col mx-auto" style={{ width: '220px', gap: 'clamp(1.5rem, 3vh, 2rem)' }}>
+            <div className="flex flex-col mx-auto" style={{ width: '220px', gap: 'clamp(1.25rem, 2.5vh, 2rem)' }}>
               {/* Barendrecht */}
               <div className="text-center">
                 <div className="flex gap-1 justify-center items-center mb-2">
