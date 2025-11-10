@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
+import { usePopupClose } from '@/components/PopupCloseButton';
 import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
 
@@ -24,81 +24,85 @@ const AlgemeneVoorwaardenPage = () => {
     return () => document.removeEventListener('keydown', handleEsc);
   }, []);
 
-  const content = language === 'nl' ? {
-    title: 'Algemene Voorwaarden',
-    lastUpdated: 'Laatst bijgewerkt: November 2025',
+  const contentNL = {
+    title: 'ALGEMENE VOORWAARDEN GLOBALHAIR',
+    subtitle: 'Behandelingsovereenkomst',
     sections: [
       {
-        heading: '1. Toepasselijkheid',
-        content: 'Deze algemene voorwaarden zijn van toepassing op alle overeenkomsten tussen Global Hair en de cliënt met betrekking tot haartransplantatie behandelingen en gerelateerde diensten.'
+        heading: 'Artikel 1 – Begripsbepalingen',
+        content: 'GlobalHair: Dienstverlener die ondersteuning biedt bij haartransplantatiebehandelingen in binnen- en buitenland, inclusief aanvullende diensten zoals verblijf en transfers, voor zover van toepassing.\n\nOvereenkomst in Turkije: De overeenkomst tussen GlobalHair en de cliënt met betrekking tot een haartransplantatiebehandeling in Turkije. Deze overeenkomst kan onder meer omvatten: het faciliteren van contact met een medische instelling, het organiseren van verblijf en transfers. De inhoud van de overeenkomst wordt afgestemd op de gekozen diensten en is gebaseerd op de offerte van de medische instelling.\n\nOvereenkomst in Nederland: De overeenkomst tussen GlobalHair en de cliënt met betrekking tot een haartransplantatiebehandeling in Nederland. De behandeling vindt plaats als dagopname in de kliniek van GlobalHair te Barendrecht en omvat geen verblijf of transfers.\n\nDienstverlener: Iedere partij, waaronder vervoerders, accommodaties of overige betrokken derden, die een onderdeel van de overeengekomen dienstverlening uitvoert.\n\nMedische instelling: De instelling waar de haartransplantatiebehandeling plaatsvindt, op basis van een vooraf verstrekte offerte.\n\nCliënt: Iedere natuurlijke of rechtspersoon die een overeenkomst aangaat met GlobalHair.'
       },
       {
-        heading: '2. Totstandkoming overeenkomst',
-        content: 'Een overeenkomst komt tot stand na het boeken van een afspraak en het ontvangen van een bevestiging van Global Hair. De cliënt ontvangt voorafgaand aan de behandeling een intakegesprek waarin alle details worden besproken.'
+        heading: 'Artikel 2 – Toepasselijkheid',
+        content: '2.1 Deze voorwaarden zijn van toepassing op alle overeenkomsten en rechtsverhoudingen tussen GlobalHair en de cliënt, tenzij uitdrukkelijk schriftelijk anders is overeengekomen.\n\n2.2 Afwijkingen van deze voorwaarden zijn slechts geldig indien schriftelijk bevestigd door GlobalHair.\n\n2.3 De toepasselijkheid van eventuele algemene voorwaarden van de cliënt wordt uitdrukkelijk van de hand gewezen.'
       },
       {
-        heading: '3. Prijzen en betaling',
-        content: 'Alle vermelde prijzen zijn inclusief BTW, tenzij anders vermeld. Betaling dient te geschieden volgens de overeengekomen betalingsvoorwaarden. Bij annulering gelden specifieke annuleringsvoorwaarden.'
+        heading: 'Artikel 3 – Totstandkoming van de overeenkomst',
+        content: '3.1 De overeenkomst komt tot stand na schriftelijke aanvaarding van het aanbod en ontvangst van de aanbetaling door GlobalHair.\n\n3.2 Met het voldoen van de aanbetaling bevestigt de cliënt tevens kennis te hebben genomen van en akkoord te gaan met deze algemene voorwaarden.\n\n3.3 Indien een medische behandeling geen doorgang kan vinden als gevolg van medische ongeschiktheid van de cliënt, komt dit voor rekening en risico van de cliënt.\n\n3.4 GlobalHair is niet aansprakelijk voor de juistheid van door derden verstrekt informatiemateriaal, zoals folders of websites van medische instellingen.\n\n3.5 Bij overmacht aan de zijde van GlobalHair wordt de overeenkomst opgeschort zonder dat recht ontstaat op schadevergoeding.'
       },
       {
-        heading: '4. Uitvoering behandeling',
-        content: 'Global Hair voert alle behandelingen uit met de grootst mogelijke zorgvuldigheid en volgens de geldende professionele standaarden. Resultaten kunnen per persoon verschillen en worden niet gegarandeerd.'
+        heading: 'Artikel 4 – Betaling en annulering',
+        content: '4.1 De aanbetaling dient binnen 72 uur na acceptatie van het aanbod te zijn voldaan, tenzij anders overeengekomen.\n\n4.2 Betalingen dienen te geschieden zonder enige inhouding, korting of verrekening.\n\n4.3 Bij niet tijdige betaling is de cliënt van rechtswege in verzuim. GlobalHair is in dat geval gerechtigd om buitengerechtelijke kosten en annuleringskosten in rekening te brengen.\n\n4.4 Bij annulering door de cliënt zijn de volgende kosten verschuldigd:\n- De aanbetaling is niet-restitueerbaar in verband met gemaakte voorbereidingskosten (verblijf).\n- Annulering tot 3 maanden vóór de behandeling: 50% van de behandelkosten.\n- Annulering vanaf 31 dagen vóór de behandeling: 75% van de behandelkosten.\n- Annulering binnen 14 dagen vóór de behandeling: 100% van de behandelkosten.\n\n4.5 Indien een V6 Hairboost behandeling niet eerder dan 48 uur voor de behandeling wordt geannuleerd, worden er kosten in rekening gebracht.\n\n4.6 Alle kosten voortvloeiend uit verzuim, waaronder incassokosten, zijn voor rekening van de cliënt.'
       },
       {
-        heading: '5. Aansprakelijkheid',
-        content: 'Global Hair is niet aansprakelijk voor schade die het gevolg is van het niet opvolgen van instructies of adviezen. Aansprakelijkheid is beperkt tot het bedrag dat in het voorkomende geval onder de aansprakelijkheidsverzekering wordt uitbetaald.'
+        heading: 'Artikel 5 – Prijswijzigingen',
+        content: '5.1 GlobalHair behoudt zich het recht voor om prijzen te wijzigen tot 5 weken voorafgaand aan de behandeling indien externe kostprijsfactoren daartoe aanleiding geven.'
       },
       {
-        heading: '6. Privacy en gegevensverwerking',
-        content: 'Global Hair verwerkt persoonsgegevens conform de AVG en ons privacybeleid. De cliënt heeft het recht op inzage, correctie en verwijdering van zijn/haar gegevens.'
+        heading: 'Artikel 6 – Verantwoordelijkheid documenten',
+        content: '6.1 De cliënt is verantwoordelijk voor het tijdig in bezit hebben van geldige reis- en medische documenten.\n\n6.2 Indien een behandeling niet doorgaat vanwege ontbrekende documenten, is de cliënt verantwoordelijk voor de hieruit voortvloeiende kosten.'
       },
       {
-        heading: '7. Geschillen',
-        content: 'Op alle overeenkomsten is Nederlands recht van toepassing. Geschillen worden bij voorkeur in onderling overleg opgelost. Is dit niet mogelijk, dan worden geschillen voorgelegd aan de bevoegde rechter in Nederland.'
+        heading: 'Artikel 7 – Informatievoorziening',
+        content: 'GlobalHair verstrekt de benodigde informatie over verblijf, transfers en behandeling uiterlijk 1 week voor vertrek, tenzij sprake is van overmacht of vertraging buiten haar invloedssfeer.'
       },
       {
-        heading: '8. Contact',
-        content: 'Voor vragen over deze algemene voorwaarden kunt u contact met ons opnemen via info@globalhair.nl of telefonisch op +31 85 888 4247.'
+        heading: 'Artikel 8 – Wijzigingen en annuleringen',
+        content: '8.1 Wijzigingsverzoeken van de cliënt worden tot 31 dagen vóór vertrek in behandeling genomen.\n\n8.2 Bij afwijzing van een wijzigingsverzoek behoudt de cliënt de keuze tussen uitvoering van de oorspronkelijke overeenkomst of annulering conform artikel 4.\n\n8.3 De annuleringsvoorwaarden zoals benoemd in artikel 4.4 zijn onverkort van toepassing.'
+      },
+      {
+        heading: 'Artikel 9 – Wijziging door GlobalHair',
+        content: '9.1 GlobalHair kan wijzigingen aanbrengen in de dienstverlening indien sprake is van overmacht of omstandigheden buiten haar invloedssfeer.\n\n9.2 GlobalHair zal bij wezenlijke wijzigingen een gelijkwaardig alternatief aanbieden.'
+      },
+      {
+        heading: 'Artikel 10 – Aansprakelijkheid',
+        content: '10.1 GlobalHair is uitsluitend aansprakelijk voor schade als gevolg van verblijf en transfers, mits sprake is van toerekenbare tekortkoming.\n\n10.2 GlobalHair is niet aansprakelijk voor medische behandelingen en het resultaat daarvan.'
+      },
+      {
+        heading: 'Artikel 11 – Uitsluitingen',
+        content: '11.1 GlobalHair aanvaardt geen aansprakelijkheid voor schade voortvloeiend uit medische ingrepen, beslissingen van artsen of het uitblijven van het gewenste resultaat.\n\n11.2 GlobalHair is niet aansprakelijk voor vertragingen of wijzigingen veroorzaakt door derden of overmacht.'
+      },
+      {
+        heading: 'Artikel 12 – Verplichtingen cliënt',
+        content: 'De cliënt is verplicht zich te houden aan richtlijnen van GlobalHair en de medische instelling. Schade ontstaan door nalatigheid komt voor rekening van de cliënt.'
+      },
+      {
+        heading: 'Artikel 13 – Nazorg',
+        content: 'De cliënt verplicht zich tot het volgen van de nazorginstructies zoals verstrekt door GlobalHair. Niet-naleving hiervan kan van invloed zijn op het resultaat.'
+      },
+      {
+        heading: "Artikel 14 – Haarlijn & Risico's",
+        content: '14.1 Nadat de cliënt schriftelijk akkoord is gegaan met de voorgestelde haarlijn, is deze definitief. Latere wijzigingsverzoeken kunnen niet worden gehonoreerd.\n\n14.2 De cliënt is zich ervan bewust dat een haartransplantatie een medische ingreep betreft, waarbij het uiteindelijke resultaat kan variëren per individu. Factoren zoals genetische aanleg, herstelproces en naleving van nazorgadviezen kunnen hierbij van invloed zijn.\n\n14.3 Indien de cliënt door eigen nalatigheid — zoals het niet tijdig aanleveren van medische informatie of benodigde documenten — verhinderd is om de behandeling te ondergaan of indien deze daardoor moet worden uitgesteld, komen de kosten volledig voor rekening van de cliënt, conform artikel 4.'
+      },
+      {
+        heading: 'Artikel 15 – Klachten',
+        content: '15.1 Klachten dienen zo spoedig mogelijk te worden gemeld bij de dienstverlener of GlobalHair.\n\n15.2 Indien de klacht niet bevredigend wordt afgehandeld, kan deze schriftelijk worden ingediend bij GlobalHair.\n\n15.3 Op deze overeenkomst is uitsluitend Nederlands recht van toepassing. De bevoegde rechter is gevestigd in Nederland.'
       }
     ]
-  } : {
+  };
+
+  const contentEN = {
     title: 'Terms & Conditions',
-    lastUpdated: 'Last updated: November 2025',
+    subtitle: 'Treatment Agreement',
     sections: [
       {
         heading: '1. Applicability',
         content: 'These terms and conditions apply to all agreements between Global Hair and the client regarding hair transplant treatments and related services.'
-      },
-      {
-        heading: '2. Formation of agreement',
-        content: 'An agreement is formed after booking an appointment and receiving confirmation from Global Hair. The client receives an intake consultation prior to treatment where all details are discussed.'
-      },
-      {
-        heading: '3. Prices and payment',
-        content: 'All stated prices include VAT unless otherwise stated. Payment must be made according to the agreed payment terms. Specific cancellation conditions apply in case of cancellation.'
-      },
-      {
-        heading: '4. Treatment execution',
-        content: 'Global Hair performs all treatments with the utmost care and according to applicable professional standards. Results may vary per person and are not guaranteed.'
-      },
-      {
-        heading: '5. Liability',
-        content: 'Global Hair is not liable for damage resulting from failure to follow instructions or advice. Liability is limited to the amount paid out under the liability insurance in the relevant case.'
-      },
-      {
-        heading: '6. Privacy and data processing',
-        content: 'Global Hair processes personal data in accordance with GDPR and our privacy policy. The client has the right to access, correct, and delete their data.'
-      },
-      {
-        heading: '7. Disputes',
-        content: 'Dutch law applies to all agreements. Disputes are preferably resolved through mutual consultation. If this is not possible, disputes are submitted to the competent court in the Netherlands.'
-      },
-      {
-        heading: '8. Contact',
-        content: 'For questions about these terms and conditions, you can contact us at info@globalhair.nl or by phone at +31 85 888 4247.'
       }
     ]
   };
+
+  const content = language === 'nl' ? contentNL : contentEN;
 
   return (
     <>
@@ -131,12 +135,14 @@ const AlgemeneVoorwaardenPage = () => {
               animation: isExiting ? 'none' : 'fade-in 0.3s ease-out'
             }}
           >
-            <h1 className="text-3xl md:text-4xl font-normal mb-2 text-gray-900">
+            <h1 className="text-2xl md:text-3xl font-normal mb-1 text-gray-900">
               {content.title}
             </h1>
-            <p className="text-sm mb-12 text-gray-500">
-              {content.lastUpdated}
-            </p>
+            {content.subtitle && (
+              <p className="text-sm mb-8 text-gray-700 font-light">
+                {content.subtitle}
+              </p>
+            )}
 
             <div className="space-y-6">
               {content.sections.map((section, index) => (
@@ -144,7 +150,7 @@ const AlgemeneVoorwaardenPage = () => {
                   <h2 className="text-sm font-normal mb-1.5 text-gray-900">
                     {section.heading}
                   </h2>
-                  <p className="text-xs leading-relaxed text-gray-600 font-light">
+                  <p className="text-xs leading-relaxed text-gray-600 font-light whitespace-pre-line">
                     {section.content}
                   </p>
                 </div>
