@@ -31,6 +31,8 @@ const ReviewItemPage = lazy(() => import('@/pages/ReviewItemPage'));
 const ContactPage = lazy(() => import('@/pages/ContactPage'));
 const BookingPage = lazy(() => import('@/pages/BookingPage'));
 const BookingSuccessPage = lazy(() => import('@/pages/BookingSuccessPage').then(m => ({ default: m.BookingSuccessPage })));
+const PrivacyPolicyPage = lazy(() => import('@/pages/PrivacyPolicyPage'));
+const AlgemeneVoorwaardenPage = lazy(() => import('@/pages/AlgemeneVoorwaardenPage'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
 
 // Loading fallback component
@@ -91,6 +93,8 @@ export const SEORoutes = () => {
       <Route path="/nl/boek" element={<BookingPage />} />
       <Route path="/nl/booking-success" element={<BookingSuccessPage />} />
       <Route path="/nl/contact" element={<ContactPage />} />
+      <Route path="/nl/privacybeleid" element={<PrivacyPolicyPage />} />
+      <Route path="/nl/algemene-voorwaarden" element={<AlgemeneVoorwaardenPage />} />
       
       {/* English routes - nested for smooth tab transitions */}
       <Route path="/en" element={<HaartransplantatieLayoutPage />}>
@@ -133,6 +137,8 @@ export const SEORoutes = () => {
       <Route path="/en/book" element={<BookingPage />} />
       <Route path="/en/booking-success" element={<BookingSuccessPage />} />
       <Route path="/en/contact" element={<ContactPage />} />
+      <Route path="/en/privacy-policy" element={<PrivacyPolicyPage />} />
+      <Route path="/en/terms-conditions" element={<AlgemeneVoorwaardenPage />} />
       
       {/* Legacy support - maintain old item1 route */}
       <Route path="/nl/reviews/item1" element={<ReviewItemPage />} />
