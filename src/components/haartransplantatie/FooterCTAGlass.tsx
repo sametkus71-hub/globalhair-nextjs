@@ -26,9 +26,9 @@ export const FooterCTAGlass = () => {
             className="gold-gradient-border cta-button-glow flex-1 flex items-center rounded-full transition-all duration-200"
             style={{
               padding: '0.4rem',
-              background: 'linear-gradient(90deg, rgba(20, 30, 48, 0.6), rgba(30, 40, 60, 0.7), rgba(25, 35, 55, 0.65), rgba(20, 30, 48, 0.6))',
+              background: 'linear-gradient(90deg, rgba(15, 25, 40, 0.7), rgba(35, 50, 70, 0.8), rgba(50, 65, 85, 0.75), rgba(35, 50, 70, 0.8), rgba(15, 25, 40, 0.7))',
               backgroundSize: '200% 100%',
-              animation: 'background-gradient-shift 9s ease-in-out infinite',
+              animation: 'background-gradient-shift 7s ease-in-out infinite',
               backdropFilter: 'blur(20px)',
               boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1)',
               justifyContent: 'center',
@@ -43,6 +43,23 @@ export const FooterCTAGlass = () => {
               e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1)';
             }}
           >
+            {/* Shine sweep overlay */}
+            <span
+              className="shine-sweep"
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '50%',
+                height: '100%',
+                background: 'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%)',
+                transform: 'translateX(-100%) skewX(-15deg)',
+                animation: 'shine-sweep 5s ease-in-out infinite',
+                pointerEvents: 'none',
+                zIndex: 3,
+              }}
+            />
+            
             <span
               className="text-white"
               style={{ 
@@ -137,10 +154,24 @@ export const FooterCTAGlass = () => {
 
         @keyframes glow-pulse {
           0%, 100% {
-            opacity: 0.9;
+            opacity: 0.85;
           }
           50% {
             opacity: 1;
+          }
+        }
+
+        @keyframes shine-sweep {
+          0% {
+            transform: translateX(-100%) skewX(-15deg);
+            opacity: 0;
+          }
+          50% {
+            opacity: 0.4;
+          }
+          100% {
+            transform: translateX(200%) skewX(-15deg);
+            opacity: 0;
           }
         }
 
@@ -159,15 +190,15 @@ export const FooterCTAGlass = () => {
             #B8924A 0%,
             #C9A35D 15%,
             #E3C06B 30%,
-            #F5E8C1 45%,
-            #F4E4B8 50%,
-            #F5E8C1 55%,
+            #FFFEF7 45%,
+            #FFFEF7 50%,
+            #FFFEF7 55%,
             #E3C06B 70%,
             #C9A35D 85%,
             #B8924A 100%
           );
-          background-size: 300% 100%;
-          animation: border-shine-rotate 6s ease-in-out infinite;
+          background-size: 400% 100%;
+          animation: border-shine-rotate 4.5s ease-in-out infinite;
           -webkit-mask: 
             linear-gradient(#fff 0 0) content-box,
             linear-gradient(#fff 0 0);
