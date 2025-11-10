@@ -142,7 +142,7 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
               <>
                 Ik ga akkoord met de{' '}
                 <a
-                  href="https://cdn.sanity.io/files/ajju5i5a/production/d026e616f0b4fe37db0a1ec8b1688e175e689a72.pdf"
+                  href="/nl/algemene-voorwaarden"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-white/80 underline hover:text-white transition-colors"
@@ -152,7 +152,7 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
                 </a>
                 {' '}en het{' '}
                 <a
-                  href="https://globalhair.nl/nl/privacy-policy"
+                  href="/nl/privacybeleid"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-white/80 underline hover:text-white transition-colors"
@@ -165,7 +165,7 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
               <>
                 I agree to the{' '}
                 <a
-                  href="https://cdn.sanity.io/files/ajju5i5a/production/d026e616f0b4fe37db0a1ec8b1688e175e689a72.pdf"
+                  href="/en/terms-conditions"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-white/80 underline hover:text-white transition-colors"
@@ -175,7 +175,7 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
                 </a>
                 {' '}and{' '}
                 <a
-                  href="https://globalhair.nl/nl/privacy-policy"
+                  href="/en/privacy-policy"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-white/80 underline hover:text-white transition-colors"
