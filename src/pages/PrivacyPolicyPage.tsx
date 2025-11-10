@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
+import { usePopupClose } from '@/components/PopupCloseButton';
 import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
 
@@ -24,65 +24,73 @@ const PrivacyPolicyPage = () => {
     return () => document.removeEventListener('keydown', handleEsc);
   }, []);
 
-  const content = language === 'nl' ? {
-    title: 'Privacybeleid',
-    lastUpdated: 'Laatst bijgewerkt: November 2025',
-    sections: [
-      {
-        heading: '1. Inleiding',
-        content: 'Global Hair hecht grote waarde aan uw privacy. In dit privacybeleid leggen wij uit welke persoonsgegevens wij verzamelen, hoe wij deze gebruiken, en welke rechten u heeft met betrekking tot uw gegevens.'
-      },
-      {
-        heading: '2. Welke gegevens verzamelen wij?',
-        content: 'Wij verzamelen persoonlijke informatie zoals uw naam, e-mailadres, telefoonnummer en medische gegevens die relevant zijn voor de behandeling. Deze gegevens worden alleen verzameld met uw toestemming en zijn noodzakelijk voor het uitvoeren van onze dienstverlening.'
-      },
-      {
-        heading: '3. Hoe gebruiken wij uw gegevens?',
-        content: 'Uw gegevens worden gebruikt voor het plannen en uitvoeren van uw behandeling, communicatie over uw afspraken, en het verbeteren van onze dienstverlening. Wij delen uw gegevens niet met derden zonder uw expliciete toestemming.'
-      },
-      {
-        heading: '4. Beveiliging van uw gegevens',
-        content: 'Wij nemen passende technische en organisatorische maatregelen om uw persoonsgegevens te beschermen tegen verlies, misbruik of ongeautoriseerde toegang.'
-      },
-      {
-        heading: '5. Uw rechten',
-        content: 'U heeft het recht om uw gegevens in te zien, te corrigeren of te verwijderen. Ook kunt u bezwaar maken tegen de verwerking van uw gegevens. Neem contact met ons op om deze rechten uit te oefenen.'
-      },
-      {
-        heading: '6. Contact',
-        content: 'Voor vragen over dit privacybeleid kunt u contact met ons opnemen via info@globalhair.nl of telefonisch op +31 85 888 4247.'
-      }
-    ]
-  } : {
+  const contentNL = {
     title: 'Privacy Policy',
-    lastUpdated: 'Last updated: November 2025',
+    intro: 'Wij zijn er ons van bewust dat u vertrouwen stelt in ons. Wij beschouwen het dan ook als onze verantwoordelijkheid om uw privacy te beschermen. Op deze pagina willen we u laten weten welke gegevens we verzamelen wanneer u onze website gebruikt, waarom we deze gegevens verzamelen, en hoe we deze gebruiken om uw gebruikservaring te verbeteren. Zo krijgt u een duidelijk beeld van hoe wij te werk gaan.\n\nDit privacybeleid is van toepassing op de diensten van GlobalHair. We willen benadrukken dat GlobalHair niet verantwoordelijk is voor het privacybeleid van andere websites en bronnen. Door gebruik te maken van deze website geeft u aan ons privacybeleid te accepteren.',
     sections: [
       {
-        heading: '1. Introduction',
-        content: 'Global Hair values your privacy. This privacy policy explains what personal data we collect, how we use it, and what rights you have regarding your data.'
+        heading: 'Onze inzet voor uw privacy',
+        content: 'GlobalHair respecteert de privacy van alle gebruikers van haar website en zorgt ervoor dat de persoonlijke informatie die u ons verschaft vertrouwelijk wordt behandeld.'
       },
       {
-        heading: '2. What data do we collect?',
-        content: 'We collect personal information such as your name, email address, phone number, and medical data relevant to the treatment. This data is only collected with your consent and is necessary for providing our services.'
+        heading: 'Ons gebruik van verzamelde gegevens',
+        content: ''
       },
       {
-        heading: '3. How do we use your data?',
-        content: 'Your data is used for scheduling and performing your treatment, communication about your appointments, and improving our services. We do not share your data with third parties without your explicit consent.'
+        heading: 'Gebruik van onze diensten',
+        content: 'Wanneer u zich aanmeldt voor een van onze diensten, vragen we u om persoonsgegevens te verstrekken. Deze gegevens worden uitsluitend gebruikt om de betreffende dienst uit te voeren. De gegevens worden opgeslagen op onze beveiligde servers of op die van derden. Wij zullen deze gegevens niet combineren met andere persoonlijke gegevens waarover wij beschikken.'
       },
       {
-        heading: '4. Security of your data',
-        content: 'We take appropriate technical and organizational measures to protect your personal data against loss, misuse, or unauthorized access.'
+        heading: 'Communicatie',
+        content: 'Wanneer u e-mails of andere berichten naar ons verzendt, bewaren we die berichten mogelijk. Soms vragen wij u naar uw persoonlijke gegevens die relevant zijn voor de desbetreffende situatie. Dit maakt het mogelijk om uw vragen te verwerken en uw verzoeken te beantwoorden. De gegevens worden opgeslagen op onze beveiligde servers of op die van derden. Wij zullen deze gegevens niet combineren met andere persoonlijke gegevens waarover wij beschikken.'
       },
       {
-        heading: '5. Your rights',
-        content: 'You have the right to view, correct, or delete your data. You can also object to the processing of your data. Contact us to exercise these rights.'
+        heading: 'Cookies',
+        content: 'Wij verzamelen gegevens voor onderzoek om zo een beter inzicht te krijgen in onze klanten, zodat wij onze diensten hierop kunnen afstemmen.\n\nDeze website maakt gebruik van "cookies" (tekstbestandtjes die op uw computer worden geplaatst) om de website te helpen analyseren hoe gebruikers de site gebruiken. De door het cookie gegenereerde informatie over uw gebruik van de website kan worden overgebracht naar onze eigen beveiligde servers of die van een derde partij. Wij gebruiken deze informatie om bij te houden hoe u de website gebruikt, om rapporten over de website-activiteit op te stellen en andere diensten aan te bieden met betrekking tot website-activiteit en internetgebruik.'
       },
       {
-        heading: '6. Contact',
-        content: 'For questions about this privacy policy, you can contact us at info@globalhair.nl or by phone at +31 85 888 4247.'
+        heading: 'Doeleinden',
+        content: 'We verzamelen of gebruiken geen informatie voor andere doeleinden dan de doeleinden die worden beschreven in dit privacybeleid, tenzij we van tevoren uw toestemming hiervoor hebben verkregen.'
+      },
+      {
+        heading: 'Derden',
+        content: 'De informatie wordt niet met derden gedeeld. In enkele gevallen kan de informatie intern gedeeld worden. Onze werknemers zijn verplicht om de vertrouwelijkheid van uw gegevens te respecteren.'
+      },
+      {
+        heading: 'Veranderingen',
+        content: 'Deze privacyverklaring is afgestemd op het gebruik van en de mogelijkheden op deze site. Eventuele aanpassingen en/of veranderingen van deze site kunnen leiden tot wijzigingen in deze privacyverklaring. Het is daarom raadzaam om regelmatig deze privacyverklaring te raadplegen.'
+      },
+      {
+        heading: 'Keuzes voor persoonsgegevens',
+        content: 'Wij bieden alle bezoekers de mogelijkheid tot het inzien, veranderen of verwijderen van alle persoonlijke informatie die op dat moment aan ons is verstrekt.'
+      },
+      {
+        heading: 'Aanpassen/Uitschrijven communicatie',
+        content: 'Als u uw gegevens wilt aanpassen of uzelf uit onze bestanden wilt laten halen, kunt u contact met ons opnemen via de onderstaande contactgegevens.'
+      },
+      {
+        heading: 'Cookies uitzetten',
+        content: 'De meeste browsers zijn standaard ingesteld om cookies te accepteren, maar u kunt uw browser opnieuw instellen om alle cookies te weigeren of om aan te geven wanneer een cookie wordt verzonden. Het is echter mogelijk dat sommige functies en services op onze en andere websites niet correct functioneren als cookies zijn uitgeschakeld in uw browser.\n\nGlobalHair schakelt ook derden zoals Google in voor het analyseren van de gegevens over uw websitegebruik en voor het personaliseren van de website en communicatie, en het tonen van relevante aanbiedingen en advertenties. GlobalHair stuurt voor deze doeleinden geen gegevens zoals naam, adres, e-mailadres, of andere direct identificerende gegevens naar deze partijen. Google kan persoonsgegevens van u ontvangen door deze te verzamelen met cookies. In de Google\'s Privacy & Term site vindt u ook meer informatie over hoe en waarom de verzameling van persoonsgegevens met cookies door Google wordt gedaan.'
+      },
+      {
+        heading: 'Vragen en feedback',
+        content: 'We controleren regelmatig of we aan dit privacybeleid voldoen. Als u vragen heeft over dit privacybeleid, kunt u contact met ons opnemen:\n\nGlobalHair\nPesetastraat 76\n2321GK Leiden\n+31 (0) 85 75 00 577\ncontact@globalhair.nl'
       }
     ]
   };
+
+  const contentEN = {
+    title: 'Privacy Policy',
+    intro: 'We are aware that you place your trust in us. We therefore consider it our responsibility to protect your privacy.',
+    sections: [
+      {
+        heading: 'Our commitment to your privacy',
+        content: 'GlobalHair respects the privacy of all users of its website and ensures that the personal information you provide to us is treated confidentially.'
+      }
+    ]
+  };
+
+  const content = language === 'nl' ? contentNL : contentEN;
 
   return (
     <>
@@ -115,12 +123,15 @@ const PrivacyPolicyPage = () => {
               animation: isExiting ? 'none' : 'fade-in 0.3s ease-out'
             }}
           >
-            <h1 className="text-3xl md:text-4xl font-normal mb-2 text-gray-900">
+            <h1 className="text-2xl md:text-3xl font-normal mb-6 text-gray-900">
               {content.title}
             </h1>
-            <p className="text-sm mb-12 text-gray-500">
-              {content.lastUpdated}
-            </p>
+            
+            {content.intro && (
+              <p className="text-xs leading-relaxed text-gray-600 font-light mb-8 whitespace-pre-line">
+                {content.intro}
+              </p>
+            )}
 
             <div className="space-y-6">
               {content.sections.map((section, index) => (
@@ -128,9 +139,11 @@ const PrivacyPolicyPage = () => {
                   <h2 className="text-sm font-normal mb-1.5 text-gray-900">
                     {section.heading}
                   </h2>
-                  <p className="text-xs leading-relaxed text-gray-600 font-light">
-                    {section.content}
-                  </p>
+                  {section.content && (
+                    <p className="text-xs leading-relaxed text-gray-600 font-light whitespace-pre-line">
+                      {section.content}
+                    </p>
+                  )}
                 </div>
               ))}
             </div>
