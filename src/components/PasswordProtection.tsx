@@ -144,10 +144,31 @@ const handleSubmit = async (e: React.FormEvent) => {
                   Access Site
                 </Button>
 
-                <p className="text-xs text-gray-500 text-center leading-relaxed">
-                  This site is currently in development. To request access, please contact our marketing team.
+                <p className="text-[11px] text-gray-500 text-center leading-relaxed">
+                  We're building a new experience. This preview is currently in development and only accessible with a development code. Contact our marketing team to request access.
                 </p>
               </form>
+            </div>
+
+            {/* Links below container */}
+            <div className="flex items-center gap-4 text-white/80 text-sm">
+              <a 
+                href="https://www.globalhair.nl" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors underline"
+              >
+                Visit current site
+              </a>
+              <span className="text-white/40">•</span>
+              <a 
+                href="https://www.instagram.com/globalhair.institute/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors underline"
+              >
+                Instagram
+              </a>
             </div>
           </div>
         </div>
