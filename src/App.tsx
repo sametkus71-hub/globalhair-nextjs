@@ -12,6 +12,7 @@ import { AnimatedBackground } from "@/components/homepage/AnimatedBackground";
 import { SEORoutes } from "@/components/SEORoutes";
 import ViewportHeightSetter from "@/components/ViewportHeightSetter";
 import { PasswordProtection } from "@/components/PasswordProtection";
+import { CookieConsent } from "@/components/CookieConsent";
 import { lazy, Suspense, useEffect } from "react";
 import { waitForSalesIQ } from "@/lib/salesiq";
 
@@ -57,6 +58,7 @@ const App = () => (
                 <PasswordProtection>
                   <AppRootInit />
                   <ViewportHeightSetter />
+                  <CookieConsent />
                   <AppBackground />
         <Suspense fallback={null}>
           <PersistentVideoBackground />

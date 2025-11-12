@@ -150,7 +150,7 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
                 >
                   algemene voorwaarden
                 </a>
-                {' '}en het{' '}
+                , het{' '}
                 <a
                   href="/nl/privacybeleid"
                   target="_blank"
@@ -158,8 +158,9 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
                   className="text-white/80 underline hover:text-white transition-colors"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  privacy policy
+                  privacybeleid
                 </a>
+                {' '}en het gebruik van functionele cookies die nodig zijn voor het boeken
               </>
             ) : (
               <>
@@ -173,7 +174,7 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
                 >
                   terms and conditions
                 </a>
-                {' '}and{' '}
+                , the{' '}
                 <a
                   href="/en/privacy-policy"
                   target="_blank"
@@ -183,6 +184,7 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
                 >
                   privacy policy
                 </a>
+                {' '}and the use of functional cookies necessary for booking
               </>
             )}
           </Label>

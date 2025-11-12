@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import { usePopupClose } from '@/components/PopupCloseButton';
 import { MetaHead } from '@/components/MetaHead';
 import { useLanguage } from '@/hooks/useLanguage';
+import { CookieSettings } from '@/components/CookieSettings';
 
 const PrivacyPolicyPage = () => {
   const [isExiting, setIsExiting] = useState(false);
+  const [showCookieSettings, setShowCookieSettings] = useState(false);
   const { handlePopupClose } = usePopupClose();
   const { language } = useLanguage();
 
@@ -82,6 +84,7 @@ const PrivacyPolicyPage = () => {
   const contentEN = {
     title: 'Privacy Policy',
     intro: 'We are aware that you place your trust in us. We therefore consider it our responsibility to protect your privacy.',
+    cookieSettingsButton: 'Manage Cookie Preferences',
     sections: [
       {
         heading: 'Our commitment to your privacy',
@@ -123,9 +126,17 @@ const PrivacyPolicyPage = () => {
               animation: isExiting ? 'none' : 'fade-in 0.3s ease-out'
             }}
           >
-            <h1 className="text-2xl md:text-3xl font-normal mb-6 text-gray-900">
+            <h1 className="text-2xl md:text-3xl font-normal mb-4 text-gray-900">
               {content.title}
             </h1>
+
+            {/* Cookie Settings Button */}
+            <button
+              onClick={() => setShowCookieSettings(true)}
+              className="mb-6 text-sm text-gray-600 underline hover:text-gray-900 transition-colors"
+            >
+              {language === 'nl' ? 'Cookie-instellingen beheren' : 'Manage Cookie Preferences'}
+            </button>
             
             {content.intro && (
               <p className="text-xs leading-relaxed text-gray-600 font-light mb-8 whitespace-pre-line">
@@ -150,6 +161,15 @@ const PrivacyPolicyPage = () => {
           </div>
         </div>
       </div>
+
+      {/* Cookie Settings Dialog */}
+      {showCookieSettings && (
+        <CookieSettings
+          isOpen={showCookieSettings}
+          onClose={() => setShowCookieSettings(false)}
+          onSave={() => setShowCookieSettings(false)}
+        />
+      )}
     </>
   );
 };
