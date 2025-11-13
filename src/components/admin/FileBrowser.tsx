@@ -155,7 +155,7 @@ export const FileBrowser = ({
                 key={file.path}
                 className="group relative border-[1px] border-border rounded-[1px] overflow-hidden hover:border-blue-900 transition-colors"
               >
-                <div className="aspect-square bg-muted flex items-center justify-center relative">
+                <div className="aspect-[4/3] bg-muted flex items-center justify-center relative">
                   {file.name.match(/\.(mp4|webm)$/i) ? (
                     <>
                       <video
@@ -187,7 +187,7 @@ export const FileBrowser = ({
                     />
                   )}
                 </div>
-                <div className="p-2 bg-background/95">
+                <div className="p-3 bg-background/95">
                   <p className="text-[10px] leading-tight line-clamp-2 mb-0.5" title={file.name}>
                     {file.name}
                   </p>
