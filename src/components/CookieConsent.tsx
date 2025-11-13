@@ -80,38 +80,36 @@ export function CookieConsent() {
         aria-label="Cookie consent"
         aria-live="polite"
       >
-        <div className="mx-auto max-w-7xl px-4 pb-4 sm:px-6 lg:px-8">
-          <div className="bg-card border-t border-border shadow-strong rounded-t-lg sm:rounded-lg overflow-hidden">
-            <div className="px-4 py-4 sm:px-6 sm:py-5">
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                {/* Message */}
-                <p className="text-sm text-foreground leading-relaxed max-w-2xl">
-                  {text.message}
-                </p>
+        <div className="bg-background border-t border-border">
+          <div className="mx-auto max-w-6xl px-4 py-4 sm:px-6 sm:py-5">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              {/* Message */}
+              <p className="text-sm text-foreground/80 leading-relaxed">
+                {text.message}
+              </p>
 
-                {/* Actions */}
-                <div className="flex flex-col gap-2 sm:flex-row sm:gap-3 sm:shrink-0">
-                  <button
-                    onClick={handleCustomize}
-                    className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {text.customize}
-                  </button>
-                  
-                  <button
-                    onClick={handleRejectNonEssential}
-                    className="px-4 py-2 text-sm font-medium border border-border rounded-md hover:bg-accent transition-colors"
-                  >
-                    {text.rejectNonEssential}
-                  </button>
+              {/* Actions */}
+              <div className="flex flex-col gap-2 sm:flex-row sm:gap-2 sm:shrink-0">
+                <button
+                  onClick={handleCustomize}
+                  className="px-4 py-2.5 text-sm font-normal text-foreground/60 hover:text-foreground transition-colors"
+                >
+                  {text.customize}
+                </button>
+                
+                <button
+                  onClick={handleRejectNonEssential}
+                  className="px-4 py-2.5 text-sm font-normal border border-border bg-background hover:bg-accent transition-colors"
+                >
+                  {text.rejectNonEssential}
+                </button>
 
-                  <button
-                    onClick={handleAcceptAll}
-                    className="px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
-                  >
-                    {text.acceptAll}
-                  </button>
-                </div>
+                <button
+                  onClick={handleAcceptAll}
+                  className="px-4 py-2.5 text-sm font-normal bg-foreground text-background hover:bg-foreground/90 transition-colors"
+                >
+                  {text.acceptAll}
+                </button>
               </div>
             </div>
           </div>
