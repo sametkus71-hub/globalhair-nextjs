@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useNavigate, Link } from 'react-router-dom';
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -29,16 +30,13 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
-import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Review } from '@/types/review';
-import { ReviewDialog } from '@/components/admin/ReviewDialog';
 import { toast } from 'sonner';
 import { Pencil, Trash2, Plus } from 'lucide-react';
 
 export default function AdminReviews() {
-  const [selectedReview, setSelectedReview] = useState<Review | null>(null);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const navigate = useNavigate();
   const [deleteReview, setDeleteReview] = useState<Review | null>(null);
 
   const { data: reviews, isLoading, refetch } = useQuery({
@@ -56,13 +54,11 @@ export default function AdminReviews() {
   });
 
   const handleAddNew = () => {
-    setSelectedReview(null);
-    setIsDialogOpen(true);
+    navigate('/admin/reviews/new');
   };
 
   const handleEdit = (review: Review) => {
-    setSelectedReview(review);
-    setIsDialogOpen(true);
+    navigate(`/admin/reviews/${review.id}`);
   };
 
   const handleToggleVisible = async (review: Review) => {
@@ -223,16 +219,6 @@ export default function AdminReviews() {
           </Table>
         </div>
       )}
-
-      <ReviewDialog
-        open={isDialogOpen}
-        onOpenChange={setIsDialogOpen}
-        review={selectedReview}
-        onSave={() => {
-          refetch();
-          setIsDialogOpen(false);
-        }}
-      />
 
       <AlertDialog
         open={!!deleteReview}
