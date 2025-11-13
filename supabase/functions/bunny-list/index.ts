@@ -75,8 +75,9 @@ serve(async (req) => {
     const apiKey = Deno.env.get('BUNNY_STORAGE_API_KEY');
     const region = Deno.env.get('BUNNY_STORAGE_REGION') || 'uk';
     const zone = Deno.env.get('BUNNY_STORAGE_ZONE');
+    const cdnHostname = Deno.env.get('BUNNY_CDN_HOSTNAME');
 
-    if (!apiKey || !zone) {
+    if (!apiKey || !zone || !cdnHostname) {
       console.error('Missing Bunny CDN credentials');
       return new Response(JSON.stringify({ error: 'Storage configuration error' }), {
         status: 500,
@@ -118,8 +119,8 @@ serve(async (req) => {
       name: file.ObjectName,
       path: path ? `${path}/${file.ObjectName}` : file.ObjectName,
       url: path 
-        ? `https://${region}.storage.bunnycdn.com/${zone}/${path}/${file.ObjectName}`
-        : `https://${region}.storage.bunnycdn.com/${zone}/${file.ObjectName}`,
+        ? `https://${cdnHostname}/${path}/${file.ObjectName}`
+        : `https://${cdnHostname}/${file.ObjectName}`,
       size: file.Length,
       lastModified: file.LastChanged,
       isDirectory: file.IsDirectory,
