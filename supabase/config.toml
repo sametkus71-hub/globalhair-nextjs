@@ -1,13 +1,13 @@
 project_id = "rjvgdqcbvikmjlrtraap"
 
 [functions.bunny-upload]
-verify_jwt = false
+verify_jwt = true
 
 [functions.bunny-list]
-verify_jwt = false
+verify_jwt = true
 
 [functions.bunny-delete]
-verify_jwt = false
+verify_jwt = true
 
 [functions.zoho-availability-range]
 verify_jwt = false
