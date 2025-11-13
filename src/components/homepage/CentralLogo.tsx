@@ -1,4 +1,4 @@
-import { AnimatedLogoGif } from '@/components/logos/AnimatedLogoGif';
+import { LogoWithGlass } from '@/components/logos/LogoWithGlass';
 import { cn } from '@/lib/utils';
 
 interface CentralLogoProps {
@@ -13,7 +13,7 @@ export const CentralLogo = ({ className, size = 'default' }: CentralLogoProps) =
       "relative flex items-center justify-center",
       className
     )}>
-      <AnimatedLogoGif className={logoSize} />
+      <LogoWithGlass className={logoSize} />
     </div>
   );
 };
