@@ -51,12 +51,12 @@ export const ImageSizeIndicator = ({ url, className, type = 'image' }: ImageSize
       ? 'text-red-500'
       : sizeInKB > 1024 // 1 MB for video
       ? 'text-orange-500'
-      : 'text-muted-foreground'
+      : 'text-green-500'
     : sizeInKB > 750 // 750 KB for images
       ? 'text-red-500' 
       : sizeInKB > 500 // 500 KB for images
       ? 'text-orange-500' 
-      : 'text-muted-foreground';
+      : 'text-green-500';
 
   return (
     <span className={cn('text-[9px] font-mono', colorClass, className)}>
