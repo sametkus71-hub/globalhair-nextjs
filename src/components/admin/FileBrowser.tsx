@@ -115,6 +115,7 @@ export const FileBrowser = ({
       <DialogContent className="max-w-4xl max-h-[80vh] rounded-[1px]">
         <DialogHeader>
           <DialogTitle>Browse Files</DialogTitle>
+          <p className="text-sm text-muted-foreground">Select a file from your Bunny CDN storage</p>
         </DialogHeader>
 
         <div className="flex items-center gap-2 mb-4">
