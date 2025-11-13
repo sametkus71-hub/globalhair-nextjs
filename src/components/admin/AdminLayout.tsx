@@ -1,6 +1,10 @@
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 import { useNavigate } from 'react-router-dom';
-import { AdminSidebar } from './AdminSidebar';
+import { AdminSidebarContent } from './AdminSidebarContent';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
+import { Menu } from 'lucide-react';
+import { useState } from 'react';
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -9,15 +13,48 @@ interface AdminLayoutProps {
 export const AdminLayout = ({ children }: AdminLayoutProps) => {
   const { signOut } = useAdminAuth();
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const handleLogout = async () => {
     await signOut();
     navigate('/admin/login');
   };
 
+  if (isMobile) {
+    return (
+      <div className="h-screen overflow-hidden bg-gray-50 flex flex-col">
+        {/* Mobile Header */}
+        <header className="bg-white border-b border-gray-200 h-14 flex items-center px-4 flex-shrink-0">
+          <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
+            <DrawerTrigger asChild>
+              <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                <Menu className="h-5 w-5 text-gray-600" />
+              </button>
+            </DrawerTrigger>
+            <DrawerContent className="h-[85vh]">
+              <div className="h-full bg-gray-800">
+                <AdminSidebarContent 
+                  onNavigate={() => setDrawerOpen(false)}
+                  showLogout={true}
+                />
+              </div>
+            </DrawerContent>
+          </Drawer>
+          <h1 className="ml-4 text-lg font-semibold text-gray-900">Admin Panel</h1>
+        </header>
+
+        {/* Mobile Content */}
+        <main className="flex-1 overflow-y-auto">
+          {children}
+        </main>
+      </div>
+    );
+  }
+
   return (
     <div className="h-screen overflow-hidden bg-gray-50">
-      {/* Fixed logout button */}
+      {/* Desktop: Fixed logout button */}
       <button
         onClick={handleLogout}
         className="fixed top-4 right-6 z-50 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
@@ -25,9 +62,11 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
         Uitloggen
       </button>
 
-      {/* Main area with sidebar + content */}
+      {/* Desktop: Sidebar + Content */}
       <div className="flex h-screen">
-        <AdminSidebar />
+        <aside className="w-64 bg-gray-800 flex-shrink-0">
+          <AdminSidebarContent />
+        </aside>
         <main className="flex-1 overflow-y-auto">
           {children}
         </main>
