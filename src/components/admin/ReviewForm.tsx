@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { ReviewMobilePreview } from './ReviewMobilePreview';
@@ -24,6 +25,12 @@ interface ReviewFormProps {
 
 export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
   const [fileBrowserOpen, setFileBrowserOpen] = useState<string | null>(null);
+  const [uploadSectionsOpen, setUploadSectionsOpen] = useState<{[key: string]: boolean}>({
+    video: false,
+    before: false,
+    after: false,
+    static: false,
+  });
   const [formData, setFormData] = useState({
     review_type: 'video' as ReviewType,
     name: '',
@@ -195,28 +202,43 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                       </TooltipProvider>
                     </div>
                   </div>
-                  <Input
-                    id="video_url"
-                    value={formData.video_url}
-                    onChange={(e) =>
-                      setFormData({ ...formData, video_url: e.target.value })
-                    }
-                    placeholder="https://..."
-                    className="rounded-[1px]"
-                  />
-                  <FileUploader
-                    onUploadSuccess={(url) => setFormData({ ...formData, video_url: url })}
-                    folder="reviews/video"
-                    accept="video/*"
-                  />
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => setFileBrowserOpen('video')}
-                    className="w-full rounded-[1px]"
-                  >
-                    Browse Uploaded Videos
-                  </Button>
+                  <div className="flex gap-2">
+                    <Input
+                      id="video_url"
+                      value={formData.video_url}
+                      onChange={(e) =>
+                        setFormData({ ...formData, video_url: e.target.value })
+                      }
+                      placeholder="https://..."
+                      className="rounded-[1px] flex-1"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setUploadSectionsOpen(prev => ({ ...prev, video: !prev.video }))}
+                      className="rounded-[1px]"
+                    >
+                      Bewerken
+                    </Button>
+                  </div>
+                  <Collapsible open={uploadSectionsOpen.video}>
+                    <CollapsibleContent className="space-y-2 pt-2">
+                      <FileUploader
+                        onUploadSuccess={(url) => setFormData({ ...formData, video_url: url })}
+                        folder="reviews/video"
+                        accept="video/*"
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setFileBrowserOpen('video')}
+                        className="w-full rounded-[1px]"
+                      >
+                        Browse Uploaded Videos
+                      </Button>
+                    </CollapsibleContent>
+                  </Collapsible>
                   <p className="text-xs text-muted-foreground">
                     Plak de URL van een video (YouTube, Vimeo, of directe link)
                   </p>
@@ -248,28 +270,43 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                       </TooltipProvider>
                     </div>
                   </div>
-                  <Input
-                    id="before_image_url"
-                    value={formData.before_image_url}
-                    onChange={(e) =>
-                      setFormData({ ...formData, before_image_url: e.target.value })
-                    }
-                    placeholder="https://..."
-                    className="rounded-[1px]"
-                  />
-                  <FileUploader
-                    onUploadSuccess={(url) => setFormData({ ...formData, before_image_url: url })}
-                    folder="reviews/before_after"
-                    accept="image/*"
-                  />
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => setFileBrowserOpen('before')}
-                    className="w-full rounded-[1px]"
-                  >
-                    Browse Images
-                  </Button>
+                  <div className="flex gap-2">
+                    <Input
+                      id="before_image_url"
+                      value={formData.before_image_url}
+                      onChange={(e) =>
+                        setFormData({ ...formData, before_image_url: e.target.value })
+                      }
+                      placeholder="https://..."
+                      className="rounded-[1px] flex-1"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setUploadSectionsOpen(prev => ({ ...prev, before: !prev.before }))}
+                      className="rounded-[1px]"
+                    >
+                      Bewerken
+                    </Button>
+                  </div>
+                  <Collapsible open={uploadSectionsOpen.before}>
+                    <CollapsibleContent className="space-y-2 pt-2">
+                      <FileUploader
+                        onUploadSuccess={(url) => setFormData({ ...formData, before_image_url: url })}
+                        folder="reviews/before_after"
+                        accept="image/*"
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setFileBrowserOpen('before')}
+                        className="w-full rounded-[1px]"
+                      >
+                        Browse Images
+                      </Button>
+                    </CollapsibleContent>
+                  </Collapsible>
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
@@ -295,28 +332,43 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                       </TooltipProvider>
                     </div>
                   </div>
-                  <Input
-                    id="after_image_url"
-                    value={formData.after_image_url}
-                    onChange={(e) =>
-                      setFormData({ ...formData, after_image_url: e.target.value })
-                    }
-                    placeholder="https://..."
-                    className="rounded-[1px]"
-                  />
-                  <FileUploader
-                    onUploadSuccess={(url) => setFormData({ ...formData, after_image_url: url })}
-                    folder="reviews/before_after"
-                    accept="image/*"
-                  />
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => setFileBrowserOpen('after')}
-                    className="w-full rounded-[1px]"
-                  >
-                    Browse Images
-                  </Button>
+                  <div className="flex gap-2">
+                    <Input
+                      id="after_image_url"
+                      value={formData.after_image_url}
+                      onChange={(e) =>
+                        setFormData({ ...formData, after_image_url: e.target.value })
+                      }
+                      placeholder="https://..."
+                      className="rounded-[1px] flex-1"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setUploadSectionsOpen(prev => ({ ...prev, after: !prev.after }))}
+                      className="rounded-[1px]"
+                    >
+                      Bewerken
+                    </Button>
+                  </div>
+                  <Collapsible open={uploadSectionsOpen.after}>
+                    <CollapsibleContent className="space-y-2 pt-2">
+                      <FileUploader
+                        onUploadSuccess={(url) => setFormData({ ...formData, after_image_url: url })}
+                        folder="reviews/before_after"
+                        accept="image/*"
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setFileBrowserOpen('after')}
+                        className="w-full rounded-[1px]"
+                      >
+                        Browse Images
+                      </Button>
+                    </CollapsibleContent>
+                  </Collapsible>
                 </div>
               </TabsContent>
 
@@ -345,28 +397,43 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                       </TooltipProvider>
                     </div>
                   </div>
-                  <Input
-                    id="static_image_url"
-                    value={formData.static_image_url}
-                    onChange={(e) =>
-                      setFormData({ ...formData, static_image_url: e.target.value })
-                    }
-                    placeholder="https://..."
-                    className="rounded-[1px]"
-                  />
-                  <FileUploader
-                    onUploadSuccess={(url) => setFormData({ ...formData, static_image_url: url })}
-                    folder="reviews/static_image"
-                    accept="image/*"
-                  />
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => setFileBrowserOpen('static')}
-                    className="w-full rounded-[1px]"
-                  >
-                    Browse Images
-                  </Button>
+                  <div className="flex gap-2">
+                    <Input
+                      id="static_image_url"
+                      value={formData.static_image_url}
+                      onChange={(e) =>
+                        setFormData({ ...formData, static_image_url: e.target.value })
+                      }
+                      placeholder="https://..."
+                      className="rounded-[1px] flex-1"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setUploadSectionsOpen(prev => ({ ...prev, static: !prev.static }))}
+                      className="rounded-[1px]"
+                    >
+                      Bewerken
+                    </Button>
+                  </div>
+                  <Collapsible open={uploadSectionsOpen.static}>
+                    <CollapsibleContent className="space-y-2 pt-2">
+                      <FileUploader
+                        onUploadSuccess={(url) => setFormData({ ...formData, static_image_url: url })}
+                        folder="reviews/static_image"
+                        accept="image/*"
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setFileBrowserOpen('static')}
+                        className="w-full rounded-[1px]"
+                      >
+                        Browse Images
+                      </Button>
+                    </CollapsibleContent>
+                  </Collapsible>
                   <p className="text-xs text-muted-foreground">
                     Plak de URL van een afbeelding
                   </p>
