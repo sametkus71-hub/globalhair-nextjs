@@ -61,8 +61,9 @@ export default function AdminLogin() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-6 sm:px-8">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen bg-gray-900 flex">
+      {/* Left container - 30% on desktop, full width on mobile */}
+      <div className="w-full lg:w-[30%] p-8 flex flex-col justify-center">
         {/* Logo */}
         <div className="flex justify-center mb-12">
           <img 
@@ -76,50 +77,53 @@ export default function AdminLogin() {
         <form onSubmit={handleLogin} className="space-y-6">
           {/* Email */}
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-foreground">E-mailadres</Label>
+            <Label htmlFor="email" className="text-white">E-mailadres</Label>
             <Input
               id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="bg-muted/50 border-border text-foreground"
+              className="bg-gray-800 border-gray-700 text-white focus:border-white"
               required
             />
           </div>
 
           {/* Password */}
           <div className="space-y-2">
-            <Label htmlFor="password" className="text-foreground">Wachtwoord</Label>
+            <Label htmlFor="password" className="text-white">Wachtwoord</Label>
             <Input
               id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="bg-muted/50 border-border text-foreground"
+              className="bg-gray-800 border-gray-700 text-white focus:border-white"
               required
             />
           </div>
 
           {/* Error Message */}
           {error && (
-            <p className="text-destructive text-sm text-center">{error}</p>
+            <p className="text-red-400 text-sm">{error}</p>
           )}
 
           {/* Submit Button */}
           <Button
             type="submit"
             disabled={loading}
-            className="w-full"
+            className="w-full bg-white text-gray-900 hover:bg-gray-200"
           >
             {loading ? 'Bezig met inloggen...' : 'Inloggen'}
           </Button>
 
           {/* Helper Text */}
-          <p className="text-muted-foreground text-sm text-center mt-6">
+          <p className="text-gray-400 text-sm text-center mt-6">
             Nog geen account? Neem contact op met de webbeheerder.
           </p>
         </form>
       </div>
+
+      {/* Right side - empty space on desktop */}
+      <div className="hidden lg:block flex-1 bg-gray-800" />
     </div>
   );
 }
