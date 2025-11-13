@@ -11,13 +11,8 @@ import {
 } from '@/components/ui/breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Label } from '@/components/ui/label';
 import {
   Table,
   TableBody,
@@ -41,7 +36,7 @@ import { Switch } from '@/components/ui/switch';
 import { supabase } from '@/integrations/supabase/client';
 import { Review } from '@/types/review';
 import { toast } from 'sonner';
-import { Pencil, Trash2, Plus, ExternalLink, Search } from 'lucide-react';
+import { Pencil, Trash2, Plus, Search } from 'lucide-react';
 
 export default function AdminReviews() {
   const navigate = useNavigate();
@@ -165,36 +160,34 @@ export default function AdminReviews() {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-start mb-6">
         <div>
           <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
             Reviews Beheer
           </h1>
-          <p className="text-sm md:text-base text-muted-foreground">
+          <p className="text-sm md:text-base text-muted-foreground mb-2">
             Bekijk en beheer alle reviews
           </p>
-        </div>
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            onClick={() => window.open('https://globalhair.institute/nl/haartransplantatie/reviews', '_blank')}
-            className="gap-2"
+          <a 
+            href="https://globalhair.institute/nl/haartransplantatie/reviews" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-sm text-blue-900 hover:text-blue-700 underline"
           >
-            <ExternalLink className="w-4 h-4" />
-            Bekijk Frontend
-          </Button>
-          <Button 
-            onClick={handleAddNew}
-            className="bg-blue-900 hover:bg-blue-800 text-white rounded-sm gap-2"
-          >
-            <Plus className="w-4 h-4" />
-            Nieuwe Review
-          </Button>
+            → Bekijk frontend reviews pagina
+          </a>
         </div>
+        <Button 
+          onClick={handleAddNew}
+          className="bg-blue-900 hover:bg-blue-800 text-white rounded-sm gap-2"
+        >
+          <Plus className="w-4 h-4" />
+          Nieuwe Review
+        </Button>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-3 mb-4">
-        <div className="relative flex-1">
+      <div className="mb-4">
+        <div className="relative mb-3">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
             placeholder="Zoek op naam of beschrijving..."
@@ -203,17 +196,25 @@ export default function AdminReviews() {
             className="pl-9 rounded-sm"
           />
         </div>
-        <Select value={typeFilter} onValueChange={setTypeFilter}>
-          <SelectTrigger className="w-full sm:w-[200px] rounded-sm">
-            <SelectValue placeholder="Alle types" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">Alle types</SelectItem>
-            <SelectItem value="video">Video</SelectItem>
-            <SelectItem value="before_after">Voor & Na</SelectItem>
-            <SelectItem value="static_image">Foto</SelectItem>
-          </SelectContent>
-        </Select>
+        
+        <RadioGroup value={typeFilter} onValueChange={setTypeFilter} className="flex flex-wrap gap-4">
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="all" id="all" />
+            <Label htmlFor="all" className="cursor-pointer">Alle types</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="video" id="video" />
+            <Label htmlFor="video" className="cursor-pointer">Video</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="before_after" id="before_after" />
+            <Label htmlFor="before_after" className="cursor-pointer">Voor & Na</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="static_image" id="static_image" />
+            <Label htmlFor="static_image" className="cursor-pointer">Foto</Label>
+          </div>
+        </RadioGroup>
       </div>
 
       <p className="text-sm text-muted-foreground mb-3">
