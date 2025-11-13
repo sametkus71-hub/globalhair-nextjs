@@ -149,20 +149,31 @@ export const FileBrowser = ({
             <p>No files found</p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 overflow-y-auto max-h-[50vh]">
+          <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 overflow-y-auto max-h-[50vh]">
             {filteredFiles.map((file) => (
               <div
                 key={file.path}
                 className="group relative border-[1px] border-border rounded-[1px] overflow-hidden hover:border-blue-900 transition-colors"
               >
-                <div className="aspect-square bg-muted flex items-center justify-center">
+                <div className="aspect-square bg-muted flex items-center justify-center relative">
                   {file.name.match(/\.(mp4|webm)$/i) ? (
-                    <Film className="w-12 h-12 text-muted-foreground" />
+                    <>
+                      <video
+                        src={encodeURI(file.url)}
+                        className="w-full h-full object-contain"
+                        preload="metadata"
+                        muted
+                        onError={(e) => {
+                          (e.target as HTMLVideoElement).style.display = "none";
+                        }}
+                      />
+                      <Film className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 text-muted-foreground pointer-events-none opacity-50" />
+                    </>
                   ) : (
                     <img
                       src={encodeURI(file.url)}
                       alt={file.name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                       loading="lazy"
                       onError={(e) => {
                         (e.target as HTMLImageElement).style.display = "none";
