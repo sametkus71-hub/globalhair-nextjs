@@ -49,7 +49,6 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
     static_image_url: '',
     is_visible: true,
     is_featured: false,
-    display_order: 0,
   });
   const [isSaving, setIsSaving] = useState(false);
 
@@ -66,7 +65,6 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
         static_image_url: review.static_image_url || '',
         is_visible: review.is_visible,
         is_featured: review.is_featured,
-        display_order: review.display_order,
       });
     }
   }, [review]);
@@ -104,7 +102,6 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
       behandeling: formData.behandeling,
       is_visible: formData.is_visible,
       is_featured: formData.is_featured,
-      display_order: formData.display_order,
       video_url: null,
       before_image_url: null,
       after_image_url: null,
@@ -539,20 +536,6 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                     }
                     placeholder="Beschrijving van de review"
                     rows={4}
-                    className="rounded-[1px]"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="display_order">Weergavevolgorde</Label>
-                  <Input
-                    id="display_order"
-                    type="number"
-                    value={formData.display_order}
-                    onChange={(e) =>
-                      setFormData({ ...formData, display_order: parseInt(e.target.value) || 0 })
-                    }
-                    placeholder="0"
                     className="rounded-[1px]"
                   />
                 </div>

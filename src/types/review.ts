@@ -12,7 +12,6 @@ export interface Review {
   static_image_url?: string | null;
   is_visible: boolean;
   is_featured: boolean;
-  display_order: number;
   created_at: string;
   updated_at: string;
 }
