@@ -246,40 +246,49 @@ export const FileUploader = ({
       </div>
 
       <AlertDialog open={showSizeWarning} onOpenChange={setShowSizeWarning}>
-        <AlertDialogContent>
+        <AlertDialogContent className="max-w-md">
           <AlertDialogHeader>
-            <AlertDialogTitle>De afbeelding is heel groot</AlertDialogTitle>
-            <AlertDialogDescription>
-              De afbeelding is heel groot, wil je hem eerst comprimeren aub?
-            </AlertDialogDescription>
+            <AlertDialogTitle className="text-base font-normal">De afbeelding is heel groot, wil je hem eerst comprimeren aub?</AlertDialogTitle>
           </AlertDialogHeader>
           
-          <div className="flex flex-col gap-3 my-4">
-            <a
-              href="https://tinypng.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 px-4 py-3 bg-primary text-primary-foreground rounded-[1px] hover:bg-primary/90 transition-colors font-medium"
+          <div className="flex flex-col gap-2">
+            <Button
+              variant="ghost"
+              asChild
+              className="justify-start h-auto py-2 px-3 font-normal"
             >
-              TinyPNG Compressor
-              <ExternalLink className="w-4 h-4" />
-            </a>
-            <a
-              href="https://imageresizer.com/image-compressor"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 px-4 py-3 bg-primary text-primary-foreground rounded-[1px] hover:bg-primary/90 transition-colors font-medium"
+              <a
+                href="https://tinypng.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2"
+              >
+                <ExternalLink className="w-3 h-3" />
+                TinyPNG
+              </a>
+            </Button>
+            <Button
+              variant="ghost"
+              asChild
+              className="justify-start h-auto py-2 px-3 font-normal"
             >
-              Image Resizer Compressor
-              <ExternalLink className="w-4 h-4" />
-            </a>
+              <a
+                href="https://imageresizer.com/image-compressor"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2"
+              >
+                <ExternalLink className="w-3 h-3" />
+                Image Resizer
+              </a>
+            </Button>
           </div>
 
           <AlertDialogFooter>
             <Button
               variant="ghost"
               onClick={handleContinueAnyway}
-              className="rounded-[1px]"
+              className="font-normal"
             >
               Negeren en doorgaan
             </Button>
