@@ -1,4 +1,5 @@
 import { ReactNode, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import hairtransplantLogo from '@/assets/hairtransplant-logo.png';
@@ -23,10 +24,14 @@ async function hashPassword(password: string): Promise<string> {
 }
 
 export const PasswordProtection = ({ children }: PasswordProtectionProps) => {
+  const location = useLocation();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isChecking, setIsChecking] = useState(true);
+
+  // Exclude admin routes from password protection
+  const isAdminRoute = location.pathname.startsWith('/admin');
 
   useEffect(() => {
     // Check if user is already authenticated
@@ -71,6 +76,11 @@ const handleSubmit = async (e: React.FormEvent) => {
 
   if (isChecking) {
     return null;
+  }
+
+  // Skip password protection for admin routes
+  if (isAdminRoute) {
+    return <>{children}</>;
   }
 
   if (!isAuthenticated) {
