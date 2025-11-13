@@ -101,7 +101,7 @@ export default function AdminReviewEdit() {
         </p>
       </div>
 
-      <div className="bg-background rounded-lg border border-border p-6">
+      <div className="w-full bg-background rounded-lg border border-border p-6">
         <ReviewForm
           review={review}
           onSave={handleSave}
