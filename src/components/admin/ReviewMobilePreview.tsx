@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Review, ReviewType } from '@/types/review';
 import { Badge } from '@/components/ui/badge';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
@@ -19,20 +20,23 @@ interface ReviewMobilePreviewProps {
 }
 
 export function ReviewMobilePreview({ formData }: ReviewMobilePreviewProps) {
+  const [imageError, setImageError] = useState<{[key: string]: boolean}>({});
+  
+  // Reset errors when review type or URLs change
+  useEffect(() => {
+    setImageError({});
+  }, [formData.review_type, formData.video_url, formData.before_image_url, formData.after_image_url, formData.static_image_url]);
+  
   const renderContent = () => {
     switch (formData.review_type) {
       case 'video':
         return (
-          <div className="w-full h-full bg-muted flex items-center justify-center p-4">
+          <div key="video-preview" className="w-full h-full bg-muted flex items-center justify-center p-4">
             {formData.video_url ? (
               <video
                 src={formData.video_url}
                 controls
                 className="w-full h-full object-cover rounded-[1px]"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  e.currentTarget.parentElement!.innerHTML = '<div class="text-center text-muted-foreground text-xs">Ongeldige video URL</div>';
-                }}
               />
             ) : (
               <div className="text-center text-muted-foreground text-xs">
@@ -44,22 +48,18 @@ export function ReviewMobilePreview({ formData }: ReviewMobilePreviewProps) {
 
       case 'before_after':
         return (
-          <div className="w-full h-full bg-muted flex gap-1">
+          <div key="before-after-preview" className="w-full h-full bg-muted flex gap-1">
             <div className="flex-1 relative">
-              {formData.before_image_url ? (
+              {formData.before_image_url && !imageError['before'] ? (
                 <img
-                  src={formData.before_image_url}
+                  src={encodeURI(formData.before_image_url)}
                   alt="Voor"
                   className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    const parent = e.currentTarget.parentElement;
-                    if (parent) parent.innerHTML = '<div class="flex items-center justify-center h-full text-xs text-muted-foreground">Ongeldige URL</div>';
-                  }}
+                  onError={() => setImageError(prev => ({...prev, before: true}))}
                 />
               ) : (
                 <div className="flex items-center justify-center h-full text-xs text-muted-foreground p-2 text-center">
-                  Voor foto URL
+                  {imageError['before'] ? 'Ongeldige URL' : 'Voor foto URL'}
                 </div>
               )}
               <div className="absolute top-2 left-2 bg-background/80 px-2 py-0.5 rounded-[1px] text-[10px]">
@@ -67,20 +67,16 @@ export function ReviewMobilePreview({ formData }: ReviewMobilePreviewProps) {
               </div>
             </div>
             <div className="flex-1 relative">
-              {formData.after_image_url ? (
+              {formData.after_image_url && !imageError['after'] ? (
                 <img
-                  src={formData.after_image_url}
+                  src={encodeURI(formData.after_image_url)}
                   alt="Na"
                   className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    const parent = e.currentTarget.parentElement;
-                    if (parent) parent.innerHTML = '<div class="flex items-center justify-center h-full text-xs text-muted-foreground">Ongeldige URL</div>';
-                  }}
+                  onError={() => setImageError(prev => ({...prev, after: true}))}
                 />
               ) : (
                 <div className="flex items-center justify-center h-full text-xs text-muted-foreground p-2 text-center">
-                  Na foto URL
+                  {imageError['after'] ? 'Ongeldige URL' : 'Na foto URL'}
                 </div>
               )}
               <div className="absolute top-2 left-2 bg-background/80 px-2 py-0.5 rounded-[1px] text-[10px]">
