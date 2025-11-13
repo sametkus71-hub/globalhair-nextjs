@@ -12,6 +12,11 @@ export const TreatmentSelectionSection = () => {
   const navigate = useNavigate();
   const [buttonsLoaded, setButtonsLoaded] = useState([false, false]);
   
+  // Elite is only available in Netherlands
+  const isPackageDisabled = (packageId: string) => {
+    return packageId === 'Elite' && profile.locatie === 'Turkije';
+  };
+  
   // Check if user comes from home page
   const isFromHomePage = () => {
     const referrer = document.referrer;
@@ -144,36 +149,50 @@ export const TreatmentSelectionSection = () => {
               boxShadow: '0 0 20px rgba(255, 255, 255, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.2), inset 0 -1px 2px rgba(0, 0, 0, 0.1)',
             }}
           >
-            {packages.map((pkg) => (
-              <div key={pkg.id} className="relative">
-                {pkg.isNew && (
-                  <div 
-                    className="absolute -top-2 left-1/2 transform -translate-x-1/2 z-10 px-1.5 py-0.5 rounded-full font-lato text-[6px] font-medium text-white"
-                    style={{ 
-                      background: 'linear-gradient(135deg, #8B2635, #692126)',
-                      backdropFilter: 'blur(10px)',
-                      boxShadow: '0 2px 8px rgba(139, 38, 53, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.2)'
+            {packages.map((pkg) => {
+              const disabled = isPackageDisabled(pkg.id);
+              return (
+                <div key={pkg.id} className="relative">
+                  {pkg.isNew && (
+                    <div 
+                      className={`absolute -top-2 left-1/2 transform -translate-x-1/2 z-10 px-1.5 py-0.5 rounded-full font-lato text-[6px] font-medium text-white ${disabled ? 'opacity-40' : ''}`}
+                      style={{ 
+                        background: 'linear-gradient(135deg, #8B2635, #692126)',
+                        backdropFilter: 'blur(10px)',
+                        boxShadow: '0 2px 8px rgba(139, 38, 53, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.2)'
+                      }}
+                    >
+                      Nieuw
+                    </div>
+                  )}
+                  <button
+                    disabled={disabled}
+                    onClick={() => {
+                      if (!disabled) {
+                        // If selecting Elite, ensure we're in Netherlands
+                        if (pkg.id === 'Elite' && profile.locatie === 'Turkije') {
+                          updateProfile('locatie', 'Nederland');
+                        }
+                        updateProfile('selectedPackage', pkg.id);
+                      }
                     }}
+                    className={`px-3 py-2.5 rounded-full font-lato text-[13px] font-medium transition-all duration-300 ease-out relative overflow-hidden ${
+                      disabled
+                        ? 'opacity-40 cursor-not-allowed text-white/50'
+                        : profile.selectedPackage === pkg.id
+                          ? 'text-white premium-glow'
+                          : 'text-white/80 hover:text-white hover:bg-white/5'
+                    }`}
+                    style={!disabled && profile.selectedPackage === pkg.id ? {
+                      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.4))',
+                      boxShadow: '0 8px 25px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.3), inset 0 -1px 2px rgba(0, 0, 0, 0.1)'
+                    } : {}}
                   >
-                    Nieuw
-                  </div>
-                )}
-                <button
-                  onClick={() => updateProfile('selectedPackage', pkg.id)}
-                  className={`px-3 py-2.5 rounded-full font-lato text-[13px] font-medium transition-all duration-300 ease-out relative overflow-hidden ${
-                    profile.selectedPackage === pkg.id
-                      ? 'text-white premium-glow'
-                      : 'text-white/80 hover:text-white hover:bg-white/5'
-                  }`}
-                  style={profile.selectedPackage === pkg.id ? {
-                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.4))',
-                    boxShadow: '0 8px 25px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.3), inset 0 -1px 2px rgba(0, 0, 0, 0.1)'
-                  } : {}}
-                >
-                  {pkg.label}
-                </button>
-              </div>
-            ))}
+                    {pkg.label}
+                  </button>
+                </div>
+              );
+            })}
           </div>
         </div>
 
