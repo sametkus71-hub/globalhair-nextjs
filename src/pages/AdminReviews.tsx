@@ -14,6 +14,13 @@ import { Input } from '@/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import {
   Table,
   TableBody,
   TableCell,
@@ -44,16 +51,41 @@ export default function AdminReviews() {
   const [deleteReview, setDeleteReview] = useState<Review | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
+  const [sortBy, setSortBy] = useState('created_desc');
 
   const { data: reviews, isLoading, refetch } = useQuery({
-    queryKey: ['admin-reviews'],
+    queryKey: ['admin-reviews', sortBy],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('reviews' as any)
-        .select('*')
-        .order('display_order', { ascending: true })
-        .order('created_at', { ascending: false });
+      let query = supabase.from('reviews' as any).select('*');
 
+      // Apply sorting based on sortBy state
+      switch (sortBy) {
+        case 'created_desc':
+          query = query.order('created_at', { ascending: false });
+          break;
+        case 'created_asc':
+          query = query.order('created_at', { ascending: true });
+          break;
+        case 'updated_desc':
+          query = query.order('updated_at', { ascending: false });
+          break;
+        case 'updated_asc':
+          query = query.order('updated_at', { ascending: true });
+          break;
+        case 'name_asc':
+          query = query.order('name', { ascending: true });
+          break;
+        case 'name_desc':
+          query = query.order('name', { ascending: false });
+          break;
+        case 'display_order':
+          query = query.order('display_order', { ascending: true });
+          break;
+        default:
+          query = query.order('created_at', { ascending: false });
+      }
+
+      const { data, error } = await query;
       if (error) throw error;
       return (data as unknown) as Review[];
     },
@@ -198,7 +230,25 @@ export default function AdminReviews() {
           />
         </div>
         
-        <RadioGroup value={typeFilter} onValueChange={setTypeFilter} className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap items-center gap-4 mb-3">
+          <Select value={sortBy} onValueChange={setSortBy}>
+            <SelectTrigger className="w-[180px] rounded-[1px]">
+              <SelectValue placeholder="Sorteer op..." />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="created_desc">Nieuwste eerst</SelectItem>
+              <SelectItem value="created_asc">Oudste eerst</SelectItem>
+              <SelectItem value="updated_desc">Recent bijgewerkt</SelectItem>
+              <SelectItem value="updated_asc">Langst bijgewerkt</SelectItem>
+              <SelectItem value="name_asc">Naam (A-Z)</SelectItem>
+              <SelectItem value="name_desc">Naam (Z-A)</SelectItem>
+              <SelectItem value="display_order">Weergavevolgorde</SelectItem>
+            </SelectContent>
+          </Select>
+          
+          <div className="h-4 w-px bg-border" />
+          
+          <RadioGroup value={typeFilter} onValueChange={setTypeFilter} className="flex flex-wrap gap-4">
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="all" id="all" className="border-blue-900 text-blue-900" />
             <Label htmlFor="all" className="cursor-pointer text-sm">Alle types</Label>
@@ -216,6 +266,7 @@ export default function AdminReviews() {
             <Label htmlFor="static_image" className="cursor-pointer text-sm">Foto</Label>
           </div>
         </RadioGroup>
+        </div>
       </div>
 
       {(searchQuery || typeFilter !== 'all') && (
