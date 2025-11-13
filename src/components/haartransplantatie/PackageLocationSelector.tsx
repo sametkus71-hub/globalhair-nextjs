@@ -5,6 +5,15 @@ export const PackageLocationSelector = () => {
   const { language } = useLanguage();
   const { profile, updateProfile } = useSession();
 
+  // Elite is only available in Netherlands
+  const isCountryDisabled = (countryKey: string) => {
+    return countryKey === 'Turkije' && profile.selectedPackage === 'Elite';
+  };
+
+  const isPackageDisabled = (packageId: string) => {
+    return packageId === 'Elite' && profile.locatie === 'Turkije';
+  };
+
   const packages = [
     { 
       id: 'Standard', 
@@ -38,16 +47,24 @@ export const PackageLocationSelector = () => {
         >
           {(language === 'nl' ? ['Nederland', 'Turkije'] : ['Netherlands', 'Turkey']).map((country, index) => {
             const countryKey = index === 0 ? 'Nederland' : 'Turkije';
+            const disabled = isCountryDisabled(countryKey);
             return (
               <button
                 key={countryKey}
-                onClick={() => updateProfile('locatie', countryKey)}
+                disabled={disabled}
+                onClick={() => {
+                  if (!disabled) {
+                    updateProfile('locatie', countryKey);
+                  }
+                }}
                 className={`px-3 py-2 rounded-full font-lato text-[11px] font-medium transition-all duration-300 ease-out ${
-                  profile.locatie === countryKey
-                    ? 'text-white'
-                    : 'text-white/80 hover:text-white'
+                  disabled
+                    ? 'opacity-40 cursor-not-allowed text-white/50'
+                    : profile.locatie === countryKey
+                      ? 'text-white'
+                      : 'text-white/80 hover:text-white'
                 }`}
-                style={profile.locatie === countryKey ? {
+                style={!disabled && profile.locatie === countryKey ? {
                   background: 'rgba(255, 255, 255, 0.5)',
                   boxShadow: '10px 3px 15px 0px rgba(0, 0, 0, 0.4)'
                 } : {}}
@@ -70,29 +87,43 @@ export const PackageLocationSelector = () => {
             boxShadow: '0px 0px 8.4px 1px rgba(255, 255, 255, 0.25) inset',
           }}
         >
-          {packages.map((pkg) => (
-            <div key={pkg.id} className="relative">
-              {pkg.isNew && (
-                <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 z-10 px-1.5 py-0.5 rounded-full font-lato text-[6px] font-medium text-white" style={{ background: '#692126', backdropFilter: 'blur(10px)' }}>
-                  {language === 'nl' ? 'Nieuw' : 'New'}
-                </div>
-              )}
-              <button
-                onClick={() => updateProfile('selectedPackage', pkg.id)}
-                className={`px-3 py-2.5 rounded-full font-lato text-[13px] font-medium transition-all duration-300 ease-out ${
-                  profile.selectedPackage === pkg.id
-                    ? 'text-white'
-                    : 'text-white/80 hover:text-white'
-                }`}
-                style={profile.selectedPackage === pkg.id ? {
-                  background: 'rgba(255, 255, 255, 0.5)',
-                  boxShadow: '10px 3px 15px 0px rgba(0, 0, 0, 0.4)'
-                } : {}}
-              >
-                {pkg.label}
-              </button>
-            </div>
-          ))}
+          {packages.map((pkg) => {
+            const disabled = isPackageDisabled(pkg.id);
+            return (
+              <div key={pkg.id} className="relative">
+                {pkg.isNew && (
+                  <div className={`absolute -top-2 left-1/2 transform -translate-x-1/2 z-10 px-1.5 py-0.5 rounded-full font-lato text-[6px] font-medium text-white ${disabled ? 'opacity-40' : ''}`} style={{ background: '#692126', backdropFilter: 'blur(10px)' }}>
+                    {language === 'nl' ? 'Nieuw' : 'New'}
+                  </div>
+                )}
+                <button
+                  disabled={disabled}
+                  onClick={() => {
+                    if (!disabled) {
+                      // If selecting Elite, ensure we're in Netherlands
+                      if (pkg.id === 'Elite' && profile.locatie === 'Turkije') {
+                        updateProfile('locatie', 'Nederland');
+                      }
+                      updateProfile('selectedPackage', pkg.id);
+                    }
+                  }}
+                  className={`px-3 py-2.5 rounded-full font-lato text-[13px] font-medium transition-all duration-300 ease-out ${
+                    disabled
+                      ? 'opacity-40 cursor-not-allowed text-white/50'
+                      : profile.selectedPackage === pkg.id
+                        ? 'text-white'
+                        : 'text-white/80 hover:text-white'
+                  }`}
+                  style={!disabled && profile.selectedPackage === pkg.id ? {
+                    background: 'rgba(255, 255, 255, 0.5)',
+                    boxShadow: '10px 3px 15px 0px rgba(0, 0, 0, 0.4)'
+                  } : {}}
+                >
+                  {pkg.label}
+                </button>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
