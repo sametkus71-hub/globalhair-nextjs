@@ -10,21 +10,21 @@ const navigationItems = [
 
 export const AdminSidebar = () => {
   return (
-    <aside className="w-60 bg-gray-900 p-6 border-r border-gray-800">
-      <nav className="space-y-2">
+    <aside className="w-52 bg-gray-900 pt-6 px-3">
+      <nav className="space-y-1">
         {navigationItems.map((item) => {
           const Icon = item.icon;
           return (
             <button
               key={item.label}
               className={cn(
-                "w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors",
+                "w-full flex items-center gap-2 px-3 py-2 text-sm transition-colors",
                 item.active
-                  ? "bg-gray-800 text-white border-l-2 border-white"
-                  : "text-gray-300 hover:bg-gray-800"
+                  ? "text-white"
+                  : "text-gray-400 hover:text-gray-200"
               )}
             >
-              <Icon size={20} />
+              <Icon size={16} />
               <span>{item.label}</span>
             </button>
           );
