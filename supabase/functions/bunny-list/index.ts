@@ -85,6 +85,9 @@ serve(async (req) => {
     }
 
     console.log(`Listing files in: ${path}`);
+    console.log(`Zone: ${zone}`);
+    console.log(`API Key length: ${apiKey.length} characters`);
+    console.log(`API Key first 10 chars: ${apiKey.substring(0, 10)}...`);
 
     // List files from Bunny CDN
     const listUrl = path 
