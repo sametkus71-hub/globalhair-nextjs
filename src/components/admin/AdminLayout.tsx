@@ -17,7 +17,7 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="h-screen overflow-hidden bg-gray-900">
       {/* Header */}
       <header className="bg-gray-800 border-b border-gray-700">
         <div className="px-4 py-4 flex items-center justify-between">
@@ -36,9 +36,9 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
       </header>
 
       {/* Main area with sidebar + content */}
-      <div className="flex">
+      <div className="flex h-[calc(100vh-73px)]">
         <AdminSidebar />
-        <main className="flex-1">
+        <main className="flex-1 overflow-y-auto">
           {children}
         </main>
       </div>
