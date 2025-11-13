@@ -10,6 +10,9 @@ export const PersistentVideoBackground = () => {
   
   // Detect if we're on chat page for styling
   const isChat = pathname.endsWith('/chat') || pathname.includes('/chat');
+  
+  // Don't render background on admin routes
+  const isAdminRoute = pathname.startsWith('/admin');
 
   useEffect(() => {
     setMounted(true);
@@ -33,7 +36,7 @@ export const PersistentVideoBackground = () => {
     }
   }, [shouldLoadVideo, videoLoaded]);
 
-  if (!mounted) return null;
+  if (!mounted || isAdminRoute) return null;
 
   const videoSrc = 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Basic%20BG%20V0.mp4';
 
