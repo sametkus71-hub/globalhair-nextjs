@@ -192,11 +192,12 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                   <div className="flex items-center justify-between">
                     <Label htmlFor="video_url">Video URL *</Label>
                     <div className="flex items-center gap-1.5 px-2 py-1 rounded-md border border-border/50 bg-muted/30">
+                      <ImageSizeIndicator url={formData.video_url} type="video" />
+                      <div className="h-3 w-px bg-border/50" />
                       <span className="text-[9px] text-muted-foreground uppercase tracking-wider">Compressie</span>
                       <div className="h-3 w-px bg-border/50" />
-                      <ImageSizeIndicator url={formData.video_url} />
                       <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
-                        <a href="https://www.compress2go.com/compress-video" target="_blank" rel="noopener noreferrer">video</a>
+                        <a href="https://www.compress2go.com/compress-video" target="_blank" rel="noopener noreferrer">link</a>
                       </Badge>
                       <TooltipProvider>
                         <Tooltip>
@@ -270,9 +271,10 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                   <div className="flex items-center justify-between">
                     <Label htmlFor="before_image_url">Voor Foto URL *</Label>
                     <div className="flex items-center gap-1.5 px-2 py-1 rounded-md border border-border/50 bg-muted/30">
+                      <ImageSizeIndicator url={formData.before_image_url} />
+                      <div className="h-3 w-px bg-border/50" />
                       <span className="text-[9px] text-muted-foreground uppercase tracking-wider">Compressie</span>
                       <div className="h-3 w-px bg-border/50" />
-                      <ImageSizeIndicator url={formData.before_image_url} />
                       <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
                         <a href="https://tinypng.com/" target="_blank" rel="noopener noreferrer">link 1</a>
                       </Badge>
@@ -345,9 +347,10 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                   <div className="flex items-center justify-between">
                     <Label htmlFor="after_image_url">Na Foto URL *</Label>
                     <div className="flex items-center gap-1.5 px-2 py-1 rounded-md border border-border/50 bg-muted/30">
+                      <ImageSizeIndicator url={formData.after_image_url} />
+                      <div className="h-3 w-px bg-border/50" />
                       <span className="text-[9px] text-muted-foreground uppercase tracking-wider">Compressie</span>
                       <div className="h-3 w-px bg-border/50" />
-                      <ImageSizeIndicator url={formData.after_image_url} />
                       <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
                         <a href="https://tinypng.com/" target="_blank" rel="noopener noreferrer">link 1</a>
                       </Badge>
@@ -423,9 +426,10 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                   <div className="flex items-center justify-between">
                     <Label htmlFor="static_image_url">Foto URL *</Label>
                     <div className="flex items-center gap-1.5 px-2 py-1 rounded-md border border-border/50 bg-muted/30">
+                      <ImageSizeIndicator url={formData.static_image_url} />
+                      <div className="h-3 w-px bg-border/50" />
                       <span className="text-[9px] text-muted-foreground uppercase tracking-wider">Compressie</span>
                       <div className="h-3 w-px bg-border/50" />
-                      <ImageSizeIndicator url={formData.static_image_url} />
                       <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
                         <a href="https://tinypng.com/" target="_blank" rel="noopener noreferrer">link 1</a>
                       </Badge>

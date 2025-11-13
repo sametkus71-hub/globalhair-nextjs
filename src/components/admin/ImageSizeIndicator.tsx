@@ -4,9 +4,10 @@ import { cn } from '@/lib/utils';
 interface ImageSizeIndicatorProps {
   url: string | null;
   className?: string;
+  type?: 'image' | 'video';
 }
 
-export const ImageSizeIndicator = ({ url, className }: ImageSizeIndicatorProps) => {
+export const ImageSizeIndicator = ({ url, className, type = 'image' }: ImageSizeIndicatorProps) => {
   const [size, setSize] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -44,11 +45,18 @@ export const ImageSizeIndicator = ({ url, className }: ImageSizeIndicatorProps) 
   
   const displaySize = sizeInKB > 1024 ? `${sizeInMB} MB` : `${sizeInKB} KB`;
   
-  const colorClass = sizeInKB > 750 
-    ? 'text-red-500' 
-    : sizeInKB > 500 
-    ? 'text-orange-500' 
-    : 'text-muted-foreground';
+  // Different thresholds for video vs image
+  const colorClass = type === 'video'
+    ? sizeInKB > 2048 // 2 MB for video
+      ? 'text-red-500'
+      : sizeInKB > 1024 // 1 MB for video
+      ? 'text-orange-500'
+      : 'text-muted-foreground'
+    : sizeInKB > 750 // 750 KB for images
+      ? 'text-red-500' 
+      : sizeInKB > 500 // 500 KB for images
+      ? 'text-orange-500' 
+      : 'text-muted-foreground';
 
   return (
     <span className={cn('text-[9px] font-mono', colorClass, className)}>
