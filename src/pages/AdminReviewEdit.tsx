@@ -54,7 +54,8 @@ export default function AdminReviewEdit() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-8">
+    <div className="w-full px-4 md:px-6 py-4 md:py-8">
+      <div className="max-w-7xl mx-auto">
       <Breadcrumb className="mb-4 md:mb-6">
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -101,13 +102,13 @@ export default function AdminReviewEdit() {
         </p>
       </div>
 
-      <div className="w-full bg-background rounded-lg border border-border p-6">
-        <ReviewForm
-          review={review}
-          onSave={handleSave}
-          onClose={handleCancel}
-        />
       </div>
+
+      <ReviewForm
+        review={review}
+        onSave={handleSave}
+        onClose={handleCancel}
+      />
     </div>
   );
 }
