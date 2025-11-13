@@ -129,7 +129,7 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="w-full space-y-4">
       <div className="space-y-2">
         <Label>Review Type *</Label>
         <RadioGroup
