@@ -223,7 +223,7 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                     </Button>
                   </div>
                   <Collapsible open={uploadSectionsOpen.video}>
-                    <CollapsibleContent className="space-y-2 pt-2">
+                    <CollapsibleContent className="space-y-2 pt-2 px-3 pb-3 bg-muted/30 rounded-md border border-border/50">
                       <FileUploader
                         onUploadSuccess={(url) => setFormData({ ...formData, video_url: url })}
                         folder="reviews/video"
@@ -291,7 +291,7 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                     </Button>
                   </div>
                   <Collapsible open={uploadSectionsOpen.before}>
-                    <CollapsibleContent className="space-y-2 pt-2">
+                    <CollapsibleContent className="space-y-2 pt-2 px-3 pb-3 bg-muted/30 rounded-md border border-border/50">
                       <FileUploader
                         onUploadSuccess={(url) => setFormData({ ...formData, before_image_url: url })}
                         folder="reviews/before_after"
@@ -353,7 +353,7 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                     </Button>
                   </div>
                   <Collapsible open={uploadSectionsOpen.after}>
-                    <CollapsibleContent className="space-y-2 pt-2">
+                    <CollapsibleContent className="space-y-2 pt-2 px-3 pb-3 bg-muted/30 rounded-md border border-border/50">
                       <FileUploader
                         onUploadSuccess={(url) => setFormData({ ...formData, after_image_url: url })}
                         folder="reviews/before_after"
@@ -418,7 +418,7 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                     </Button>
                   </div>
                   <Collapsible open={uploadSectionsOpen.static}>
-                    <CollapsibleContent className="space-y-2 pt-2">
+                    <CollapsibleContent className="space-y-2 pt-2 px-3 pb-3 bg-muted/30 rounded-md border border-border/50">
                       <FileUploader
                         onUploadSuccess={(url) => setFormData({ ...formData, static_image_url: url })}
                         folder="reviews/static_image"
