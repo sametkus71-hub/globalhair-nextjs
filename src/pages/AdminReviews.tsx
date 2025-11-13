@@ -46,6 +46,8 @@ import { Review } from '@/types/review';
 import { toast } from 'sonner';
 import { Pencil, Trash2, Plus, Search } from 'lucide-react';
 import { ReviewThumbnail } from '@/components/admin/ReviewThumbnail';
+import { format } from 'date-fns';
+import { nl } from 'date-fns/locale';
 
 export default function AdminReviews() {
   const navigate = useNavigate();
@@ -111,6 +113,20 @@ export default function AdminReviews() {
     return filtered;
   }, [reviews, searchQuery, typeFilter]);
 
+  const getTypeBadge = (type: string) => {
+    switch(type) {
+      case 'video': return 'Video';
+      case 'before_after': return 'Voor/Na';
+      case 'static_image': return 'Foto';
+      default: return type;
+    }
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return format(date, 'd MMM yyyy HH:mm', { locale: nl });
+  };
+
   const handleAddNew = () => {
     navigate('/admin/reviews/new');
   };
@@ -162,15 +178,6 @@ export default function AdminReviews() {
       refetch();
     }
     setDeleteReview(null);
-  };
-
-  const getTypeBadge = (type: string) => {
-    const variants: Record<string, string> = {
-      video: 'Video',
-      before_after: 'Voor & Na',
-      static_image: 'Foto',
-    };
-    return variants[type] || type;
   };
 
   return (
@@ -327,62 +334,66 @@ export default function AdminReviews() {
           <Table>
             <TableHeader>
               <TableRow className="border-b border-border">
-                <TableHead className="py-3">Type</TableHead>
-                <TableHead className="py-3">Thumbnail</TableHead>
-                <TableHead className="py-3">Naam</TableHead>
-                <TableHead className="py-3">Behandeling</TableHead>
-                <TableHead className="text-center py-3">Zichtbaar</TableHead>
-                <TableHead className="text-center py-3">Uitgelicht</TableHead>
-                <TableHead className="text-right py-3">Acties</TableHead>
+                <TableHead className="py-4 w-[100px]">Type</TableHead>
+                <TableHead className="py-4 w-[80px]">Thumbnail</TableHead>
+                <TableHead className="py-4">Naam</TableHead>
+                <TableHead className="py-4 w-[160px]">Aangemaakt</TableHead>
+                <TableHead className="py-4">Behandeling</TableHead>
+                <TableHead className="text-center py-4 w-[100px]">Zichtbaar</TableHead>
+                <TableHead className="text-center py-4 w-[100px]">Uitgelicht</TableHead>
+                <TableHead className="text-right py-4 w-[120px]">Acties</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filteredReviews.map((review) => (
-                <TableRow key={review.id} className="border-b border-border">
-                  <TableCell className="py-3">
+                <TableRow key={review.id} className="border-b border-border hover:bg-muted/50 transition-colors">
+                  <TableCell className="py-4">
                     <Badge variant="outline" className="rounded-[1px]">
                       {getTypeBadge(review.review_type)}
                     </Badge>
                   </TableCell>
-                  <TableCell className="py-3">
+                  <TableCell className="py-4">
                     <ReviewThumbnail 
                       review={review} 
                       onClick={() => handleEdit(review)}
                     />
                   </TableCell>
-                  <TableCell className="font-medium py-3">{review.name}</TableCell>
-                  <TableCell className="py-3">{review.behandeling}</TableCell>
-                  <TableCell className="text-center py-3">
+                  <TableCell className="font-medium py-4">{review.name}</TableCell>
+                  <TableCell className="py-4 text-sm text-muted-foreground whitespace-nowrap">
+                    {formatDate(review.created_at)}
+                  </TableCell>
+                  <TableCell className="py-4 text-muted-foreground">{review.behandeling}</TableCell>
+                  <TableCell className="text-center py-4">
                     <Switch
                       checked={review.is_visible}
                       onCheckedChange={() => handleToggleVisible(review)}
                       className="data-[state=checked]:bg-blue-900"
                     />
                   </TableCell>
-                  <TableCell className="text-center py-3">
+                  <TableCell className="text-center py-4">
                     <Switch
                       checked={review.is_featured}
                       onCheckedChange={() => handleToggleFeatured(review)}
                       className="data-[state=checked]:bg-blue-900"
                     />
                   </TableCell>
-                  <TableCell className="text-right py-3">
+                  <TableCell className="text-right py-4">
                     <div className="flex justify-end gap-2">
                       <Button
                         variant="ghost"
-                        size="icon"
+                        size="sm"
                         onClick={() => handleEdit(review)}
-                        className="rounded-[1px]"
+                        className="h-8 w-8 p-0"
                       >
-                        <Pencil className="w-4 h-4" />
+                        <Pencil className="h-4 w-4" />
                       </Button>
                       <Button
                         variant="ghost"
-                        size="icon"
+                        size="sm"
                         onClick={() => setDeleteReview(review)}
-                        className="rounded-[1px]"
+                        className="h-8 w-8 p-0 text-destructive hover:text-destructive"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
                   </TableCell>
