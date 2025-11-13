@@ -12,7 +12,7 @@ export const AdminSidebar = () => {
   const { user } = useAdminAuth();
 
   return (
-    <aside className="w-52 bg-gray-800 min-h-screen flex flex-col">
+    <aside className="w-52 bg-gray-800 h-full overflow-y-auto flex flex-col">
       {/* User info section */}
       <div className="p-4 border-b border-gray-700">
         <div className="text-xs text-gray-400 mb-1">Ingelogd als</div>
