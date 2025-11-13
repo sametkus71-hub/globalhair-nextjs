@@ -45,6 +45,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { Review } from '@/types/review';
 import { toast } from 'sonner';
 import { Pencil, Trash2, Plus, Search } from 'lucide-react';
+import { ReviewThumbnail } from '@/components/admin/ReviewThumbnail';
 
 export default function AdminReviews() {
   const navigate = useNavigate();
@@ -327,6 +328,7 @@ export default function AdminReviews() {
             <TableHeader>
               <TableRow className="border-b border-border">
                 <TableHead className="py-3">Type</TableHead>
+                <TableHead className="py-3">Thumbnail</TableHead>
                 <TableHead className="py-3">Naam</TableHead>
                 <TableHead className="py-3">Behandeling</TableHead>
                 <TableHead className="text-center py-3">Zichtbaar</TableHead>
@@ -341,6 +343,12 @@ export default function AdminReviews() {
                     <Badge variant="outline" className="rounded-[1px]">
                       {getTypeBadge(review.review_type)}
                     </Badge>
+                  </TableCell>
+                  <TableCell className="py-3">
+                    <ReviewThumbnail 
+                      review={review} 
+                      onClick={() => handleEdit(review)}
+                    />
                   </TableCell>
                   <TableCell className="font-medium py-3">{review.name}</TableCell>
                   <TableCell className="py-3">{review.behandeling}</TableCell>
