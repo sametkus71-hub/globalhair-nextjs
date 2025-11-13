@@ -9,7 +9,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
@@ -604,17 +603,14 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
           </div>
         </div>
       ) : (
-        <ResizablePanelGroup direction="horizontal" className="min-h-[calc(100vh-12rem)] rounded-lg border border-border">
-          <ResizablePanel defaultSize={55} minSize={35}>
+        <div className="flex gap-4 min-h-[calc(100vh-12rem)]">
+          <div className="flex-1 rounded-lg border border-border bg-background">
             {formContent}
-          </ResizablePanel>
-
-          <ResizableHandle withHandle />
-
-          <ResizablePanel defaultSize={45} minSize={30}>
+          </div>
+          <div className="w-[400px] rounded-lg border border-border bg-background overflow-hidden">
             {previewContent}
-          </ResizablePanel>
-        </ResizablePanelGroup>
+          </div>
+        </div>
       )}
     
     <FileBrowser
