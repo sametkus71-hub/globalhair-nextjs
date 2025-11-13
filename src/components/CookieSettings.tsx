@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Switch } from '@/components/ui/switch';
-import { Button } from '@/components/ui/button';
-import { getCookieConsent, setCookieConsent, type CookieConsent } from '@/lib/cookie-consent';
+import { getCookieConsent, setCookieConsent } from '@/lib/cookie-consent';
 
 interface CookieSettingsProps {
   isOpen: boolean;
@@ -85,24 +84,24 @@ export function CookieSettings({ isOpen, onClose, onSave }: CookieSettingsProps)
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px] font-inter">
+      <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle className="text-xl font-semibold text-foreground">
+          <DialogTitle className="text-lg font-normal text-foreground">
             {text.title}
           </DialogTitle>
-          <DialogDescription className="text-sm text-muted-foreground">
+          <DialogDescription className="text-sm text-foreground/60">
             {text.description}
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-6 py-4">
+        <div className="space-y-5 py-4">
           {/* Essential Cookies */}
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1">
-              <h3 className="text-sm font-medium text-foreground mb-1">
+              <h3 className="text-sm font-normal text-foreground mb-1">
                 {text.essential.title}
               </h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">
+              <p className="text-xs text-foreground/60 leading-relaxed">
                 {text.essential.description}
               </p>
             </div>
@@ -117,10 +116,10 @@ export function CookieSettings({ isOpen, onClose, onSave }: CookieSettingsProps)
           {/* Analytics Cookies */}
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1">
-              <h3 className="text-sm font-medium text-foreground mb-1">
+              <h3 className="text-sm font-normal text-foreground mb-1">
                 {text.analytics.title}
               </h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">
+              <p className="text-xs text-foreground/60 leading-relaxed">
                 {text.analytics.description}
               </p>
             </div>
@@ -137,10 +136,10 @@ export function CookieSettings({ isOpen, onClose, onSave }: CookieSettingsProps)
           {/* Marketing Cookies */}
           <div className="flex items-start justify-between gap-4">
             <div className="flex-1">
-              <h3 className="text-sm font-medium text-foreground mb-1">
+              <h3 className="text-sm font-normal text-foreground mb-1">
                 {text.marketing.title}
               </h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">
+              <p className="text-xs text-foreground/60 leading-relaxed">
                 {text.marketing.description}
               </p>
             </div>
@@ -156,20 +155,19 @@ export function CookieSettings({ isOpen, onClose, onSave }: CookieSettingsProps)
         </div>
 
         {/* Actions */}
-        <div className="flex justify-end gap-3 pt-4 border-t border-border">
-          <Button
-            variant="outline"
+        <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2 pt-4 border-t border-border">
+          <button
             onClick={onClose}
-            className="text-sm"
+            className="w-full sm:w-auto px-4 py-2.5 text-sm font-normal text-foreground/60 hover:text-foreground transition-colors"
           >
             {text.cancel}
-          </Button>
-          <Button
+          </button>
+          <button
             onClick={handleSave}
-            className="text-sm"
+            className="w-full sm:w-auto px-4 py-2.5 text-sm font-normal bg-foreground text-background hover:bg-foreground/90 transition-colors"
           >
             {text.save}
-          </Button>
+          </button>
         </div>
       </DialogContent>
     </Dialog>
