@@ -222,17 +222,30 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                       </TooltipProvider>
                     </div>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="relative">
                     <Input
                       id="video_url"
                       value={formData.video_url}
-                      onChange={(e) =>
-                        setFormData({ ...formData, video_url: e.target.value })
-                      }
-                      placeholder="https://..."
-                      className="rounded-[1px] flex-1"
+                      readOnly
+                      placeholder="Gebruik 'Bewerken' om een video te selecteren"
+                      className="rounded-[1px] cursor-pointer pr-10 bg-muted/50"
+                      onClick={() => handleCopyUrl(formData.video_url, 'video_url')}
+                      title="Klik om te kopiëren"
                     />
-                    <DropdownMenu>
+                    <button
+                      type="button"
+                      onClick={() => handleCopyUrl(formData.video_url, 'video_url')}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 hover:bg-accent rounded-sm transition-colors"
+                      title="Kopieer URL"
+                    >
+                      {copiedField === 'video_url' ? (
+                        <Check className="w-4 h-4 text-green-500" />
+                      ) : (
+                        <Copy className="w-4 h-4 text-muted-foreground" />
+                      )}
+                    </button>
+                  </div>
+                  <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button
                           type="button"
@@ -261,7 +274,6 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
-                  </div>
                   <Collapsible open={uploadSectionsOpen.video}>
                     <CollapsibleContent className="space-y-2 pt-2 px-3 pb-3 bg-muted/30 rounded-md border border-border/50">
                     <FileUploader
@@ -356,7 +368,6 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
-                  </div>
                   <Collapsible open={uploadSectionsOpen.before}>
                     <CollapsibleContent className="space-y-2 pt-2 px-3 pb-3 bg-muted/30 rounded-md border border-border/50">
                     <FileUploader
@@ -393,17 +404,30 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                       </TooltipProvider>
                     </div>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="relative">
                     <Input
                       id="after_image_url"
                       value={formData.after_image_url}
-                      onChange={(e) =>
-                        setFormData({ ...formData, after_image_url: e.target.value })
-                      }
-                      placeholder="https://..."
-                      className="rounded-[1px] flex-1"
+                      readOnly
+                      placeholder="Gebruik 'Bewerken' om een foto te selecteren"
+                      className="rounded-[1px] cursor-pointer pr-10 bg-muted/50"
+                      onClick={() => handleCopyUrl(formData.after_image_url, 'after_image_url')}
+                      title="Klik om te kopiëren"
                     />
-                    <DropdownMenu>
+                    <button
+                      type="button"
+                      onClick={() => handleCopyUrl(formData.after_image_url, 'after_image_url')}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 hover:bg-accent rounded-sm transition-colors"
+                      title="Kopieer URL"
+                    >
+                      {copiedField === 'after_image_url' ? (
+                        <Check className="w-4 h-4 text-green-500" />
+                      ) : (
+                        <Copy className="w-4 h-4 text-muted-foreground" />
+                      )}
+                    </button>
+                  </div>
+                  <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button
                           type="button"
@@ -432,7 +456,6 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
-                  </div>
                   <Collapsible open={uploadSectionsOpen.after}>
                     <CollapsibleContent className="space-y-2 pt-2 px-3 pb-3 bg-muted/30 rounded-md border border-border/50">
                     <FileUploader
@@ -472,17 +495,30 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                       </TooltipProvider>
                     </div>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="relative">
                     <Input
                       id="static_image_url"
                       value={formData.static_image_url}
-                      onChange={(e) =>
-                        setFormData({ ...formData, static_image_url: e.target.value })
-                      }
-                      placeholder="https://..."
-                      className="rounded-[1px] flex-1"
+                      readOnly
+                      placeholder="Gebruik 'Bewerken' om een foto te selecteren"
+                      className="rounded-[1px] cursor-pointer pr-10 bg-muted/50"
+                      onClick={() => handleCopyUrl(formData.static_image_url, 'static_image_url')}
+                      title="Klik om te kopiëren"
                     />
-                    <DropdownMenu>
+                    <button
+                      type="button"
+                      onClick={() => handleCopyUrl(formData.static_image_url, 'static_image_url')}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 hover:bg-accent rounded-sm transition-colors"
+                      title="Kopieer URL"
+                    >
+                      {copiedField === 'static_image_url' ? (
+                        <Check className="w-4 h-4 text-green-500" />
+                      ) : (
+                        <Copy className="w-4 h-4 text-muted-foreground" />
+                      )}
+                    </button>
+                  </div>
+                  <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button
                           type="button"
@@ -511,7 +547,6 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
-                  </div>
                   <Collapsible open={uploadSectionsOpen.static}>
                     <CollapsibleContent className="space-y-2 pt-2 px-3 pb-3 bg-muted/30 rounded-md border border-border/50">
                     <FileUploader
