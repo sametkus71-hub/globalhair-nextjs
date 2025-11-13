@@ -22,7 +22,7 @@ import {
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { ReviewMobilePreview } from './ReviewMobilePreview';
-import { Video, Image, ImageIcon, Info, Upload, FolderOpen, ChevronDown } from 'lucide-react';
+import { Video, Image, ImageIcon, Info, Upload, FolderOpen, ChevronDown, Copy, Check } from 'lucide-react';
 
 interface ReviewFormProps {
   review?: Review | null;
@@ -51,6 +51,7 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
     is_featured: false,
   });
   const [isSaving, setIsSaving] = useState(false);
+  const [copiedField, setCopiedField] = useState<string | null>(null);
 
   useEffect(() => {
     if (review) {
@@ -68,6 +69,19 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
       });
     }
   }, [review]);
+
+  const handleCopyUrl = async (url: string, fieldName: string) => {
+    if (!url) return;
+    
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopiedField(fieldName);
+      toast.success('URL gekopieerd naar klembord');
+      setTimeout(() => setCopiedField(null), 2000);
+    } catch (error) {
+      toast.error('Kon URL niet kopiëren');
+    }
+  };
 
   const handleSave = async () => {
     // Validation
@@ -290,28 +304,41 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                       </TooltipProvider>
                     </div>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="relative">
                     <Input
                       id="before_image_url"
                       value={formData.before_image_url}
-                      onChange={(e) =>
-                        setFormData({ ...formData, before_image_url: e.target.value })
-                      }
-                      placeholder="https://..."
-                      className="rounded-[1px] flex-1"
+                      readOnly
+                      placeholder="Gebruik 'Bewerken' om een foto te selecteren"
+                      className="rounded-[1px] cursor-pointer pr-10 bg-muted/50"
+                      onClick={() => handleCopyUrl(formData.before_image_url, 'before_image_url')}
+                      title="Klik om te kopiëren"
                     />
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="sm"
-                          className="rounded-[1px]"
-                        >
-                          Bewerken
-                          <ChevronDown className="ml-1 h-3 w-3" />
-                        </Button>
-                      </DropdownMenuTrigger>
+                    <button
+                      type="button"
+                      onClick={() => handleCopyUrl(formData.before_image_url, 'before_image_url')}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 hover:bg-accent rounded-sm transition-colors"
+                      title="Kopieer URL"
+                    >
+                      {copiedField === 'before_image_url' ? (
+                        <Check className="w-4 h-4 text-green-500" />
+                      ) : (
+                        <Copy className="w-4 h-4 text-muted-foreground" />
+                      )}
+                    </button>
+                  </div>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className="rounded-[1px]"
+                      >
+                        Bewerken
+                        <ChevronDown className="ml-1 h-3 w-3" />
+                      </Button>
+                    </DropdownMenuTrigger>
                       <DropdownMenuContent align="end" className="w-56">
                         <DropdownMenuItem
                           onClick={() => setUploadSectionsOpen(prev => ({ ...prev, before: !prev.before }))}
