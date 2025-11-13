@@ -91,8 +91,8 @@ serve(async (req) => {
 
     // List files from Bunny CDN
     const listUrl = path 
-      ? `https://storage.bunnycdn.com/${zone}/${path}/`
-      : `https://storage.bunnycdn.com/${zone}/`;
+      ? `https://${region}.storage.bunnycdn.com/${zone}/${path}/`
+      : `https://${region}.storage.bunnycdn.com/${zone}/`;
     
     const listResponse = await fetch(listUrl, {
       method: 'GET',
