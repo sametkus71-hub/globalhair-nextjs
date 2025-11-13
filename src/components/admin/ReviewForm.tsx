@@ -4,10 +4,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Switch } from '@/components/ui/switch';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { ReviewMobilePreview } from './ReviewMobilePreview';
+import { Video, Image, ImageIcon } from 'lucide-react';
 
 interface ReviewFormProps {
   review?: Review | null;
@@ -129,161 +132,228 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
   };
 
   return (
-    <div className="w-full space-y-4">
-      <div className="space-y-2">
-        <Label>Review Type *</Label>
-        <RadioGroup
-          value={formData.review_type}
-          onValueChange={(value) =>
-            setFormData({ ...formData, review_type: value as ReviewType })
-          }
-        >
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="video" id="video" />
-            <Label htmlFor="video" className="font-normal cursor-pointer">
-              Video
-            </Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="before_after" id="before_after" />
-            <Label htmlFor="before_after" className="font-normal cursor-pointer">
-              Voor & Na Foto's
-            </Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="static_image" id="static_image" />
-            <Label htmlFor="static_image" className="font-normal cursor-pointer">
-              Statische Foto
-            </Label>
-          </div>
-        </RadioGroup>
-      </div>
+    <ResizablePanelGroup direction="horizontal" className="min-h-[calc(100vh-12rem)] rounded-lg border border-border">
+      {/* Left Panel - Form */}
+      <ResizablePanel defaultSize={55} minSize={35}>
+        <div className="h-full overflow-auto bg-background p-6">
+          <Tabs 
+            value={formData.review_type} 
+            onValueChange={(value: string) => setFormData({ ...formData, review_type: value as ReviewType })}
+            className="w-full"
+          >
+            <TabsList className="grid w-full grid-cols-3 mb-6 h-auto p-1 bg-muted rounded-[1px]">
+              <TabsTrigger 
+                value="video" 
+                className="flex items-center gap-2 py-3 rounded-[1px] data-[state=active]:bg-blue-900 data-[state=active]:text-white"
+              >
+                <Video className="w-4 h-4" />
+                <span className="hidden sm:inline">Video</span>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="before_after" 
+                className="flex items-center gap-2 py-3 rounded-[1px] data-[state=active]:bg-blue-900 data-[state=active]:text-white"
+              >
+                <Image className="w-4 h-4" />
+                <span className="hidden sm:inline">Voor & Na</span>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="static_image" 
+                className="flex items-center gap-2 py-3 rounded-[1px] data-[state=active]:bg-blue-900 data-[state=active]:text-white"
+              >
+                <ImageIcon className="w-4 h-4" />
+                <span className="hidden sm:inline">Foto</span>
+              </TabsTrigger>
+            </TabsList>
 
-      {/* Conditional URL Fields */}
-      {formData.review_type === 'video' && (
-        <div className="space-y-2">
-          <Label htmlFor="video_url">Video URL *</Label>
-          <Input
-            id="video_url"
-            value={formData.video_url}
-            onChange={(e) =>
-              setFormData({ ...formData, video_url: e.target.value })
-            }
-            placeholder="https://..."
-          />
+            <div className="space-y-6">
+              {/* Tab-specific URL fields */}
+              <TabsContent value="video" className="mt-0 space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="video_url">Video URL *</Label>
+                  <Input
+                    id="video_url"
+                    value={formData.video_url}
+                    onChange={(e) =>
+                      setFormData({ ...formData, video_url: e.target.value })
+                    }
+                    placeholder="https://..."
+                    className="rounded-[1px]"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Plak de URL van een video (YouTube, Vimeo, of directe link)
+                  </p>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="before_after" className="mt-0 space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="before_image_url">Voor Foto URL *</Label>
+                  <Input
+                    id="before_image_url"
+                    value={formData.before_image_url}
+                    onChange={(e) =>
+                      setFormData({ ...formData, before_image_url: e.target.value })
+                    }
+                    placeholder="https://..."
+                    className="rounded-[1px]"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="after_image_url">Na Foto URL *</Label>
+                  <Input
+                    id="after_image_url"
+                    value={formData.after_image_url}
+                    onChange={(e) =>
+                      setFormData({ ...formData, after_image_url: e.target.value })
+                    }
+                    placeholder="https://..."
+                    className="rounded-[1px]"
+                  />
+                </div>
+              </TabsContent>
+
+              <TabsContent value="static_image" className="mt-0 space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="static_image_url">Foto URL *</Label>
+                  <Input
+                    id="static_image_url"
+                    value={formData.static_image_url}
+                    onChange={(e) =>
+                      setFormData({ ...formData, static_image_url: e.target.value })
+                    }
+                    placeholder="https://..."
+                    className="rounded-[1px]"
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Plak de URL van een afbeelding
+                  </p>
+                </div>
+              </TabsContent>
+
+              {/* Common Fields - shown on all tabs */}
+              <div className="space-y-6 border-t border-border pt-6">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Naam *</Label>
+                  <Input
+                    id="name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    placeholder="Naam van de persoon"
+                    className="rounded-[1px]"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="behandeling">Behandeling *</Label>
+                  <Input
+                    id="behandeling"
+                    value={formData.behandeling}
+                    onChange={(e) =>
+                      setFormData({ ...formData, behandeling: e.target.value })
+                    }
+                    placeholder="Bijv. Haartransplantatie"
+                    className="rounded-[1px]"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="description">Beschrijving *</Label>
+                  <Textarea
+                    id="description"
+                    value={formData.description}
+                    onChange={(e) =>
+                      setFormData({ ...formData, description: e.target.value })
+                    }
+                    placeholder="Beschrijving van de review"
+                    rows={4}
+                    className="rounded-[1px]"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="display_order">Weergavevolgorde</Label>
+                  <Input
+                    id="display_order"
+                    type="number"
+                    value={formData.display_order}
+                    onChange={(e) =>
+                      setFormData({ ...formData, display_order: parseInt(e.target.value) || 0 })
+                    }
+                    placeholder="0"
+                    className="rounded-[1px]"
+                  />
+                </div>
+              </div>
+
+              {/* Toggles */}
+              <div className="space-y-4 border-t border-border pt-6">
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label htmlFor="is-featured">Uitgelicht</Label>
+                    <p className="text-sm text-muted-foreground">
+                      Toon deze review als uitgelicht
+                    </p>
+                  </div>
+                  <Switch
+                    id="is-featured"
+                    checked={formData.is_featured}
+                    onCheckedChange={(checked) =>
+                      setFormData({ ...formData, is_featured: checked })
+                    }
+                    className="data-[state=checked]:bg-blue-900"
+                  />
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label htmlFor="is-visible">Zichtbaar</Label>
+                    <p className="text-sm text-muted-foreground">
+                      Toon deze review op de website
+                    </p>
+                  </div>
+                  <Switch
+                    id="is-visible"
+                    checked={formData.is_visible}
+                    onCheckedChange={(checked) =>
+                      setFormData({ ...formData, is_visible: checked })
+                    }
+                    className="data-[state=checked]:bg-blue-900"
+                  />
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex gap-3 pt-4 border-t border-border">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={onClose}
+                  className="flex-1 rounded-[1px]"
+                  disabled={isSaving}
+                >
+                  Annuleren
+                </Button>
+                <Button
+                  onClick={handleSave}
+                  disabled={isSaving}
+                  className="flex-1 rounded-[1px] bg-blue-900 hover:bg-blue-800"
+                >
+                  {isSaving ? 'Opslaan...' : 'Opslaan'}
+                </Button>
+              </div>
+            </div>
+          </Tabs>
         </div>
-      )}
+      </ResizablePanel>
 
-      {formData.review_type === 'before_after' && (
-        <>
-          <div className="space-y-2">
-            <Label htmlFor="before_image_url">Voor Foto URL *</Label>
-            <Input
-              id="before_image_url"
-              value={formData.before_image_url}
-              onChange={(e) =>
-                setFormData({ ...formData, before_image_url: e.target.value })
-              }
-              placeholder="https://..."
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="after_image_url">Na Foto URL *</Label>
-            <Input
-              id="after_image_url"
-              value={formData.after_image_url}
-              onChange={(e) =>
-                setFormData({ ...formData, after_image_url: e.target.value })
-              }
-              placeholder="https://..."
-            />
-          </div>
-        </>
-      )}
+      <ResizableHandle withHandle />
 
-      {formData.review_type === 'static_image' && (
-        <div className="space-y-2">
-          <Label htmlFor="static_image_url">Foto URL *</Label>
-          <Input
-            id="static_image_url"
-            value={formData.static_image_url}
-            onChange={(e) =>
-              setFormData({ ...formData, static_image_url: e.target.value })
-            }
-            placeholder="https://..."
-          />
+      {/* Right Panel - Live Preview */}
+      <ResizablePanel defaultSize={45} minSize={30}>
+        <div className="h-full overflow-auto">
+          <ReviewMobilePreview formData={formData} />
         </div>
-      )}
-
-      <div className="space-y-2">
-        <Label htmlFor="name">Naam *</Label>
-        <Input
-          id="name"
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          placeholder="Jan Jansen"
-        />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="behandeling">Behandeling *</Label>
-        <Input
-          id="behandeling"
-          value={formData.behandeling}
-          onChange={(e) =>
-            setFormData({ ...formData, behandeling: e.target.value })
-          }
-          placeholder="Haartransplantatie"
-        />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="description">Beschrijving *</Label>
-        <Textarea
-          id="description"
-          value={formData.description}
-          onChange={(e) =>
-            setFormData({ ...formData, description: e.target.value })
-          }
-          placeholder="Review beschrijving..."
-          rows={4}
-        />
-      </div>
-
-      <div className="flex items-center space-x-2">
-        <Switch
-          id="is_featured"
-          checked={formData.is_featured}
-          onCheckedChange={(checked) =>
-            setFormData({ ...formData, is_featured: checked })
-          }
-        />
-        <Label htmlFor="is_featured" className="font-normal cursor-pointer">
-          Uitgelicht
-        </Label>
-      </div>
-
-      <div className="flex items-center space-x-2">
-        <Switch
-          id="is_visible"
-          checked={formData.is_visible}
-          onCheckedChange={(checked) =>
-            setFormData({ ...formData, is_visible: checked })
-          }
-        />
-        <Label htmlFor="is_visible" className="font-normal cursor-pointer">
-          Zichtbaar
-        </Label>
-      </div>
-
-      <div className="flex justify-end gap-2 pt-4">
-        <Button variant="outline" onClick={onClose} disabled={isSaving}>
-          Annuleren
-        </Button>
-        <Button onClick={handleSave} disabled={isSaving}>
-          {isSaving ? 'Opslaan...' : 'Opslaan'}
-        </Button>
-      </div>
-    </div>
+      </ResizablePanel>
+    </ResizablePanelGroup>
   );
 }
