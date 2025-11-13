@@ -168,15 +168,18 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                 value="before_after" 
                 className="flex items-center gap-2 py-3 rounded-[1px] data-[state=active]:bg-blue-900 data-[state=active]:text-white"
               >
-                <Image className="w-4 h-4" />
-                <span className="hidden sm:inline">Voor & Na</span>
+                <div className="flex items-center gap-1">
+                  <Image className="w-4 h-4" />
+                  <Image className="w-4 h-4" />
+                </div>
+                <span className="hidden sm:inline">Before/After foto's</span>
               </TabsTrigger>
               <TabsTrigger 
                 value="static_image" 
                 className="flex items-center gap-2 py-3 rounded-[1px] data-[state=active]:bg-blue-900 data-[state=active]:text-white"
               >
                 <ImageIcon className="w-4 h-4" />
-                <span className="hidden sm:inline">Foto</span>
+                <span className="hidden sm:inline">Enkele foto</span>
               </TabsTrigger>
             </TabsList>
 
