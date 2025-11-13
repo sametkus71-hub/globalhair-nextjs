@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Review, ReviewType } from '@/types/review';
 import { FileUploader } from './FileUploader';
 import { FileBrowser } from './FileBrowser';
+import { ImageSizeIndicator } from './ImageSizeIndicator';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -187,6 +188,7 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                     <div className="flex items-center gap-1.5 px-2 py-1 rounded-md border border-border/50 bg-muted/30">
                       <span className="text-[9px] text-muted-foreground uppercase tracking-wider">Compressie</span>
                       <div className="h-3 w-px bg-border/50" />
+                      <ImageSizeIndicator url={formData.video_url} />
                       <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
                         <a href="https://www.compress2go.com/compress-video" target="_blank" rel="noopener noreferrer">video</a>
                       </Badge>
@@ -252,6 +254,7 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                     <div className="flex items-center gap-1.5 px-2 py-1 rounded-md border border-border/50 bg-muted/30">
                       <span className="text-[9px] text-muted-foreground uppercase tracking-wider">Compressie</span>
                       <div className="h-3 w-px bg-border/50" />
+                      <ImageSizeIndicator url={formData.before_image_url} />
                       <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
                         <a href="https://tinypng.com/" target="_blank" rel="noopener noreferrer">link 1</a>
                       </Badge>
@@ -314,6 +317,7 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                     <div className="flex items-center gap-1.5 px-2 py-1 rounded-md border border-border/50 bg-muted/30">
                       <span className="text-[9px] text-muted-foreground uppercase tracking-wider">Compressie</span>
                       <div className="h-3 w-px bg-border/50" />
+                      <ImageSizeIndicator url={formData.after_image_url} />
                       <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
                         <a href="https://tinypng.com/" target="_blank" rel="noopener noreferrer">link 1</a>
                       </Badge>
@@ -379,6 +383,7 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                     <div className="flex items-center gap-1.5 px-2 py-1 rounded-md border border-border/50 bg-muted/30">
                       <span className="text-[9px] text-muted-foreground uppercase tracking-wider">Compressie</span>
                       <div className="h-3 w-px bg-border/50" />
+                      <ImageSizeIndicator url={formData.static_image_url} />
                       <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
                         <a href="https://tinypng.com/" target="_blank" rel="noopener noreferrer">link 1</a>
                       </Badge>
