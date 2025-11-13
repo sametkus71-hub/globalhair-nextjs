@@ -129,15 +129,15 @@ export function ReviewMobilePreview({ formData }: ReviewMobilePreviewProps) {
           </div>
 
           {/* Screen content */}
-          <div className="bg-background">
+          <div className="bg-background relative">
             <AspectRatio ratio={9 / 16}>
-              <div className="w-full h-full flex flex-col">
-                {/* Media content */}
-                <div className="flex-1 relative">
+              <div className="w-full h-full relative overflow-hidden">
+                {/* Fixed media background */}
+                <div className="absolute inset-0">
                   {renderContent()}
                   
                   {/* Badges overlay */}
-                  <div className="absolute top-2 right-2 flex gap-1">
+                  <div className="absolute top-2 right-2 flex gap-1 z-10">
                     {formData.is_featured && (
                       <Badge variant="secondary" className="bg-blue-900 text-white text-[10px] h-5 px-1.5">
                         <Star className="w-2.5 h-2.5 mr-0.5 fill-current" />
@@ -153,22 +153,28 @@ export function ReviewMobilePreview({ formData }: ReviewMobilePreviewProps) {
                   </div>
                 </div>
 
-                {/* Info overlay with scrollable description */}
-                <div className="bg-gradient-to-t from-background via-background/95 to-transparent p-3 space-y-1 max-h-[40%] overflow-y-auto">
-                  <h3 className="font-semibold text-sm text-foreground">
-                    {formData.name || 'Naam van review'}
-                  </h3>
-                  {formData.behandeling && (
-                    <p className="text-[10px] text-blue-900 font-medium uppercase tracking-wide">
-                      {formData.behandeling}
-                    </p>
-                  )}
-                  <div 
-                    className="text-xs text-muted-foreground prose prose-sm max-w-none"
-                    dangerouslySetInnerHTML={{ 
-                      __html: formData.description || '<p class="text-muted-foreground">Beschrijving van de review...</p>' 
-                    }}
-                  />
+                {/* Scrollable content overlay */}
+                <div className="absolute inset-0 overflow-y-auto">
+                  {/* Spacer to push content down */}
+                  <div className="h-[60%]" />
+                  
+                  {/* Content that scrolls over fixed media */}
+                  <div className="bg-gradient-to-t from-background via-background/95 to-background/80 p-3 space-y-1 min-h-[40%]">
+                    <h3 className="font-semibold text-sm text-foreground">
+                      {formData.name || 'Naam van review'}
+                    </h3>
+                    {formData.behandeling && (
+                      <p className="text-[10px] text-blue-900 font-medium uppercase tracking-wide">
+                        {formData.behandeling}
+                      </p>
+                    )}
+                    <div 
+                      className="text-xs text-muted-foreground prose prose-sm max-w-none pb-4"
+                      dangerouslySetInnerHTML={{ 
+                        __html: formData.description || '<p class="text-muted-foreground">Beschrijving van de review...</p>' 
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             </AspectRatio>
