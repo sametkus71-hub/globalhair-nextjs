@@ -14,7 +14,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { ReviewMobilePreview } from './ReviewMobilePreview';
-import { Video, Image, ImageIcon } from 'lucide-react';
+import { Video, Image, ImageIcon, Info } from 'lucide-react';
 
 interface ReviewFormProps {
   review?: Review | null;
@@ -206,25 +206,26 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
 
               <TabsContent value="before_after" className="mt-0 space-y-6">
                 <div className="space-y-2">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center justify-between">
                     <Label htmlFor="before_image_url">Voor Foto URL *</Label>
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <div className="flex gap-1">
-                            <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
-                              <a href="https://tinypng.com/" target="_blank" rel="noopener noreferrer">Compress</a>
-                            </Badge>
-                            <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
-                              <a href="https://imageresizer.com/image-compressor" target="_blank" rel="noopener noreferrer">Alt</a>
-                            </Badge>
-                          </div>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p className="text-xs">Comprimeer afbeeldingen voor snellere laadtijden</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
+                    <div className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-muted/50">
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Info className="h-3 w-3 text-muted-foreground" />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p className="text-xs">Comprimeer afbeeldingen voor snellere laadtijden</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                      <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
+                        <a href="https://tinypng.com/" target="_blank" rel="noopener noreferrer">compr. link 1</a>
+                      </Badge>
+                      <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
+                        <a href="https://imageresizer.com/image-compressor" target="_blank" rel="noopener noreferrer">compr. link 2</a>
+                      </Badge>
+                    </div>
                   </div>
                   <Input
                     id="before_image_url"
@@ -250,25 +251,26 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                   </Button>
                 </div>
                 <div className="space-y-2">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center justify-between">
                     <Label htmlFor="after_image_url">Na Foto URL *</Label>
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <div className="flex gap-1">
-                            <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
-                              <a href="https://tinypng.com/" target="_blank" rel="noopener noreferrer">Compress</a>
-                            </Badge>
-                            <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
-                              <a href="https://imageresizer.com/image-compressor" target="_blank" rel="noopener noreferrer">Alt</a>
-                            </Badge>
-                          </div>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p className="text-xs">Comprimeer afbeeldingen voor snellere laadtijden</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
+                    <div className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-muted/50">
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Info className="h-3 w-3 text-muted-foreground" />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p className="text-xs">Comprimeer afbeeldingen voor snellere laadtijden</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                      <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
+                        <a href="https://tinypng.com/" target="_blank" rel="noopener noreferrer">compr. link 1</a>
+                      </Badge>
+                      <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
+                        <a href="https://imageresizer.com/image-compressor" target="_blank" rel="noopener noreferrer">compr. link 2</a>
+                      </Badge>
+                    </div>
                   </div>
                   <Input
                     id="after_image_url"
@@ -297,25 +299,26 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
 
               <TabsContent value="static_image" className="mt-0 space-y-6">
                 <div className="space-y-2">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center justify-between">
                     <Label htmlFor="static_image_url">Foto URL *</Label>
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <div className="flex gap-1">
-                            <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
-                              <a href="https://tinypng.com/" target="_blank" rel="noopener noreferrer">Compress</a>
-                            </Badge>
-                            <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
-                              <a href="https://imageresizer.com/image-compressor" target="_blank" rel="noopener noreferrer">Alt</a>
-                            </Badge>
-                          </div>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p className="text-xs">Comprimeer afbeeldingen voor snellere laadtijden</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
+                    <div className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-muted/50">
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Info className="h-3 w-3 text-muted-foreground" />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p className="text-xs">Comprimeer afbeeldingen voor snellere laadtijden</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                      <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
+                        <a href="https://tinypng.com/" target="_blank" rel="noopener noreferrer">compr. link 1</a>
+                      </Badge>
+                      <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
+                        <a href="https://imageresizer.com/image-compressor" target="_blank" rel="noopener noreferrer">compr. link 2</a>
+                      </Badge>
+                    </div>
                   </div>
                   <Input
                     id="static_image_url"
