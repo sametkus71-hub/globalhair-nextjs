@@ -1,70 +1,9 @@
-import { cn } from '@/lib/utils';
-import { useAdminAuth } from '@/hooks/useAdminAuth';
-import { Link, useLocation } from 'react-router-dom';
-import hairtransplantLogo from '@/assets/hairtransplant-logo.png';
-
-const navigationItems = [
-  { label: 'Dashboard', path: '/admin', enabled: true },
-  { label: 'Reviews', path: '/admin/reviews', enabled: true },
-  { label: 'Gebruikers', enabled: false },
-  { label: 'Instellingen', enabled: false },
-];
+import { AdminSidebarContent } from './AdminSidebarContent';
 
 export const AdminSidebar = () => {
-  const { user } = useAdminAuth();
-  const location = useLocation();
-
   return (
-    <aside className="w-64 bg-gray-800 h-full overflow-y-auto flex flex-col border-r border-gray-700">
-      {/* Logo section */}
-      <div className="p-6 border-b border-gray-700">
-        <img 
-          src={hairtransplantLogo} 
-          alt="GHI Hairtransplant Logo" 
-          className="h-10 object-contain"
-        />
-      </div>
-
-      {/* User info section */}
-      <div className="p-4 border-b border-gray-700">
-        <div className="text-xs text-gray-500 mb-1">Ingelogd als</div>
-        <div className="text-sm text-white truncate font-medium">{user?.email || 'gebruiker@example.com'}</div>
-        <div className="text-xs text-gray-500 mt-1">Admin</div>
-      </div>
-
-      {/* Navigation */}
-      <nav className="flex-1 pt-6 px-3 space-y-1">
-        {navigationItems.map((item) => {
-          const isActive = item.path === location.pathname;
-          
-          if (!item.enabled) {
-            return (
-              <button
-                key={item.label}
-                disabled
-                className="w-full text-left px-4 py-2.5 text-sm rounded-md text-gray-500 opacity-50 cursor-not-allowed"
-              >
-                {item.label}
-              </button>
-            );
-          }
-
-          return (
-            <Link
-              key={item.label}
-              to={item.path!}
-              className={cn(
-                "block w-full text-left px-4 py-2.5 text-sm transition-all rounded-md relative",
-                isActive
-                  ? "text-white bg-gray-700 font-medium border-l-2 border-blue-500"
-                  : "text-gray-400 hover:text-gray-200 hover:bg-gray-700/50"
-              )}
-            >
-              {item.label}
-            </Link>
-          );
-        })}
-      </nav>
+    <aside className="w-64 bg-gray-800 flex-shrink-0">
+      <AdminSidebarContent />
     </aside>
   );
 };
