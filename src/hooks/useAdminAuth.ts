@@ -23,12 +23,12 @@ export const useAdminAuth = () => {
 
         // Check if user has admin role
         const { data: roleData } = await supabase
-          .from('user_roles')
+          .from('user_roles' as any)
           .select('role')
           .eq('user_id', session.user.id)
-          .single();
+          .maybeSingle();
 
-        setIsAdmin(roleData?.role === 'admin');
+        setIsAdmin((roleData as any)?.role === 'admin');
       } catch (error) {
         console.error('Error checking admin status:', error);
         setIsAdmin(false);

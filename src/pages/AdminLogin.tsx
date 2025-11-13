@@ -34,12 +34,12 @@ export default function AdminLogin() {
       if (data.user) {
         // Check if user has admin role
         const { data: roleData } = await supabase
-          .from('user_roles')
+          .from('user_roles' as any)
           .select('role')
           .eq('user_id', data.user.id)
-          .single();
+          .maybeSingle();
 
-        if (roleData?.role === 'admin') {
+        if ((roleData as any)?.role === 'admin') {
           navigate('/admin');
         } else {
           setError('Access Denied: You do not have admin privileges');
