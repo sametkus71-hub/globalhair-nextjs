@@ -5,7 +5,6 @@ import { FileBrowser } from './FileBrowser';
 import { ImageSizeIndicator } from './ImageSizeIndicator';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -23,6 +22,8 @@ import { toast } from 'sonner';
 import { ReviewMobilePreview } from './ReviewMobilePreview';
 import { Video, Image, ImageIcon, Info, Upload, FolderOpen, ChevronDown } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 interface ReviewFormProps {
   review?: Review | null;
@@ -511,16 +512,27 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
 
                 <div className="space-y-2">
                   <Label htmlFor="description">Beschrijving *</Label>
-                  <Textarea
-                    id="description"
-                    value={formData.description}
-                    onChange={(e) =>
-                      setFormData({ ...formData, description: e.target.value })
-                    }
-                    placeholder="Beschrijving van de review"
-                    rows={4}
-                    className="rounded-[1px]"
-                  />
+                  <div className="border border-border rounded-[1px] overflow-hidden">
+                    <ReactQuill
+                      theme="snow"
+                      value={formData.description}
+                      onChange={(value) =>
+                        setFormData({ ...formData, description: value })
+                      }
+                      placeholder="Beschrijving van de review"
+                      className="bg-background"
+                      modules={{
+                        toolbar: [
+                          [{ 'header': [1, 2, 3, false] }],
+                          ['bold', 'italic', 'underline', 'strike'],
+                          [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                          [{ 'color': [] }, { 'background': [] }],
+                          ['link'],
+                          ['clean']
+                        ]
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
 

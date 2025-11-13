@@ -1994,3 +1994,112 @@ html, body {
     transition: none;
   }
 }
+
+/* Custom styles for ReactQuill editor */
+.ql-toolbar {
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: 1px solid hsl(var(--border)) !important;
+  background: hsl(var(--background)) !important;
+}
+
+.ql-container {
+  border: none !important;
+  font-family: inherit !important;
+}
+
+.ql-editor {
+  min-height: 150px;
+  font-size: 14px;
+  color: hsl(var(--foreground));
+}
+
+.ql-editor.ql-blank::before {
+  color: hsl(var(--muted-foreground));
+  font-style: normal;
+}
+
+.ql-snow .ql-stroke {
+  stroke: hsl(var(--foreground)) !important;
+}
+
+.ql-snow .ql-fill {
+  fill: hsl(var(--foreground)) !important;
+}
+
+.ql-snow .ql-picker-label {
+  color: hsl(var(--foreground)) !important;
+}
+
+.ql-snow .ql-picker-options {
+  background: hsl(var(--background)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+}
+
+/* Style the rendered HTML in preview */
+.prose {
+  font-size: 12px;
+}
+
+.prose h1 {
+  font-size: 14px;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  margin-top: 0.5em;
+  margin-bottom: 0.25em;
+}
+
+.prose h2 {
+  font-size: 13px;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  margin-top: 0.5em;
+  margin-bottom: 0.25em;
+}
+
+.prose h3 {
+  font-size: 12px;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  margin-top: 0.5em;
+  margin-bottom: 0.25em;
+}
+
+.prose p {
+  margin-bottom: 0.5em;
+  line-height: 1.4;
+}
+
+.prose ul,
+.prose ol {
+  margin-left: 1em;
+  margin-bottom: 0.5em;
+  padding-left: 0.5em;
+}
+
+.prose li {
+  margin-bottom: 0.25em;
+}
+
+.prose strong {
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+.prose a {
+  color: hsl(var(--primary));
+  text-decoration: underline;
+}
+
+.prose em {
+  font-style: italic;
+}
+
+.prose u {
+  text-decoration: underline;
+}
+
+.prose s {
+  text-decoration: line-through;
+}

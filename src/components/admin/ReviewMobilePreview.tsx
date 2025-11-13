@@ -153,8 +153,8 @@ export function ReviewMobilePreview({ formData }: ReviewMobilePreviewProps) {
                   </div>
                 </div>
 
-                {/* Info overlay */}
-                <div className="bg-gradient-to-t from-background via-background/95 to-transparent p-3 space-y-1">
+                {/* Info overlay with scrollable description */}
+                <div className="bg-gradient-to-t from-background via-background/95 to-transparent p-3 space-y-1 max-h-[40%] overflow-y-auto">
                   <h3 className="font-semibold text-sm text-foreground">
                     {formData.name || 'Naam van review'}
                   </h3>
@@ -163,9 +163,12 @@ export function ReviewMobilePreview({ formData }: ReviewMobilePreviewProps) {
                       {formData.behandeling}
                     </p>
                   )}
-                  <p className="text-xs text-muted-foreground line-clamp-2">
-                    {formData.description || 'Beschrijving van de review...'}
-                  </p>
+                  <div 
+                    className="text-xs text-muted-foreground prose prose-sm max-w-none"
+                    dangerouslySetInnerHTML={{ 
+                      __html: formData.description || '<p class="text-muted-foreground">Beschrijving van de review...</p>' 
+                    }}
+                  />
                 </div>
               </div>
             </AspectRatio>
