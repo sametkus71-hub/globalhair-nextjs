@@ -37,6 +37,7 @@ const PrivacyPolicyPage = lazy(() => import('@/pages/PrivacyPolicyPage'));
 const AlgemeneVoorwaardenPage = lazy(() => import('@/pages/AlgemeneVoorwaardenPage'));
 const AdminLogin = lazy(() => import('@/pages/AdminLogin'));
 const AdminDashboard = lazy(() => import('@/pages/AdminDashboard'));
+const AdminReviews = lazy(() => import('@/pages/AdminReviews'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
 
 // Loading fallback component
@@ -147,6 +148,7 @@ export const SEORoutes = () => {
       {/* Admin routes */}
       <Route path="/admin/login" element={<AdminLogin />} />
       <Route path="/admin" element={<ProtectedAdminRoute><AdminLayout><AdminDashboard /></AdminLayout></ProtectedAdminRoute>} />
+      <Route path="/admin/reviews" element={<ProtectedAdminRoute><AdminLayout><AdminReviews /></AdminLayout></ProtectedAdminRoute>} />
       
       {/* Legacy support - maintain old item1 route */}
       <Route path="/nl/reviews/item1" element={<ReviewItemPage />} />

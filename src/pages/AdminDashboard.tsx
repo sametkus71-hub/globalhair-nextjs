@@ -5,11 +5,14 @@ export default function AdminDashboard() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
-      <h1 className="text-3xl text-white mb-4">Admin Dashboard</h1>
-      <p className="text-gray-400 mb-8">Welcome, {user?.email}</p>
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold text-white mb-2">Welkom terug! 👋</h1>
+        <p className="text-gray-400">Ingelogd als {user?.email}</p>
+      </div>
 
-      <div className="bg-gray-800 rounded-lg p-8 text-center">
-        <p className="text-gray-400">Dashboard content will be added here</p>
+      <div className="bg-gray-800 rounded-lg p-12 text-center border border-gray-700">
+        <h2 className="text-2xl font-semibold text-white mb-4">Admin Dashboard</h2>
+        <p className="text-gray-400 text-lg">Meer functionaliteit komt binnenkort beschikbaar</p>
       </div>
     </div>
   );
