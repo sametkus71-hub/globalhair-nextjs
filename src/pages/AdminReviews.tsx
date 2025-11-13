@@ -78,9 +78,6 @@ export default function AdminReviews() {
         case 'name_desc':
           query = query.order('name', { ascending: false });
           break;
-        case 'display_order':
-          query = query.order('display_order', { ascending: true });
-          break;
         default:
           query = query.order('created_at', { ascending: false });
       }
@@ -242,7 +239,6 @@ export default function AdminReviews() {
               <SelectItem value="updated_asc">Langst bijgewerkt</SelectItem>
               <SelectItem value="name_asc">Naam (A-Z)</SelectItem>
               <SelectItem value="name_desc">Naam (Z-A)</SelectItem>
-              <SelectItem value="display_order">Weergavevolgorde</SelectItem>
             </SelectContent>
           </Select>
           
