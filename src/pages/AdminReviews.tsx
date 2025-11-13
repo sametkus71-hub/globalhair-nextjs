@@ -180,7 +180,7 @@ export default function AdminReviews() {
         </div>
         <Button 
           onClick={handleAddNew}
-          className="bg-blue-900 hover:bg-blue-800 text-white rounded-sm gap-2"
+          className="bg-blue-900 hover:bg-blue-800 text-white rounded-[1px] gap-2"
         >
           <Plus className="w-4 h-4" />
           Nieuwe Review
@@ -194,7 +194,7 @@ export default function AdminReviews() {
             placeholder="Zoek op naam of beschrijving..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-9 rounded-sm"
+            className="pl-9 rounded-[1px]"
           />
         </div>
         
@@ -221,24 +221,22 @@ export default function AdminReviews() {
       {(searchQuery || typeFilter !== 'all') && (
         <div className="flex flex-wrap gap-2 mb-3">
           {searchQuery && (
-            <Badge 
-              variant="secondary" 
-              className="rounded-sm gap-1 cursor-pointer hover:bg-secondary/80"
+            <button 
               onClick={() => setSearchQuery('')}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors rounded-[1px]"
             >
               Zoek: "{searchQuery}"
               <X className="w-3 h-3" />
-            </Badge>
+            </button>
           )}
           {typeFilter !== 'all' && (
-            <Badge 
-              variant="secondary" 
-              className="rounded-sm gap-1 cursor-pointer hover:bg-secondary/80"
+            <button 
               onClick={() => setTypeFilter('all')}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors rounded-[1px]"
             >
               Type: {getTypeBadge(typeFilter)}
               <X className="w-3 h-3" />
-            </Badge>
+            </button>
           )}
         </div>
       )}
@@ -248,22 +246,22 @@ export default function AdminReviews() {
       </p>
 
       {isLoading ? (
-        <div className="bg-background rounded-sm p-12 text-center border border-border">
+        <div className="bg-background rounded-[1px] p-12 text-center border border-border">
           <p className="text-muted-foreground">Laden...</p>
         </div>
       ) : !reviews || reviews.length === 0 ? (
-        <div className="bg-background rounded-sm p-12 text-center border border-border">
+        <div className="bg-background rounded-[1px] p-12 text-center border border-border">
           <p className="text-muted-foreground mb-4">Geen reviews gevonden</p>
           <Button 
             onClick={handleAddNew}
-            className="bg-blue-900 hover:bg-blue-800 text-white rounded-sm gap-2"
+            className="bg-blue-900 hover:bg-blue-800 text-white rounded-[1px] gap-2"
           >
             <Plus className="w-4 h-4" />
             Eerste Review Toevoegen
           </Button>
         </div>
       ) : filteredReviews.length === 0 ? (
-        <div className="bg-background rounded-sm p-12 text-center border border-border">
+        <div className="bg-background rounded-[1px] p-12 text-center border border-border">
           <p className="text-muted-foreground mb-4">Geen reviews gevonden met deze filters</p>
           <Button 
             variant="outline"
@@ -271,13 +269,13 @@ export default function AdminReviews() {
               setSearchQuery('');
               setTypeFilter('all');
             }}
-            className="rounded-sm"
+            className="rounded-[1px]"
           >
             Reset filters
           </Button>
         </div>
       ) : (
-        <div className="bg-background rounded-sm border border-border">
+        <div className="bg-background rounded-[1px] border border-border">
           <Table>
             <TableHeader>
               <TableRow className="border-b border-border">
@@ -293,7 +291,7 @@ export default function AdminReviews() {
               {filteredReviews.map((review) => (
                 <TableRow key={review.id} className="border-b border-border">
                   <TableCell className="py-3">
-                    <Badge variant="outline" className="rounded-sm">
+                    <Badge variant="outline" className="rounded-[1px]">
                       {getTypeBadge(review.review_type)}
                     </Badge>
                   </TableCell>
@@ -317,7 +315,7 @@ export default function AdminReviews() {
                         variant="ghost"
                         size="icon"
                         onClick={() => handleEdit(review)}
-                        className="rounded-sm"
+                        className="rounded-[1px]"
                       >
                         <Pencil className="w-4 h-4" />
                       </Button>
@@ -325,7 +323,7 @@ export default function AdminReviews() {
                         variant="ghost"
                         size="icon"
                         onClick={() => setDeleteReview(review)}
-                        className="rounded-sm"
+                        className="rounded-[1px]"
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>
