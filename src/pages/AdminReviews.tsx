@@ -116,8 +116,8 @@ export default function AdminReviews() {
   const getTypeBadge = (type: string) => {
     switch(type) {
       case 'video': return 'Video';
-      case 'before_after': return 'Voor/Na';
-      case 'static_image': return 'Foto';
+      case 'before_after': return 'Before/After foto\'s';
+      case 'static_image': return 'Enkele foto';
       default: return type;
     }
   };
@@ -281,11 +281,11 @@ export default function AdminReviews() {
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="before_after" id="before_after" className="border-blue-900 text-blue-900" />
-            <Label htmlFor="before_after" className="cursor-pointer text-sm">Voor & Na</Label>
+            <Label htmlFor="before_after" className="cursor-pointer text-sm">Before/After foto's</Label>
           </div>
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="static_image" id="static_image" className="border-blue-900 text-blue-900" />
-            <Label htmlFor="static_image" className="cursor-pointer text-sm">Foto</Label>
+            <Label htmlFor="static_image" className="cursor-pointer text-sm">Enkele foto</Label>
           </div>
         </RadioGroup>
         </div>
