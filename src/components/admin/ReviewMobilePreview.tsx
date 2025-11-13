@@ -34,6 +34,7 @@ export function ReviewMobilePreview({ formData }: ReviewMobilePreviewProps) {
           <div key="video-preview" className="w-full h-full bg-muted flex items-center justify-center p-4">
             {formData.video_url ? (
               <video
+                key={formData.video_url}
                 src={formData.video_url}
                 controls
                 className="w-full h-full object-cover rounded-[1px]"
@@ -52,6 +53,7 @@ export function ReviewMobilePreview({ formData }: ReviewMobilePreviewProps) {
             <div className="flex-1 relative">
               {formData.before_image_url && !imageError['before'] ? (
                 <img
+                  key={formData.before_image_url}
                   src={encodeURI(formData.before_image_url)}
                   alt="Voor"
                   className="w-full h-full object-cover"
@@ -69,6 +71,7 @@ export function ReviewMobilePreview({ formData }: ReviewMobilePreviewProps) {
             <div className="flex-1 relative">
               {formData.after_image_url && !imageError['after'] ? (
                 <img
+                  key={formData.after_image_url}
                   src={encodeURI(formData.after_image_url)}
                   alt="Na"
                   className="w-full h-full object-cover"
@@ -91,6 +94,7 @@ export function ReviewMobilePreview({ formData }: ReviewMobilePreviewProps) {
           <div className="w-full h-full bg-muted flex items-center justify-center">
             {formData.static_image_url ? (
               <img
+                key={formData.static_image_url}
                 src={formData.static_image_url}
                 alt="Review"
                 className="w-full h-full object-cover"
