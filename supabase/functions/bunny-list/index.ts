@@ -119,9 +119,7 @@ serve(async (req) => {
     const transformedFiles = files.map((file: any) => ({
       name: file.ObjectName,
       path: path ? `${path}/${file.ObjectName}` : file.ObjectName,
-      url: path 
-        ? `https://${cdnHostname}/${path}/${file.ObjectName}`
-        : `https://${cdnHostname}/${file.ObjectName}`,
+      url: `https://${cdnHostname}/${fullPath}/${file.ObjectName}`,
       size: file.Length,
       lastModified: file.LastChanged,
       isDirectory: file.IsDirectory,
