@@ -39,13 +39,15 @@ export const AdminSidebarContent = ({ onNavigate, showLogout = false }: AdminSid
       {/* Navigation */}
       <nav className="flex-1 p-4 space-y-1">
         {navigationItems.map((item) => {
-          const isActive = location.pathname === item.path;
+          const isActive = item.path === '/admin/reviews' 
+            ? location.pathname.startsWith('/admin/reviews')
+            : location.pathname === item.path;
           
           if (!item.enabled) {
             return (
               <div
                 key={item.path}
-                className="flex items-center px-4 py-3 text-sm text-gray-500 rounded-lg cursor-not-allowed"
+                className="flex items-center px-4 py-3 text-sm text-gray-500 rounded cursor-not-allowed"
               >
                 {item.label}
                 <span className="ml-auto text-xs bg-gray-700 px-2 py-1 rounded">Binnenkort</span>
@@ -58,9 +60,9 @@ export const AdminSidebarContent = ({ onNavigate, showLogout = false }: AdminSid
               key={item.path}
               to={item.path}
               onClick={onNavigate}
-              className={`flex items-center px-4 py-3 text-sm rounded-lg transition-colors ${
+              className={`flex items-center px-4 py-3 text-sm rounded transition-colors ${
                 isActive
-                  ? 'bg-gray-700 text-white border-l-2 border-blue-500'
+                  ? 'bg-gray-700 text-white border-l-2 border-white'
                   : 'text-gray-300 hover:bg-gray-700 hover:text-white'
               }`}
             >
@@ -75,7 +77,7 @@ export const AdminSidebarContent = ({ onNavigate, showLogout = false }: AdminSid
         <div className="p-4 border-t border-gray-700">
           <button
             onClick={handleLogout}
-            className="w-full px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg transition-colors text-left"
+            className="w-full px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-gray-700 rounded transition-colors text-left"
           >
             Uitloggen
           </button>
