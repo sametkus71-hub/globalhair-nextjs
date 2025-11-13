@@ -24,6 +24,11 @@ const queryClient = new QueryClient();
 function AppBackground() {
   const { pathname } = useLocation();
   const isChat = pathname.endsWith('/chat') || pathname.includes('/chat');
+  const isAdminRoute = pathname.startsWith('/admin');
+  
+  // Don't render background on admin routes
+  if (isAdminRoute) return null;
+  
   const style = isChat
     ? { background: 'linear-gradient(180deg, #040E15 0%, #333D46 100%)' }
     : { background: '#E4E5E0' };
