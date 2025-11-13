@@ -54,7 +54,7 @@ export default function AdminReviewEdit() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 md:px-6 py-4 md:py-8">
+    <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-8">
       <Breadcrumb className="mb-4 md:mb-6">
         <BreadcrumbList>
           <BreadcrumbItem>
