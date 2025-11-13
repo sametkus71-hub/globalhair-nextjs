@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { ProtectedAdminRoute } from '@/components/admin/ProtectedAdminRoute';
 
 // Lazy load all pages for code splitting
 const HomePage = lazy(() => import('@/pages/HomePage'));
@@ -33,6 +34,8 @@ const BookingPage = lazy(() => import('@/pages/BookingPage'));
 const BookingSuccessPage = lazy(() => import('@/pages/BookingSuccessPage').then(m => ({ default: m.BookingSuccessPage })));
 const PrivacyPolicyPage = lazy(() => import('@/pages/PrivacyPolicyPage'));
 const AlgemeneVoorwaardenPage = lazy(() => import('@/pages/AlgemeneVoorwaardenPage'));
+const AdminLogin = lazy(() => import('@/pages/AdminLogin'));
+const AdminDashboard = lazy(() => import('@/pages/AdminDashboard'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
 
 // Loading fallback component
@@ -139,6 +142,10 @@ export const SEORoutes = () => {
       <Route path="/en/contact" element={<ContactPage />} />
       <Route path="/en/privacy-policy" element={<PrivacyPolicyPage />} />
       <Route path="/en/terms-conditions" element={<AlgemeneVoorwaardenPage />} />
+      
+      {/* Admin routes */}
+      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route path="/admin" element={<ProtectedAdminRoute><AdminDashboard /></ProtectedAdminRoute>} />
       
       {/* Legacy support - maintain old item1 route */}
       <Route path="/nl/reviews/item1" element={<ReviewItemPage />} />
