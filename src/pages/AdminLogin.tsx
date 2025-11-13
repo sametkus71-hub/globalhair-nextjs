@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
-import { AnimatedLogoGif } from '@/components/logos/AnimatedLogoGif';
+import hairtransplantLogo from '@/assets/hairtransplant-logo.png';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
 
 export default function AdminLogin() {
@@ -62,7 +62,11 @@ export default function AdminLogin() {
       {/* Left container - 30% on desktop, full width on mobile */}
       <div className="w-full lg:w-[30%] p-8 flex flex-col justify-center">
         <div className="mb-8">
-          <AnimatedLogoGif className="w-16 h-16" />
+          <img 
+            src={hairtransplantLogo} 
+            alt="GHI Hairtransplant Logo" 
+            className="h-16 object-contain"
+          />
         </div>
 
         <h1 className="text-2xl text-white mb-8">Admin Login</h1>
