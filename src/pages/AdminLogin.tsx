@@ -42,78 +42,70 @@ export default function AdminLogin() {
         if ((roleData as any)?.role === 'admin') {
           navigate('/admin');
         } else {
-          setError('Access Denied: You do not have admin privileges');
+          setError('Access Denied');
           await supabase.auth.signOut();
         }
       }
     } catch (err: any) {
-      setError(err.message || 'Failed to login');
+      setError(err.message || 'Login failed');
     } finally {
       setLoading(false);
     }
   };
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <p className="text-white">Loading...</p>
-      </div>
-    );
+    return null;
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <div className="flex justify-center mb-8">
-          <AnimatedLogoGif className="w-24 h-24" />
+    <div className="min-h-screen bg-gray-900 flex">
+      {/* Left container - 30% on desktop, full width on mobile */}
+      <div className="w-full lg:w-[30%] p-8 flex flex-col justify-center">
+        <div className="mb-8">
+          <AnimatedLogoGif className="w-16 h-16" />
         </div>
 
-        <div className="bg-gray-800 p-8">
-          <h1 className="text-2xl text-white mb-6">Admin Login</h1>
+        <h1 className="text-2xl text-white mb-8">Admin Login</h1>
 
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <label htmlFor="email" className="block text-sm text-white mb-2">
-                Email
-              </label>
-              <input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-3 py-2 bg-gray-900 text-white border border-gray-700 focus:outline-none focus:border-white"
-                required
-              />
-            </div>
+        <form onSubmit={handleLogin} className="space-y-6">
+          <div>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-3 bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-white"
+              required
+            />
+          </div>
 
-            <div>
-              <label htmlFor="password" className="block text-sm text-white mb-2">
-                Password
-              </label>
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 bg-gray-900 text-white border border-gray-700 focus:outline-none focus:border-white"
-                required
-              />
-            </div>
+          <div>
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-3 bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-white"
+              required
+            />
+          </div>
 
-            {error && (
-              <p className="text-red-400 text-sm">{error}</p>
-            )}
+          {error && (
+            <p className="text-red-400 text-sm">{error}</p>
+          )}
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-2.5 bg-white text-gray-900 hover:bg-gray-200 transition-colors disabled:opacity-50"
-            >
-              {loading ? 'Logging in...' : 'Login'}
-            </button>
-          </form>
-        </div>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-3 bg-white text-gray-900 hover:bg-gray-200 transition-colors disabled:opacity-50"
+          >
+            {loading ? 'Loading...' : 'Login'}
+          </button>
+        </form>
       </div>
+
+      {/* Right side - empty space on desktop */}
+      <div className="hidden lg:block flex-1 bg-gray-800" />
     </div>
   );
 }
