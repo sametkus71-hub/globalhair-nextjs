@@ -13,10 +13,16 @@ import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/componen
 import { Badge } from '@/components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { ReviewMobilePreview } from './ReviewMobilePreview';
-import { Video, Image, ImageIcon, Info } from 'lucide-react';
+import { Video, Image, ImageIcon, Info, Upload, FolderOpen, ChevronDown } from 'lucide-react';
 
 interface ReviewFormProps {
   review?: Review | null;
@@ -214,15 +220,35 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                       placeholder="https://..."
                       className="rounded-[1px] flex-1"
                     />
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setUploadSectionsOpen(prev => ({ ...prev, video: !prev.video }))}
-                      className="rounded-[1px]"
-                    >
-                      Bewerken
-                    </Button>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          className="rounded-[1px]"
+                        >
+                          Bewerken
+                          <ChevronDown className="ml-1 h-3 w-3" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-56">
+                        <DropdownMenuItem
+                          onClick={() => setUploadSectionsOpen(prev => ({ ...prev, video: !prev.video }))}
+                          className="cursor-pointer"
+                        >
+                          <Upload className="mr-2 h-4 w-4" />
+                          <span>Upload nieuw bestand</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => setFileBrowserOpen('video')}
+                          className="cursor-pointer"
+                        >
+                          <FolderOpen className="mr-2 h-4 w-4" />
+                          <span>Kies bestaand bestand</span>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </div>
                   <Collapsible open={uploadSectionsOpen.video}>
                     <CollapsibleContent className="space-y-2 pt-2 px-3 pb-3 bg-muted/30 rounded-md border border-border/50">
@@ -231,14 +257,6 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                         folder="reviews"
                         accept="video/*"
                       />
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => setFileBrowserOpen('video')}
-                        className="w-full rounded-[1px]"
-                      >
-                        Browse Uploaded Videos
-                      </Button>
                     </CollapsibleContent>
                   </Collapsible>
                   <p className="text-xs text-muted-foreground">
@@ -283,15 +301,35 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                       placeholder="https://..."
                       className="rounded-[1px] flex-1"
                     />
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setUploadSectionsOpen(prev => ({ ...prev, before: !prev.before }))}
-                      className="rounded-[1px]"
-                    >
-                      Bewerken
-                    </Button>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          className="rounded-[1px]"
+                        >
+                          Bewerken
+                          <ChevronDown className="ml-1 h-3 w-3" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-56">
+                        <DropdownMenuItem
+                          onClick={() => setUploadSectionsOpen(prev => ({ ...prev, before: !prev.before }))}
+                          className="cursor-pointer"
+                        >
+                          <Upload className="mr-2 h-4 w-4" />
+                          <span>Upload nieuw bestand</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => setFileBrowserOpen('before')}
+                          className="cursor-pointer"
+                        >
+                          <FolderOpen className="mr-2 h-4 w-4" />
+                          <span>Kies bestaand bestand</span>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </div>
                   <Collapsible open={uploadSectionsOpen.before}>
                     <CollapsibleContent className="space-y-2 pt-2 px-3 pb-3 bg-muted/30 rounded-md border border-border/50">
@@ -300,14 +338,6 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                         folder="reviews"
                         accept="image/*"
                       />
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => setFileBrowserOpen('before')}
-                        className="w-full rounded-[1px]"
-                      >
-                        Browse Images
-                      </Button>
                     </CollapsibleContent>
                   </Collapsible>
                 </div>
@@ -346,15 +376,35 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                       placeholder="https://..."
                       className="rounded-[1px] flex-1"
                     />
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setUploadSectionsOpen(prev => ({ ...prev, after: !prev.after }))}
-                      className="rounded-[1px]"
-                    >
-                      Bewerken
-                    </Button>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          className="rounded-[1px]"
+                        >
+                          Bewerken
+                          <ChevronDown className="ml-1 h-3 w-3" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-56">
+                        <DropdownMenuItem
+                          onClick={() => setUploadSectionsOpen(prev => ({ ...prev, after: !prev.after }))}
+                          className="cursor-pointer"
+                        >
+                          <Upload className="mr-2 h-4 w-4" />
+                          <span>Upload nieuw bestand</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => setFileBrowserOpen('after')}
+                          className="cursor-pointer"
+                        >
+                          <FolderOpen className="mr-2 h-4 w-4" />
+                          <span>Kies bestaand bestand</span>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </div>
                   <Collapsible open={uploadSectionsOpen.after}>
                     <CollapsibleContent className="space-y-2 pt-2 px-3 pb-3 bg-muted/30 rounded-md border border-border/50">
@@ -363,14 +413,6 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                         folder="reviews"
                         accept="image/*"
                       />
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => setFileBrowserOpen('after')}
-                        className="w-full rounded-[1px]"
-                      >
-                        Browse Images
-                      </Button>
                     </CollapsibleContent>
                   </Collapsible>
                 </div>
@@ -412,15 +454,35 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                       placeholder="https://..."
                       className="rounded-[1px] flex-1"
                     />
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setUploadSectionsOpen(prev => ({ ...prev, static: !prev.static }))}
-                      className="rounded-[1px]"
-                    >
-                      Bewerken
-                    </Button>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          className="rounded-[1px]"
+                        >
+                          Bewerken
+                          <ChevronDown className="ml-1 h-3 w-3" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-56">
+                        <DropdownMenuItem
+                          onClick={() => setUploadSectionsOpen(prev => ({ ...prev, static: !prev.static }))}
+                          className="cursor-pointer"
+                        >
+                          <Upload className="mr-2 h-4 w-4" />
+                          <span>Upload nieuw bestand</span>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          onClick={() => setFileBrowserOpen('static')}
+                          className="cursor-pointer"
+                        >
+                          <FolderOpen className="mr-2 h-4 w-4" />
+                          <span>Kies bestaand bestand</span>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </div>
                   <Collapsible open={uploadSectionsOpen.static}>
                     <CollapsibleContent className="space-y-2 pt-2 px-3 pb-3 bg-muted/30 rounded-md border border-border/50">
@@ -429,14 +491,6 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                         folder="reviews"
                         accept="image/*"
                       />
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => setFileBrowserOpen('static')}
-                        className="w-full rounded-[1px]"
-                      >
-                        Browse Images
-                      </Button>
                     </CollapsibleContent>
                   </Collapsible>
                   <p className="text-xs text-muted-foreground">
