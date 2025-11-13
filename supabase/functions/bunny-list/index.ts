@@ -87,7 +87,7 @@ serve(async (req) => {
     console.log(`Listing files in: ${path}`);
 
     // List files from Bunny CDN
-    const listUrl = `https://${region}.storage.bunnycdn.com/${zone}/${path}/`;
+    const listUrl = `https://storage.bunnycdn.com/${zone}/${path}/`;
     
     const listResponse = await fetch(listUrl, {
       method: 'GET',

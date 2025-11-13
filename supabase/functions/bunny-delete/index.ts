@@ -93,7 +93,7 @@ serve(async (req) => {
     console.log(`Deleting file: ${path}`);
 
     // Delete from Bunny CDN
-    const deleteUrl = `https://${region}.storage.bunnycdn.com/${zone}/${path}`;
+    const deleteUrl = `https://storage.bunnycdn.com/${zone}/${path}`;
     
     const deleteResponse = await fetch(deleteUrl, {
       method: 'DELETE',

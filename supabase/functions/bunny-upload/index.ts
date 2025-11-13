@@ -120,7 +120,7 @@ serve(async (req) => {
 
     // Upload to Bunny CDN
     const fileBuffer = await file.arrayBuffer();
-    const uploadUrl = `https://${region}.storage.bunnycdn.com/${zone}/${path}`;
+    const uploadUrl = `https://storage.bunnycdn.com/${zone}/${path}`;
     
     const uploadResponse = await fetch(uploadUrl, {
       method: 'PUT',
@@ -141,7 +141,7 @@ serve(async (req) => {
     }
 
     // Return the CDN URL
-    const cdnUrl = `https://${region}.storage.bunnycdn.com/${zone}/${path}`;
+    const cdnUrl = `https://storage.bunnycdn.com/${zone}/${path}`;
     console.log(`File uploaded successfully: ${cdnUrl}`);
 
     return new Response(JSON.stringify({
