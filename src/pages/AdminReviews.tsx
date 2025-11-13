@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate, Link } from 'react-router-dom';
 import {
@@ -10,6 +10,14 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import {
   Table,
   TableBody,
@@ -33,11 +41,13 @@ import { Switch } from '@/components/ui/switch';
 import { supabase } from '@/integrations/supabase/client';
 import { Review } from '@/types/review';
 import { toast } from 'sonner';
-import { Pencil, Trash2, Plus } from 'lucide-react';
+import { Pencil, Trash2, Plus, ExternalLink, Search } from 'lucide-react';
 
 export default function AdminReviews() {
   const navigate = useNavigate();
   const [deleteReview, setDeleteReview] = useState<Review | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [typeFilter, setTypeFilter] = useState<string>('all');
 
   const { data: reviews, isLoading, refetch } = useQuery({
     queryKey: ['admin-reviews'],
@@ -52,6 +62,28 @@ export default function AdminReviews() {
       return (data as unknown) as Review[];
     },
   });
+
+  const filteredReviews = useMemo(() => {
+    if (!reviews) return [];
+    
+    let filtered = reviews;
+    
+    // Apply type filter
+    if (typeFilter !== 'all') {
+      filtered = filtered.filter(review => review.review_type === typeFilter);
+    }
+    
+    // Apply search filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(review => 
+        review.name.toLowerCase().includes(query) ||
+        review.description.toLowerCase().includes(query)
+      );
+    }
+    
+    return filtered;
+  }, [reviews, searchQuery, typeFilter]);
 
   const handleAddNew = () => {
     navigate('/admin/reviews/new');
@@ -142,65 +174,123 @@ export default function AdminReviews() {
             Bekijk en beheer alle reviews
           </p>
         </div>
-        <Button onClick={handleAddNew}>
-          <Plus className="w-4 h-4 mr-2" />
-          Nieuwe Review
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            onClick={() => window.open('https://globalhair.institute/nl/haartransplantatie/reviews', '_blank')}
+            className="gap-2"
+          >
+            <ExternalLink className="w-4 h-4" />
+            Bekijk Frontend
+          </Button>
+          <Button 
+            onClick={handleAddNew}
+            className="bg-blue-900 hover:bg-blue-800 text-white rounded-sm gap-2"
+          >
+            <Plus className="w-4 h-4" />
+            Nieuwe Review
+          </Button>
+        </div>
       </div>
 
+      <div className="flex flex-col sm:flex-row gap-3 mb-4">
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <Input
+            placeholder="Zoek op naam of beschrijving..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-9 rounded-sm"
+          />
+        </div>
+        <Select value={typeFilter} onValueChange={setTypeFilter}>
+          <SelectTrigger className="w-full sm:w-[200px] rounded-sm">
+            <SelectValue placeholder="Alle types" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">Alle types</SelectItem>
+            <SelectItem value="video">Video</SelectItem>
+            <SelectItem value="before_after">Voor & Na</SelectItem>
+            <SelectItem value="static_image">Foto</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <p className="text-sm text-muted-foreground mb-3">
+        {filteredReviews.length} van {reviews?.length || 0} reviews
+      </p>
+
       {isLoading ? (
-        <div className="bg-background rounded-lg p-12 text-center border border-border">
+        <div className="bg-background rounded-sm p-12 text-center border border-border">
           <p className="text-muted-foreground">Laden...</p>
         </div>
       ) : !reviews || reviews.length === 0 ? (
-        <div className="bg-background rounded-lg p-12 text-center border border-border">
+        <div className="bg-background rounded-sm p-12 text-center border border-border">
           <p className="text-muted-foreground mb-4">Geen reviews gevonden</p>
-          <Button onClick={handleAddNew}>
-            <Plus className="w-4 h-4 mr-2" />
+          <Button 
+            onClick={handleAddNew}
+            className="bg-blue-900 hover:bg-blue-800 text-white rounded-sm gap-2"
+          >
+            <Plus className="w-4 h-4" />
             Eerste Review Toevoegen
           </Button>
         </div>
+      ) : filteredReviews.length === 0 ? (
+        <div className="bg-background rounded-sm p-12 text-center border border-border">
+          <p className="text-muted-foreground mb-4">Geen reviews gevonden met deze filters</p>
+          <Button 
+            variant="outline"
+            onClick={() => {
+              setSearchQuery('');
+              setTypeFilter('all');
+            }}
+            className="rounded-sm"
+          >
+            Reset filters
+          </Button>
+        </div>
       ) : (
-        <div className="bg-background rounded-lg border border-border">
+        <div className="bg-background rounded-sm border border-border">
           <Table>
             <TableHeader>
-              <TableRow>
-                <TableHead>Type</TableHead>
-                <TableHead>Naam</TableHead>
-                <TableHead>Behandeling</TableHead>
-                <TableHead className="text-center">Zichtbaar</TableHead>
-                <TableHead className="text-center">Uitgelicht</TableHead>
-                <TableHead className="text-right">Acties</TableHead>
+              <TableRow className="border-b border-border">
+                <TableHead className="py-3">Type</TableHead>
+                <TableHead className="py-3">Naam</TableHead>
+                <TableHead className="py-3">Behandeling</TableHead>
+                <TableHead className="text-center py-3">Zichtbaar</TableHead>
+                <TableHead className="text-center py-3">Uitgelicht</TableHead>
+                <TableHead className="text-right py-3">Acties</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {reviews.map((review) => (
-                <TableRow key={review.id}>
-                  <TableCell>
-                    <Badge variant="outline">
+              {filteredReviews.map((review) => (
+                <TableRow key={review.id} className="border-b border-border">
+                  <TableCell className="py-3">
+                    <Badge variant="outline" className="rounded-sm">
                       {getTypeBadge(review.review_type)}
                     </Badge>
                   </TableCell>
-                  <TableCell className="font-medium">{review.name}</TableCell>
-                  <TableCell>{review.behandeling}</TableCell>
-                  <TableCell className="text-center">
+                  <TableCell className="font-medium py-3">{review.name}</TableCell>
+                  <TableCell className="py-3">{review.behandeling}</TableCell>
+                  <TableCell className="text-center py-3">
                     <Switch
                       checked={review.is_visible}
                       onCheckedChange={() => handleToggleVisible(review)}
                     />
                   </TableCell>
-                  <TableCell className="text-center">
+                  <TableCell className="text-center py-3">
                     <Switch
                       checked={review.is_featured}
                       onCheckedChange={() => handleToggleFeatured(review)}
                     />
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right py-3">
                     <div className="flex justify-end gap-2">
                       <Button
                         variant="ghost"
                         size="icon"
                         onClick={() => handleEdit(review)}
+                        className="rounded-sm"
                       >
                         <Pencil className="w-4 h-4" />
                       </Button>
@@ -208,6 +298,7 @@ export default function AdminReviews() {
                         variant="ghost"
                         size="icon"
                         onClick={() => setDeleteReview(review)}
+                        className="rounded-sm"
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>
