@@ -25,6 +25,11 @@ export const PackageStandardPage = () => {
   const [showEliteTooltip, setShowEliteTooltip] = useState(false);
   const { handlePopupClose } = usePopupClose();
 
+  // Check if Turkey should be disabled (Elite is only available in Netherlands)
+  const isCountryDisabled = (country: 'nl' | 'tr') => {
+    return country === 'tr' && activeTier === 'Elite';
+  };
+
   const videoContainerRef = useRef<HTMLDivElement>(null);
 
   // Video sources mapping - correct URLs for each tier
@@ -147,6 +152,11 @@ export const PackageStandardPage = () => {
 
   // Reset to Premium if switching to Turkey while Elite is selected
   const handleCountryChange = async (country: 'nl' | 'tr') => {
+    // Prevent switching to Turkey if Elite is selected
+    if (country === 'tr' && activeTier === 'Elite') {
+      return;
+    }
+    
     if (isTransitioning) return;
     
     setIsTransitioning(true);
@@ -525,13 +535,20 @@ export const PackageStandardPage = () => {
             Nederland
           </button>
           <button 
+            disabled={isCountryDisabled('tr')}
             className={`flex-1 px-3 rounded-full text-[10px] font-light transition-all duration-300 ease-out ${
-              activeCountry === 'tr' 
-                ? 'silver-gradient-border bg-white/10 text-white scale-105' 
-                : 'bg-transparent text-white hover:text-white/90 scale-100'
+              isCountryDisabled('tr')
+                ? 'opacity-40 cursor-not-allowed text-white/50'
+                : activeCountry === 'tr' 
+                  ? 'silver-gradient-border bg-white/10 text-white scale-105' 
+                  : 'bg-transparent text-white hover:text-white/90 scale-100'
             }`}
             style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}
-            onClick={() => handleCountryChange('tr')}
+            onClick={() => {
+              if (!isCountryDisabled('tr')) {
+                handleCountryChange('tr');
+              }
+            }}
           >
             Turkije
           </button>
