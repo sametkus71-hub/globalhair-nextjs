@@ -175,7 +175,26 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
               {/* Tab-specific URL fields */}
               <TabsContent value="video" className="mt-0 space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="video_url">Video URL *</Label>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="video_url">Video URL *</Label>
+                    <div className="flex items-center gap-1.5 px-2 py-1 rounded-md border border-border/50 bg-muted/30">
+                      <span className="text-[9px] text-muted-foreground uppercase tracking-wider">Compressie</span>
+                      <div className="h-3 w-px bg-border/50" />
+                      <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
+                        <a href="https://www.compress2go.com/compress-video" target="_blank" rel="noopener noreferrer">video</a>
+                      </Badge>
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Info className="h-3 w-3 text-muted-foreground cursor-help" />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p className="text-xs">Comprimeer video's voor snellere laadtijden</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </div>
+                  </div>
                   <Input
                     id="video_url"
                     value={formData.video_url}
@@ -208,23 +227,25 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <Label htmlFor="before_image_url">Voor Foto URL *</Label>
-                    <div className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-muted/50">
+                    <div className="flex items-center gap-1.5 px-2 py-1 rounded-md border border-border/50 bg-muted/30">
+                      <span className="text-[9px] text-muted-foreground uppercase tracking-wider">Compressie</span>
+                      <div className="h-3 w-px bg-border/50" />
+                      <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
+                        <a href="https://tinypng.com/" target="_blank" rel="noopener noreferrer">link 1</a>
+                      </Badge>
+                      <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
+                        <a href="https://imageresizer.com/image-compressor" target="_blank" rel="noopener noreferrer">link 2</a>
+                      </Badge>
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <Info className="h-3 w-3 text-muted-foreground" />
+                            <Info className="h-3 w-3 text-muted-foreground cursor-help" />
                           </TooltipTrigger>
                           <TooltipContent>
                             <p className="text-xs">Comprimeer afbeeldingen voor snellere laadtijden</p>
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
-                      <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
-                        <a href="https://tinypng.com/" target="_blank" rel="noopener noreferrer">compr. link 1</a>
-                      </Badge>
-                      <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
-                        <a href="https://imageresizer.com/image-compressor" target="_blank" rel="noopener noreferrer">compr. link 2</a>
-                      </Badge>
                     </div>
                   </div>
                   <Input
@@ -253,23 +274,25 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <Label htmlFor="after_image_url">Na Foto URL *</Label>
-                    <div className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-muted/50">
+                    <div className="flex items-center gap-1.5 px-2 py-1 rounded-md border border-border/50 bg-muted/30">
+                      <span className="text-[9px] text-muted-foreground uppercase tracking-wider">Compressie</span>
+                      <div className="h-3 w-px bg-border/50" />
+                      <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
+                        <a href="https://tinypng.com/" target="_blank" rel="noopener noreferrer">link 1</a>
+                      </Badge>
+                      <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
+                        <a href="https://imageresizer.com/image-compressor" target="_blank" rel="noopener noreferrer">link 2</a>
+                      </Badge>
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <Info className="h-3 w-3 text-muted-foreground" />
+                            <Info className="h-3 w-3 text-muted-foreground cursor-help" />
                           </TooltipTrigger>
                           <TooltipContent>
                             <p className="text-xs">Comprimeer afbeeldingen voor snellere laadtijden</p>
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
-                      <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
-                        <a href="https://tinypng.com/" target="_blank" rel="noopener noreferrer">compr. link 1</a>
-                      </Badge>
-                      <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
-                        <a href="https://imageresizer.com/image-compressor" target="_blank" rel="noopener noreferrer">compr. link 2</a>
-                      </Badge>
                     </div>
                   </div>
                   <Input
@@ -301,23 +324,25 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <Label htmlFor="static_image_url">Foto URL *</Label>
-                    <div className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-muted/50">
+                    <div className="flex items-center gap-1.5 px-2 py-1 rounded-md border border-border/50 bg-muted/30">
+                      <span className="text-[9px] text-muted-foreground uppercase tracking-wider">Compressie</span>
+                      <div className="h-3 w-px bg-border/50" />
+                      <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
+                        <a href="https://tinypng.com/" target="_blank" rel="noopener noreferrer">link 1</a>
+                      </Badge>
+                      <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
+                        <a href="https://imageresizer.com/image-compressor" target="_blank" rel="noopener noreferrer">link 2</a>
+                      </Badge>
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <Info className="h-3 w-3 text-muted-foreground" />
+                            <Info className="h-3 w-3 text-muted-foreground cursor-help" />
                           </TooltipTrigger>
                           <TooltipContent>
                             <p className="text-xs">Comprimeer afbeeldingen voor snellere laadtijden</p>
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
-                      <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
-                        <a href="https://tinypng.com/" target="_blank" rel="noopener noreferrer">compr. link 1</a>
-                      </Badge>
-                      <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 cursor-pointer hover:bg-accent" asChild>
-                        <a href="https://imageresizer.com/image-compressor" target="_blank" rel="noopener noreferrer">compr. link 2</a>
-                      </Badge>
                     </div>
                   </div>
                   <Input
