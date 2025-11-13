@@ -163,6 +163,12 @@ export const FileBrowser = ({
                         className="w-full h-full object-contain"
                         preload="metadata"
                         muted
+                        loop
+                        onMouseEnter={(e) => e.currentTarget.play()}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.pause();
+                          e.currentTarget.currentTime = 0;
+                        }}
                         onError={(e) => {
                           (e.target as HTMLVideoElement).style.display = "none";
                         }}
@@ -181,11 +187,11 @@ export const FileBrowser = ({
                     />
                   )}
                 </div>
-                <div className="p-2">
-                  <p className="text-xs truncate" title={file.name}>
+                <div className="p-2 bg-background/95">
+                  <p className="text-[10px] leading-tight line-clamp-2 mb-0.5" title={file.name}>
                     {file.name}
                   </p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-[10px] text-foreground/60 font-medium">
                     {(file.size / 1024).toFixed(1)} KB
                   </p>
                 </div>
