@@ -124,7 +124,25 @@ export default function AdminReviews() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return format(date, 'd MMM yyyy HH:mm', { locale: nl });
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+    const dayBeforeYesterday = new Date(today);
+    dayBeforeYesterday.setDate(dayBeforeYesterday.getDate() - 2);
+    
+    const reviewDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const time = format(date, 'HH:mm');
+    
+    if (reviewDate.getTime() === today.getTime()) {
+      return `Vandaag om ${time}`;
+    } else if (reviewDate.getTime() === yesterday.getTime()) {
+      return `Gisteren om ${time}`;
+    } else if (reviewDate.getTime() === dayBeforeYesterday.getTime()) {
+      return `Eergisteren om ${time}`;
+    } else {
+      return format(date, 'd MMM yyyy HH:mm', { locale: nl });
+    }
   };
 
   const handleAddNew = () => {
@@ -337,10 +355,10 @@ export default function AdminReviews() {
                 <TableHead className="py-4 w-[100px]">Type</TableHead>
                 <TableHead className="py-4 w-[80px]">Thumbnail</TableHead>
                 <TableHead className="py-4">Naam</TableHead>
-                <TableHead className="py-4 w-[160px]">Aangemaakt</TableHead>
                 <TableHead className="py-4">Behandeling</TableHead>
                 <TableHead className="text-center py-4 w-[100px]">Zichtbaar</TableHead>
                 <TableHead className="text-center py-4 w-[100px]">Uitgelicht</TableHead>
+                <TableHead className="py-4 w-[160px] text-muted-foreground">Aangemaakt</TableHead>
                 <TableHead className="text-right py-4 w-[120px]">Acties</TableHead>
               </TableRow>
             </TableHeader>
@@ -359,9 +377,6 @@ export default function AdminReviews() {
                     />
                   </TableCell>
                   <TableCell className="font-medium py-4">{review.name}</TableCell>
-                  <TableCell className="py-4 text-sm text-muted-foreground whitespace-nowrap">
-                    {formatDate(review.created_at)}
-                  </TableCell>
                   <TableCell className="py-4 text-muted-foreground">{review.behandeling}</TableCell>
                   <TableCell className="text-center py-4">
                     <Switch
@@ -376,6 +391,9 @@ export default function AdminReviews() {
                       onCheckedChange={() => handleToggleFeatured(review)}
                       className="data-[state=checked]:bg-blue-900"
                     />
+                  </TableCell>
+                  <TableCell className="py-4 text-sm text-muted-foreground whitespace-nowrap">
+                    {formatDate(review.created_at)}
                   </TableCell>
                   <TableCell className="text-right py-4">
                     <div className="flex justify-end gap-2">
