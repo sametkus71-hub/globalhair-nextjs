@@ -69,7 +69,7 @@ serve(async (req) => {
 
     // Get path from query params
     const url = new URL(req.url);
-    const path = url.searchParams.get('path') || 'reviews';
+    const path = url.searchParams.get('path') || '';
 
     // Get Bunny CDN credentials
     const apiKey = Deno.env.get('BUNNY_STORAGE_API_KEY');
@@ -87,7 +87,9 @@ serve(async (req) => {
     console.log(`Listing files in: ${path}`);
 
     // List files from Bunny CDN
-    const listUrl = `https://storage.bunnycdn.com/${zone}/${path}/`;
+    const listUrl = path 
+      ? `https://storage.bunnycdn.com/${zone}/${path}/`
+      : `https://storage.bunnycdn.com/${zone}/`;
     
     const listResponse = await fetch(listUrl, {
       method: 'GET',
@@ -111,8 +113,10 @@ serve(async (req) => {
     // Transform the response to include full URLs
     const transformedFiles = files.map((file: any) => ({
       name: file.ObjectName,
-      path: `${path}/${file.ObjectName}`,
-      url: `https://${region}.storage.bunnycdn.com/${zone}/${path}/${file.ObjectName}`,
+      path: path ? `${path}/${file.ObjectName}` : file.ObjectName,
+      url: path 
+        ? `https://${region}.storage.bunnycdn.com/${zone}/${path}/${file.ObjectName}`
+        : `https://${region}.storage.bunnycdn.com/${zone}/${file.ObjectName}`,
       size: file.Length,
       lastModified: file.LastChanged,
       isDirectory: file.IsDirectory,
