@@ -1,8 +1,8 @@
 import { useAdminAuth } from '@/hooks/useAdminAuth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { AdminSidebarContent } from './AdminSidebarContent';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu } from 'lucide-react';
 import { useState } from 'react';
 
@@ -13,12 +13,20 @@ interface AdminLayoutProps {
 export const AdminLayout = ({ children }: AdminLayoutProps) => {
   const { signOut } = useAdminAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const isMobile = useIsMobile();
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [sheetOpen, setSheetOpen] = useState(false);
 
   const handleLogout = async () => {
     await signOut();
     navigate('/admin/login');
+  };
+
+  // Get page title based on route
+  const getPageTitle = () => {
+    if (location.pathname === '/admin/reviews') return 'Reviews';
+    if (location.pathname === '/admin') return 'Dashboard';
+    return 'Admin';
   };
 
   if (isMobile) {
@@ -26,22 +34,20 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
       <div className="h-screen overflow-hidden bg-gray-50 flex flex-col">
         {/* Mobile Header */}
         <header className="bg-white border-b border-gray-200 h-14 flex items-center px-4 flex-shrink-0">
-          <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
-            <DrawerTrigger asChild>
+          <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+            <SheetTrigger asChild>
               <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
                 <Menu className="h-5 w-5 text-gray-600" />
               </button>
-            </DrawerTrigger>
-            <DrawerContent className="h-[85vh]">
-              <div className="h-full bg-gray-800">
-                <AdminSidebarContent 
-                  onNavigate={() => setDrawerOpen(false)}
-                  showLogout={true}
-                />
-              </div>
-            </DrawerContent>
-          </Drawer>
-          <h1 className="ml-4 text-lg font-semibold text-gray-900">Admin Panel</h1>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-64 p-0 bg-gray-800 border-gray-700">
+              <AdminSidebarContent 
+                onNavigate={() => setSheetOpen(false)}
+                showLogout={true}
+              />
+            </SheetContent>
+          </Sheet>
+          <h1 className="ml-4 text-lg font-semibold text-gray-900">{getPageTitle()}</h1>
         </header>
 
         {/* Mobile Content */}
