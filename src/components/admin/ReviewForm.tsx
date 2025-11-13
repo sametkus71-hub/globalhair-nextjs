@@ -426,7 +426,7 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
           setFormData({ ...formData, static_image_url: url });
         }
       }}
-      folder=""
+      folder="reviews"
     />
     </>
   );
