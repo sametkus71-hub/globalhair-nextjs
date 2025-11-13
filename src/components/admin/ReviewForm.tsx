@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Review, ReviewType } from '@/types/review';
+import { FileUploader } from './FileUploader';
+import { FileBrowser } from './FileBrowser';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -19,6 +21,7 @@ interface ReviewFormProps {
 }
 
 export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
+  const [fileBrowserOpen, setFileBrowserOpen] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     review_type: 'video' as ReviewType,
     name: '',
@@ -132,7 +135,8 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
   };
 
   return (
-    <ResizablePanelGroup direction="horizontal" className="min-h-[calc(100vh-12rem)] rounded-lg border border-border">
+    <>
+      <ResizablePanelGroup direction="horizontal" className="min-h-[calc(100vh-12rem)] rounded-lg border border-border">
       {/* Left Panel - Form */}
       <ResizablePanel defaultSize={55} minSize={35}>
         <div className="h-full overflow-auto bg-background p-6">
@@ -179,6 +183,19 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                     placeholder="https://..."
                     className="rounded-[1px]"
                   />
+                  <FileUploader
+                    onUploadSuccess={(url) => setFormData({ ...formData, video_url: url })}
+                    folder="reviews/video"
+                    accept="video/*"
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setFileBrowserOpen('video')}
+                    className="w-full rounded-[1px]"
+                  >
+                    Browse Uploaded Videos
+                  </Button>
                   <p className="text-xs text-muted-foreground">
                     Plak de URL van een video (YouTube, Vimeo, of directe link)
                   </p>
@@ -197,6 +214,19 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                     placeholder="https://..."
                     className="rounded-[1px]"
                   />
+                  <FileUploader
+                    onUploadSuccess={(url) => setFormData({ ...formData, before_image_url: url })}
+                    folder="reviews/before_after"
+                    accept="image/*"
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setFileBrowserOpen('before')}
+                    className="w-full rounded-[1px]"
+                  >
+                    Browse Images
+                  </Button>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="after_image_url">Na Foto URL *</Label>
@@ -209,6 +239,19 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                     placeholder="https://..."
                     className="rounded-[1px]"
                   />
+                  <FileUploader
+                    onUploadSuccess={(url) => setFormData({ ...formData, after_image_url: url })}
+                    folder="reviews/before_after"
+                    accept="image/*"
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setFileBrowserOpen('after')}
+                    className="w-full rounded-[1px]"
+                  >
+                    Browse Images
+                  </Button>
                 </div>
               </TabsContent>
 
@@ -224,6 +267,19 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                     placeholder="https://..."
                     className="rounded-[1px]"
                   />
+                  <FileUploader
+                    onUploadSuccess={(url) => setFormData({ ...formData, static_image_url: url })}
+                    folder="reviews/static_image"
+                    accept="image/*"
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setFileBrowserOpen('static')}
+                    className="w-full rounded-[1px]"
+                  >
+                    Browse Images
+                  </Button>
                   <p className="text-xs text-muted-foreground">
                     Plak de URL van een afbeelding
                   </p>
@@ -355,5 +411,27 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
         </div>
       </ResizablePanel>
     </ResizablePanelGroup>
+    
+    <FileBrowser
+      open={fileBrowserOpen !== null}
+      onOpenChange={(open) => !open && setFileBrowserOpen(null)}
+      onFileSelect={(url) => {
+        if (fileBrowserOpen === 'video') {
+          setFormData({ ...formData, video_url: url });
+        } else if (fileBrowserOpen === 'before') {
+          setFormData({ ...formData, before_image_url: url });
+        } else if (fileBrowserOpen === 'after') {
+          setFormData({ ...formData, after_image_url: url });
+        } else if (fileBrowserOpen === 'static') {
+          setFormData({ ...formData, static_image_url: url });
+        }
+      }}
+      folder={
+        fileBrowserOpen === 'video'
+          ? 'reviews/video'
+          : 'reviews/before_after'
+      }
+    />
+    </>
   );
 }
