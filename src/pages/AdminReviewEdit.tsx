@@ -46,8 +46,8 @@ export default function AdminReviewEdit() {
   };
 
   if (!isNewReview && isLoading) {
-    return (
-      <div className="max-w-4xl mx-auto px-4 md:px-6 py-4 md:py-8">
+  return (
+    <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-8">
         <p className="text-muted-foreground">Laden...</p>
       </div>
     );
