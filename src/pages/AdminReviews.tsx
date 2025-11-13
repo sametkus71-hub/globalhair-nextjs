@@ -301,12 +301,14 @@ export default function AdminReviews() {
                     <Switch
                       checked={review.is_visible}
                       onCheckedChange={() => handleToggleVisible(review)}
+                      className="data-[state=checked]:bg-blue-900"
                     />
                   </TableCell>
                   <TableCell className="text-center py-3">
                     <Switch
                       checked={review.is_featured}
                       onCheckedChange={() => handleToggleFeatured(review)}
+                      className="data-[state=checked]:bg-blue-900"
                     />
                   </TableCell>
                   <TableCell className="text-right py-3">
