@@ -23,6 +23,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { ReviewMobilePreview } from './ReviewMobilePreview';
 import { Video, Image, ImageIcon, Info, Upload, FolderOpen, ChevronDown } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface ReviewFormProps {
   review?: Review | null;
@@ -31,6 +32,7 @@ interface ReviewFormProps {
 }
 
 export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
+  const isMobile = useIsMobile();
   const [fileBrowserOpen, setFileBrowserOpen] = useState<string | null>(null);
   const [uploadSectionsOpen, setUploadSectionsOpen] = useState<{[key: string]: boolean}>({
     video: false,
@@ -147,12 +149,8 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
     }
   };
 
-  return (
-    <>
-      <ResizablePanelGroup direction="horizontal" className="min-h-[calc(100vh-12rem)] rounded-lg border border-border">
-      {/* Left Panel - Form */}
-      <ResizablePanel defaultSize={55} minSize={35}>
-        <div className="h-full overflow-auto bg-background p-6">
+  const formContent = (
+    <div className={isMobile ? "p-4" : "h-full overflow-auto bg-background p-6"}>
           <Tabs 
             value={formData.review_type} 
             onValueChange={(value: string) => setFormData({ ...formData, review_type: value as ReviewType })}
@@ -586,17 +584,38 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
             </div>
           </Tabs>
         </div>
-      </ResizablePanel>
+  );
 
-      <ResizableHandle withHandle />
+  const previewContent = (
+    <div className={isMobile ? "" : "h-full overflow-auto"}>
+      <ReviewMobilePreview formData={formData} />
+    </div>
+  );
 
-      {/* Right Panel - Live Preview */}
-      <ResizablePanel defaultSize={45} minSize={30}>
-        <div className="h-full overflow-auto">
-          <ReviewMobilePreview formData={formData} />
+  return (
+    <>
+      {isMobile ? (
+        <div className="space-y-4 pb-6">
+          <div className="rounded-lg border border-border bg-background">
+            {formContent}
+          </div>
+          <div className="rounded-lg border border-border bg-background overflow-hidden">
+            {previewContent}
+          </div>
         </div>
-      </ResizablePanel>
-    </ResizablePanelGroup>
+      ) : (
+        <ResizablePanelGroup direction="horizontal" className="min-h-[calc(100vh-12rem)] rounded-lg border border-border">
+          <ResizablePanel defaultSize={55} minSize={35}>
+            {formContent}
+          </ResizablePanel>
+
+          <ResizableHandle withHandle />
+
+          <ResizablePanel defaultSize={45} minSize={30}>
+            {previewContent}
+          </ResizablePanel>
+        </ResizablePanelGroup>
+      )}
     
     <FileBrowser
       open={fileBrowserOpen !== null}
