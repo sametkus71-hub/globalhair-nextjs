@@ -33,6 +33,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
+import { X } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { Review } from '@/types/review';
 import { toast } from 'sonner';
@@ -199,23 +200,48 @@ export default function AdminReviews() {
         
         <RadioGroup value={typeFilter} onValueChange={setTypeFilter} className="flex flex-wrap gap-4">
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="all" id="all" />
-            <Label htmlFor="all" className="cursor-pointer">Alle types</Label>
+            <RadioGroupItem value="all" id="all" className="border-blue-900 text-blue-900" />
+            <Label htmlFor="all" className="cursor-pointer text-sm">Alle types</Label>
           </div>
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="video" id="video" />
-            <Label htmlFor="video" className="cursor-pointer">Video</Label>
+            <RadioGroupItem value="video" id="video" className="border-blue-900 text-blue-900" />
+            <Label htmlFor="video" className="cursor-pointer text-sm">Video</Label>
           </div>
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="before_after" id="before_after" />
-            <Label htmlFor="before_after" className="cursor-pointer">Voor & Na</Label>
+            <RadioGroupItem value="before_after" id="before_after" className="border-blue-900 text-blue-900" />
+            <Label htmlFor="before_after" className="cursor-pointer text-sm">Voor & Na</Label>
           </div>
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="static_image" id="static_image" />
-            <Label htmlFor="static_image" className="cursor-pointer">Foto</Label>
+            <RadioGroupItem value="static_image" id="static_image" className="border-blue-900 text-blue-900" />
+            <Label htmlFor="static_image" className="cursor-pointer text-sm">Foto</Label>
           </div>
         </RadioGroup>
       </div>
+
+      {(searchQuery || typeFilter !== 'all') && (
+        <div className="flex flex-wrap gap-2 mb-3">
+          {searchQuery && (
+            <Badge 
+              variant="secondary" 
+              className="rounded-sm gap-1 cursor-pointer hover:bg-secondary/80"
+              onClick={() => setSearchQuery('')}
+            >
+              Zoek: "{searchQuery}"
+              <X className="w-3 h-3" />
+            </Badge>
+          )}
+          {typeFilter !== 'all' && (
+            <Badge 
+              variant="secondary" 
+              className="rounded-sm gap-1 cursor-pointer hover:bg-secondary/80"
+              onClick={() => setTypeFilter('all')}
+            >
+              Type: {getTypeBadge(typeFilter)}
+              <X className="w-3 h-3" />
+            </Badge>
+          )}
+        </div>
+      )}
 
       <p className="text-sm text-muted-foreground mb-3">
         {filteredReviews.length} van {reviews?.length || 0} reviews
