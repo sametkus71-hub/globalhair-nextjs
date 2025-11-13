@@ -22,7 +22,7 @@ export function ReviewThumbnail({ review, onClick }: ReviewThumbnailProps) {
   if (review.review_type === 'video' && review.video_url && !videoError) {
     return (
       <div 
-        className="relative w-20 h-20 rounded border border-border overflow-hidden bg-muted cursor-pointer group"
+        className="relative w-15 h-15 rounded border border-border overflow-hidden bg-muted cursor-pointer group"
         onClick={handleClick}
       >
         <video
@@ -43,7 +43,7 @@ export function ReviewThumbnail({ review, onClick }: ReviewThumbnailProps) {
   if (review.review_type === 'before_after' && review.before_image_url && !imageError) {
     return (
       <div 
-        className="relative w-20 h-20 rounded border border-border overflow-hidden bg-muted cursor-pointer group"
+        className="relative w-15 h-15 rounded border border-border overflow-hidden bg-muted cursor-pointer group"
         onClick={handleClick}
       >
         <img
@@ -64,7 +64,7 @@ export function ReviewThumbnail({ review, onClick }: ReviewThumbnailProps) {
   if (review.review_type === 'static_image' && review.static_image_url && !imageError) {
     return (
       <div 
-        className="relative w-20 h-20 rounded border border-border overflow-hidden bg-muted cursor-pointer group"
+        className="relative w-15 h-15 rounded border border-border overflow-hidden bg-muted cursor-pointer group"
         onClick={handleClick}
       >
         <img
@@ -84,7 +84,7 @@ export function ReviewThumbnail({ review, onClick }: ReviewThumbnailProps) {
   // Fallback - no media or error loading
   return (
     <div 
-      className="w-20 h-20 rounded border border-border bg-muted flex items-center justify-center cursor-pointer"
+      className="w-15 h-15 rounded border border-border bg-muted flex items-center justify-center cursor-pointer"
       onClick={handleClick}
     >
       <FileImage className="w-8 h-8 text-muted-foreground" />
