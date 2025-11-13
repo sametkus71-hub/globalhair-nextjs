@@ -1,6 +1,8 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.7.1";
 
+const BASE_FOLDER = 'website-storage';
+
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
@@ -70,6 +72,7 @@ serve(async (req) => {
     // Get path from query params
     const url = new URL(req.url);
     const path = url.searchParams.get('path') || '';
+    const fullPath = path ? `${BASE_FOLDER}/${path}` : BASE_FOLDER;
 
     // Get Bunny CDN credentials
     const apiKey = Deno.env.get('BUNNY_STORAGE_API_KEY');
@@ -85,15 +88,13 @@ serve(async (req) => {
       });
     }
 
-    console.log(`Listing files in: ${path}`);
+    console.log(`Listing files in: ${fullPath}`);
     console.log(`Zone: ${zone}`);
     console.log(`API Key length: ${apiKey.length} characters`);
     console.log(`API Key first 10 chars: ${apiKey.substring(0, 10)}...`);
 
     // List files from Bunny CDN
-    const listUrl = path 
-      ? `https://${region}.storage.bunnycdn.com/${zone}/${path}/`
-      : `https://${region}.storage.bunnycdn.com/${zone}/`;
+    const listUrl = `https://${region}.storage.bunnycdn.com/${zone}/${fullPath}/`;
     
     const listResponse = await fetch(listUrl, {
       method: 'GET',
