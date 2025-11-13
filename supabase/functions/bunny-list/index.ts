@@ -7,9 +7,12 @@ const corsHeaders = {
 };
 
 serve(async (req) => {
+  // Handle CORS preflight
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
+
+  console.log('Bunny-list function called');
 
   try {
     // Verify user is authenticated and is admin
@@ -109,7 +112,8 @@ serve(async (req) => {
 
   } catch (error) {
     console.error('Error in bunny-list:', error);
-    return new Response(JSON.stringify({ error: error.message }), {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    return new Response(JSON.stringify({ error: errorMessage }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
