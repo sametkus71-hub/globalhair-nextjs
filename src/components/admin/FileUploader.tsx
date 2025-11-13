@@ -1,8 +1,16 @@
 import { useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Upload, X, Check, Copy } from "lucide-react";
+import { Upload, X, Check, Copy, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface FileUploaderProps {
   onUploadSuccess: (url: string) => void;
@@ -21,8 +29,10 @@ export const FileUploader = ({
   const [progress, setProgress] = useState(0);
   const [uploadedUrl, setUploadedUrl] = useState<string | null>(null);
   const [dragActive, setDragActive] = useState(false);
+  const [pendingFile, setPendingFile] = useState<File | null>(null);
+  const [showSizeWarning, setShowSizeWarning] = useState(false);
 
-  const handleUpload = useCallback(async (file: File) => {
+  const proceedWithUpload = useCallback(async (file: File) => {
     setUploading(true);
     setProgress(0);
     setUploadedUrl(null);
@@ -80,6 +90,26 @@ export const FileUploader = ({
       setProgress(0);
     }
   }, [folder, maxSize, onUploadSuccess]);
+
+  const handleUpload = useCallback(async (file: File) => {
+    // Check if image and > 1MB
+    if (file.type.startsWith('image/') && file.size > 1024 * 1024) {
+      setPendingFile(file);
+      setShowSizeWarning(true);
+      return;
+    }
+    
+    // Continue with upload
+    proceedWithUpload(file);
+  }, [proceedWithUpload]);
+
+  const handleContinueAnyway = useCallback(() => {
+    setShowSizeWarning(false);
+    if (pendingFile) {
+      proceedWithUpload(pendingFile);
+      setPendingFile(null);
+    }
+  }, [pendingFile, proceedWithUpload]);
 
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -157,61 +187,105 @@ export const FileUploader = ({
   }
 
   return (
-    <div
-      className={`border-2 border-dashed rounded-[1px] p-6 transition-colors ${
-        dragActive
-          ? "border-blue-900 bg-blue-900/5"
-          : "border-border hover:border-blue-900/50"
-      }`}
-      onDragEnter={handleDrag}
-      onDragLeave={handleDrag}
-      onDragOver={handleDrag}
-      onDrop={handleDrop}
-    >
-      <div className="flex flex-col items-center gap-3">
-        <Upload className="w-8 h-8 text-muted-foreground" />
-        
-        {uploading ? (
-          <div className="w-full max-w-xs">
-            <div className="flex justify-between text-sm mb-1">
-              <span>Uploading...</span>
-              <span>{progress}%</span>
+    <>
+      <div
+        className={`border-2 border-dashed rounded-[1px] p-6 transition-colors ${
+          dragActive
+            ? "border-blue-900 bg-blue-900/5"
+            : "border-border hover:border-blue-900/50"
+        }`}
+        onDragEnter={handleDrag}
+        onDragLeave={handleDrag}
+        onDragOver={handleDrag}
+        onDrop={handleDrop}
+      >
+        <div className="flex flex-col items-center gap-3">
+          <Upload className="w-8 h-8 text-muted-foreground" />
+          
+          {uploading ? (
+            <div className="w-full max-w-xs">
+              <div className="flex justify-between text-sm mb-1">
+                <span>Uploading...</span>
+                <span>{progress}%</span>
+              </div>
+              <div className="w-full bg-muted rounded-full h-2">
+                <div
+                  className="bg-blue-900 h-2 rounded-full transition-all"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
             </div>
-            <div className="w-full bg-muted rounded-full h-2">
-              <div
-                className="bg-blue-900 h-2 rounded-full transition-all"
-                style={{ width: `${progress}%` }}
+          ) : (
+            <>
+              <div className="text-center">
+                <p className="text-sm font-medium">Drop files here or click to browse</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Maximum file size: {maxSize}MB
+                </p>
+              </div>
+              <input
+                type="file"
+                accept={accept}
+                onChange={handleFileChange}
+                className="hidden"
+                id="file-upload"
               />
-            </div>
-          </div>
-        ) : (
-          <>
-            <div className="text-center">
-              <p className="text-sm font-medium">Drop files here or click to browse</p>
-              <p className="text-xs text-muted-foreground mt-1">
-                Maximum file size: {maxSize}MB
-              </p>
-            </div>
-            <input
-              type="file"
-              accept={accept}
-              onChange={handleFileChange}
-              className="hidden"
-              id="file-upload"
-            />
-            <label htmlFor="file-upload">
-              <Button
-                type="button"
-                variant="outline"
-                className="rounded-[1px]"
-                asChild
-              >
-                <span>Select File</span>
-              </Button>
-            </label>
-          </>
-        )}
+              <label htmlFor="file-upload">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="rounded-[1px]"
+                  asChild
+                >
+                  <span>Select File</span>
+                </Button>
+              </label>
+            </>
+          )}
+        </div>
       </div>
-    </div>
+
+      <AlertDialog open={showSizeWarning} onOpenChange={setShowSizeWarning}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>De afbeelding is heel groot</AlertDialogTitle>
+            <AlertDialogDescription>
+              De afbeelding is heel groot, wil je hem eerst comprimeren aub?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          
+          <div className="flex flex-col gap-3 my-4">
+            <a
+              href="https://tinypng.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 px-4 py-3 bg-primary text-primary-foreground rounded-[1px] hover:bg-primary/90 transition-colors font-medium"
+            >
+              TinyPNG Compressor
+              <ExternalLink className="w-4 h-4" />
+            </a>
+            <a
+              href="https://imageresizer.com/image-compressor"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 px-4 py-3 bg-primary text-primary-foreground rounded-[1px] hover:bg-primary/90 transition-colors font-medium"
+            >
+              Image Resizer Compressor
+              <ExternalLink className="w-4 h-4" />
+            </a>
+          </div>
+
+          <AlertDialogFooter>
+            <Button
+              variant="ghost"
+              onClick={handleContinueAnyway}
+              className="rounded-[1px]"
+            >
+              Negeren en doorgaan
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 };
