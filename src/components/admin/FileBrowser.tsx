@@ -84,7 +84,7 @@ export const FileBrowser = ({
             'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJqdmdkcWNidmlrbWpscnRyYWFwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAyMTM2ODksImV4cCI6MjA3NTc4OTY4OX0.gei_9L4GiAE5xukr7MrimWwSfEEOqH5hDpAN4TKCrdU',
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ path }),
+          body: JSON.stringify({ path: `website-storage/${path}` }),
         }
       );
 
