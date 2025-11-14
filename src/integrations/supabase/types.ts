@@ -239,6 +239,54 @@ export type Database = {
         }
         Relationships: []
       }
+      reviews: {
+        Row: {
+          after_image_url: string | null
+          before_image_url: string | null
+          behandeling: string
+          created_at: string
+          description: string
+          id: string
+          is_featured: boolean
+          is_visible: boolean
+          name: string
+          review_type: Database["public"]["Enums"]["review_type"]
+          static_image_url: string | null
+          updated_at: string
+          video_url: string | null
+        }
+        Insert: {
+          after_image_url?: string | null
+          before_image_url?: string | null
+          behandeling: string
+          created_at?: string
+          description: string
+          id?: string
+          is_featured?: boolean
+          is_visible?: boolean
+          name: string
+          review_type: Database["public"]["Enums"]["review_type"]
+          static_image_url?: string | null
+          updated_at?: string
+          video_url?: string | null
+        }
+        Update: {
+          after_image_url?: string | null
+          before_image_url?: string | null
+          behandeling?: string
+          created_at?: string
+          description?: string
+          id?: string
+          is_featured?: boolean
+          is_visible?: boolean
+          name?: string
+          review_type?: Database["public"]["Enums"]["review_type"]
+          static_image_url?: string | null
+          updated_at?: string
+          video_url?: string | null
+        }
+        Relationships: []
+      }
       sync_logs: {
         Row: {
           api_calls_made: number | null
@@ -284,18 +332,48 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string | null
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
       webhook_tracking: {
         Row: {
           sent_at: string | null
           session_id: string
+          webhook_error: string | null
+          webhook_sent_at: string | null
+          webhook_status: string | null
         }
         Insert: {
           sent_at?: string | null
           session_id: string
+          webhook_error?: string | null
+          webhook_sent_at?: string | null
+          webhook_status?: string | null
         }
         Update: {
           sent_at?: string | null
           session_id?: string
+          webhook_error?: string | null
+          webhook_sent_at?: string | null
+          webhook_status?: string | null
         }
         Relationships: []
       }
@@ -328,6 +406,13 @@ export type Database = {
       cleanup_expired_booking_intents: { Args: never; Returns: undefined }
       cleanup_old_haaranalyse_jobs: { Args: never; Returns: undefined }
       cleanup_webhook_tracking: { Args: never; Returns: undefined }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
       match_documents: {
         Args: { filter?: Json; match_count?: number; query_embedding: string }
         Returns: {
@@ -339,7 +424,8 @@ export type Database = {
       }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin"
+      review_type: "video" | "before_after" | "static_image"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -466,6 +552,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin"],
+      review_type: ["video", "before_after", "static_image"],
+    },
   },
 } as const
