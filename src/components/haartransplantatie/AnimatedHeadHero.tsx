@@ -41,7 +41,7 @@ export const AnimatedHeadHero = () => {
         }}
       >
         <span 
-          className="text-white whitespace-nowrap flex items-center gap-1"
+          className="text-white whitespace-nowrap inline-flex items-center"
           style={{ 
             fontFamily: 'Inter, system-ui, sans-serif',
             fontSize: 'clamp(0.875rem, 1.4vh, 1rem)',
@@ -49,9 +49,11 @@ export const AnimatedHeadHero = () => {
             paddingRight: '.75rem',
           }}
         >
-          AI
-          <img src={aiIcon} alt="" className="inline-block" style={{ width: 'clamp(14px, 1.8vh, 18px)', height: 'clamp(14px, 1.8vh, 18px)' }} />
-          Haarscan
+          <span className="relative">
+            AI
+            <img src={aiIcon} alt="" className="absolute" style={{ width: 'clamp(8px, 1vh, 10px)', height: 'clamp(8px, 1vh, 10px)', top: '-2px', right: '-10px', opacity: 0.9 }} />
+          </span>
+          <span style={{ marginLeft: '0.25rem' }}>Haarscan</span>
         </span>
         <div 
           className="silver-gradient-border cta-button-glow flex items-center justify-center rounded-full"
