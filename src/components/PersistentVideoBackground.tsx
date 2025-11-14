@@ -41,8 +41,8 @@ export const PersistentVideoBackground = () => {
   if (!mounted || isAdminRoute) return null;
 
   const videoSrc = isMobile 
-    ? 'https://globalhair.b-cdn.net/Bg%20Videos/S3.mp4'
-    : 'https://globalhair.b-cdn.net/Bg%20Videos/Horizontaal%20blue_1%20V2%20MP4.mp4';
+    ? 'https://GlobalHair.b-cdn.net/Bg%20Videos/P%20-%20Basic%20BG%20V0.mp4'
+    : 'https://GlobalHair.b-cdn.net/Bg%20Videos/D%20-%20Basic%20BG%20V0.mp4';
 
   return (
     <div 
