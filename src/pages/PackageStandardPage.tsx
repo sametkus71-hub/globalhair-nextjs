@@ -506,6 +506,11 @@ export const PackageStandardPage = () => {
         />
         <div 
           className="h-full flex items-start justify-center p-4 pt-4 md:pb-12"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              handleClose();
+            }
+          }}
         >
           <main 
             className="flex flex-col w-full max-w-2xl md:max-w-[365px]"
