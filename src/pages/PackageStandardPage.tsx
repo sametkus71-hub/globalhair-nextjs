@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Shield } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
+import { useIsMobile } from '@/hooks/use-mobile';
 import chevronRightSvg from '@/assets/chevron-right.svg';
 import leafSvg from '@/assets/leaf.svg';
 import { PopupCloseButton, usePopupClose, SwipeablePopupWrapper } from '@/components/PopupCloseButton';
@@ -13,6 +14,7 @@ export const PackageStandardPage = () => {
   const { language } = useLanguage();
   const navigate = useNavigate();
   const { country: urlCountry, tier: urlTier } = useParams<{ country: string; tier: string }>();
+  const isMobile = useIsMobile();
   
   // Always default to Nederland (nl) when popup opens
   const [activeCountry, setActiveCountry] = useState<'nl' | 'tr'>('nl');
@@ -34,9 +36,22 @@ export const PackageStandardPage = () => {
 
   // Video sources mapping - correct URLs for each tier
   const videoSources = {
-    Standard: 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Standard%20V0.mp4',
-    Premium: 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Premium%20V0.mp4',
-    Elite: 'https://globalhair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Elite%20V0.mp4'
+    Standard: {
+      mobile: 'https://globalhair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Standard%20V0.mp4',
+      desktop: 'https://globalhair.b-cdn.net/pakketten%20bg%20vid/P%20-%20Standard%20V0.mp4'
+    },
+    Premium: {
+      mobile: 'https://globalhair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Premium%20V0.mp4',
+      desktop: 'https://globalhair.b-cdn.net/pakketten%20bg%20vid/P%20-%20Premium%20V0.mp4'
+    },
+    Elite: {
+      mobile: 'https://globalhair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Elite%20V0.mp4',
+      desktop: 'https://globalhair.b-cdn.net/pakketten%20bg%20vid/P%20-%20Elite%20V0.mp4'
+    }
+  };
+
+  const getVideoSource = (tier: 'Standard' | 'Premium' | 'Elite') => {
+    return isMobile ? videoSources[tier].mobile : videoSources[tier].desktop;
   };
 
   // Ensure base page assets are preloaded and mark body as popup-open
@@ -75,7 +90,7 @@ export const PackageStandardPage = () => {
     if (!videoContainerRef.current) return;
     
     const initialVideo = document.createElement('video');
-    initialVideo.src = videoSources[activeTier];
+    initialVideo.src = getVideoSource(activeTier);
     initialVideo.autoplay = true;
     initialVideo.loop = true;
     initialVideo.muted = true;
@@ -172,7 +187,7 @@ export const PackageStandardPage = () => {
     
     try {
       // Load new video in background
-      const newVideoSrc = videoSources[newTier];
+      const newVideoSrc = getVideoSource(newTier);
       const newVideo = await loadVideoInBackground(newVideoSrc);
       
       // Prepare for crossfade
@@ -223,7 +238,7 @@ export const PackageStandardPage = () => {
     
     try {
       // Load new video in background
-      const newVideoSrc = videoSources[tier];
+      const newVideoSrc = getVideoSource(tier);
       const newVideo = await loadVideoInBackground(newVideoSrc);
       
       // Prepare for crossfade
