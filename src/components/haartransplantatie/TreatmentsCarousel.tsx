@@ -4,20 +4,38 @@ import { useLanguage } from "@/hooks/useLanguage";
 import { useSession } from "@/hooks/useSession";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-// All packages show these 5 features
-const FEATURES = [
-  "FUE Saffier / DHI",
-  "GHI Stamcell Repair™",
-  "Full Comfort Anesthesia",
-  "V6 Hairboost ® - Prime",
-  "V6 Hairboost ® - Recovery"
-];
-
-// Which features are visible (not blurred) for each package
-const PACKAGE_VISIBILITY = {
-  standard: [0], // Only FUE Saffier / DHI visible
-  premium: [1, 3], // GHI Stamcell Repair™ and V6 Hairboost ® - Prime visible
-  elite: [1, 2, 3] // GHI Stamcell Repair™, Full Comfort Anesthesia, and V6 Hairboost ® - Prime visible
+// Each package has different features with specific active/blurred states
+const PACKAGE_FEATURES = {
+  standard: {
+    features: [
+      "FUE Saffier / DHI",
+      "Comfort verdoving",
+      "1 year personal follow up",
+      "1 year GHI support",
+      "GHI Precision Method"
+    ],
+    activeIndices: [0] // Only first feature is active
+  },
+  premium: {
+    features: [
+      "FUE Saffier / DHI",
+      "GHI Stemcell Repair",
+      "Comfort verdoving",
+      "V6 Hairboost - Prime",
+      "V6 Hairboost - Recovery"
+    ],
+    activeIndices: [1, 3] // GHI Stemcell Repair and V6 Hairboost - Prime are active
+  },
+  elite: {
+    features: [
+      "FUE Saffier / DHI",
+      "GHI Stemcell Repair",
+      "Full Comfort Anesthesia",
+      "V6 Hairboost - Prime",
+      "V6 Hairboost - Recovery"
+    ],
+    activeIndices: [1, 2, 3] // GHI Stemcell Repair, Full Comfort Anesthesia, and V6 Hairboost - Prime are active
+  }
 };
 
 const BASE = [
@@ -294,13 +312,13 @@ export const TreatmentsCarousel = () => {
             <div className="treat-card-content">
               <div className="treat-pill">{it.title}</div>
               <ul className="treat-features-list">
-                {FEATURES.map((feature, idx) => {
-                  const visibleIndices = PACKAGE_VISIBILITY[it.id as keyof typeof PACKAGE_VISIBILITY];
-                  const isVisible = visibleIndices.includes(idx);
+                {PACKAGE_FEATURES[it.id as keyof typeof PACKAGE_FEATURES].features.map((feature, idx) => {
+                  const activeIndices = PACKAGE_FEATURES[it.id as keyof typeof PACKAGE_FEATURES].activeIndices;
+                  const isActive = activeIndices.includes(idx);
                   return (
                     <li 
                       key={idx} 
-                      className={`treat-feature-item ${!isVisible ? 'treat-feature-faded' : ''}`}
+                      className={`treat-feature-item ${!isActive ? 'treat-feature-faded' : ''}`}
                     >
                       {feature}
                     </li>
