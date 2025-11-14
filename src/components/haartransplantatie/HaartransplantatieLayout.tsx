@@ -90,7 +90,7 @@ export const HaartransplantatieLayout = () => {
                   className="relative flex-1 overflow-hidden flex flex-col" 
                   style={{ 
                     paddingTop: 'clamp(0rem, 0.3vh, 0.6rem)', 
-                    paddingBottom: 'clamp(4rem, 10vh, 6rem)' // Clear the footer buttons
+                    paddingBottom: 'clamp(6rem, 12vh, 8rem)' // Clear the footer buttons with more space
                   }}
                 >
                   {/* Content from specific page - smooth fade transition on content only */}
