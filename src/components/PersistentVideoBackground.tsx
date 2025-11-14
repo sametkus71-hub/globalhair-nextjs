@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export const PersistentVideoBackground = () => {
   const [mounted, setMounted] = useState(false);
@@ -7,6 +8,7 @@ export const PersistentVideoBackground = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const { pathname } = useLocation();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const isMobile = useIsMobile();
   
   // Detect if we're on chat page for styling
   const isChat = pathname.endsWith('/chat') || pathname.includes('/chat');
@@ -38,7 +40,9 @@ export const PersistentVideoBackground = () => {
 
   if (!mounted || isAdminRoute) return null;
 
-  const videoSrc = 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Basic%20BG%20V0.mp4';
+  const videoSrc = isMobile 
+    ? 'https://globalhair.b-cdn.net/Bg%20Videos/S3.mp4'
+    : 'https://globalhair.b-cdn.net/Bg%20Videos/Horizontaal%20blue_1%20V2%20MP4.mp4';
 
   return (
     <div 
@@ -52,7 +56,7 @@ export const PersistentVideoBackground = () => {
       {shouldLoadVideo && (
         <video
           ref={videoRef}
-          key={videoSrc}
+          key={`${videoSrc}-${isMobile}`}
           loop
           muted
           playsInline
@@ -75,7 +79,7 @@ export const PersistentVideoBackground = () => {
           background: isChat 
             ? 'linear-gradient(180deg, rgba(4, 14, 21, 0.80) 0%, rgba(51, 61, 70, 0.85) 100%)'
             : 'linear-gradient(rgba(10, 37, 64, 0.6) 10%, rgba(17, 53, 86, 0.4) 25%, rgba(24, 24, 27, 0.2) 40%, transparent 70%)',
-          backdropFilter: isChat ? 'none' : 'blur(6px)',
+          backdropFilter: isChat ? 'none' : (isMobile ? 'blur(6px)' : 'blur(1px)'),
         }}
       />
       
