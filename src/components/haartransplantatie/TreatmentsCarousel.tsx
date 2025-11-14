@@ -19,10 +19,10 @@ const PACKAGE_FEATURES = {
   premium: {
     features: [
       "FUE Saffier / DHI",
-      "GHI Stemcell Repair",
+      "GHI Stemcell Repair™",
       "Comfort verdoving",
-      "V6 Hairboost - Prime",
-      "V6 Hairboost - Recovery"
+      "V6 Hairboost ® - Prime",
+      "V6 Hairboost ® - Recovery"
     ],
     activeIndices: [1, 3] // GHI Stemcell Repair and V6 Hairboost - Prime are active
   },
