@@ -53,7 +53,7 @@ export const AnimatedHeadHero = () => {
             AI
             <img src={aiIcon} alt="" className="absolute" style={{ width: 'clamp(8px, 1vh, 10px)', height: 'clamp(8px, 1vh, 10px)', top: '-2px', right: '-10px', opacity: 0.9 }} />
           </span>
-          <span style={{ marginLeft: '0.25rem' }}>Haarscan</span>
+          <span style={{ marginLeft: '0.5rem' }}>Haarscan</span>
         </span>
         <div 
           className="silver-gradient-border cta-button-glow flex items-center justify-center rounded-full"
