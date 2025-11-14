@@ -2,7 +2,6 @@ import { Upload } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useToast } from '@/hooks/use-toast';
-import aiIcon from '@/assets/ai-icon.png';
 
 export const AnimatedHeadHero = () => {
   const { language } = useLanguage();
@@ -41,7 +40,7 @@ export const AnimatedHeadHero = () => {
         }}
       >
         <span 
-          className="text-white whitespace-nowrap inline-flex items-center"
+          className="text-white whitespace-nowrap"
           style={{ 
             fontFamily: 'Inter, system-ui, sans-serif',
             fontSize: 'clamp(0.875rem, 1.4vh, 1rem)',
@@ -49,11 +48,7 @@ export const AnimatedHeadHero = () => {
             paddingRight: '.75rem',
           }}
         >
-          <span className="relative">
-            AI
-            <img src={aiIcon} alt="" className="absolute" style={{ width: 'clamp(8px, 1vh, 10px)', height: 'clamp(8px, 1vh, 10px)', top: '-2px', right: '-10px', opacity: 0.9 }} />
-          </span>
-          <span style={{ marginLeft: '0.5rem' }}>Haarscan</span>
+          AI Haarscan
         </span>
         <div 
           className="silver-gradient-border cta-button-glow flex items-center justify-center rounded-full"
