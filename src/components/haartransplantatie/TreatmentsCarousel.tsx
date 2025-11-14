@@ -29,10 +29,10 @@ const PACKAGE_FEATURES = {
   elite: {
     features: [
       "FUE Saffier / DHI",
-      "GHI Stemcell Repair",
+      "GHI Stemcell Repair™",
       "Full Comfort Anesthesia",
-      "V6 Hairboost - Prime",
-      "V6 Hairboost - Recovery"
+      "V6 Hairboost ® - Prime",
+      "V6 Hairboost ® - Recovery"
     ],
     activeIndices: [1, 2, 3] // GHI Stemcell Repair, Full Comfort Anesthesia, and V6 Hairboost - Prime are active
   }
