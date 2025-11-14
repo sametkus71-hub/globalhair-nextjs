@@ -39,7 +39,7 @@ export const ReviewsTabContent = () => {
       <div 
         ref={scrollContainerRef}
         onScroll={checkScrollPosition}
-        className="reviews-scrollbar h-full w-full overflow-x-auto overflow-y-hidden flex items-center lg:pl-20"
+        className="reviews-scrollbar h-full w-full overflow-x-auto overflow-y-hidden flex items-center lg:pl-[20vw]"
       >
         <ReviewsGrid />
       </div>
