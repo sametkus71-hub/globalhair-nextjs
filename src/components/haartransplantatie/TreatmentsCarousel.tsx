@@ -12,7 +12,7 @@ const PACKAGE_FEATURES = {
       "Comfort verdoving",
       "1 year personal follow up",
       "1 year GHI support",
-      "GHI Precision Method"
+      "GHI Precision Method™"
     ],
     activeIndices: [0] // Only first feature is active
   },
