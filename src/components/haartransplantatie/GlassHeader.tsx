@@ -1,10 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { AnimatedHeadHero } from './AnimatedHeadHero';
 import hairtransplantLogo from '@/assets/hairtransplant-logo.png';
 
 export const GlassHeader = () => {
   const navigate = useNavigate();
   const { language } = useLanguage();
+  const isMobile = useIsMobile();
 
   return (
     <header 
@@ -22,6 +25,13 @@ export const GlassHeader = () => {
             style={{ height: '2.5rem' }}
           />
         </div>
+        
+        {/* Button - right side (desktop only) */}
+        {!isMobile && (
+          <div className="flex items-center">
+            <AnimatedHeadHero inHeader={true} />
+          </div>
+        )}
       </div>
 
       <style>{`
