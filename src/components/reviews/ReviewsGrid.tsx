@@ -234,10 +234,10 @@ export const ReviewsGrid = () => {
           isGridAnimated && "grid-animate"
         )}
         style={{
-          height: '370px',  // 3 rows × 120px + 2 gaps × 5px
-          gridAutoColumns: '120px',
+          height: isMobile ? '370px' : '540px',  // Mobile: 370px | Desktop: 540px (3 rows × 175px + 2 gaps × 7.5px)
+          gridAutoColumns: isMobile ? '120px' : '175px',  // Mobile: 120px | Desktop: 175px
           gridAutoFlow: 'column dense',  // Flow horizontally and fill gaps intelligently
-          gap: '5px',
+          gap: isMobile ? '5px' : '7.5px',  // Mobile: 5px | Desktop: 7.5px
           backgroundColor: 'transparent'
         }}
       >
