@@ -96,6 +96,18 @@ export const TreatmentsCarousel = () => {
     const cards = Array.from(el.querySelectorAll<HTMLElement>(".treat-card"));
     if (!cards.length) return;
 
+    // Only apply 3D transforms on mobile
+    if (!isMobile) {
+      // Desktop: reset all cards to default state
+      cards.forEach((card) => {
+        card.style.transform = 'scale(1)';
+        card.style.filter = 'none';
+        card.style.zIndex = '1';
+        card.style.opacity = '1';
+      });
+      return;
+    }
+
     const scrollerRect = el.getBoundingClientRect();
     const midX = scrollerRect.left + scrollerRect.width / 2;
 
@@ -146,11 +158,13 @@ export const TreatmentsCarousel = () => {
     });
   };
 
-  // initial center on Premium
-  useEffect(() => { 
-    snapTo(1, false);
+  // initial center on Premium (mobile only)
+  useEffect(() => {
+    if (isMobile) {
+      snapTo(1, false);
+    }
     update3DTransforms();
-  }, []);
+  }, [isMobile]);
 
   // Control video playback based on active state and device
   useEffect(() => {
@@ -173,11 +187,24 @@ export const TreatmentsCarousel = () => {
     });
   }, [active, isMobile]);
 
-  // Consolidated scroll listener: 3D transforms + snap detection
+  // Consolidated scroll listener: 3D transforms + snap detection (mobile only)
   useEffect(() => {
     const el = scrollerRef.current;
     if (!el) return;
 
+    // run once on mount and on resize
+    update3DTransforms();
+    const ro = new ResizeObserver(() => update3DTransforms());
+    ro.observe(el);
+
+    // Desktop: no scroll behavior needed
+    if (!isMobile) {
+      return () => {
+        ro.disconnect();
+      };
+    }
+
+    // Mobile: full scroll behavior
     let raf = 0;
     let snapTimeout: number | undefined;
 
@@ -225,12 +252,7 @@ export const TreatmentsCarousel = () => {
       }, 150);
     };
 
-    // run once on mount and on resize
-    update3DTransforms();
-    const ro = new ResizeObserver(() => update3DTransforms());
-
     el.addEventListener("scroll", onScroll, { passive: true });
-    ro.observe(el);
 
     return () => {
       el.removeEventListener("scroll", onScroll);
@@ -238,7 +260,7 @@ export const TreatmentsCarousel = () => {
       cancelAnimationFrame(raf);
       clearTimeout(snapTimeout);
     };
-  }, [active]);
+  }, [active, isMobile]);
 
   // keyboard arrows navigation
   const go = (dir: -1 | 1) => {
@@ -341,18 +363,20 @@ export const TreatmentsCarousel = () => {
         })}
       </div>
 
-      <div className="treat-dots" role="tablist" aria-label="Pagination">
-        {items.map((item, index) => (
-          <button
-            key={item.id}
-            role="tab"
-            aria-selected={index === active}
-            aria-label={`View ${item.title} package`}
-            className={`dot ${index === active ? "is-active" : ""}`}
-            onClick={() => handleDotClick(index)}
-          />
-        ))}
-      </div>
+      {isMobile && (
+        <div className="treat-dots" role="tablist" aria-label="Pagination">
+          {items.map((item, index) => (
+            <button
+              key={item.id}
+              role="tab"
+              aria-selected={index === active}
+              aria-label={`View ${item.title} package`}
+              className={`dot ${index === active ? "is-active" : ""}`}
+              onClick={() => handleDotClick(index)}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 };
