@@ -3,11 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useIsMobile } from '@/hooks/use-mobile';
 import chatIcon from '@/assets/chat-icon.svg';
+import { useState, useEffect } from 'react';
 
 export const FooterCTAGlass = () => {
   const navigate = useNavigate();
   const { language } = useLanguage();
   const isMobile = useIsMobile();
+  const [shouldAnimate, setShouldAnimate] = useState(true);
+
+  useEffect(() => {
+    // Check if we're returning from a popup (desktop only)
+    if (!isMobile && sessionStorage.getItem('skipPageAnimations') === 'true') {
+      setShouldAnimate(false);
+    }
+  }, [isMobile]);
 
   return (
     <>
@@ -20,7 +29,7 @@ export const FooterCTAGlass = () => {
           paddingBottom: isMobile 
             ? 'clamp(calc(env(safe-area-inset-bottom) + 0.5rem), calc(env(safe-area-inset-bottom) + 1vh), calc(env(safe-area-inset-bottom) + 1rem))'
             : 'clamp(calc(env(safe-area-inset-bottom) + 1.5rem), calc(env(safe-area-inset-bottom) + 2.5vh), calc(env(safe-area-inset-bottom) + 2rem))',
-          animation: 'fade-up 0.6s ease-out 1.4s both',
+          animation: isMobile ? 'fade-up 0.6s ease-out 1.4s both' : (shouldAnimate ? 'fade-up 0.6s ease-out 1.4s both' : 'none'),
           background: 'linear-gradient(180deg, rgba(4, 14, 21, 0) 0%, rgba(4, 14, 21, 0.9) 100%)',
         }}
       >
