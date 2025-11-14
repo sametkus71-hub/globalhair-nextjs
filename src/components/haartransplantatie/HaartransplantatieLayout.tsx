@@ -85,7 +85,7 @@ export const HaartransplantatieLayout = () => {
 
             {/* Content Zone - 1400px width on desktop, full width on mobile */}
             {!isPackageRoute && (
-              <WideContentContainer>
+              <WideContentContainer className="flex-1 flex flex-col">
                 <div 
                   className="relative flex-1 overflow-hidden flex flex-col" 
                   style={{ 
