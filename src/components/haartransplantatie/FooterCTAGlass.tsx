@@ -18,7 +18,7 @@ export const FooterCTAGlass = () => {
           paddingLeft: 'clamp(0.5rem, 1vw, 0.75rem)',
           paddingRight: 'clamp(0.5rem, 1vw, 0.75rem)',
           paddingBottom: isMobile 
-            ? 'clamp(calc(env(safe-area-inset-bottom) + 1.5rem), calc(env(safe-area-inset-bottom) + 2vh), calc(env(safe-area-inset-bottom) + 2rem))'
+            ? 'clamp(calc(env(safe-area-inset-bottom) + 0.5rem), calc(env(safe-area-inset-bottom) + 1vh), calc(env(safe-area-inset-bottom) + 1rem))'
             : 'clamp(calc(env(safe-area-inset-bottom) + 1.5rem), calc(env(safe-area-inset-bottom) + 2.5vh), calc(env(safe-area-inset-bottom) + 2rem))',
           animation: 'fade-up 0.6s ease-out 1.4s both',
           background: 'linear-gradient(180deg, rgba(4, 14, 21, 0) 0%, rgba(4, 14, 21, 0.9) 100%)',
