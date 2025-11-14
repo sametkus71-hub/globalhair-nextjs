@@ -19,6 +19,9 @@ export const HaartransplantatieLayout = () => {
   // Check if we're on a package route (should render as overlay)
   const isPackageRoute = /\/(nl|en)\/(haartransplantatie|hair-transplant)\/(nl|tr)\/(standard|premium|elite)/.test(location.pathname);
   
+  // Check if we're on reviews route (needs full width on desktop)
+  const isReviewsRoute = location.pathname.includes('/reviews');
+  
   // Determine active tab from URL
   const getActiveTab = () => {
     const path = location.pathname;
@@ -83,28 +86,51 @@ export const HaartransplantatieLayout = () => {
               </div>
             </DesktopContainer>
 
-            {/* Content Zone - 1400px width on desktop, full width on mobile */}
+            {/* Content Zone - Full width for reviews on desktop, 1400px width for other tabs */}
             {!isPackageRoute && (
-              <WideContentContainer className="flex-1 flex flex-col">
-                <div 
-                  className="relative flex-1 overflow-hidden flex flex-col" 
-                  style={{ 
-                    paddingTop: 'clamp(0rem, 0.3vh, 0.6rem)', 
-                    paddingBottom: isMobile 
-                      ? 'clamp(4rem, 10vh, 6rem)' // Original mobile spacing
-                      : 'clamp(6rem, 12vh, 8rem)' // Desktop: more space from footer
-                  }}
-                >
-                  {/* Content from specific page - smooth fade transition on content only */}
+              isReviewsRoute && !isMobile ? (
+                // Full width for reviews on desktop
+                <div className="flex-1 flex flex-col w-full">
                   <div 
-                    key={location.pathname}
-                    className="relative flex-1 overflow-hidden animate-fade-in"
-                    style={{ animationDuration: '150ms' }}
+                    className="relative flex-1 overflow-hidden flex flex-col" 
+                    style={{ 
+                      paddingTop: 'clamp(0rem, 0.3vh, 0.6rem)', 
+                      paddingBottom: 'clamp(6rem, 12vh, 8rem)'
+                    }}
                   >
-                    <Outlet />
+                    {/* Content from specific page - smooth fade transition on content only */}
+                    <div 
+                      key={location.pathname}
+                      className="relative flex-1 overflow-hidden animate-fade-in"
+                      style={{ animationDuration: '150ms' }}
+                    >
+                      <Outlet />
+                    </div>
                   </div>
                 </div>
-              </WideContentContainer>
+              ) : (
+                // Standard 1250px container for other tabs
+                <WideContentContainer className="flex-1 flex flex-col">
+                  <div 
+                    className="relative flex-1 overflow-hidden flex flex-col" 
+                    style={{ 
+                      paddingTop: 'clamp(0rem, 0.3vh, 0.6rem)', 
+                      paddingBottom: isMobile 
+                        ? 'clamp(4rem, 10vh, 6rem)' // Original mobile spacing
+                        : 'clamp(6rem, 12vh, 8rem)' // Desktop: more space from footer
+                    }}
+                  >
+                    {/* Content from specific page - smooth fade transition on content only */}
+                    <div 
+                      key={location.pathname}
+                      className="relative flex-1 overflow-hidden animate-fade-in"
+                      style={{ animationDuration: '150ms' }}
+                    >
+                      <Outlet />
+                    </div>
+                  </div>
+                </WideContentContainer>
+              )
             )}
           </div>
         </div>
