@@ -22,13 +22,14 @@ export const FooterCTAGlass = () => {
           background: 'linear-gradient(180deg, rgba(4, 14, 21, 0) 0%, rgba(4, 14, 21, 0.9) 100%)',
         }}
       >
-        <div className="flex items-center justify-between space-x-2">
+        <div className={`flex items-center space-x-2 ${isMobile ? 'justify-between' : 'justify-center'}`}>
           {/* Book a consult button */}
           <button
             onClick={() => navigate(language === 'nl' ? '/nl/boek' : '/en/book')}
-            className="gold-gradient-border cta-button-glow flex-1 flex items-center rounded-full transition-all duration-200"
+            className={`gold-gradient-border cta-button-glow ${isMobile ? 'flex-1' : ''} flex items-center rounded-full transition-all duration-200`}
             style={{
               padding: '0.4rem',
+              width: isMobile ? undefined : '250px',
               background: 'linear-gradient(90deg, rgba(15, 25, 40, 0.7), rgba(35, 50, 70, 0.8), rgba(50, 65, 85, 0.75), rgba(35, 50, 70, 0.8), rgba(15, 25, 40, 0.7))',
               backgroundSize: '200% 100%',
               animation: 'background-gradient-shift 7s ease-in-out infinite',
