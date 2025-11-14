@@ -12,9 +12,9 @@ export const FooterCTAGlass = () => {
   return (
     <>
       <div
-        className={`fixed left-0 right-0 z-40 ${isMobile ? 'bottom-0' : ''}`}
+        className="fixed left-0 right-0 bottom-0 z-40"
         style={{
-          bottom: isMobile ? undefined : 'clamp(1rem, 2vh, 1.5rem)',
+          paddingTop: isMobile ? '1rem' : 'clamp(1rem, 2vh, 1.5rem)',
           paddingLeft: 'clamp(0.5rem, 1vw, 0.75rem)',
           paddingRight: 'clamp(0.5rem, 1vw, 0.75rem)',
           paddingBottom: 'clamp(calc(env(safe-area-inset-bottom) + 0.5rem), calc(env(safe-area-inset-bottom) + 1vh), calc(env(safe-area-inset-bottom) + 1rem))',
