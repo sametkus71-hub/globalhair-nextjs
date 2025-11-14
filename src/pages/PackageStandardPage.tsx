@@ -508,7 +508,7 @@ export const PackageStandardPage = () => {
           className="h-full flex items-start justify-center p-4 pt-4 md:pb-12"
         >
           <main 
-            className="flex flex-col w-full max-w-2xl"
+            className="flex flex-col w-full max-w-2xl md:max-w-[365px]"
             style={{ height: 'calc(var(--app-height) - 32px)' }}
           >
             <SwipeablePopupWrapper onClose={handleClose} className="h-full flex flex-col">
