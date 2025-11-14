@@ -505,7 +505,7 @@ export const PackageStandardPage = () => {
           style={{ pointerEvents: 'none', zIndex: 0 }}
         />
         <div 
-          className="h-full flex items-start justify-center p-4 pt-4"
+          className="h-full flex items-start justify-center p-4 pt-4 md:pb-12"
         >
           <main 
             className="flex flex-col w-full max-w-2xl"
