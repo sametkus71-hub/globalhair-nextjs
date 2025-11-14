@@ -48,7 +48,7 @@ export const AnimatedHeadHero = () => {
             paddingRight: '.75rem',
           }}
         >
-          Analyze my hair
+          AI Haarscan
         </span>
         <div 
           className="silver-gradient-border cta-button-glow flex items-center justify-center rounded-full"
