@@ -148,9 +148,9 @@ export const ReviewsGrid = () => {
   // Generate random grid on component mount
   const [gridItems] = useState<GridItem[]>(() => generateRandomGrid());
   
-  // Progressive loading state - start with only 6 items for faster initial load
+  // Progressive loading state - start with more items on desktop for better UX
   const [visibleItemCount, setVisibleItemCount] = useState(() => 
-    isMobile ? 6 : 20
+    isMobile ? 6 : 50
   );
   
   // State for video muting - track which video is currently unmuted (if any)
@@ -162,7 +162,7 @@ export const ReviewsGrid = () => {
   // Intersection observer for progressive loading - increased rootMargin for better preloading
   const { isIntersecting: shouldLoadMore, elementRef: loadMoreRef } = useIntersection<HTMLDivElement>({
     threshold: 0.1,
-    rootMargin: '500px'
+    rootMargin: '800px'
   });
 
   // Find video items to determine which should autoplay
@@ -194,18 +194,19 @@ export const ReviewsGrid = () => {
     setUnmutedVideoId(prevId => prevId === videoId ? null : videoId);
   };
 
-  // Progressive loading effect - load 6 items at a time for smoother experience
+  // Progressive loading effect - load in batches (6 for mobile, 20 for desktop)
   useEffect(() => {
     if (shouldLoadMore && visibleItemCount < gridItems.length) {
       const loadNextBatch = () => {
-        setVisibleItemCount(prev => Math.min(prev + 6, gridItems.length));
+        const batchSize = isMobile ? 6 : 20;
+        setVisibleItemCount(prev => Math.min(prev + batchSize, gridItems.length));
       };
       
       // Small delay to prevent rapid loading
       const timeoutId = setTimeout(loadNextBatch, 150);
       return () => clearTimeout(timeoutId);
     }
-  }, [shouldLoadMore, visibleItemCount, gridItems.length]);
+  }, [shouldLoadMore, visibleItemCount, gridItems.length, isMobile]);
 
   // Trigger grid animation on mount
   useEffect(() => {
