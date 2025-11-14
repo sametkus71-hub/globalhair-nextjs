@@ -7,17 +7,17 @@ import { useIsMobile } from "@/hooks/use-mobile";
 // All packages show these 5 features
 const FEATURES = [
   "FUE Saffier / DHI",
-  "GHI Stemcell Repair™",
   "Full Comfort Anesthesia",
-  "V6 Hairboost ® - Prime",
-  "V6 Hairboost ® - Recovery"
+  "1 Personal Follow-Up",
+  "1 Year GHI Support",
+  "GHI Precision Method™"
 ];
 
 // Which features are visible (not blurred) for each package
 const PACKAGE_VISIBILITY = {
   standard: [0], // Only FUE Saffier / DHI visible
-  premium: [1, 3], // GHI Stemcell Repair™ and V6 Hairboost ® - Prime visible
-  elite: [1, 2, 3] // GHI Stemcell Repair™, Full Comfort Anesthesia, and V6 Hairboost ® - Prime visible
+  premium: [0, 1, 2], // FUE + Full Comfort + 1 Personal Follow-Up visible
+  elite: [0, 1, 2, 3, 4] // All features visible
 };
 
 const BASE = [
