@@ -43,7 +43,7 @@ export const ReviewsPage = () => {
         
         {/* Full screen Instagram-style grid - horizontal scrolling */}
         <div
-          className="w-full h-full overflow-x-auto overflow-y-hidden pl-4 pr-4 flex items-center"
+          className="w-full h-full overflow-x-auto overflow-y-hidden pl-4 pr-4 md:pl-8 md:pr-8 flex items-center"
           style={{ 
             WebkitOverflowScrolling: 'touch', 
             overscrollBehavior: 'contain',

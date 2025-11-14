@@ -150,7 +150,7 @@ export const ReviewsGrid = () => {
   
   // Progressive loading state - start with only 6 items for faster initial load
   const [visibleItemCount, setVisibleItemCount] = useState(() => 
-    isMobile ? 6 : 12
+    isMobile ? 6 : 20
   );
   
   // State for video muting - track which video is currently unmuted (if any)
