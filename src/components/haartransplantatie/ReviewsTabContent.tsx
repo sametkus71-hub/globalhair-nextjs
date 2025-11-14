@@ -48,7 +48,7 @@ export const ReviewsTabContent = () => {
       {!atStart && (
         <button 
           onClick={scrollLeft}
-          className="hidden md:flex fixed bottom-16 right-20 z-[9999] items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg hover:bg-white/20 transition-all duration-200"
+          className="hidden md:flex fixed bottom-24 right-20 z-[10001] items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg hover:bg-white/20 transition-all duration-200 pointer-events-auto"
           aria-label="Scroll left"
         >
           <ChevronLeft className="w-5 h-5 text-white" />
@@ -57,7 +57,7 @@ export const ReviewsTabContent = () => {
       {!atEnd && (
         <button 
           onClick={scrollRight}
-          className="hidden md:flex fixed bottom-16 right-6 z-[9999] items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg hover:bg-white/20 transition-all duration-200"
+          className="hidden md:flex fixed bottom-24 right-6 z-[10001] items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full shadow-lg hover:bg-white/20 transition-all duration-200 pointer-events-auto"
           aria-label="Scroll right"
         >
           <ChevronRight className="w-5 h-5 text-white" />
