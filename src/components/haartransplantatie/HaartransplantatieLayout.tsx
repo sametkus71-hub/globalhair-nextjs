@@ -1,6 +1,7 @@
 import { useLayoutEffect } from 'react';
 import { useLocation, Outlet } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { MetaHead } from '@/components/MetaHead';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
 import { GlassHeader } from '@/components/haartransplantatie/GlassHeader';
@@ -12,6 +13,7 @@ import { TabPreloader } from '@/components/haartransplantatie/TabPreloader';
 export const HaartransplantatieLayout = () => {
   const { language } = useLanguage();
   const location = useLocation();
+  const isMobile = useIsMobile();
   
   // Check if we're on a package route (should render as overlay)
   const isPackageRoute = /\/(nl|en)\/(haartransplantatie|hair-transplant)\/(nl|tr)\/(standard|premium|elite)/.test(location.pathname);
@@ -63,10 +65,12 @@ export const HaartransplantatieLayout = () => {
             <div className="relative z-10 flex flex-col h-screen overflow-hidden" style={{ paddingTop: 'clamp(2rem, 8vh, 120px)' }}>
               {/* Content Flow Container */}
               <div className="relative flex flex-col flex-1 overflow-hidden" style={{ paddingTop: 'clamp(1.5rem, 2vh, 2.5rem)' }}>
-                {/* Animated Head Hero (Button Only) */}
-                <div className="flex-shrink-0 pb-[10px]">
-                  <AnimatedHeadHero />
-                </div>
+                {/* Animated Head Hero (Button Only) - Mobile only */}
+                {isMobile && (
+                  <div className="flex-shrink-0 pb-[10px]">
+                    <AnimatedHeadHero />
+                  </div>
+                )}
 
                 {/* Tabs */}
                 <div className="flex-shrink-0" style={{ padding: '1.0rem 0' }}>

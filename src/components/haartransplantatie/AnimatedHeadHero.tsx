@@ -3,7 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useToast } from '@/hooks/use-toast';
 
-export const AnimatedHeadHero = () => {
+interface AnimatedHeadHeroProps {
+  inHeader?: boolean;
+}
+
+export const AnimatedHeadHero = ({ inHeader = false }: AnimatedHeadHeroProps) => {
   const { language } = useLanguage();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -16,8 +20,8 @@ export const AnimatedHeadHero = () => {
     <div 
       className="relative flex items-start"
       style={{
-        paddingLeft: 'clamp(0.75rem, 1vw, 1rem)',
-        animation: 'fade-up 0.8s ease-out 0.4s both',
+        paddingLeft: inHeader ? '0' : 'clamp(0.75rem, 1vw, 1rem)',
+        animation: inHeader ? 'none' : 'fade-up 0.8s ease-out 0.4s both',
       }}
     >
       {/* Primary CTA - Analyze my hair */}
