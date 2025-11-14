@@ -4,6 +4,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { MetaHead } from '@/components/MetaHead';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
+import { WideContentContainer } from '@/components/layout/WideContentContainer';
 import { GlassHeader } from '@/components/haartransplantatie/GlassHeader';
 import { AnimatedHeadHero } from '@/components/haartransplantatie/AnimatedHeadHero';
 import { GlassTabs } from '@/components/haartransplantatie/GlassTabs';
@@ -53,31 +54,38 @@ export const HaartransplantatieLayout = () => {
       <TabPreloader />
       
       <div className="relative w-full min-h-screen">
-        <DesktopContainer>
-          {/* Glass Header - hide on package popup routes */}
-          {!isPackageRoute && (
+        {/* Glass Header - 500px width on desktop */}
+        {!isPackageRoute && (
+          <DesktopContainer>
             <div className="hide-when-popup">
               <GlassHeader />
             </div>
-          )}
+          </DesktopContainer>
+        )}
 
-            {/* Main Content - Single Screen with height-responsive scaling */}
-            <div className="relative z-10 flex flex-col h-screen overflow-hidden" style={{ paddingTop: 'clamp(2rem, 8vh, 120px)' }}>
-              {/* Content Flow Container */}
-              <div className="relative flex flex-col flex-1 overflow-hidden" style={{ paddingTop: 'clamp(1.5rem, 2vh, 2.5rem)' }}>
-                {/* Animated Head Hero (Button Only) - Mobile only */}
-                {isMobile && (
-                  <div className="flex-shrink-0 pb-[10px]">
-                    <AnimatedHeadHero />
-                  </div>
-                )}
-
-                {/* Tabs */}
-                <div className="flex-shrink-0" style={{ padding: '1.0rem 0' }}>
-                  <GlassTabs activeTab={activeTab} />
+        {/* Main Content - Single Screen with height-responsive scaling */}
+        <div className="relative z-10 flex flex-col h-screen overflow-hidden" style={{ paddingTop: 'clamp(2rem, 8vh, 120px)' }}>
+          {/* Content Flow Container */}
+          <div className="relative flex flex-col flex-1 overflow-hidden" style={{ paddingTop: 'clamp(1.5rem, 2vh, 2.5rem)' }}>
+            
+            {/* Navigation Zone - 500px width on desktop */}
+            <DesktopContainer>
+              {/* Animated Head Hero (Button Only) - Mobile only */}
+              {isMobile && (
+                <div className="flex-shrink-0 pb-[10px]">
+                  <AnimatedHeadHero />
                 </div>
+              )}
 
-                {/* Tab Content - Flexible height with footer clearance */}
+              {/* Tabs */}
+              <div className="flex-shrink-0" style={{ padding: '1.0rem 0' }}>
+                <GlassTabs activeTab={activeTab} />
+              </div>
+            </DesktopContainer>
+
+            {/* Content Zone - 1400px width on desktop, full width on mobile */}
+            {!isPackageRoute && (
+              <WideContentContainer>
                 <div 
                   className="relative flex-1 overflow-hidden flex flex-col" 
                   style={{ 
@@ -86,20 +94,21 @@ export const HaartransplantatieLayout = () => {
                   }}
                 >
                   {/* Content from specific page - smooth fade transition on content only */}
-                  {!isPackageRoute && (
-                    <div 
-                      key={location.pathname}
-                      className="relative flex-1 overflow-hidden animate-fade-in"
-                      style={{ animationDuration: '150ms' }}
-                    >
-                      <Outlet />
-                    </div>
-                  )}
+                  <div 
+                    key={location.pathname}
+                    className="relative flex-1 overflow-hidden animate-fade-in"
+                    style={{ animationDuration: '150ms' }}
+                  >
+                    <Outlet />
+                  </div>
                 </div>
-              </div>
-            </div>
+              </WideContentContainer>
+            )}
+          </div>
+        </div>
 
-          {/* Footer CTA */}
+        {/* Footer CTA - 500px width on desktop */}
+        <DesktopContainer>
           <FooterCTAGlass />
         </DesktopContainer>
       </div>
