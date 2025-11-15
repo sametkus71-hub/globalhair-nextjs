@@ -104,14 +104,15 @@ export const HowTabContentDesktop = () => {
                   left: `${position}%`,
                   transform: 'translateX(-50%)',
                   top: '50%',
-                  marginTop: '-20px'
+                  marginTop: '-17px'
                 }}
                 onClick={() => setActivePhase(phase)}
               >
                 {/* Pill Label */}
                 <div
-                  className={`rounded-full transition-all duration-300 ${isActive ? 'silver-gradient-border px-4 py-1' : 'px-4 py-1'}`}
+                  className={`rounded-full transition-all duration-300 ${isActive ? 'silver-gradient-border' : ''}`}
                   style={{
+                    padding: isActive ? '4px 16px' : '3px 19px',
                     background: isActive 
                       ? 'rgba(40, 40, 40, 0.4)' 
                       : 'linear-gradient(135deg, rgba(80, 80, 80, 0.25) 0%, rgba(120, 120, 120, 0.15) 50%, rgba(80, 80, 80, 0.25) 100%)',
