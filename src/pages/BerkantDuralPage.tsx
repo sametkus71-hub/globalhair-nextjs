@@ -216,22 +216,10 @@ const BerkantDuralPage = () => {
         className="fixed inset-0 w-full h-full overflow-hidden"
         style={{ zIndex: 30 }}
       >
-        {/* Static background video - never animates */}
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ zIndex: 1 }}
-        >
-          <source src="/assets/background-animation.mp4" type="video/mp4" />
-        </video>
-        
-        {/* Fade-in dark overlay */}
+        {/* Fade-in dark overlay - now directly on the global background video */}
         <div 
           className={`absolute inset-0 bg-gradient-to-b from-black/20 via-black/30 to-black/60 transition-opacity duration-400 ${isEntering ? 'opacity-0' : 'opacity-100'}`}
-          style={{ zIndex: 2 }}
+          style={{ zIndex: 1 }}
         />
         
         {/* Animated modal wrapper - only this slides up */}
