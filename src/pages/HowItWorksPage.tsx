@@ -1,7 +1,13 @@
 import { HowTabContent } from '@/components/haartransplantatie/HowTabContent';
+import { HowTabContentDesktop } from '@/components/haartransplantatie/HowTabContentDesktop';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const HowItWorksPage = () => {
-  return <HowTabContent />;
+  const isMobile = useIsMobile();
+  
+  // Mobile/tablet uses original sliding component
+  // Desktop (lg+) uses new tab-based layout
+  return isMobile ? <HowTabContent /> : <HowTabContentDesktop />;
 };
 
 export default HowItWorksPage;
