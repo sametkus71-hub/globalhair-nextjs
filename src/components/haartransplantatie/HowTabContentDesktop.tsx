@@ -110,23 +110,23 @@ export const HowTabContentDesktop = () => {
               >
                 {/* Pill Label */}
                 <div
-                  className={`px-4 py-1 rounded-full transition-all duration-300 ${isActive ? 'silver-gradient-border' : ''}`}
+                  className={`rounded-full transition-all duration-300 ${isActive ? 'silver-gradient-border px-4 py-1' : 'px-3 py-0.5'}`}
                   style={{
-                    background: isActive ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.05)',
-                    border: isActive ? 'none' : '1px solid rgba(255, 255, 255, 0.15)',
-                    backdropFilter: 'blur(10px)',
+                    background: isActive ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.02)',
+                    border: isActive ? 'none' : 'none',
+                    backdropFilter: isActive ? 'blur(10px)' : 'blur(5px)',
                   }}
                 >
                   <span 
-                    className="text-white transition-all duration-300"
+                    className="text-white transition-all duration-300 whitespace-nowrap"
                     style={{
-                      fontSize: '14px',
+                      fontSize: isActive ? '14px' : '12px',
                       fontWeight: 300,
                       fontFamily: 'Inter',
-                      opacity: isActive ? 1 : 0.6,
+                      opacity: isActive ? 1 : 0.4,
                     }}
                   >
-                    {phase === 'After-' ? '-After' : phase}
+                    {phase === 'After-' ? 'After' : phase}
                   </span>
                 </div>
               </div>
