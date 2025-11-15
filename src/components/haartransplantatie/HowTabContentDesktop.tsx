@@ -151,7 +151,7 @@ export const HowTabContentDesktop = () => {
             <button
               key={phase}
               onClick={() => setActivePhase(phase)}
-              className="relative transition-all duration-500 cursor-pointer group"
+              className="relative transition-all duration-700 ease-out cursor-pointer group"
               style={{
                 filter: isActive ? 'none' : 'blur(5px)',
                 opacity: isActive ? 1 : 0.9,
@@ -160,7 +160,7 @@ export const HowTabContentDesktop = () => {
               }}
             >
               <div
-                className={`rounded-lg p-6 transition-all duration-300 ${!isActive && 'group-hover:scale-105'}`}
+                className="rounded-lg p-6 transition-all duration-700 ease-out"
                 style={{
                   background: isActive ? '#FFFFFF0D' : 'transparent',
                   backdropFilter: isActive ? 'blur(20px)' : 'none',
@@ -245,17 +245,15 @@ export const HowTabContentDesktop = () => {
         }
 
         /* Hover effect for inactive description boxes */
-        .group:hover .rounded-lg {
-          border: 1px solid rgba(255, 255, 255, 0.2) !important;
-          background: rgba(255, 255, 255, 0.05) !important;
-          backdrop-filter: blur(15px) !important;
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+        button.group:hover {
+          filter: blur(1px) !important;
+          opacity: 1 !important;
         }
 
-        /* Reduce blur on hover for inactive boxes */
-        .group:hover {
-          filter: blur(2px) !important;
-          opacity: 1 !important;
+        button.group:hover .rounded-lg {
+          border: 1px solid rgba(255, 255, 255, 0.15) !important;
+          background: transparent !important;
+          transform: scale(1.02);
         }
       `}</style>
     </div>
