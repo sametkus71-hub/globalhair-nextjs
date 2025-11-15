@@ -148,9 +148,10 @@ export const HowTabContentDesktop = () => {
           const content = getPhaseContent(phase);
           
           return (
-            <div
+            <button
               key={phase}
-              className="relative transition-all duration-500"
+              onClick={() => setActivePhase(phase)}
+              className="relative transition-all duration-500 cursor-pointer group"
               style={{
                 filter: isActive ? 'none' : 'blur(5px)',
                 opacity: isActive ? 1 : 0.9,
@@ -159,7 +160,7 @@ export const HowTabContentDesktop = () => {
               }}
             >
               <div
-                className="rounded-lg p-6"
+                className={`rounded-lg p-6 transition-all duration-300 ${!isActive && 'group-hover:scale-105'}`}
                 style={{
                   background: isActive ? '#FFFFFF0D' : 'transparent',
                   backdropFilter: isActive ? 'blur(20px)' : 'none',
@@ -168,10 +169,11 @@ export const HowTabContentDesktop = () => {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
+                  boxShadow: isActive ? 'none' : '0 0 0 0px rgba(255, 255, 255, 0)',
                 }}
               >
                 <p
-                  className="text-white"
+                  className="text-white transition-opacity duration-300"
                   style={{
                     fontSize: '14px',
                     fontWeight: 300,
@@ -182,7 +184,7 @@ export const HowTabContentDesktop = () => {
                   dangerouslySetInnerHTML={{ __html: content.quote }}
                 />
               </div>
-            </div>
+            </button>
           );
         })}
       </div>
@@ -240,6 +242,20 @@ export const HowTabContentDesktop = () => {
         .group:hover .rounded-full:not(.silver-gradient-border) {
           box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.3) !important;
           background: linear-gradient(135deg, rgba(100, 100, 100, 0.35) 0%, rgba(140, 140, 140, 0.25) 50%, rgba(100, 100, 100, 0.35) 100%) !important;
+        }
+
+        /* Hover effect for inactive description boxes */
+        .group:hover .rounded-lg {
+          border: 1px solid rgba(255, 255, 255, 0.2) !important;
+          background: rgba(255, 255, 255, 0.05) !important;
+          backdrop-filter: blur(15px) !important;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        /* Reduce blur on hover for inactive boxes */
+        .group:hover {
+          filter: blur(2px) !important;
+          opacity: 1 !important;
         }
       `}</style>
     </div>
