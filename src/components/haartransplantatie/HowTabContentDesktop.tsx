@@ -141,6 +141,9 @@ export const HowTabContentDesktop = () => {
           const isActive = activePhase === phase;
           const content = getPhaseContent(phase);
           
+          // Determine text alignment based on phase
+          const textAlign = phase === 'Pre-' ? 'left' : phase === 'Treatment' ? 'center' : 'right';
+          
           return (
             <div
               key={phase}
@@ -151,7 +154,7 @@ export const HowTabContentDesktop = () => {
               }}
             >
               <div
-                className="rounded-lg p-6 text-center"
+                className="rounded-lg p-6"
                 style={{
                   background: isActive ? '#FFFFFF0D' : 'transparent',
                   backdropFilter: isActive ? 'blur(20px)' : 'none',
@@ -159,7 +162,7 @@ export const HowTabContentDesktop = () => {
                   minHeight: '120px',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
+                  justifyContent: textAlign === 'left' ? 'flex-start' : textAlign === 'right' ? 'flex-end' : 'center',
                 }}
               >
                 <p
@@ -169,6 +172,7 @@ export const HowTabContentDesktop = () => {
                     fontWeight: 300,
                     fontFamily: 'Inter',
                     lineHeight: '1.5',
+                    textAlign: textAlign,
                   }}
                   dangerouslySetInnerHTML={{ __html: content.quote }}
                 />
