@@ -24,15 +24,15 @@ export const HowTabContentDesktop = () => {
     switch (phase) {
       case 'Pre-':
         return {
-          quote: "Vooraf krijgt u de eerste V6 Hairboost-<br />behandeling om de haarzakjes te versterken.<br />U bereidt zich vijf dagen voor zonder nicotine,<br />alcohol of bloedverdunners.",
+          quote: "Inmiddels heb ik al drie vrienden doorverwezen.<br />GlobalHair maakt meer waar dan ze beloven.",
         };
       case 'Treatment':
         return {
-          quote: "Tijdens de behandeling worden gezonde<br />haarzakjes verplaatst naar de kalende zones.<br />De ingreep gebeurt onder lokale verdoving en<br />duurt gemiddeld 6 tot 8 uur.",
+          quote: "Inmiddels heb ik al drie vrienden doorverwezen.<br />GlobalHair maakt meer waar dan ze beloven.",
         };
       case 'After-':
         return {
-          quote: "Na de transplantatie kunt u dezelfde dag naar<br />huis. Na 3 dagen rust hervat u lichte activiteiten<br />en na 1 week kunt u weer werken.",
+          quote: "Inmiddels heb ik al drie vrienden doorverwezen.<br />GlobalHair maakt meer waar dan ze beloven.",
         };
     }
   };
@@ -54,122 +54,156 @@ export const HowTabContentDesktop = () => {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col relative overflow-hidden">
-      {/* Tab Navigation Bar */}
-      <div className="w-full flex justify-center pt-8 pb-6 px-4">
-        <div className="flex gap-3 bg-background/10 backdrop-blur-md rounded-full p-2 border border-border/20">
-          {phases.map((phase) => (
-            <button
-              key={phase}
-              onClick={() => setActivePhase(phase)}
-              className={`px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 ${
-                activePhase === phase
-                  ? 'bg-primary/20 text-foreground border border-primary/30 shadow-lg'
-                  : 'text-foreground/60 hover:text-foreground/80 hover:bg-background/5'
-              }`}
-            >
-              {phase}
-            </button>
-          ))}
-        </div>
+    <div className="min-h-screen w-full flex flex-col items-center justify-start pt-20 px-8">
+      {/* Video Section - First */}
+      <div className="w-full max-w-md mb-12">
+        <video
+          key={isIOSorSafari ? 'mp4' : 'webm'}
+          src={isIOSorSafari 
+            ? "https://GlobalHair.b-cdn.net/Male%201K%20HT%20WEB.mp4"
+            : "https://GlobalHair.b-cdn.net/Male%201K%20HT%20WEB.webm"
+          }
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-auto"
+        />
       </div>
 
-      {/* Three-Column Description Grid */}
-      <div className="w-full px-8 mb-8">
-        <div className="grid grid-cols-3 gap-6 max-w-7xl mx-auto">
+      {/* Timeline with Labels - Spread across */}
+      <div className="w-full max-w-5xl mb-8 relative">
+        <div className="relative w-full h-12 flex items-center">
+          {/* Background line */}
+          <div 
+            className="absolute w-full h-px" 
+            style={{ 
+              left: '16.67%',
+              right: '16.67%',
+              width: '66.66%',
+              background: 'rgba(255, 255, 255, 0.2)',
+              top: '50%',
+              transform: 'translateY(-50%)'
+            }} 
+          />
+          
+          {/* Filled line */}
+          <div 
+            className="absolute h-px transition-all duration-500"
+            style={{ 
+              left: '16.67%',
+              width: `${getLineFillPercentage() - 16.67}%`,
+              background: 'linear-gradient(to right, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 1) 100%)',
+              top: '50%',
+              transform: 'translateY(-50%)'
+            }}
+          />
+
+          {/* Phase labels and dots */}
           {phases.map((phase) => {
             const isActive = activePhase === phase;
-            const content = getPhaseContent(phase);
+            const position = getPhasePosition(phase);
             
             return (
               <div
                 key={phase}
-                className={`flex flex-col items-center text-center transition-all duration-500 ${
-                  isActive ? 'opacity-100' : 'opacity-40 blur-sm'
-                }`}
+                className="absolute flex flex-col items-center cursor-pointer"
+                style={{ 
+                  left: `${position}%`,
+                  transform: 'translateX(-50%)',
+                  top: '50%',
+                  marginTop: '-24px'
+                }}
+                onClick={() => setActivePhase(phase)}
               >
-                <h3 className={`text-2xl font-bold mb-4 ${
-                  isActive ? 'text-primary' : 'text-foreground/70'
-                }`}>
-                  {phase}
-                </h3>
-                <p
-                  className={`text-base leading-relaxed ${
-                    isActive ? 'text-foreground' : 'text-foreground/60'
-                  }`}
-                  dangerouslySetInnerHTML={{ __html: content.quote }}
+                {/* Dot */}
+                <div
+                  className="rounded-full bg-white transition-all duration-300 mb-2"
+                  style={{
+                    width: isActive ? '12px' : '8px',
+                    height: isActive ? '12px' : '8px',
+                    opacity: isActive ? 1 : 0.3,
+                    boxShadow: isActive ? '0px 0px 6px 2px rgba(255, 255, 255, 0.25)' : 'none',
+                  }}
                 />
+                {/* Label */}
+                <span 
+                  className="text-white transition-all duration-300"
+                  style={{
+                    fontSize: '14px',
+                    fontWeight: 300,
+                    fontFamily: 'Inter',
+                    opacity: isActive ? 1 : 0.6,
+                  }}
+                >
+                  {phase === 'After-' ? '-After' : phase}
+                </span>
               </div>
             );
           })}
         </div>
       </div>
 
-      {/* Video Section */}
-      <div className="w-full flex justify-center px-8 mb-8">
-        <div className="relative w-full max-w-md">
-          <video
-            key={isIOSorSafari ? 'mp4' : 'webm'}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-auto rounded-2xl shadow-2xl"
-          >
-            {isIOSorSafari ? (
-              <source src="/assets/head-rotation.mp4" type="video/mp4" />
-            ) : (
-              <source src="/assets/head-animation.webm" type="video/webm" />
-            )}
-          </video>
-        </div>
+      {/* Three Description Boxes - All visible */}
+      <div className="w-full max-w-5xl grid grid-cols-3 gap-6 mb-12">
+        {phases.map((phase) => {
+          const isActive = activePhase === phase;
+          const content = getPhaseContent(phase);
+          
+          return (
+            <div
+              key={phase}
+              className="relative transition-all duration-500"
+              style={{
+                filter: isActive ? 'none' : 'blur(3px)',
+                opacity: isActive ? 1 : 0.5,
+              }}
+            >
+              <div
+                className="rounded-lg p-6 text-center"
+                style={{
+                  background: '#FFFFFF0D',
+                  backdropFilter: 'blur(20px)',
+                  border: isActive ? '1px solid #FFFFFF30' : '1px solid #FFFFFF12',
+                  minHeight: '120px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <p
+                  className="text-white"
+                  style={{
+                    fontSize: '14px',
+                    fontWeight: 300,
+                    fontFamily: 'Inter',
+                    lineHeight: '1.5',
+                  }}
+                  dangerouslySetInnerHTML={{ __html: content.quote }}
+                />
+              </div>
+            </div>
+          );
+        })}
       </div>
 
-      {/* Timeline Visualization */}
-      <div className="w-full flex justify-center px-8 mb-16">
-        <div className="relative w-full max-w-md">
-          <div className="flex justify-between items-center relative">
-            {/* Background line */}
-            <div className="absolute left-0 right-0 h-0.5 bg-border/30 top-1/2 -translate-y-1/2" />
-            
-            {/* Animated fill line */}
-            <div 
-              className="absolute left-0 h-0.5 bg-primary top-1/2 -translate-y-1/2 transition-all duration-500 ease-out"
-              style={{ width: `${getLineFillPercentage()}%` }}
-            />
-
-            {/* Phase dots */}
-            {phases.map((phase) => {
-              const isActive = activePhase === phase;
-              const position = getPhasePosition(phase);
-              
-              return (
-                <div
-                  key={phase}
-                  className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 transition-all duration-500"
-                  style={{ left: `${position}%` }}
-                >
-                  <button
-                    onClick={() => setActivePhase(phase)}
-                    className={`w-4 h-4 rounded-full transition-all duration-300 ${
-                      isActive
-                        ? 'bg-primary scale-125 shadow-lg shadow-primary/50'
-                        : 'bg-border/50 hover:bg-border hover:scale-110'
-                    }`}
-                    aria-label={`Go to ${phase}`}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-
-      {/* Fixed Bottom-Right CTA Button */}
-      <div className="fixed bottom-8 right-8 z-50">
+      {/* Bottom Right Link - Same styling as mobile */}
+      <div className="fixed bottom-8 right-8">
         <button
-          onClick={() => navigate(`/${language}/haartransplantatie/premium`)}
-          className="px-8 py-4 bg-primary/90 backdrop-blur-md hover:bg-primary text-primary-foreground rounded-full shadow-2xl hover:shadow-primary/50 transition-all duration-300 text-lg font-medium border border-primary/20"
+          onClick={() => {
+            if (typeof document !== 'undefined') document.body.classList.add('popup-open');
+            navigate(`/${language}/haartransplantatie/premium`);
+          }}
+          className="text-white hover:text-white/80 transition-colors cursor-pointer"
+          style={{
+            fontSize: '14px',
+            fontWeight: 300,
+            fontFamily: 'Inter',
+            textDecoration: 'underline',
+            background: 'none',
+            border: 'none',
+            padding: 0,
+          }}
         >
           Bekijk onze methodes
         </button>
