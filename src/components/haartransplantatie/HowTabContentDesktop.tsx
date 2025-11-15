@@ -112,9 +112,12 @@ export const HowTabContentDesktop = () => {
                 <div
                   className={`rounded-full transition-all duration-300 ${isActive ? 'silver-gradient-border px-4 py-1' : 'px-4 py-1'}`}
                   style={{
-                    background: isActive ? 'rgba(255, 255, 255, 0.1)' : 'rgba(50, 50, 50, 0.3)',
+                    background: isActive 
+                      ? 'rgba(40, 40, 40, 0.4)' 
+                      : 'linear-gradient(135deg, rgba(80, 80, 80, 0.25) 0%, rgba(120, 120, 120, 0.15) 50%, rgba(80, 80, 80, 0.25) 100%)',
                     border: isActive ? 'none' : 'none',
                     backdropFilter: isActive ? 'blur(10px)' : 'blur(20px)',
+                    boxShadow: isActive ? 'inset 0 1px 2px rgba(255, 255, 255, 0.1)' : 'inset 0 1px 2px rgba(255, 255, 255, 0.05)',
                   }}
                 >
                   <span 
@@ -126,7 +129,7 @@ export const HowTabContentDesktop = () => {
                       opacity: isActive ? 1 : 0.9,
                     }}
                   >
-                    {phase === 'After-' ? 'After' : phase}
+                    {phase === 'After-' ? '-After' : phase}
                   </span>
                 </div>
               </div>
