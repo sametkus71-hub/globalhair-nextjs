@@ -54,7 +54,7 @@ export const HowTabContentDesktop = () => {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-start pt-20 px-8">
+    <div className="min-h-screen w-full flex flex-col items-center justify-start pt-20 px-8 overflow-visible">
       {/* Video Section - First */}
       <div className="w-full max-w-md mb-12 -mt-[100px]">
         <video
@@ -72,7 +72,7 @@ export const HowTabContentDesktop = () => {
       </div>
 
       {/* Timeline with Labels - Spread across */}
-      <div className="w-full mb-8 relative">
+      <div className="w-full mb-8 relative overflow-visible">
         <div className="relative w-full h-12 flex items-center">
           {/* Single gradient line with shine effect */}
           <div 
@@ -140,7 +140,7 @@ export const HowTabContentDesktop = () => {
       </div>
 
       {/* Three Description Boxes - All visible */}
-      <div className="w-full grid grid-cols-3 gap-6 mb-12">
+      <div className="w-full grid grid-cols-3 gap-6 mb-12 overflow-visible">
         {phases.map((phase, index) => {
           const isActive = activePhase === phase;
           const content = getPhaseContent(phase);
