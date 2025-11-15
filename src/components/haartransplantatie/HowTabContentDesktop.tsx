@@ -110,10 +110,10 @@ export const HowTabContentDesktop = () => {
               >
                 {/* Pill Label */}
                 <div
-                  className="px-4 py-1 rounded-full transition-all duration-300"
+                  className={`px-4 py-1 rounded-full transition-all duration-300 ${isActive ? 'silver-gradient-border' : ''}`}
                   style={{
                     background: isActive ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.05)',
-                    border: `1px solid ${isActive ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.15)'}`,
+                    border: isActive ? 'none' : '1px solid rgba(255, 255, 255, 0.15)',
                     backdropFilter: 'blur(10px)',
                   }}
                 >
@@ -199,6 +199,34 @@ export const HowTabContentDesktop = () => {
           Bekijk onze methodes
         </button>
       </div>
+
+      {/* Styles for gradient border */}
+      <style>{`
+        .silver-gradient-border {
+          position: relative;
+        }
+
+        .silver-gradient-border::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1px;
+          border-radius: inherit;
+          background: linear-gradient(90deg, #949494 7%, #ACB9C1 16%, #FFFFFF 34%, #ACB9C1 51%, #4B555E 78%, #fff 105%);
+          -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .silver-gradient-border > * {
+          position: relative;
+          z-index: 1;
+        }
+      `}</style>
     </div>
   );
 };
