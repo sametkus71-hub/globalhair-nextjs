@@ -56,7 +56,7 @@ export const HowTabContentDesktop = () => {
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-start pt-20 px-8">
       {/* Video Section - First */}
-      <div className="w-full max-w-md mb-12">
+      <div className="w-full max-w-md mb-12 -mt-[100px]">
         <video
           key={isIOSorSafari ? 'mp4' : 'webm'}
           src={isIOSorSafari 
