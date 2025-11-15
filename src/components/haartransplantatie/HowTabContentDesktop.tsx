@@ -97,9 +97,9 @@ export const HowTabContentDesktop = () => {
             const position = getPhasePosition(phase);
             
             return (
-              <div
+              <button
                 key={phase}
-                className="absolute flex flex-col items-center cursor-pointer"
+                className="absolute flex flex-col items-center cursor-pointer group"
                 style={{ 
                   left: `${position}%`,
                   transform: 'translateX(-50%)',
@@ -110,7 +110,7 @@ export const HowTabContentDesktop = () => {
               >
                 {/* Pill Label */}
                 <div
-                  className={`rounded-full transition-all duration-300 ${isActive ? 'silver-gradient-border' : ''}`}
+                  className={`rounded-full transition-all duration-300 ${isActive ? 'silver-gradient-border scale-110' : 'group-hover:scale-105'}`}
                   style={{
                     padding: isActive ? '4px 16px' : '3px 19px',
                     background: isActive 
@@ -118,22 +118,24 @@ export const HowTabContentDesktop = () => {
                       : 'linear-gradient(135deg, rgba(80, 80, 80, 0.25) 0%, rgba(120, 120, 120, 0.15) 50%, rgba(80, 80, 80, 0.25) 100%)',
                     border: isActive ? 'none' : 'none',
                     backdropFilter: isActive ? 'blur(10px)' : 'blur(20px)',
-                    boxShadow: isActive ? 'inset 0 1px 2px rgba(255, 255, 255, 0.1)' : 'inset 0 1px 2px rgba(255, 255, 255, 0.05)',
+                    boxShadow: isActive 
+                      ? 'inset 0 1px 2px rgba(255, 255, 255, 0.1)' 
+                      : 'inset 0 1px 2px rgba(255, 255, 255, 0.05), 0 0 0 0px rgba(255, 255, 255, 0)',
                   }}
                 >
                   <span 
-                    className="text-white transition-all duration-300 whitespace-nowrap"
+                    className="text-white transition-all duration-300 whitespace-nowrap group-hover:opacity-100"
                     style={{
                       fontSize: isActive ? '14px' : '12px',
                       fontWeight: 300,
                       fontFamily: 'Inter',
-                      opacity: isActive ? 1 : 0.9,
+                      opacity: isActive ? 1 : 0.7,
                     }}
                   >
                     {phase === 'After-' ? '-After' : phase}
                   </span>
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>
@@ -232,6 +234,12 @@ export const HowTabContentDesktop = () => {
         .silver-gradient-border > * {
           position: relative;
           z-index: 1;
+        }
+
+        /* Hover effect for inactive items */
+        .group:hover .rounded-full:not(.silver-gradient-border) {
+          box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.3) !important;
+          background: linear-gradient(135deg, rgba(100, 100, 100, 0.35) 0%, rgba(140, 140, 140, 0.25) 50%, rgba(100, 100, 100, 0.35) 100%) !important;
         }
       `}</style>
     </div>
