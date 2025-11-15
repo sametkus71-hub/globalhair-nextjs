@@ -41,11 +41,11 @@ export const HowTabContentDesktop = () => {
   const getPhasePosition = (phase: Phase) => {
     switch (phase) {
       case 'Pre-':
-        return 16.67;
+        return 0;
       case 'Treatment':
         return 50;
       case 'After-':
-        return 83.33;
+        return 100;
     }
   };
 
@@ -78,9 +78,8 @@ export const HowTabContentDesktop = () => {
           <div 
             className="absolute w-full h-px" 
             style={{ 
-              left: '16.67%',
-              right: '16.67%',
-              width: '66.66%',
+              left: '0%',
+              width: '100%',
               background: 'rgba(255, 255, 255, 0.2)',
               top: '50%',
               transform: 'translateY(-50%)'
@@ -91,8 +90,8 @@ export const HowTabContentDesktop = () => {
           <div 
             className="absolute h-px transition-all duration-500"
             style={{ 
-              left: '16.67%',
-              width: `${getLineFillPercentage() - 16.67}%`,
+              left: '0%',
+              width: `${getLineFillPercentage()}%`,
               background: 'linear-gradient(to right, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 1) 100%)',
               top: '50%',
               transform: 'translateY(-50%)'
