@@ -153,8 +153,8 @@ export const HowTabContentDesktop = () => {
               onClick={() => setActivePhase(phase)}
               className={`relative transition-all duration-700 ease-out ${!isActive && 'cursor-pointer group'}`}
               style={{
-                filter: 'none',
-                opacity: isActive ? 1 : 0.7,
+                filter: isActive ? 'none' : 'blur(4px)',
+                opacity: isActive ? 1 : 0.6,
                 marginLeft: index === 0 ? '-60px' : '0',
                 marginRight: index === 2 ? '-60px' : '0',
               }}
@@ -246,6 +246,7 @@ export const HowTabContentDesktop = () => {
 
         /* Hover effect only for inactive description boxes */
         button.group:hover {
+          filter: none !important;
           opacity: 1 !important;
         }
 
