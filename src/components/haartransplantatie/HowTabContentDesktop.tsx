@@ -72,7 +72,7 @@ export const HowTabContentDesktop = () => {
       </div>
 
       {/* Timeline with Labels - Spread across */}
-      <div className="w-full max-w-5xl mb-8 relative">
+      <div className="w-full max-w-6xl mb-8 relative">
         <div className="relative w-full h-12 flex items-center">
           {/* Single gradient line with shine effect */}
           <div 
@@ -136,13 +136,10 @@ export const HowTabContentDesktop = () => {
       </div>
 
       {/* Three Description Boxes - All visible */}
-      <div className="w-full max-w-5xl grid grid-cols-3 gap-6 mb-12">
+      <div className="w-full max-w-6xl grid grid-cols-3 gap-6 mb-12">
         {phases.map((phase) => {
           const isActive = activePhase === phase;
           const content = getPhaseContent(phase);
-          
-          // Determine text alignment based on phase
-          const textAlign = phase === 'Pre-' ? 'left' : phase === 'Treatment' ? 'center' : 'right';
           
           return (
             <div
@@ -162,7 +159,7 @@ export const HowTabContentDesktop = () => {
                   minHeight: '120px',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: textAlign === 'left' ? 'flex-start' : textAlign === 'right' ? 'flex-end' : 'center',
+                  justifyContent: 'center',
                 }}
               >
                 <p
@@ -172,7 +169,7 @@ export const HowTabContentDesktop = () => {
                     fontWeight: 300,
                     fontFamily: 'Inter',
                     lineHeight: '1.5',
-                    textAlign: textAlign,
+                    textAlign: 'center',
                   }}
                   dangerouslySetInnerHTML={{ __html: content.quote }}
                 />
