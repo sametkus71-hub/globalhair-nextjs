@@ -72,7 +72,7 @@ export const HowTabContentDesktop = () => {
       </div>
 
       {/* Timeline with Labels - Spread across */}
-      <div className="w-full max-w-[85%] mb-8 relative">
+      <div className="w-full mb-8 relative">
         <div className="relative w-full h-12 flex items-center">
           {/* Single gradient line with shine effect */}
           <div 
@@ -136,8 +136,8 @@ export const HowTabContentDesktop = () => {
       </div>
 
       {/* Three Description Boxes - All visible */}
-      <div className="w-full max-w-[85%] grid grid-cols-3 gap-6 mb-12">
-        {phases.map((phase) => {
+      <div className="w-full grid grid-cols-3 gap-6 mb-12">
+        {phases.map((phase, index) => {
           const isActive = activePhase === phase;
           const content = getPhaseContent(phase);
           
@@ -148,6 +148,8 @@ export const HowTabContentDesktop = () => {
               style={{
                 filter: isActive ? 'none' : 'blur(5px)',
                 opacity: isActive ? 1 : 0.9,
+                marginLeft: index === 0 ? '-60px' : '0',
+                marginRight: index === 2 ? '-60px' : '0',
               }}
             >
               <div
