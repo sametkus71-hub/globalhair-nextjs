@@ -110,11 +110,11 @@ export const HowTabContentDesktop = () => {
               >
                 {/* Pill Label */}
                 <div
-                  className={`rounded-full transition-all duration-300 ${isActive ? 'silver-gradient-border px-4 py-1' : 'px-3 py-0.5'}`}
+                  className={`rounded-full transition-all duration-300 ${isActive ? 'silver-gradient-border px-4 py-1' : 'px-4 py-1'}`}
                   style={{
-                    background: isActive ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.02)',
+                    background: isActive ? 'rgba(255, 255, 255, 0.1)' : 'rgba(50, 50, 50, 0.3)',
                     border: isActive ? 'none' : 'none',
-                    backdropFilter: isActive ? 'blur(10px)' : 'blur(5px)',
+                    backdropFilter: isActive ? 'blur(10px)' : 'blur(20px)',
                   }}
                 >
                   <span 
@@ -123,7 +123,7 @@ export const HowTabContentDesktop = () => {
                       fontSize: isActive ? '14px' : '12px',
                       fontWeight: 300,
                       fontFamily: 'Inter',
-                      opacity: isActive ? 1 : 0.4,
+                      opacity: isActive ? 1 : 0.9,
                     }}
                   >
                     {phase === 'After-' ? 'After' : phase}
