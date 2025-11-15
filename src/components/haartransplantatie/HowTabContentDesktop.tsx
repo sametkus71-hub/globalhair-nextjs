@@ -24,15 +24,15 @@ export const HowTabContentDesktop = () => {
     switch (phase) {
       case 'Pre-':
         return {
-          quote: "Inmiddels heb ik al drie vrienden doorverwezen.<br />GlobalHair maakt meer waar dan ze beloven.",
+          quote: "Vooraf krijgt u de eerste V6 Hairboost-<br />behandeling om de haarzakjes te versterken.<br />U bereidt zich vijf dagen voor zonder nicotine,<br />alcohol of bloedverdunners.",
         };
       case 'Treatment':
         return {
-          quote: "Inmiddels heb ik al drie vrienden doorverwezen.<br />GlobalHair maakt meer waar dan ze beloven.",
+          quote: "Tijdens de behandeling worden gezonde<br />haarzakjes verplaatst naar de kalende zones.<br />De ingreep gebeurt onder lokale verdoving en<br />duurt gemiddeld 6 tot 8 uur.",
         };
       case 'After-':
         return {
-          quote: "Inmiddels heb ik al drie vrienden doorverwezen.<br />GlobalHair maakt meer waar dan ze beloven.",
+          quote: "Na de transplantatie kunt u dezelfde dag naar<br />huis. Na 3 dagen rust hervat u lichte activiteiten<br />en na 1 week kunt u weer werken.",
         };
     }
   };
