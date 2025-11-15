@@ -151,7 +151,7 @@ export const HowTabContentDesktop = () => {
             <button
               key={phase}
               onClick={() => setActivePhase(phase)}
-              className={`relative transition-all duration-700 ease-out ${!isActive && 'cursor-pointer group'}`}
+              className={`relative transition-all duration-200 ease-out ${!isActive && 'cursor-pointer group'}`}
               style={{
                 filter: isActive ? 'none' : 'blur(4px)',
                 opacity: isActive ? 1 : 0.6,
