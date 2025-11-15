@@ -74,31 +74,24 @@ export const HowTabContentDesktop = () => {
       {/* Timeline with Labels - Spread across */}
       <div className="w-full max-w-5xl mb-8 relative">
         <div className="relative w-full h-12 flex items-center">
-          {/* Background line */}
+          {/* Single gradient line with shine effect */}
           <div 
-            className="absolute w-full h-px" 
+            className="absolute w-full h-px transition-all duration-500" 
             style={{ 
               left: '0%',
               width: '100%',
-              background: 'rgba(255, 255, 255, 0.2)',
+              background: `linear-gradient(to right, 
+                rgba(255, 255, 255, 0.2) 0%, 
+                rgba(255, 255, 255, 0.4) ${getPhasePosition(activePhase) - 10}%, 
+                rgba(255, 255, 255, 0.8) ${getPhasePosition(activePhase)}%, 
+                rgba(255, 255, 255, 0.4) ${getPhasePosition(activePhase) + 10}%, 
+                rgba(255, 255, 255, 0.2) 100%)`,
               top: '50%',
               transform: 'translateY(-50%)'
             }} 
           />
-          
-          {/* Filled line */}
-          <div 
-            className="absolute h-px transition-all duration-500"
-            style={{ 
-              left: '0%',
-              width: `${getLineFillPercentage()}%`,
-              background: 'linear-gradient(to right, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 1) 100%)',
-              top: '50%',
-              transform: 'translateY(-50%)'
-            }}
-          />
 
-          {/* Phase labels and dots */}
+          {/* Phase labels in pills */}
           {phases.map((phase) => {
             const isActive = activePhase === phase;
             const position = getPhasePosition(phase);
@@ -111,32 +104,31 @@ export const HowTabContentDesktop = () => {
                   left: `${position}%`,
                   transform: 'translateX(-50%)',
                   top: '50%',
-                  marginTop: '-24px'
+                  marginTop: '-20px'
                 }}
                 onClick={() => setActivePhase(phase)}
               >
-                {/* Dot */}
+                {/* Pill Label */}
                 <div
-                  className="rounded-full bg-white transition-all duration-300 mb-2"
+                  className="px-4 py-1 rounded-full transition-all duration-300"
                   style={{
-                    width: isActive ? '12px' : '8px',
-                    height: isActive ? '12px' : '8px',
-                    opacity: isActive ? 1 : 0.3,
-                    boxShadow: isActive ? '0px 0px 6px 2px rgba(255, 255, 255, 0.25)' : 'none',
-                  }}
-                />
-                {/* Label */}
-                <span 
-                  className="text-white transition-all duration-300"
-                  style={{
-                    fontSize: '14px',
-                    fontWeight: 300,
-                    fontFamily: 'Inter',
-                    opacity: isActive ? 1 : 0.6,
+                    background: isActive ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.05)',
+                    border: `1px solid ${isActive ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.15)'}`,
+                    backdropFilter: 'blur(10px)',
                   }}
                 >
-                  {phase === 'After-' ? '-After' : phase}
-                </span>
+                  <span 
+                    className="text-white transition-all duration-300"
+                    style={{
+                      fontSize: '14px',
+                      fontWeight: 300,
+                      fontFamily: 'Inter',
+                      opacity: isActive ? 1 : 0.6,
+                    }}
+                  >
+                    {phase === 'After-' ? '-After' : phase}
+                  </span>
+                </div>
               </div>
             );
           })}
