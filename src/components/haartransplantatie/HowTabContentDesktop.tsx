@@ -160,11 +160,13 @@ export const HowTabContentDesktop = () => {
               }}
             >
               <div
-                className={`rounded-lg p-6 transition-all duration-700 ease-out ${isActive ? 'description-gradient-border' : ''}`}
+                className={`transition-all duration-700 ease-out ${isActive ? 'description-gradient-border' : ''}`}
                 style={{
                   background: isActive ? 'rgba(255, 255, 255, 0.07)' : 'transparent',
                   backdropFilter: isActive ? 'blur(31.2px)' : 'none',
                   border: 'none',
+                  borderRadius: isActive ? '4px' : '8px',
+                  padding: isActive ? '10px' : '24px',
                   minHeight: '120px',
                   display: 'flex',
                   alignItems: 'center',
