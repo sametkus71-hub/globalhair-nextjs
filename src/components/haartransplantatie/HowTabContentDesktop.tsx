@@ -146,16 +146,16 @@ export const HowTabContentDesktop = () => {
               key={phase}
               className="relative transition-all duration-500"
               style={{
-                filter: isActive ? 'none' : 'blur(3px)',
-                opacity: isActive ? 1 : 0.5,
+                filter: isActive ? 'none' : 'blur(5px)',
+                opacity: isActive ? 1 : 0.9,
               }}
             >
               <div
                 className="rounded-lg p-6 text-center"
                 style={{
-                  background: '#FFFFFF0D',
-                  backdropFilter: 'blur(20px)',
-                  border: isActive ? '1px solid #FFFFFF30' : '1px solid #FFFFFF12',
+                  background: isActive ? '#FFFFFF0D' : 'transparent',
+                  backdropFilter: isActive ? 'blur(20px)' : 'none',
+                  border: isActive ? '1px solid #FFFFFF30' : 'none',
                   minHeight: '120px',
                   display: 'flex',
                   alignItems: 'center',
