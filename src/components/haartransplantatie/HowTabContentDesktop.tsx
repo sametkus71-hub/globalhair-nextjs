@@ -191,7 +191,7 @@ export const HowTabContentDesktop = () => {
       </div>
 
       {/* Bottom Right Link - Same styling as mobile */}
-      <div className="fixed bottom-8 right-8">
+      <div className="fixed bottom-8 right-8 z-50">
         <button
           onClick={() => {
             if (typeof document !== 'undefined') document.body.classList.add('popup-open');
