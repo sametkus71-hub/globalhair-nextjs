@@ -151,10 +151,10 @@ export const HowTabContentDesktop = () => {
             <button
               key={phase}
               onClick={() => setActivePhase(phase)}
-              className="relative transition-all duration-700 ease-out cursor-pointer group"
+              className={`relative transition-all duration-700 ease-out ${!isActive && 'cursor-pointer group'}`}
               style={{
-                filter: isActive ? 'none' : 'blur(5px)',
-                opacity: isActive ? 1 : 0.9,
+                filter: 'none',
+                opacity: isActive ? 1 : 0.7,
                 marginLeft: index === 0 ? '-60px' : '0',
                 marginRight: index === 2 ? '-60px' : '0',
               }}
@@ -244,9 +244,8 @@ export const HowTabContentDesktop = () => {
           background: linear-gradient(135deg, rgba(100, 100, 100, 0.35) 0%, rgba(140, 140, 140, 0.25) 50%, rgba(100, 100, 100, 0.35) 100%) !important;
         }
 
-        /* Hover effect for inactive description boxes */
+        /* Hover effect only for inactive description boxes */
         button.group:hover {
-          filter: blur(1px) !important;
           opacity: 1 !important;
         }
 
