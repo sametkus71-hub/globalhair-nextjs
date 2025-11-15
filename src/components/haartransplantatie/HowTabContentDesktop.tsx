@@ -160,16 +160,15 @@ export const HowTabContentDesktop = () => {
               }}
             >
               <div
-                className="rounded-lg p-6 transition-all duration-700 ease-out"
+                className={`rounded-lg p-6 transition-all duration-700 ease-out ${isActive ? 'description-gradient-border' : ''}`}
                 style={{
-                  background: isActive ? '#FFFFFF0D' : 'transparent',
-                  backdropFilter: isActive ? 'blur(20px)' : 'none',
-                  border: isActive ? '1px solid #FFFFFF30' : 'none',
+                  background: isActive ? 'rgba(255, 255, 255, 0.07)' : 'transparent',
+                  backdropFilter: isActive ? 'blur(31.2px)' : 'none',
+                  border: 'none',
                   minHeight: '120px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  boxShadow: isActive ? 'none' : '0 0 0 0px rgba(255, 255, 255, 0)',
                 }}
               >
                 <p
@@ -234,6 +233,32 @@ export const HowTabContentDesktop = () => {
         }
 
         .silver-gradient-border > * {
+          position: relative;
+          z-index: 1;
+        }
+
+        /* Description gradient border for active state */
+        .description-gradient-border {
+          position: relative;
+        }
+
+        .description-gradient-border::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1px;
+          border-radius: inherit;
+          background: linear-gradient(269.87deg, #4B555E 3.18%, #ACB9C1 51.79%, #FFFFFF 76.09%, #ACB9C1 88.24%, #4B555E 100.39%);
+          -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .description-gradient-border > * {
           position: relative;
           z-index: 1;
         }
