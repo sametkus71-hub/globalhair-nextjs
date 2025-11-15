@@ -22,6 +22,9 @@ export const HaartransplantatieLayout = () => {
   // Check if we're on reviews route (needs full width on desktop)
   const isReviewsRoute = location.pathname.includes('/reviews');
   
+  // Check if we're on how route (needs overflow visible on desktop)
+  const isHowRoute = location.pathname.includes('/how');
+  
   // Determine active tab from URL
   const getActiveTab = () => {
     const path = location.pathname;
@@ -67,9 +70,9 @@ export const HaartransplantatieLayout = () => {
         )}
 
         {/* Main Content - Single Screen with height-responsive scaling */}
-        <div className="relative z-10 flex flex-col h-screen overflow-hidden" style={{ paddingTop: 'clamp(2rem, 8vh, 120px)' }}>
+        <div className={`relative z-10 flex flex-col h-screen ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'}`} style={{ paddingTop: 'clamp(2rem, 8vh, 120px)' }}>
           {/* Content Flow Container */}
-          <div className="relative flex flex-col flex-1 overflow-hidden" style={{ paddingTop: 'clamp(1.5rem, 2vh, 2.5rem)' }}>
+          <div className={`relative flex flex-col flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'}`} style={{ paddingTop: 'clamp(1.5rem, 2vh, 2.5rem)' }}>
             
             {/* Navigation Zone - 500px width on desktop */}
             <DesktopContainer>
@@ -112,7 +115,7 @@ export const HaartransplantatieLayout = () => {
                 // Standard 1250px container for other tabs
                 <WideContentContainer className="flex-1 flex flex-col">
                   <div 
-                    className="relative flex-1 overflow-hidden flex flex-col" 
+                    className={`relative flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'} flex flex-col`}
                     style={{ 
                       paddingTop: 'clamp(0rem, 0.3vh, 0.6rem)', 
                       paddingBottom: isMobile 
@@ -123,7 +126,7 @@ export const HaartransplantatieLayout = () => {
                     {/* Content from specific page - smooth fade transition on content only */}
                     <div 
                       key={location.pathname}
-                      className="relative flex-1 overflow-hidden animate-fade-in"
+                      className={`relative flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'} animate-fade-in`}
                       style={{ animationDuration: '150ms' }}
                     >
                       <Outlet />
