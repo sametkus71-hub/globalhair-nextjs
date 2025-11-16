@@ -273,7 +273,7 @@ const MissionPage: React.FC = () => {
       <div className={`fixed inset-0 w-full h-full overflow-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
         {berkantVideo ?
       // Berkant Video Background
-      <video ref={videoRef} src={berkantVideo.unsubbedUrl} autoPlay loop muted={false} playsInline preload="metadata" className="absolute inset-0 w-full h-full object-cover" /> :
+      <video ref={videoRef} src={berkantVideo.videoUrl} autoPlay loop muted={false} playsInline preload="metadata" className="absolute inset-0 w-full h-full object-cover" /> :
       // Fallback background
       <div className="absolute inset-0 w-full h-full bg-gray-900"></div>}
         

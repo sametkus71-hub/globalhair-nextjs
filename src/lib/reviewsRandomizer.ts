@@ -133,8 +133,8 @@ export const generateRandomGrid = (): GridItem[] => {
           type: 'berkant-video',
           data: {
             ...berkantVideo,
-            // Use subbed version for reviews grid
-            videoUrl: berkantVideo.subbedUrl,
+            // Berkant videos now use compressed WebM format
+            videoUrl: berkantVideo.videoUrl,
             thumbnail: berkantVideo.thumbnail
           }
         };

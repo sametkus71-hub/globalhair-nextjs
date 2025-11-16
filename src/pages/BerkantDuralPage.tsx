@@ -249,7 +249,7 @@ const BerkantDuralPage = () => {
             <video
               ref={videoRef}
               key={video.id}
-              src={video.unsubbedUrl}
+              src={video.videoUrl}
               loop
               muted={false}
               playsInline
