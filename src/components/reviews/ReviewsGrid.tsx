@@ -172,6 +172,7 @@ export const ReviewsGrid = () => {
   const { slideToItem } = useSlideTransition();
   const isMobile = useIsMobile();
   const navigate = useNavigate();
+  const gridContainerRef = useRef<HTMLDivElement>(null);
   
   // Generate random grid on component mount
   const [gridItems] = useState<GridItem[]>(() => generateRandomGrid());
@@ -260,26 +261,32 @@ export const ReviewsGrid = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Enhanced cleanup on unmount - release all video memory
+  // Enhanced cleanup on unmount - SCOPED to ReviewsGrid only
   useEffect(() => {
     return () => {
-      // Pause all videos and release memory
-      const videos = document.querySelectorAll('video');
-      videos.forEach(video => {
-        video.pause();
-        video.removeAttribute('src');
-        video.load();
-      });
+      // Only clean up videos within THIS component
+      if (gridContainerRef.current) {
+        const videos = gridContainerRef.current.querySelectorAll('video');
+        videos.forEach(video => {
+          video.pause();
+          video.removeAttribute('src');
+          video.load();
+          video.src = ''; // Additional garbage collection hint
+        });
+      }
+      // Clear ALL state to release memory
       setUnmutedVideoId(null);
       setLoadedVideoIds(new Set());
+      setVisibleItemCount(isMobile ? 6 : 30);
+      setIsGridAnimated(false);
     };
-  }, []);
+  }, [isMobile]);
 
   // Get the items to render based on progressive loading
   const itemsToRender = gridItems.slice(0, visibleItemCount);
 
   return (
-    <div className="relative w-full">
+    <div ref={gridContainerRef} className="relative w-full">
       <div
         className={cn(
           "grid grid-rows-3",

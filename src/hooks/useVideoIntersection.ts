@@ -18,8 +18,8 @@ export const useVideoIntersection = (options: UseVideoIntersectionOptions = {}) 
     const element = elementRef.current;
     if (!element) return;
 
-    // Find the scrolling container (horizontal scroll grid)
-    const scrollContainer = element.closest('[style*="overflowX"]') as HTMLElement;
+    // Find the closest horizontal scrolling container with data-scroll-container attribute
+    const scrollContainer = element.closest('[data-scroll-container]') as HTMLElement;
     if (!scrollContainer) {
       // Fallback if no scroll container found - assume visible
       setIsInViewport(true);

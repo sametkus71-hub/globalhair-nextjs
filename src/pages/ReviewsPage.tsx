@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
 import { ReviewsGrid } from '@/components/reviews/ReviewsGrid';
@@ -11,6 +11,22 @@ export const ReviewsPage = () => {
   const { t } = useTranslation(language);
   const [isExiting, setIsExiting] = useState(false);
   const { handlePopupClose } = usePopupClose();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // Cleanup all videos when leaving the reviews page
+  useEffect(() => {
+    return () => {
+      if (scrollContainerRef.current) {
+        const videos = scrollContainerRef.current.querySelectorAll('video');
+        videos.forEach(video => {
+          video.pause();
+          video.removeAttribute('src');
+          video.load();
+          video.src = ''; // Force garbage collection hint
+        });
+      }
+    };
+  }, []);
 
   // Navigate back to appropriate page
   const handleClose = () => {
@@ -43,6 +59,8 @@ export const ReviewsPage = () => {
         
         {/* Full screen Instagram-style grid - horizontal scrolling */}
         <div
+          ref={scrollContainerRef}
+          data-scroll-container="reviews"
           className="reviews-scrollbar w-full h-full overflow-x-auto overflow-y-hidden pl-4 pr-4 md:pl-8 md:pr-8 flex items-center"
           style={{ 
             WebkitOverflowScrolling: 'touch', 
