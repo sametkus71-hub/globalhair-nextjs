@@ -89,14 +89,19 @@ const VideoCard = memo(({
     }
   }, [shouldLoad, isLoaded]);
 
-  // Cleanup on unmount
+  // Enhanced cleanup on unmount - aggressive memory release
   useEffect(() => {
     return () => {
       if (videoRef.current) {
-        videoRef.current.pause();
-        videoRef.current.removeAttribute('src');
-        videoRef.current.load(); // Force release from memory
+        const video = videoRef.current;
+        video.pause();
+        video.currentTime = 0; // Reset playback position
+        video.removeAttribute('src');
+        video.load(); // Force release from memory
+        video.src = ''; // Additional garbage collection hint
       }
+      // Clear component state
+      setIsLoaded(false);
     };
   }, []);
 
