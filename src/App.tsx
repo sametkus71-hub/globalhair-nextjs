@@ -15,6 +15,7 @@ import { PasswordProtection } from "@/components/PasswordProtection";
 import { CookieConsent } from "@/components/CookieConsent";
 import { lazy, Suspense, useEffect } from "react";
 import { waitForSalesIQ } from "@/lib/salesiq";
+import { usePageVisibility } from "@/hooks/usePageVisibility";
 
 // Lazy load the video background to reduce initial bundle
 const PersistentVideoBackground = lazy(() => import("@/components/PersistentVideoBackground").then(m => ({ default: m.PersistentVideoBackground })));
@@ -37,6 +38,9 @@ function AppBackground() {
 }
 
 function AppRootInit() {
+  // Pause all videos when tab is hidden to save resources
+  usePageVisibility();
+  
   useEffect(() => {
     // Debug: Detect actual page reloads vs re-renders
     const navEntry = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;

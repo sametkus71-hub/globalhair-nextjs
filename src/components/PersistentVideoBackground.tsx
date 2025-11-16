@@ -38,6 +38,17 @@ export const PersistentVideoBackground = () => {
     }
   }, [shouldLoadVideo, videoLoaded]);
 
+  // Cleanup: Pause and remove video source on unmount to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      if (videoRef.current) {
+        videoRef.current.pause();
+        videoRef.current.removeAttribute('src');
+        videoRef.current.load(); // Forces browser to release video from memory
+      }
+    };
+  }, []);
+
   if (!mounted || isAdminRoute) return null;
 
   const videoSrc = isMobile 
