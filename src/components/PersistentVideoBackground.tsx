@@ -52,8 +52,10 @@ export const PersistentVideoBackground = () => {
   if (!mounted || isAdminRoute) return null;
 
   const videoSrc = isMobile 
-    ? 'https://GlobalHair.b-cdn.net/Bg%20Videos/P%20-%20Basic%20BG%20V0.mp4'
+    ? 'https://GlobalHair.b-cdn.net/Bg%20Videos/P%20-%20Basic%20BG%20V0%20compressed.webm'
     : 'https://GlobalHair.b-cdn.net/Bg%20Videos/D%20-%20Basic%20BG%20V0.mp4';
+  
+  const videoType = isMobile ? 'video/webm' : 'video/mp4';
 
   return (
     <div 
@@ -79,7 +81,7 @@ export const PersistentVideoBackground = () => {
             transform: isChat ? 'scale(1.1)' : 'scale(1.0)',
           }}
         >
-          <source src={videoSrc} type="video/mp4" />
+          <source src={videoSrc} type={videoType} />
         </video>
       )}
       
