@@ -3,6 +3,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useSlideTransition } from '@/hooks/useSlideTransition';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useIntersection } from '@/hooks/useIntersection';
+import { useVideoIntersection } from '@/hooks/useVideoIntersection';
 import { cn } from '@/lib/utils';
 import { generateRandomGrid, GridItem } from '@/lib/reviewsRandomizer';
 import { QuoteImage } from '@/data/reviewsQuotes';
@@ -51,28 +52,55 @@ const VideoCard = memo(({
   isBerkantVideo?: boolean;
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  
+  // Track if video is in viewport
+  const { isInViewport, elementRef } = useVideoIntersection({
+    threshold: 0.3,
+    rootMargin: '50px'
+  });
 
+  // Play/pause based on viewport visibility
   useEffect(() => {
-    if (videoRef.current && shouldLoad) {
-      videoRef.current.muted = isMuted;
-      // Ensure video plays when loaded
+    if (!videoRef.current || !isLoaded) return;
+    
+    if (isInViewport && shouldLoad) {
+      // In viewport - play the video
       videoRef.current.play().catch(() => {
-        // Ignore autoplay failures - common on mobile
+        // Autoplay might fail, that's ok
       });
+    } else {
+      // Out of viewport - pause immediately to save resources
+      videoRef.current.pause();
     }
-  }, [isMuted, shouldLoad]);
+  }, [isInViewport, shouldLoad, isLoaded]);
+
+  // Keep mute state in sync
+  useEffect(() => {
+    if (videoRef.current && isLoaded) {
+      videoRef.current.muted = isMuted;
+    }
+  }, [isMuted, isLoaded]);
+
+  // Load video source when shouldLoad is true
+  useEffect(() => {
+    if (shouldLoad && !isLoaded) {
+      setIsLoaded(true);
+    }
+  }, [shouldLoad, isLoaded]);
 
   // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (videoRef.current) {
         videoRef.current.pause();
-        videoRef.current.src = '';
+        videoRef.current.removeAttribute('src');
+        videoRef.current.load(); // Force release from memory
       }
     };
   }, []);
 
-  if (!shouldLoad) {
+  if (!shouldLoad || !isLoaded) {
     // Lightweight placeholder while not loaded
     return (
       <div className="w-full h-full bg-black flex items-center justify-center">
@@ -83,6 +111,7 @@ const VideoCard = memo(({
 
   return (
     <div 
+      ref={elementRef}
       className="w-full h-full relative overflow-hidden bg-black cursor-pointer"
       onClick={onToggleMute}
     >
@@ -90,7 +119,6 @@ const VideoCard = memo(({
         ref={videoRef}
         src={'videoUrl' in video ? video.videoUrl : video.subbedUrl}
         muted={isMuted}
-        autoPlay
         loop
         playsInline
         preload="metadata"
@@ -148,26 +176,43 @@ export const ReviewsGrid = () => {
   // Generate random grid on component mount
   const [gridItems] = useState<GridItem[]>(() => generateRandomGrid());
   
-  // Progressive loading state - start with more items on desktop for better UX
+  // Progressive loading - REDUCED for mobile performance
   const [visibleItemCount, setVisibleItemCount] = useState(() => 
-    isMobile ? 6 : 50
+    isMobile ? 6 : 30 // Reduced from 50 to 30 on desktop
   );
   
-  // State for video muting - track which video is currently unmuted (if any)
+  // Track which videos should be allowed to load
+  const [loadedVideoIds, setLoadedVideoIds] = useState<Set<string>>(new Set());
+  
+  // State for video muting
   const [unmutedVideoId, setUnmutedVideoId] = useState<string | null>(null);
   
-  // Grid animation state - single boolean for triggering CSS animation
+  // Grid animation state
   const [isGridAnimated, setIsGridAnimated] = useState(false);
   
-  // Intersection observer for progressive loading - increased rootMargin for better preloading
+  // Intersection observer for progressive loading
   const { isIntersecting: shouldLoadMore, elementRef: loadMoreRef } = useIntersection<HTMLDivElement>({
     threshold: 0.1,
-    rootMargin: '800px'
+    rootMargin: '400px' // Reduced from 800px
   });
 
-  // Find video items to determine which should autoplay
-  const videoItems = gridItems.filter(item => item.type === 'video' || item.type === 'berkant-video').slice(0, 6);
-  const videoItemIds = new Set(videoItems.map(item => item.id));
+  // Limit simultaneous video loads based on device
+  useEffect(() => {
+    const itemsToRender = gridItems.slice(0, visibleItemCount);
+    const videoItems = itemsToRender.filter(
+      item => item.type === 'video' || item.type === 'berkant-video'
+    );
+    
+    if (isMobile) {
+      // Mobile: Load only first 4 videos initially, more on scroll
+      const initialVideos = videoItems.slice(0, 4).map(item => item.id);
+      setLoadedVideoIds(new Set(initialVideos));
+    } else {
+      // Desktop: Load first 10 videos
+      const initialVideos = videoItems.slice(0, 10).map(item => item.id);
+      setLoadedVideoIds(new Set(initialVideos));
+    }
+  }, [isMobile, visibleItemCount, gridItems]);
 
   // Handle click to navigate to item page with slide animation - only for videos now
   const handleItemClick = (item: GridItem) => {
@@ -194,16 +239,15 @@ export const ReviewsGrid = () => {
     setUnmutedVideoId(prevId => prevId === videoId ? null : videoId);
   };
 
-  // Progressive loading effect - load in batches (6 for mobile, 20 for desktop)
+  // Progressive loading effect - REDUCED batch size
   useEffect(() => {
     if (shouldLoadMore && visibleItemCount < gridItems.length) {
       const loadNextBatch = () => {
-        const batchSize = isMobile ? 6 : 20;
+        const batchSize = isMobile ? 4 : 10; // Reduced from 6/20
         setVisibleItemCount(prev => Math.min(prev + batchSize, gridItems.length));
       };
       
-      // Small delay to prevent rapid loading
-      const timeoutId = setTimeout(loadNextBatch, 150);
+      const timeoutId = setTimeout(loadNextBatch, 200); // Slightly increased delay
       return () => clearTimeout(timeoutId);
     }
   }, [shouldLoadMore, visibleItemCount, gridItems.length, isMobile]);
@@ -216,11 +260,18 @@ export const ReviewsGrid = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Cleanup videos on unmount
+  // Enhanced cleanup on unmount - release all video memory
   useEffect(() => {
     return () => {
-      // Pause all videos and clear unmuted state
+      // Pause all videos and release memory
+      const videos = document.querySelectorAll('video');
+      videos.forEach(video => {
+        video.pause();
+        video.removeAttribute('src');
+        video.load();
+      });
       setUnmutedVideoId(null);
+      setLoadedVideoIds(new Set());
     };
   }, []);
 
@@ -247,7 +298,7 @@ export const ReviewsGrid = () => {
           if (!item?.data) return null;
           
           const delay = Math.min(index * 50, 2000); // Staggered delay capped at 2s for CSS animation
-          const isVideoSlot = videoItemIds.has(item.id);
+          const shouldLoadVideo = loadedVideoIds.has(item.id);
           
           return (
             <div
@@ -275,7 +326,7 @@ export const ReviewsGrid = () => {
                   isMuted={unmutedVideoId !== item.id}
                   onToggleMute={() => handleVideoToggleMute(item.id, item)}
                   onMuteButtonClick={() => handleMuteButtonClick(item.id)}
-                  shouldLoad={isVideoSlot}
+                  shouldLoad={shouldLoadVideo}
                   isBerkantVideo={item.type === 'berkant-video'}
                 />
               )}
