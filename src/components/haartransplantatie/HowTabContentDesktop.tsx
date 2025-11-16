@@ -197,7 +197,7 @@ export const HowTabContentDesktop = () => {
           <button
             onClick={() => {
               if (typeof document !== 'undefined') document.body.classList.add('popup-open');
-              navigate(`/${language}/haartransplantatie/premium`);
+              navigate('/nl/haartransplantatie/nl/premium');
             }}
             className="text-white hover:text-white/80 transition-colors cursor-pointer"
             style={{
