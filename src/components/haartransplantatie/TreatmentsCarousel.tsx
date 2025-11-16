@@ -73,11 +73,26 @@ export const TreatmentsCarousel = () => {
 
   const items = useMemo(() => {
     // Order: Standard, Premium (middle/default), Elite
-    return BASE.map(pkg => ({
-      ...pkg,
-      link: getPackageLink(pkg.id)
-    }));
-  }, [language, profile.locatie]);
+    return BASE.map(pkg => {
+      // Use compressed WebM videos for mobile, keep MP4 for desktop
+      let bgVideo = pkg.bg;
+      if (isMobile) {
+        if (pkg.id === 'standard') {
+          bgVideo = 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Standard%20V0.webm';
+        } else if (pkg.id === 'premium') {
+          bgVideo = 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Premium%20V0%20(1).webm';
+        } else if (pkg.id === 'elite') {
+          bgVideo = 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Elite%20V0%20(1).webm';
+        }
+      }
+      
+      return {
+        ...pkg,
+        bg: bgVideo,
+        link: getPackageLink(pkg.id)
+      };
+    });
+  }, [language, profile.locatie, isMobile]);
 
   const scrollerRef = useRef<HTMLDivElement>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
