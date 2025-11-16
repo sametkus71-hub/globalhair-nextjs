@@ -25,45 +25,23 @@ export default defineConfig(({ mode }) => ({
     
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          // React vendors
-          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/react-router-dom')) {
-            return 'react-vendor';
-          }
-          
-          // Radix UI components
-          if (id.includes('@radix-ui')) {
-            return 'radix-ui';
-          }
-          
-          // Video libraries
-          if (id.includes('hls.js')) {
-            return 'video';
-          }
-          
-          // Form libraries
-          if (id.includes('react-hook-form') || id.includes('@hookform') || id.includes('zod')) {
-            return 'forms';
-          }
-          
-          // Charts
-          if (id.includes('recharts')) {
-            return 'charts';
-          }
-          
-          // Split CSS by page for better caching
-          if (id.includes('src/styles/common.css')) {
-            return 'common-styles';
-          }
-          if (id.includes('src/styles/pages/reviews')) {
-            return 'reviews-styles';
-          }
-          if (id.includes('src/styles/pages/treatments')) {
-            return 'treatments-styles';
-          }
-          if (id.includes('src/styles/pages/booking')) {
-            return 'booking-styles';
-          }
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'radix-ui': [
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-tabs',
+            '@radix-ui/react-accordion',
+            '@radix-ui/react-dropdown-menu',
+            '@radix-ui/react-select',
+            '@radix-ui/react-popover',
+            '@radix-ui/react-checkbox',
+            '@radix-ui/react-slider',
+            '@radix-ui/react-switch',
+            '@radix-ui/react-toast',
+          ],
+          'video': ['hls.js'],
+          'forms': ['react-hook-form', '@hookform/resolvers', 'zod'],
+          'charts': ['recharts'],
         },
         
         assetFileNames: (assetInfo) => {
@@ -71,23 +49,6 @@ export default defineConfig(({ mode }) => ({
           
           const info = assetInfo.name.split('.');
           const ext = info[info.length - 1];
-          
-          // Separate CSS with stable naming for caching
-          if (ext === 'css') {
-            if (assetInfo.name.includes('common')) {
-              return `assets/css/common-[hash].css`;
-            }
-            if (assetInfo.name.includes('reviews')) {
-              return `assets/css/reviews-[hash].css`;
-            }
-            if (assetInfo.name.includes('treatments')) {
-              return `assets/css/treatments-[hash].css`;
-            }
-            if (assetInfo.name.includes('booking')) {
-              return `assets/css/booking-[hash].css`;
-            }
-            return `assets/css/[name]-[hash].css`;
-          }
           
           if (/png|jpe?g|svg|gif|tiff|bmp|ico|webp/i.test(ext)) {
             return `assets/images/[name]-[hash][extname]`;

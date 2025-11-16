@@ -55,12 +55,11 @@ export const AnimatedHeadHero = ({ inHeader = false }: AnimatedHeadHeroProps) =>
           AI Haarscan
         </span>
         <div 
-          className="cta-button-glow flex items-center justify-center rounded-full"
+          className="silver-gradient-border cta-button-glow flex items-center justify-center rounded-full"
           style={{
             width: 'clamp(35px, 5vh, 45px)',
             height: 'clamp(35px, 5vh, 45px)',
             marginLeft: 'clamp(0.5rem, 0.7vw, 0.65rem)',
-            background: 'transparent',
           }}
         >
           <img src="/assets/camera-icon.svg" alt="Camera" style={{ width: 'clamp(19px, 2.4vh, 24px)', height: 'clamp(17px, 2.2vh, 20px)', marginTop: '-2px', marginRight: '-2px' }} />
