@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
 
@@ -190,27 +191,30 @@ export const HowTabContentDesktop = () => {
         })}
       </div>
 
-      {/* Bottom Right Link - Same styling as mobile */}
-      <div className="fixed bottom-8 right-8 z-50">
-        <button
-          onClick={() => {
-            if (typeof document !== 'undefined') document.body.classList.add('popup-open');
-            navigate(`/${language}/haartransplantatie/premium`);
-          }}
-          className="text-white hover:text-white/80 transition-colors cursor-pointer"
-          style={{
-            fontSize: '14px',
-            fontWeight: 300,
-            fontFamily: 'Inter',
-            textDecoration: 'underline',
-            background: 'none',
-            border: 'none',
-            padding: 0,
-          }}
-        >
-          Bekijk onze methodes
-        </button>
-      </div>
+      {/* Bottom Right Link - Rendered via Portal to escape stacking context */}
+      {createPortal(
+        <div className="fixed bottom-8 right-8 z-50">
+          <button
+            onClick={() => {
+              if (typeof document !== 'undefined') document.body.classList.add('popup-open');
+              navigate(`/${language}/haartransplantatie/premium`);
+            }}
+            className="text-white hover:text-white/80 transition-colors cursor-pointer"
+            style={{
+              fontSize: '14px',
+              fontWeight: 300,
+              fontFamily: 'Inter',
+              textDecoration: 'underline',
+              background: 'none',
+              border: 'none',
+              padding: 0,
+            }}
+          >
+            Bekijk onze methodes
+          </button>
+        </div>,
+        document.body
+      )}
 
       {/* Styles for gradient border */}
       <style>{`
