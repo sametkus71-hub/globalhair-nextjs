@@ -122,7 +122,7 @@ const VideoCard = memo(({
     >
       <video
         ref={videoRef}
-        src={'videoUrl' in video ? video.videoUrl : video.subbedUrl}
+        src={video.videoUrl}
         muted={isMuted}
         loop
         playsInline
