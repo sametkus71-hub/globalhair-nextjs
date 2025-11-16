@@ -37,15 +37,15 @@ export const PackageStandardPage = () => {
   // Video sources mapping - correct URLs for each tier
   const videoSources = {
     Standard: {
-      mobile: 'https://globalhair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Standard%20V0.mp4',
+      mobile: 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Standard%20V0.webm',
       desktop: 'https://globalhair.b-cdn.net/pakketten%20bg%20vid/P%20-%20Standard%20V0.mp4'
     },
     Premium: {
-      mobile: 'https://globalhair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Premium%20V0.mp4',
+      mobile: 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Premium%20V0%20(1).webm',
       desktop: 'https://globalhair.b-cdn.net/pakketten%20bg%20vid/P%20-%20Premium%20V0.mp4'
     },
     Elite: {
-      mobile: 'https://globalhair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Elite%20V0.mp4',
+      mobile: 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Elite%20V0%20(1).webm',
       desktop: 'https://globalhair.b-cdn.net/pakketten%20bg%20vid/P%20-%20Elite%20V0.mp4'
     }
   };
