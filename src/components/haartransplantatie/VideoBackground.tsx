@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Hls from 'hls.js';
 import { useSession } from '@/hooks/useSession';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface VideoBackgroundProps {
   className?: string;
@@ -8,6 +9,7 @@ interface VideoBackgroundProps {
 
 export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
   const { profile } = useSession();
+  const isMobile = useIsMobile();
   const [isLoaded, setIsLoaded] = useState(false);
   const [loadedCount, setLoadedCount] = useState(0);
   
@@ -26,65 +28,112 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
   
   // Initialize HLS players
   useEffect(() => {
-    const videos = [
-      { ref: standardVideoRef, src: videoSources.Standard },
-      { ref: premiumVideoRef, src: videoSources.Premium },
-      { ref: eliteVideoRef, src: videoSources.Elite }
-    ];
+    if (isMobile === undefined) return; // Wait for mobile detection
     
-    let loadedVideos = 0;
+    const activePackage = profile.selectedPackage || 'Standard';
     
-    videos.forEach(({ ref, src }) => {
-      if (ref.current && Hls.isSupported()) {
+    const videos = {
+      Standard: { ref: standardVideoRef, src: videoSources.Standard },
+      Premium: { ref: premiumVideoRef, src: videoSources.Premium },
+      Elite: { ref: eliteVideoRef, src: videoSources.Elite }
+    };
+    
+    // Cleanup previous HLS instances
+    hlsInstancesRef.current.forEach(hls => hls.destroy());
+    hlsInstancesRef.current = [];
+    
+    if (isMobile) {
+      // MOBILE: Load only active video with HLS, others with metadata only
+      const activeVideo = videos[activePackage as keyof typeof videos];
+      
+      if (activeVideo.ref.current && Hls.isSupported()) {
         const hls = new Hls({
           enableWorker: false,
           lowLatencyMode: false,
-          backBufferLength: 90
+          backBufferLength: 30 // Reduced for mobile
         });
         
-        hlsInstancesRef.current.push(hls);
+        hlsInstancesRef.current = [hls];
         
-        hls.loadSource(src);
-        hls.attachMedia(ref.current);
+        hls.loadSource(activeVideo.src);
+        hls.attachMedia(activeVideo.ref.current);
         
         hls.on(Hls.Events.MANIFEST_PARSED, () => {
-          // Video is ready to play
-          if (ref.current) {
-            ref.current.play().catch(() => {
-              // Autoplay might be blocked, that's ok
-            });
-          }
-          
-          loadedVideos++;
-          setLoadedCount(loadedVideos);
-          
-          if (loadedVideos === 3) {
-            setIsLoaded(true);
-          }
+          activeVideo.ref.current?.play().catch(() => {});
+          setIsLoaded(true);
         });
         
         hls.on(Hls.Events.ERROR, (event, data) => {
           console.error('HLS Error:', data);
         });
-      } else if (ref.current?.canPlayType('application/vnd.apple.mpegurl')) {
+      } else if (activeVideo.ref.current?.canPlayType('application/vnd.apple.mpegurl')) {
         // Native HLS support (Safari)
-        ref.current.src = src;
-        ref.current.addEventListener('loadeddata', () => {
-          loadedVideos++;
-          setLoadedCount(loadedVideos);
-          
-          if (loadedVideos === 3) {
-            setIsLoaded(true);
-          }
-          
-          if (ref.current) {
-            ref.current.play().catch(() => {
-              // Autoplay might be blocked, that's ok
-            });
-          }
+        activeVideo.ref.current.src = activeVideo.src;
+        activeVideo.ref.current.addEventListener('loadeddata', () => {
+          setIsLoaded(true);
+          activeVideo.ref.current?.play().catch(() => {});
         });
       }
-    });
+      
+      // Set inactive videos to preload="metadata" only (first frame)
+      Object.entries(videos).forEach(([packageName, video]) => {
+        if (packageName !== activePackage && video.ref.current) {
+          video.ref.current.preload = 'metadata';
+          video.ref.current.src = video.src;
+        }
+      });
+      
+    } else {
+      // DESKTOP: Load all videos with HLS (current behavior)
+      let loadedVideos = 0;
+      
+      Object.values(videos).forEach(({ ref, src }) => {
+        if (ref.current && Hls.isSupported()) {
+          const hls = new Hls({
+            enableWorker: false,
+            lowLatencyMode: false,
+            backBufferLength: 60 // Slightly reduced from 90
+          });
+          
+          hlsInstancesRef.current.push(hls);
+          
+          hls.loadSource(src);
+          hls.attachMedia(ref.current);
+          
+          hls.on(Hls.Events.MANIFEST_PARSED, () => {
+            if (ref.current) {
+              ref.current.play().catch(() => {});
+            }
+            
+            loadedVideos++;
+            setLoadedCount(loadedVideos);
+            
+            if (loadedVideos === 3) {
+              setIsLoaded(true);
+            }
+          });
+          
+          hls.on(Hls.Events.ERROR, (event, data) => {
+            console.error('HLS Error:', data);
+          });
+        } else if (ref.current?.canPlayType('application/vnd.apple.mpegurl')) {
+          // Native HLS support (Safari)
+          ref.current.src = src;
+          ref.current.addEventListener('loadeddata', () => {
+            loadedVideos++;
+            setLoadedCount(loadedVideos);
+            
+            if (loadedVideos === 3) {
+              setIsLoaded(true);
+            }
+            
+            if (ref.current) {
+              ref.current.play().catch(() => {});
+            }
+          });
+        }
+      });
+    }
     
     return () => {
       // Cleanup HLS instances
@@ -93,7 +142,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
       });
       hlsInstancesRef.current = [];
     };
-  }, []);
+  }, [isMobile, profile.selectedPackage]);
   
   // Get the active video based on selected package
   const getActiveVideo = () => {
@@ -153,11 +202,11 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
             top: 0,
             transform: 'translateX(-50%)'
           }}
-          autoPlay
+          autoPlay={!isMobile || activeVideo === 'standard'}
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="none"
         />
       </div>
       
@@ -179,11 +228,11 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
             top: 0,
             transform: 'translateX(-50%)'
           }}
-          autoPlay
+          autoPlay={!isMobile || activeVideo === 'premium'}
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="none"
         />
       </div>
       
@@ -205,11 +254,11 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
             top: 0,
             transform: 'translateX(-50%)'
           }}
-          autoPlay
+          autoPlay={!isMobile || activeVideo === 'elite'}
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="none"
         />
       </div>
     </div>
