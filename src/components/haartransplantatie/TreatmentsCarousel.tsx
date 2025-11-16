@@ -187,6 +187,19 @@ export const TreatmentsCarousel = () => {
     });
   }, [active, isMobile]);
 
+  // Cleanup: Pause and remove video sources on unmount to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      videoRefs.current.forEach((video) => {
+        if (video) {
+          video.pause();
+          video.removeAttribute('src');
+          video.load(); // Forces browser to release video from memory
+        }
+      });
+    };
+  }, []);
+
   // Consolidated scroll listener: 3D transforms + snap detection (mobile only)
   useEffect(() => {
     const el = scrollerRef.current;
