@@ -79,9 +79,9 @@ export const ContactTabContent = () => {
         >
           {/* Content based on active tab */}
           {activeTab === 'nl' ? (
-            <div className="flex flex-col lg:flex-row mx-auto justify-center items-center lg:items-start" style={{ width: '220px', gap: 'clamp(1rem, 2vh, 2rem)' }}>
+            <div className="flex flex-col lg:flex-row mx-auto justify-center items-center lg:items-start lg:gap-8" style={{ gap: 'clamp(1rem, 2vh, 2rem)' }}>
               {/* Barendrecht */}
-              <div className="text-center flex-1">
+              <div className="text-center w-full lg:w-[180px]">
                 <div className="flex gap-1 justify-center items-center mb-2">
                   <img src={shieldIcon} alt="Shield" className="w-5 h-5" style={{ filter: 'brightness(0) invert(1)' }} />
                   <img src={v6HairboostIcon} alt="V6 Hairboost" className="w-7 h-7" style={{ filter: 'brightness(0) invert(1)' }} />
@@ -106,7 +106,7 @@ export const ContactTabContent = () => {
               </div>
 
               {/* Leiden */}
-              <div className="text-center flex-1">
+              <div className="text-center w-full lg:w-[180px]">
                 <div className="flex gap-1 justify-center items-center mb-2">
                   <img src={v6HairboostIcon} alt="V6 Hairboost" className="w-7 h-7" style={{ filter: 'brightness(0) invert(1)' }} />
                 </div>
@@ -119,7 +119,7 @@ export const ContactTabContent = () => {
               </div>
             </div>
           ) : (
-            <div className="flex justify-center mx-auto" style={{ width: '220px' }}>
+            <div className="flex justify-center mx-auto w-full lg:w-[180px]">
               <div className="text-center">
                 <div className="flex gap-1 justify-center items-center mb-2">
                   <img src={shieldIcon} alt="Shield" className="w-5 h-5" style={{ filter: 'brightness(0) invert(1)' }} />
