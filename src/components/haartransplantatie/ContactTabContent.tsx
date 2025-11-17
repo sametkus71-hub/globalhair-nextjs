@@ -67,9 +67,9 @@ export const ContactTabContent = () => {
       </div>
 
       {/* Middle Content Area - Flex Grow with Centered Inner Box */}
-      <div className="flex-1 px-2 flex items-center justify-center" style={{ minHeight: 0, maxWidth: '280px', margin: '0 auto' }}>
+      <div className="flex-1 px-2 flex items-center justify-center lg:px-8 lg:max-w-none" style={{ minHeight: 0, maxWidth: '280px' }}>
         <div 
-          className="w-full rounded-3xl silver-gradient-border lg:px-16 lg:py-12"
+          className="w-full rounded-3xl silver-gradient-border max-w-[280px] lg:max-w-[700px] lg:px-16 lg:py-12"
           style={{
             background: 'rgba(0, 0, 0, 0.25)',
             backdropFilter: 'blur(10px)',
