@@ -145,13 +145,15 @@ export const ContactTabContent = () => {
         }}
       >
         {/* Separator Line */}
-        <div 
-          style={{
-            width: '100%',
-            height: '1px',
-            background: 'rgba(255, 255, 255, 0.08)',
-          }}
-        />
+        <div className="w-full lg:max-w-[450px] lg:mx-auto">
+          <div 
+            style={{
+              width: '100%',
+              height: '1px',
+              background: 'rgba(255, 255, 255, 0.08)',
+            }}
+          />
+        </div>
         
         {/* Contact Info Row */}
         <div className="w-full lg:max-w-[450px] lg:mx-auto">
