@@ -4,7 +4,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { X, Send, Loader2, ExternalLink } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import hairtransplantLogo from '@/assets/hairtransplant-logo.png';
-import { usePopupClose } from '@/components/PopupCloseButton';
+import { usePopupClose, PopupCloseButton } from '@/components/PopupCloseButton';
 import { LinkifiedText } from '@/components/chat/LinkifiedText';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
 
@@ -1113,8 +1113,14 @@ const ChatPage = () => {
         }}
       >
         <DesktopContainer>
+          {/* Desktop-only close button matching booking page */}
+          <PopupCloseButton 
+            onClose={handleClose}
+            className="!left-auto !right-4 hidden lg:block"
+          />
+
           {/* Header with Logo and Close Button */}
-          <div 
+          <div
             className="fixed top-0 left-0 right-0 lg:left-auto lg:right-auto lg:max-w-[500px] lg:mx-auto transition-all duration-500" 
             style={{ 
               zIndex: 100,
@@ -1160,7 +1166,7 @@ const ChatPage = () => {
                 
                 <button
                   onClick={handleClose}
-                  className="p-2 text-white/80 hover:text-white transition-colors rounded-lg hover:bg-white/5 relative z-10"
+                  className="p-2 text-white/80 hover:text-white transition-colors rounded-lg hover:bg-white/5 relative z-10 lg:hidden"
                   aria-label="Close chat"
                 >
                   <X size={24} />
