@@ -88,7 +88,7 @@ export const ContactTabContent = () => {
                 <h2 className="text-white text-lg mb-1 lg:text-3xl" style={{ fontFamily: 'Inter', fontWeight: 400, lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
                   Barendrecht
                 </h2>
-                <p className="text-white opacity-90 mb-2 lg:text-base lg:mb-0" style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(10px, 1.8vh, 12px)', fontWeight: 300 }}>
+                <p className="text-white mb-2 lg:text-base lg:mb-0" style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(10px, 1.8vh, 12px)', fontWeight: 300 }}>
                   Pesetastraat 72, 2991 XT
                 </p>
                 <span 
@@ -118,7 +118,7 @@ export const ContactTabContent = () => {
                 <h2 className="text-white text-lg mb-1 lg:text-3xl" style={{ fontFamily: 'Inter', fontWeight: 400, lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
                   Leiden
                 </h2>
-                <p className="text-white opacity-90 lg:text-base" style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(10px, 1.8vh, 12px)', fontWeight: 300 }}>
+                <p className="text-white lg:text-base" style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(10px, 1.8vh, 12px)', fontWeight: 300 }}>
                   Fruitweg 22, 2321 GK
                 </p>
               </div>
@@ -132,7 +132,7 @@ export const ContactTabContent = () => {
                 <h2 className="text-white text-lg mb-1 lg:text-3xl" style={{ fontFamily: 'Inter', fontWeight: 400, lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
                   İstanbul
                 </h2>
-                <p className="text-white opacity-90 lg:text-base" style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(10px, 1.8vh, 12px)', fontWeight: 300 }}>
+                <p className="text-white lg:text-base" style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(10px, 1.8vh, 12px)', fontWeight: 300 }}>
                   Kaynarca, Erol Kaya Cd No:204,<br />
                   34890 Pendik
                 </p>
