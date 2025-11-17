@@ -92,7 +92,7 @@ export const ContactTabContent = () => {
                   Pesetastraat 72, 2991 XT
                 </p>
                 <span 
-                  className="inline-block px-3 py-1 rounded-full text-white"
+                  className="inline-block px-3 py-1 rounded-full text-white badge-gradient-border"
                   style={{
                     background: 'rgba(255, 255, 255, 0.12)',
                     fontSize: '12.32px',
@@ -101,10 +101,6 @@ export const ContactTabContent = () => {
                     lineHeight: '83%',
                     letterSpacing: '-4%',
                     textAlign: 'center',
-                    border: '0.38px solid transparent',
-                    backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12)), linear-gradient(269.87deg, #4B555E 3.18%, #ACB9C1 51.79%, #FFFFFF 76.09%, #ACB9C1 88.24%, #4B555E 100.39%)',
-                    backgroundOrigin: 'border-box',
-                    backgroundClip: 'padding-box, border-box',
                     backdropFilter: 'blur(13.1px)',
                     WebkitBackdropFilter: 'blur(13.1px)',
                     boxShadow: '0px -0.77px 3.62px 0px rgba(255, 255, 255, 0.25) inset',
@@ -231,6 +227,31 @@ export const ContactTabContent = () => {
         }
 
         .silver-gradient-border > * {
+          position: relative;
+          z-index: 1;
+        }
+
+        .badge-gradient-border {
+          position: relative;
+        }
+
+        .badge-gradient-border::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 0.38px;
+          border-radius: inherit;
+          background: linear-gradient(269.87deg, #4B555E 3.18%, #ACB9C1 51.79%, #FFFFFF 76.09%, #ACB9C1 88.24%, #4B555E 100.39%);
+          -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .badge-gradient-border > * {
           position: relative;
           z-index: 1;
         }
