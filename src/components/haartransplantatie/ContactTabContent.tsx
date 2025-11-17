@@ -92,12 +92,22 @@ export const ContactTabContent = () => {
                   Pesetastraat 72, 2991 XT
                 </p>
                 <span 
-                  className="inline-block px-3 py-1 rounded-full text-white lg:px-4 lg:py-1.5 lg:text-xs"
+                  className="inline-block px-3 py-1 rounded-full text-white"
                   style={{
-                    background: 'rgba(255, 255, 255, 0.15)',
-                    fontSize: '10px',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
-                    fontFamily: 'Inter, sans-serif',
+                    background: 'rgba(255, 255, 255, 0.12)',
+                    fontSize: '12.32px',
+                    fontFamily: 'Inter',
+                    fontWeight: 400,
+                    lineHeight: '83%',
+                    letterSpacing: '-4%',
+                    textAlign: 'center',
+                    border: '0.38px solid transparent',
+                    backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12)), linear-gradient(269.87deg, #4B555E 3.18%, #ACB9C1 51.79%, #FFFFFF 76.09%, #ACB9C1 88.24%, #4B555E 100.39%)',
+                    backgroundOrigin: 'border-box',
+                    backgroundClip: 'padding-box, border-box',
+                    backdropFilter: 'blur(13.1px)',
+                    WebkitBackdropFilter: 'blur(13.1px)',
+                    boxShadow: '0px -0.77px 3.62px 0px rgba(255, 255, 255, 0.25) inset',
                   }}
                 >
                   Hoofdvestiging
