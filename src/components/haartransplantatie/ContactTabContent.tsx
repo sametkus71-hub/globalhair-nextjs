@@ -11,7 +11,7 @@ export const ContactTabContent = () => {
   const [activeTab, setActiveTab] = useState<'nl' | 'tr'>('nl');
 
   return (
-    <div className="h-full w-full flex flex-col">
+    <div className="h-full w-full flex flex-col lg:gap-6">
       {/* Tabs Section */}
       <div className="w-full flex justify-center px-4" style={{ paddingTop: '12px', paddingBottom: '12px' }}>
         <div 
@@ -67,7 +67,7 @@ export const ContactTabContent = () => {
       </div>
 
       {/* Middle Content Area - Flex Grow with Centered Inner Box */}
-      <div className="flex-1 w-full px-2 flex items-center justify-center mx-auto lg:max-w-[600px]" style={{ minHeight: 0 }}>
+      <div className="flex-1 lg:flex-initial w-full px-2 flex items-center justify-center mx-auto lg:max-w-[600px]" style={{ minHeight: 0 }}>
         <div 
           className={`w-[80%] lg:w-full rounded-2xl silver-gradient-border ${activeTab === 'nl' ? 'lg:max-w-[900px]' : 'lg:max-w-[400px]'} px-4 py-3 lg:py-8`}
           style={{
