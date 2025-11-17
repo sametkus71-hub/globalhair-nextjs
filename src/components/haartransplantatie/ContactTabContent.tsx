@@ -92,12 +92,12 @@ export const ContactTabContent = () => {
                   Pesetastraat 72, 2991 XT
                 </p>
                 <span 
-                  className="inline-block px-3 py-1 rounded-full text-white badge-gradient-border"
+                  className="inline-block px-3 py-1.5 rounded-full text-white badge-gradient-border"
                   style={{
                     background: 'rgba(255, 255, 255, 0.12)',
                     fontSize: '12.32px',
                     fontFamily: 'Inter',
-                    fontWeight: 400,
+                    fontWeight: 300,
                     lineHeight: '83%',
                     letterSpacing: '-4%',
                     textAlign: 'center',
