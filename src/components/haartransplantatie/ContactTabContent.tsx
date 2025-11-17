@@ -27,7 +27,7 @@ export const ContactTabContent = () => {
         >
           <button
             onClick={() => setActiveTab('nl')}
-            className={`relative rounded-full font-light transition-all duration-300 ease-out ${
+            className={`relative rounded-full font-light transition-all duration-300 ease-out text-white ${
               activeTab === 'nl'
                 ? 'silver-gradient-border scale-105'
                 : 'bg-transparent hover:opacity-80 scale-100'
@@ -36,17 +36,13 @@ export const ContactTabContent = () => {
               padding: 'clamp(0.2rem, 0.5vh, 0.35rem) clamp(1rem, 2.5vw, 1.5rem)',
               fontSize: 'clamp(0.7rem, 1.3vh, 0.8rem)',
               backgroundColor: activeTab === 'nl' ? 'rgba(24, 47, 60, 0.3)' : 'transparent',
-              backgroundImage: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
             }}
           >
-            Nederland
+            <span className="lg:text-base lg:py-1">Nederland</span>
           </button>
           <button
             onClick={() => setActiveTab('tr')}
-            className={`relative rounded-full font-light transition-all duration-300 ease-out ${
+            className={`relative rounded-full font-light transition-all duration-300 ease-out text-white ${
               activeTab === 'tr'
                 ? 'silver-gradient-border scale-105'
                 : 'bg-transparent hover:opacity-80 scale-100'
@@ -55,13 +51,9 @@ export const ContactTabContent = () => {
               padding: 'clamp(0.2rem, 0.5vh, 0.35rem) clamp(1rem, 2.5vw, 1.5rem)',
               fontSize: 'clamp(0.7rem, 1.3vh, 0.8rem)',
               backgroundColor: activeTab === 'tr' ? 'rgba(24, 47, 60, 0.3)' : 'transparent',
-              backgroundImage: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
             }}
           >
-            Turkije
+            <span className="lg:text-base lg:py-1">Turkije</span>
           </button>
         </div>
       </div>
