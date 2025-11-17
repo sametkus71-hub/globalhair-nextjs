@@ -13,7 +13,7 @@ export const ContactTabContent = () => {
   return (
     <div className="h-full w-full flex flex-col lg:gap-6">
       {/* Tabs Section */}
-      <div className="w-full flex justify-center px-4" style={{ paddingTop: '12px', paddingBottom: '12px' }}>
+      <div className="w-full flex justify-center px-4 lg:pt-[50px]" style={{ paddingTop: '12px', paddingBottom: '12px' }}>
         <div 
           className="relative flex items-center justify-center gap-1 rounded-full"
           style={{
