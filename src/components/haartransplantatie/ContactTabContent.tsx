@@ -69,12 +69,12 @@ export const ContactTabContent = () => {
       {/* Middle Content Area - Flex Grow with Centered Inner Box */}
       <div className="flex-1 w-full px-2 flex items-center justify-center mx-auto lg:px-8 lg:max-w-none" style={{ minHeight: 0 }}>
         <div 
-          className="w-[85%] lg:w-full rounded-3xl silver-gradient-border lg:max-w-[1200px] lg:px-16 lg:py-12"
+          className="w-[85%] lg:w-full rounded-2xl silver-gradient-border lg:max-w-[1200px] lg:px-16 lg:py-12"
           style={{
-            background: 'rgba(0, 0, 0, 0.25)',
+            background: 'rgba(0, 0, 0, 0.3)',
             backdropFilter: 'blur(10px)',
             WebkitBackdropFilter: 'blur(10px)',
-            padding: 'clamp(0.75rem, 2vh, 2rem) clamp(1rem, 3vw, 1.5rem)',
+            padding: 'clamp(1.5rem, 3vh, 3rem) clamp(1rem, 3vw, 1.5rem)',
           }}
         >
           {/* Content based on active tab */}
@@ -86,7 +86,7 @@ export const ContactTabContent = () => {
                   <img src={shieldIcon} alt="Shield" className="w-5 h-5 lg:w-6 lg:h-6" style={{ filter: 'brightness(0) invert(1)' }} />
                   <img src={v6HairboostIcon} alt="V6 Hairboost" className="w-7 h-7 lg:w-8 lg:h-8" style={{ filter: 'brightness(0) invert(1)' }} />
                 </div>
-                <h2 className="text-white mb-1 lg:text-3xl lg:mb-3" style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: 'clamp(18px, 3.5vh, 22px)', lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
+                <h2 className="text-white mb-1 lg:text-5xl lg:mb-3" style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: 'clamp(24px, 5vh, 36px)', lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
                   Barendrecht
                 </h2>
                 <p className="text-white opacity-90 mb-2 lg:text-base lg:mb-4" style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(10px, 1.8vh, 12px)', fontWeight: 300 }}>
@@ -110,7 +110,7 @@ export const ContactTabContent = () => {
                 <div className="flex gap-1 justify-center items-center mb-2">
                   <img src={v6HairboostIcon} alt="V6 Hairboost" className="w-7 h-7 lg:w-8 lg:h-8" style={{ filter: 'brightness(0) invert(1)' }} />
                 </div>
-                <h2 className="text-white mb-1 lg:text-3xl lg:mb-3" style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: 'clamp(18px, 3.5vh, 22px)', lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
+                <h2 className="text-white mb-1 lg:text-5xl lg:mb-3" style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: 'clamp(24px, 5vh, 36px)', lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
                   Leiden
                 </h2>
                 <p className="text-white opacity-90 lg:text-base" style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(10px, 1.8vh, 12px)', fontWeight: 300 }}>
@@ -124,7 +124,7 @@ export const ContactTabContent = () => {
                 <div className="flex gap-1 justify-center items-center mb-2">
                   <img src={shieldIcon} alt="Shield" className="w-5 h-5 lg:w-6 lg:h-6" style={{ filter: 'brightness(0) invert(1)' }} />
                 </div>
-                <h2 className="text-white mb-1 lg:text-3xl lg:mb-3" style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: 'clamp(18px, 3.5vh, 22px)', lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
+                <h2 className="text-white mb-1 lg:text-5xl lg:mb-3" style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: 'clamp(24px, 5vh, 36px)', lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
                   İstanbul
                 </h2>
                 <p className="text-white opacity-90 lg:text-base" style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(10px, 1.8vh, 12px)', fontWeight: 300 }}>
@@ -209,9 +209,9 @@ export const ContactTabContent = () => {
           content: "";
           position: absolute;
           inset: 0;
-          padding: 1px;
+          padding: 2px;
           border-radius: inherit;
-          background: linear-gradient(80deg, #949494 7%, #838e94 16%, #b5b5b5 34%, #ACB9C1 51%, #4e5964 78%, #727272 105%);
+          background: linear-gradient(269.87deg, #4B555E 3.18%, #ACB9C1 51.79%, #FFFFFF 76.09%, #ACB9C1 88.24%, #4B555E 100.39%);
           -webkit-mask: 
             linear-gradient(#fff 0 0) content-box,
             linear-gradient(#fff 0 0);
