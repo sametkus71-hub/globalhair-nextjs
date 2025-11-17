@@ -5,6 +5,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { MetaHead } from '@/components/MetaHead';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
 import { WideContentContainer } from '@/components/layout/WideContentContainer';
+import { MediumContentContainer } from '@/components/layout/MediumContentContainer';
 import { GlassHeader } from '@/components/haartransplantatie/GlassHeader';
 import { AnimatedHeadHero } from '@/components/haartransplantatie/AnimatedHeadHero';
 import { GlassTabs } from '@/components/haartransplantatie/GlassTabs';
@@ -21,6 +22,9 @@ export const HaartransplantatieLayout = () => {
   
   // Check if we're on reviews route (needs full width on desktop)
   const isReviewsRoute = location.pathname.includes('/reviews');
+  
+  // Check if we're on contact route (needs 1000px width on desktop)
+  const isContactRoute = location.pathname.includes('/contact');
   
   // Check if we're on how route (needs overflow visible on desktop)
   const isHowRoute = location.pathname.includes('/how');
@@ -89,7 +93,7 @@ export const HaartransplantatieLayout = () => {
               </div>
             </DesktopContainer>
 
-            {/* Content Zone - Full width for reviews on desktop, 1400px width for other tabs */}
+            {/* Content Zone - Full width for reviews on desktop, 1000px for contact, 1250px for other tabs */}
             {!isPackageRoute && (
               isReviewsRoute && !isMobile ? (
                 // Full width for reviews on desktop
@@ -111,6 +115,26 @@ export const HaartransplantatieLayout = () => {
                     </div>
                   </div>
                 </div>
+              ) : isContactRoute && !isMobile ? (
+                // 1000px container for contact on desktop
+                <MediumContentContainer className="flex-1 flex flex-col">
+                  <div 
+                    className={`relative flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'} flex flex-col`}
+                    style={{ 
+                      paddingTop: 'clamp(0rem, 0.3vh, 0.6rem)', 
+                      paddingBottom: 'clamp(6rem, 12vh, 8rem)'
+                    }}
+                  >
+                    {/* Content from specific page - smooth fade transition on content only */}
+                    <div 
+                      key={location.pathname}
+                      className={`relative flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'} animate-fade-in`}
+                      style={{ animationDuration: '150ms' }}
+                    >
+                      <Outlet />
+                    </div>
+                  </div>
+                </MediumContentContainer>
               ) : (
                 // Standard 1250px container for other tabs
                 <WideContentContainer className="flex-1 flex flex-col">
