@@ -7,6 +7,7 @@ import hairtransplantLogo from '@/assets/hairtransplant-logo.png';
 import { usePopupClose, PopupCloseButton } from '@/components/PopupCloseButton';
 import { LinkifiedText } from '@/components/chat/LinkifiedText';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
+import { GlassHeader } from '@/components/haartransplantatie/GlassHeader';
 
 enum ConversationState {
   GREETING = 'greeting',
@@ -1119,9 +1120,15 @@ const ChatPage = () => {
             className="!left-auto !right-4 hidden lg:block"
           />
 
-          {/* Header with Logo and Close Button */}
+
+          {/* Desktop: Use consistent GlassHeader */}
+          <div className="hidden lg:block">
+            <GlassHeader />
+          </div>
+
+          {/* Mobile: Keep existing header with scroll blur */}
           <div
-            className="fixed top-0 left-0 right-0 lg:left-auto lg:right-auto lg:max-w-[500px] lg:mx-auto transition-all duration-500" 
+            className="fixed top-0 left-0 right-0 lg:hidden transition-all duration-500" 
             style={{ 
               zIndex: 100,
               backdropFilter: isScrolled ? 'blur(60px) saturate(200%)' : 'none',
@@ -1141,32 +1148,10 @@ const ChatPage = () => {
               </div>
 
               <div className="flex items-center gap-2">
-                {/* Phase 5: Dev-only buttons */}
-                {isDevEnvironment && (
-                  <>
-                    <button
-                      onClick={handleRestart}
-                      className="px-3 py-1.5 text-xs text-white/70 hover:text-white transition-colors rounded-lg hover:bg-white/10 border border-white/20"
-                      aria-label="Restart chat"
-                    >
-                      Restart
-                    </button>
-                    <button
-                      onClick={() => {
-                        sessionStorage.clear();
-                        window.location.reload();
-                      }}
-                      className="px-3 py-1.5 text-xs text-white/70 hover:text-white transition-colors rounded-lg hover:bg-white/10 border border-white/20"
-                      aria-label="Clear session"
-                    >
-                      Clear
-                    </button>
-                  </>
-                )}
-                
+                {/* Mobile close button */}
                 <button
                   onClick={handleClose}
-                  className="p-2 text-white/80 hover:text-white transition-colors rounded-lg hover:bg-white/5 relative z-10 lg:hidden"
+                  className="p-2 text-white/80 hover:text-white transition-colors rounded-lg hover:bg-white/5 relative z-10"
                   aria-label="Close chat"
                 >
                   <X size={24} />
@@ -1174,6 +1159,28 @@ const ChatPage = () => {
               </div>
             </div>
           </div>
+
+          {/* Dev buttons - floating bottom-left (desktop only) */}
+          {isDevEnvironment && (
+            <div className="hidden lg:flex fixed bottom-4 left-4 z-50 gap-2">
+              <button
+                onClick={handleRestart}
+                className="px-3 py-1.5 text-xs text-white/70 hover:text-white transition-colors rounded-lg bg-black/40 backdrop-blur-md border border-white/20"
+              >
+                Restart
+              </button>
+              <button
+                onClick={() => {
+                  sessionStorage.clear();
+                  window.location.reload();
+                }}
+                className="px-3 py-1.5 text-xs text-white/70 hover:text-white transition-colors rounded-lg bg-black/40 backdrop-blur-md border border-white/20"
+              >
+                Clear
+              </button>
+            </div>
+          )}
+
 
           {/* Main Content Container */}
           <div
