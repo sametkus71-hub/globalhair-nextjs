@@ -167,12 +167,14 @@ export const FooterCTAGlass = () => {
           }
         }
 
-        @keyframes glow-pulse {
+        @keyframes champagne-float {
           0%, 100% {
-            opacity: 0.85;
+            opacity: 0.4;
+            transform: translate(-50%, -50%) scale(1);
           }
           50% {
-            opacity: 1;
+            opacity: 0.5;
+            transform: translate(-50%, -52%) scale(1.03);
           }
         }
 
@@ -231,18 +233,18 @@ export const FooterCTAGlass = () => {
         .cta-button-glow::after {
           content: "";
           position: absolute;
-          top: 80%;
+          top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          width: 80%;
-          height: 80%;
+          width: 85%;
+          height: 85%;
           border-radius: 50%;
-          background: #C9A35D;
-          filter: blur(20px);
-          opacity: 1.3;
+          background: radial-gradient(circle, #FFFEF7 0%, #E8DCC4 50%, transparent 100%);
+          filter: blur(25px);
+          opacity: 0.45;
           z-index: 1;
           pointer-events: none;
-          animation: glow-pulse 4s ease-in-out infinite;
+          animation: champagne-float 6s ease-in-out infinite;
         }
 
         .silver-gradient-border {
