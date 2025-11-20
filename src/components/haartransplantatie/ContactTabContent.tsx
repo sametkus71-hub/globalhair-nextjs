@@ -154,8 +154,8 @@ export const ContactTabContent = () => {
             <span className="flex-1 text-left text-white" style={{ fontFamily: 'Inter', fontWeight: 300, fontSize: '11px', lineHeight: '120%', letterSpacing: '-4%', opacity: 0.9 }}>
               Ma – Za 10:00 – 19:00
             </span>
-            <a href="mailto:info@globalhair.nl" className="flex-1 text-center text-white no-underline hover:opacity-100 transition-opacity" style={{ fontFamily: 'Inter', fontWeight: 300, fontSize: '11px', lineHeight: '120%', letterSpacing: '-4%', opacity: 0.9 }}>
-              info@globalhair.nl
+            <a href="mailto:contact@globalhair.nl" className="flex-1 text-center text-white no-underline hover:opacity-100 transition-opacity" style={{ fontFamily: 'Inter', fontWeight: 300, fontSize: '11px', lineHeight: '120%', letterSpacing: '-4%', opacity: 0.9 }}>
+              contact@globalhair.nl
             </a>
             <a href="tel:0857500577" className="flex-1 text-right text-white no-underline hover:opacity-100 transition-opacity" style={{ fontFamily: 'Inter', fontWeight: 300, fontSize: '11px', lineHeight: '120%', letterSpacing: '-4%', opacity: 0.9 }}>
               085 750 0577
