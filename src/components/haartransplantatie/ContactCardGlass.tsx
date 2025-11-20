@@ -79,7 +79,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
         <div className="locations" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'start', marginBottom: '0.5rem', marginTop: '0.64rem' }}>
           {/* Barendrecht */}
           <article className="loc" style={{ textAlign: 'center' }}>
-            <div className="loc-icons" style={{ display: 'flex', gap: '3px', justifyContent: 'center', alignItems: 'center', marginBottom: '3px' }}>
+            <div className="loc-icons" style={{ display: 'flex', gap: '3px', justifyContent: 'center', alignItems: 'center', marginBottom: '8px' }}>
               <img src={shieldIcon} alt="Shield" style={{ width: '12px', height: '12px', opacity: 0.95 }} />
               <img src={v6HairboostIcon} alt="V6 Hairboost" style={{ width: '18px', height: '18px' }} />
             </div>
@@ -90,7 +90,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
 
           {/* Leiden */}
           <article className="loc" style={{ textAlign: 'center' }}>
-            <div className="loc-icons" style={{ display: 'flex', gap: '3px', justifyContent: 'center', alignItems: 'center', marginBottom: '3px' }}>
+            <div className="loc-icons" style={{ display: 'flex', gap: '3px', justifyContent: 'center', alignItems: 'center', marginBottom: '8px' }}>
               <img src={v6HairboostIcon} alt="V6 Hairboost" style={{ width: '18px', height: '18px' }} />
             </div>
             <h2 className="city" style={{ margin: 0, fontWeight: 400, fontSize: '13px', color: 'rgba(255,255,255,0.95)' }}>Leiden</h2>
@@ -111,7 +111,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
         <div className="locations" style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.3rem' }}>
           {/* Istanbul */}
           <article className="loc" style={{ textAlign: 'center', marginTop: '1rem' }}>
-            <div className="loc-icons" style={{ display: 'flex', gap: '3px', justifyContent: 'center', alignItems: 'center', marginBottom: '3px' }}>
+            <div className="loc-icons" style={{ display: 'flex', gap: '3px', justifyContent: 'center', alignItems: 'center', marginBottom: '8px' }}>
               <img src={shieldIcon} alt="Shield" style={{ width: '12px', height: '12px', opacity: 0.95 }} />
             </div>
             <h2 className="city" style={{ margin: 0, fontWeight: 400, fontSize: '13px', color: 'rgba(255,255,255,0.95)' }}>İstanbul</h2>
