@@ -1113,12 +1113,13 @@ const ChatPage = () => {
           zIndex: 50
         }}
       >
+        {/* Desktop-only close button - outside container for proper viewport positioning */}
+        <PopupCloseButton 
+          onClose={handleClose}
+          className="!left-auto !right-4 hidden lg:block"
+        />
+
         <DesktopContainer>
-          {/* Desktop-only close button matching booking page */}
-          <PopupCloseButton 
-            onClose={handleClose}
-            className="!left-auto !right-4 hidden lg:block"
-          />
 
 
           {/* Desktop: Use consistent GlassHeader */}
