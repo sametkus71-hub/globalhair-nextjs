@@ -73,7 +73,7 @@ export const ContactTabContent = () => {
             <div className="flex flex-col lg:flex-row mx-auto justify-center items-center lg:items-start lg:gap-20" style={{ gap: 'clamp(1rem, 2vh, 2rem)' }}>
               {/* Barendrecht */}
               <div className="text-center w-full lg:w-[280px]">
-                <div className="flex gap-1 justify-center items-center mb-2 lg:-mb-1">
+                <div className="flex gap-1 justify-center items-center mb-3 lg:mb-3">
                   <img src={shieldIcon} alt="Shield" className="w-5 h-5 lg:w-6 lg:h-6" style={{ filter: 'brightness(0) invert(1)' }} />
                   <img src={v6HairboostIcon} alt="V6 Hairboost" className="w-7 h-7 lg:w-8 lg:h-8" style={{ filter: 'brightness(0) invert(1)' }} />
                 </div>
@@ -104,7 +104,7 @@ export const ContactTabContent = () => {
 
               {/* Leiden */}
               <div className="text-center w-full lg:w-[280px]">
-                <div className="flex gap-1 justify-center items-center mb-2 lg:-mb-1">
+                <div className="flex gap-1 justify-center items-center mb-3 lg:mb-3">
                   <img src={v6HairboostIcon} alt="V6 Hairboost" className="w-7 h-7 lg:w-8 lg:h-8" style={{ filter: 'brightness(0) invert(1)' }} />
                 </div>
                 <h2 className="text-white text-lg mb-1 lg:text-3xl" style={{ fontFamily: 'Inter', fontWeight: 400, lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
@@ -118,7 +118,7 @@ export const ContactTabContent = () => {
           ) : (
             <div className="flex justify-center mx-auto w-full lg:w-[280px]">
               <div className="text-center">
-                <div className="flex gap-1 justify-center items-center mb-2 lg:-mb-1">
+                <div className="flex gap-1 justify-center items-center mb-3 lg:mb-3">
                   <img src={shieldIcon} alt="Shield" className="w-5 h-5 lg:w-6 lg:h-6" style={{ filter: 'brightness(0) invert(1)' }} />
                 </div>
                 <h2 className="text-white text-lg mb-1 lg:text-3xl" style={{ fontFamily: 'Inter', fontWeight: 400, lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
