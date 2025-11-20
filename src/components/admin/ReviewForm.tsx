@@ -73,7 +73,7 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
 
   const handleSave = async () => {
     // Validation
-    if (!formData.name || !formData.description || !formData.behandeling) {
+    if (!formData.name || !formData.behandeling) {
       toast.error('Vul alle verplichte velden in');
       return;
     }
@@ -515,7 +515,7 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="description">Beschrijving *</Label>
+                  <Label htmlFor="description">Beschrijving</Label>
                   <div className="border border-border rounded-[1px] overflow-hidden">
                     <ReactQuill
                       theme="snow"
