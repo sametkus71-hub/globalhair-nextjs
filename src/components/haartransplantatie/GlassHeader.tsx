@@ -4,7 +4,11 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { AnimatedHeadHero } from './AnimatedHeadHero';
 import hairtransplantLogo from '@/assets/hairtransplant-logo.png';
 
-export const GlassHeader = () => {
+interface GlassHeaderProps {
+  hideButton?: boolean;
+}
+
+export const GlassHeader = ({ hideButton = false }: GlassHeaderProps) => {
   const navigate = useNavigate();
   const { language } = useLanguage();
   const isMobile = useIsMobile();
@@ -27,7 +31,7 @@ export const GlassHeader = () => {
         </div>
         
         {/* Button - right side (desktop only) */}
-        {!isMobile && (
+        {!isMobile && !hideButton && (
           <div className="flex items-center">
             <AnimatedHeadHero inHeader={true} />
           </div>
