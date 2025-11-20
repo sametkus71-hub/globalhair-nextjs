@@ -405,13 +405,13 @@ export const PackageStandardPage = () => {
           key: 'v6prime' as FeatureKey,
           title: 'V6 Hairboost® - Prime',
           description: 'Twee voor-behandelingen die het donorgebied versterken en de haarwortels activeren. Hierdoor kan er meer veilig geoogst worden en blijft het donorgebied vol, gezond en vrijwel onzichtbaar behandeld.',
-          exclusive: false
+          exclusive: true
         },
         {
           key: 'v6recovery' as FeatureKey,
           title: 'V6 Hairboost® - Recovery',
           description: 'Acht na-behandelingen die het herstel tot twee keer sneller maken. Dankzij onze exclusieve vitaminekuur stimuleert dit het groeiproces, waardoor je na 6 maanden al het resultaat ziet dat normaal pas na 12 maanden optreedt.',
-          exclusive: false
+          exclusive: true
         },
         {
           key: 'biotine' as FeatureKey,
