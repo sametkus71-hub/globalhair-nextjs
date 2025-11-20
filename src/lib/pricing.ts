@@ -2,22 +2,22 @@ import { UserProfile, Package, Location } from '@/hooks/useSession';
 
 // Base package prices in euros (Turkey - cheaper option)
 const PACKAGE_PRICES: Record<Package, number> = {
-  'Standard': 6950,
-  'Premium': 12450,
+  'Standard': 4950,
+  'Premium': 8950,
   'Elite': 14750
 };
 
 // Location-based price adjustments (Netherlands is more expensive)
 const LOCATION_ADJUSTMENTS: Record<Location, number> = {
-  'Nederland': 2000, // Standard: +2000, Premium: +3500, Elite: +4200
+  'Nederland': 2300, // Standard: +2300, Premium: +4000, Elite: +7200
   'Turkije': 0
 };
 
 // Netherlands specific adjustments per package
 const NETHERLANDS_PACKAGE_ADJUSTMENTS: Record<Package, number> = {
-  'Standard': 2000,  // 6950 + 2000 = 8950
-  'Premium': 3500,   // 12450 + 3500 = 15950
-  'Elite': 4200   // 14750 + 4200 = 18950
+  'Standard': 2300,  // 4950 + 2300 = 7250
+  'Premium': 4000,   // 8950 + 4000 = 12950
+  'Elite': 7200      // 14750 + 7200 = 21950
 };
 
 export const calculatePrice = (profile: UserProfile): number => {

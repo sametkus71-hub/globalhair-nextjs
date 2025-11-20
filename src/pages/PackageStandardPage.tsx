@@ -288,7 +288,7 @@ export const PackageStandardPage = () => {
 
   const packageData = {
     Standard: {
-      price: '€7.500',
+      price: '€7.250',
       features: [
         {
           key: 'indicators' as FeatureKey,
@@ -329,7 +329,7 @@ export const PackageStandardPage = () => {
       ]
     },
     Premium: {
-      price: '€15.950',
+      price: '€12.950',
       features: [
         {
           key: 'indicators' as FeatureKey,
