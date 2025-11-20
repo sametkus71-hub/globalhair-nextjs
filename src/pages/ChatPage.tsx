@@ -1123,7 +1123,7 @@ const ChatPage = () => {
 
           {/* Desktop: Use consistent GlassHeader */}
           <div className="hidden lg:block">
-            <GlassHeader />
+            <GlassHeader hideButton={true} />
           </div>
 
           {/* Mobile: Keep existing header with scroll blur */}
