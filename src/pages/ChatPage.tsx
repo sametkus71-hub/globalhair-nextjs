@@ -1116,7 +1116,7 @@ const ChatPage = () => {
         {/* Desktop-only close button - outside container for proper viewport positioning */}
         <PopupCloseButton 
           onClose={handleClose}
-          className="!left-auto !right-4 hidden lg:block"
+          className="!left-auto !right-4 !z-[60] hidden lg:block"
         />
 
         <DesktopContainer>

@@ -26,7 +26,8 @@ export const GlassHeader = ({ hideButton = false }: GlassHeaderProps) => {
           <img 
             src={hairtransplantLogo} 
             alt="GHI Hairtransplant Logo" 
-            style={{ height: '2.5rem' }}
+            style={{ height: '2.5rem', cursor: 'pointer' }}
+            onClick={() => navigate(language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant')}
           />
         </div>
         
