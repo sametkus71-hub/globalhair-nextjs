@@ -237,9 +237,9 @@ export const FooterCTAGlass = () => {
           width: 80%;
           height: 80%;
           border-radius: 50%;
-          background: #7990A5;
+          background: #C9A35D;
           filter: blur(20px);
-          opacity: 1;
+          opacity: 1.3;
           z-index: 1;
           pointer-events: none;
           animation: glow-pulse 4s ease-in-out infinite;
