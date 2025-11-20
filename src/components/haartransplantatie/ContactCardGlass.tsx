@@ -115,10 +115,6 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
               <img src={shieldIcon} alt="Shield" style={{ width: '12px', height: '12px', opacity: 0.95 }} />
             </div>
             <h2 className="city" style={{ margin: 0, fontWeight: 400, fontSize: '13px', color: 'rgba(255,255,255,0.95)' }}>İstanbul</h2>
-            <p className="addr" style={{ margin: '0.05rem 0px -0.2rem', fontSize: '7.5px', color: 'rgba(255,255,255,0.95)' }}>
-              Kaynarca, Erol Kaya Cd No:204, <br />
-              34890 Pendik
-            </p>
           </article>
         </div>
 
