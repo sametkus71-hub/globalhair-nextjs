@@ -90,10 +90,10 @@ serve(async (req) => {
       });
     }
 
-    // Validate file size (10MB)
-    const maxSize = 10 * 1024 * 1024;
+    // Validate file size (65MB)
+    const maxSize = 65 * 1024 * 1024;
     if (file.size > maxSize) {
-      return new Response(JSON.stringify({ error: 'File too large. Maximum size is 10MB.' }), {
+      return new Response(JSON.stringify({ error: 'File too large. Maximum size is 65MB.' }), {
         status: 400,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });

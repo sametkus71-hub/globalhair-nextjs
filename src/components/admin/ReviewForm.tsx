@@ -253,6 +253,7 @@ export function ReviewForm({ review, onSave, onClose }: ReviewFormProps) {
                         onUploadSuccess={(url) => setFormData({ ...formData, video_url: url })}
                         folder="reviews"
                         accept="video/*"
+                        maxSize={65}
                       />
                     </CollapsibleContent>
                   </Collapsible>
