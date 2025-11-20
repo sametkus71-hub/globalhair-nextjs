@@ -5,6 +5,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useIsMobile } from '@/hooks/use-mobile';
 import chevronRightSvg from '@/assets/chevron-right.svg';
 import leafSvg from '@/assets/leaf.svg';
+import precisionBadge from '@/assets/precision-method-badge.png';
 import { PopupCloseButton, usePopupClose, SwipeablePopupWrapper } from '@/components/PopupCloseButton';
 
 
@@ -764,9 +765,27 @@ export const PackageStandardPage = () => {
                         paddingBottom: isOpen ? '0.5rem' : '0'
                       }}
                     >
-                      <p className="text-white/80 font-light leading-relaxed" style={{ fontSize: '11px', whiteSpace: 'pre-line' }}>
-                        {feature.description}
-                      </p>
+                      {feature.key === 'precision' ? (
+                        <div className="text-white/80 font-light leading-relaxed" style={{ fontSize: '11px' }}>
+                          <img 
+                            src={precisionBadge} 
+                            alt="GHI Precision Method Badge" 
+                            className="float-right ml-3 mb-2"
+                            style={{ 
+                              width: '120px', 
+                              height: '120px',
+                              marginTop: '0.25rem'
+                            }} 
+                          />
+                          <p style={{ fontSize: '11px' }}>
+                            {feature.description}
+                          </p>
+                        </div>
+                      ) : (
+                        <p className="text-white/80 font-light leading-relaxed" style={{ fontSize: '11px', whiteSpace: 'pre-line' }}>
+                          {feature.description}
+                        </p>
+                      )}
                     </div>
                     {!isLastExclusive && <div className="feature-divider border-b border-white/[0.15]" />}
                   </div>
