@@ -24,7 +24,7 @@ const PACKAGE_FEATURES = {
       "1 year GHI support",
       "GHI Precision Method™"
     ],
-    activeIndices: [1, 2] // GHI Stemcell Repair and Comfort verdoving are active
+    activeIndices: [0, 1] // FUE Saffier / DHI and GHI Stemcell Repair are active
   },
   elite: {
     features: [
@@ -34,7 +34,7 @@ const PACKAGE_FEATURES = {
       "V6 Hairboost ® - Prime",
       "V6 Hairboost ® - Recovery"
     ],
-    activeIndices: [1, 2, 3] // GHI Stemcell Repair, Full Comfort Anesthesia, and V6 Hairboost - Prime are active
+    activeIndices: [0, 1, 2, 3] // All except V6 Hairboost Recovery are active
   }
 };
 
