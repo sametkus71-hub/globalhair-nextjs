@@ -76,7 +76,7 @@ export const FooterCTAGlass = () => {
             />
             
             <span
-              className="gold-text-animated"
+              className="text-shine-animated"
               style={{ 
                 fontFamily: 'Inter, system-ui, sans-serif',
                 fontWeight: 300,
@@ -85,12 +85,7 @@ export const FooterCTAGlass = () => {
                 textAlign: 'center',
                 position: 'relative',
                 zIndex: 2,
-                background: 'linear-gradient(90deg, #B8924A 0%, #C9A35D 15%, #E3C06B 30%, #FFFEF7 45%, #FFFEF7 50%, #FFFEF7 55%, #E3C06B 70%, #C9A35D 85%, #B8924A 100%)',
-                backgroundSize: '400% 100%',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                animation: 'border-shine-rotate 4.5s ease-in-out infinite',
+                color: 'white',
               }}
             >
               {language === 'nl' ? 'Book a consult' : 'Book a consult'}
@@ -198,6 +193,33 @@ export const FooterCTAGlass = () => {
             transform: translateX(200%) skewX(-15deg);
             opacity: 0;
           }
+        }
+
+        @keyframes text-shine-sweep {
+          0% {
+            left: -100%;
+          }
+          100% {
+            left: 200%;
+          }
+        }
+
+        .text-shine-animated {
+          position: relative;
+          display: inline-block;
+        }
+
+        .text-shine-animated::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 50%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent 0%, rgba(172, 185, 193, 0.4) 25%, rgba(255, 255, 255, 0.6) 50%, rgba(172, 185, 193, 0.4) 75%, transparent 100%);
+          animation: text-shine-sweep 4.5s ease-in-out infinite;
+          pointer-events: none;
+          mix-blend-mode: overlay;
         }
 
         .gold-gradient-border {
