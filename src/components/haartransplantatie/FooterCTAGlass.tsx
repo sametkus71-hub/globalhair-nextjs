@@ -84,15 +84,26 @@ export const FooterCTAGlass = () => {
                 textAlign: 'center',
                 position: 'relative',
                 zIndex: 2,
-                background: 'linear-gradient(90deg, #a0a0a0 0%, #b0b0b0 15%, #d0d0d0 30%, #ffffff 45%, #ffffff 50%, #ffffff 55%, #d0d0d0 70%, #b0b0b0 85%, #a0a0a0 100%)',
-                backgroundSize: '300% 100%',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                animation: 'border-shine-rotate 6s ease-in-out infinite',
+                color: 'white',
               }}
             >
               {language === 'nl' ? 'Book a consult' : 'Book a consult'}
+              <span
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'linear-gradient(90deg, transparent 0%, transparent 35%, rgba(180,180,180,0.6) 45%, rgba(120,120,120,0.8) 50%, rgba(180,180,180,0.6) 55%, transparent 65%, transparent 100%)',
+                  backgroundSize: '300% 100%',
+                  WebkitBackgroundClip: 'text',
+                  backgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  animation: 'border-shine-rotate 6s ease-in-out infinite',
+                  pointerEvents: 'none',
+                }}
+                aria-hidden="true"
+              >
+                {language === 'nl' ? 'Book a consult' : 'Book a consult'}
+              </span>
             </span>
             
             <span
