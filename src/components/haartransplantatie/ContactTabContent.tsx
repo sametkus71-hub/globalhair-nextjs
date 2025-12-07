@@ -75,7 +75,7 @@ export const ContactTabContent = () => {
               <div className="text-center w-full lg:w-[280px]">
                 <div className="flex gap-1 justify-center items-center mb-3 lg:mb-3">
                   <img src={shieldIcon} alt="Shield" className="w-5 h-5 lg:w-6 lg:h-6" style={{ filter: 'brightness(0) invert(1)' }} />
-                  <img src={v6HairboostIcon} alt="V6 Hairboost" className="w-7 h-7 lg:w-8 lg:h-8" style={{ filter: 'brightness(0) invert(1)' }} />
+                  <img src={v6HairboostIcon} alt="V6 Hairboost®" className="w-7 h-7 lg:w-8 lg:h-8" style={{ filter: 'brightness(0) invert(1)' }} />
                 </div>
                 <h2 className="text-white text-lg mb-1 lg:text-3xl" style={{ fontFamily: 'Inter', fontWeight: 400, lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
                   Barendrecht
@@ -105,7 +105,7 @@ export const ContactTabContent = () => {
               {/* Leiden */}
               <div className="text-center w-full lg:w-[280px]">
                 <div className="flex gap-1 justify-center items-center mb-3 lg:mb-3">
-                  <img src={v6HairboostIcon} alt="V6 Hairboost" className="w-7 h-7 lg:w-8 lg:h-8" style={{ filter: 'brightness(0) invert(1)' }} />
+                  <img src={v6HairboostIcon} alt="V6 Hairboost®" className="w-7 h-7 lg:w-8 lg:h-8" style={{ filter: 'brightness(0) invert(1)' }} />
                 </div>
                 <h2 className="text-white text-lg mb-1 lg:text-3xl" style={{ fontFamily: 'Inter', fontWeight: 400, lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
                   Leiden

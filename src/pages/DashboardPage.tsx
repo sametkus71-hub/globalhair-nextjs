@@ -118,7 +118,7 @@ const DashboardPage = () => {
                   className="font-header"
                   onClick={() => navigate(language === 'nl' ? '/nl/v6-hairboost' : '/en/v6-hairboost')}
                 >
-                  {language === 'nl' ? 'Boek V6 Hairboost' : 'Book V6 Hairboost'}
+                  {language === 'nl' ? 'Boek V6 Hairboost®' : 'Book V6 Hairboost®'}
                 </Button>
                 <Button 
                   size="lg"

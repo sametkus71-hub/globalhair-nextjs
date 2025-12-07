@@ -31,10 +31,10 @@ const PACKAGE_FEATURES = {
       "FUE Saffier / DHI",
       "GHI Stemcell Repair™",
       "Full Comfort Anesthesia",
-      "V6 Hairboost ® - Prime",
-      "V6 Hairboost ® - Recovery"
+      "V6 Hairboost® - Prime",
+      "V6 Hairboost® - Recovery"
     ],
-    activeIndices: [0, 1, 2, 3] // All except V6 Hairboost Recovery are active
+    activeIndices: [0, 1, 2, 3] // All except V6 Hairboost® Recovery are active
   }
 };
 

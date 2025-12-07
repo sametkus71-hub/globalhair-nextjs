@@ -25,7 +25,7 @@ export const TrajectCardGlass = ({ className = '' }: TrajectCardGlassProps) => {
     after: [
       { id: 7, title: 'Eerste controle' },
       { id: 8, title: 'Nazorginstructie' },
-      { id: 9, title: 'V6 Hairboost-sessie' },
+      { id: 9, title: 'V6 Hairboost®-sessie' },
     ],
   };
 
