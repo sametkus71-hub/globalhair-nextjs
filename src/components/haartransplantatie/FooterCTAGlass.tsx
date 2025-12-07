@@ -45,17 +45,17 @@ export const FooterCTAGlass = () => {
               backgroundSize: '200% 100%',
               animation: 'background-gradient-shift 7s ease-in-out infinite',
               backdropFilter: 'blur(20px)',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1)',
+              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 20px rgba(201, 163, 93, 0.35), 0 0 40px rgba(201, 163, 93, 0.15), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1)',
               justifyContent: 'center',
               gap: 0,
               position: 'relative',
               overflow: 'hidden',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)';
+              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 25px rgba(201, 163, 93, 0.45), 0 0 50px rgba(201, 163, 93, 0.2), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1)';
+              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 20px rgba(201, 163, 93, 0.35), 0 0 40px rgba(201, 163, 93, 0.15), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1)';
             }}
           >
             {/* Shine sweep overlay */}
