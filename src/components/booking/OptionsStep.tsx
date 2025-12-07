@@ -83,7 +83,7 @@ export const OptionsStep = ({
               }`}
               style={consultType === 'v6_hairboost' ? { textShadow: '0 0 20px rgba(255, 255, 255, 0.6)', paddingTop: '0.775rem', paddingBottom: '0.775rem' } : { paddingTop: '0.775rem', paddingBottom: '0.775rem' }}
             >
-              V6 Hairboost
+              V6 Hairboost®
             </button>
           </div>
         </div>
