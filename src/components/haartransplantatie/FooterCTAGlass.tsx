@@ -120,13 +120,15 @@ export const FooterCTAGlass = () => {
               height: 'clamp(48px, 5.5vh, 54px)',
               background: 'rgba(255, 255, 255, 0.12)',
               backdropFilter: 'blur(20px)',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
+              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 15px rgba(172, 185, 193, 0.2)',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = 'rgba(255, 255, 255, 0.16)';
+              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 20px rgba(172, 185, 193, 0.3)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
+              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 15px rgba(172, 185, 193, 0.2)';
             }}
           >
             <img src={chatIcon} alt="Chat" style={{ width: 'clamp(18px, 2vh, 20px)', height: 'clamp(18px, 2vh, 20px)' }} />
