@@ -5,12 +5,12 @@ export const translations = {
     // Navigation
     'nav.home': 'Home',
     'nav.haartransplantatie': 'Haartransplantatie',
-    'nav.v6hairboost': 'V6 Hairboost',
+    'nav.v6hairboost': 'V6 Hairboost®',
     'nav.dashboard': 'Dashboard',
     'nav.form': 'Haaranalyse',
     
     // Homepage
-    'home.title': 'Premium Haartransplantatie & V6 Hairboost',
+    'home.title': 'Premium Haartransplantatie & V6 Hairboost®',
     'home.subtitle': 'Ontdek de meest geavanceerde behandelingen voor uw haar',
     'home.select.gender': 'Selecteer uw geslacht',
     'home.select.hairtype': 'Selecteer uw haartype',
@@ -34,14 +34,14 @@ export const translations = {
     'haircolor.rood': 'Rood',
     
     // Meta descriptions
-    'meta.home.description': 'Ontdek de meest geavanceerde haartransplantatie technieken en V6 Hairboost behandelingen bij GlobalHair.',
+    'meta.home.description': 'Ontdek de meest geavanceerde haartransplantatie technieken en V6 Hairboost® behandelingen bij GlobalHair.',
     'meta.haartransplantatie.description': 'Professionele haartransplantatie met de nieuwste technieken en jarenlange ervaring.',
-    'meta.v6hairboost.description': 'V6 Hairboost - revolutionaire haargroei behandeling voor optimale resultaten.',
+    'meta.v6hairboost.description': 'V6 Hairboost® - revolutionaire haargroei behandeling voor optimale resultaten.',
     'meta.behandelopties.description': 'Ontdek gedetailleerde informatie over onze haartransplantatie pakketten en kies de beste behandeling voor u.',
     
     // Pages
     'page.haartransplantatie.title': 'Haartransplantatie',
-    'page.v6hairboost.title': 'V6 Hairboost',
+    'page.v6hairboost.title': 'V6 Hairboost®',
     'page.coming-soon': 'Binnenkort beschikbaar',
     
     // Reviews
@@ -108,8 +108,8 @@ export const translations = {
     'booking.step2Title': 'Selecteer datum',
     'booking.step3Title': 'Bevestigen',
     'booking.consultType': 'Type consult',
-    'booking.basicConsult': 'Basic consult / V6 Hairboost',
-    'booking.basicConsultDesc': '30 minuten persoonlijk consult voor V6 Hairboost behandeling',
+    'booking.basicConsult': 'Basic consult / V6 Hairboost®',
+    'booking.basicConsultDesc': '30 minuten persoonlijk consult voor V6 Hairboost® behandeling',
     'booking.trichoScan': 'TrichoScan™ / Haartransplantatie',
     'booking.trichoScanDesc': '45 minuten uitgebreid consult met TrichoScan analyse',
     'booking.locationLabel': 'Locatie',
@@ -125,12 +125,12 @@ export const translations = {
     // Navigation
     'nav.home': 'Home',
     'nav.haartransplantatie': 'Hair Transplant',
-    'nav.v6hairboost': 'V6 Hairboost',
+    'nav.v6hairboost': 'V6 Hairboost®',
     'nav.dashboard': 'Dashboard',
     'nav.form': 'Hair Analysis',
     
     // Homepage
-    'home.title': 'Premium Hair Transplant & V6 Hairboost',
+    'home.title': 'Premium Hair Transplant & V6 Hairboost®',
     'home.subtitle': 'Discover the most advanced treatments for your hair',
     'home.select.gender': 'Select your gender',
     'home.select.hairtype': 'Select your hair type',
@@ -154,14 +154,14 @@ export const translations = {
     'haircolor.rood': 'Red',
     
     // Meta descriptions
-    'meta.home.description': 'Discover the most advanced hair transplant techniques and V6 Hairboost treatments at GlobalHair.',
+    'meta.home.description': 'Discover the most advanced hair transplant techniques and V6 Hairboost® treatments at GlobalHair.',
     'meta.haartransplantatie.description': 'Professional hair transplant with the latest techniques and years of experience.',
-    'meta.v6hairboost.description': 'V6 Hairboost - revolutionary hair growth treatment for optimal results.',
+    'meta.v6hairboost.description': 'V6 Hairboost® - revolutionary hair growth treatment for optimal results.',
     'meta.treatment-options.description': 'Discover detailed information about our hair transplant packages and choose the best treatment for you.',
     
     // Pages
     'page.haartransplantatie.title': 'Hair Transplant',
-    'page.v6hairboost.title': 'V6 Hairboost',
+    'page.v6hairboost.title': 'V6 Hairboost®',
     'page.coming-soon': 'Coming Soon',
     
     // Reviews
@@ -228,8 +228,8 @@ export const translations = {
     'booking.step2Title': 'Select date',
     'booking.step3Title': 'Confirm',
     'booking.consultType': 'Consultation type',
-    'booking.basicConsult': 'Basic consult / V6 Hairboost',
-    'booking.basicConsultDesc': '30 minute personal consultation for V6 Hairboost treatment',
+    'booking.basicConsult': 'Basic consult / V6 Hairboost®',
+    'booking.basicConsultDesc': '30 minute personal consultation for V6 Hairboost® treatment',
     'booking.trichoScan': 'TrichoScan™ / Hair Transplant',
     'booking.trichoScanDesc': '45 minute comprehensive consultation with TrichoScan analysis',
     'booking.locationLabel': 'Location',

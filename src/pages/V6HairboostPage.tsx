@@ -34,7 +34,7 @@ const V6HairboostPage = () => {
                 data-page-entry="title"
               >
                 <h1 className="text-4xl font-header font-bold text-gray-800 mb-4">
-                  V6 Hairboost
+                  V6 Hairboost®
                 </h1>
               </div>
               

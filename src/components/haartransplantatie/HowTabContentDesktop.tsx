@@ -25,7 +25,7 @@ export const HowTabContentDesktop = () => {
     switch (phase) {
       case 'Pre-':
         return {
-          quote: "Vooraf krijgt u de eerste V6 Hairboost-<br />behandeling om de haarzakjes te versterken.<br />U bereidt zich vijf dagen voor zonder nicotine,<br />alcohol of bloedverdunners.",
+          quote: "Vooraf krijgt u de eerste V6 Hairboost®-<br />behandeling om de haarzakjes te versterken.<br />U bereidt zich vijf dagen voor zonder nicotine,<br />alcohol of bloedverdunners.",
         };
       case 'Treatment':
         return {
