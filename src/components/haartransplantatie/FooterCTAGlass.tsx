@@ -93,11 +93,11 @@ export const FooterCTAGlass = () => {
                   position: 'absolute',
                   inset: 0,
                   background: 'linear-gradient(90deg, transparent 0%, transparent 35%, rgba(180,180,180,0.6) 45%, rgba(120,120,120,0.8) 50%, rgba(180,180,180,0.6) 55%, transparent 65%, transparent 100%)',
-                  backgroundSize: '300% 100%',
+                  backgroundSize: '200% 100%',
                   WebkitBackgroundClip: 'text',
                   backgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
-                  animation: 'border-shine-rotate 6s ease-in-out infinite',
+                  animation: 'background-gradient-shift 7s ease-in-out infinite',
                   pointerEvents: 'none',
                 }}
                 aria-hidden="true"
