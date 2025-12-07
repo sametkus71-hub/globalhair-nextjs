@@ -1924,6 +1924,25 @@ html, body {
   z-index: -1;
 }
 
+/* Standard pill - silver gradient border */
+.treat-pill-standard {
+  background: linear-gradient(98.43deg, rgba(0, 0, 0, 0.5) -0.49%, rgba(102, 102, 102, 0.5) 50.04%, rgba(0, 0, 0, 0.5) 99.6%);
+}
+
+.treat-pill-standard::before {
+  background: linear-gradient(90deg, #949494 7%, #ACB9C1 16%, #FFFFFF 34%, #ACB9C1 51%, #4B555E 78%, #fff 105%);
+}
+
+/* Premium pill - blue background */
+.treat-pill-premium {
+  background: rgba(30, 58, 138, 0.15);
+}
+
+/* Elite pill - purple background */
+.treat-pill-elite {
+  background: rgba(88, 28, 135, 0.15);
+}
+
 .treat-features-list {
   list-style: none;
   padding: 0;

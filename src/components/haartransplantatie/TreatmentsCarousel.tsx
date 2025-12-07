@@ -360,7 +360,7 @@ export const TreatmentsCarousel = () => {
             )}
             <div className="treat-card-overlay" />
             <div className="treat-card-content">
-              <div className="treat-pill">{it.title}</div>
+              <div className={`treat-pill treat-pill-${it.id}`}>{it.title}</div>
               <ul className="treat-features-list">
                 {PACKAGE_FEATURES[it.id as keyof typeof PACKAGE_FEATURES].features.map((feature, idx) => {
                   const activeIndices = PACKAGE_FEATURES[it.id as keyof typeof PACKAGE_FEATURES].activeIndices;
