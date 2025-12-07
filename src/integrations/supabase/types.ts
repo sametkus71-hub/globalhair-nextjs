@@ -221,6 +221,30 @@ export type Database = {
         }
         Relationships: []
       }
+      intake_image_uploads: {
+        Row: {
+          created_at: string | null
+          file_path: string
+          id: string
+          image_type: string
+          session_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          file_path: string
+          id?: string
+          image_type: string
+          session_id: string
+        }
+        Update: {
+          created_at?: string | null
+          file_path?: string
+          id?: string
+          image_type?: string
+          session_id?: string
+        }
+        Relationships: []
+      }
       n8n_chat_histories: {
         Row: {
           id: number
@@ -405,6 +429,7 @@ export type Database = {
     Functions: {
       cleanup_expired_booking_intents: { Args: never; Returns: undefined }
       cleanup_old_haaranalyse_jobs: { Args: never; Returns: undefined }
+      cleanup_old_intake_images: { Args: never; Returns: undefined }
       cleanup_webhook_tracking: { Args: never; Returns: undefined }
       has_role: {
         Args: {
