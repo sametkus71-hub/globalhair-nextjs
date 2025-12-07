@@ -402,7 +402,7 @@ export const BookingWizard = () => {
           content: "";
           position: absolute;
           inset: 0;
-          padding: 1.3px;
+          padding: 1px;
           border-radius: inherit;
           background: linear-gradient(135deg, #D4AF37, #F4E4BC, #D4AF37);
           -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
