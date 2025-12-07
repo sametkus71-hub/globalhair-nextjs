@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ProtectedAdminRoute } from '@/components/admin/ProtectedAdminRoute';
 import { AdminLayout } from '@/components/admin/AdminLayout';
+import { LottiePageLoader } from '@/components/LottiePageLoader';
 
 // Lazy load all pages for code splitting
 const HomePage = lazy(() => import('@/pages/HomePage'));
@@ -41,12 +42,8 @@ const AdminReviews = lazy(() => import('@/pages/AdminReviews'));
 const AdminReviewEdit = lazy(() => import('@/pages/AdminReviewEdit'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
 
-// Loading fallback component
-const PageLoader = () => (
-  <div className="flex items-center justify-center min-h-screen">
-    <div className="animate-pulse text-lg text-foreground/60">Loading...</div>
-  </div>
-);
+// Loading fallback component using Lottie animation
+const PageLoader = () => <LottiePageLoader />;
 
 // Minimal fallback for tab content (very fast, no layout shift)
 const TabContentLoader = () => (
