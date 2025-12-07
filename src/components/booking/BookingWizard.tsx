@@ -194,7 +194,7 @@ export const BookingWizard = () => {
                   <Check className="w-4 h-4 text-green-400" strokeWidth={2.5} />
                 )}
               </div>
-              <span className="px-3 py-1 rounded-full bg-white/10 text-white text-xs font-inter font-medium">
+              <span className="price-gold-border px-3 py-1 rounded-full bg-white/10 text-white text-xs font-inter font-medium">
                 €{price}
               </span>
             </div>
@@ -392,6 +392,24 @@ export const BookingWizard = () => {
         .step-gradient-border > * {
           position: relative;
           z-index: 1;
+        }
+
+        .price-gold-border {
+          position: relative;
+        }
+
+        .price-gold-border::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1.3px;
+          border-radius: inherit;
+          background: linear-gradient(135deg, #D4AF37, #F4E4BC, #D4AF37);
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 0;
         }
       `}</style>
     </div>
