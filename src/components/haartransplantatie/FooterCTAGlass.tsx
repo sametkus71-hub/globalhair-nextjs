@@ -76,7 +76,6 @@ export const FooterCTAGlass = () => {
             />
             
             <span
-              className="gold-shine-text"
               style={{ 
                 fontFamily: 'Inter, system-ui, sans-serif',
                 fontWeight: 300,
@@ -85,6 +84,12 @@ export const FooterCTAGlass = () => {
                 textAlign: 'center',
                 position: 'relative',
                 zIndex: 2,
+                background: 'linear-gradient(90deg, #e0e0e0 0%, #e8e8e8 15%, #f0f0f0 30%, #ffffff 45%, #ffffff 50%, #ffffff 55%, #f0f0f0 70%, #e8e8e8 85%, #e0e0e0 100%)',
+                backgroundSize: '300% 100%',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                animation: 'border-shine-rotate 6s ease-in-out infinite',
               }}
             >
               {language === 'nl' ? 'Book a consult' : 'Book a consult'}
@@ -267,25 +272,6 @@ export const FooterCTAGlass = () => {
           mask-composite: exclude;
           pointer-events: none;
           z-index: 0;
-        }
-
-        .gold-shine-text {
-          color: white;
-          background: linear-gradient(
-            90deg,
-            white 0%,
-            white 35%,
-            #E3C06B 45%,
-            #FFFEF7 50%,
-            #E3C06B 55%,
-            white 65%,
-            white 100%
-          );
-          background-size: 400% 100%;
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: border-shine-rotate 4.5s ease-in-out infinite;
         }
 
         .silver-gradient-border > * {
