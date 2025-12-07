@@ -97,7 +97,7 @@ export const FooterCTAGlass = () => {
                   WebkitBackgroundClip: 'text',
                   backgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
-                  animation: 'background-gradient-shift 7s ease-in-out infinite',
+                  animation: 'text-shine-left-to-right 7s linear infinite',
                   pointerEvents: 'none',
                 }}
                 aria-hidden="true"
@@ -178,6 +178,15 @@ export const FooterCTAGlass = () => {
             background-position: 0% 50%;
           }
           50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+
+        @keyframes text-shine-left-to-right {
+          0% {
             background-position: 100% 50%;
           }
           100% {
