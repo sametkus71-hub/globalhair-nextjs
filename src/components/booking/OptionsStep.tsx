@@ -31,12 +31,12 @@ export const OptionsStep = ({
       return language === 'nl' 
         ? (
             <>
-              Persoonlijk consult voor V6 Hairboost® behandeling. Krijg advies over onze revolutionaire haargroei formule en ontdek of deze behandeling geschikt is voor jou. <span style={{ color: '#FFFFFF' }}>Duur: 30 minuten</span>
+              Persoonlijk consult voor V6 Hairboost® behandeling. Krijg advies over onze haargroei formule en ontdek of deze behandeling geschikt is voor jou. <span style={{ color: '#FFFFFF' }}>Duur: 30 minuten</span>
             </>
           )
         : (
             <>
-              Personal consultation for V6 Hairboost® treatment. Get advice about our revolutionary hair growth formula and discover if this treatment is suitable for you. <span style={{ color: '#FFFFFF' }}>Duration: 30 minutes</span>
+              Personal consultation for V6 Hairboost® treatment. Get advice about our hair growth formula and discover if this treatment is suitable for you. <span style={{ color: '#FFFFFF' }}>Duration: 30 minutes</span>
             </>
           );
     } else {
