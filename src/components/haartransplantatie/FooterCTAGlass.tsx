@@ -84,12 +84,12 @@ export const FooterCTAGlass = () => {
                 textAlign: 'center',
                 position: 'relative',
                 zIndex: 2,
-                background: 'linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 30%, #ACB9C1 45%, #FFFFFF 50%, #ACB9C1 55%, #FFFFFF 70%, #FFFFFF 100%)',
-                backgroundSize: '400% 100%',
+                background: 'linear-gradient(90deg, #7a7a7a 0%, #8a8a8a 15%, #a5a5a5 30%, #d5d5d5 45%, #f0f0f0 50%, #d5d5d5 55%, #a5a5a5 70%, #8a8a8a 85%, #7a7a7a 100%)',
+                backgroundSize: '300% 100%',
                 WebkitBackgroundClip: 'text',
                 backgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                animation: 'border-shine-rotate 4.5s ease-in-out infinite',
+                animation: 'border-shine-rotate 6s ease-in-out infinite',
               }}
             >
               {language === 'nl' ? 'Book a consult' : 'Book a consult'}
