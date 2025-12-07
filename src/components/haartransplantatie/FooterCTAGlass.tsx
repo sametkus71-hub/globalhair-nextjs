@@ -76,7 +76,7 @@ export const FooterCTAGlass = () => {
             />
             
             <span
-              className="text-white"
+              className="gold-text-animated"
               style={{ 
                 fontFamily: 'Inter, system-ui, sans-serif',
                 fontWeight: 300,
@@ -85,6 +85,12 @@ export const FooterCTAGlass = () => {
                 textAlign: 'center',
                 position: 'relative',
                 zIndex: 2,
+                background: 'linear-gradient(90deg, #B8924A 0%, #C9A35D 15%, #E3C06B 30%, #FFFEF7 45%, #FFFEF7 50%, #FFFEF7 55%, #E3C06B 70%, #C9A35D 85%, #B8924A 100%)',
+                backgroundSize: '400% 100%',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                animation: 'border-shine-rotate 4.5s ease-in-out infinite',
               }}
             >
               {language === 'nl' ? 'Book a consult' : 'Book a consult'}
