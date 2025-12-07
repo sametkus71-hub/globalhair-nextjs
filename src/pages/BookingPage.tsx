@@ -85,9 +85,11 @@ export const BookingPage = () => {
                 </h1>
                 <BookingWizard key={refreshKey} />
                 
-                <div className="mt-12 pt-8 border-t border-white/5 flex justify-center">
-                  <StaffCodePopover onCodeVerified={() => setRefreshKey(prev => prev + 1)} />
-                </div>
+                {window.location.hostname.includes('lovable') && (
+                  <div className="mt-12 pt-8 border-t border-white/5 flex justify-center">
+                    <StaffCodePopover onCodeVerified={() => setRefreshKey(prev => prev + 1)} />
+                  </div>
+                )}
               </div>
               </DesktopContainer>
             </div>
