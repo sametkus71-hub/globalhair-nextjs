@@ -1916,7 +1916,7 @@ html, body {
   position: absolute;
   inset: 0;
   border-radius: 999px;
-  padding: 1px;
+  padding: 1.28px;
   background: linear-gradient(285.06deg, rgba(221, 185, 97, 0.25) 2.5%, #E3C06B 16.59%, #EFECE6 48.17%, #EFCF7C 83.98%, rgba(216, 175, 88, 0.25) 95.62%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
