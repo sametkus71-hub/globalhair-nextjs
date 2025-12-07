@@ -84,7 +84,7 @@ export const FooterCTAGlass = () => {
                 textAlign: 'center',
                 position: 'relative',
                 zIndex: 2,
-                background: 'linear-gradient(90deg, #e0e0e0 0%, #e8e8e8 15%, #f0f0f0 30%, #ffffff 45%, #ffffff 50%, #ffffff 55%, #f0f0f0 70%, #e8e8e8 85%, #e0e0e0 100%)',
+                background: 'linear-gradient(90deg, #a0a0a0 0%, #b0b0b0 15%, #d0d0d0 30%, #ffffff 45%, #ffffff 50%, #ffffff 55%, #d0d0d0 70%, #b0b0b0 85%, #a0a0a0 100%)',
                 backgroundSize: '300% 100%',
                 WebkitBackgroundClip: 'text',
                 backgroundClip: 'text',
