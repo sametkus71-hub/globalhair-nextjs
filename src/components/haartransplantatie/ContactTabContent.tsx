@@ -13,7 +13,7 @@ export const ContactTabContent = () => {
   return (
     <div className="h-full w-full flex flex-col lg:gap-6">
       {/* Tabs Section */}
-      <div className="w-full flex justify-center px-4 lg:pt-[50px]" style={{ paddingTop: '50px', paddingBottom: '20px' }}>
+      <div className="w-full flex justify-center px-4 lg:pt-[50px]" style={{ paddingTop: 'clamp(20px, 5vh, 50px)', paddingBottom: 'clamp(10px, 2vh, 20px)' }}>
         <div 
           className="relative flex items-center justify-center gap-1 rounded-full"
           style={{
@@ -61,8 +61,10 @@ export const ContactTabContent = () => {
       {/* Middle Content Area - Flex Grow with Centered Inner Box */}
       <div className="flex-1 lg:flex-initial w-full px-2 flex items-center justify-center mx-auto lg:max-w-[600px]" style={{ minHeight: 0 }}>
         <div 
-          className={`w-[80%] lg:w-full rounded-2xl silver-gradient-border ${activeTab === 'nl' ? 'lg:max-w-[900px]' : 'lg:max-w-[400px]'} px-4 py-3 lg:py-8`}
+          className={`w-[80%] lg:w-full rounded-2xl silver-gradient-border ${activeTab === 'nl' ? 'lg:max-w-[900px]' : 'lg:max-w-[400px]'} px-4 lg:py-8`}
           style={{
+            paddingTop: 'clamp(8px, 1.5vh, 12px)',
+            paddingBottom: 'clamp(8px, 1.5vh, 12px)',
             background: 'rgba(0, 0, 0, 0.3)',
             backdropFilter: 'blur(10px)',
             WebkitBackdropFilter: 'blur(10px)',
@@ -70,7 +72,7 @@ export const ContactTabContent = () => {
         >
           {/* Content based on active tab */}
           {activeTab === 'nl' ? (
-            <div className="flex flex-col lg:flex-row mx-auto justify-center items-center lg:items-start lg:gap-20" style={{ gap: 'clamp(1rem, 2vh, 2rem)' }}>
+            <div className="flex flex-col lg:flex-row mx-auto justify-center items-center lg:items-start lg:gap-20" style={{ gap: 'clamp(0.5rem, 1.5vh, 2rem)' }}>
               {/* Barendrecht */}
               <div className="text-center w-full lg:w-[280px]">
                 <div className="flex gap-1 justify-center items-center mb-3 lg:mb-3">
@@ -132,9 +134,10 @@ export const ContactTabContent = () => {
 
       {/* Footer Row - Fixed at Bottom */}
       <footer 
-        className="flex flex-col gap-5 px-2"
+        className="flex flex-col px-2"
         style={{
-          padding: '16px 8px',
+          padding: 'clamp(8px, 2vh, 16px) 8px',
+          gap: 'clamp(12px, 2.5vh, 20px)',
         }}
       >
         {/* Separator Line */}
