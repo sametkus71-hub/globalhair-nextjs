@@ -12,6 +12,9 @@ export interface GridItem {
   data: Review;
 }
 
+// Number of slots reserved for featured items (positions 1-8)
+const FEATURED_SLOT_COUNT = 8;
+
 // Seeded random for consistent daily shuffling
 const seededRandom = (seed: number) => {
   const x = Math.sin(seed) * 10000;
@@ -79,49 +82,72 @@ const generateSlotPattern = (totalItems: number, videoCount: number): Array<{ wi
 };
 
 // Generate complete grid using ALL items exactly once (no repeats)
+// Featured items are prioritized to appear in the first FEATURED_SLOT_COUNT positions
 export const generateFullGrid = (data: ReviewsData): GridItem[] => {
   const seed = getDailySeed();
   
-  // Shuffle each pool with daily seed
-  const shuffledVideos = shuffleWithSeed(data.videos, seed);
-  const shuffledStatic = shuffleWithSeed(data.staticImages, seed + 1);
-  const shuffledBeforeAfter = shuffleWithSeed(data.beforeAfters, seed + 2);
+  // Separate featured from regular items in each category
+  const featuredVideos = data.videos.filter(r => r.is_featured);
+  const regularVideos = data.videos.filter(r => !r.is_featured);
+  const featuredStatic = data.staticImages.filter(r => r.is_featured);
+  const regularStatic = data.staticImages.filter(r => !r.is_featured);
+  const featuredBeforeAfter = data.beforeAfters.filter(r => r.is_featured);
+  const regularBeforeAfter = data.beforeAfters.filter(r => !r.is_featured);
+  
+  // Combine and shuffle all featured items (for daily variety within featured zone)
+  const allFeatured = [...featuredVideos, ...featuredStatic, ...featuredBeforeAfter];
+  const shuffledFeatured = shuffleWithSeed(allFeatured, seed);
+  
+  // Shuffle regular items
+  const shuffledRegularVideos = shuffleWithSeed(regularVideos, seed);
+  const shuffledRegularStatic = shuffleWithSeed(regularStatic, seed + 1);
+  const shuffledRegularBeforeAfter = shuffleWithSeed(regularBeforeAfter, seed + 2);
   
   // Total items to place
-  const totalItems = shuffledVideos.length + shuffledStatic.length + shuffledBeforeAfter.length;
+  const totalItems = data.videos.length + data.staticImages.length + data.beforeAfters.length;
   
   if (totalItems === 0) return [];
   
-  // Generate dynamic slot pattern
-  const slotPattern = generateSlotPattern(totalItems, shuffledVideos.length);
-  
-  // Prepare content queues
-  const videoQueue = [...shuffledVideos];
-  const staticQueue = [...shuffledStatic];
-  const beforeAfterQueue = [...shuffledBeforeAfter];
-  
-  // Small slot content: mix before/after and static
-  const smallSlotPool = shuffleWithSeed([...beforeAfterQueue, ...staticQueue], seed + 3);
-  let smallPoolIndex = 0;
+  // Generate dynamic slot pattern for all items
+  const totalVideoCount = data.videos.length;
+  const slotPattern = generateSlotPattern(totalItems, totalVideoCount);
   
   // Track used items to prevent any duplicates
   const usedIds = new Set<string>();
-  
   const gridItems: GridItem[] = [];
-  let videoIndex = 0;
   
-  for (const slot of slotPattern) {
+  // Featured items that need placement
+  const featuredQueue = [...shuffledFeatured];
+  
+  // Regular content queues
+  const regularVideoQueue = [...shuffledRegularVideos];
+  const regularStaticQueue = [...shuffledRegularStatic];
+  const regularBeforeAfterQueue = [...shuffledRegularBeforeAfter];
+  
+  // Small slot pool for regular items (mix before/after and static)
+  const regularSmallPool = shuffleWithSeed([...regularBeforeAfterQueue, ...regularStaticQueue], seed + 3);
+  let regularSmallPoolIndex = 0;
+  let regularVideoIndex = 0;
+  
+  for (let slotIndex = 0; slotIndex < slotPattern.length; slotIndex++) {
+    const slot = slotPattern[slotIndex];
     let review: Review | undefined;
     let type: ContentType;
     
-    if (slot.slotType === 'big') {
+    // For the first FEATURED_SLOT_COUNT slots, prioritize featured items
+    const inFeaturedZone = slotIndex < FEATURED_SLOT_COUNT;
+    
+    if (inFeaturedZone && featuredQueue.length > 0) {
+      // Place featured item
+      review = featuredQueue.shift();
+    } else if (slot.slotType === 'big') {
       // Big slots: prioritize videos, then static fallback
-      if (videoIndex < videoQueue.length) {
-        review = videoQueue[videoIndex];
-        videoIndex++;
+      if (regularVideoIndex < regularVideoQueue.length) {
+        review = regularVideoQueue[regularVideoIndex];
+        regularVideoIndex++;
       } else {
         // Find next unused static image for big slot
-        for (const item of staticQueue) {
+        for (const item of regularStaticQueue) {
           if (!usedIds.has(item.id)) {
             review = item;
             break;
@@ -130,9 +156,9 @@ export const generateFullGrid = (data: ReviewsData): GridItem[] => {
       }
     } else {
       // Small slots: use from mixed pool, skip already used items
-      while (smallPoolIndex < smallSlotPool.length) {
-        const candidate = smallSlotPool[smallPoolIndex];
-        smallPoolIndex++;
+      while (regularSmallPoolIndex < regularSmallPool.length) {
+        const candidate = regularSmallPool[regularSmallPoolIndex];
+        regularSmallPoolIndex++;
         if (!usedIds.has(candidate.id)) {
           review = candidate;
           break;
