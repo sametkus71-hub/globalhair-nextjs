@@ -12,60 +12,6 @@ export interface GridItem {
   data: Review;
 }
 
-// Grid layout structure - Instagram-style with mixed sizes
-// 6 big slots (video priority, static fallback) + 22 small slots
-const GRID_LAYOUT: Array<{ width: 1 | 2; height: 1 | 2; slotType: 'big' | 'small' }> = [
-  // Pattern 1: Big square + small items
-  { width: 2, height: 2, slotType: 'big' },
-  { width: 1, height: 1, slotType: 'small' },
-  { width: 1, height: 1, slotType: 'small' },
-  
-  // Pattern 2: Column of 3 small items
-  { width: 1, height: 1, slotType: 'small' },
-  { width: 1, height: 1, slotType: 'small' },
-  { width: 1, height: 1, slotType: 'small' },
-  
-  // Pattern 3: Tall slot + 2 small
-  { width: 1, height: 2, slotType: 'big' },
-  { width: 1, height: 1, slotType: 'small' },
-  { width: 1, height: 1, slotType: 'small' },
-  
-  // Pattern 4: Big square + small
-  { width: 2, height: 2, slotType: 'big' },
-  { width: 1, height: 1, slotType: 'small' },
-  { width: 1, height: 1, slotType: 'small' },
-  
-  // Pattern 5: 3 small stacked
-  { width: 1, height: 1, slotType: 'small' },
-  { width: 1, height: 1, slotType: 'small' },
-  { width: 1, height: 1, slotType: 'small' },
-  
-  // Pattern 6: Tall slot + small items
-  { width: 1, height: 2, slotType: 'big' },
-  { width: 1, height: 1, slotType: 'small' },
-  { width: 1, height: 1, slotType: 'small' },
-  
-  // Pattern 7: Big square + tall
-  { width: 2, height: 2, slotType: 'big' },
-  { width: 1, height: 2, slotType: 'small' },
-  { width: 1, height: 1, slotType: 'small' },
-  
-  // Pattern 8: Small column
-  { width: 1, height: 1, slotType: 'small' },
-  { width: 1, height: 1, slotType: 'small' },
-  { width: 1, height: 1, slotType: 'small' },
-  
-  // Pattern 9: Tall slot + small items
-  { width: 1, height: 2, slotType: 'big' },
-  { width: 1, height: 1, slotType: 'small' },
-  { width: 1, height: 1, slotType: 'small' },
-  
-  // Pattern 10: Big square + small
-  { width: 2, height: 2, slotType: 'small' },
-  { width: 1, height: 1, slotType: 'small' },
-  { width: 1, height: 1, slotType: 'small' }
-];
-
 // Seeded random for consistent daily shuffling
 const seededRandom = (seed: number) => {
   const x = Math.sin(seed) * 10000;
@@ -93,67 +39,112 @@ export interface ReviewsData {
   beforeAfters: Review[];
 }
 
-// Generate grid from database reviews
-export const generateRandomGrid = (data: ReviewsData): GridItem[] => {
+// Dynamic slot pattern generator - creates big slots every 4-5 items
+const generateSlotPattern = (totalItems: number, videoCount: number): Array<{ width: 1 | 2; height: 1 | 2; slotType: 'big' | 'small' }> => {
+  const pattern: Array<{ width: 1 | 2; height: 1 | 2; slotType: 'big' | 'small' }> = [];
+  
+  // Calculate how many big slots we need (at least enough for all videos)
+  const minBigSlots = videoCount;
+  const bigSlotInterval = 4; // One big slot every 4 items on average
+  const totalBigSlots = Math.max(minBigSlots, Math.ceil(totalItems / bigSlotInterval));
+  
+  let bigSlotsPlaced = 0;
+  let itemsPlaced = 0;
+  
+  while (itemsPlaced < totalItems) {
+    // Determine if this should be a big slot
+    const needBigSlot = bigSlotsPlaced < totalBigSlots && 
+      (itemsPlaced % bigSlotInterval === 0 || itemsPlaced === 0);
+    
+    if (needBigSlot) {
+      // Alternate between 2x2 squares and 1x2 tall slots
+      const isTall = bigSlotsPlaced % 3 === 2;
+      pattern.push({
+        width: isTall ? 1 : 2,
+        height: 2,
+        slotType: 'big'
+      });
+      bigSlotsPlaced++;
+    } else {
+      pattern.push({
+        width: 1,
+        height: 1,
+        slotType: 'small'
+      });
+    }
+    itemsPlaced++;
+  }
+  
+  return pattern;
+};
+
+// Generate complete grid using ALL items exactly once (no repeats)
+export const generateFullGrid = (data: ReviewsData): GridItem[] => {
   const seed = getDailySeed();
   
-  // Shuffle each pool
+  // Shuffle each pool with daily seed
   const shuffledVideos = shuffleWithSeed(data.videos, seed);
   const shuffledStatic = shuffleWithSeed(data.staticImages, seed + 1);
   const shuffledBeforeAfter = shuffleWithSeed(data.beforeAfters, seed + 2);
-
-  // Find all big and small slot indices
-  const bigSlotIndices = GRID_LAYOUT
-    .map((layout, index) => ({ layout, index }))
-    .filter(({ layout }) => layout.slotType === 'big')
-    .map(({ index }) => index);
-
-  const smallSlotIndices = GRID_LAYOUT
-    .map((layout, index) => ({ layout, index }))
-    .filter(({ layout }) => layout.slotType === 'small')
-    .map(({ index }) => index);
-
-  // Prepare content for big slots: videos first, then static fallback
-  const bigSlotContent: Review[] = [];
-  let videoIndex = 0;
-  let staticForBigIndex = 0;
-
-  for (let i = 0; i < bigSlotIndices.length; i++) {
-    if (videoIndex < shuffledVideos.length) {
-      bigSlotContent.push(shuffledVideos[videoIndex]);
-      videoIndex++;
-    } else if (staticForBigIndex < shuffledStatic.length) {
-      bigSlotContent.push(shuffledStatic[staticForBigIndex]);
-      staticForBigIndex++;
-    }
-  }
-
-  // Remaining static images for small slots
-  const remainingStatic = shuffledStatic.slice(staticForBigIndex);
-
-  // Small slot content: all before/after + remaining static, shuffled together
-  const smallSlotPool = [...shuffledBeforeAfter, ...remainingStatic];
-  const shuffledSmallPool = shuffleWithSeed(smallSlotPool, seed + 3);
-
-  // Build grid items
+  
+  // Total items to place
+  const totalItems = shuffledVideos.length + shuffledStatic.length + shuffledBeforeAfter.length;
+  
+  if (totalItems === 0) return [];
+  
+  // Generate dynamic slot pattern
+  const slotPattern = generateSlotPattern(totalItems, shuffledVideos.length);
+  
+  // Prepare content queues
+  const videoQueue = [...shuffledVideos];
+  const staticQueue = [...shuffledStatic];
+  const beforeAfterQueue = [...shuffledBeforeAfter];
+  
+  // Small slot content: mix before/after and static
+  const smallSlotPool = shuffleWithSeed([...beforeAfterQueue, ...staticQueue], seed + 3);
+  let smallPoolIndex = 0;
+  
+  // Track used items to prevent any duplicates
+  const usedIds = new Set<string>();
+  
   const gridItems: GridItem[] = [];
-  let bigContentIndex = 0;
-  let smallContentIndex = 0;
-
-  GRID_LAYOUT.forEach((layout, index) => {
+  let videoIndex = 0;
+  
+  for (const slot of slotPattern) {
     let review: Review | undefined;
     let type: ContentType;
-
-    if (layout.slotType === 'big') {
-      review = bigSlotContent[bigContentIndex];
-      bigContentIndex++;
+    
+    if (slot.slotType === 'big') {
+      // Big slots: prioritize videos, then static fallback
+      if (videoIndex < videoQueue.length) {
+        review = videoQueue[videoIndex];
+        videoIndex++;
+      } else {
+        // Find next unused static image for big slot
+        for (const item of staticQueue) {
+          if (!usedIds.has(item.id)) {
+            review = item;
+            break;
+          }
+        }
+      }
     } else {
-      review = shuffledSmallPool[smallContentIndex % shuffledSmallPool.length];
-      smallContentIndex++;
+      // Small slots: use from mixed pool, skip already used items
+      while (smallPoolIndex < smallSlotPool.length) {
+        const candidate = smallSlotPool[smallPoolIndex];
+        smallPoolIndex++;
+        if (!usedIds.has(candidate.id)) {
+          review = candidate;
+          break;
+        }
+      }
     }
-
-    if (!review) return;
-
+    
+    // Skip if no review available or already used
+    if (!review || usedIds.has(review.id)) continue;
+    
+    usedIds.add(review.id);
+    
     // Determine content type from review_type
     if (review.review_type === 'video') {
       type = 'video';
@@ -162,18 +153,21 @@ export const generateRandomGrid = (data: ReviewsData): GridItem[] => {
     } else {
       type = 'static';
     }
-
+    
     gridItems.push({
       id: review.id,
       type,
-      width: layout.width,
-      height: layout.height,
+      width: slot.width,
+      height: slot.height,
       data: review
     });
-  });
-
+  }
+  
   return gridItems;
 };
+
+// Legacy function for backwards compatibility
+export const generateRandomGrid = generateFullGrid;
 
 // Get indices of before/after items for cycling
 export const getBeforeAfterIndices = (gridItems: GridItem[]): number[] => {

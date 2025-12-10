@@ -197,7 +197,7 @@ export const ReviewsGrid = () => {
   // Fetch reviews from database
   const { data: reviewsData, isLoading, error } = useReviewsData();
   
-  // Generate grid from fetched data
+  // Generate full grid once from fetched data (all items, no repeats)
   const [gridItems, setGridItems] = useState<GridItem[]>([]);
   
   useEffect(() => {
@@ -222,33 +222,33 @@ export const ReviewsGrid = () => {
     return () => clearInterval(interval);
   }, [beforeAfterIndices.length]);
   
-  // Progressive loading
-  const [visibleItemCount, setVisibleItemCount] = useState(() => 
-    isMobile ? 6 : 30
-  );
+  // Progressive rendering - start with initial batch, load more on scroll
+  const initialCount = isMobile ? 8 : 28;
+  const batchSize = isMobile ? 8 : 20;
+  const [renderedCount, setRenderedCount] = useState(initialCount);
   
   const [loadedVideoIds, setLoadedVideoIds] = useState<Set<string>>(new Set());
   const [unmutedVideoId, setUnmutedVideoId] = useState<string | null>(null);
   const [isGridAnimated, setIsGridAnimated] = useState(false);
+  
+  // Check if there are more items to load
+  const hasMoreItems = renderedCount < gridItems.length;
   
   const { isIntersecting: shouldLoadMore, elementRef: loadMoreRef } = useIntersection<HTMLDivElement>({
     threshold: 0.1,
     rootMargin: '400px'
   });
 
-  // Load videos progressively
+  // Load videos progressively based on rendered items
   useEffect(() => {
-    const itemsToRender = gridItems.slice(0, visibleItemCount);
+    const itemsToRender = gridItems.slice(0, renderedCount);
     const videoItems = itemsToRender.filter(item => item.type === 'video');
     
-    if (isMobile) {
-      const initialVideos = videoItems.slice(0, 4).map(item => item.id);
-      setLoadedVideoIds(new Set(initialVideos));
-    } else {
-      const initialVideos = videoItems.slice(0, 10).map(item => item.id);
-      setLoadedVideoIds(new Set(initialVideos));
-    }
-  }, [isMobile, visibleItemCount, gridItems]);
+    // Only load videos that are within reasonable range
+    const maxVideosToLoad = isMobile ? 4 : 10;
+    const videosToLoad = videoItems.slice(0, maxVideosToLoad).map(item => item.id);
+    setLoadedVideoIds(new Set(videosToLoad));
+  }, [isMobile, renderedCount, gridItems]);
 
   const handleVideoToggleMute = (videoId: string) => {
     setUnmutedVideoId(prevId => prevId === videoId ? null : videoId);
@@ -258,18 +258,15 @@ export const ReviewsGrid = () => {
     setUnmutedVideoId(prevId => prevId === videoId ? null : videoId);
   };
 
-  // Progressive loading effect
+  // Infinite scroll - load more items when trigger is visible
   useEffect(() => {
-    if (shouldLoadMore && visibleItemCount < gridItems.length) {
-      const loadNextBatch = () => {
-        const batchSize = isMobile ? 4 : 10;
-        setVisibleItemCount(prev => Math.min(prev + batchSize, gridItems.length));
-      };
-      
-      const timeoutId = setTimeout(loadNextBatch, 200);
+    if (shouldLoadMore && hasMoreItems) {
+      const timeoutId = setTimeout(() => {
+        setRenderedCount(prev => Math.min(prev + batchSize, gridItems.length));
+      }, 150);
       return () => clearTimeout(timeoutId);
     }
-  }, [shouldLoadMore, visibleItemCount, gridItems.length, isMobile]);
+  }, [shouldLoadMore, hasMoreItems, gridItems.length, batchSize]);
 
   // Trigger grid animation
   useEffect(() => {
@@ -278,6 +275,13 @@ export const ReviewsGrid = () => {
     }, 100);
     return () => clearTimeout(timer);
   }, []);
+
+  // Reset rendered count when grid items change
+  useEffect(() => {
+    if (gridItems.length > 0) {
+      setRenderedCount(Math.min(initialCount, gridItems.length));
+    }
+  }, [gridItems.length, initialCount]);
 
   // Cleanup on unmount
   useEffect(() => {
@@ -293,10 +297,9 @@ export const ReviewsGrid = () => {
       }
       setUnmutedVideoId(null);
       setLoadedVideoIds(new Set());
-      setVisibleItemCount(isMobile ? 6 : 30);
       setIsGridAnimated(false);
     };
-  }, [isMobile]);
+  }, []);
 
   // Loading state
   if (isLoading) {
@@ -316,7 +319,7 @@ export const ReviewsGrid = () => {
     );
   }
 
-  const itemsToRender = gridItems.slice(0, visibleItemCount);
+  const itemsToRender = gridItems.slice(0, renderedCount);
 
   // Calculate which before/after items show "after" based on wave effect
   const getShowAfter = (itemIndex: number): boolean => {
@@ -396,13 +399,13 @@ export const ReviewsGrid = () => {
           );
         })}
         
-        {/* Load more trigger */}
-        {visibleItemCount < gridItems.length && (
+        {/* Load more trigger - only show when more items available */}
+        {hasMoreItems && (
           <div
             ref={loadMoreRef}
-            className="row-span-3 w-4 flex items-center justify-center"
+            className="row-span-3 w-8 flex items-center justify-center"
           >
-            <div className="w-2 h-2 bg-gray-300 rounded-full animate-pulse" />
+            <div className="w-2 h-2 bg-white/30 rounded-full animate-pulse" />
           </div>
         )}
       </div>
