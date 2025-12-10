@@ -191,45 +191,35 @@ const VideoCard = memo(({
 export const ReviewsGrid = () => {
   const { language } = useLanguage();
   const isMobile = useIsMobile();
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const gridContainerRef = useRef<HTMLDivElement>(null);
+  const actualScrollContainerRef = useRef<HTMLElement | null>(null);
   
   // Fetch reviews from database
   const { data: reviewsData, isLoading, error } = useReviewsData();
   
-  // Generate full grid once from fetched data (all items, no repeats)
+  // Generate randomized grid
   const [gridItems, setGridItems] = useState<GridItem[]>([]);
+  const [beforeAfterIndices, setBeforeAfterIndices] = useState<number[]>([]);
   
+  // Progressive rendering state
+  const initialCount = isMobile ? 12 : 24;
+  const batchSize = isMobile ? 8 : 16;
+  const [renderedCount, setRenderedCount] = useState(initialCount);
+  
+  // Animation and interaction states
+  const [isGridAnimated, setIsGridAnimated] = useState(false);
+  const [cyclePhase, setCyclePhase] = useState(0);
+  const [unmutedVideoId, setUnmutedVideoId] = useState<string | null>(null);
+  const [loadedVideoIds, setLoadedVideoIds] = useState<Set<string>>(new Set());
+
+  // Generate grid when reviews change
   useEffect(() => {
     if (reviewsData) {
       const items = generateRandomGrid(reviewsData);
       setGridItems(items);
+      setBeforeAfterIndices(getBeforeAfterIndices(items));
     }
   }, [reviewsData]);
-  
-  // Before/after cycling state
-  const [cyclePhase, setCyclePhase] = useState(0);
-  const beforeAfterIndices = getBeforeAfterIndices(gridItems);
-  
-  // Cycle before/after images every 3.5 seconds
-  useEffect(() => {
-    if (beforeAfterIndices.length === 0) return;
-    
-    const interval = setInterval(() => {
-      setCyclePhase(prev => prev + 1);
-    }, 3500);
-    
-    return () => clearInterval(interval);
-  }, [beforeAfterIndices.length]);
-  
-  // Progressive rendering - start with initial batch, load more on scroll
-  const initialCount = isMobile ? 8 : 28;
-  const batchSize = isMobile ? 8 : 20;
-  const [renderedCount, setRenderedCount] = useState(initialCount);
-  
-  const [loadedVideoIds, setLoadedVideoIds] = useState<Set<string>>(new Set());
-  const [unmutedVideoId, setUnmutedVideoId] = useState<string | null>(null);
-  const [isGridAnimated, setIsGridAnimated] = useState(false);
   
   // Check if there are more items to load
   const hasMoreItems = renderedCount < gridItems.length;
@@ -237,13 +227,16 @@ export const ReviewsGrid = () => {
   
   // Horizontal scroll detection for infinite loading
   const handleScroll = useCallback(() => {
-    const container = scrollContainerRef.current;
+    const container = actualScrollContainerRef.current;
     if (!container || !hasMoreItems || isLoadingMore.current) return;
     
     const { scrollLeft, scrollWidth, clientWidth } = container;
     const scrollThreshold = 300; // pixels from end to trigger load
     
+    console.log('Scroll detected:', { scrollLeft, scrollWidth, clientWidth, threshold: scrollWidth - scrollThreshold });
+    
     if (scrollLeft + clientWidth >= scrollWidth - scrollThreshold) {
+      console.log('Loading more items...');
       isLoadingMore.current = true;
       setTimeout(() => {
         setRenderedCount(prev => Math.min(prev + batchSize, gridItems.length));
@@ -254,11 +247,20 @@ export const ReviewsGrid = () => {
   
   // Attach scroll listener to parent scroll container
   useEffect(() => {
-    const container = scrollContainerRef.current?.parentElement;
-    if (!container) return;
+    const gridElement = gridContainerRef.current;
+    if (!gridElement) return;
     
-    container.addEventListener('scroll', handleScroll, { passive: true });
-    return () => container.removeEventListener('scroll', handleScroll);
+    // Find the actual scrolling container (parent with overflow scroll)
+    const scrollContainer = gridElement.parentElement;
+    if (!scrollContainer) return;
+    
+    // Store reference for use in handleScroll
+    actualScrollContainerRef.current = scrollContainer;
+    
+    console.log('Attaching scroll listener to:', scrollContainer);
+    
+    scrollContainer.addEventListener('scroll', handleScroll, { passive: true });
+    return () => scrollContainer.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
   // Load videos progressively based on rendered items
@@ -280,7 +282,6 @@ export const ReviewsGrid = () => {
     setUnmutedVideoId(prevId => prevId === videoId ? null : videoId);
   };
 
-
   // Trigger grid animation
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -295,6 +296,17 @@ export const ReviewsGrid = () => {
       setRenderedCount(Math.min(initialCount, gridItems.length));
     }
   }, [gridItems.length, initialCount]);
+
+  // Before/After cycling effect
+  useEffect(() => {
+    if (beforeAfterIndices.length === 0) return;
+    
+    const interval = setInterval(() => {
+      setCyclePhase(prev => prev + 1);
+    }, 3000);
+    
+    return () => clearInterval(interval);
+  }, [beforeAfterIndices.length]);
 
   // Cleanup on unmount
   useEffect(() => {
@@ -348,7 +360,7 @@ export const ReviewsGrid = () => {
   };
 
   return (
-    <div ref={(el) => { gridContainerRef.current = el; scrollContainerRef.current = el; }} className="relative w-full">
+    <div ref={gridContainerRef} className="relative w-full">
       <div
         className={cn(
           "grid grid-rows-3",
