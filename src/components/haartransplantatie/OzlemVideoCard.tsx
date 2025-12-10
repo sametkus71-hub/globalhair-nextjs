@@ -43,7 +43,7 @@ export const OzlemVideoCard = () => {
           {/* Top left - Name badge */}
           <div className="absolute top-4 left-4">
             <div className="ozlem-badge">
-              <span className="ozlem-badge-text" dangerouslySetInnerHTML={{ __html: '&Ouml;zlem Aslan' }} />
+              <span className="ozlem-badge-text">{'\u00D6'}zlem Aslan</span>
             </div>
           </div>
           
@@ -159,7 +159,7 @@ export const OzlemVideoCard = () => {
         }
 
         .ozlem-badge-text {
-          font-family: Inter, sans-serif;
+          font-family: Inter, Arial, system-ui, sans-serif;
           font-weight: 400;
           font-size: 12px;
           line-height: 1;
