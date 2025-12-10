@@ -43,7 +43,7 @@ export const OzlemVideoCard = () => {
           {/* Top left - Name badge */}
           <div className="absolute top-4 left-4">
             <div className="ozlem-badge">
-              <span className="ozlem-badge-text">Özlem Aslan</span>
+              <span className="ozlem-badge-text" dangerouslySetInnerHTML={{ __html: '&Ouml;zlem Aslan' }} />
             </div>
           </div>
           
