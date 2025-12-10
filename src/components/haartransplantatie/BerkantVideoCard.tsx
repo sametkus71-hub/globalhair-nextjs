@@ -25,7 +25,7 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
   };
 
   return (
-    <div className="w-full lg:w-[350px] h-full flex items-center justify-center mx-auto p-4 sm:p-6">
+    <div className="w-full lg:w-[350px] h-full flex items-center justify-center mx-auto lg:mx-0 p-4 sm:p-6 lg:pr-1">
       <article 
         className="berkant-card"
         onClick={handleClick}
