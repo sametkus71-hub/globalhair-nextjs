@@ -1,7 +1,6 @@
-import { useEffect, useState, useRef, memo } from 'react';
+import { useEffect, useState, useRef, memo, useCallback } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { useIntersection } from '@/hooks/useIntersection';
 import { useVideoIntersection } from '@/hooks/useVideoIntersection';
 import { cn } from '@/lib/utils';
 import { generateRandomGrid, getBeforeAfterIndices, GridItem } from '@/lib/reviewsRandomizer';
@@ -192,6 +191,7 @@ const VideoCard = memo(({
 export const ReviewsGrid = () => {
   const { language } = useLanguage();
   const isMobile = useIsMobile();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const gridContainerRef = useRef<HTMLDivElement>(null);
   
   // Fetch reviews from database
@@ -233,11 +233,33 @@ export const ReviewsGrid = () => {
   
   // Check if there are more items to load
   const hasMoreItems = renderedCount < gridItems.length;
+  const isLoadingMore = useRef(false);
   
-  const { isIntersecting: shouldLoadMore, elementRef: loadMoreRef } = useIntersection<HTMLDivElement>({
-    threshold: 0.1,
-    rootMargin: '400px'
-  });
+  // Horizontal scroll detection for infinite loading
+  const handleScroll = useCallback(() => {
+    const container = scrollContainerRef.current;
+    if (!container || !hasMoreItems || isLoadingMore.current) return;
+    
+    const { scrollLeft, scrollWidth, clientWidth } = container;
+    const scrollThreshold = 300; // pixels from end to trigger load
+    
+    if (scrollLeft + clientWidth >= scrollWidth - scrollThreshold) {
+      isLoadingMore.current = true;
+      setTimeout(() => {
+        setRenderedCount(prev => Math.min(prev + batchSize, gridItems.length));
+        isLoadingMore.current = false;
+      }, 100);
+    }
+  }, [hasMoreItems, batchSize, gridItems.length]);
+  
+  // Attach scroll listener to parent scroll container
+  useEffect(() => {
+    const container = scrollContainerRef.current?.parentElement;
+    if (!container) return;
+    
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
 
   // Load videos progressively based on rendered items
   useEffect(() => {
@@ -258,15 +280,6 @@ export const ReviewsGrid = () => {
     setUnmutedVideoId(prevId => prevId === videoId ? null : videoId);
   };
 
-  // Infinite scroll - load more items when trigger is visible
-  useEffect(() => {
-    if (shouldLoadMore && hasMoreItems) {
-      const timeoutId = setTimeout(() => {
-        setRenderedCount(prev => Math.min(prev + batchSize, gridItems.length));
-      }, 150);
-      return () => clearTimeout(timeoutId);
-    }
-  }, [shouldLoadMore, hasMoreItems, gridItems.length, batchSize]);
 
   // Trigger grid animation
   useEffect(() => {
@@ -335,7 +348,7 @@ export const ReviewsGrid = () => {
   };
 
   return (
-    <div ref={gridContainerRef} className="relative w-full">
+    <div ref={(el) => { gridContainerRef.current = el; scrollContainerRef.current = el; }} className="relative w-full">
       <div
         className={cn(
           "grid grid-rows-3",
@@ -399,12 +412,9 @@ export const ReviewsGrid = () => {
           );
         })}
         
-        {/* Load more trigger - only show when more items available */}
+        {/* Loading indicator - only show when more items available */}
         {hasMoreItems && (
-          <div
-            ref={loadMoreRef}
-            className="row-span-3 w-8 flex items-center justify-center"
-          >
+          <div className="row-span-3 w-8 flex items-center justify-center">
             <div className="w-2 h-2 bg-white/30 rounded-full animate-pulse" />
           </div>
         )}
