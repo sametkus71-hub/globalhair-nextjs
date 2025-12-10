@@ -13,6 +13,7 @@ const HowItWorksPage = lazy(() => import('@/pages/HowItWorksPage'));
 const HaartransplantatieMissionPage = lazy(() => import('@/pages/HaartransplantatieMissionPage'));
 const HaartransplantatieContactPage = lazy(() => import('@/pages/HaartransplantatieContactPage'));
 const BerkantDuralPage = lazy(() => import('@/pages/BerkantDuralPage'));
+const OzlemAslanPage = lazy(() => import('@/pages/OzlemAslanPage'));
 const HaartransplantatieOldPage = lazy(() => import('@/pages/HaartransplantatieOldPage'));
 const HaaranalysePage = lazy(() => import('@/pages/HaaranalysePage'));
 const TreatmentOptionsPage = lazy(() => import('@/pages/TreatmentOptionsPage'));
@@ -75,6 +76,7 @@ export const SEORoutes = () => {
         <Route path=":country/:tier" element={<PackageStandardPage />} />
       </Route>
       <Route path="/nl/berkantdural" element={<BerkantDuralPage />} />
+      <Route path="/nl/ozlemaslan" element={<OzlemAslanPage />} />
       <Route path="/nl/haartransplantatie-old" element={<HaartransplantatieOldPage />} />
       <Route path="/nl/haaranalyse" element={<HaaranalysePage />} />
       <Route path="/nl/behandelopties" element={<TreatmentOptionsPage />} />
@@ -119,6 +121,7 @@ export const SEORoutes = () => {
         <Route path=":country/:tier" element={<PackageStandardPage />} />
       </Route>
       <Route path="/en/berkantdural" element={<BerkantDuralPage />} />
+      <Route path="/en/ozlemaslan" element={<OzlemAslanPage />} />
       <Route path="/en/hair-transplant-old" element={<HaartransplantatieOldPage />} />
       <Route path="/en/hair-analysis" element={<HaaranalysePage />} />
       <Route path="/en/treatment-options" element={<TreatmentOptionsPage />} />
