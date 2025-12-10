@@ -74,8 +74,8 @@ export const OzlemVideoCard = () => {
           <div className="absolute bottom-4 left-4 flex flex-col gap-1.5">
             <p className="text-sm font-semibold text-white/95 tracking-wide">Operational Manager</p>
             <div className="flex flex-col gap-0.5 pl-0.5">
-              <p className="text-[11px] font-light text-white/80 tracking-wide">• Coördineert alle operaties</p>
-              <p className="text-[11px] font-light text-white/80 tracking-wide">• Garandeert klanttevredenheid</p>
+              <p className="text-[11px] font-light text-white/80 tracking-wide">• Coordinates all operations</p>
+              <p className="text-[11px] font-light text-white/80 tracking-wide">• Ensures client satisfaction</p>
             </div>
           </div>
         </div>
