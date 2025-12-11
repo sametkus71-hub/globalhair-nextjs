@@ -27,7 +27,8 @@ export interface BookingSelection {
 }
 
 export interface CustomerInfo {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
   postcode: string;
