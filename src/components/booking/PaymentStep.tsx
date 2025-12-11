@@ -38,12 +38,27 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
                          customerInfo.postcode && customerInfo.city && customerInfo.country;
   const canPay = isFormComplete && bookingSelection && acceptTerms;
 
+  // TEST MODE: Set to true to simulate slot unavailable
+  const SIMULATE_SLOT_UNAVAILABLE = true;
+
   const handlePayment = async () => {
     if (!bookingSelection) return;
     
     setIsProcessing(true);
 
     try {
+      // TEST: Simulate slot unavailable for testing
+      if (SIMULATE_SLOT_UNAVAILABLE && isTestMode) {
+        console.log('TEST MODE: Simulating slot unavailable');
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate delay
+        toast.error(language === 'nl' 
+          ? 'Dit tijdslot is helaas niet meer beschikbaar. Kies een ander tijdstip.' 
+          : 'This time slot is no longer available. Please choose another time.');
+        setIsProcessing(false);
+        onSlotUnavailable?.();
+        return;
+      }
+
       // Step 1: Wait for background refresh to complete (if still running)
       if (refreshPromise) {
         console.log('Waiting for background slot verification...');
