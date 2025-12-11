@@ -2,7 +2,7 @@ import { useLayoutEffect, useEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { useInstagramScroll } from '../hooks/useInstagramScroll';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 import { PageTransition } from '@/components/PageTransition';
 import { ScrollFadeLogo } from '@/components/ScrollFadeLogo';
 import { BeforeAfterGrid } from '@/components/haartransplantatie/BeforeAfterGrid';
@@ -50,7 +50,7 @@ const HaartransplantatieOldPageContent = () => {
 
   return (
     <>
-      <MetaHead language={language} page="haartransplantatie" />
+      <SEOHead title="Haartransplantatie" description="Haartransplantatie bij GlobalHair Institute." />
       <DesktopContainer>
         <PageTransition isNewPage={true}>
           {/* Hero Section */}

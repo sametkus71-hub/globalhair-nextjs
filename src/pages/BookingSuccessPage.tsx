@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
 import { supabase } from '@/integrations/supabase/client';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 import { GlassHeader } from '@/components/haartransplantatie/GlassHeader';
 import { Badge } from '@/components/ui/badge';
 import { format } from 'date-fns';
@@ -49,10 +49,10 @@ export const BookingSuccessPage = () => {
   if (loading) {
     return (
       <>
-        <MetaHead
-          language={language}
+        <SEOHead
           title={language === 'nl' ? 'Laden...' : 'Loading...'}
           description=""
+          noIndex={true}
         />
         <div className="min-h-screen bg-gradient-to-b from-[hsl(var(--background-start))] to-[hsl(var(--background-end))]">
           <GlassHeader />
@@ -83,10 +83,10 @@ export const BookingSuccessPage = () => {
 
   return (
     <>
-      <MetaHead
-        language={language}
-        title={language === 'nl' ? 'De eerste stap is gezet' : 'The first step is taken'}
-        description={language === 'nl' ? 'Uw afspraak is bevestigd' : 'Your appointment is confirmed'}
+      <SEOHead
+        title={language === 'nl' ? 'Afspraak Bevestigd' : 'Appointment Confirmed'}
+        description={language === 'nl' ? 'Uw afspraak bij GlobalHair Institute is bevestigd.' : 'Your appointment at GlobalHair Institute is confirmed.'}
+        noIndex={true}
       />
       
       <div className="min-h-screen bg-gradient-to-b from-[hsl(var(--background-start))] to-[hsl(var(--background-end))] flex flex-col">

@@ -6,7 +6,7 @@ import { usePageLoader } from '@/hooks/usePageLoader';
 import { usePreventZoom } from '@/hooks/usePreventZoom';
 import { useTransition } from '@/contexts/TransitionContext';
 import { ImagePreloader } from '@/components/ImagePreloader';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 import { GenderToggle } from '@/components/homepage/GenderToggle';
 import { VideoGrid } from '@/components/homepage/VideoGrid';
 import { ColorSelector } from '@/components/homepage/ColorSelector';
@@ -56,7 +56,10 @@ const HomePage = () => {
     <>
       {/* Preload critical images immediately */}
       <ImagePreloader images={imagesToPreload} />
-      <MetaHead language={language} page="home" />
+      <SEOHead 
+        title={language === 'nl' ? 'Haartransplantatie & Haarherstel' : 'Hair Transplant & Hair Restoration'} 
+        description={language === 'nl' ? 'GlobalHair Institute is marktleider in haartransplantatie. Ontdek onze precisie-methode en boek een gratis consultatie.' : 'GlobalHair Institute is a market leader in hair transplantation. Discover our precision method and book a free consultation.'} 
+      />
       <div className="relative overflow-hidden" style={{ height: 'var(--app-height)' }}>
         {/* Full screen video grid */}
         <div 

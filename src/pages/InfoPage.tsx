@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
 import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
@@ -67,7 +67,7 @@ const InfoPage: React.FC = () => {
     };
   }, []);
   return <>
-      <MetaHead title={language === 'nl' ? 'Hoe kunnen wij u helpen?' : 'How can we help you?'} description={language === 'nl' ? 'Kies uw gebied en methode' : 'Choose your area and method'} language={language} />
+      <SEOHead title={language === 'nl' ? 'Informatie' : 'Information'} description={language === 'nl' ? 'Ontdek meer over onze haartransplantatie methodes en het behandeltraject bij GlobalHair Institute.' : 'Discover more about our hair transplant methods and treatment trajectory at GlobalHair Institute.'} />
       {/* Fixed Background - Outside page container */}
       <div 
         className="fixed inset-0 w-full h-screen overflow-hidden z-0"

@@ -1,7 +1,7 @@
 import { useLayoutEffect, useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 import { PageTransition } from '@/components/PageTransition';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
 import { GlassHeader } from '@/components/haartransplantatie/GlassHeader';
@@ -117,7 +117,7 @@ const HaartransplantatiePage = () => {
 
   return (
     <>
-      <MetaHead language={language} page="haartransplantatie" />
+      <SEOHead title="Haartransplantatie" description="Haartransplantatie bij GlobalHair Institute." />
       
       <div className="relative w-full min-h-screen">
         <DesktopContainer>

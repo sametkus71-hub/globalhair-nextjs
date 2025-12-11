@@ -4,7 +4,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useSlideTransition } from '@/hooks/useSlideTransition';
 import { ArrowLeft } from 'lucide-react';
 import { VIDEOS } from '@/data/reviewsVideos';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 
 export const ReviewItemPage = () => {
   const { language } = useLanguage();
@@ -50,7 +50,10 @@ export const ReviewItemPage = () => {
 
   return (
     <>
-      <MetaHead language={language} page="review-item" />
+      <SEOHead 
+        title={language === 'nl' ? 'Review Video' : 'Review Video'} 
+        description={language === 'nl' ? 'Bekijk de ervaring van onze klant met haartransplantatie.' : 'Watch our clients hair transplant experience.'} 
+      />
       <div className={`review-item-page-fullscreen ${isExiting ? 'slide-exit-right' : 'slide-enter-left'}`}>
         {/* Clean back button */}
         <button

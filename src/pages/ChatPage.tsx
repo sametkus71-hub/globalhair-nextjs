@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useLayoutEffect } from 'react';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { X, Send, Loader2, ExternalLink } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -1091,10 +1091,9 @@ const ChatPage = () => {
   return (
     <>
       <style>{chatInputStyles}</style>
-      <MetaHead
+      <SEOHead
         title={language === 'nl' ? 'Chat' : 'Chat'}
-        description={language === 'nl' ? 'Chat met ons' : 'Chat with us'}
-        language={language}
+        description={language === 'nl' ? 'Chat met onze haartransplantatie experts bij GlobalHair Institute.' : 'Chat with our hair transplant experts at GlobalHair Institute.'}
       />
       
       <div

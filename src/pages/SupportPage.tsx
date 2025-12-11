@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
 import { GlobalHairLogo } from '@/components/logos/GlobalHairLogo';
@@ -60,10 +60,9 @@ const SupportPage: React.FC = () => {
 
   return (
     <>
-      <MetaHead
-        title={language === "nl" ? "Ondersteuning - GlobalHair" : "Support - GlobalHair"}
-        description={language === "nl" ? "We helpen u graag met al uw vragen" : "We're happy to help you with all your questions"}
-        language={language}
+      <SEOHead
+        title={language === "nl" ? "Ondersteuning" : "Support"}
+        description={language === "nl" ? "We helpen u graag met al uw vragen over haartransplantatie bij GlobalHair Institute." : "We're happy to help you with all your questions about hair transplantation at GlobalHair Institute."}
       />
       <div className={`contact-page-fullscreen overflow-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
         {/* Light theme background matching other pages */}

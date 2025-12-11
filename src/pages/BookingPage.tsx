@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useNavigate } from 'react-router-dom';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 import { PopupCloseButton } from '@/components/PopupCloseButton';
 import { BookingWizard } from '@/components/booking/BookingWizard';
 import { StaffCodePopover } from '@/components/booking/StaffCodePopover';
@@ -38,10 +38,9 @@ export const BookingPage = () => {
 
   return (
     <>
-      <MetaHead
-        title={language === 'nl' ? 'Afspraak Boeken - GlobalHair' : 'Book Appointment - GlobalHair'}
-        description={language === 'nl' ? 'Boek uw afspraak voor een haartransplantatie consultatie' : 'Book your hair transplant consultation appointment'}
-        language={language}
+      <SEOHead
+        title={language === 'nl' ? 'Afspraak Boeken' : 'Book Appointment'}
+        description={language === 'nl' ? 'Boek uw afspraak voor een haartransplantatie consultatie bij GlobalHair Institute.' : 'Book your hair transplant consultation appointment at GlobalHair Institute.'}
       />
       
       <TestModeProvider>

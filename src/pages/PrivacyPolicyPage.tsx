@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { usePopupClose } from '@/components/PopupCloseButton';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { CookieSettings } from '@/components/CookieSettings';
 
@@ -97,11 +97,9 @@ const PrivacyPolicyPage = () => {
 
   return (
     <>
-      <MetaHead 
-        language={language}
-        page="privacy-policy"
+      <SEOHead 
         title={content.title}
-        description={language === 'nl' ? 'Privacybeleid van Global Hair' : 'Privacy Policy of Global Hair'}
+        description={language === 'nl' ? 'Privacybeleid van GlobalHair Institute.' : 'Privacy Policy of GlobalHair Institute.'}
       />
       
       <div 
