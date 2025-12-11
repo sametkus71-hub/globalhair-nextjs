@@ -41,6 +41,33 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
   // TEST MODE: Set to true to simulate slot unavailable
   const SIMULATE_SLOT_UNAVAILABLE = true;
 
+  // Helper function for showing slot unavailable toast with improved UX
+  const showSlotUnavailableToast = () => {
+    // Set up auto-redirect fallback after 8 seconds
+    const autoRedirectTimeout = setTimeout(() => {
+      onSlotUnavailable?.();
+    }, 8000);
+
+    toast.error(
+      language === 'nl' 
+        ? 'Dit tijdslot is niet meer beschikbaar' 
+        : 'This time slot is no longer available',
+      {
+        duration: 8000,
+        description: language === 'nl'
+          ? 'Iemand anders heeft dit tijdslot zojuist geboekt. Kies een ander tijdstip om verder te gaan.'
+          : 'Someone else just booked this time slot. Please choose another time to continue.',
+        action: {
+          label: language === 'nl' ? 'Kies ander tijdstip' : 'Choose another time',
+          onClick: () => {
+            clearTimeout(autoRedirectTimeout);
+            onSlotUnavailable?.();
+          },
+        },
+      }
+    );
+  };
+
   const handlePayment = async () => {
     if (!bookingSelection) return;
     
@@ -51,11 +78,8 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
       if (SIMULATE_SLOT_UNAVAILABLE && isTestMode) {
         console.log('TEST MODE: Simulating slot unavailable');
         await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate delay
-        toast.error(language === 'nl' 
-          ? 'Dit tijdslot is helaas niet meer beschikbaar. Kies een ander tijdstip.' 
-          : 'This time slot is no longer available. Please choose another time.');
+        showSlotUnavailableToast();
         setIsProcessing(false);
-        onSlotUnavailable?.();
         return;
       }
 
@@ -66,11 +90,8 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
           const refreshResult = await refreshPromise;
           if (!refreshResult.slotStillAvailable) {
             console.log('Background check: slot no longer available');
-            toast.error(language === 'nl' 
-              ? 'Dit tijdslot is helaas niet meer beschikbaar. Kies een ander tijdstip.' 
-              : 'This time slot is no longer available. Please choose another time.');
+            showSlotUnavailableToast();
             setIsProcessing(false);
-            onSlotUnavailable?.();
             return;
           }
         } catch (err) {
@@ -97,11 +118,8 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
         
         if (!isStillAvailable) {
           console.log('DB check: slot no longer available');
-          toast.error(language === 'nl' 
-            ? 'Dit tijdslot is helaas niet meer beschikbaar. Kies een ander tijdstip.' 
-            : 'This time slot is no longer available. Please choose another time.');
+          showSlotUnavailableToast();
           setIsProcessing(false);
-          onSlotUnavailable?.();
           return;
         }
       }
