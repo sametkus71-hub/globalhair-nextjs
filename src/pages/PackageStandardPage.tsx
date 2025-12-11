@@ -7,6 +7,7 @@ import chevronRightSvg from '@/assets/chevron-right.svg';
 import leafSvg from '@/assets/leaf.svg';
 import precisionBadge from '@/assets/precision-method-badge.png';
 import { PopupCloseButton, usePopupClose, SwipeablePopupWrapper } from '@/components/PopupCloseButton';
+import { MetaHead } from '@/components/MetaHead';
 
 
 type FeatureKey = 'fue' | 'comfort' | 'fullcomfort' | 'support' | 'precision' | 'stemcellrepair' | 'v6prime' | 'v6recovery' | 'followup' | 'followup2' | 'biotine' | 'shampoo' | 'washes' | 'indicators';
@@ -476,8 +477,12 @@ export const PackageStandardPage = () => {
     handlePopupClose(350);
   };
 
+  // Dynamic page key based on tier
+  const pageKey = `package-${activeTier.toLowerCase()}`;
+
   return (
     <>
+      <MetaHead language={language} page={pageKey} />
       <div
         className={`popup-wrapper-fade ${isExiting ? 'popup-wrapper-fade-out' : ''}`}
         style={{
