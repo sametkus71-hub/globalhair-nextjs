@@ -43,29 +43,17 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
 
   // Helper function for showing slot unavailable toast with improved UX
   const showSlotUnavailableToast = () => {
-    // Set up auto-redirect fallback after 8 seconds
-    const autoRedirectTimeout = setTimeout(() => {
-      onSlotUnavailable?.();
-    }, 8000);
-
     toast.error(
       language === 'nl' 
         ? 'Dit tijdslot is niet meer beschikbaar' 
         : 'This time slot is no longer available',
-      {
-        duration: 8000,
-        description: language === 'nl'
-          ? 'Iemand anders heeft dit tijdslot zojuist geboekt. Kies een ander tijdstip om verder te gaan.'
-          : 'Someone else just booked this time slot. Please choose another time to continue.',
-        action: {
-          label: language === 'nl' ? 'Kies ander tijdstip' : 'Choose another time',
-          onClick: () => {
-            clearTimeout(autoRedirectTimeout);
-            onSlotUnavailable?.();
-          },
-        },
-      }
+      { duration: 5000 }
     );
+    
+    // Redirect after 2.5s so user can read the message
+    setTimeout(() => {
+      onSlotUnavailable?.();
+    }, 2500);
   };
 
   const handlePayment = async () => {

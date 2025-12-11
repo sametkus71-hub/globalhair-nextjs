@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
+import { useQueryClient } from '@tanstack/react-query';
 import {
   Accordion,
   AccordionContent,
@@ -41,6 +42,7 @@ export const BookingWizard = () => {
   const { language } = useLanguage();
   const { t } = useTranslation(language);
   const { isTestMode, getTestPrice } = useTestMode();
+  const queryClient = useQueryClient();
   
   const [currentStep, setCurrentStep] = useState<string>('step-1');
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
@@ -141,6 +143,10 @@ export const BookingWizard = () => {
   };
 
   const handleSlotUnavailable = () => {
+    // Invalidate availability cache to force fresh data fetch
+    queryClient.invalidateQueries({ queryKey: ['availability-slots'] });
+    queryClient.invalidateQueries({ queryKey: ['availability-cache'] });
+    
     // Clear selection and go back to Step 2
     setBookingSelection(null);
     setCompletedSteps(completedSteps.filter(s => s !== 'step-2'));
