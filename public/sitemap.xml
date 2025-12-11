@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://globalhair.institute/nl</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://globalhair.institute/nl"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://globalhair.institute/nl"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Haartransplantatie / Hair Transplant Main -->
+  <url>
+    <loc>https://globalhair.institute/nl/haartransplantatie</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/haartransplantatie"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/hair-transplant"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/hair-transplant</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/haartransplantatie"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/hair-transplant"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Haartransplantatie Reviews -->
+  <url>
+    <loc>https://globalhair.institute/nl/haartransplantatie/reviews</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/haartransplantatie/reviews"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/hair-transplant/reviews"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/hair-transplant/reviews</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/haartransplantatie/reviews"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/hair-transplant/reviews"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Haartransplantatie How -->
+  <url>
+    <loc>https://globalhair.institute/nl/haartransplantatie/how</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/haartransplantatie/how"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/hair-transplant/how"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/hair-transplant/how</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/haartransplantatie/how"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/hair-transplant/how"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Haartransplantatie Mission -->
+  <url>
+    <loc>https://globalhair.institute/nl/haartransplantatie/mission</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/haartransplantatie/mission"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/hair-transplant/mission"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/hair-transplant/mission</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/haartransplantatie/mission"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/hair-transplant/mission"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Haartransplantatie Contact -->
+  <url>
+    <loc>https://globalhair.institute/nl/haartransplantatie/contact</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/haartransplantatie/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/hair-transplant/contact"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/hair-transplant/contact</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/haartransplantatie/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/hair-transplant/contact"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Package: Netherlands Standard -->
+  <url>
+    <loc>https://globalhair.institute/nl/haartransplantatie/nl/standard</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/haartransplantatie/nl/standard"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/hair-transplant/nl/standard"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/hair-transplant/nl/standard</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/haartransplantatie/nl/standard"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/hair-transplant/nl/standard"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Package: Netherlands Premium -->
+  <url>
+    <loc>https://globalhair.institute/nl/haartransplantatie/nl/premium</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/haartransplantatie/nl/premium"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/hair-transplant/nl/premium"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/hair-transplant/nl/premium</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/haartransplantatie/nl/premium"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/hair-transplant/nl/premium"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Package: Netherlands Elite -->
+  <url>
+    <loc>https://globalhair.institute/nl/haartransplantatie/nl/elite</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/haartransplantatie/nl/elite"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/hair-transplant/nl/elite"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/hair-transplant/nl/elite</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/haartransplantatie/nl/elite"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/hair-transplant/nl/elite"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Package: Turkey Standard -->
+  <url>
+    <loc>https://globalhair.institute/nl/haartransplantatie/tr/standard</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/haartransplantatie/tr/standard"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/hair-transplant/tr/standard"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/hair-transplant/tr/standard</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/haartransplantatie/tr/standard"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/hair-transplant/tr/standard"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Package: Turkey Premium -->
+  <url>
+    <loc>https://globalhair.institute/nl/haartransplantatie/tr/premium</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/haartransplantatie/tr/premium"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/hair-transplant/tr/premium"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/hair-transplant/tr/premium</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/haartransplantatie/tr/premium"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/hair-transplant/tr/premium"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Berkant Dural -->
+  <url>
+    <loc>https://globalhair.institute/nl/berkantdural</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/berkantdural"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/berkantdural"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/berkantdural</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/berkantdural"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/berkantdural"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Ozlem Aslan -->
+  <url>
+    <loc>https://globalhair.institute/nl/ozlemaslan</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/ozlemaslan"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/ozlemaslan"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/ozlemaslan</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/ozlemaslan"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/ozlemaslan"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Haaranalyse / Hair Analysis -->
+  <url>
+    <loc>https://globalhair.institute/nl/haaranalyse</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/haaranalyse"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/hair-analysis"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/hair-analysis</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/haaranalyse"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/hair-analysis"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Behandelopties / Treatment Options -->
+  <url>
+    <loc>https://globalhair.institute/nl/behandelopties</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/behandelopties"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/treatment-options"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/treatment-options</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/behandelopties"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/treatment-options"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Pakket Standaard / Package Standard -->
+  <url>
+    <loc>https://globalhair.institute/nl/pakket-standaard</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/pakket-standaard"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/package-standard"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/package-standard</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/pakket-standaard"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/package-standard"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Reviews -->
+  <url>
+    <loc>https://globalhair.institute/nl/reviews</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/reviews"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/reviews"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/reviews</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/reviews"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/reviews"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Missie / Mission -->
+  <url>
+    <loc>https://globalhair.institute/nl/missie</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/missie"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/mission"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/mission</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/missie"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/mission"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Info -->
+  <url>
+    <loc>https://globalhair.institute/nl/info</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/info"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/info"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/info</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/info"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/info"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Info Methode / Method -->
+  <url>
+    <loc>https://globalhair.institute/nl/info/methode</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/info/methode"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/info/method"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/info/method</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/info/methode"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/info/method"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Info Traject / Trajectory -->
+  <url>
+    <loc>https://globalhair.institute/nl/info/traject</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/info/traject"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/info/trajectory"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/info/trajectory</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/info/traject"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/info/trajectory"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Support -->
+  <url>
+    <loc>https://globalhair.institute/nl/support</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/support"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/support"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/support</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/support"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/support"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Boek / Book -->
+  <url>
+    <loc>https://globalhair.institute/nl/boek</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/boek"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/book"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/book</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/boek"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/book"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Contact -->
+  <url>
+    <loc>https://globalhair.institute/nl/contact</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/contact"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/contact</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/contact"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Privacybeleid / Privacy Policy -->
+  <url>
+    <loc>https://globalhair.institute/nl/privacybeleid</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/privacybeleid"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/privacy-policy"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/privacy-policy</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/privacybeleid"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/privacy-policy"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Algemene Voorwaarden / Terms Conditions -->
+  <url>
+    <loc>https://globalhair.institute/nl/algemene-voorwaarden</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/algemene-voorwaarden"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/terms-conditions"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://globalhair.institute/en/terms-conditions</loc>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://globalhair.institute/nl/algemene-voorwaarden"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://globalhair.institute/en/terms-conditions"/>
+    <lastmod>2025-01-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+</urlset>
