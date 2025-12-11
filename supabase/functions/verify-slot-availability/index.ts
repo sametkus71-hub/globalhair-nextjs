@@ -55,6 +55,7 @@ Deno.serve(async (req) => {
             service_id: config.serviceId,
             staff_id: sid,
             selected_date: zohoDate,
+            timezone: Deno.env.get('ZB_TIMEZONE') || 'Europe/Amsterdam',
           });
 
           console.log(`Fetching availability for staff ${sid} on ${zohoDate}`);
@@ -66,7 +67,7 @@ Deno.serve(async (req) => {
                 data?: string[];
               };
             };
-          }>(`/bookings/v1/json/slots?${params.toString()}`);
+          }>(`/bookings/v1/json/availableslots?${params.toString()}`, { method: 'GET' });
 
           const slots = response.response.returnvalue.data || [];
           console.log(`Staff ${sid}: ${slots.length} slots available`);
