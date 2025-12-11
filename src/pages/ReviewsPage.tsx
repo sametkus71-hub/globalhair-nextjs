@@ -5,6 +5,7 @@ import { ReviewsGrid } from '@/components/reviews/ReviewsGrid';
 import { ReviewsTextArea } from '@/components/reviews/ReviewsTextArea';
 import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
 import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
+import { MetaHead } from '@/components/MetaHead';
 
 export const ReviewsPage = () => {
   const { language } = useLanguage();
@@ -36,6 +37,7 @@ export const ReviewsPage = () => {
 
   return (
     <>
+      <MetaHead language={language} page="reviews" />
       <div
         className={`reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}
         style={{
