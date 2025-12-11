@@ -39,7 +39,7 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
   const canPay = isFormComplete && bookingSelection && acceptTerms;
 
   // TEST MODE: Set to true to simulate slot unavailable
-  const SIMULATE_SLOT_UNAVAILABLE = true;
+  const SIMULATE_SLOT_UNAVAILABLE = false;
 
   // Helper function for showing slot unavailable toast with improved UX
   const showSlotUnavailableToast = () => {
