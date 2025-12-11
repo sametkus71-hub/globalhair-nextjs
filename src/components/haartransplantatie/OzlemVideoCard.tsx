@@ -72,7 +72,7 @@ export const OzlemVideoCard = () => {
 
           {/* Bottom left - Title */}
           <div className="absolute bottom-4 left-4">
-            <p className="text-sm font-semibold text-white/95 tracking-wide">Manager</p>
+            <p className="text-sm font-semibold text-white/95 tracking-wide">CPO</p>
           </div>
         </div>
       </article>
