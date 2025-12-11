@@ -1933,9 +1933,13 @@ html, body {
   background: linear-gradient(90deg, #949494 7%, #ACB9C1 16%, #FFFFFF 34%, #ACB9C1 51%, #4B555E 78%, #fff 105%);
 }
 
-/* Premium pill - blue background */
+/* Premium pill - silver gradient border */
 .treat-pill-premium {
   background: rgba(30, 58, 138, 0.15);
+}
+
+.treat-pill-premium::before {
+  background: linear-gradient(90deg, #949494 7%, #ACB9C1 16%, #FFFFFF 34%, #ACB9C1 51%, #4B555E 78%, #fff 105%);
 }
 
 /* Elite pill - purple background */
