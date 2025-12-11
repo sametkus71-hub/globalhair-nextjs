@@ -37,6 +37,9 @@ const BookingPage = lazy(() => import('@/pages/BookingPage'));
 const BookingSuccessPage = lazy(() => import('@/pages/BookingSuccessPage').then(m => ({ default: m.BookingSuccessPage })));
 const PrivacyPolicyPage = lazy(() => import('@/pages/PrivacyPolicyPage'));
 const AlgemeneVoorwaardenPage = lazy(() => import('@/pages/AlgemeneVoorwaardenPage'));
+const GHINLPage = lazy(() => import('@/pages/documents/GHINLPage'));
+const GHITRPage = lazy(() => import('@/pages/documents/GHITRPage'));
+const GHIRichtlijnenPage = lazy(() => import('@/pages/documents/GHIRichtlijnenPage'));
 const AdminLogin = lazy(() => import('@/pages/AdminLogin'));
 const AdminDashboard = lazy(() => import('@/pages/AdminDashboard'));
 const AdminReviews = lazy(() => import('@/pages/AdminReviews'));
@@ -145,6 +148,11 @@ export const SEORoutes = () => {
       <Route path="/en/contact" element={<ContactPage />} />
       <Route path="/en/privacy-policy" element={<PrivacyPolicyPage />} />
       <Route path="/en/terms-conditions" element={<AlgemeneVoorwaardenPage />} />
+      
+      {/* Document routes */}
+      <Route path="/documents/ghi-nl" element={<GHINLPage />} />
+      <Route path="/documents/ghi-tr" element={<GHITRPage />} />
+      <Route path="/documents/ghi-richtlijnen" element={<GHIRichtlijnenPage />} />
       
       {/* Admin routes */}
       <Route path="/admin/login" element={<AdminLogin />} />
