@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Shield } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
@@ -8,6 +8,78 @@ import leafSvg from '@/assets/leaf.svg';
 import precisionBadge from '@/assets/precision-method-badge.png';
 import { PopupCloseButton, usePopupClose, SwipeablePopupWrapper } from '@/components/PopupCloseButton';
 import { SEOHead } from '@/components/SEOHead';
+
+// SEO content for each package tier and country combination
+const getSEOContent = (country: 'nl' | 'tr', tier: 'Standard' | 'Premium' | 'Elite', language: 'nl' | 'en') => {
+  const seoData = {
+    nl: {
+      Standard: {
+        nl: {
+          title: 'Standaard Pakket Nederland - Haartransplantatie',
+          description: 'Bekijk ons Standaard haartransplantatie pakket in Nederland. FUE Saffier methode met Comfort Verdoving en 1 jaar GHI Support.'
+        },
+        en: {
+          title: 'Standard Package Netherlands - Hair Transplant',
+          description: 'View our Standard hair transplant package in Netherlands. FUE Sapphire method with Comfort Anesthesia and 1 year GHI Support.'
+        }
+      },
+      Premium: {
+        nl: {
+          title: 'Premium Pakket Nederland - Haartransplantatie',
+          description: 'Bekijk ons Premium haartransplantatie pakket in Nederland. Inclusief GHI Stemcell Repair™ voor 20-35% meer dichtheid.'
+        },
+        en: {
+          title: 'Premium Package Netherlands - Hair Transplant',
+          description: 'View our Premium hair transplant package in Netherlands. Including GHI Stemcell Repair™ for 20-35% more density.'
+        }
+      },
+      Elite: {
+        nl: {
+          title: 'Elite Pakket Nederland - Haartransplantatie',
+          description: 'Ontdek ons exclusieve Elite haartransplantatie pakket. Full Comfort Anesthesia, V6 Hairboost® Prime & Recovery voor maximale resultaten.'
+        },
+        en: {
+          title: 'Elite Package Netherlands - Hair Transplant',
+          description: 'Discover our exclusive Elite hair transplant package. Full Comfort Anesthesia, V6 Hairboost® Prime & Recovery for maximum results.'
+        }
+      }
+    },
+    tr: {
+      Standard: {
+        nl: {
+          title: 'Standaard Pakket Turkije - Haartransplantatie',
+          description: 'Bekijk ons Standaard haartransplantatie pakket in Turkije. All-inclusive met 5-sterren verblijf en VIP transfers.'
+        },
+        en: {
+          title: 'Standard Package Turkey - Hair Transplant',
+          description: 'View our Standard hair transplant package in Turkey. All-inclusive with 5-star accommodation and VIP transfers.'
+        }
+      },
+      Premium: {
+        nl: {
+          title: 'Premium Pakket Turkije - Haartransplantatie',
+          description: 'Ontdek ons Premium haartransplantatie pakket in Turkije. Luxe all-inclusive verblijf met GHI Stemcell Repair™ behandeling.'
+        },
+        en: {
+          title: 'Premium Package Turkey - Hair Transplant',
+          description: 'Discover our Premium hair transplant package in Turkey. Luxury all-inclusive stay with GHI Stemcell Repair™ treatment.'
+        }
+      },
+      Elite: {
+        nl: {
+          title: 'Elite Pakket - Haartransplantatie',
+          description: 'Het Elite pakket is exclusief beschikbaar in Nederland voor de hoogste kwaliteit en persoonlijke begeleiding.'
+        },
+        en: {
+          title: 'Elite Package - Hair Transplant',
+          description: 'The Elite package is exclusively available in Netherlands for the highest quality and personal guidance.'
+        }
+      }
+    }
+  };
+  
+  return seoData[country][tier][language];
+};
 
 
 type FeatureKey = 'fue' | 'comfort' | 'fullcomfort' | 'support' | 'precision' | 'stemcellrepair' | 'v6prime' | 'v6recovery' | 'followup' | 'followup2' | 'biotine' | 'shampoo' | 'washes' | 'indicators';
@@ -480,11 +552,17 @@ export const PackageStandardPage = () => {
   // Dynamic page key based on tier
   const pageKey = `package-${activeTier.toLowerCase()}`;
 
+  // Get dynamic SEO content based on country, tier and language
+  const seoContent = useMemo(() => 
+    getSEOContent(activeCountry, activeTier, language as 'nl' | 'en'),
+    [activeCountry, activeTier, language]
+  );
+
   return (
     <>
       <SEOHead 
-        title={language === 'nl' ? `${activeTier} Pakket - Haartransplantatie` : `${activeTier} Package - Hair Transplant`}
-        description={language === 'nl' ? `Ontdek ons ${activeTier} haartransplantatie pakket bij GlobalHair Institute.` : `Discover our ${activeTier} hair transplant package at GlobalHair Institute.`}
+        title={seoContent.title}
+        description={seoContent.description}
       />
       <div
         className={`popup-wrapper-fade ${isExiting ? 'popup-wrapper-fade-out' : ''}`}

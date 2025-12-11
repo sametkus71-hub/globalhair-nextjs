@@ -2,7 +2,6 @@ import { useLayoutEffect } from 'react';
 import { useLocation, Outlet } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { SEOHead } from '@/components/SEOHead';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
 import { WideContentContainer } from '@/components/layout/WideContentContainer';
 import { MediumContentContainer } from '@/components/layout/MediumContentContainer';
@@ -60,10 +59,6 @@ export const HaartransplantatieLayout = () => {
 
   return (
     <>
-      <SEOHead 
-        title={language === 'nl' ? 'Haartransplantatie' : 'Hair Transplant'} 
-        description={language === 'nl' ? 'Ontdek haartransplantatie bij GlobalHair Institute.' : 'Discover hair transplantation at GlobalHair Institute.'} 
-      />
       <TabPreloader />
       
       <div className="relative w-full min-h-screen">
