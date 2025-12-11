@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
 import {
@@ -15,6 +15,7 @@ import { getServiceConfig } from '@/lib/service-config';
 import { saveBookingState, loadBookingState } from '@/lib/booking-storage';
 import { useTestMode } from '@/contexts/TestModeContext';
 import { FlaskConical, Check } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 export type ServiceType = 'v6_hairboost' | 'haartransplantatie' | 'ceo_consult';
 export type LocationType = 'online' | 'onsite';
@@ -56,6 +57,9 @@ export const BookingWizard = () => {
   
   // Step 3 data
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo | null>(null);
+  
+  // Background refresh promise for slot verification
+  const refreshPromiseRef = useRef<Promise<{ slotStillAvailable: boolean }> | null>(null);
 
   // Load saved state on mount
   useEffect(() => {
@@ -114,6 +118,33 @@ export const BookingWizard = () => {
     setBookingSelection({ date, time, staffId, staffName });
     setCompletedSteps([...completedSteps, 'step-2']);
     setCurrentStep('step-3');
+    
+    // Start background refresh - fire and forget but store the promise
+    const refreshPromise = supabase.functions.invoke('verify-slot-availability', {
+      body: {
+        serviceType,
+        location,
+        date,
+        time,
+        staffId,
+      },
+    }).then(({ data, error }) => {
+      if (error) {
+        console.error('Background slot verification failed:', error);
+        return { slotStillAvailable: true }; // Optimistic - let payment check handle it
+      }
+      console.log('Background slot verification complete:', data);
+      return { slotStillAvailable: data?.slotStillAvailable ?? true };
+    });
+    
+    refreshPromiseRef.current = refreshPromise;
+  };
+
+  const handleSlotUnavailable = () => {
+    // Clear selection and go back to Step 2
+    setBookingSelection(null);
+    setCompletedSteps(completedSteps.filter(s => s !== 'step-2'));
+    setCurrentStep('step-2');
   };
 
   // Build extended booking selection with service config
@@ -339,6 +370,8 @@ export const BookingWizard = () => {
                   bookingSelection={getExtendedBookingSelection()}
                   customerInfo={customerInfo}
                   price={price}
+                  refreshPromise={refreshPromiseRef.current}
+                  onSlotUnavailable={handleSlotUnavailable}
                 />
               )}
             </div>
