@@ -38,3 +38,6 @@ verify_jwt = false
 
 [functions.process-booking]
 verify_jwt = false
+
+[functions.verify-slot-availability]
+verify_jwt = false

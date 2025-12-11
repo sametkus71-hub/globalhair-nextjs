@@ -161,12 +161,34 @@ Deno.serve(async (req) => {
 
         console.log('Booking fully confirmed:', bookingIntentId);
 
-        // Invalidate cache
-        await supabase
+        // Smart cache update: remove only the booked slot from time_slots
+        const serviceKey = `${bookingIntent.service_type}_${bookingIntent.location}`;
+        const { data: currentSlot } = await supabase
           .from('availability_slots')
-          .delete()
-          .eq('service_key', bookingIntent.service_type)
-          .eq('date', bookingIntent.selected_date);
+          .select('time_slots')
+          .eq('service_key', serviceKey)
+          .eq('date', bookingIntent.selected_date)
+          .eq('staff_id', bookingIntent.zoho_staff_id)
+          .single();
+
+        if (currentSlot) {
+          // Extract HH:MM from selected_time (might be HH:MM:SS)
+          const bookedTime = String(bookingIntent.selected_time).substring(0, 5);
+          const updatedSlots = (currentSlot.time_slots as string[])
+            .filter(slot => slot !== bookedTime);
+          
+          await supabase
+            .from('availability_slots')
+            .update({ 
+              time_slots: updatedSlots,
+              last_synced_at: new Date().toISOString()
+            })
+            .eq('service_key', serviceKey)
+            .eq('date', bookingIntent.selected_date)
+            .eq('staff_id', bookingIntent.zoho_staff_id);
+          
+          console.log('Cache updated: removed slot', bookedTime, 'from', serviceKey);
+        }
 
       } catch (zohoError) {
         console.error('Error creating Zoho booking:', zohoError);

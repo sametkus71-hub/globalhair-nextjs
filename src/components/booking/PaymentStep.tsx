@@ -23,9 +23,11 @@ interface PaymentStepProps {
   } | null;
   customerInfo: CustomerInfo | null;
   price: number;
+  refreshPromise?: Promise<{ slotStillAvailable: boolean }> | null;
+  onSlotUnavailable?: () => void;
 }
 
-export const PaymentStep = ({ serviceType, location, bookingSelection, customerInfo, price }: PaymentStepProps) => {
+export const PaymentStep = ({ serviceType, location, bookingSelection, customerInfo, price, refreshPromise, onSlotUnavailable }: PaymentStepProps) => {
   const { language } = useLanguage();
   const { isTestMode } = useTestMode();
   const [isProcessing, setIsProcessing] = useState(false);
@@ -37,10 +39,60 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
   const canPay = isFormComplete && bookingSelection && acceptTerms;
 
   const handlePayment = async () => {
+    if (!bookingSelection) return;
+    
     setIsProcessing(true);
 
     try {
-      console.log('Creating Stripe checkout session...');
+      // Step 1: Wait for background refresh to complete (if still running)
+      if (refreshPromise) {
+        console.log('Waiting for background slot verification...');
+        try {
+          const refreshResult = await refreshPromise;
+          if (!refreshResult.slotStillAvailable) {
+            console.log('Background check: slot no longer available');
+            toast.error(language === 'nl' 
+              ? 'Dit tijdslot is helaas niet meer beschikbaar. Kies een ander tijdstip.' 
+              : 'This time slot is no longer available. Please choose another time.');
+            setIsProcessing(false);
+            onSlotUnavailable?.();
+            return;
+          }
+        } catch (err) {
+          console.error('Error awaiting refresh promise:', err);
+          // Continue - we'll do a DB check next
+        }
+      }
+
+      // Step 2: Quick DB check to verify slot is still in cache
+      const serviceKey = `${serviceType}_${location}`;
+      console.log('Performing quick DB check for slot availability...');
+      
+      const { data: slotData, error: checkError } = await supabase
+        .from('availability_slots')
+        .select('time_slots')
+        .eq('service_key', serviceKey)
+        .eq('date', bookingSelection.date)
+        .eq('staff_id', bookingSelection.staffId)
+        .single();
+
+      if (!checkError && slotData) {
+        const timeSlots = (slotData.time_slots as string[]) || [];
+        const isStillAvailable = timeSlots.includes(bookingSelection.time);
+        
+        if (!isStillAvailable) {
+          console.log('DB check: slot no longer available');
+          toast.error(language === 'nl' 
+            ? 'Dit tijdslot is helaas niet meer beschikbaar. Kies een ander tijdstip.' 
+            : 'This time slot is no longer available. Please choose another time.');
+          setIsProcessing(false);
+          onSlotUnavailable?.();
+          return;
+        }
+      }
+
+      // Step 3: Slot confirmed - proceed to Stripe
+      console.log('Slot verified, creating Stripe checkout session...');
 
       const { data, error } = await supabase.functions.invoke('stripe-create-checkout', {
         body: {
@@ -56,7 +108,6 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
 
       if (data.success && data.checkoutUrl) {
         console.log('Redirecting to Stripe checkout...');
-        // Redirect to Stripe checkout
         window.location.href = data.checkoutUrl;
       } else {
         throw new Error(data.error || 'Failed to create checkout session');
