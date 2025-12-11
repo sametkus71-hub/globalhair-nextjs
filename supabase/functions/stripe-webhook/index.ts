@@ -113,6 +113,11 @@ Deno.serve(async (req) => {
           email: bookingIntent.customer_email,
           phone_number: bookingIntent.customer_phone,
         }));
+        // Include first_name and last_name for CRM syncing
+        formData.append('customer_more_info', JSON.stringify({
+          first_name: bookingIntent.customer_first_name || '',
+          last_name: bookingIntent.customer_last_name || '',
+        }));
         formData.append('additional_fields', JSON.stringify({
           address: bookingIntent.customer_address,
           city: bookingIntent.customer_city,

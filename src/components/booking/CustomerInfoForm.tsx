@@ -17,7 +17,8 @@ interface CustomerInfoFormProps {
 export const CustomerInfoForm = ({ onComplete, initialData }: CustomerInfoFormProps) => {
   const { language } = useLanguage();
   const [formData, setFormData] = useState({
-    name: initialData?.name || '',
+    firstName: initialData?.firstName || '',
+    lastName: initialData?.lastName || '',
     email: initialData?.email || '',
     phone: initialData?.phone || '',
     postcode: initialData?.postcode || '',
@@ -50,7 +51,7 @@ export const CustomerInfoForm = ({ onComplete, initialData }: CustomerInfoFormPr
     setFormData(newData);
     
     // Auto-validate and pass data up when all required fields are filled
-    if (newData.name && newData.email && newData.phone && newData.postcode && newData.city && newData.country) {
+    if (newData.firstName && newData.lastName && newData.email && newData.phone && newData.postcode && newData.city && newData.country) {
       onComplete(newData);
     }
   };
@@ -124,18 +125,34 @@ export const CustomerInfoForm = ({ onComplete, initialData }: CustomerInfoFormPr
           {language === 'nl' ? 'Vul je gegevens in' : 'Fill in your details'}
         </h3>
         
-        <div className="floating-label-container">
-          <input
-            type="text"
-            value={formData.name}
-            onChange={(e) => handleChange('name', e.target.value)}
-            className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] text-white focus:outline-none font-inter transition-all duration-200"
-            placeholder=" "
-            required
-          />
-          <label className="floating-label">
-            {language === 'nl' ? 'Naam' : 'Name'}
-          </label>
+        <div className="flex gap-3">
+          <div className="floating-label-container" style={{ width: '50%' }}>
+            <input
+              type="text"
+              value={formData.firstName}
+              onChange={(e) => handleChange('firstName', e.target.value)}
+              className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] text-white focus:outline-none font-inter transition-all duration-200"
+              placeholder=" "
+              required
+            />
+            <label className="floating-label">
+              {language === 'nl' ? 'Voornaam' : 'First name'}
+            </label>
+          </div>
+
+          <div className="floating-label-container" style={{ width: '50%' }}>
+            <input
+              type="text"
+              value={formData.lastName}
+              onChange={(e) => handleChange('lastName', e.target.value)}
+              className="w-full px-3 py-3 text-sm rounded bg-[#FFFFFF1F] text-white focus:outline-none font-inter transition-all duration-200"
+              placeholder=" "
+              required
+            />
+            <label className="floating-label">
+              {language === 'nl' ? 'Achternaam' : 'Last name'}
+            </label>
+          </div>
         </div>
 
         <div className="floating-label-container">

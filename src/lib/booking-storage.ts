@@ -15,7 +15,8 @@ export interface BookingState {
     staffName: string;
   };
   customerInfo?: {
-    name: string;
+    firstName: string;
+    lastName: string;
     email: string;
     phone: string;
     postcode: string;

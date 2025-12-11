@@ -32,7 +32,7 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
   const [acceptTerms, setAcceptTerms] = useState(false);
 
   const config = getServiceConfig(serviceType, location);
-  const isFormComplete = customerInfo && customerInfo.name && customerInfo.email && customerInfo.phone && 
+  const isFormComplete = customerInfo && customerInfo.firstName && customerInfo.lastName && customerInfo.email && customerInfo.phone && 
                          customerInfo.postcode && customerInfo.city && customerInfo.country;
   const canPay = isFormComplete && bookingSelection && acceptTerms;
 
