@@ -299,6 +299,16 @@ export const BookingWizard = () => {
                   <Check className="w-4 h-4 text-green-400" strokeWidth={2.5} />
                 )}
               </div>
+              {bookingSelection && (
+                <span className="date-time-badge px-3 py-1 rounded-full bg-white/10 text-white text-xs font-inter font-medium">
+                  {(() => {
+                    const date = new Date(bookingSelection.date);
+                    const day = date.getDate();
+                    const month = date.toLocaleDateString(language === 'nl' ? 'nl-NL' : 'en-US', { month: 'short' }).toLowerCase();
+                    return `${day} ${month}, ${bookingSelection.time}`;
+                  })()}
+                </span>
+              )}
             </div>
           </AccordionTrigger>
           <AccordionContent className="px-4 pb-4">
@@ -445,6 +455,24 @@ export const BookingWizard = () => {
           padding: 1px;
           border-radius: inherit;
           background: linear-gradient(135deg, #D4AF37, #F4E4BC, #D4AF37);
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .date-time-badge {
+          position: relative;
+        }
+
+        .date-time-badge::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          padding: 1px;
+          border-radius: inherit;
+          background: linear-gradient(90deg, #949494 7%, #ACB9C1 16%, #FFFFFF 34%, #ACB9C1 51%, #4B555E 78%);
           -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
           -webkit-mask-composite: xor;
           mask-composite: exclude;
