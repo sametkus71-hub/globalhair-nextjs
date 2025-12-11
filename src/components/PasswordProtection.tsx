@@ -30,9 +30,8 @@ export const PasswordProtection = ({ children }: PasswordProtectionProps) => {
   const [error, setError] = useState('');
   const [isChecking, setIsChecking] = useState(true);
 
-  // Exclude admin routes and document routes from password protection
+  // Exclude admin routes from password protection
   const isAdminRoute = location.pathname.startsWith('/admin');
-  const isDocumentRoute = location.pathname.startsWith('/documents');
 
   useEffect(() => {
     // Check if user is already authenticated
@@ -79,8 +78,8 @@ const handleSubmit = async (e: React.FormEvent) => {
     return null;
   }
 
-  // Skip password protection for admin routes and document routes
-  if (isAdminRoute || isDocumentRoute) {
+  // Skip password protection for admin routes
+  if (isAdminRoute) {
     return <>{children}</>;
   }
 
