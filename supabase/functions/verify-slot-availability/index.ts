@@ -90,10 +90,16 @@ Deno.serve(async (req) => {
       })
     );
 
-    console.log('Updating availability_slots in database...');
+    console.log('Updating availability_slots in database for successful fetches only...');
 
-    // Update database for each staff member
+    // Update database ONLY for staff members where we got a successful response
     for (const result of staffResults) {
+      // Skip updating if there was an error - keep the cached data
+      if (result.status === 'error') {
+        console.log(`Skipping DB update for staff ${result.staffId} due to API error - keeping cached data`);
+        continue;
+      }
+
       const { error: upsertError } = await supabase
         .from('availability_slots')
         .upsert(
@@ -105,14 +111,33 @@ Deno.serve(async (req) => {
             time_slots: result.slots,
             last_synced_at: new Date().toISOString(),
             zoho_response_status: result.status,
-            error_message: result.status === 'error' ? result.error : null,
+            error_message: null,
           },
           { onConflict: 'service_key,date,staff_id' }
         );
 
       if (upsertError) {
         console.error(`Error upserting slots for staff ${result.staffId}:`, upsertError);
+      } else {
+        console.log(`Updated slots for staff ${result.staffId}: ${result.slots.length} slots`);
       }
+    }
+
+    // Check if we got ANY successful responses
+    const anySuccess = staffResults.some(r => r.status === 'success');
+    
+    // If all API calls failed, return optimistic result (assume slot is still available)
+    if (!anySuccess) {
+      console.log('All Zoho API calls failed - returning optimistic result, keeping cached data');
+      return new Response(
+        JSON.stringify({ 
+          success: true, 
+          slotStillAvailable: true, // Optimistic - let the existing cache be used
+          refreshedAt: new Date().toISOString(),
+          warning: 'Could not verify with Zoho API - using cached data',
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
     // Check if the requested slot is still available
