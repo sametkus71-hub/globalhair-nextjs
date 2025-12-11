@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useNavigate } from 'react-router-dom';
 import { waitForSalesIQ } from '@/lib/salesiq';
@@ -74,10 +74,9 @@ const SupportChatPage: React.FC = () => {
 
   return (
     <>
-      <MetaHead
+      <SEOHead
         title={language === "nl" ? "Live Chat Ondersteuning" : "Live Chat Support"}
-        description={language === "nl" ? "Chat direct met onze experts" : "Chat directly with our experts"}
-        language={language}
+        description={language === "nl" ? "Chat direct met onze haartransplantatie experts bij GlobalHair Institute." : "Chat directly with our hair transplant experts at GlobalHair Institute."}
       />
       {/* Your page bg, but no z-index tricks here */}
       <div className="min-h-[var(--app-height)]" style={{ background: "#E4E5E0" }}>

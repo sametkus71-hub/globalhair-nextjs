@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Minus } from 'lucide-react';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useNavigate } from 'react-router-dom';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -116,7 +116,7 @@ const InfoMethodPage: React.FC = () => {
     }]
   };
   return <>
-      <MetaHead title={language === 'nl' ? 'Behandel Methode' : 'Treatment Method'} description={language === 'nl' ? 'Informatie over behandelmethoden' : 'Information about treatment methods'} language={language} />
+      <SEOHead title={language === 'nl' ? 'Behandel Methode' : 'Treatment Method'} description={language === 'nl' ? 'Ontdek onze signature haartransplantatie methodes bij GlobalHair Institute.' : 'Discover our signature hair transplant methods at GlobalHair Institute.'} />
       {/* Fixed Background - Outside page container */}
       <AnimatedGradientBackground />
       

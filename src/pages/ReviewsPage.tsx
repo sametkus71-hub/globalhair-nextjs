@@ -5,7 +5,7 @@ import { ReviewsGrid } from '@/components/reviews/ReviewsGrid';
 import { ReviewsTextArea } from '@/components/reviews/ReviewsTextArea';
 import { PopupCloseButton, usePopupClose } from '@/components/PopupCloseButton';
 import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 
 export const ReviewsPage = () => {
   const { language } = useLanguage();
@@ -37,7 +37,10 @@ export const ReviewsPage = () => {
 
   return (
     <>
-      <MetaHead language={language} page="reviews" />
+      <SEOHead 
+        title={language === 'nl' ? 'Ervaringen & Reviews' : 'Experiences & Reviews'} 
+        description={language === 'nl' ? 'Bekijk de ervaringen van onze klanten met haartransplantatie bij GlobalHair Institute.' : 'View our clients experiences with hair transplantation at GlobalHair Institute.'} 
+      />
       <div
         className={`reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}
         style={{

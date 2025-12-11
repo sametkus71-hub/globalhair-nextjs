@@ -1,7 +1,7 @@
 import { useLayoutEffect, useState, useEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 import { PageTransition } from '@/components/PageTransition';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
 import { PackageLocationSelector } from '@/components/haartransplantatie/PackageLocationSelector';
@@ -60,9 +60,7 @@ const TreatmentOptionsPage = () => {
 
   return (
     <>
-      <MetaHead 
-        language={language} 
-        page={pageName}
+      <SEOHead 
         title={language === 'nl' ? 'Behandelopties - Haartransplantatie Pakketten' : 'Treatment Options - Hair Transplant Packages'}
         description={language === 'nl' ? 'Ontdek gedetailleerde informatie over onze haartransplantatie pakketten en kies de beste behandeling voor u.' : 'Discover detailed information about our hair transplant packages and choose the best treatment for you.'}
       />

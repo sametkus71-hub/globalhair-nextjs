@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { OZLEM_VIDEO } from '@/data/ozlemVideos';
 import { useLanguage } from '@/hooks/useLanguage';
 import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 
 const OzlemAslanPage = () => {
   const navigate = useNavigate();
@@ -95,10 +95,9 @@ const OzlemAslanPage = () => {
 
   return (
     <>
-      <MetaHead
+      <SEOHead
         title="Özlem Aslan - Operational Manager GlobalHair Institute"
         description="Als Operational Manager van GlobalHair Institute zorgt Özlem Aslan ervoor dat elke cliënt een naadloze en persoonlijke ervaring krijgt."
-        language={language}
       />
       <style dangerouslySetInnerHTML={{__html: `
         @keyframes border-shine-rotate {

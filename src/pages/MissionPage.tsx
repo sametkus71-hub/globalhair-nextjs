@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -85,7 +85,10 @@ const MissionPage: React.FC = () => {
     };
   }, [berkantVideo]);
   return <>
-      <MetaHead title={t('mission.page.title')} description={t('mission.page.description')} language={language} />
+      <SEOHead 
+        title={language === 'nl' ? 'Onze Missie' : 'Our Mission'} 
+        description={language === 'nl' ? 'Ontdek de missie van GlobalHair Institute en onze visie op haartransplantatie.' : 'Discover the mission of GlobalHair Institute and our vision on hair transplantation.'} 
+      />
       
       <style dangerouslySetInnerHTML={{
       __html: `

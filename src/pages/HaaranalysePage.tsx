@@ -1,7 +1,7 @@
 import { useLayoutEffect, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 import { PageTransition } from '@/components/PageTransition';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
 import { GlassHeader } from '@/components/haartransplantatie/GlassHeader';
@@ -29,13 +29,11 @@ const HaaranalysePage = () => {
 
   return (
     <>
-      <MetaHead 
-        language={language} 
-        page="haaranalyse"
+      <SEOHead 
         title={language === 'nl' ? 'GHI Haaranalyse' : 'GHI Hair Analysis'}
         description={language === 'nl' 
-          ? 'Analyseer je haar met onze geavanceerde technologie' 
-          : 'Analyze your hair with our advanced technology'}
+          ? 'Analyseer je haar met onze geavanceerde technologie bij GlobalHair Institute.' 
+          : 'Analyze your hair with our advanced technology at GlobalHair Institute.'}
       />
       <DesktopContainer>
         <PageTransition isNewPage={true}>

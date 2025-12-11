@@ -7,7 +7,7 @@ import chevronRightSvg from '@/assets/chevron-right.svg';
 import leafSvg from '@/assets/leaf.svg';
 import precisionBadge from '@/assets/precision-method-badge.png';
 import { PopupCloseButton, usePopupClose, SwipeablePopupWrapper } from '@/components/PopupCloseButton';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 
 
 type FeatureKey = 'fue' | 'comfort' | 'fullcomfort' | 'support' | 'precision' | 'stemcellrepair' | 'v6prime' | 'v6recovery' | 'followup' | 'followup2' | 'biotine' | 'shampoo' | 'washes' | 'indicators';
@@ -482,7 +482,10 @@ export const PackageStandardPage = () => {
 
   return (
     <>
-      <MetaHead language={language} page={pageKey} />
+      <SEOHead 
+        title={language === 'nl' ? `${activeTier} Pakket - Haartransplantatie` : `${activeTier} Package - Hair Transplant`}
+        description={language === 'nl' ? `Ontdek ons ${activeTier} haartransplantatie pakket bij GlobalHair Institute.` : `Discover our ${activeTier} hair transplant package at GlobalHair Institute.`}
+      />
       <div
         className={`popup-wrapper-fade ${isExiting ? 'popup-wrapper-fade-out' : ''}`}
         style={{

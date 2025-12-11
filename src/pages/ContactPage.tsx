@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useSession } from '@/hooks/useSession';
 import { useNavigate } from 'react-router-dom';
@@ -136,10 +136,9 @@ const ContactPage: React.FC = () => {
 
   return (
     <>
-      <MetaHead 
-        title={language === 'nl' ? 'Contact' : 'Contact'}
-        description={language === 'nl' ? 'Neem contact met ons op' : 'Get in touch with us'}
-        language={language}
+      <SEOHead 
+        title={language === 'nl' ? 'Contact' : 'Contact'} 
+        description={language === 'nl' ? 'Neem contact op met GlobalHair Institute. Vind onze locaties in Nederland en Turkije.' : 'Contact GlobalHair Institute. Find our locations in the Netherlands and Turkey.'} 
       />
       {/* Fixed Background - Outside page container */}
       <AnimatedContactBackground />

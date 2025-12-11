@@ -1,6 +1,6 @@
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 import { Button } from '@/components/ui/button';
 
 const ComingSoon1Page = () => {
@@ -9,7 +9,11 @@ const ComingSoon1Page = () => {
 
   return (
     <>
-      <MetaHead language={language} />
+      <SEOHead 
+        title={language === 'nl' ? 'Binnenkort Beschikbaar' : 'Coming Soon'} 
+        description={language === 'nl' ? 'We werken hard aan iets geweldigs. Kom binnenkort terug.' : 'We are working hard on something amazing. Come back soon.'} 
+        noIndex={true}
+      />
       <div className="min-h-[var(--app-height)] bg-gradient-hero flex items-center justify-center">
         <div className="text-center space-y-8">
           <div className="font-header text-6xl text-primary mb-8">

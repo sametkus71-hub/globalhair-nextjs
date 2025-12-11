@@ -1,5 +1,5 @@
 import { useLanguage } from '@/hooks/useLanguage';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 import { Button } from '@/components/ui/button';
 import { PageTransition } from '@/components/PageTransition';
 
@@ -8,7 +8,10 @@ const V6HairboostPage = () => {
 
   return (
     <>
-      <MetaHead language={language} page="v6hairboost" />
+      <SEOHead 
+        title={language === 'nl' ? 'V6 Hairboost®' : 'V6 Hairboost®'} 
+        description={language === 'nl' ? 'Ontdek V6 Hairboost® - onze exclusieve behandeling voor haargroei en herstel bij GlobalHair Institute.' : 'Discover V6 Hairboost® - our exclusive treatment for hair growth and recovery at GlobalHair Institute.'} 
+      />
       <PageTransition isNewPage={true}>
         <div className="min-h-[var(--app-height)] bg-gradient-hero flex flex-col">
           {/* Navigation */}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ArrowLeft } from 'lucide-react';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useNavigate } from 'react-router-dom';
 import { Carousel, CarouselContent, CarouselItem, CarouselApi } from '@/components/ui/carousel';
@@ -144,10 +144,9 @@ const InfoTrajectoryPage: React.FC = () => {
 
   return (
     <>
-      <MetaHead 
-        title={language === 'nl' ? 'Traject' : 'Trajectory'}
-        description={language === 'nl' ? 'Informatie over behandeltrajecten' : 'Information about treatment trajectories'}
-        language={language}
+      <SEOHead 
+        title={language === 'nl' ? 'Het Traject' : 'The Trajectory'}
+        description={language === 'nl' ? 'Ontdek wat u kunt verwachten tijdens uw haartransplantatie traject bij GlobalHair Institute.' : 'Discover what to expect during your hair transplant journey at GlobalHair Institute.'}
       />
       {/* Fixed Background - Outside page container */}
       <AnimatedTrajectoryBackground />

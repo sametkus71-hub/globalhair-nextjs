@@ -1,6 +1,6 @@
 import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 import { useLanguage } from '@/hooks/useLanguage';
 
 const NotFound = () => {
@@ -16,7 +16,11 @@ const NotFound = () => {
 
   return (
     <>
-      <MetaHead language={language} page="notfound" />
+      <SEOHead 
+        title="Pagina niet gevonden" 
+        description="De pagina die u zoekt bestaat niet." 
+        noIndex={true} 
+      />
       <div className="min-h-[var(--app-height)] flex items-center justify-center bg-gray-100">
         <div className="text-center">
         <h1 className="text-4xl font-bold mb-4">404</h1>

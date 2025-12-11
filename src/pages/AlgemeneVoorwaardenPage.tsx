@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { usePopupClose } from '@/components/PopupCloseButton';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 import { useLanguage } from '@/hooks/useLanguage';
 
 const AlgemeneVoorwaardenPage = () => {
@@ -106,11 +106,9 @@ const AlgemeneVoorwaardenPage = () => {
 
   return (
     <>
-      <MetaHead 
-        language={language}
-        page="terms-conditions"
+      <SEOHead 
         title={content.title}
-        description={language === 'nl' ? 'Algemene voorwaarden van Global Hair' : 'Terms & Conditions of Global Hair'}
+        description={language === 'nl' ? 'Algemene voorwaarden van GlobalHair Institute.' : 'Terms & Conditions of GlobalHair Institute.'}
       />
       
       <div 

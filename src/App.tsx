@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, useLocation } from "react-router-dom";
+import { HelmetProvider } from 'react-helmet-async';
 import { SessionManager } from "@/components/SessionManager";
 import { LanguageWrapper } from "@/components/LanguageWrapper";
 import { TransitionProvider } from "@/contexts/TransitionContext";
@@ -56,8 +57,9 @@ function AppRootInit() {
 }
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <SessionManager>
+  <HelmetProvider>
+    <QueryClientProvider client={queryClient}>
+      <SessionManager>
         <TooltipProvider>
           <Toaster />
           <Sonner />
@@ -69,18 +71,18 @@ const App = () => (
                   <ViewportHeightSetter />
                   <CookieConsent />
                   <AppBackground />
-        <Suspense fallback={null}>
-          <PersistentVideoBackground />
-        </Suspense>
-        
-        <SEORoutes />
+                  <Suspense fallback={null}>
+                    <PersistentVideoBackground />
+                  </Suspense>
+                  <SEORoutes />
                 </PasswordProtection>
               </TransitionProvider>
             </LanguageWrapper>
           </BrowserRouter>
         </TooltipProvider>
       </SessionManager>
-  </QueryClientProvider>
+    </QueryClientProvider>
+  </HelmetProvider>
 );
 
 export default App;

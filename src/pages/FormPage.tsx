@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useSession } from '@/hooks/useSession';
 import { useTranslation } from '@/lib/translations';
-import { MetaHead } from '@/components/MetaHead';
+import { SEOHead } from '@/components/SEOHead';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -34,7 +34,10 @@ const FormPage = () => {
 
   return (
     <>
-      <MetaHead language={language} page="form" />
+      <SEOHead 
+        title={language === 'nl' ? 'Gepersonaliseerde Haaranalyse' : 'Personalized Hair Analysis'} 
+        description={language === 'nl' ? 'Ontvang een op maat gemaakte behandelingsadvies bij GlobalHair Institute.' : 'Receive customized treatment advice at GlobalHair Institute.'} 
+      />
       <div className="min-h-[var(--app-height)] bg-gradient-hero">
         {/* Navigation */}
         <nav className="p-6 border-b border-gray-200">
