@@ -17,24 +17,59 @@ export const BookingSuccessPage = () => {
   
   const [booking, setBooking] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [processing, setProcessing] = useState(false);
 
   useEffect(() => {
-    const fetchBooking = async () => {
+    const fetchAndProcessBooking = async () => {
       if (!sessionId) {
         navigate(language === 'nl' ? '/nl' : '/en');
         return;
       }
 
       try {
+        // First fetch the booking intent
         const { data, error } = await supabase
           .from('booking_intents')
           .select('*')
           .eq('stripe_session_id', sessionId)
-          .single();
+          .maybeSingle();
 
         if (error) throw error;
 
-        setBooking(data);
+        if (!data) {
+          toast.error(language === 'nl' ? 'Reservering niet gevonden' : 'Booking not found');
+          navigate(language === 'nl' ? '/nl' : '/en');
+          return;
+        }
+
+        // If booking is pending or paid but not confirmed, process it
+        if (data.status === 'pending' || data.status === 'paid') {
+          setProcessing(true);
+          console.log('Booking status is', data.status, '- processing...');
+          
+          const { data: processResult, error: processError } = await supabase.functions.invoke('process-booking', {
+            body: { stripe_session_id: sessionId }
+          });
+
+          if (processError) {
+            console.error('Error processing booking:', processError);
+            toast.error(language === 'nl' ? 'Fout bij verwerken reservering' : 'Error processing booking');
+            setBooking(data); // Show what we have
+          } else if (processResult?.booking) {
+            console.log('Booking processed successfully:', processResult.booking.status);
+            setBooking(processResult.booking);
+          } else if (processResult?.error) {
+            console.error('Process booking returned error:', processResult.error);
+            toast.error(processResult.error);
+            setBooking(data);
+          } else {
+            setBooking(data);
+          }
+          setProcessing(false);
+        } else {
+          // Already confirmed or other status
+          setBooking(data);
+        }
       } catch (error) {
         console.error('Error fetching booking:', error);
         toast.error(language === 'nl' ? 'Kon reservering niet laden' : 'Could not load booking');
@@ -43,22 +78,32 @@ export const BookingSuccessPage = () => {
       }
     };
 
-    fetchBooking();
+    fetchAndProcessBooking();
   }, [sessionId, navigate, language]);
 
-  if (loading) {
+  if (loading || processing) {
     return (
       <>
         <SEOHead
-          title={language === 'nl' ? 'Laden...' : 'Loading...'}
+          title={language === 'nl' ? 'Verwerken...' : 'Processing...'}
           description=""
           noIndex={true}
         />
         <div className="min-h-screen bg-gradient-to-b from-[hsl(var(--background-start))] to-[hsl(var(--background-end))]">
           <GlassHeader />
           <div className="flex items-center justify-center min-h-screen">
-            <div className="text-white text-lg font-inter">
-              {language === 'nl' ? 'Laden...' : 'Loading...'}
+            <div className="text-white text-lg font-inter text-center">
+              <div className="mb-2">
+                {processing 
+                  ? (language === 'nl' ? 'Afspraak wordt verwerkt...' : 'Processing your appointment...')
+                  : (language === 'nl' ? 'Laden...' : 'Loading...')
+                }
+              </div>
+              {processing && (
+                <div className="text-sm text-white/60">
+                  {language === 'nl' ? 'Even geduld alstublieft' : 'Please wait a moment'}
+                </div>
+              )}
             </div>
           </div>
         </div>
