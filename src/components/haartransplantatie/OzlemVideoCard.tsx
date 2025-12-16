@@ -44,7 +44,7 @@ export const OzlemVideoCard = () => {
           <div className="absolute top-4 left-4">
             <div className="ozlem-badge">
               <span className="ozlem-badge-text">
-                <span style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>Ö</span>zlem Aslan
+                <span style={{ fontFamily: 'Georgia, "Times New Roman", serif', fontWeight: 500 }}>Ö</span>zlem Aslan
               </span>
             </div>
           </div>
