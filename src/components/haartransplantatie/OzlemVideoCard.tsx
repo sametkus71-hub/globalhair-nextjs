@@ -70,9 +70,12 @@ export const OzlemVideoCard = () => {
             </svg>
           </div>
 
-          {/* Bottom left - Title */}
-          <div className="absolute bottom-4 left-4">
-            <p className="text-sm font-semibold text-white/95 tracking-wide">CPO</p>
+          {/* Bottom left - List with bold header */}
+          <div className="absolute bottom-4 left-4 flex flex-col gap-1.5">
+            <p className="text-sm font-semibold text-white/95 tracking-wide">CPO - GlobalHair Institute</p>
+            <div className="flex flex-col gap-0.5 pl-0.5">
+              <p className="text-[11px] font-light text-white/80 tracking-wide">• 15 years in the hair industry</p>
+            </div>
           </div>
         </div>
       </article>
