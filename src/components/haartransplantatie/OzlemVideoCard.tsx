@@ -43,7 +43,9 @@ export const OzlemVideoCard = () => {
           {/* Top left - Name badge */}
           <div className="absolute top-4 left-4">
             <div className="ozlem-badge">
-              <span className="ozlem-badge-text">Özlem Aslan</span>
+              <span className="ozlem-badge-text">
+                <span style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>Ö</span>zlem Aslan
+              </span>
             </div>
           </div>
           
@@ -173,6 +175,13 @@ export const OzlemVideoCard = () => {
           -webkit-text-fill-color: transparent;
           position: relative;
           z-index: 1;
+        }
+
+        .ozlem-badge-text > span {
+          background: inherit;
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
         }
 
       `}</style>
