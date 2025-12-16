@@ -45,6 +45,10 @@ const AlgemeneVoorwaardenPage = () => {
         content: '4.1 De aanbetaling dient binnen 72 uur na acceptatie van het aanbod te zijn voldaan, tenzij anders overeengekomen.\n\n4.2 Betalingen dienen te geschieden zonder enige inhouding, korting of verrekening.\n\n4.3 Bij niet tijdige betaling is de cliënt van rechtswege in verzuim. GlobalHair is in dat geval gerechtigd om buitengerechtelijke kosten en annuleringskosten in rekening te brengen.\n\n4.4 Bij annulering door de cliënt zijn de volgende kosten verschuldigd:\n- De aanbetaling is niet-restitueerbaar in verband met gemaakte voorbereidingskosten (verblijf).\n- Annulering tot 3 maanden vóór de behandeling: 50% van de behandelkosten.\n- Annulering vanaf 31 dagen vóór de behandeling: 75% van de behandelkosten.\n- Annulering binnen 14 dagen vóór de behandeling: 100% van de behandelkosten.\n\n4.5 Indien een V6 Hairboost® behandeling niet eerder dan 48 uur voor de behandeling wordt geannuleerd, worden er kosten in rekening gebracht.\n\n4.6 Alle kosten voortvloeiend uit verzuim, waaronder incassokosten, zijn voor rekening van de cliënt.'
       },
       {
+        heading: 'Artikel 4A – Annulering en wijziging van consulten',
+        content: 'Voor alle consulten waarvoor vooraf een betaling is voldaan, gelden de volgende voorwaarden:\n\nDe klant heeft recht op terugbetaling van het betaalde bedrag indien het consult binnen 48 uur na het moment van boeken wordt geannuleerd.\n\nNa het verstrijken van deze 48 uur na boeking is restitutie niet meer mogelijk.\n\nNa deze 48 uur kan het consult kosteloos worden gewijzigd, mits de wijziging niet binnen 48 uur vóór de datum van het consult plaatsvindt.\n\nIndien een wijziging of annulering plaatsvindt binnen 48 uur vóór de datum van het consult, vervalt de aanbetaling volledig.\n\nDoor het boeken van een consult verklaart de klant zich akkoord met deze voorwaarden.'
+      },
+      {
         heading: 'Artikel 5 – Prijswijzigingen',
         content: '5.1 GlobalHair behoudt zich het recht voor om prijzen te wijzigen tot 5 weken voorafgaand aan de behandeling indien externe kostprijsfactoren daartoe aanleiding geven.'
       },
@@ -98,6 +102,10 @@ const AlgemeneVoorwaardenPage = () => {
       {
         heading: '1. Applicability',
         content: 'These terms and conditions apply to all agreements between Global Hair and the client regarding hair transplant treatments and related services.'
+      },
+      {
+        heading: 'Article 4A – Cancellation and Modification of Consultations',
+        content: 'The following conditions apply to all consultations for which payment has been made in advance:\n\nThe client is entitled to a refund of the paid amount if the consultation is cancelled within 48 hours of booking.\n\nAfter this 48-hour period from booking, refunds are no longer possible.\n\nAfter these 48 hours, the consultation can be modified free of charge, provided the modification does not take place within 48 hours before the consultation date.\n\nIf a modification or cancellation takes place within 48 hours before the consultation date, the deposit will be forfeited in full.\n\nBy booking a consultation, the client agrees to these conditions.'
       }
     ]
   };
