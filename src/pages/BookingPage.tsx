@@ -7,6 +7,7 @@ import { BookingWizard } from '@/components/booking/BookingWizard';
 import { StaffCodePopover } from '@/components/booking/StaffCodePopover';
 import { TestModeProvider } from '@/contexts/TestModeContext';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
+import { trackCustom, isMetaPixelAllowed } from '@/lib/metaPixel';
 
 export const BookingPage = () => {
   const { language } = useLanguage();
@@ -22,6 +23,14 @@ export const BookingPage = () => {
     // Trigger entrance animations
     const timer1 = setTimeout(() => setTitleVisible(true), 100);
     const timer2 = setTimeout(() => setContentVisible(true), 300);
+
+    // Track booking funnel entry
+    if (isMetaPixelAllowed()) {
+      trackCustom('Booking_Started', {
+        content_name: 'Booking Wizard',
+        source_url: window.location.href,
+      }, { dedupeKey: 'booking_start', oncePerSession: true });
+    }
 
     return () => {
       clearTimeout(timer1);

@@ -4,6 +4,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { trackStandard, isMetaPixelAllowed } from '@/lib/metaPixel';
 
 interface ConsultationModalProps {
   open: boolean;
@@ -136,6 +137,15 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
               style={{
                 backgroundColor: '#182F3C',
                 color: 'white'
+              }}
+              onClick={() => {
+                // Track Lead event
+                if (isMetaPixelAllowed()) {
+                  trackStandard('Lead', {
+                    content_name: 'Consultation Form',
+                    content_category: 'Contact',
+                  }, { dedupeKey: 'consultation_lead', oncePerSession: true });
+                }
               }}
             >
               <Calendar className="w-5 h-5" />

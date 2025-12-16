@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useLanguage } from '@/hooks/useLanguage';
 import { supabase } from '@/integrations/supabase/client';
@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { format } from 'date-fns';
 import { nl, enGB as enUS } from 'date-fns/locale';
 import { toast } from 'sonner';
+import { trackStandard, trackCustom, isMetaPixelAllowed } from '@/lib/metaPixel';
 
 export const BookingSuccessPage = () => {
   const { language } = useLanguage();
@@ -18,6 +19,7 @@ export const BookingSuccessPage = () => {
   const [booking, setBooking] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
+  const conversionTrackedRef = useRef(false);
 
   useEffect(() => {
     const fetchAndProcessBooking = async () => {
@@ -58,6 +60,27 @@ export const BookingSuccessPage = () => {
           } else if (processResult?.booking) {
             console.log('Booking processed successfully:', processResult.booking.status);
             setBooking(processResult.booking);
+            
+            // Track conversion event
+            if (!conversionTrackedRef.current && isMetaPixelAllowed()) {
+              conversionTrackedRef.current = true;
+              const eventID = `booking_${sessionId}_${Date.now()}`;
+              const bookingId = processResult.booking.id?.slice(-6).toUpperCase() || '';
+              
+              trackStandard('Purchase', {
+                content_name: 'Hair Consultation Booking',
+                content_category: 'Booking',
+                value: processResult.booking.price_euros || 0,
+                currency: 'EUR',
+                eventID,
+              }, { dedupeKey: `purchase_${sessionId}`, oncePerSession: true });
+
+              trackCustom('Booking_Completed', {
+                booking_id: bookingId,
+                service_type: processResult.booking.service_type,
+                eventID,
+              }, { dedupeKey: `booking_complete_${sessionId}`, oncePerSession: true });
+            }
           } else if (processResult?.error) {
             console.error('Process booking returned error:', processResult.error);
             toast.error(processResult.error);

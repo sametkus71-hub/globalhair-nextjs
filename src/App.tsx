@@ -11,6 +11,7 @@ import { GlobalCentralLogo } from "@/components/GlobalCentralLogo";
 import { PageEntryLogo } from "@/components/PageEntryLogo";
 import { AnimatedBackground } from "@/components/homepage/AnimatedBackground";
 import { SEORoutes } from "@/components/SEORoutes";
+import { MetaPixelRouteTracker } from "@/components/MetaPixelRouteTracker";
 import ViewportHeightSetter from "@/components/ViewportHeightSetter";
 // Password protection disabled for launch - uncomment to re-enable:
 // import { PasswordProtection } from "@/components/PasswordProtection";
@@ -76,6 +77,7 @@ const App = () => (
                   <PersistentVideoBackground />
                 </Suspense>
                 <SEORoutes />
+                <MetaPixelRouteTracker />
               </TransitionProvider>
             </LanguageWrapper>
           </BrowserRouter>
