@@ -2,6 +2,7 @@ import { ReactNode, useEffect } from 'react';
 import { useSession } from '@/hooks/useSession';
 import { initializeAnalytics } from '@/lib/analytics';
 import { hasValidConsent, isCategoryAllowed } from '@/lib/cookie-consent';
+import { initializeMetaPixel } from '@/lib/metaPixel';
 
 interface SessionManagerProps {
   children: ReactNode;
@@ -25,6 +26,11 @@ export const SessionManager = ({ children }: SessionManagerProps) => {
     // Initialize analytics if consent given
     if (hasValidConsent() && isCategoryAllowed('analytics')) {
       initializeAnalytics();
+    }
+    
+    // Initialize Meta Pixel if marketing consent given
+    if (hasValidConsent() && isCategoryAllowed('marketing')) {
+      initializeMetaPixel();
     }
   }, [profile, language]);
 
