@@ -69,12 +69,23 @@ const CarouselVideo = ({ src, shouldPlay }: { src: string; shouldPlay: boolean }
     const video = videoRef.current;
     if (!video) return;
 
-    // React's autoPlay prop doesn't always handle dynamic updates well.
-    // We strictly enforce play/pause here based on the `shouldPlay` prop.
     if (shouldPlay) {
-      if (video.paused) {
-        video.play().catch(e => console.warn('Autoplay blocked:', e));
+      // Handler for when video is ready to play
+      const handleCanPlay = () => {
+        video.play().catch(() => { });
+      };
+
+      // Listen for canplay event (video has enough data to start playing)
+      video.addEventListener('canplay', handleCanPlay, { once: true });
+
+      // Also try immediately in case video is already ready (readyState >= 3 means HAVE_FUTURE_DATA)
+      if (video.readyState >= 3) {
+        video.play().catch(() => { });
       }
+
+      return () => {
+        video.removeEventListener('canplay', handleCanPlay);
+      };
     } else {
       video.pause();
     }
