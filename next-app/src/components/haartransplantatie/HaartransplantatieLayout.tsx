@@ -26,6 +26,12 @@ export const HaartransplantatieLayout = ({ children }: { children: React.ReactNo
     pathname.includes('/nl/premium') ||
     pathname.includes('/nl/elite')) || /\/(nl|en)\/(haartransplantatie|hair-transplant)\/(nl|tr)\/(standard|premium|elite)/.test(pathname);
 
+  // Check if we're on booking route (should render as overlay)
+  const isBookingRoute = pathname.includes('/boek') || pathname.includes('/book');
+
+  // Combined overlay check - any route that should hide header and show as overlay
+  const isOverlayRoute = isPackageRoute || isBookingRoute;
+
   // Check if we're on reviews route (needs full width on desktop)
   const isReviewsRoute = pathname.includes('/reviews');
 
@@ -70,7 +76,7 @@ export const HaartransplantatieLayout = ({ children }: { children: React.ReactNo
       <VideoBackground />
       <div className="relative w-full min-h-screen">
         {/* Glass Header - 500px width on desktop */}
-        {!isPackageRoute && (
+        {!isOverlayRoute && (
           <DesktopContainer>
             <div className="hide-when-popup">
               <GlassHeader />
