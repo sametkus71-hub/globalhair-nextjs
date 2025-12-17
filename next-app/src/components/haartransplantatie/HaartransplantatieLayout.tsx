@@ -5,8 +5,6 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import { useLayoutEffect, useRef } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { LottiePageLoader } from '@/components/LottiePageLoader';
-import { usePageLoader } from '@/hooks/usePageLoader';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
 import { WideContentContainer } from '@/components/layout/WideContentContainer';
 import { MediumContentContainer } from '@/components/layout/MediumContentContainer';
@@ -22,12 +20,6 @@ export const HaartransplantatieLayout = ({ children }: { children: React.ReactNo
   const pathname = usePathname();
   const isMobile = useIsMobile();
   const mainRef = useRef<HTMLElement>(null);
-
-  // Initialize loader
-  const { isLoading } = usePageLoader({
-    preloadDuration: 1500, // Show for at least 1.5s to ensure smooth transition
-    persistAcrossSessions: true // changed to true so it shows on fresh sessions
-  });
 
   // Check if we're on a package route (should render as overlay)
   const isPackageRoute = (pathname.includes('/nl/standard') ||
@@ -74,7 +66,6 @@ export const HaartransplantatieLayout = ({ children }: { children: React.ReactNo
 
   return (
     <main ref={mainRef} className="relative min-h-screen w-full overflow-hidden bg-[#E4E5E0]">
-      <LottiePageLoader isVisible={isLoading} />
       <TabPreloader />
       <VideoBackground />
       <div className="relative w-full min-h-screen">
