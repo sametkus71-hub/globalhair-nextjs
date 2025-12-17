@@ -16,43 +16,43 @@ interface OptionsStepProps {
   onNext: () => void;
 }
 
-export const OptionsStep = ({ 
-  consultType, 
-  pathname, 
-  consultant, 
+export const OptionsStep = ({
+  consultType,
+  location,
+  consultant,
   price,
   onConsultTypeChange,
   onLocationChange,
   onConsultantChange,
-  onNext 
+  onNext
 }: OptionsStepProps) => {
   const { language } = useLanguage();
 
   const getConsultDescription = () => {
     if (consultType === 'v6_hairboost') {
-      return language === 'nl' 
+      return language === 'nl'
         ? (
-            <>
-              Persoonlijk consult voor V6 Hairboost® behandeling. Krijg advies over onze haargroei formule en ontdek of deze behandeling geschikt is voor jou. <span style={{ color: '#FFFFFF' }}>Duur: 30 minuten</span>
-            </>
-          )
+          <>
+            Persoonlijk consult voor V6 Hairboost® behandeling. Krijg advies over onze haargroei formule en ontdek of deze behandeling geschikt is voor jou. <span style={{ color: '#FFFFFF' }}>Duur: 30 minuten</span>
+          </>
+        )
         : (
-            <>
-              Personal consultation for V6 Hairboost® treatment. Get advice about our hair growth formula and discover if this treatment is suitable for you. <span style={{ color: '#FFFFFF' }}>Duration: 30 minutes</span>
-            </>
-          );
+          <>
+            Personal consultation for V6 Hairboost® treatment. Get advice about our hair growth formula and discover if this treatment is suitable for you. <span style={{ color: '#FFFFFF' }}>Duration: 30 minutes</span>
+          </>
+        );
     } else {
       return language === 'nl'
         ? (
-            <>
-              Persoonlijk consult voor haartransplantatie. Ontvang professioneel advies over de beste behandeling voor jouw situatie en ontdek welke transplantatiemethode het beste resultaat biedt. <span style={{ color: '#FFFFFF' }}>Duur: 45 minuten</span>
-            </>
-          )
+          <>
+            Persoonlijk consult voor haartransplantatie. Ontvang professioneel advies over de beste behandeling voor jouw situatie en ontdek welke transplantatiemethode het beste resultaat biedt. <span style={{ color: '#FFFFFF' }}>Duur: 45 minuten</span>
+          </>
+        )
         : (
-            <>
-              Personal consultation for hair transplantation. Receive professional advice about the best treatment for your situation and discover which transplantation method provides the best results. <span style={{ color: '#FFFFFF' }}>Duration: 45 minutes</span>
-            </>
-          );
+          <>
+            Personal consultation for hair transplantation. Receive professional advice about the best treatment for your situation and discover which transplantation method provides the best results. <span style={{ color: '#FFFFFF' }}>Duration: 45 minutes</span>
+          </>
+        );
     }
   };
 
@@ -67,30 +67,28 @@ export const OptionsStep = ({
           <div className="inline-flex rounded-full bg-white/5 p-1.5 gap-2 w-full">
             <button
               onClick={() => onConsultTypeChange('haartransplantatie')}
-              className={`flex-1 px-4 rounded-full text-xs font-inter font-normal transition-all duration-300 ease-out ${
-                consultType === 'haartransplantatie'
+              className={`flex-1 px-4 rounded-full text-xs font-inter font-normal transition-all duration-300 ease-out ${consultType === 'haartransplantatie'
                   ? 'silver-gradient-border text-white scale-105'
                   : 'text-white/60 hover:text-white scale-100'
-              }`}
+                }`}
               style={consultType === 'haartransplantatie' ? { textShadow: '0 0 20px rgba(255, 255, 255, 0.6)', paddingTop: '0.775rem', paddingBottom: '0.775rem' } : { paddingTop: '0.775rem', paddingBottom: '0.775rem' }}
             >
               Haartransplantatie
             </button>
             <button
               onClick={() => onConsultTypeChange('v6_hairboost')}
-              className={`flex-1 px-4 rounded-full text-xs font-inter font-normal transition-all duration-300 ease-out ${
-                consultType === 'v6_hairboost'
+              className={`flex-1 px-4 rounded-full text-xs font-inter font-normal transition-all duration-300 ease-out ${consultType === 'v6_hairboost'
                   ? 'silver-gradient-border text-white scale-105'
                   : 'text-white/60 hover:text-white scale-100'
-              }`}
+                }`}
               style={consultType === 'v6_hairboost' ? { textShadow: '0 0 20px rgba(255, 255, 255, 0.6)', paddingTop: '0.775rem', paddingBottom: '0.775rem' } : { paddingTop: '0.775rem', paddingBottom: '0.775rem' }}
             >
               V6 Hairboost®
             </button>
           </div>
         </div>
-        
-        <p 
+
+        <p
           className="leading-relaxed"
           style={{
             fontSize: '10px',
@@ -107,11 +105,10 @@ export const OptionsStep = ({
       <div className="space-y-2">
         <button
           onClick={() => onLocationChange('onsite')}
-          className={`w-full px-3 py-3 rounded text-left transition-all duration-200 flex items-center gap-2.5 ${
-            location === 'onsite'
+          className={`w-full px-3 py-3 rounded text-left transition-all duration-200 flex items-center gap-2.5 ${location === 'onsite'
               ? 'bg-[#FFFFFF1F] border border-green-500'
               : 'bg-[#FFFFFF1F] border border-white/10 hover:bg-white/10'
-          }`}
+            }`}
         >
           <MapPin className="w-4 h-4 text-white/70 flex-shrink-0" />
           <div className="flex-1">
@@ -119,14 +116,13 @@ export const OptionsStep = ({
             <span className="text-xs font-inter text-white/50 ml-1.5">(Barendrecht)</span>
           </div>
         </button>
-        
+
         <button
           onClick={() => onLocationChange('online')}
-          className={`w-full px-3 py-3 rounded text-left transition-all duration-200 flex items-center gap-2.5 ${
-            location === 'online'
+          className={`w-full px-3 py-3 rounded text-left transition-all duration-200 flex items-center gap-2.5 ${location === 'online'
               ? 'bg-[#FFFFFF1F] border border-green-500'
               : 'bg-[#FFFFFF1F] border border-white/10 hover:bg-white/10'
-          }`}
+            }`}
         >
           <Video className="w-4 h-4 text-white/70 flex-shrink-0" />
           <div className="flex-1">
@@ -143,21 +139,19 @@ export const OptionsStep = ({
         <div className="flex gap-2">
           <button
             onClick={() => onConsultantChange('trichoTeam')}
-            className={`flex-1 px-3 py-3 rounded text-center transition-all duration-200 ${
-              consultant === 'trichoTeam'
+            className={`flex-1 px-3 py-3 rounded text-center transition-all duration-200 ${consultant === 'trichoTeam'
                 ? 'bg-[#FFFFFF1F] border border-green-500'
                 : 'bg-[#FFFFFF1F] border border-white/10 hover:bg-white/10'
-            }`}
+              }`}
           >
             <span className="text-xs font-inter font-normal text-white">TrichoTeam</span>
           </button>
           <button
             onClick={() => onConsultantChange('ceo')}
-            className={`flex-1 px-3 py-3 rounded text-center transition-all duration-200 ${
-              consultant === 'ceo'
+            className={`flex-1 px-3 py-3 rounded text-center transition-all duration-200 ${consultant === 'ceo'
                 ? 'bg-[#FFFFFF1F] border border-green-500'
                 : 'bg-[#FFFFFF1F] border border-white/10 hover:bg-white/10'
-            }`}
+              }`}
           >
             <span className="text-xs font-inter font-normal text-white">CEO - Berkant Dural</span>
           </button>
@@ -165,9 +159,9 @@ export const OptionsStep = ({
       </div>
 
       {/* Divider */}
-      <div 
+      <div
         className="w-full h-px"
-        style={{ 
+        style={{
           backgroundColor: '#D9D9D9',
           opacity: 0.22
         }}
