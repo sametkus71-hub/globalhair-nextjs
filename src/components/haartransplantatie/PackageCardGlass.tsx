@@ -1,7 +1,7 @@
 import { useLanguage } from '@/hooks/useLanguage';
 import { useNavigate } from 'react-router-dom';
-import chevronRightIcon from '@/assets/chevron-right.svg';
-import leafIcon from '@/assets/leaf.svg';
+import { LeafIcon } from '@/components/icons/LeafIcon';
+import { ChevronRightIcon } from '@/components/icons/ChevronRightIcon';
 
 interface PackageCardGlassProps {
   className?: string;
@@ -45,10 +45,8 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
     return (
       <>
         {[...Array(count)].map((_, i) => (
-          <img
+          <LeafIcon
             key={i}
-            src={leafIcon}
-            alt=""
             style={{ width: '.8rem', height: '.8rem' }}
           />
         ))}
@@ -60,10 +58,8 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
     return (
       <>
         {[...Array(count)].map((_, i) => (
-          <img
+          <ChevronRightIcon
             key={i}
-            src={chevronRightIcon}
-            alt=""
             style={{
               width: '.8rem',
               height: '.8rem',

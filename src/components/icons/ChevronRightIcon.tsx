@@ -1,0 +1,31 @@
+import React from 'react';
+
+interface ChevronRightIconProps {
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+export const ChevronRightIcon = ({ className, style }: ChevronRightIconProps) => {
+  return (
+    <svg 
+      width="12" 
+      height="14" 
+      viewBox="0 0 12 14" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      style={style}
+    >
+      <path d="M0.882824 0.602247L7.26393 6.8878L0.86593 13.1798C0.647888 13.3942 0.803259 13.7605 1.11136 13.7591C2.23368 13.7536 3.35524 13.7508 4.47605 13.7506C4.56728 13.7506 4.65467 13.7149 4.7192 13.6514L11.3472 7.12795C11.4819 6.99533 11.482 6.78022 11.3473 6.64752L4.74548 0.142756C4.68106 0.0792823 4.59375 0.0436624 4.50263 0.0436194C3.37974 0.0430887 2.25684 0.0362749 1.13395 0.0231782C1.14583 0.0231782 1.14722 0.0229883 1.13937 0.0226248C0.826335 0.00811656 0.661229 0.38397 0.882824 0.602247Z" fill="url(#paint0_linear_102_114)"/>
+      <defs>
+        <linearGradient id="paint0_linear_102_114" x1="5.18805" y1="13.8532" x2="5.29396" y2="0.0237643" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#4B555E"/>
+          <stop offset="0.154353" stopColor="#ACB9C1"/>
+          <stop offset="0.494881" stopColor="white"/>
+          <stop offset="0.875" stopColor="#ACB9C1"/>
+          <stop offset="1" stopColor="#4B555E"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+};
