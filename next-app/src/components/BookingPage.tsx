@@ -10,6 +10,7 @@ import { StaffCodePopover } from '@/components/booking/StaffCodePopover';
 import { TestModeProvider } from '@/contexts/TestModeContext';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
 import { trackCustom, isMetaPixelAllowed } from '@/lib/metaPixel';
+import { VideoBackground } from '@/components/haartransplantatie/VideoBackground';
 
 export const BookingPage = () => {
   const { language } = useLanguage();
@@ -54,6 +55,8 @@ export const BookingPage = () => {
         title={language === 'nl' ? 'Afspraak Boeken' : 'Book Appointment'}
         description={language === 'nl' ? 'Boek uw afspraak voor een haartransplantatie consultatie bij GlobalHair Institute.' : 'Book your hair transplant consultation appointment at GlobalHair Institute.'}
       />
+
+      <VideoBackground className="!fixed !inset-0 !z-0" />
 
       <TestModeProvider>
         <div className={`fixed inset-0 z-50 ${isExiting ? 'reviews-page-exit' : ''}`}>
