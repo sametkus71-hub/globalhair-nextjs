@@ -1,0 +1,536 @@
+✅ Authentication successful
+🚀 Using enhanced migration with improved pattern detection
+
+🔍 ENHANCED DRY RUN: Analyzing changes...
+
+⚡ Enhanced Migration Notice:
+This enhanced migration includes:
+• Improved React Router to Next.js navigation conversion
+• Better "use client" directive detection
+• Enhanced dynamic route handling
+• Smarter URLSearchParams transformation
+• Better error boundaries and loading states
+• CSS combination (App.css + index.css → globals.css)
+• SEO utilities migration with Next.js metadata guidance
+• Enhanced context provider detection and setup
+• SSR-safe browser API usage
+• Comprehensive edge case handling
+
+🔍 Pre-flight analysis...
+📊 Analysis Results:
+  🛣️  Routes detected: 0
+  🔧 Context providers: 9
+  🎨 CSS files to combine: 2
+  📄 SEO utilities found: Yes
+  🪝 Custom hooks: 32
+  📦 Components to transform: 239
+
+⏱️  Estimated migration time: 55 minutes
+💡 Complexity level: Complex
+
+💰 Value Proposition - Time Savings:
+  ⏰ Manual migration estimate: 109.2 hours
+  🚀 Automated migration: 55 minutes
+  ⚡ Time saved: 108 hours 17 minutes
+  📈 Efficiency gain: 99% faster
+  💡 That's 13 work days saved!
+
+💳 Credit Usage Breakdown:
+┌─────────────────────────────────────┐
+│ Enhanced Migration Features         │
+├─────────────────────────────────────┤
+│ ✓ Advanced Router Conversion        │
+│ ✓ Smart Client Component Detection  │
+│ ✓ CSS Consolidation & Optimization  │
+│ ✓ SEO Migration with Best Practices │
+│ ✓ Context Provider Auto-Setup       │
+│ ✓ SSR-Safe Browser API Conversion   │
+│ ✓ Production-Ready Error Handling   │
+└─────────────────────────────────────┘
+
+👉 This will use 1 credit for enhanced migration.
+💡 Regular migration uses 1 credit with basic features.
+
+
+🔍 Enhanced route structure analysis...
+📊 Enhanced analysis found 0 routes
+
+📁 Enhanced file analysis and copying...
+➕ Would create: next-app\tsconfig.node.json 
+➕ Would create: next-app\tsconfig.json 
+➕ Would create: next-app\tsconfig.app.json 
+➕ Would create: next-app\tailwind.config.ts 
+➕ Would create: next-app\README.md 
+➕ Would create: next-app\postcss.config.js 
+➕ Would create: next-app\package.json 
+➕ Would create: next-app\package-lock.json 
+➕ Would create: next-app\help.txt 
+➕ Would create: next-app\eslint.config.js 
+➕ Would create: next-app\dry_run_full.txt 
+➕ Would create: next-app\components.json 
+➕ Would create: next-app\bun.lockb 
+➕ Would create: next-app\.gitignore 
+➕ Would create: next-app\.env 
+➕ Would create: next-app\supabase\config.toml 
+➕ Would create: next-app\src\vite-env.d.ts 
+➕ Would create: next-app\src\index.css 
+➕ Would create: next-app\src\App.tsx 
+➕ Would create: next-app\src\App.css 
+➕ Would create: next-app\public\sitemap.xml 
+➕ Would create: next-app\public\robots.txt 
+➕ Would create: next-app\public\placeholder.svg 
+➕ Would create: next-app\public\favicon.png 
+➕ Would create: next-app\public\favicon.ico 
+➕ Would create: next-app\supabase\migrations\20251211072818_415c27c2-9452-4437-9e08-6119d4da7064.sql 
+➕ Would create: next-app\supabase\migrations\20251113230224_22de4519-70c4-4876-8c37-6a8886aa499e.sql 
+➕ Would create: next-app\supabase\migrations\20251113222014_dba23e68-1cbb-487b-9207-27728f48d233.sql 
+➕ Would create: next-app\supabase\migrations\20251113190515_6bf8f772-ef8f-4810-b186-c82cd88068b4.sql 
+➕ Would create: next-app\supabase\migrations\20251113144604_b3c2d906-fe96-48ae-aa8a-ee457055a19c.sql 
+➕ Would create: next-app\supabase\migrations\20251113141732_17841fc9-1482-4224-91d5-5e896d10a467.sql 
+➕ Would create: next-app\supabase\migrations\20251028161515_04b72199-b7fe-40f6-a23f-952a6931f08a.sql 
+➕ Would create: next-app\supabase\migrations\20251028143219_1a426456-ef91-4e26-80d3-780e59b98762.sql 
+➕ Would create: next-app\supabase\migrations\20251028141611_875276ee-6118-4aa8-8872-cf2f196a6348.sql 
+➕ Would create: next-app\supabase\migrations\20251028141442_ed7e6993-d953-4861-942f-eb670d3e9dcc.sql 
+➕ Would create: next-app\supabase\migrations\20251028135709_15c89bb9-684f-4a54-bb1c-fda386ee4fff.sql 
+➕ Would create: next-app\supabase\migrations\20251028133115_ab56db78-072e-44fc-af73-3aa30132f771.sql 
+➕ Would create: next-app\supabase\migrations\20251028133047_613e8ae7-2506-48eb-b48c-2fd22b25d8d0.sql 
+➕ Would create: next-app\supabase\migrations\20251028120334_f9760c10-2569-4ff0-96af-8c10613634b5.sql 
+➕ Would create: next-app\supabase\migrations\20251028113233_21f2d491-49cd-4374-a215-fa1612b8584f.sql 
+➕ Would create: next-app\supabase\migrations\20251028113125_41d7fa5b-bed6-4298-ba6a-291c566cd111.sql 
+➕ Would create: next-app\src\types\review.ts 
+➕ Would create: next-app\src\types\analytics.d.ts 
+➕ Would create: next-app\src\pages\V6HairboostPage.tsx 
+➕ Would create: next-app\src\pages\TreatmentsPage.tsx 
+➕ Would create: next-app\src\pages\TreatmentOptionsPage.tsx 
+➕ Would create: next-app\src\pages\SupportPage.tsx 
+➕ Would create: next-app\src\pages\SupportChatPage.tsx 
+➕ Would create: next-app\src\pages\ReviewsPage.tsx 
+➕ Would create: next-app\src\pages\ReviewItemPage.tsx 
+➕ Would create: next-app\src\pages\PrivacyPolicyPage.tsx 
+➕ Would create: next-app\src\pages\PackageStandardPage.tsx 
+➕ Would create: next-app\src\pages\OzlemAslanPage.tsx 
+➕ Would create: next-app\src\pages\NotFound.tsx 
+➕ Would create: next-app\src\pages\MissionPage.tsx 
+➕ Would create: next-app\src\pages\InfoTrajectoryPage.tsx 
+➕ Would create: next-app\src\pages\InfoPage.tsx 
+➕ Would create: next-app\src\pages\InfoMethodPage.tsx 
+➕ Would create: next-app\src\pages\Index.tsx 
+➕ Would create: next-app\src\pages\HowItWorksPage.tsx 
+➕ Would create: next-app\src\pages\HomePage.tsx 
+➕ Would create: next-app\src\pages\HaartransplantatieReviewsPage.tsx 
+➕ Would create: next-app\src\pages\HaartransplantatiePageOld.tsx 
+➕ Would create: next-app\src\pages\HaartransplantatieOldPage.tsx 
+➕ Would create: next-app\src\pages\HaartransplantatieMissionPage.tsx 
+➕ Would create: next-app\src\pages\HaartransplantatieLayoutPage.tsx 
+➕ Would create: next-app\src\pages\HaartransplantatieContactPage.tsx 
+➕ Would create: next-app\src\pages\HaaranalysePage.tsx 
+➕ Would create: next-app\src\pages\FormPage.tsx 
+➕ Would create: next-app\src\pages\DashboardPage.tsx 
+➕ Would create: next-app\src\pages\ContactPage.tsx 
+➕ Would create: next-app\src\pages\ComingSoon2Page.tsx 
+➕ Would create: next-app\src\pages\ComingSoon1Page.tsx 
+➕ Would create: next-app\src\pages\ChatPage.tsx 
+➕ Would create: next-app\src\pages\BookingSuccessPage.tsx 
+➕ Would create: next-app\src\pages\BookingPage.tsx 
+➕ Would create: next-app\src\pages\BerkantDuralPage.tsx 
+➕ Would create: next-app\src\pages\AlgemeneVoorwaardenPage.tsx 
+➕ Would create: next-app\src\pages\AdminReviews.tsx 
+➕ Would create: next-app\src\pages\AdminReviewEdit.tsx 
+➕ Would create: next-app\src\pages\AdminLogin.tsx 
+➕ Would create: next-app\src\pages\AdminDashboard.tsx 
+➕ Would create: next-app\src\lib\utils.ts 
+➕ Would create: next-app\src\lib\translations.ts 
+➕ Would create: next-app\src\lib\service-config.ts 
+➕ Would create: next-app\src\lib\salesiq.ts 
+➕ Would create: next-app\src\lib\reviewsRandomizer.ts 
+➕ Would create: next-app\src\lib\pricing.ts 
+➕ Would create: next-app\src\lib\metaPixel.ts 
+➕ Would create: next-app\src\lib\generate-sitemap.ts 
+➕ Would create: next-app\src\lib\cookie-consent.ts 
+➕ Would create: next-app\src\lib\booking-storage.ts 
+➕ Would create: next-app\src\lib\analytics.ts 
+➕ Would create: next-app\src\data\reviewsVideos.ts 
+➕ Would create: next-app\src\data\reviewsQuotes.ts 
+➕ Would create: next-app\src\data\reviewsBeforeAfter.ts 
+➕ Would create: next-app\src\data\ozlemVideos.ts 
+➕ Would create: next-app\src\data\berkantVideos.ts 
+➕ Would create: next-app\src\data\beforeAfterImages.ts 
+➕ Would create: next-app\src\hooks\useViewportHeight.ts 
+➕ Would create: next-app\src\hooks\useVideoIntersection.ts 
+➕ Would create: next-app\src\hooks\useTimeSyncedVideo.ts 
+➕ Would create: next-app\src\hooks\useStaffSelection.ts 
+➕ Would create: next-app\src\hooks\useSmoothScroll.ts 
+➕ Would create: next-app\src\hooks\useSmoothColorTransition.ts 
+➕ Would create: next-app\src\hooks\useSlideTransition.ts 
+➕ Would create: next-app\src\hooks\useSimpleVideo.ts 
+➕ Would create: next-app\src\hooks\useSession.ts 
+➕ Would create: next-app\src\hooks\useScrollFade.ts 
+➕ Would create: next-app\src\hooks\useReviewsData.ts 
+➕ Would create: next-app\src\hooks\usePreventZoom.ts 
+➕ Would create: next-app\src\hooks\usePopupTransition.ts 
+➕ Would create: next-app\src\hooks\usePageVisibility.ts 
+➕ Would create: next-app\src\hooks\usePageTransition.ts 
+➕ Would create: next-app\src\hooks\usePageLoader.ts 
+➕ Would create: next-app\src\hooks\useLanguage.ts 
+➕ Would create: next-app\src\hooks\useIntersection.ts 
+➕ Would create: next-app\src\hooks\useInstagramScroll.ts 
+➕ Would create: next-app\src\hooks\useInstagramPosts.ts 
+➕ Would create: next-app\src\hooks\useImageCache.ts 
+➕ Would create: next-app\src\hooks\useHaartransplantatieVideos.ts 
+➕ Would create: next-app\src\hooks\useFirstAvailableDate.ts 
+➕ Would create: next-app\src\hooks\useChunkedAvailability.ts 
+➕ Would create: next-app\src\hooks\useBookIconAnimation.ts 
+➕ Would create: next-app\src\hooks\useAvailabilitySlots.ts 
+➕ Would create: next-app\src\hooks\useAvailabilityRange.ts 
+➕ Would create: next-app\src\hooks\useAvailabilityDay.ts 
+➕ Would create: next-app\src\hooks\useAvailabilityCache.ts 
+➕ Would create: next-app\src\hooks\useAdminAuth.ts 
+➕ Would create: next-app\src\hooks\use-toast.ts 
+➕ Would create: next-app\src\hooks\use-mobile.tsx 
+➕ Would create: next-app\src\contexts\TransitionContext.tsx 
+➕ Would create: next-app\src\contexts\TestModeContext.tsx 
+➕ Would create: next-app\src\contexts\ScrollContext.tsx 
+➕ Would create: next-app\src\components\ViewportHeightSetter.tsx 
+➕ Would create: next-app\src\components\SupportCloseBar.tsx 
+➕ Would create: next-app\src\components\SessionManager.tsx 
+➕ Would create: next-app\src\components\SEORoutes.tsx 
+➕ Would create: next-app\src\components\SEOHead.tsx 
+➕ Would create: next-app\src\components\ScrollIndicator.tsx 
+➕ Would create: next-app\src\components\ScrollFadeLogo.tsx 
+➕ Would create: next-app\src\components\PopupCloseButton.tsx 
+➕ Would create: next-app\src\components\PersistentVideoBackground.tsx 
+➕ Would create: next-app\src\components\PasswordProtection.tsx 
+➕ Would create: next-app\src\components\PageTransition.tsx 
+➕ Would create: next-app\src\components\PageEntryLogo.tsx 
+➕ Would create: next-app\src\components\MetaPixelRouteTracker.tsx 
+➕ Would create: next-app\src\components\MetaHead.tsx 
+➕ Would create: next-app\src\components\LottiePageLoader.tsx 
+➕ Would create: next-app\src\components\LanguageWrapper.tsx 
+➕ Would create: next-app\src\components\LanguageSwitcher.tsx 
+➕ Would create: next-app\src\components\ImagePreloader.tsx 
+➕ Would create: next-app\src\components\GlobalCentralLogo.tsx 
+➕ Would create: next-app\src\components\FloatingActionZone.tsx 
+➕ Would create: next-app\src\components\FloatingActionPortal.tsx 
+➕ Would create: next-app\src\components\CookieSettings.tsx 
+➕ Would create: next-app\src\components\CookieConsent.tsx 
+➕ Would create: next-app\src\components\ConsultationModal.tsx 
+➕ Would create: next-app\src\components\ChatOverlay.tsx 
+➕ Would create: next-app\src\assets\whatsapp-icon.png 
+➕ Would create: next-app\src\assets\whatsapp-icon-new.svg 
+➕ Would create: next-app\src\assets\v6-hairboost.svg 
+➕ Would create: next-app\src\assets\v6-hairboost.png 
+➕ Would create: next-app\src\assets\tiktok-icon.png 
+➕ Would create: next-app\src\assets\shield-icon.svg 
+➕ Would create: next-app\src\assets\reviews-icon.png 
+➕ Would create: next-app\src\assets\review-before-after.png 
+➕ Would create: next-app\src\assets\precision-method-badge.png 
+➕ Would create: next-app\src\assets\logo-shield.png 
+➕ Would create: next-app\src\assets\logo-header.png 
+➕ Would create: next-app\src\assets\loader-animation.json 
+➕ Would create: next-app\src\assets\leaf.svg 
+➕ Would create: next-app\src\assets\instagram-icon-new.svg 
+➕ Would create: next-app\src\assets\hairtransplant-logo.png 
+➕ Would create: next-app\src\assets\hair-gray.jpg 
+➕ Would create: next-app\src\assets\hair-dark.jpg 
+➕ Would create: next-app\src\assets\hair-brown.jpg 
+➕ Would create: next-app\src\assets\hair-blonde.jpg 
+➕ Would create: next-app\src\assets\globalhair-logo.png 
+➕ Would create: next-app\src\assets\close-icon.svg 
+➕ Would create: next-app\src\assets\chevron-right.svg 
+➕ Would create: next-app\src\assets\chat-icon.svg 
+➕ Would create: next-app\src\assets\berkant-profile.png 
+➕ Would create: next-app\public\lovable-uploads\f090962b-0f2c-4b17-9a77-c7a3d700434f.png 
+➕ Would create: next-app\public\lovable-uploads\ea501157-5b9d-400b-ad68-e4172e38bb56.png 
+➕ Would create: next-app\public\lovable-uploads\df4923b9-9a1c-4947-af38-2c39249664a4.png 
+➕ Would create: next-app\public\lovable-uploads\d8eb3cb6-12d3-4e19-8d1a-70fc0bbbecb2.png 
+➕ Would create: next-app\public\lovable-uploads\d637cb05-65fb-4aff-9d16-3c79e83335f6.png 
+➕ Would create: next-app\public\lovable-uploads\c116d5dd-12bd-4f88-ba77-a5affdd4cdfa.png 
+➕ Would create: next-app\public\lovable-uploads\b5004700-4ebf-4a8d-9f10-fcddc2176942.png 
+➕ Would create: next-app\public\lovable-uploads\b4af7cd8-5300-4318-bda8-a95e185a1310.png 
+➕ Would create: next-app\public\lovable-uploads\b3fbef14-c9eb-46dc-81fb-0ea21179e4a2.png 
+➕ Would create: next-app\public\lovable-uploads\aca001f8-e280-494a-b8a8-028265622a3c.png 
+➕ Would create: next-app\public\lovable-uploads\ab33be36-7b2a-41af-b438-bdb3de43ec5d.png 
+➕ Would create: next-app\public\lovable-uploads\a593ff6b-3d96-407a-a55c-598bbc56df9b.png 
+➕ Would create: next-app\public\lovable-uploads\a52a13c1-8ed7-42d9-a898-ed591ddac684.png 
+➕ Would create: next-app\public\lovable-uploads\9a5567ac-b6d3-4a0b-98db-aefd6f1d3e21.png 
+➕ Would create: next-app\public\lovable-uploads\974fb0eb-036f-4f62-af0d-7943b4eb0365.png 
+➕ Would create: next-app\public\lovable-uploads\92fc5805-8251-412a-ae5f-da33d30a2dde.png 
+➕ Would create: next-app\public\lovable-uploads\90ac62d8-814a-497f-87b2-3b13fc323e06.png 
+➕ Would create: next-app\public\lovable-uploads\8bfdb28d-b20e-4765-8917-61897ed14855.png 
+➕ Would create: next-app\public\lovable-uploads\89206142-6b0c-4e53-85bc-304567882660.png 
+➕ Would create: next-app\public\lovable-uploads\86cb639c-d2f7-42bd-9923-1441196d2ca2.png 
+➕ Would create: next-app\public\lovable-uploads\7c931942-52e6-43f9-8268-058b6cd01860.png 
+➕ Would create: next-app\public\lovable-uploads\7991a444-0c04-42f9-a4b8-4afd8e3f3306.png 
+➕ Would create: next-app\public\lovable-uploads\75185e09-91f9-4292-90d7-fd4371d2ab23.png 
+➕ Would create: next-app\public\lovable-uploads\61372204-ad34-421b-877a-e61ca6adf93e.png 
+➕ Would create: next-app\public\lovable-uploads\5a1f8347-921e-4017-9f94-9443b6f78a19.png 
+➕ Would create: next-app\public\lovable-uploads\54d5ba6c-7e60-4b15-8638-069720030225.png 
+➕ Would create: next-app\public\lovable-uploads\4f77654b-737b-493a-a695-ad8360dbeb0d.png 
+➕ Would create: next-app\public\lovable-uploads\4ae14cdc-b900-4b5d-aaf0-c7f618222036.png 
+➕ Would create: next-app\public\lovable-uploads\49617091-42a9-4433-bd8b-df560cd352ac.png 
+➕ Would create: next-app\public\lovable-uploads\44c091c7-1d26-4639-9646-99a6dc86cd14.png 
+➕ Would create: next-app\public\lovable-uploads\36b7add7-c0c6-4b53-a0bd-41854d1270e7.png 
+➕ Would create: next-app\public\lovable-uploads\30181b08-9d4b-4553-98aa-04bd671930be.png 
+➕ Would create: next-app\public\lovable-uploads\2b9e0bad-9af2-418e-9da5-61251fda9bf5.png 
+➕ Would create: next-app\public\lovable-uploads\230b8ef0-b4c0-4aee-af54-df5e7f2a6201.png 
+➕ Would create: next-app\public\lovable-uploads\1f2d1b48-9182-4a41-b281-6e5aba856d87.png 
+➕ Would create: next-app\public\lovable-uploads\1e4738b7-ae5c-4b74-bd8c-73364351bd6c.png 
+➕ Would create: next-app\public\lovable-uploads\1c0a6d55-db05-4d05-a47b-e6dd814c6d62.png 
+➕ Would create: next-app\public\lovable-uploads\19e4f564-f73b-4364-9a9b-3d3d91a23659.png 
+➕ Would create: next-app\public\lovable-uploads\179a6a5e-ef1b-4126-a92f-5314abdc9aa3.png 
+➕ Would create: next-app\public\lovable-uploads\096ed5af-55a0-4490-9d95-4203915c4ce2.png 
+➕ Would create: next-app\public\lovable-uploads\04aab7a8-e1ff-45f4-a726-51acc3e02a41.png 
+➕ Would create: next-app\public\lovable-uploads\008c1f64-92b4-4871-a49b-7460adabfdfe.png 
+➕ Would create: next-app\public\assets\placeholder-head.png 
+➕ Would create: next-app\public\assets\logo-shield.png 
+➕ Would create: next-app\public\assets\head-rotation.mp4 
+➕ Would create: next-app\public\assets\head-animation.webm 
+➕ Would create: next-app\public\assets\hair-gray.png 
+➕ Would create: next-app\public\assets\hair-dark.png 
+➕ Would create: next-app\public\assets\hair-brown.png 
+➕ Would create: next-app\public\assets\hair-blonde.png 
+➕ Would create: next-app\public\assets\dashboard-icon.svg 
+➕ Would create: next-app\public\assets\camera-icon.svg 
+➕ Would create: next-app\public\assets\background-animation.mp4 
+➕ Would create: next-app\public\assets\analyze-button.svg 
+➕ Would create: next-app\supabase\functions\_shared\zoho-utils.ts 
+➕ Would create: next-app\supabase\functions\_shared\service-config.ts 
+➕ Would create: next-app\supabase\functions\_shared\date-helpers.ts 
+➕ Would create: next-app\supabase\functions\zoho-test-simple\index.ts 
+➕ Would create: next-app\supabase\functions\zoho-sync-availability\index.ts 
+➕ Would create: next-app\supabase\functions\zoho-create-booking\index.ts 
+➕ Would create: next-app\supabase\functions\zoho-book\index.ts 
+➕ Would create: next-app\supabase\functions\zoho-availability-range\index.ts 
+➕ Would create: next-app\supabase\functions\zoho-availability-day\index.ts 
+➕ Would create: next-app\supabase\functions\verify-slot-availability\index.ts 
+➕ Would create: next-app\supabase\functions\verify-staff-code\index.ts 
+➕ Would create: next-app\supabase\functions\stripe-webhook\index.ts 
+➕ Would create: next-app\supabase\functions\stripe-create-checkout\index.ts 
+➕ Would create: next-app\supabase\functions\process-booking\index.ts 
+➕ Would create: next-app\supabase\functions\bunny-upload\index.ts 
+➕ Would create: next-app\supabase\functions\bunny-list\index.ts 
+➕ Would create: next-app\supabase\functions\bunny-delete\index.ts 
+➕ Would create: next-app\src\integrations\supabase\types.ts 
+➕ Would create: next-app\src\integrations\supabase\client.ts 
+➕ Would create: next-app\src\components\trajectory\AnimatedTrajectoryBackground.tsx 
+➕ Would create: next-app\src\components\reviews\ReviewsTextArea.tsx 
+➕ Would create: next-app\src\components\reviews\ReviewsGrid.tsx 
+➕ Would create: next-app\src\components\ui\use-toast.ts 
+➕ Would create: next-app\src\components\ui\tooltip.tsx 
+➕ Would create: next-app\src\components\ui\toggle.tsx 
+➕ Would create: next-app\src\components\ui\toggle-group.tsx 
+➕ Would create: next-app\src\components\ui\toaster.tsx 
+➕ Would create: next-app\src\components\ui\toast.tsx 
+➕ Would create: next-app\src\components\ui\textarea.tsx 
+➕ Would create: next-app\src\components\ui\tabs.tsx 
+➕ Would create: next-app\src\components\ui\table.tsx 
+➕ Would create: next-app\src\components\ui\switch.tsx 
+➕ Would create: next-app\src\components\ui\sonner.tsx 
+➕ Would create: next-app\src\components\ui\slider.tsx 
+➕ Would create: next-app\src\components\ui\skeleton.tsx 
+➕ Would create: next-app\src\components\ui\sidebar.tsx 
+➕ Would create: next-app\src\components\ui\ShinyText.tsx 
+➕ Would create: next-app\src\components\ui\shiny-button.tsx 
+➕ Would create: next-app\src\components\ui\sheet.tsx 
+➕ Would create: next-app\src\components\ui\separator.tsx 
+➕ Would create: next-app\src\components\ui\select.tsx 
+➕ Would create: next-app\src\components\ui\scroll-area.tsx 
+➕ Would create: next-app\src\components\ui\resizable.tsx 
+➕ Would create: next-app\src\components\ui\radio-group.tsx 
+➕ Would create: next-app\src\components\ui\progress.tsx 
+➕ Would create: next-app\src\components\ui\popover.tsx 
+➕ Would create: next-app\src\components\ui\pagination.tsx 
+➕ Would create: next-app\src\components\ui\navigation-menu.tsx 
+➕ Would create: next-app\src\components\ui\menubar.tsx 
+➕ Would create: next-app\src\components\ui\label.tsx 
+➕ Would create: next-app\src\components\ui\input.tsx 
+➕ Would create: next-app\src\components\ui\input-otp.tsx 
+➕ Would create: next-app\src\components\ui\hover-card.tsx 
+➕ Would create: next-app\src\components\ui\form.tsx 
+➕ Would create: next-app\src\components\ui\dropdown-menu.tsx 
+➕ Would create: next-app\src\components\ui\drawer.tsx 
+➕ Would create: next-app\src\components\ui\dialog.tsx 
+➕ Would create: next-app\src\components\ui\context-menu.tsx 
+➕ Would create: next-app\src\components\ui\command.tsx 
+➕ Would create: next-app\src\components\ui\collapsible.tsx 
+➕ Would create: next-app\src\components\ui\checkbox.tsx 
+➕ Would create: next-app\src\components\ui\chart.tsx 
+➕ Would create: next-app\src\components\ui\carousel.tsx 
+➕ Would create: next-app\src\components\ui\card.tsx 
+➕ Would create: next-app\src\components\ui\calendar.tsx 
+➕ Would create: next-app\src\components\ui\button.tsx 
+➕ Would create: next-app\src\components\ui\breadcrumb.tsx 
+➕ Would create: next-app\src\components\ui\badge.tsx 
+➕ Would create: next-app\src\components\ui\avatar.tsx 
+➕ Would create: next-app\src\components\ui\aspect-ratio.tsx 
+➕ Would create: next-app\src\components\ui\alert.tsx 
+➕ Would create: next-app\src\components\ui\alert-dialog.tsx 
+➕ Would create: next-app\src\components\ui\accordion.tsx 
+➕ Would create: next-app\src\components\mission\MissionTextArea.tsx 
+➕ Would create: next-app\src\components\mission\MissionContent.tsx 
+➕ Would create: next-app\src\components\mission\MissionCardGlass.tsx 
+➕ Would create: next-app\src\components\method\AnimatedGradientBackground.tsx 
+➕ Would create: next-app\src\components\logos\VideoShieldIcon.tsx 
+➕ Would create: next-app\src\components\logos\ShieldIcon.tsx 
+➕ Would create: next-app\src\components\logos\MissionShieldIcon.tsx 
+➕ Would create: next-app\src\components\logos\LogoWithGlass.tsx 
+➕ Would create: next-app\src\components\logos\HaarTransplantFooterIcon.tsx 
+➕ Would create: next-app\src\components\logos\GlobalHairLogo.tsx 
+➕ Would create: next-app\src\components\logos\GlassmorphismShield.tsx 
+➕ Would create: next-app\src\components\layout\WideContentContainer.tsx 
+➕ Would create: next-app\src\components\layout\MediumContentContainer.tsx 
+➕ Would create: next-app\src\components\layout\DesktopContainer.tsx 
+➕ Would create: next-app\src\components\icons\StemcellIcon.tsx 
+➕ Would create: next-app\src\components\icons\ReviewIcon.tsx 
+➕ Would create: next-app\src\components\icons\RecoveryIcon.tsx 
+➕ Would create: next-app\src\components\icons\PlayButtonIcon.tsx 
+➕ Would create: next-app\src\components\icons\PenIcon.tsx 
+➕ Would create: next-app\src\components\icons\LightningIcon.tsx 
+➕ Would create: next-app\src\components\icons\LeafIcon.tsx 
+➕ Would create: next-app\src\components\icons\HomeIcon.tsx 
+➕ Would create: next-app\src\components\icons\HaarscanIcon.tsx 
+➕ Would create: next-app\src\components\icons\GrowthIcon.tsx 
+➕ Would create: next-app\src\components\icons\GridIcon.tsx 
+➕ Would create: next-app\src\components\icons\CustomWhatsAppIcon.tsx 
+➕ Would create: next-app\src\components\icons\CustomMailIcon.tsx 
+➕ Would create: next-app\src\components\icons\CustomInstagramIcon.tsx 
+➕ Would create: next-app\src\components\icons\ContactIcon.tsx 
+➕ Would create: next-app\src\components\icons\BookIcon.tsx 
+➕ Would create: next-app\src\components\icons\BackIcon.tsx 
+➕ Would create: next-app\src\components\icons\AnimatedRecoveryIcon.tsx 
+➕ Would create: next-app\src\components\icons\AnimatedGrowthIcon.tsx 
+➕ Would create: next-app\src\components\homepage\VideoGridItem.tsx 
+➕ Would create: next-app\src\components\homepage\VideoGrid.tsx 
+➕ Would create: next-app\src\components\homepage\HairTypeSelector.tsx 
+➕ Would create: next-app\src\components\homepage\GenderToggle.tsx 
+➕ Would create: next-app\src\components\homepage\ColorSelector.tsx 
+➕ Would create: next-app\src\components\homepage\CentralLogo.tsx 
+➕ Would create: next-app\src\components\homepage\AnimatedBackground.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\VideoPlaySection.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\VideoBackground.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\TreatmentsTabContent.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\TreatmentSelectionSection.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\TreatmentsCarousel.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\TreatmentInfoSection.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\TrajectCardGlass.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\TabPreloader.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\StrengthMeter.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\StaticReviewGlass.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\ReviewsTabContent.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\ReviewsSectionGlass.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\PlaceholderContent.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\PackageTierSwitcher.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\PackageLocationSelector.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\PackageDetailContent.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\PackageComparisonGlass.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\PackageCardGlass.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\OzlemVideoCard.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\OptionDropdown.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\NewPackageContent.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\NewContentSection.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\MissionTabContent.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\InstagramPostsSection.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\ImageTextLayout.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\HowTabContentDesktop.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\HowTabContent.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\HeadImage.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\HaartransplantatieLayout.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\GlassTabs.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\GlassHeader.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\GlassBackground.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\FooterCTAGlass.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\ContentSection.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\ContactTabContent.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\ContactCardGlass.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\BottomNavigation.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\BerkantVideoCard.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\BeforeAfterImage.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\BeforeAfterGrid.tsx 
+➕ Would create: next-app\src\components\haartransplantatie\AnimatedHeadHero.tsx 
+➕ Would create: next-app\src\components\contact\AnimatedTurkeySvg.tsx 
+➕ Would create: next-app\src\components\contact\AnimatedNetherlandsSvg.tsx 
+➕ Would create: next-app\src\components\contact\AnimatedContactBackground.tsx 
+➕ Would create: next-app\src\components\chat\LinkifiedText.tsx 
+➕ Would create: next-app\src\components\booking\StaffCodePopover.tsx 
+➕ Would create: next-app\src\components\booking\PaymentStep.tsx 
+➕ Would create: next-app\src\components\booking\OptionsStep.tsx 
+➕ Would create: next-app\src\components\booking\DateTimePicker.tsx 
+➕ Would create: next-app\src\components\booking\CustomerInfoForm.tsx 
+➕ Would create: next-app\src\components\booking\BookingWizard.tsx 
+➕ Would create: next-app\src\components\admin\ReviewThumbnail.tsx 
+➕ Would create: next-app\src\components\admin\ReviewMobilePreview.tsx 
+➕ Would create: next-app\src\components\admin\ReviewForm.tsx 
+➕ Would create: next-app\src\components\admin\ProtectedAdminRoute.tsx 
+➕ Would create: next-app\src\components\admin\ImageSizeIndicator.tsx 
+➕ Would create: next-app\src\components\admin\FileUploader.tsx 
+➕ Would create: next-app\src\components\admin\FileBrowser.tsx 
+➕ Would create: next-app\src\components\admin\AdminSidebarContent.tsx 
+➕ Would create: next-app\src\components\admin\AdminSidebar.tsx 
+➕ Would create: next-app\src\components\admin\AdminLayout.tsx 
+➕ Would create: next-app\public\assets\quotes\quote-marijn-kuller.jpg 
+➕ Would create: next-app\public\assets\quotes\quote-jay-herman-2.jpg 
+➕ Would create: next-app\public\assets\quotes\quote-jay-herman-1.jpg 
+➕ Would create: next-app\public\assets\quotes\quote-ivo-teunissen.jpg 
+➕ Would create: next-app\public\assets\quotes\quote-glenn-van-den-bosch-2.jpg 
+➕ Would create: next-app\public\assets\quotes\quote-glenn-van-den-bosch-1.jpg 
+➕ Would create: next-app\public\assets\quotes\quote-erik-jan-van-der-kooij.jpg 
+➕ Would create: next-app\public\assets\quotes\quote-daniel-sulkers.jpg 
+➕ Would create: next-app\public\assets\quotes\quote-bram-mommens.jpg 
+➕ Would create: next-app\public\assets\quotes\quote-bram-klein-gunnewiek.jpg 
+
+🔧 Transforming environment variables...
+
+🗑️ Enhanced Vite cleanup...
+➕ Would create: next-app\postcss.config.cjs 
+
+📦 Enhanced package.json updates...
+➕ Would create: next-app\package.json 
+✅ Copied package.json from source
+➕ Would create: next-app\package.json 
+
+📂 Enhanced directory restructuring...
+
+📄 Enhanced page migration to app router...
+➕ Would create: next-app\src\app\not-found.tsx 
+➕ Would create: next-app\src\app\error.tsx 
+➕ Would create: next-app\src\app\loading.tsx 
+
+📝 Enhanced layout and context provider setup...
+Found context provider: TooltipProvider from @/components/ui/tooltip
+Found context provider: QueryClientProvider from @tanstack/react-query
+Found context provider: HelmetProvider from react-helmet-async
+Found context provider: TransitionProvider from @/contexts/TransitionContext
+🔧 Found 4 context providers:
+  📦 TooltipProvider from @/components/ui/tooltip
+  📦 QueryClientProvider from @tanstack/react-query
+  📦 HelmetProvider from react-helmet-async
+  📦 TransitionProvider from @/contexts/TransitionContext
+➕ Would create: next-app\src\app\providers.tsx 
+➕ Would create: next-app\src\app\layout.tsx 
+➕ Would create: next-app\src\app\globals.css 
+
+🔄 Enhanced component transformations...
+
+⚙️ Creating enhanced Next.js configuration...
+➕ Would create: next-app\next.config.js 
+
+📝 Creating TypeScript configuration...
+📁 Detected Supabase folder - excluding from TypeScript compilation
+🔄 Would modify: tsconfig.json (Supabase folder excluded from TypeScript compilation)
+➕ Would create: next-app\tsconfig.json 
+
+🧹 Enhanced final cleanup...
+➕ Would create: next-app\.gitignore 
+
+✅ Enhanced simulation completed successfully!
+
+
+📋 Dry Run Summary:
+
+File Operations:
+➕ Files to create: 433
+🔄 Files to modify: 1
+🗑️  Files to delete: 0
+📦 Files to move: 0
+
+💡 To proceed with these changes, run the command without --dry-run

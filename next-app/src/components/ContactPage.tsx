@@ -1,0 +1,420 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
+import React, { useState, useEffect } from 'react';
+import { SEOHead } from '@/components/SEOHead';
+import { useLanguage } from '@/hooks/useLanguage';
+import { useSession } from '@/hooks/useSession';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { AnimatedContactBackground } from '@/components/contact/AnimatedContactBackground';
+import { AnimatedTurkeySvg } from '@/components/contact/AnimatedTurkeySvg';
+import { AnimatedNetherlandsSvg } from '@/components/contact/AnimatedNetherlandsSvg';
+import { PopupCloseButton } from '@/components/PopupCloseButton';
+import { CustomMailIcon } from '@/components/icons/CustomMailIcon';
+import { CustomWhatsAppIcon } from '@/components/icons/CustomWhatsAppIcon';
+import { CustomInstagramIcon } from '@/components/icons/CustomInstagramIcon';
+import { Plus } from 'lucide-react';
+
+const ContactPage: React.FC = () => {
+  const { language } = useLanguage();
+  const { activeRoute } = useSession();
+  const router = useRouter();
+  const [isExiting, setIsExiting] = useState(false);
+  const [titleVisible, setTitleVisible] = useState(false);
+  const [toggleVisible, setToggleVisible] = useState(false);
+  const [accordionVisible, setAccordionVisible] = useState(false);
+  const [iconsVisible, setIconsVisible] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState<'nederland' | 'turkije'>('nederland');
+
+  // Get the target path for the active route
+  const getActiveRoutePath = () => {
+    if (activeRoute === 'haartransplantatie') {
+      return language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
+    }
+    if (activeRoute === 'v6-hairboost') {
+      return `/${language}/v6-hairboost`;
+    }
+    // Default fallback to haartransplantatie
+    return language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
+  };
+
+  const handleClose = () => {
+    setIsExiting(true);
+    setTimeout(() => {
+      router.push(getActiveRoutePath());
+    }, 350);
+  };
+
+  // Handle ESC key
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        handleClose();
+      }
+    };
+    document.addEventListener('keydown', handleEsc);
+    return () => {
+      document.removeEventListener('keydown', handleEsc);
+    };
+  }, []);
+
+  // Staggered entrance animations
+  useEffect(() => {
+    const timer1 = setTimeout(() => setTitleVisible(true), 100);
+    const timer2 = setTimeout(() => setToggleVisible(true), 300);
+    const timer3 = setTimeout(() => setAccordionVisible(true), 500);
+    const timer4 = setTimeout(() => setIconsVisible(true), 700);
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+      clearTimeout(timer4);
+    };
+  }, []);
+
+  const contactData = language === 'nl' ? {
+    title: 'WHERE TO FIND US',
+    countryButtons: {
+      nederland: 'Nederland',
+      turkije: 'Turkije'
+    },
+    locations: {
+      nederland: [
+        {
+          name: 'Barendrecht',
+          address: 'Pesetastraat 76\n2991 XT Barendrecht',
+          phone: '085 750 0577',
+          hours: 'Ma 10:00 - 19:00\ndi 10:00 - 19:00\nwo 10:00 - 19:00\ndo 10:00 - 19:00\nvr 10:00 - 19:00\nza 10:00 - 19:00\nzo Gesloten'
+        },
+        {
+          name: 'Leiden',
+          address: 'Fruitweg 22\n2321 GK Leiden',
+          phone: '085 750 0577',
+          hours: 'Ma 10:00 - 19:00\ndi 10:00 - 19:00\nwo 10:00 - 19:00\ndo 10:00 - 19:00\nvr 10:00 - 19:00\nza 10:00 - 19:00\nzo Gesloten'
+        }
+      ],
+      turkije: [
+        {
+          name: 'Istanbul',
+          address: 'Kaynarca mh. Erol Kaya cd.\nNo:204 34890\nPendik, Istanbul Turkije',
+          phone: '085 750 0577',
+          hours: 'Ma 10:00 - 19:00\ndi 10:00 - 19:00\nwo 10:00 - 19:00\ndo 10:00 - 19:00\nvr 10:00 - 19:00\nza 10:00 - 19:00\nzo Gesloten'
+        }
+      ]
+    }
+  } : {
+    title: 'WHERE TO FIND US',
+    countryButtons: {
+      nederland: 'Netherlands',
+      turkije: 'Turkey'
+    },
+    locations: {
+      nederland: [
+        {
+          name: 'Barendrecht',
+          address: 'Pesetastraat 76\n2991 XT Barendrecht',
+          phone: '085 750 0577',
+          hours: 'Mon 10:00 - 19:00\nTue 10:00 - 19:00\nWed 10:00 - 19:00\nThu 10:00 - 19:00\nFri 10:00 - 19:00\nSat 10:00 - 19:00\nSun Closed'
+        },
+        {
+          name: 'Leiden',
+          address: 'Fruitweg 22\n2321 GK Leiden',
+          phone: '085 750 0577',
+          hours: 'Mon 10:00 - 19:00\nTue 10:00 - 19:00\nWed 10:00 - 19:00\nThu 10:00 - 19:00\nFri 10:00 - 19:00\nSat 10:00 - 19:00\nSun Closed'
+        }
+      ],
+      turkije: [
+        {
+          name: 'Istanbul',
+          address: 'Kaynarca mh. Erol Kaya cd.\nNo:204 34890\nPendik, Istanbul Turkey',
+          phone: '085 750 0577',
+          hours: 'Mon 10:00 - 19:00\nTue 10:00 - 19:00\nWed 10:00 - 19:00\nThu 10:00 - 19:00\nFri 10:00 - 19:00\nSat 10:00 - 19:00\nSun Closed'
+        }
+      ]
+    }
+  };
+
+  const currentLocations = contactData.locations[selectedCountry];
+
+  return (
+    <>
+      <SEOHead 
+        title={language === 'nl' ? 'Contact' : 'Contact'} 
+        description={language === 'nl' ? 'Neem contact op met GlobalHair Institute. Vind onze locaties in Nederland en Turkije.' : 'Contact GlobalHair Institute. Find our locations in the Netherlands and Turkey.'} 
+      />
+      {/* Fixed Background - Outside page container */}
+      <AnimatedContactBackground />
+      <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
+        <div className="min-h-[var(--app-height)] relative">
+          {/* Close Button */}
+          <PopupCloseButton onClose={handleClose} />
+          
+          {/* Scrollable Content */}
+          <div className="pt-16 md:pt-20 pb-20 md:pb-32 px-6 relative z-10">
+            <div className="max-w-2xl mx-auto min-h-[calc(var(--app-height)-8rem)] flex flex-col">
+              
+              {/* Title Section */}
+              <div className={`text-center mb-8 md:mb-16 transition-all duration-500 ease-out ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                <h1 className="md:text-4xl lg:text-5xl xl:text-6xl font-lato text-[#ACD1C6] mb-3 md:mb-4 leading-[0.9] tracking-tight font-normal text-4xl" style={{textShadow: '0 2px 6px rgba(0, 0, 0, 0.2)'}}>
+                  WHERE TO<br />FIND US
+                </h1>
+              </div>
+
+              {/* Glass Card Section */}
+              <section
+                className="gold-gradient-border relative rounded-3xl transition-all duration-500 mb-8"
+                style={{
+                  marginTop: 'clamp(0.25rem, 0.5vh, 0.5rem)',
+                  background: 'linear-gradient(rgba(0, 0, 0, 0.14), rgba(0, 0, 0, 0.17))',
+                  backdropFilter: 'blur(7px)',
+                  WebkitBackdropFilter: 'blur(7px)',
+                  marginLeft: '.1rem',
+                  marginRight: '.1rem',
+                  padding: 0,
+                }}
+              >
+                {/* Empty content area */}
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr 1fr',
+                    gap: 0,
+                    position: 'relative',
+                    margin: '0px 1px',
+                    paddingTop: '1px',
+                  }}
+                >
+                  {/* Vertical separators */}
+                  <div
+                    style={{
+                      content: '',
+                      position: 'absolute',
+                      top: 0,
+                      bottom: 0,
+                      left: 'calc(100% / 3)',
+                      width: '1px',
+                      background: 'linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.25), transparent)',
+                      pointerEvents: 'none',
+                    }}
+                  />
+                  <div
+                    style={{
+                      content: '',
+                      position: 'absolute',
+                      top: 0,
+                      bottom: 0,
+                      left: 'calc(200% / 3)',
+                      width: '1px',
+                      background: 'linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.25), transparent)',
+                      pointerEvents: 'none',
+                    }}
+                  />
+
+                  {/* Empty tiles */}
+                  {[0, 1, 2].map((idx) => (
+                    <div
+                      key={idx}
+                      style={{
+                        position: 'relative',
+                        overflow: 'hidden',
+                        borderRadius: idx === 0 ? '23px 0 0 0' : idx === 2 ? '0 23px 0 0' : '0',
+                        height: '140px',
+                        width: '100%',
+                        background: idx === 0 ? '#3B454D' : idx === 1 ? '#4B555E' : '#3B454D',
+                      }}
+                    />
+                  ))}
+                </div>
+
+                {/* Profile Footer - Empty */}
+                <footer
+                  className="profile-glow profile-border-top"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px',
+                    padding: '6px 0px 9px',
+                    position: 'relative',
+                  }}
+                >
+                  {/* Empty footer content */}
+                </footer>
+
+                <style>{`
+                  .silver-grey-gradient-border {
+                    position: relative;
+                  }
+
+                  .silver-grey-gradient-border::before {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    padding: 1px;
+                    border-radius: inherit;
+                    background: linear-gradient(80deg, #949494 7%, #838e94 16%, #b5b5b5 34%, #ACB9C1 51%, #4e5964 78%, #727272 105%);
+                    -webkit-mask: 
+                      linear-gradient(#fff 0 0) content-box,
+                      linear-gradient(#fff 0 0);
+                    -webkit-mask-composite: xor;
+                    mask-composite: exclude;
+                    pointer-events: none;
+                    z-index: 3;
+                  }
+
+                  .silver-grey-gradient-border > * {
+                    position: relative;
+                    z-index: 1;
+                  }
+
+                  .profile-glow::after {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 70%;
+                    height: 70%;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.4);
+                    filter: blur(40px);
+                    opacity: 1;
+                    z-index: -1;
+                    pointer-events: none;
+                  }
+
+                  .profile-border-top::before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    height: 1px;
+                    background: linear-gradient(80deg, #949494 7%, #838e94 16%, #b5b5b5 34%, #ACB9C1 51%, #4e5964 78%, #727272 105%);
+                    z-index: 3;
+                    pointer-events: none;
+                  }
+                `}</style>
+              </section>
+
+              {/* Country Toggle Buttons */}
+              <div className={`flex justify-center mb-8 md:mb-12 transition-all duration-500 ease-out ${toggleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                <div 
+                  className="inline-flex p-1 rounded-lg"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    backdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(255, 255, 255, 0.18)',
+                  }}
+                >
+                  <button
+                    onClick={() => setSelectedCountry('nederland')}
+                    className={`px-6 py-2 ${selectedCountry === 'nederland' ? 'rounded-sm' : 'rounded-lg'} font-lato text-sm font-medium transition-all duration-300 ease-out ${
+                      selectedCountry === 'nederland'
+                        ? 'text-white'
+                        : 'text-white/80 hover:text-white'
+                    }`}
+                    style={selectedCountry === 'nederland' ? {
+                      backdropFilter: 'blur(40px)',
+                      background: 'rgba(255, 255, 255, 0.3)'
+                    } : {}}
+                  >
+                    {contactData.countryButtons.nederland}
+                  </button>
+                  <button
+                    onClick={() => setSelectedCountry('turkije')}
+                    className={`px-6 py-2 ${selectedCountry === 'turkije' ? 'rounded-sm' : 'rounded-lg'} font-lato text-sm font-medium transition-all duration-300 ease-out ${
+                      selectedCountry === 'turkije'
+                        ? 'text-white'
+                        : 'text-white/80 hover:text-white'
+                    }`}
+                    style={selectedCountry === 'turkije' ? {
+                      backdropFilter: 'blur(40px)',
+                      background: 'rgba(255, 255, 255, 0.3)'
+                    } : {}}
+                  >
+                    {contactData.countryButtons.turkije}
+                  </button>
+                </div>
+              </div>
+
+              {/* Country-specific SVGs */}
+              {selectedCountry === 'turkije' && (
+                <AnimatedTurkeySvg isVisible={toggleVisible} />
+              )}
+              {selectedCountry === 'nederland' && (
+                <AnimatedNetherlandsSvg isVisible={toggleVisible} />
+              )}
+
+              {/* Accordion Section */}
+              <div className={`flex-1 mb-8 md:mb-16 transition-all duration-500 ease-out ${accordionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                <Accordion type="multiple" className="space-y-0">
+                  {currentLocations.map((location, index) => (
+                    <AccordionItem key={`${selectedCountry}-${index}`} value={`item-${selectedCountry}-${index}`} className="border-b border-[#ACD1C6]/30 last:border-b-0">
+                      <AccordionTrigger className="py-3 md:py-5 px-0 hover:no-underline group">
+                        <div className="flex items-center justify-between w-full">
+                          <span className="text-left text-base md:text-lg font-lato font-normal text-[#ACD1C6] group-hover:text-[#ACD1C6]/80" style={{textShadow: '0 1px 4px rgba(0, 0, 0, 0.25)'}}>
+                            {location.name}
+                          </span>
+                          <Plus className="w-4 md:w-5 h-4 md:h-5 text-[#ACD1C6] transition-transform duration-200 shrink-0 group-data-[state=open]:rotate-45" />
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent className="px-0 pb-3 md:pb-5">
+                        <div className="space-y-3">
+                          <div>
+                            <a 
+                              href={`https://maps.google.com/?q=${encodeURIComponent(location.address.replace(/\n/g, ' '))}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-sm md:text-base text-[#ACD1C6]/70 font-lato leading-relaxed whitespace-pre-line hover:text-[#ACD1C6] transition-colors duration-200 border-b border-dotted border-[#ACD1C6]/30 hover:border-[#ACD1C6]/60 cursor-pointer block"
+                            >
+                              {location.address}
+                            </a>
+                          </div>
+                          <div>
+                            <a 
+                              href={`tel:${location.phone.replace(/\s/g, '')}`}
+                              className="text-sm md:text-base text-[#ACD1C6]/70 font-lato leading-relaxed hover:text-[#ACD1C6] transition-colors duration-200 border-b border-dotted border-[#ACD1C6]/30 hover:border-[#ACD1C6]/60 cursor-pointer inline-block"
+                            >
+                              {location.phone}
+                            </a>
+                          </div>
+                          <div>
+                            <p className="text-xs md:text-sm text-[#ACD1C6]/60 font-lato leading-relaxed whitespace-pre-line">
+                              Openingstijden:
+                            </p>
+                            <p className="text-xs md:text-sm text-[#ACD1C6]/60 font-lato leading-relaxed whitespace-pre-line">
+                              {location.hours}
+                            </p>
+                          </div>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </div>
+
+              {/* Social Media Icons */}
+              <div className={`text-center mt-auto pt-4 pb-16 md:pb-20 transition-all duration-500 ease-out ${iconsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                <div className="flex justify-center items-center space-x-4">
+                  <button className="active:scale-[0.98] transition-all duration-300 ease-out">
+                    <CustomMailIcon className="w-12 h-15" />
+                  </button>
+                  <button className="active:scale-[0.98] transition-all duration-300 ease-out">
+                    <CustomWhatsAppIcon className="w-12 h-12 -mt-6" />
+                  </button>
+                  <button className="active:scale-[0.98] transition-all duration-300 ease-out">
+                    <CustomInstagramIcon className="w-12 h-15" />
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default ContactPage;

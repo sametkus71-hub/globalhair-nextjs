@@ -1,0 +1,198 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
+import { useMemo } from 'react';
+import { BERKANT_VIDEOS } from '@/data/berkantVideos';
+import { useLanguage } from '@/hooks/useLanguage';
+
+interface BerkantVideoCardProps {
+  videoId?: string;
+}
+
+export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
+  const router = useRouter();
+  const { language } = useLanguage();
+  
+  // Random video selection on each load
+  const video = useMemo(() => {
+    if (videoId) {
+      return BERKANT_VIDEOS.find(v => v.id === videoId) || BERKANT_VIDEOS[0];
+    }
+    const randomIndex = Math.floor(Math.random() * BERKANT_VIDEOS.length);
+    return BERKANT_VIDEOS[randomIndex];
+  }, [videoId]);
+
+  const handleClick = () => {
+    router.push(`/${language}/berkantdural?video=${video.id}`);
+  };
+
+  return (
+    <div className="w-full lg:w-[350px] h-full flex items-center justify-center mx-auto lg:mx-0 p-4 sm:p-6 lg:pr-1">
+      <article 
+        className="berkant-card"
+        onClick={handleClick}
+      >
+        {/* Video background */}
+        <video
+          src={video.videoUrl}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className="berkant-card-bg"
+          style={{ 
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: 0
+          }}
+        />
+        
+        {/* Gradient overlay */}
+        <div className="berkant-card-overlay" />
+        
+        {/* Content on top */}
+        <div className="berkant-card-content">
+          {/* Top left - Name badge */}
+          <div className="absolute top-4 left-4">
+            <div className="berkant-badge">
+              <span className="berkant-badge-text">Berkant Dural</span>
+            </div>
+          </div>
+          
+          {/* Top right - Mute icon */}
+          <div className="absolute top-4 right-4">
+            <svg 
+              className="w-6 h-6 text-white/80" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" 
+              />
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" 
+              />
+            </svg>
+          </div>
+
+          {/* Bottom left - List with bold header */}
+          <div className="absolute bottom-4 left-4 flex flex-col gap-1.5">
+            <p className="text-sm font-semibold text-white/95 tracking-wide">CEO - GlobalHair Institute</p>
+            <div className="flex flex-col gap-0.5 pl-0.5">
+              <p className="text-[11px] font-light text-white/80 tracking-wide">• Developed 6+ methods</p>
+              <p className="text-[11px] font-light text-white/80 tracking-wide">• Opened 3 locations</p>
+            </div>
+          </div>
+        </div>
+      </article>
+      <style>{`
+        .berkant-card {
+          position: relative;
+          width: 100%;
+          max-width: 24rem;
+          height: 100%;
+          border-radius: 1rem;
+          overflow: hidden;
+          cursor: pointer;
+          backdrop-filter: blur(10px);
+          background: rgba(0,0,0,.15);
+        }
+
+        @media (min-width: 640px) {
+          .berkant-card {
+            max-width: 26rem;
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .berkant-card {
+            max-width: 28rem;
+          }
+        }
+
+        .berkant-card::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: 1rem;
+          padding: 1.8px;
+          background: linear-gradient(90deg, #949494 7%, #ACB9C1 16%, #FFFFFF 34%, #ACB9C1 51%, #4B555E 78%, #fff 105%);
+          -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 3;
+        }
+
+        .berkant-card-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.1) 70%, transparent 100%);
+          pointer-events: none;
+          z-index: 1;
+        }
+
+        .berkant-card-content {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          z-index: 2;
+        }
+
+        .berkant-badge {
+          position: relative;
+          padding: 0.65rem 1rem;
+          border-radius: 9999px;
+          background: linear-gradient(90deg, #132536 0%, #25496B 50%, #132536 100%);
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .berkant-badge::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: 9999px;
+          padding: 1.5px;
+          background: linear-gradient(90deg, #949494 7%, #ACB9C1 16%, #FFFFFF 34%, #ACB9C1 51%, #4B555E 78%, #fff 105%);
+          -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+        }
+
+        .berkant-badge-text {
+          font-family: Inter, sans-serif;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 1;
+          margin-top: -1px;
+          background: linear-gradient(119.16deg, #B8B8B8 -0.57%, #FFFFFF 60.78%, #B8B8B8 122.13%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          position: relative;
+          z-index: 1;
+        }
+
+      `}</style>
+    </div>
+  );
+};

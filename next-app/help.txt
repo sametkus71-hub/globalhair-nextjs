@@ -1,0 +1,15 @@
+Usage: next-lovable [options] [command]
+
+Convert React projects to Next.js with intelligent transformations
+
+Options:
+  -V, --version                        output the version number
+  -h, --help                           display help for command
+
+Commands:
+  info                                 Show build and author information
+  migrate [options] <source> [target]
+  convert [options] [file]             Convert a single file with credit
+                                       tracking
+  credits                              Check your file conversion credit balance
+  help [command]                       display help for command
