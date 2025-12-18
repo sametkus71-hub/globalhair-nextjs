@@ -11,76 +11,7 @@ import precisionBadge from '@/assets/precision-method-badge.png';
 import { PopupCloseButton, usePopupClose, SwipeablePopupWrapper } from '@/components/PopupCloseButton';
 
 // SEO content for each package tier and country combination
-const getSEOContent = (country: 'nl' | 'tr', tier: 'Standard' | 'Premium' | 'Elite', language: 'nl' | 'en') => {
-  const seoData = {
-    nl: {
-      Standard: {
-        nl: {
-          title: 'Standard Haartransplantatie - FUE Saffier & Comfort Verdoving | GlobalHair Institute',
-          description: 'Een complete start. Onze Standard haartransplantatie bevat de precieze FUE Saffier methode met Comfort Verdoving voor een natuurlijk en pijnloos resultaat.'
-        },
-        en: {
-          title: 'Standard Hair Transplant - FUE Sapphire & Comfort Anesthesia | GlobalHair Institute',
-          description: 'A complete start. Our Standard hair transplant includes the precise FUE Sapphire method with Comfort Anesthesia for a natural and painless result.'
-        }
-      },
-      Premium: {
-        nl: {
-          title: 'Premium Haartransplantatie - GHI Stemcell Repair™ | GlobalHair Institute',
-          description: 'Ons meest gekozen pakket. Combineert FUE Saffier met onze unieke GHI Stemcell Repair™ voor 20-35% meer haardichtheid en sneller herstel.'
-        },
-        en: {
-          title: 'Premium Hair Transplant - GHI Stemcell Repair™ | GlobalHair Institute',
-          description: 'Our most chosen package. Combines FUE Sapphire with our unique GHI Stemcell Repair™ for 20-35% more hair density and faster recovery.'
-        }
-      },
-      Elite: {
-        nl: {
-          title: 'Elite Haartransplantatie - Slaapnarcose & V6 Hairboost® | GlobalHair Institute',
-          description: 'De ultieme behandeling. Exclusief inclusief Full Comfort Anesthesia (slaapnarcose) en het volledige V6 Hairboost® traject voor maximaal volume.'
-        },
-        en: {
-          title: 'Elite Hair Transplant - Sleep Anesthesia & V6 Hairboost® | GlobalHair Institute',
-          description: 'The ultimate treatment. Exclusively including Full Comfort Anesthesia (sleep anesthesia) and the complete V6 Hairboost® trajectory for maximum volume.'
-        }
-      }
-    },
-    tr: {
-      Standard: {
-        nl: {
-          title: 'Standard Haartransplantatie Turkije - FUE Saffier & All-Inclusive | GlobalHair Institute',
-          description: 'Bekijk ons Standard pakket in Turkije. FUE Saffier haartransplantatie inclusief 5-sterren verblijf, VIP transfers en Comfort Verdoving.'
-        },
-        en: {
-          title: 'Standard Hair Transplant Turkey - FUE Sapphire & All-Inclusive | GlobalHair Institute',
-          description: 'View our Standard package in Turkey. FUE Sapphire hair transplant including 5-star stay, VIP transfers and Comfort Anesthesia.'
-        }
-      },
-      Premium: {
-        nl: {
-          title: 'Premium Haartransplantatie Turkije - Stemcell Repair™ & VIP | GlobalHair Institute',
-          description: 'Luxe en resultaat. Premium haartransplantatie in Turkije met GHI Stemcell Repair™, 5-sterren hotel en volledige ontzorging.'
-        },
-        en: {
-          title: 'Premium Hair Transplant Turkey - Stemcell Repair™ & VIP | GlobalHair Institute',
-          description: 'Luxury and results. Premium hair transplant in Turkey with GHI Stemcell Repair™, 5-star hotel and complete care.'
-        }
-      },
-      Elite: {
-        nl: {
-          title: 'Elite Haartransplantatie - Slaapnarcose & V6 Hairboost® | GlobalHair Institute',
-          description: 'Het Elite pakket is exclusief beschikbaar in Nederland voor de hoogste kwaliteit en persoonlijke begeleiding.'
-        },
-        en: {
-          title: 'Elite Hair Transplant - Sleep Anesthesia & V6 Hairboost® | GlobalHair Institute',
-          description: 'The Elite package is exclusively available in Netherlands for the highest quality and personal guidance.'
-        }
-      }
-    }
-  };
 
-  return seoData[country][tier][language];
-};
 
 
 type FeatureKey = 'fue' | 'comfort' | 'fullcomfort' | 'support' | 'precision' | 'stemcellrepair' | 'v6prime' | 'v6recovery' | 'followup' | 'followup2' | 'biotine' | 'shampoo' | 'washes' | 'indicators';
@@ -553,11 +484,7 @@ export const PackageStandardPage = () => {
   // Dynamic page key based on tier
   const pageKey = `package-${activeTier.toLowerCase()}`;
 
-  // Get dynamic SEO content based on country, tier and language
-  const seoContent = useMemo(() =>
-    getSEOContent(activeCountry, activeTier, language as 'nl' | 'en'),
-    [activeCountry, activeTier, language]
-  );
+
 
   return (
     <>
