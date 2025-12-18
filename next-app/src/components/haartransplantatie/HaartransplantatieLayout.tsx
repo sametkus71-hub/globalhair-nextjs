@@ -2,6 +2,7 @@
 'use client';
 
 import { usePathname, useSearchParams } from 'next/navigation';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useLayoutEffect, useRef } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -72,7 +73,7 @@ export const HaartransplantatieLayout = ({ children }: { children: React.ReactNo
   }, []);
 
   return (
-    <main key={pathname} ref={mainRef} className={`relative min-h-screen w-full bg-transparent ${isOverlayRoute ? '' : 'overflow-hidden'}`}>
+    <main ref={mainRef} className={`relative min-h-screen w-full bg-transparent ${isOverlayRoute ? '' : 'overflow-hidden'}`}>
       <TabPreloader />
       <div className="relative w-full min-h-screen">
         {/* Glass Header - 500px width on desktop */}
@@ -117,13 +118,18 @@ export const HaartransplantatieLayout = ({ children }: { children: React.ReactNo
                     }}
                   >
                     {/* Content from specific page - smooth fade transition on content only */}
-                    <div
-                      key={pathname}
-                      className="relative flex-1 overflow-hidden animate-fade-in"
-                      style={{ animationDuration: '150ms' }}
-                    >
-                      {children}
-                    </div>
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={pathname}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.4, ease: "easeOut" }}
+                        className="relative flex-1 overflow-hidden"
+                      >
+                        {children}
+                      </motion.div>
+                    </AnimatePresence>
                   </div>
                 </div>)
               ) : isContactRoute && !isMobile ? (
@@ -137,13 +143,18 @@ export const HaartransplantatieLayout = ({ children }: { children: React.ReactNo
                     }}
                   >
                     {/* Content from specific page - smooth fade transition on content only */}
-                    <div
-                      key={pathname}
-                      className={`relative flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'} animate-fade-in`}
-                      style={{ animationDuration: '150ms' }}
-                    >
-                      {children}
-                    </div>
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={pathname}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.4, ease: "easeOut" }}
+                        className={`relative flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'}`}
+                      >
+                        {children}
+                      </motion.div>
+                    </AnimatePresence>
                   </div>
                 </MediumContentContainer>)
               ) : (
@@ -159,13 +170,18 @@ export const HaartransplantatieLayout = ({ children }: { children: React.ReactNo
                     }}
                   >
                     {/* Content from specific page - smooth fade transition on content only */}
-                    <div
-                      key={pathname}
-                      className={`relative flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'} animate-fade-in`}
-                      style={{ animationDuration: '400ms' }}
-                    >
-                      {children}
-                    </div>
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={pathname}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.4, ease: "easeOut" }}
+                        className={`relative flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'}`}
+                      >
+                        {children}
+                      </motion.div>
+                    </AnimatePresence>
                   </div>
                 </WideContentContainer>)
               )
