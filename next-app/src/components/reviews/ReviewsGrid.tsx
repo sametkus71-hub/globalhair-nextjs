@@ -210,7 +210,6 @@ export const ReviewsGrid = () => {
   const [renderedCount, setRenderedCount] = useState(initialCount);
 
   // Animation and interaction states
-  const [isGridAnimated, setIsGridAnimated] = useState(false);
   const [cyclePhase, setCyclePhase] = useState(0);
   const [unmutedVideoId, setUnmutedVideoId] = useState<string | null>(null);
   const [loadedVideoIds, setLoadedVideoIds] = useState<Set<string>>(new Set());
@@ -285,13 +284,7 @@ export const ReviewsGrid = () => {
     setUnmutedVideoId(prevId => prevId === videoId ? null : videoId);
   };
 
-  // Trigger grid animation
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsGridAnimated(true);
-    }, 100);
-    return () => clearTimeout(timer);
-  }, []);
+
 
   // Reset rendered count when grid items change
   useEffect(() => {
@@ -325,7 +318,6 @@ export const ReviewsGrid = () => {
       }
       setUnmutedVideoId(null);
       setLoadedVideoIds(new Set());
-      setIsGridAnimated(false);
     };
   }, []);
 
@@ -362,8 +354,7 @@ export const ReviewsGrid = () => {
     <div ref={gridContainerRef} className="relative w-full">
       <div
         className={cn(
-          "grid grid-rows-3",
-          isGridAnimated && "grid-animate"
+          "grid grid-rows-3"
         )}
         style={{
           height: isMobile ? '370px' : '540px',
@@ -376,19 +367,17 @@ export const ReviewsGrid = () => {
         {itemsToRender.map((item, index) => {
           if (!item?.data) return null;
 
-          const delay = Math.min(index * 50, 2000);
           const shouldLoadVideo = loadedVideoIds.has(item.id);
 
           return (
             <div
               key={item.id}
               className={cn(
-                "grid-item-entrance cursor-default silver-grey-gradient-border",
+                "cursor-default silver-grey-gradient-border",
                 item.width === 2 && "col-span-2",
                 item.height === 2 && "row-span-2"
               )}
               style={{
-                '--delay': `${delay}ms`,
                 contain: 'content',
                 borderRadius: '12px',
                 overflow: 'hidden',
