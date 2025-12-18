@@ -15,6 +15,11 @@ export const BookingPage = () => {
   const { language } = useLanguage();
 
   const router = useRouter();
+  console.log('BookingPage: Rendering', { language });
+
+  useEffect(() => {
+    console.log('BookingPage: Mounted');
+  }, []);
   const [isExiting, setIsExiting] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
 

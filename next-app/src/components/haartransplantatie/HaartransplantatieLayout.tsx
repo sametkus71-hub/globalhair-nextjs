@@ -31,6 +31,8 @@ export const HaartransplantatieLayout = ({ children }: { children: React.ReactNo
   // Combined overlay check - any route that should hide header and show as overlay
   const isOverlayRoute = isPackageRoute || isBookingRoute;
 
+  console.log('HTLayout: Render', { pathname, isOverlayRoute, isBookingRoute });
+
   // Check if we're on reviews route (needs full width on desktop)
   const isReviewsRoute = pathname.includes('/reviews');
 
@@ -70,7 +72,7 @@ export const HaartransplantatieLayout = ({ children }: { children: React.ReactNo
   }, []);
 
   return (
-    <main ref={mainRef} className="relative min-h-screen w-full overflow-hidden bg-transparent">
+    <main key={pathname} ref={mainRef} className="relative min-h-screen w-full overflow-hidden bg-transparent">
       <TabPreloader />
       <div className="relative w-full min-h-screen">
         {/* Glass Header - 500px width on desktop */}
