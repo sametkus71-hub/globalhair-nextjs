@@ -9,7 +9,6 @@ import chevronRightSvg from '@/assets/chevron-right.svg';
 import leafSvg from '@/assets/leaf.svg';
 import precisionBadge from '@/assets/precision-method-badge.png';
 import { PopupCloseButton, usePopupClose, SwipeablePopupWrapper } from '@/components/PopupCloseButton';
-import { SEOHead } from '@/components/SEOHead';
 
 // SEO content for each package tier and country combination
 const getSEOContent = (country: 'nl' | 'tr', tier: 'Standard' | 'Premium' | 'Elite', language: 'nl' | 'en') => {
@@ -562,10 +561,6 @@ export const PackageStandardPage = () => {
 
   return (
     <>
-      <SEOHead
-        title={seoContent.title}
-        description={seoContent.description}
-      />
       <div
         className={`popup-wrapper-fade ${isExiting ? 'popup-wrapper-fade-out' : ''}`}
         style={{

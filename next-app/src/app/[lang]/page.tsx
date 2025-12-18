@@ -2,7 +2,7 @@
 import type { Metadata } from 'next';
 import { HaartransplantatieLayout } from '@/components/haartransplantatie/HaartransplantatieLayout';
 import TreatmentsPage from '@/components/TreatmentsPage';
-// import { ClientHomePage } from '@/components/ClientHomePage'; // Preserved for future use
+import { ClientHomePage } from '@/components/ClientHomePage'; // Preserved for future use
 
 export const metadata: Metadata = {
     title: 'GlobalHair Institute - Premium Haartransplantatie Nederland',

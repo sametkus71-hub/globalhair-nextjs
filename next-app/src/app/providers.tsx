@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { TooltipProvider } from '@/components/ui/tooltip';
-import { HelmetProvider } from 'react-helmet-async';
 import { TransitionProvider } from '@/contexts/TransitionContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ViewportHeightSetter } from '@/components/ViewportHeightSetter';
