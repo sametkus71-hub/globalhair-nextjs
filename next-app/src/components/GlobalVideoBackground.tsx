@@ -31,7 +31,8 @@ export function GlobalVideoBackground() {
         pathname.includes('/haartransplantatie') ||
         pathname.includes('/hair-transplant') ||
         pathname.includes('/boek') ||
-        pathname.includes('/book')
+        pathname.includes('/book') ||
+        pathname.includes('/chat')
     );
 
     if (!shouldShowVideo) return null;
