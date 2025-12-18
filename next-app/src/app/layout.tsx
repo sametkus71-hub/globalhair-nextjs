@@ -4,7 +4,6 @@ import './globals.css';
 import { Providers } from './providers';
 import { GlobalVideoBackground } from '@/components/GlobalVideoBackground';
 import { SplashLoader } from '@/components/SplashLoader';
-import { BookingModalOverlay } from '@/components/booking/BookingModalOverlay';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -39,7 +38,6 @@ export default function RootLayout({
           <div id="main-content" className="relative transition-all duration-300 ease-out">
             {children}
           </div>
-          <BookingModalOverlay />
         </Providers>
       </body>
     </html>

@@ -35,19 +35,10 @@ export function BookingModalProvider({ children }: { children: React.ReactNode }
         }
     }, [pathname, router]);
 
-    // Handle browser back button
+    // Handle browser back button - REMOVED POPSTATE LISTENER
+    // We strictly use page navigation now, no modal state management needed.
     useEffect(() => {
-        const handlePopState = () => {
-            const newPath = window.location.pathname;
-            if (newPath.includes('/boek') || newPath.includes('/book')) {
-                setIsOpen(true);
-            } else {
-                setIsOpen(false);
-            }
-        };
-
-        window.addEventListener('popstate', handlePopState);
-        return () => window.removeEventListener('popstate', handlePopState);
+        // Logic cleared to prevent accidental modal triggers
     }, []);
 
     return (
