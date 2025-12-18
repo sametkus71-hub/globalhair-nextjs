@@ -26,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={inter.className} suppressHydrationWarning>
         <link rel="preconnect" href="https://GlobalHair.b-cdn.net" />
         <link rel="dns-prefetch" href="https://GlobalHair.b-cdn.net" />
         {/* Preload critical video assets */}

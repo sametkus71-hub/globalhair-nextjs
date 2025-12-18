@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { AnimatedHeadHero } from './AnimatedHeadHero';
@@ -12,6 +12,9 @@ interface GlassHeaderProps {
 }
 
 export const GlassHeader = ({ hideButton = false }: GlassHeaderProps) => {
+  const router = useRouter();
+  const { language } = useLanguage();
+  const isMobile = useIsMobile();
   const pathname = usePathname();
   const isBookingPage = pathname?.includes('/boek') || pathname?.includes('/book');
 
