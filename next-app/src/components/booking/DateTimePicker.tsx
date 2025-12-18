@@ -18,7 +18,7 @@ interface DateTimePickerProps {
   onSelect: (date: string, time: string, staffId: string, staffName: string) => void;
 }
 
-export const DateTimePicker = ({ serviceType, pathname, onSelect }: DateTimePickerProps) => {
+export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePickerProps) => {
   const { language } = useLanguage();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
