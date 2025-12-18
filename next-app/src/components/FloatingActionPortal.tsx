@@ -17,7 +17,7 @@ export const FloatingActionPortal: React.FC = () => {
   const { language } = useLanguage();
   const pathname = usePathname();
   const activityTimeout = useRef<NodeJS.Timeout>();
-  
+
   // Try to get scroll context, but handle case where it's not available
   let scrollContext;
   try {
@@ -29,11 +29,11 @@ export const FloatingActionPortal: React.FC = () => {
   // Activity detection with debouncing
   const resetActivityTimeout = useCallback(() => {
     setIsUserActive(true);
-    
+
     if (activityTimeout.current) {
       clearTimeout(activityTimeout.current);
     }
-    
+
     activityTimeout.current = setTimeout(() => {
       setIsUserActive(false);
     }, 3500);
@@ -43,7 +43,7 @@ export const FloatingActionPortal: React.FC = () => {
   const throttledActivityHandler = useRef<NodeJS.Timeout>();
   const handleUserActivity = useCallback(() => {
     if (throttledActivityHandler.current) return;
-    
+
     throttledActivityHandler.current = setTimeout(() => {
       resetActivityTimeout();
       throttledActivityHandler.current = undefined;
@@ -53,25 +53,25 @@ export const FloatingActionPortal: React.FC = () => {
   useEffect(() => {
     setMounted(true);
     resetActivityTimeout();
-    
+
     // Reduced activity event listeners for better performance
     const events = ['mousemove', 'scroll'];
-    
+
     events.forEach(event => {
       document.addEventListener(event, handleUserActivity, { passive: true });
     });
-    
+
     return () => {
       setMounted(false);
-      
+
       if (activityTimeout.current) {
         clearTimeout(activityTimeout.current);
       }
-      
+
       if (throttledActivityHandler.current) {
         clearTimeout(throttledActivityHandler.current);
       }
-      
+
       events.forEach(event => {
         document.removeEventListener(event, handleUserActivity);
       });
@@ -82,25 +82,25 @@ export const FloatingActionPortal: React.FC = () => {
     if (pathname.includes('/haartransplantatie')) {
       const sections = document.querySelectorAll('.snap-section');
       const totalSections = sections.length;
-      
+
       let currentSectionIndex = 0;
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const windowHeight = window.innerHeight;
-      
+
       sections.forEach((section, index) => {
         const rect = section.getBoundingClientRect();
         const sectionTop = rect.top + scrollTop;
-        
+
         if (scrollTop >= sectionTop - windowHeight / 2) {
           currentSectionIndex = index;
         }
       });
-      
+
       if (currentSectionIndex >= totalSections - 1) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
       }
-      
+
       const nextSection = sections[currentSectionIndex + 1] as HTMLElement;
       if (nextSection) {
         nextSection.scrollIntoView({
@@ -110,17 +110,19 @@ export const FloatingActionPortal: React.FC = () => {
       }
       return;
     }
-    
+
     window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
   }, [pathname]);
 
 
-  if (!mounted) return null;
+  const isBookingPage = pathname?.includes('/boek') || pathname?.includes('/book');
+
+  if (!mounted || isBookingPage) return null;
 
   const content = (
     <>
       {/* Floating Action Buttons */}
-      <div 
+      <div
         className="fixed bottom-24 right-4 z-[9999] flex flex-col gap-2 sm:bottom-28 sm:right-6 transition-opacity duration-500 ease-in-out"
         style={{
           opacity: isUserActive ? 1 : 0.3
@@ -180,7 +182,7 @@ export const FloatingActionPortal: React.FC = () => {
             onClick={() => setConsultModalOpen(true)}
             aria-label={language === 'nl' ? 'Plan Consult' : 'Plan Consultation'}
           >
-            <div 
+            <div
               className="absolute inset-0 rounded-full"
               style={{
                 background: `
@@ -251,7 +253,7 @@ export const FloatingActionPortal: React.FC = () => {
             onClick={() => setChatOverlayOpen(true)}
             aria-label={language === 'nl' ? 'Chat Support' : 'Chat Support'}
           >
-            <div 
+            <div
               className="absolute inset-0 rounded-full"
               style={{
                 background: `
@@ -322,7 +324,7 @@ export const FloatingActionPortal: React.FC = () => {
             onClick={scrollToNextSection}
             aria-label={language === 'nl' ? 'Scroll naar beneden' : 'Scroll down'}
           >
-            <div 
+            <div
               className="absolute inset-0 rounded-full"
               style={{
                 background: `
@@ -338,12 +340,12 @@ export const FloatingActionPortal: React.FC = () => {
       </div>
 
       {/* Modals */}
-      <ConsultationModal 
-        open={consultModalOpen} 
+      <ConsultationModal
+        open={consultModalOpen}
         onOpenChange={setConsultModalOpen}
       />
-      <ChatOverlay 
-        open={chatOverlayOpen} 
+      <ChatOverlay
+        open={chatOverlayOpen}
         onOpenChange={setChatOverlayOpen}
       />
     </>

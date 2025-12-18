@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -14,12 +14,17 @@ export const FooterCTAGlass = () => {
   const isMobile = useIsMobile();
   const [shouldAnimate, setShouldAnimate] = useState(true);
 
+  const pathname = usePathname();
+  const isBookingPage = pathname?.includes('/boek') || pathname?.includes('/book');
+
   useEffect(() => {
     // Check if we're returning from a popup (desktop only)
     if (!isMobile && sessionStorage.getItem('skipPageAnimations') === 'true') {
       setShouldAnimate(false);
     }
   }, [isMobile]);
+
+  if (isBookingPage) return null;
 
   return (
     <>
