@@ -1,62 +1,68 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import { BookingWizard } from './BookingWizard';
 import { useBookingModal } from '@/contexts/BookingModalContext';
 import { useLanguage } from '@/hooks/useLanguage';
 
 export const BookingModalOverlay = () => {
-    const { isOpen, closeModal } = useBookingModal();
-    const { language } = useLanguage();
+  const { isOpen, closeModal } = useBookingModal();
+  const { language } = useLanguage();
+  const [mounted, setMounted] = useState(false);
 
-    // Lock body scroll when modal is open
-    useEffect(() => {
-        if (isOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
-        }
-        return () => {
-            document.body.style.overflow = 'unset';
-        };
-    }, [isOpen]);
+  // Only render on client
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-    if (!isOpen) return null;
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
 
-    return (
-        <>
-            {/* Backdrop */}
-            <div
-                className={`booking-modal-backdrop ${isOpen ? 'open' : ''}`}
-                onClick={closeModal}
-            />
+  if (!mounted || !isOpen) return null;
 
-            {/* Modal Panel */}
-            <div className={`booking-modal-panel ${isOpen ? 'open' : ''}`}>
-                {/* Header */}
-                <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 shrink-0">
-                    <span className="text-white font-medium text-sm">
-                        {language === 'nl' ? 'Boek een afspraak' : 'Book an appointment'}
-                    </span>
-                    <button
-                        onClick={closeModal}
-                        className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
-                    >
-                        <X className="w-4 h-4 text-white" />
-                    </button>
-                </div>
+  return (
+    <>
+      {/* Backdrop */}
+      <div
+        className={`booking-modal-backdrop ${isOpen ? 'open' : ''}`}
+        onClick={closeModal}
+      />
 
-                {/* Scrollable Content */}
-                <div className="flex-1 overflow-y-auto overflow-x-hidden p-4">
-                    <BookingWizard />
-                </div>
+      {/* Modal Panel */}
+      <div className={`booking-modal-panel ${isOpen ? 'open' : ''}`}>
+        {/* Header */}
+        <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 shrink-0">
+          <span className="text-white font-medium text-sm">
+            {language === 'nl' ? 'Boek een afspraak' : 'Book an appointment'}
+          </span>
+          <button
+            onClick={closeModal}
+            className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+          >
+            <X className="w-4 h-4 text-white" />
+          </button>
+        </div>
 
-                {/* Safe Area Spacer for Mobile */}
-                <div className="h-6 shrink-0 sm:hidden" />
-            </div>
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto overflow-x-hidden p-4">
+          <BookingWizard />
+        </div>
 
-            <style jsx>{`
+        {/* Safe Area Spacer for Mobile */}
+        <div className="h-6 shrink-0 sm:hidden" />
+      </div>
+
+      <style jsx>{`
         .booking-modal-backdrop {
           position: fixed;
           inset: 0;
@@ -112,6 +118,6 @@ export const BookingModalOverlay = () => {
           }
         }
       `}</style>
-        </>
-    );
+    </>
+  );
 };
