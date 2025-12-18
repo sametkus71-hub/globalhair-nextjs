@@ -2,9 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, X } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
-import closeIcon from '@/assets/close-icon.svg';
 
 interface PopupCloseButtonProps {
   onClose: () => void;
@@ -19,8 +18,8 @@ interface SwipeablePopupWrapperProps {
   className?: string;
 }
 
-export const PopupCloseButton: React.FC<PopupCloseButtonProps> = ({ 
-  onClose, 
+export const PopupCloseButton: React.FC<PopupCloseButtonProps> = ({
+  onClose,
   className = "",
   style,
   isBackButton = false
@@ -34,9 +33,9 @@ export const PopupCloseButton: React.FC<PopupCloseButtonProps> = ({
         onClose();
       }
     };
-    
+
     document.addEventListener('keydown', handleEsc);
-    
+
     return () => {
       document.removeEventListener('keydown', handleEsc);
     };
@@ -55,7 +54,7 @@ export const PopupCloseButton: React.FC<PopupCloseButtonProps> = ({
       {isBackButton ? (
         <ArrowLeft className="w-5 h-5 text-white" />
       ) : (
-        <img src={closeIcon} alt="" className="w-4.5 h-4.5" />
+        <X className="w-4.5 h-4.5 text-white" />
       )}
     </button>
   );
@@ -74,10 +73,10 @@ export const SwipeablePopupWrapper: React.FC<SwipeablePopupWrapperProps> = ({ on
 
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!touchStart) return;
-    
+
     const currentTouch = e.touches[0].clientY;
     const diff = currentTouch - touchStart;
-    
+
     if (diff > 0) {
       setTouchCurrent(currentTouch);
     }
@@ -92,11 +91,11 @@ export const SwipeablePopupWrapper: React.FC<SwipeablePopupWrapperProps> = ({ on
     }
 
     const diff = touchCurrent - touchStart;
-    
+
     if (diff > 150) {
       onClose();
     }
-    
+
     setTouchStart(null);
     setTouchCurrent(null);
     setIsDragging(false);
@@ -109,8 +108,8 @@ export const SwipeablePopupWrapper: React.FC<SwipeablePopupWrapperProps> = ({ on
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
       style={{
-        transform: isDragging && touchStart && touchCurrent 
-          ? `translateY(${Math.max(0, touchCurrent - touchStart)}px)` 
+        transform: isDragging && touchStart && touchCurrent
+          ? `translateY(${Math.max(0, touchCurrent - touchStart)}px)`
           : 'translateY(0)',
         transition: isDragging ? 'none' : 'transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1)'
       }}
@@ -138,10 +137,10 @@ export const usePopupClose = () => {
 
       // Remove popup flag
       if (typeof document !== 'undefined') document.body.classList.remove('popup-open');
-      
+
       // Navigate to haartransplantatie
       router.push(getCloseTargetPath());
-      
+
       setTimeout(() => {
         sessionStorage.removeItem('skipPageAnimations');
       }, 100);
