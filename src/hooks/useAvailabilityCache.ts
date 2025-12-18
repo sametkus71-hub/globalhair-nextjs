@@ -15,7 +15,7 @@ interface AvailabilityCacheResult {
  */
 export const useAvailabilityCache = (
   serviceType: 'v6_hairboost' | 'haartransplantatie' | 'ceo_consult' | null,
-  location: 'online' | 'onsite' | null,
+  bookingLocation: 'online' | 'onsite' | null,
   year: number,
   month: number
 ): {
@@ -24,9 +24,9 @@ export const useAvailabilityCache = (
   error: Error | null;
 } => {
   return useQuery({
-    queryKey: ['availability-cache', serviceType, location, year, month],
+    queryKey: ['availability-cache', serviceType, bookingLocation, year, month],
     queryFn: async (): Promise<AvailabilityCacheResult> => {
-      if (!serviceType || !location) {
+      if (!serviceType || !bookingLocation) {
         throw new Error('Service type and location are required');
       }
 
@@ -34,7 +34,7 @@ export const useAvailabilityCache = (
       // CEO consult is one service in Zoho, map both online/onsite to same data
       const serviceKey = serviceType === 'ceo_consult' 
         ? 'ceo_consult_online' 
-        : `${serviceType}_${location}`;
+        : `${serviceType}_${bookingLocation}`;
 
       // Calculate date range for the month
       const startDate = new Date(year, month, 1);

@@ -14,24 +14,24 @@ interface StaffSelectionResult {
  */
 export function useStaffSelection(
   serviceType: 'v6_hairboost' | 'haartransplantatie' | 'ceo_consult' | null,
-  location: 'online' | 'onsite' | null,
+  bookingLocation: 'online' | 'onsite' | null,
   date: string | null,
   time: string | null
 ): StaffSelectionResult {
   // CEO consult is one service in Zoho, map both online/onsite to same data
-  const serviceKey = serviceType && location 
-    ? (serviceType === 'ceo_consult' ? 'ceo_consult_online' : `${serviceType}_${location}`)
+  const serviceKey = serviceType && bookingLocation 
+    ? (serviceType === 'ceo_consult' ? 'ceo_consult_online' : `${serviceType}_${bookingLocation}`)
     : null;
 
   const { data, isLoading } = useQuery({
     queryKey: ['staff-selection', serviceKey, date, time],
     queryFn: async () => {
-      if (!serviceType || !location || !serviceKey || !date || !time) {
+      if (!serviceType || !bookingLocation || !serviceKey || !date || !time) {
         return { staffId: null, staffName: null };
       }
 
       // Get service config to check for preferred staff
-      const serviceConfig = getServiceConfig(serviceType, location);
+      const serviceConfig = getServiceConfig(serviceType, bookingLocation);
 
       // Query availability_slots to find which staff members have this time slot
       const { data: slotsData, error } = await supabase
