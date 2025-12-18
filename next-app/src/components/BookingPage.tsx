@@ -81,7 +81,7 @@ export const BookingPage = () => {
           />
 
           {/* 3. Content Wrapper - Handles the SLIDE UP animation independently */}
-          <div className="relative z-10 h-screen overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="relative z-10 h-screen overflow-y-auto overflow-x-hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             <div className="min-h-screen py-6 px-4">
               <DesktopContainer>
                 {/* The distinct content slide from bottom */}
