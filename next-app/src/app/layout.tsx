@@ -36,7 +36,9 @@ export default function RootLayout({
         <SplashLoader />
         <GlobalVideoBackground />
         <Providers>
-          {children}
+          <div id="main-content" className="relative transition-all duration-300 ease-out">
+            {children}
+          </div>
           <BookingModalOverlay />
         </Providers>
       </body>

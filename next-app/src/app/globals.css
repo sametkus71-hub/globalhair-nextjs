@@ -2224,3 +2224,19 @@ html, body {
 .prose s {
   text-decoration: line-through;
 }
+
+/* Content fade-out animation for modals */
+.fade-out-content {
+  opacity: 0 !important;
+  transform: translateY(10px) scale(0.98) !important;
+  transition: opacity 0.4s cubic-bezier(0.32, 0.72, 0, 1), transform 0.4s cubic-bezier(0.32, 0.72, 0, 1) !important;
+  pointer-events: none !important;
+}
+
+/* Ensure background videos stay visible and fixed */
+video.background-video,
+.background-video-container {
+  opacity: 1 !important;
+  transform: none !important;
+  pointer-events: none;
+}
