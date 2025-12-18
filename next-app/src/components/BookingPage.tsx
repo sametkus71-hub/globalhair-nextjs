@@ -75,8 +75,10 @@ export const BookingPage = () => {
           <div className="relative z-10 h-screen overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             <div className="min-h-screen py-6 px-4">
               <DesktopContainer>
-                <div className={`transition-all duration-700 ease-out ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                  }`}>
+                <div
+                  className={`transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[100vh]'
+                    }`}
+                >
                   <h1
                     className="font-inter mb-6 lg:text-center"
                     style={{
