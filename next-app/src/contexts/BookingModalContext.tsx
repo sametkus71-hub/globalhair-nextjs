@@ -16,12 +16,9 @@ export function BookingModalProvider({ children }: { children: React.ReactNode }
     const router = useRouter();
     const pathname = usePathname();
 
-    // Check if we're on a booking page on mount (direct navigation)
-    useEffect(() => {
-        if (pathname?.includes('/boek') || pathname?.includes('/book')) {
-            setIsOpen(true);
-        }
-    }, [pathname]);
+    // Removed auto-open effect to allow direct page access to work normally
+    // without the modal overlaying the main booking page content.
+    // The modal should only open via explicit user interaction (openModal).
 
     const openModal = useCallback(() => {
         setIsOpen(true);
