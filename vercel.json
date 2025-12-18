@@ -1,0 +1,10 @@
+{
+    "buildCommand": "cd next-app && npm run build",
+    "outputDirectory": "next-app/.next",
+    "devCommand": "cd next-app && npm run dev",
+    "installCommand": "cd next-app && npm install",
+    "framework": "nextjs",
+    "regions": [
+        "iad1"
+    ]
+}
