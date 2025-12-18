@@ -11,6 +11,7 @@ import { nl, enGB as enUS } from 'date-fns/locale';
 import { useTestMode } from '@/contexts/TestModeContext';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
+import { Loader2 } from 'lucide-react';
 
 interface PaymentStepProps {
   serviceType: ServiceType;
@@ -276,12 +277,13 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
             paddingBottom: '15px',
           }}
         >
-          <span className="relative z-10">
+          <span className="relative z-10 flex items-center justify-center gap-2">
+            {isProcessing && <Loader2 className="w-4 h-4 animate-spin" />}
             {isProcessing
               ? (language === 'nl' ? 'Even geduld...' : 'Processing...')
               : (language === 'nl' ? `Betalen €${price.toFixed(2)}` : `Pay €${price.toFixed(2)}`)
             }
-            {isTestMode && <span className="ml-2 text-xs opacity-70">(Test modus)</span>}
+            {isTestMode && <span className="ml-1 text-xs opacity-70">(Test)</span>}
           </span>
         </button>
 
