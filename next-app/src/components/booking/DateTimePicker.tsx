@@ -133,24 +133,8 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
   };
 
   const handleNext = () => {
-    console.log('DateTimePicker DEBUG: handleNext called', {
-      selectedDate: selectedDate ? format(selectedDate, 'yyyy-MM-dd') : null,
-      selectedTime,
-      staffId,
-      staffName,
-      isStaffLoading
-    });
-
     if (selectedDate && selectedTime && staffId && staffName) {
-      console.log('DateTimePicker DEBUG: All conditions met, firing onSelect');
       onSelect(format(selectedDate, 'yyyy-MM-dd'), selectedTime, staffId, staffName);
-    } else {
-      console.warn('DateTimePicker DEBUG: Missing required fields', {
-        date: !!selectedDate,
-        time: !!selectedTime,
-        staffId: !!staffId,
-        staffName: !!staffName
-      });
     }
   };
 
@@ -780,10 +764,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
             >
               <span>{language === 'nl' ? 'Volgende' : 'Next'}</span>
             </button>
-            <div className="mt-2 text-xs text-red-400 font-mono">
-              DEBUG: StaffId: {String(staffId)}, Loading: {String(isStaffLoading)} <br />
-              SelectedTime: {selectedTime}, SelectedDate: {selectedDate?.toString()}
-            </div>
+
           </div>
         </>
       )}
