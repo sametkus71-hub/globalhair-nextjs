@@ -72,7 +72,7 @@ export const HaartransplantatieLayout = ({ children }: { children: React.ReactNo
   }, []);
 
   return (
-    <main key={pathname} ref={mainRef} className="relative min-h-screen w-full overflow-hidden bg-transparent">
+    <main key={pathname} ref={mainRef} className={`relative min-h-screen w-full bg-transparent ${isOverlayRoute ? '' : 'overflow-hidden'}`}>
       <TabPreloader />
       <div className="relative w-full min-h-screen">
         {/* Glass Header - 500px width on desktop */}

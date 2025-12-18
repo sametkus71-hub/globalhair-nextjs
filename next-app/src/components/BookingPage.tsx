@@ -62,7 +62,7 @@ export const BookingPage = () => {
 
       <TestModeProvider>
         {/* Root wrapper - strictly for positioning, no movement to avoid double-container issues */}
-        <div className={`fixed inset-0 z-50 ${isExiting ? 'reviews-page-exit' : ''}`}>
+        <div className={`fixed inset-0 z-[9999] ${isExiting ? 'reviews-page-exit' : ''}`}>
 
           {/* 1. Background Layer - FADES IN ONLY, DOES NOT MOVE */}
           <div
