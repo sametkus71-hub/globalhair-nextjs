@@ -4,6 +4,7 @@ import './globals.css';
 import { Providers } from './providers';
 import { GlobalVideoBackground } from '@/components/GlobalVideoBackground';
 import { SplashLoader } from '@/components/SplashLoader';
+import { BookingModalOverlay } from '@/components/booking/BookingModalOverlay';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -36,6 +37,7 @@ export default function RootLayout({
         <GlobalVideoBackground />
         <Providers>
           {children}
+          <BookingModalOverlay />
         </Providers>
       </body>
     </html>
