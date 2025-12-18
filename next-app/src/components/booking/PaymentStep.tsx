@@ -29,15 +29,15 @@ interface PaymentStepProps {
   onSlotUnavailable?: () => void;
 }
 
-export const PaymentStep = ({ serviceType, pathname, bookingSelection, customerInfo, price, refreshPromise, onSlotUnavailable }: PaymentStepProps) => {
+export const PaymentStep = ({ serviceType, location, bookingSelection, customerInfo, price, refreshPromise, onSlotUnavailable }: PaymentStepProps) => {
   const { language } = useLanguage();
   const { isTestMode } = useTestMode();
   const [isProcessing, setIsProcessing] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
 
   const config = getServiceConfig(serviceType, location);
-  const isFormComplete = customerInfo && customerInfo.firstName && customerInfo.lastName && customerInfo.email && customerInfo.phone && 
-                         customerInfo.postcode && customerInfo.city && customerInfo.country;
+  const isFormComplete = customerInfo && customerInfo.firstName && customerInfo.lastName && customerInfo.email && customerInfo.phone &&
+    customerInfo.postcode && customerInfo.city && customerInfo.country;
   const canPay = isFormComplete && bookingSelection && acceptTerms;
 
   // TEST MODE: Set to true to simulate slot unavailable
@@ -46,12 +46,12 @@ export const PaymentStep = ({ serviceType, pathname, bookingSelection, customerI
   // Helper function for showing slot unavailable toast with improved UX
   const showSlotUnavailableToast = () => {
     toast.error(
-      language === 'nl' 
-        ? 'Dit tijdslot is niet meer beschikbaar' 
+      language === 'nl'
+        ? 'Dit tijdslot is niet meer beschikbaar'
         : 'This time slot is no longer available',
       { duration: 5000 }
     );
-    
+
     // Redirect after 2.5s so user can read the message
     setTimeout(() => {
       onSlotUnavailable?.();
@@ -60,7 +60,7 @@ export const PaymentStep = ({ serviceType, pathname, bookingSelection, customerI
 
   const handlePayment = async () => {
     if (!bookingSelection) return;
-    
+
     setIsProcessing(true);
 
     try {
@@ -93,7 +93,7 @@ export const PaymentStep = ({ serviceType, pathname, bookingSelection, customerI
       // Step 2: Quick DB check to verify slot is still in cache
       const serviceKey = `${serviceType}_${location}`;
       console.log('Performing quick DB check for slot availability...');
-      
+
       const { data: slotData, error: checkError } = await supabase
         .from('availability_slots')
         .select('time_slots')
@@ -105,7 +105,7 @@ export const PaymentStep = ({ serviceType, pathname, bookingSelection, customerI
       if (!checkError && slotData) {
         const timeSlots = (slotData.time_slots as string[]) || [];
         const isStillAvailable = timeSlots.includes(bookingSelection.time);
-        
+
         if (!isStillAvailable) {
           console.log('DB check: slot no longer available');
           showSlotUnavailableToast();
@@ -277,21 +277,21 @@ export const PaymentStep = ({ serviceType, pathname, bookingSelection, customerI
           }}
         >
           <span className="relative z-10">
-            {isProcessing 
-              ? (language === 'nl' ? 'Even geduld...' : 'Processing...') 
+            {isProcessing
+              ? (language === 'nl' ? 'Even geduld...' : 'Processing...')
               : (language === 'nl' ? `Betalen €${price.toFixed(2)}` : `Pay €${price.toFixed(2)}`)
             }
             {isTestMode && <span className="ml-2 text-xs opacity-70">(Test modus)</span>}
           </span>
         </button>
-        
+
         {!canPay && (
           <p className="text-xs text-center text-white/50 mt-2">
-            {!bookingSelection 
+            {!bookingSelection
               ? (language === 'nl' ? 'Selecteer eerst datum en tijd' : 'Select date and time first')
               : !isFormComplete
-              ? (language === 'nl' ? 'Vul alle velden in om te kunnen betalen' : 'Fill in all fields to proceed with payment')
-              : (language === 'nl' ? 'Accepteer de voorwaarden om verder te gaan' : 'Accept the terms to continue')
+                ? (language === 'nl' ? 'Vul alle velden in om te kunnen betalen' : 'Fill in all fields to proceed with payment')
+                : (language === 'nl' ? 'Accepteer de voorwaarden om verder te gaan' : 'Accept the terms to continue')
             }
           </p>
         )}

@@ -21,7 +21,7 @@ export function useStaffSelection(
   time: string | null
 ): StaffSelectionResult {
   // CEO consult is one service in Zoho, map both online/onsite to same data
-  const serviceKey = serviceType && location 
+  const serviceKey = serviceType && location
     ? (serviceType === 'ceo_consult' ? 'ceo_consult_online' : `${serviceType}_${location}`)
     : null;
 
@@ -52,11 +52,20 @@ export function useStaffSelection(
       const availableStaff = slotsData?.filter((row: any) => {
         const slots = Array.isArray(row.time_slots) ? row.time_slots : [];
         // Normalize time to HH:mm format for comparison (remove seconds if present)
-        const normalizedTime = time.substring(0, 5); // Convert "13:45:00" to "13:45"
-        return slots.includes(normalizedTime);
+        const normalizedTime = time.substring(0, 5);
+
+        const hasSlot = slots.includes(normalizedTime);
+        console.log('Staff Check:', {
+          staff: row.staff_name,
+          hasSlot,
+          normalizedTime,
+          slots
+        });
+        return hasSlot;
       }) || [];
 
       if (availableStaff.length === 0) {
+        console.warn('No staff found for time:', time, 'Service:', serviceKey);
         return { staffId: null, staffName: null };
       }
 

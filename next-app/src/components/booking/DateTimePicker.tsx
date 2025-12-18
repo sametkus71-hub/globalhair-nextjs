@@ -99,9 +99,9 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
   );
 
   // Fetch available slots for selected date from availability_slots table
-  const { 
-    availableSlots, 
-    isLoading: isSlotsLoading 
+  const {
+    availableSlots,
+    isLoading: isSlotsLoading
   } = useAvailabilitySlots(serviceType, location, selectedDate ? format(selectedDate, 'yyyy-MM-dd') : null);
 
   // Get staff assignment for selected time
@@ -133,8 +133,24 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
   };
 
   const handleNext = () => {
+    console.log('DateTimePicker DEBUG: handleNext called', {
+      selectedDate: selectedDate ? format(selectedDate, 'yyyy-MM-dd') : null,
+      selectedTime,
+      staffId,
+      staffName,
+      isStaffLoading
+    });
+
     if (selectedDate && selectedTime && staffId && staffName) {
+      console.log('DateTimePicker DEBUG: All conditions met, firing onSelect');
       onSelect(format(selectedDate, 'yyyy-MM-dd'), selectedTime, staffId, staffName);
+    } else {
+      console.warn('DateTimePicker DEBUG: Missing required fields', {
+        date: !!selectedDate,
+        time: !!selectedTime,
+        staffId: !!staffId,
+        staffName: !!staffName
+      });
     }
   };
 
@@ -178,7 +194,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
   const scrollTimeStrip = (direction: 'left' | 'right') => {
     if (!timeStripRef.current) return;
     const scrollAmount = 300;
-    const newScrollLeft = direction === 'left' 
+    const newScrollLeft = direction === 'left'
       ? timeStripRef.current.scrollLeft - scrollAmount
       : timeStripRef.current.scrollLeft + scrollAmount;
     timeStripRef.current.scrollTo({
@@ -199,7 +215,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
     const isPast = date < today;
     const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
     const isOutside = !isSameMonth(date, currentMonth);
-    
+
     return isPast || isWeekend || isOutside;
   };
 
@@ -261,7 +277,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
 
   const calendarDays = generateCalendarDays();
   const locale = language === 'nl' ? nl : enGB;
-  const weekDays = language === 'nl' 
+  const weekDays = language === 'nl'
     ? ['Ma', 'Di', 'Wo', 'Do', 'Fri', 'Za', 'Zo']
     : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
@@ -669,15 +685,15 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
             <h3 className="cal-month">
               {format(currentMonth, 'MMMM yyyy', { locale })}
             </h3>
-            <button 
-              className="cal-prev" 
+            <button
+              className="cal-prev"
               onClick={goToPreviousMonth}
               aria-label={language === 'nl' ? 'Vorige maand' : 'Previous month'}
             >
               <ChevronLeft size={20} />
             </button>
-            <button 
-              className="cal-next" 
+            <button
+              className="cal-next"
               onClick={goToNextMonth}
               aria-label={language === 'nl' ? 'Volgende maand' : 'Next month'}
             >
@@ -710,15 +726,15 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
                 <h4 className="cal-times-title">
                   {language === 'nl' ? 'Selecteer tijd' : 'Select time'}
                 </h4>
-                <button 
-                  className="time-nav" 
+                <button
+                  className="time-nav"
                   onClick={() => scrollTimeStrip('left')}
                   aria-label={language === 'nl' ? 'Vorige tijden' : 'Previous times'}
                 >
                   <ChevronLeft size={20} />
                 </button>
-                <button 
-                  className="time-nav" 
+                <button
+                  className="time-nav"
                   onClick={() => scrollTimeStrip('right')}
                   aria-label={language === 'nl' ? 'Volgende tijden' : 'Next times'}
                 >
@@ -730,7 +746,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
                   <div className="animate-spin rounded-full h-8 w-8 border-2 border-white/20 border-t-white"></div>
                 </div>
               ) : availableSlots && availableSlots.length > 0 ? (
-                <div 
+                <div
                   className="time-strip"
                   ref={timeStripRef}
                   onMouseDown={handleMouseDown}
@@ -757,13 +773,17 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
           )}
 
           <div className="cal-cta">
-            <button 
+            <button
               className="btn-primary-wide"
               onClick={handleNext}
               disabled={!selectedDate || !selectedTime || isStaffLoading}
             >
               <span>{language === 'nl' ? 'Volgende' : 'Next'}</span>
             </button>
+            <div className="mt-2 text-xs text-red-400 font-mono">
+              DEBUG: StaffId: {String(staffId)}, Loading: {String(isStaffLoading)} <br />
+              SelectedTime: {selectedTime}, SelectedDate: {selectedDate?.toString()}
+            </div>
           </div>
         </>
       )}

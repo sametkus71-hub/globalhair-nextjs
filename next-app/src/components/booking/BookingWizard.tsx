@@ -45,23 +45,23 @@ export const BookingWizard = () => {
   const { t } = useTranslation(language);
   const { isTestMode, getTestPrice } = useTestMode();
   const queryClient = useQueryClient();
-  
+
   const [currentStep, setCurrentStep] = useState<string>('step-1');
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
-  
+
   // Step 1 data
   const [consultType, setConsultType] = useState<'v6_hairboost' | 'haartransplantatie'>('haartransplantatie');
   const [location, setLocation] = useState<LocationType>('onsite');
   const [consultant, setConsultant] = useState<'trichoTeam' | 'ceo'>('trichoTeam');
   const [serviceType, setServiceType] = useState<ServiceType | null>(null);
   const [price, setPrice] = useState<number>(50);
-  
+
   // Step 2 data
   const [bookingSelection, setBookingSelection] = useState<BookingSelection | null>(null);
-  
+
   // Step 3 data
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo | null>(null);
-  
+
   // Background refresh promise for slot verification
   const refreshPromiseRef = useRef<Promise<{ slotStillAvailable: boolean }> | null>(null);
 
@@ -119,10 +119,13 @@ export const BookingWizard = () => {
   };
 
   const handleDateTimeSelect = (date: string, time: string, staffId: string, staffName: string) => {
+    console.log('DEBUG: handleDateTimeSelect called', { date, time, staffId, staffName });
     setBookingSelection({ date, time, staffId, staffName });
+
+    console.log('DEBUG: Setting completedSteps step-2 and currentStep step-3');
     setCompletedSteps([...completedSteps, 'step-2']);
     setCurrentStep('step-3');
-    
+
     // Start background refresh - fire and forget but store the promise
     const refreshPromise = supabase.functions.invoke('verify-slot-availability', {
       body: {
@@ -140,7 +143,7 @@ export const BookingWizard = () => {
       console.log('Background slot verification complete:', data);
       return { slotStillAvailable: data?.slotStillAvailable ?? true };
     });
-    
+
     refreshPromiseRef.current = refreshPromise;
   };
 
@@ -148,7 +151,7 @@ export const BookingWizard = () => {
     // Invalidate availability cache to force fresh data fetch
     queryClient.invalidateQueries({ queryKey: ['availability-slots'] });
     queryClient.invalidateQueries({ queryKey: ['availability-cache'] });
-    
+
     // Clear selection and go back to Step 2
     setBookingSelection(null);
     setCompletedSteps(completedSteps.filter(s => s !== 'step-2'));
@@ -158,7 +161,7 @@ export const BookingWizard = () => {
   // Build extended booking selection with service config
   const getExtendedBookingSelection = () => {
     if (!bookingSelection || !serviceType) return null;
-    
+
     const config = getServiceConfig(serviceType, location);
     return {
       ...bookingSelection,
@@ -179,23 +182,23 @@ export const BookingWizard = () => {
           <span className="text-sm text-amber-200">Test modus actief - Alle consulten €0,50</span>
         </div>
       )}
-      
+
       <Accordion
-        type="single" 
+        type="single"
         value={currentStep}
         onValueChange={(value) => {
           // Allow navigation based on step completion
-          if (value === 'step-1' || 
-              (value === 'step-2' && completedSteps.includes('step-1')) ||
-              (value === 'step-3' && completedSteps.includes('step-2'))) {
+          if (value === 'step-1' ||
+            (value === 'step-2' && completedSteps.includes('step-1')) ||
+            (value === 'step-3' && completedSteps.includes('step-2'))) {
             setCurrentStep(value);
           }
         }}
         className="space-y-3"
       >
         {/* Step 1: Choose Option */}
-        <AccordionItem 
-          value="step-1" 
+        <AccordionItem
+          value="step-1"
           className="step-gradient-border rounded-xl bg-white/5 overflow-hidden border-b-0"
           style={{
             backdropFilter: 'blur(1.6044442653656006px)',
@@ -204,7 +207,7 @@ export const BookingWizard = () => {
         >
           <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-white/5">
             <div className="flex items-center gap-3 w-full">
-              <div 
+              <div
                 className="silver-gradient-border rounded-full flex items-center justify-center"
                 style={{
                   width: 'clamp(32px, 4vh, 36px)',
@@ -213,12 +216,12 @@ export const BookingWizard = () => {
                   boxShadow: '0px 0px 5.16px 0px #FFFFFF40 inset',
                 }}
               >
-              <span className="font-inter font-normal text-sm text-white">1</span>
+                <span className="font-inter font-normal text-sm text-white">1</span>
               </div>
               <div className="flex items-center gap-2 flex-1">
-                <span 
+                <span
                   className="font-inter text-left"
-                  style={{ 
+                  style={{
                     fontWeight: 400,
                     fontSize: '15px',
                     background: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
@@ -254,8 +257,8 @@ export const BookingWizard = () => {
         </AccordionItem>
 
         {/* Step 2: Select Date */}
-        <AccordionItem 
-          value="step-2" 
+        <AccordionItem
+          value="step-2"
           className="step-gradient-border rounded-xl bg-white/5 overflow-hidden border-b-0"
           disabled={!completedSteps.includes('step-1')}
           style={{
@@ -263,12 +266,12 @@ export const BookingWizard = () => {
             boxShadow: '0px 4.01px 8.72px 0px #00000040 inset, 0px -1px 4.71px 0px #FFFFFF40 inset, 0px 3.01px 1px 0px #00000040'
           }}
         >
-          <AccordionTrigger 
+          <AccordionTrigger
             className="px-4 py-3 hover:no-underline hover:bg-white/5"
             disabled={!completedSteps.includes('step-1')}
           >
             <div className="flex items-center gap-3 w-full">
-              <div 
+              <div
                 className="silver-gradient-border rounded-full flex items-center justify-center"
                 style={{
                   width: 'clamp(32px, 4vh, 36px)',
@@ -278,14 +281,13 @@ export const BookingWizard = () => {
                   opacity: !completedSteps.includes('step-1') ? 0.5 : 1,
                 }}
               >
-              <span className="font-inter font-normal text-sm text-white">2</span>
+                <span className="font-inter font-normal text-sm text-white">2</span>
               </div>
               <div className="flex items-center gap-2 flex-1">
-                <span 
-                  className={`font-inter text-left ${
-                    !completedSteps.includes('step-1') ? 'opacity-50' : ''
-                  }`}
-                  style={{ 
+                <span
+                  className={`font-inter text-left ${!completedSteps.includes('step-1') ? 'opacity-50' : ''
+                    }`}
+                  style={{
                     fontWeight: 400,
                     fontSize: '15px',
                     background: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
@@ -325,8 +327,8 @@ export const BookingWizard = () => {
         </AccordionItem>
 
         {/* Step 3: Confirm */}
-        <AccordionItem 
-          value="step-3" 
+        <AccordionItem
+          value="step-3"
           className="step-gradient-border rounded-xl bg-white/5 overflow-hidden border-b-0"
           disabled={!completedSteps.includes('step-2')}
           style={{
@@ -334,12 +336,12 @@ export const BookingWizard = () => {
             boxShadow: '0px 4.01px 8.72px 0px #00000040 inset, 0px -1px 4.71px 0px #FFFFFF40 inset, 0px 3.01px 1px 0px #00000040'
           }}
         >
-          <AccordionTrigger 
+          <AccordionTrigger
             className="px-4 py-3 hover:no-underline hover:bg-white/5"
             disabled={!completedSteps.includes('step-2')}
           >
             <div className="flex items-center gap-3 w-full">
-              <div 
+              <div
                 className="silver-gradient-border rounded-full flex items-center justify-center"
                 style={{
                   width: 'clamp(32px, 4vh, 36px)',
@@ -349,14 +351,13 @@ export const BookingWizard = () => {
                   opacity: !completedSteps.includes('step-2') ? 0.5 : 1,
                 }}
               >
-              <span className="font-inter font-normal text-sm text-white">3</span>
+                <span className="font-inter font-normal text-sm text-white">3</span>
               </div>
               <div className="flex items-center gap-2 flex-1">
-                <span 
-                  className={`font-inter text-left ${
-                    !completedSteps.includes('step-2') ? 'opacity-50' : ''
-                  }`}
-                  style={{ 
+                <span
+                  className={`font-inter text-left ${!completedSteps.includes('step-2') ? 'opacity-50' : ''
+                    }`}
+                  style={{
                     fontWeight: 400,
                     fontSize: '15px',
                     background: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
@@ -376,11 +377,11 @@ export const BookingWizard = () => {
           </AccordionTrigger>
           <AccordionContent className="px-4 pb-4">
             <div className="space-y-6">
-              <CustomerInfoForm 
+              <CustomerInfoForm
                 onComplete={handleCustomerInfoComplete}
                 initialData={customerInfo || undefined}
               />
-              
+
               {serviceType && location && (
                 <PaymentStep
                   serviceType={serviceType}
@@ -425,6 +426,7 @@ export const BookingWizard = () => {
 
         .step-gradient-border {
           position: relative;
+          z-index: 1;
         }
 
         .step-gradient-border::before {
@@ -465,6 +467,13 @@ export const BookingWizard = () => {
         }
 
       `}</style>
+
+      {/* DEBUG PANEL */}
+      <div className="mt-8 p-4 bg-black/80 text-xs font-mono text-green-400 rounded border border-green-500/50">
+        <p>CurrentStep: {currentStep}</p>
+        <p>CompletedSteps: {JSON.stringify(completedSteps)}</p>
+        <p>BookingSelection: {JSON.stringify(bookingSelection)}</p>
+      </div>
     </div>
   );
 };
