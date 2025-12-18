@@ -21,12 +21,11 @@ export function BookingModalProvider({ children }: { children: React.ReactNode }
     // The modal should only open via explicit user interaction (openModal).
 
     const openModal = useCallback(() => {
-        setIsOpen(true);
-        // Update URL without navigation (instant, no loading)
+        // Direct navigation to the booking page instead of opening a modal
         const lang = pathname?.startsWith('/en') ? 'en' : 'nl';
         const path = lang === 'nl' ? '/nl/boek' : '/en/book';
-        window.history.pushState({}, '', path);
-    }, [pathname]);
+        router.push(path);
+    }, [pathname, router]);
 
     const closeModal = useCallback(() => {
         setIsOpen(false);
