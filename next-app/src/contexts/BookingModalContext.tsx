@@ -24,8 +24,9 @@ export function BookingModalProvider({ children }: { children: React.ReactNode }
         // Direct navigation to the booking page instead of opening a modal
         const lang = pathname?.startsWith('/en') ? 'en' : 'nl';
         const path = lang === 'nl' ? '/nl/boek' : '/en/book';
-        router.push(path);
-    }, [pathname, router]);
+        // USE HARD NAV to ensure clean load as requested
+        window.location.href = path;
+    }, [pathname]);
 
     const closeModal = useCallback(() => {
         setIsOpen(false);
