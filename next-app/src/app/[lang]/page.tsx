@@ -14,7 +14,8 @@ export const metadata: Metadata = {
     },
 };
 
-export default function LangPage({ params }: { params: { lang: string } }) {
+export default async function LangPage({ params }: { params: Promise<{ lang: string }> }) {
+    const { lang } = await params;
     return (
         <HaartransplantatieLayout>
             <TreatmentsPage />

@@ -3,18 +3,20 @@ import { PackageStandardPage } from "@/components/PackageStandardPage";
 import { getPackageSEO, Country, Tier, Language } from '@/lib/package-seo';
 
 interface Props {
-    params: {
+    params: Promise<{
         lang: string;
         country: string;
         tier: string;
-    };
+    }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { country, tier, lang } = await params;
+
     const seoData = getPackageSEO(
-        params.country as Country,
-        params.tier as Tier,
-        params.lang as Language
+        country as Country,
+        tier as Tier,
+        lang as Language
     );
 
     return {
