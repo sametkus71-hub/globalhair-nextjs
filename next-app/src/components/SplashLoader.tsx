@@ -50,12 +50,13 @@ export const SplashLoader = () => {
         >
             <div className="w-64 h-64 md:w-96 md:h-96">
                 <Lottie
+                    lottieRef={(ref) => {
+                        if (ref) ref.setSpeed(1.5);
+                    }}
                     animationData={loaderAnimation}
                     loop={false}
                     autoPlay={true}
                     onComplete={handleAnimationComplete}
-                // Fallback timer in case onComplete isn't reliable or animation is too long
-                // We can remove this if the animation is short enough
                 />
             </div>
         </div>
