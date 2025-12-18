@@ -1,12 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import Lottie from 'lottie-react';
+import { useEffect, useState, useRef } from 'react';
+import Lottie, { LottieRefCurrentProps } from 'lottie-react';
 import loaderAnimation from '@/assets/loader-animation.json';
 
 export const SplashLoader = () => {
     // Start with null to prevent hydration mismatch (we need to check window.sessionStorage)
     const [stage, setStage] = useState<'loading' | 'exiting' | 'complete' | null>(null);
+    const lottieRef = useRef<LottieRefCurrentProps>(null);
 
     useEffect(() => {
         // Check if we've already shown the splash in this session
@@ -17,15 +18,15 @@ export const SplashLoader = () => {
             return;
         }
 
-        // Determine if it's mobile for duration adjustment if needed, 
-        // but for now we'll just show it.
         setStage('loading');
-
-        // Minimum display time to ensure user sees the animation
-        // The animation itself might loop, so we'll enforce a duration or wait for a specific frame if we could.
-        // user said "show the lotie animation once". Lottie-react has onComplete if loop={false}.
-
     }, []);
+
+    // Set speed when component mounts/updates if ref is available
+    useEffect(() => {
+        if (lottieRef.current) {
+            lottieRef.current.setSpeed(1.5);
+        }
+    }, [stage]);
 
     const handleAnimationComplete = () => {
         // Start exit sequence
@@ -50,9 +51,7 @@ export const SplashLoader = () => {
         >
             <div className="w-64 h-64 md:w-96 md:h-96">
                 <Lottie
-                    lottieRef={(ref) => {
-                        if (ref) ref.setSpeed(1.5);
-                    }}
+                    lottieRef={lottieRef}
                     animationData={loaderAnimation}
                     loop={false}
                     autoPlay={true}
