@@ -103,7 +103,7 @@ export const HaartransplantatieLayout = ({ children }: { children: React.ReactNo
             </DesktopContainer>
 
             {/* Content Zone - Full width for reviews on desktop, 1000px for contact, 1250px for other tabs */}
-            {!isPackageRoute && (
+            {!isOverlayRoute && (
               isReviewsRoute && !isMobile ? (
                 // Full width for reviews on desktop
                 (<div className="flex-1 flex flex-col w-full">
@@ -176,8 +176,8 @@ export const HaartransplantatieLayout = ({ children }: { children: React.ReactNo
           <FooterCTAGlass />
         </DesktopContainer>
       </div>
-      {/* Package popup overlay - renders on top when package route is active */}
-      {isPackageRoute && children}
+      {/* Package/Booking popup overlay - renders on top when route is active */}
+      {isOverlayRoute && children}
     </main>
   );
 };
