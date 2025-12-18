@@ -12,15 +12,15 @@ interface GlassHeaderProps {
 }
 
 export const GlassHeader = ({ hideButton = false }: GlassHeaderProps) => {
-  const router = useRouter();
-  const { language } = useLanguage();
-  const isMobile = useIsMobile();
+  const pathname = usePathname();
+  const isBookingPage = pathname?.includes('/boek') || pathname?.includes('/book');
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 animate-fade-in"
+      className={`fixed top-0 left-0 right-0 z-50 animate-fade-in transition-all duration-500 ease-out ${isBookingPage ? 'opacity-0 -translate-y-4 pointer-events-none' : 'opacity-100 translate-y-0'
+        }`}
       style={{
-        animation: 'fade-down 0.6s ease-out',
+        animation: !isBookingPage ? 'fade-down 0.6s ease-out' : 'none',
       }}
     >
       <div className="flex items-center justify-between px-4 py-4">

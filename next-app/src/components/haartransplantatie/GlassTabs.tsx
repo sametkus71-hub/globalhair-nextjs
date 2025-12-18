@@ -13,8 +13,12 @@ const tabs = ['Treatments', 'Reviews', 'How?', 'Mission', 'Contact'];
 export const GlassTabs = ({ activeTab }: GlassTabsProps) => {
   const router = useRouter();
   const { language } = useLanguage();
+  const pathname = usePathname();
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0 });
+
+  // Check if we are on the booking page to fade out tabs
+  const isBookingPage = pathname?.includes('/boek') || pathname?.includes('/book');
 
   // Optimistic UI state
   const [optimisticTab, setOptimisticTab] = useState(activeTab);
@@ -76,9 +80,10 @@ export const GlassTabs = ({ activeTab }: GlassTabsProps) => {
 
   return (
     <div
-      className="relative"
+      className={`relative transition-all duration-500 ease-out ${isBookingPage ? 'opacity-0 -translate-y-4 pointer-events-none' : 'opacity-100 translate-y-0'
+        }`}
       style={{
-        animation: 'fade-in 0.6s ease-out 0.6s both',
+        animation: !isBookingPage ? 'fade-in 0.6s ease-out 0.6s both' : 'none',
       }}
     >
       <div className="flex items-center gap-6 px-4 relative">
