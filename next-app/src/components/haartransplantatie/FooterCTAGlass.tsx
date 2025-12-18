@@ -4,6 +4,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useBookingModal } from '@/contexts/BookingModalContext';
 import chatIcon from '@/assets/chat-icon.svg';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
@@ -13,6 +14,7 @@ export const FooterCTAGlass = () => {
   const { language } = useLanguage();
   const isMobile = useIsMobile();
   const [shouldAnimate, setShouldAnimate] = useState(true);
+  const { openModal } = useBookingModal();
 
   const pathname = usePathname();
   const isBookingPage = pathname?.includes('/boek') || pathname?.includes('/book');
@@ -44,7 +46,7 @@ export const FooterCTAGlass = () => {
         <div className={`flex items-center space-x-2 ${isMobile ? 'justify-between' : 'justify-center'}`}>
           {/* Book a consult button */}
           <button
-            onClick={() => router.push(language === 'nl' ? '/nl/boek' : '/en/book')}
+            onClick={openModal}
             className={`gold-gradient-border cta-button-glow ${isMobile ? 'flex-1' : ''} flex items-center rounded-full transition-all duration-200`}
             style={{
               padding: '0.4rem',
