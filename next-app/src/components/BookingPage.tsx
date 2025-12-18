@@ -56,27 +56,35 @@ export const BookingPage = () => {
       />
 
       <TestModeProvider>
+        {/* Root wrapper - strictly for positioning, no movement to avoid double-container issues */}
         <div className={`fixed inset-0 z-50 ${isExiting ? 'reviews-page-exit' : ''}`}>
-          {/* Blur overlay for better text readability */}
+
+          {/* 1. Background Layer - FADES IN ONLY, DOES NOT MOVE */}
           <div
-            className="absolute inset-0 z-0"
+            className={`absolute inset-0 z-0 transition-opacity duration-700 ease-out ${titleVisible && !isExiting ? 'opacity-100' : 'opacity-0'
+              }`}
             style={{
               backdropFilter: 'blur(10.6px)',
-              background: 'linear-gradient(180deg, rgba(4, 14, 21, 0.4) 0%, rgba(51, 61, 70, 0.2) 100%)'
+              background: 'linear-gradient(180deg, rgba(4, 14, 21, 0.4) 0%, rgba(51, 61, 70, 0.2) 100%)',
+              pointerEvents: 'none' // Click through to whatever is behind if needed, usually block though
             }}
           />
 
+          {/* 2. Close Button - Fades in */}
           <PopupCloseButton
             onClose={handleClose}
-            className="!left-auto !right-4"
+            className={`!left-auto !right-4 transition-opacity duration-700 delay-200 ${titleVisible && !isExiting ? 'opacity-100' : 'opacity-0'
+              }`}
             style={{ zIndex: 100 }}
           />
 
+          {/* 3. Content Wrapper - Handles the SLIDE UP animation independently */}
           <div className="relative z-10 h-screen overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             <div className="min-h-screen py-6 px-4">
               <DesktopContainer>
+                {/* The distinct content slide from bottom */}
                 <div
-                  className={`transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[100vh]'
+                  className={`transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] ${titleVisible && !isExiting ? 'translate-y-0 opacity-100' : 'translate-y-[100vh] opacity-0'
                     }`}
                 >
                   <h1
