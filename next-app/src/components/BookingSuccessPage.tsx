@@ -15,12 +15,13 @@ import { trackStandard, trackCustom, isMetaPixelAllowed } from '@/lib/metaPixel'
 export const BookingSuccessPage = () => {
   const { language } = useLanguage();
   const router = useRouter();
-  const [searchParams] = useSearchParams();
+  const searchParams = useSearchParams();
   const sessionId = searchParams.get('session_id');
 
   const [booking, setBooking] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
+  const [debugError, setDebugError] = useState<string>('');
   const conversionTrackedRef = useRef(false);
 
   useEffect(() => {
@@ -57,8 +58,12 @@ export const BookingSuccessPage = () => {
 
           if (processError) {
             console.error('Error invoking process-booking:', processError);
-            if (bookingData) setBooking(bookingData); // Fallback to what we have if any
-            else throw processError; // Real error if we have nothing
+            if (bookingData) {
+              setBooking(bookingData); // Fallback to what we have if any
+            } else {
+              setDebugError(processError.message || JSON.stringify(processError));
+              throw processError; // Real error if we have nothing
+            }
           } else if (processResult?.booking) {
             console.log('Booking returned from Edge Function:', processResult.booking.status);
             setBooking(processResult.booking);
@@ -88,6 +93,7 @@ export const BookingSuccessPage = () => {
             }
           } else if (processResult?.error) {
             console.error('Edge function returned logical error:', processResult.error);
+            setDebugError(processResult.error);
             toast.error(processResult.error);
             if (bookingData) setBooking(bookingData);
           }
@@ -96,8 +102,9 @@ export const BookingSuccessPage = () => {
           // We have data and it's already confirmed/completed
           setBooking(bookingData);
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error in booking flow:', error);
+        setDebugError(error.message || JSON.stringify(error));
         toast.error(language === 'nl' ? 'Kon reservering niet laden' : 'Could not load booking');
       } finally {
         setLoading(false);
@@ -142,7 +149,7 @@ export const BookingSuccessPage = () => {
       <div className="min-h-screen bg-gradient-to-b from-[hsl(var(--background-start))] to-[hsl(var(--background-end))] flex flex-col">
         <GlassHeader />
         <div className="flex-1 flex items-center justify-center p-4">
-          <div className="text-white text-center">
+          <div className="text-white text-center max-w-md">
             <h2 className="text-2xl font-bold mb-2">
               {language === 'nl' ? 'Kan reservering niet laden' : 'Unable to load booking'}
             </h2>
@@ -151,12 +158,19 @@ export const BookingSuccessPage = () => {
                 ? 'Er is een fout opgetreden bij het ophalen van uw gegevens.'
                 : 'An error occurred while fetching your data.'}
             </p>
-            <p className="text-xs text-white/30 font-mono">
+            {debugError && (
+              <div className="bg-black/30 p-4 rounded text-left mb-4 overflow-auto max-h-40">
+                <p className="text-xs text-red-300 font-mono break-all leading-relaxed">
+                  Debug: {debugError}
+                </p>
+              </div>
+            )}
+            <p className="text-xs text-white/30 font-mono mb-4">
               Session ID: {sessionId?.slice(0, 10)}...
             </p>
             <button
               onClick={() => window.location.reload()}
-              className="mt-6 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full text-sm transition-colors"
+              className="mt-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full text-sm transition-colors"
             >
               {language === 'nl' ? 'Opnieuw proberen' : 'Try again'}
             </button>
