@@ -23,6 +23,8 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
         loop
         muted
         playsInline
+        // @ts-ignore - Fetch Priority is a newer standard
+        fetchPriority="high"
         className="absolute inset-0 w-full h-full object-cover"
         style={{ width: '100vw', height: 'var(--app-height, 100vh)' }}
       >

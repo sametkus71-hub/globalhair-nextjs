@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { Providers } from './providers';
 import { GlobalVideoBackground } from '@/components/GlobalVideoBackground';
+import { SplashLoader } from '@/components/SplashLoader';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,6 +23,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
+        <link rel="preconnect" href="https://GlobalHair.b-cdn.net" />
+        <link rel="dns-prefetch" href="https://GlobalHair.b-cdn.net" />
+        {/* Preload critical video assets */}
+        <link rel="preload" as="video" href="https://GlobalHair.b-cdn.net/Bg%20Videos/D%20-%20Basic%20BG%20V0%20(1).webm" type="video/webm" media="(min-width: 769px)" />
+        <link rel="preload" as="video" href="https://GlobalHair.b-cdn.net/Bg%20Videos/P%20-%20Basic%20BG%20V0%20compressed.webm" type="video/webm" media="(max-width: 768px)" />
+
+        <SplashLoader />
         <GlobalVideoBackground />
         <Providers>
           {children}
