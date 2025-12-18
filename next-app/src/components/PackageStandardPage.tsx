@@ -16,63 +16,63 @@ const getSEOContent = (country: 'nl' | 'tr', tier: 'Standard' | 'Premium' | 'Eli
     nl: {
       Standard: {
         nl: {
-          title: 'Standaard Pakket Nederland - Haartransplantatie',
-          description: 'Bekijk ons Standaard haartransplantatie pakket in Nederland. FUE Saffier methode met Comfort Verdoving en 1 jaar GHI Support.'
+          title: 'Standard Haartransplantatie - FUE Saffier & Comfort Verdoving | GlobalHair Institute',
+          description: 'Een complete start. Onze Standard haartransplantatie bevat de precieze FUE Saffier methode met Comfort Verdoving voor een natuurlijk en pijnloos resultaat.'
         },
         en: {
-          title: 'Standard Package Netherlands - Hair Transplant',
-          description: 'View our Standard hair transplant package in Netherlands. FUE Sapphire method with Comfort Anesthesia and 1 year GHI Support.'
+          title: 'Standard Hair Transplant - FUE Sapphire & Comfort Anesthesia | GlobalHair Institute',
+          description: 'A complete start. Our Standard hair transplant includes the precise FUE Sapphire method with Comfort Anesthesia for a natural and painless result.'
         }
       },
       Premium: {
         nl: {
-          title: 'Premium Pakket Nederland - Haartransplantatie',
-          description: 'Bekijk ons Premium haartransplantatie pakket in Nederland. Inclusief GHI Stemcell Repair™ voor 20-35% meer dichtheid.'
+          title: 'Premium Haartransplantatie - GHI Stemcell Repair™ | GlobalHair Institute',
+          description: 'Ons meest gekozen pakket. Combineert FUE Saffier met onze unieke GHI Stemcell Repair™ voor 20-35% meer haardichtheid en sneller herstel.'
         },
         en: {
-          title: 'Premium Package Netherlands - Hair Transplant',
-          description: 'View our Premium hair transplant package in Netherlands. Including GHI Stemcell Repair™ for 20-35% more density.'
+          title: 'Premium Hair Transplant - GHI Stemcell Repair™ | GlobalHair Institute',
+          description: 'Our most chosen package. Combines FUE Sapphire with our unique GHI Stemcell Repair™ for 20-35% more hair density and faster recovery.'
         }
       },
       Elite: {
         nl: {
-          title: 'Elite Pakket Nederland - Haartransplantatie',
-          description: 'Ontdek ons exclusieve Elite haartransplantatie pakket. Full Comfort Anesthesia, V6 Hairboost® Prime & Recovery voor maximale resultaten.'
+          title: 'Elite Haartransplantatie - Slaapnarcose & V6 Hairboost® | GlobalHair Institute',
+          description: 'De ultieme behandeling. Exclusief inclusief Full Comfort Anesthesia (slaapnarcose) en het volledige V6 Hairboost® traject voor maximaal volume.'
         },
         en: {
-          title: 'Elite Package Netherlands - Hair Transplant',
-          description: 'Discover our exclusive Elite hair transplant package. Full Comfort Anesthesia, V6 Hairboost® Prime & Recovery for maximum results.'
+          title: 'Elite Hair Transplant - Sleep Anesthesia & V6 Hairboost® | GlobalHair Institute',
+          description: 'The ultimate treatment. Exclusively including Full Comfort Anesthesia (sleep anesthesia) and the complete V6 Hairboost® trajectory for maximum volume.'
         }
       }
     },
     tr: {
       Standard: {
         nl: {
-          title: 'Standaard Pakket Turkije - Haartransplantatie',
-          description: 'Bekijk ons Standaard haartransplantatie pakket in Turkije. All-inclusive met 5-sterren verblijf en VIP transfers.'
+          title: 'Standard Haartransplantatie Turkije - FUE Saffier & All-Inclusive | GlobalHair Institute',
+          description: 'Bekijk ons Standard pakket in Turkije. FUE Saffier haartransplantatie inclusief 5-sterren verblijf, VIP transfers en Comfort Verdoving.'
         },
         en: {
-          title: 'Standard Package Turkey - Hair Transplant',
-          description: 'View our Standard hair transplant package in Turkey. All-inclusive with 5-star accommodation and VIP transfers.'
+          title: 'Standard Hair Transplant Turkey - FUE Sapphire & All-Inclusive | GlobalHair Institute',
+          description: 'View our Standard package in Turkey. FUE Sapphire hair transplant including 5-star stay, VIP transfers and Comfort Anesthesia.'
         }
       },
       Premium: {
         nl: {
-          title: 'Premium Pakket Turkije - Haartransplantatie',
-          description: 'Ontdek ons Premium haartransplantatie pakket in Turkije. Luxe all-inclusive verblijf met GHI Stemcell Repair™ behandeling.'
+          title: 'Premium Haartransplantatie Turkije - Stemcell Repair™ & VIP | GlobalHair Institute',
+          description: 'Luxe en resultaat. Premium haartransplantatie in Turkije met GHI Stemcell Repair™, 5-sterren hotel en volledige ontzorging.'
         },
         en: {
-          title: 'Premium Package Turkey - Hair Transplant',
-          description: 'Discover our Premium hair transplant package in Turkey. Luxury all-inclusive stay with GHI Stemcell Repair™ treatment.'
+          title: 'Premium Hair Transplant Turkey - Stemcell Repair™ & VIP | GlobalHair Institute',
+          description: 'Luxury and results. Premium hair transplant in Turkey with GHI Stemcell Repair™, 5-star hotel and complete care.'
         }
       },
       Elite: {
         nl: {
-          title: 'Elite Pakket - Haartransplantatie',
+          title: 'Elite Haartransplantatie - Slaapnarcose & V6 Hairboost® | GlobalHair Institute',
           description: 'Het Elite pakket is exclusief beschikbaar in Nederland voor de hoogste kwaliteit en persoonlijke begeleiding.'
         },
         en: {
-          title: 'Elite Package - Hair Transplant',
+          title: 'Elite Hair Transplant - Sleep Anesthesia & V6 Hairboost® | GlobalHair Institute',
           description: 'The Elite package is exclusively available in Netherlands for the highest quality and personal guidance.'
         }
       }
