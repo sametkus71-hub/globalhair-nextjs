@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { BookingWizard } from './BookingWizard';
 import { useBookingModal } from '@/contexts/BookingModalContext';
 import { useLanguage } from '@/hooks/useLanguage';
-import { PopupCloseButton, SwipeablePopupWrapper } from '@/components/PopupCloseButton';
+import { PopupCloseButton } from '@/components/PopupCloseButton';
+import { DesktopContainer } from '@/components/layout/DesktopContainer';
 
 export const BookingModalOverlay = () => {
   const { isOpen, closeModal } = useBookingModal();
@@ -21,20 +22,31 @@ export const BookingModalOverlay = () => {
   useEffect(() => {
     if (isOpen) {
       setIsExiting(false);
-      // Add popup-open class to body
       document.body.classList.add('popup-open');
+      document.body.classList.add('scale-down-active');
     }
   }, [isOpen]);
 
   // Handle closing with animation
   const handleClose = () => {
     setIsExiting(true);
+    document.body.classList.remove('scale-down-active');
+
     setTimeout(() => {
       document.body.classList.remove('popup-open');
       closeModal();
       setIsExiting(false); // Reset for next time
     }, 350); // Match animation duration from globals.css
   };
+
+  // Ensure cleanup on unmount or forced close
+  useEffect(() => {
+    return () => {
+      document.body.classList.remove('popup-open');
+      document.body.classList.remove('scale-down-active');
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -53,69 +65,69 @@ export const BookingModalOverlay = () => {
   return (
     <>
       <div
-        className={`popup-wrapper-fade ${isExiting ? 'popup-wrapper-fade-out' : ''}`}
+        className={`fixed inset-0 z-50 ${isExiting ? 'reviews-page-exit' : 'reviews-page-fullscreen'}`}
         style={{
-          overflow: 'hidden',
-          position: 'fixed',
-          inset: 0,
-          zIndex: 50,
-          backgroundColor: 'rgba(0, 0, 0, 0.4)', // Slightly darker backdrop match
-        }}
-        onClick={(e) => {
-          if (e.target === e.currentTarget) {
-            handleClose();
-          }
+          background: 'transparent', // Let the blur container handle the background
         }}
       >
+        {/* Blur overlay matching BookingPage EXACTLY */}
         <div
-          className="h-full flex items-start justify-center p-4 pt-4 md:pb-12"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              handleClose();
-            }
+          className="absolute inset-0 z-0"
+          style={{
+            backdropFilter: 'blur(10.6px)',
+            background: 'linear-gradient(180deg, rgba(4, 14, 21, 0.4) 0%, rgba(51, 61, 70, 0.2) 100%)'
           }}
-        >
-          <main
-            className="flex flex-col w-full max-w-2xl md:max-w-[42rem]"
-            style={{ height: 'calc(var(--app-height) - 32px)' }}
-          >
-            <SwipeablePopupWrapper onClose={handleClose} className="h-full flex flex-col">
-              <section
-                className={`relative rounded-[24px] flex-1 mb-0 flex flex-col reviews-page-fullscreen ${isExiting ? 'reviews-page-exit' : ''}`}
-                style={{
-                  background: '#0A0A0A',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)',
-                  zIndex: 10,
-                  minHeight: 0,
-                  transform: 'translateY(100%)', // Default starting position for animation
-                }}
-              >
-                {/* Close button inside section */}
-                <PopupCloseButton onClose={handleClose} className="absolute top-4 right-4 z-20 bg-white/10 hover:bg-white/20" />
+          onClick={handleClose}
+        />
 
-                {/* Header */}
-                <div className="flex items-center justify-center py-4 border-b border-white/10 shrink-0">
-                  <span className="text-white font-medium text-sm">
-                    {language === 'nl' ? 'Boek een afspraak' : 'Book an appointment'}
-                  </span>
-                </div>
+        {/* Close Button matching BookingPage */}
+        <PopupCloseButton
+          onClose={handleClose}
+          className="!left-auto !right-4"
+          style={{ zIndex: 100 }}
+        />
 
-                {/* Scrollable Content */}
-                <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 md:p-6" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-                  <BookingWizard />
-                </div>
-              </section>
-            </SwipeablePopupWrapper>
-          </main>
+        {/* Content Container matching BookingPage EXACTLY */}
+        <div className="relative z-10 h-screen overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <div className="min-h-screen py-6 px-4">
+            <DesktopContainer>
+              {/* Use the exact same layout struct for title and content */}
+              <div className="opacity-100 translate-y-0">
+                <h1
+                  className="font-inter mb-6 lg:text-center"
+                  style={{
+                    lineHeight: 1,
+                    fontWeight: 400,
+                    fontSize: '40px',
+                    background: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    textShadow: '0px 3.39px 18.55px #FFFFFF40'
+                  }}
+                >
+                  <span className="lg:hidden">Boek een<br />afspraak</span>
+                  <span className="hidden lg:inline">Boek een afspraak</span>
+                </h1>
+
+                <BookingWizard />
+              </div>
+            </DesktopContainer>
+          </div>
         </div>
       </div>
 
-      {/* CSS for animation classes is in globals.css, but we need to ensure overrides if necessary */}
       <style jsx global>{`
-        /* Ensure the modal background doesn't interfere with our dark theme */
-        .reviews-page-fullscreen {
-          background: #0A0A0A !important; 
+        /* Scale down animation for the main content */
+        body {
+          transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1), border-radius 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+          transform-origin: top center;
+        }
+
+        body.scale-down-active {
+           transform: scale(0.93) translateY(10px);
+           border-radius: 20px;
+           overflow: hidden; 
         }
       `}</style>
     </>
