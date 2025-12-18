@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
-    default: 'GlobalHair Institute. - Specialist in élk haartype & haarprobleem',
+    default: 'GlobalHair Institute - Specialist in élk haartype & haarprobleem',
     template: '%s | GlobalHair Institute',
   },
   description: 'Bereik het beste resultaat met onze unieke GHI Stemcell repair™ en V6 Hairboost®. Wij zijn gespecialiseerd in oplossingen voor elk haartype en elk haarprobleem.',

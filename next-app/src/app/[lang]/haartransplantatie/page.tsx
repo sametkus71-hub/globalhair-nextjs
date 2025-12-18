@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import TreatmentsPage from '@/components/TreatmentsPage';
 
 export const metadata: Metadata = {
-    title: 'Haartransplantatie Behandelingen | GlobalHair Institute',
-    description: 'Bekijk onze haartransplantatie behandelingen. Premium FUE haartransplantatie in Nederland en Turkije met V6 Hairboost® technologie.',
+    title: 'GlobalHair Institute - Specialist in élk haartype & haarprobleem',
+    description: 'Bereik het beste resultaat met onze unieke GHI Stemcell repair™ en V6 Hairboost®. Wij zijn gespecialiseerd in oplossingen voor elk haartype en elk haarprobleem.',
 };
 
 export default function Page() {
