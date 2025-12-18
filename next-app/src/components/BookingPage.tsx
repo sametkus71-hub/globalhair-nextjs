@@ -13,21 +13,21 @@ import { trackCustom, isMetaPixelAllowed } from '@/lib/metaPixel';
 
 export const BookingPage = () => {
   const { language } = useLanguage();
-
   const router = useRouter();
-  console.log('BookingPage: Rendering', { language });
-
-  useEffect(() => {
-    console.log('BookingPage: Mounted');
-  }, []);
   const [isExiting, setIsExiting] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [isLovable, setIsLovable] = useState(false);
 
   // Staggered animations for entrance
   const [titleVisible, setTitleVisible] = useState(false);
   const [contentVisible, setContentVisible] = useState(false);
 
   useEffect(() => {
+    // Check environment safely on client
+    if (typeof window !== 'undefined') {
+      setIsLovable(window.location.hostname.includes('lovable'));
+    }
+
     // Trigger entrance animations
     const timer1 = setTimeout(() => setTitleVisible(true), 100);
     const timer2 = setTimeout(() => setContentVisible(true), 300);
@@ -110,7 +110,7 @@ export const BookingPage = () => {
                   </h1>
                   <BookingWizard key={refreshKey} />
 
-                  {window.location.hostname.includes('lovable') && (
+                  {isLovable && (
                     <div className="mt-12 pt-8 border-t border-white/5 flex justify-center">
                       <StaffCodePopover onCodeVerified={() => setRefreshKey(prev => prev + 1)} />
                     </div>
