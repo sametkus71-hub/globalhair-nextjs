@@ -6,6 +6,7 @@ import { TransitionProvider } from '@/contexts/TransitionContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ViewportHeightSetter } from '@/components/ViewportHeightSetter';
 import { BookingModalProvider } from '@/contexts/BookingModalContext';
+import { TestModeProvider } from '@/contexts/TestModeContext';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   // Create QueryClient in useState to ensure it's only created once on the client
@@ -22,12 +23,14 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <TooltipProvider>
       <QueryClientProvider client={queryClient}>
-        <BookingModalProvider>
-          <TransitionProvider>
-            <ViewportHeightSetter />
-            {children}
-          </TransitionProvider>
-        </BookingModalProvider>
+        <TestModeProvider>
+          <BookingModalProvider>
+            <TransitionProvider>
+              <ViewportHeightSetter />
+              {children}
+            </TransitionProvider>
+          </BookingModalProvider>
+        </TestModeProvider>
       </QueryClientProvider>
     </TooltipProvider>
   );
