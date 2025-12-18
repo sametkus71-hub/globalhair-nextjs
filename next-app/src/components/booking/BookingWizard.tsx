@@ -119,10 +119,8 @@ export const BookingWizard = () => {
   };
 
   const handleDateTimeSelect = (date: string, time: string, staffId: string, staffName: string) => {
-    console.log('DEBUG: handleDateTimeSelect called', { date, time, staffId, staffName });
     setBookingSelection({ date, time, staffId, staffName });
 
-    console.log('DEBUG: Setting completedSteps step-2 and currentStep step-3');
     setCompletedSteps([...completedSteps, 'step-2']);
     setCurrentStep('step-3');
 
@@ -468,12 +466,7 @@ export const BookingWizard = () => {
 
       `}</style>
 
-      {/* DEBUG PANEL */}
-      <div className="mt-8 p-4 bg-black/80 text-xs font-mono text-green-400 rounded border border-green-500/50">
-        <p>CurrentStep: {currentStep}</p>
-        <p>CompletedSteps: {JSON.stringify(completedSteps)}</p>
-        <p>BookingSelection: {JSON.stringify(bookingSelection)}</p>
-      </div>
+
     </div>
   );
 };
