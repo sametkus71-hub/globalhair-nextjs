@@ -79,7 +79,7 @@ const getSEOContent = (country: 'nl' | 'tr', tier: 'Standard' | 'Premium' | 'Eli
       }
     }
   };
-  
+
   return seoData[country][tier][language];
 };
 
@@ -91,7 +91,7 @@ export const PackageStandardPage = () => {
   const router = useRouter();
   const { country: urlCountry, tier: urlTier } = useParams<{ country: string; tier: string }>();
   const isMobile = useIsMobile();
-  
+
   // Always default to Nederland (nl) when popup opens
   const [activeCountry, setActiveCountry] = useState<'nl' | 'tr'>('nl');
   const [activeTier, setActiveTier] = useState<'Standard' | 'Premium' | 'Elite'>(
@@ -114,15 +114,15 @@ export const PackageStandardPage = () => {
   const videoSources = {
     Standard: {
       mobile: 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Standard%20V0.webm',
-      desktop: 'https://globalhair.b-cdn.net/pakketten%20bg%20vid/P%20-%20Standard%20V0.mp4'
+      desktop: 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/P%20-%20Standard%20V0%20(1).webm'
     },
     Premium: {
       mobile: 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Premium%20V0%20(1).webm',
-      desktop: 'https://globalhair.b-cdn.net/pakketten%20bg%20vid/P%20-%20Premium%20V0.mp4'
+      desktop: 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/P%20-%20Premium%20V0%20(1).webm'
     },
     Elite: {
       mobile: 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Elite%20V0%20(1).webm',
-      desktop: 'https://globalhair.b-cdn.net/pakketten%20bg%20vid/P%20-%20Elite%20V0.mp4'
+      desktop: 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/P%20-%20Elite%20V0%20(1).webm'
     }
   };
 
@@ -144,14 +144,14 @@ export const PackageStandardPage = () => {
     assetsToPreload.forEach(asset => {
       const link = document.createElement('link');
       link.rel = 'preload';
-      
+
       if (asset.endsWith('.mp4')) {
         link.as = 'video';
         link.type = 'video/mp4';
       } else if (asset.endsWith('.png') || asset.endsWith('.jpg')) {
         link.as = 'image';
       }
-      
+
       link.href = asset;
       document.head.appendChild(link);
     });
@@ -164,7 +164,7 @@ export const PackageStandardPage = () => {
   // Initialize first video on mount
   useEffect(() => {
     if (!videoContainerRef.current) return;
-    
+
     const initialVideo = document.createElement('video');
     initialVideo.src = getVideoSource(activeTier);
     initialVideo.autoplay = true;
@@ -174,11 +174,11 @@ export const PackageStandardPage = () => {
     initialVideo.className = 'absolute inset-0 w-full h-full object-cover';
     initialVideo.style.opacity = '1';
     initialVideo.style.zIndex = '0';
-    
+
     videoContainerRef.current.appendChild(initialVideo);
     initialVideo.load();
-    initialVideo.play().catch(() => {});
-    
+    initialVideo.play().catch(() => { });
+
     return () => {
       if (videoContainerRef.current) {
         videoContainerRef.current.innerHTML = '';
@@ -191,7 +191,7 @@ export const PackageStandardPage = () => {
     if (urlCountry && urlCountry !== 'nl' && urlCountry !== 'tr') {
       // Redirect incorrect country codes to canonical Dutch path
       const tier = urlTier || 'standard';
-      router.push(`/nl/haartransplantatie/nl/${tier}`, { replace: true });
+      router.push(`/nl/haartransplantatie/nl/${tier}`);
     }
   }, [urlCountry, urlTier, router]);
 
@@ -210,7 +210,7 @@ export const PackageStandardPage = () => {
         setShowEliteTooltip(false);
       }
     };
-    
+
     if (showEliteTooltip) {
       document.addEventListener('click', handleClickOutside);
       return () => document.removeEventListener('click', handleClickOutside);
@@ -229,13 +229,13 @@ export const PackageStandardPage = () => {
       newVideo.className = 'absolute inset-0 w-full h-full object-cover';
       newVideo.style.opacity = '0';
       newVideo.style.zIndex = '-1';
-      
+
       newVideo.addEventListener('canplay', () => {
         newVideo.play().then(() => resolve(newVideo)).catch(reject);
       }, { once: true });
-      
+
       newVideo.addEventListener('error', reject, { once: true });
-      
+
       newVideo.load();
       videoContainerRef.current?.appendChild(newVideo);
     });
@@ -247,49 +247,49 @@ export const PackageStandardPage = () => {
     if (country === 'tr' && activeTier === 'Elite') {
       return;
     }
-    
+
     if (isTransitioning) return;
-    
+
     setIsTransitioning(true);
-    
+
     const newTier = country === 'tr' && activeTier === 'Elite' ? 'Premium' : activeTier;
     const basePath = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
-    
+
     // Update URL without navigation
     window.history.replaceState(null, '', `${basePath}/${country}/${newTier.toLowerCase()}`);
-    
+
     // Get current video
     const currentVideo = videoContainerRef.current?.querySelector('video[style*="opacity: 1"]') as HTMLVideoElement;
-    
+
     try {
       // Load new video in background
       const newVideoSrc = getVideoSource(newTier);
       const newVideo = await loadVideoInBackground(newVideoSrc);
-      
+
       // Prepare for crossfade
       newVideo.style.zIndex = '0';
-      
+
       // Start crossfade after short delay
       setTimeout(() => {
         newVideo.style.transition = 'opacity 350ms ease-in-out';
         newVideo.style.opacity = '1';
-        
+
         if (currentVideo) {
           currentVideo.style.transition = 'opacity 350ms ease-in-out';
           currentVideo.style.opacity = '0';
-          
+
           setTimeout(() => {
             currentVideo.remove();
           }, 350);
         }
       }, 50);
-      
+
       // Update content quickly for snappy feel
       setTimeout(() => {
         setActiveCountry(country);
         setActiveTier(newTier);
       }, 50);
-      
+
       setTimeout(() => {
         setIsTransitioning(false);
       }, 400);
@@ -301,45 +301,45 @@ export const PackageStandardPage = () => {
 
   const handleTierChange = async (tier: 'Standard' | 'Premium' | 'Elite') => {
     if (isTransitioning) return;
-    
+
     setIsTransitioning(true);
-    
+
     const basePath = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
-    
+
     // Update URL without navigation
     window.history.replaceState(null, '', `${basePath}/${activeCountry}/${tier.toLowerCase()}`);
-    
+
     // Get current video
     const currentVideo = videoContainerRef.current?.querySelector('video[style*="opacity: 1"]') as HTMLVideoElement;
-    
+
     try {
       // Load new video in background
       const newVideoSrc = getVideoSource(tier);
       const newVideo = await loadVideoInBackground(newVideoSrc);
-      
+
       // Prepare for crossfade
       newVideo.style.zIndex = '0';
-      
+
       // Start crossfade after short delay
       setTimeout(() => {
         newVideo.style.transition = 'opacity 350ms ease-in-out';
         newVideo.style.opacity = '1';
-        
+
         if (currentVideo) {
           currentVideo.style.transition = 'opacity 350ms ease-in-out';
           currentVideo.style.opacity = '0';
-          
+
           setTimeout(() => {
             currentVideo.remove();
           }, 350);
         }
       }, 50);
-      
+
       // Update content quickly for snappy feel
       setTimeout(() => {
         setActiveTier(tier);
       }, 50);
-      
+
       setTimeout(() => {
         setIsTransitioning(false);
       }, 400);
@@ -555,14 +555,14 @@ export const PackageStandardPage = () => {
   const pageKey = `package-${activeTier.toLowerCase()}`;
 
   // Get dynamic SEO content based on country, tier and language
-  const seoContent = useMemo(() => 
+  const seoContent = useMemo(() =>
     getSEOContent(activeCountry, activeTier, language as 'nl' | 'en'),
     [activeCountry, activeTier, language]
   );
 
   return (
     <>
-      <SEOHead 
+      <SEOHead
         title={seoContent.title}
         description={seoContent.description}
       />
@@ -576,12 +576,12 @@ export const PackageStandardPage = () => {
         }}
       >
         {/* Video Container - holds dynamically loaded videos */}
-        <div 
+        <div
           ref={videoContainerRef}
           className="absolute inset-0 w-full h-full"
           style={{ pointerEvents: 'none', zIndex: 0 }}
         />
-        <div 
+        <div
           className="h-full flex items-start justify-center p-4 pt-4 md:pb-12"
           onClick={(e) => {
             if (e.target === e.currentTarget) {
@@ -589,7 +589,7 @@ export const PackageStandardPage = () => {
             }
           }}
         >
-          <main 
+          <main
             className="flex flex-col w-full max-w-2xl md:max-w-[365px]"
             style={{ height: 'calc(var(--app-height) - 32px)' }}
           >
@@ -605,297 +605,292 @@ export const PackageStandardPage = () => {
                   minHeight: 0
                 }}
               >
-              {/* Close button inside section */}
-              <PopupCloseButton onClose={handleClose} className="absolute top-4 left-4 z-10" />
+                {/* Close button inside section */}
+                <PopupCloseButton onClose={handleClose} className="absolute top-4 left-4 z-10" />
 
-        {/* Country toggle */}
-        <div 
-          className="flex gap-0 justify-center mt-8 mb-1.5 mx-auto max-w-[220px] border border-white/20"
-          role="tablist" 
-          aria-label="Country"
-          style={{
-            background: 'rgba(255, 255, 255, 0.08)',
-            backdropFilter: 'blur(20px)',
-            borderRadius: '9999px',
-            padding: '3px',
-          }}
-        >
-          <button 
-            className={`flex-1 px-3 rounded-full text-[10px] font-light transition-all duration-300 ease-out ${
-              activeCountry === 'nl' 
-                ? 'silver-gradient-border bg-white/10 text-white scale-105' 
-                : 'bg-transparent text-white hover:text-white/90 scale-100'
-            }`}
-            style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}
-            onClick={() => handleCountryChange('nl')}
-          >
-            Nederland
-          </button>
-          <button 
-            disabled={isCountryDisabled('tr')}
-            className={`flex-1 px-3 rounded-full text-[10px] font-light transition-all duration-300 ease-out ${
-              isCountryDisabled('tr')
-                ? 'opacity-40 cursor-not-allowed text-white/50'
-                : activeCountry === 'tr' 
-                  ? 'silver-gradient-border bg-white/10 text-white scale-105' 
-                  : 'bg-transparent text-white hover:text-white/90 scale-100'
-            }`}
-            style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}
-            onClick={() => {
-              if (!isCountryDisabled('tr')) {
-                handleCountryChange('tr');
-              }
-            }}
-          >
-            Turkije
-          </button>
-        </div>
-
-        {/* Tier pill */}
-        <div 
-          className="relative mx-auto my-1.5 max-w-[420px] border border-white/20"
-          aria-label="Tiers"
-          style={{
-            background: 'rgba(255, 255, 255, 0.08)',
-            backdropFilter: 'blur(20px)',
-            borderRadius: '9999px',
-            padding: '5px',
-          }}
-        >
-          <div className="grid gap-1 grid-cols-3">
-            <button
-              className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
-                activeTier === 'Standard'
-                  ? 'silver-gradient-border bg-white/10 text-white scale-105'
-                  : 'bg-transparent text-white hover:text-white/90 scale-100'
-              }`}
-              onClick={() => handleTierChange('Standard')}
-            >
-              Standard
-            </button>
-            <button
-              className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
-                activeTier === 'Premium'
-                  ? 'gold-gradient-border text-white scale-105'
-                  : 'text-white hover:text-white/90 scale-100'
-              }`}
-              style={{
-                background: activeTier === 'Premium' 
-                  ? 'rgba(30, 58, 138, 0.15)' 
-                  : 'transparent'
-              }}
-              onClick={() => handleTierChange('Premium')}
-            >
-              Premium
-            </button>
-            <div className="relative w-full">
-              <button
-                className={`relative w-full text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${
-                  activeCountry === 'tr' 
-                    ? 'text-white/15 cursor-not-allowed scale-100' 
-                    : activeTier === 'Elite'
-                      ? 'gold-gradient-border text-white scale-105'
-                      : 'text-white hover:text-white/90 scale-100'
-                }`}
-                style={{
-                  background: activeTier === 'Elite' && activeCountry === 'nl'
-                    ? 'rgba(88, 28, 135, 0.15)'
-                    : 'transparent'
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (activeCountry === 'tr') {
-                    setShowEliteTooltip(!showEliteTooltip);
-                    return;
-                  }
-                  handleTierChange('Elite');
-                }}
-              >
-                Elite
-              </button>
-              
-              {activeCountry === 'tr' && showEliteTooltip && (
-                <div 
-                  className="absolute top-full right-0 mt-2 bg-black/90 border border-white/20 rounded px-3 py-1.5 z-50"
-                  onClick={(e) => e.stopPropagation()}
+                {/* Country toggle */}
+                <div
+                  className="flex gap-0 justify-center mt-8 mb-1.5 mx-auto max-w-[220px] border border-white/20"
+                  role="tablist"
+                  aria-label="Country"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.08)',
+                    backdropFilter: 'blur(20px)',
+                    borderRadius: '9999px',
+                    padding: '3px',
+                  }}
                 >
-                  <p className="text-[10px] font-light text-white whitespace-nowrap">
-                    {language === 'nl' 
-                      ? 'Alleen in Nederland'
-                      : 'Only in Netherlands'}
-                  </p>
+                  <button
+                    className={`flex-1 px-3 rounded-full text-[10px] font-light transition-all duration-300 ease-out ${activeCountry === 'nl'
+                      ? 'silver-gradient-border bg-white/10 text-white scale-105'
+                      : 'bg-transparent text-white hover:text-white/90 scale-100'
+                      }`}
+                    style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}
+                    onClick={() => handleCountryChange('nl')}
+                  >
+                    Nederland
+                  </button>
+                  <button
+                    disabled={isCountryDisabled('tr')}
+                    className={`flex-1 px-3 rounded-full text-[10px] font-light transition-all duration-300 ease-out ${isCountryDisabled('tr')
+                      ? 'opacity-40 cursor-not-allowed text-white/50'
+                      : activeCountry === 'tr'
+                        ? 'silver-gradient-border bg-white/10 text-white scale-105'
+                        : 'bg-transparent text-white hover:text-white/90 scale-100'
+                      }`}
+                    style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}
+                    onClick={() => {
+                      if (!isCountryDisabled('tr')) {
+                        handleCountryChange('tr');
+                      }
+                    }}
+                  >
+                    Turkije
+                  </button>
                 </div>
-              )}
-            </div>
-          </div>
-        </div>
 
-        {/* Scrollable package details */}
-        <div className="package-details-scroll flex-1 overflow-y-auto px-1" style={{ minHeight: 0, scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-          {/* Feature accordion */}
-          <div className="flex flex-col mt-1">
-            {features.map((feature, index) => {
-              const isOpen = openFeatures.has(feature.key);
-              const isFirstShared = activeTier !== 'Standard' && index > 0 && feature.exclusive === false && features[index - 1]?.exclusive === true;
-              const isLastExclusive = activeTier !== 'Standard' && feature.exclusive === true && features[index + 1]?.exclusive === false;
-              
-              return (
-                <div 
-                  key={feature.key}
-                  className={feature.exclusive ? "animate-fade-in" : ""}
-                  style={feature.exclusive ? {
-                    animationDelay: `${index * 50}ms`,
-                    animationFillMode: 'backwards'
-                  } : {}}
+                {/* Tier pill */}
+                <div
+                  className="relative mx-auto my-1.5 max-w-[420px] border border-white/20"
+                  aria-label="Tiers"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.08)',
+                    backdropFilter: 'blur(20px)',
+                    borderRadius: '9999px',
+                    padding: '5px',
+                  }}
                 >
-                  {isFirstShared && (
-                    <div className="feature-divider border-b border-white/[0.15]" />
-                  )}
-                  <div className="feature-item">
+                  <div className="grid gap-1 grid-cols-3">
                     <button
-                      className="feature-row flex items-center justify-between py-1.5 w-full text-left"
-                      onClick={() => toggleFeature(feature.key)}
-                      aria-expanded={isOpen}
+                      className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${activeTier === 'Standard'
+                        ? 'silver-gradient-border bg-white/10 text-white scale-105'
+                        : 'bg-transparent text-white hover:text-white/90 scale-100'
+                        }`}
+                      onClick={() => handleTierChange('Standard')}
                     >
-                      <div className="feature-left flex items-center gap-1.5">
-                        {(feature.key === 'precision' || feature.key === 'support') && (
-                          <Shield className="w-3 h-3 text-white/70 flex-shrink-0" strokeWidth={1.5} />
-                        )}
-                        {feature.key === 'indicators' && (
-                          <div className="flex gap-2 items-center">
-                            <div
-                              className="indicator-box"
-                              style={{
-                                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 80%)',
-                                padding: '.5rem',
-                                borderRadius: '.4rem',
-                              }}
-                            >
-                              <img src={chevronRightSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
-                              {activeTier === 'Premium' && (
-                                <img 
-                                  src={chevronRightSvg} 
-                                  alt="" 
-                                  style={{ 
-                                    width: '.8rem', 
-                                    height: '.8rem', 
-                                    marginLeft: '-4px'
-                                  }} 
-                                />
-                              )}
-                              {activeTier === 'Elite' && (
-                                <img 
-                                  src={chevronRightSvg} 
-                                  alt="" 
-                                  style={{ 
-                                    width: '.8rem', 
-                                    height: '.8rem', 
-                                    marginLeft: '-4px'
-                                  }} 
-                                />
-                              )}
-                            </div>
-                            <div
-                              className="indicator-box"
-                              style={{
-                                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 80%)',
-                                padding: '.5rem',
-                                borderRadius: '.4rem',
-                              }}
-                            >
-                              <img src={leafSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
-                              {activeTier === 'Premium' && (
-                                <img 
-                                  src={leafSvg} 
-                                  alt="" 
-                                  style={{ 
-                                    width: '.8rem', 
-                                    height: '.8rem'
-                                  }} 
-                                />
-                              )}
-                              {activeTier === 'Elite' && (
-                                <>
-                                  <img 
-                                    src={leafSvg} 
-                                    alt="" 
-                                    style={{ 
-                                      width: '.8rem', 
-                                      height: '.8rem'
-                                    }} 
-                                  />
-                                  <img 
-                                    src={leafSvg} 
-                                    alt="" 
-                                    style={{ 
-                                      width: '.8rem', 
-                                      height: '.8rem'
-                                    }} 
-                                  />
-                                </>
-                              )}
-                            </div>
-                          </div>
-                        )}
-                        {feature.key !== 'indicators' && (
-                          <span className="feature-title text-white text-[12.5px] font-normal">{feature.title}</span>
-                         )}
-                      </div>
-                      <span className="feature-toggle text-white/60 font-light text-xl leading-none">
-                        {isOpen ? '–' : '+'}
-                      </span>
+                      Standard
                     </button>
-                    <div 
-                      className="feature-content overflow-hidden transition-all duration-300 ease-in-out"
-                      style={{ 
-                        maxHeight: isOpen ? '500px' : '0',
-                        opacity: isOpen ? 1 : 0,
-                        paddingBottom: isOpen ? '0.5rem' : '0'
+                    <button
+                      className={`relative text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${activeTier === 'Premium'
+                        ? 'gold-gradient-border text-white scale-105'
+                        : 'text-white hover:text-white/90 scale-100'
+                        }`}
+                      style={{
+                        background: activeTier === 'Premium'
+                          ? 'rgba(30, 58, 138, 0.15)'
+                          : 'transparent'
                       }}
+                      onClick={() => handleTierChange('Premium')}
                     >
-                      {feature.key === 'precision' ? (
-                        <div className="text-white/80 font-light leading-relaxed" style={{ fontSize: '11px' }}>
-                          <img 
-                            src={precisionBadge} 
-                            alt="GHI Precision Method Badge" 
-                            className="float-right ml-3 mb-2"
-                            style={{ 
-                              width: '120px', 
-                              height: '120px',
-                              marginTop: '0.25rem'
-                            }} 
-                          />
-                          <p style={{ fontSize: '11px' }}>
-                            {feature.description}
+                      Premium
+                    </button>
+                    <div className="relative w-full">
+                      <button
+                        className={`relative w-full text-center px-4 py-2 rounded-full text-sm font-light transition-all duration-300 ease-out ${activeCountry === 'tr'
+                          ? 'text-white/15 cursor-not-allowed scale-100'
+                          : activeTier === 'Elite'
+                            ? 'gold-gradient-border text-white scale-105'
+                            : 'text-white hover:text-white/90 scale-100'
+                          }`}
+                        style={{
+                          background: activeTier === 'Elite' && activeCountry === 'nl'
+                            ? 'rgba(88, 28, 135, 0.15)'
+                            : 'transparent'
+                        }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (activeCountry === 'tr') {
+                            setShowEliteTooltip(!showEliteTooltip);
+                            return;
+                          }
+                          handleTierChange('Elite');
+                        }}
+                      >
+                        Elite
+                      </button>
+
+                      {activeCountry === 'tr' && showEliteTooltip && (
+                        <div
+                          className="absolute top-full right-0 mt-2 bg-black/90 border border-white/20 rounded px-3 py-1.5 z-50"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <p className="text-[10px] font-light text-white whitespace-nowrap">
+                            {language === 'nl'
+                              ? 'Alleen in Nederland'
+                              : 'Only in Netherlands'}
                           </p>
                         </div>
-                      ) : (
-                        <p className="text-white/80 font-light leading-relaxed" style={{ fontSize: '11px', whiteSpace: 'pre-line' }}>
-                          {feature.description}
-                        </p>
                       )}
                     </div>
-                    {!isLastExclusive && <div className="feature-divider border-b border-white/[0.15]" />}
                   </div>
                 </div>
-              );
-            })}
-          </div>
 
-          {/* Price pill */}
-          <div className="flex justify-end mt-1 mb-1">
-            <div className="px-3 py-1 rounded-full text-white text-[13px] backdrop-blur-md transition-all duration-300 animate-scale-in" style={{ background: '#FFFFFF1A', fontWeight: 300 }}>
-              {getCurrentPrice()}
-            </div>
-           </div>
-            </div>
-        </section>
+                {/* Scrollable package details */}
+                <div className="package-details-scroll flex-1 overflow-y-auto px-1" style={{ minHeight: 0, scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                  {/* Feature accordion */}
+                  <div className="flex flex-col mt-1">
+                    {features.map((feature, index) => {
+                      const isOpen = openFeatures.has(feature.key);
+                      const isFirstShared = activeTier !== 'Standard' && index > 0 && feature.exclusive === false && features[index - 1]?.exclusive === true;
+                      const isLastExclusive = activeTier !== 'Standard' && feature.exclusive === true && features[index + 1]?.exclusive === false;
+
+                      return (
+                        <div
+                          key={feature.key}
+                          className={feature.exclusive ? "animate-fade-in" : ""}
+                          style={feature.exclusive ? {
+                            animationDelay: `${index * 50}ms`,
+                            animationFillMode: 'backwards'
+                          } : {}}
+                        >
+                          {isFirstShared && (
+                            <div className="feature-divider border-b border-white/[0.15]" />
+                          )}
+                          <div className="feature-item">
+                            <button
+                              className="feature-row flex items-center justify-between py-1.5 w-full text-left"
+                              onClick={() => toggleFeature(feature.key)}
+                              aria-expanded={isOpen}
+                            >
+                              <div className="feature-left flex items-center gap-1.5">
+                                {(feature.key === 'precision' || feature.key === 'support') && (
+                                  <Shield className="w-3 h-3 text-white/70 flex-shrink-0" strokeWidth={1.5} />
+                                )}
+                                {feature.key === 'indicators' && (
+                                  <div className="flex gap-2 items-center">
+                                    <div
+                                      className="indicator-box"
+                                      style={{
+                                        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 80%)',
+                                        padding: '.5rem',
+                                        borderRadius: '.4rem',
+                                      }}
+                                    >
+                                      <img src={chevronRightSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
+                                      {activeTier === 'Premium' && (
+                                        <img
+                                          src={chevronRightSvg}
+                                          alt=""
+                                          style={{
+                                            width: '.8rem',
+                                            height: '.8rem',
+                                            marginLeft: '-4px'
+                                          }}
+                                        />
+                                      )}
+                                      {activeTier === 'Elite' && (
+                                        <img
+                                          src={chevronRightSvg}
+                                          alt=""
+                                          style={{
+                                            width: '.8rem',
+                                            height: '.8rem',
+                                            marginLeft: '-4px'
+                                          }}
+                                        />
+                                      )}
+                                    </div>
+                                    <div
+                                      className="indicator-box"
+                                      style={{
+                                        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 20%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.05) 80%)',
+                                        padding: '.5rem',
+                                        borderRadius: '.4rem',
+                                      }}
+                                    >
+                                      <img src={leafSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
+                                      {activeTier === 'Premium' && (
+                                        <img
+                                          src={leafSvg}
+                                          alt=""
+                                          style={{
+                                            width: '.8rem',
+                                            height: '.8rem'
+                                          }}
+                                        />
+                                      )}
+                                      {activeTier === 'Elite' && (
+                                        <>
+                                          <img
+                                            src={leafSvg}
+                                            alt=""
+                                            style={{
+                                              width: '.8rem',
+                                              height: '.8rem'
+                                            }}
+                                          />
+                                          <img
+                                            src={leafSvg}
+                                            alt=""
+                                            style={{
+                                              width: '.8rem',
+                                              height: '.8rem'
+                                            }}
+                                          />
+                                        </>
+                                      )}
+                                    </div>
+                                  </div>
+                                )}
+                                {feature.key !== 'indicators' && (
+                                  <span className="feature-title text-white text-[12.5px] font-normal">{feature.title}</span>
+                                )}
+                              </div>
+                              <span className="feature-toggle text-white/60 font-light text-xl leading-none">
+                                {isOpen ? '–' : '+'}
+                              </span>
+                            </button>
+                            <div
+                              className="feature-content overflow-hidden transition-all duration-300 ease-in-out"
+                              style={{
+                                maxHeight: isOpen ? '500px' : '0',
+                                opacity: isOpen ? 1 : 0,
+                                paddingBottom: isOpen ? '0.5rem' : '0'
+                              }}
+                            >
+                              {feature.key === 'precision' ? (
+                                <div className="text-white/80 font-light leading-relaxed" style={{ fontSize: '11px' }}>
+                                  <img
+                                    src={precisionBadge.src}
+                                    alt="GHI Precision Method Badge"
+                                    className="float-right ml-3 mb-2"
+                                    style={{
+                                      width: '120px',
+                                      height: '120px',
+                                      marginTop: '0.25rem'
+                                    }}
+                                  />
+                                  <p style={{ fontSize: '11px' }}>
+                                    {feature.description}
+                                  </p>
+                                </div>
+                              ) : (
+                                <p className="text-white/80 font-light leading-relaxed" style={{ fontSize: '11px', whiteSpace: 'pre-line' }}>
+                                  {feature.description}
+                                </p>
+                              )}
+                            </div>
+                            {!isLastExclusive && <div className="feature-divider border-b border-white/[0.15]" />}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Price pill */}
+                  <div className="flex justify-end mt-1 mb-1">
+                    <div className="px-3 py-1 rounded-full text-white text-[13px] backdrop-blur-md transition-all duration-300 animate-scale-in" style={{ background: '#FFFFFF1A', fontWeight: 300 }}>
+                      {getCurrentPrice()}
+                    </div>
+                  </div>
+                </div>
+              </section>
             </SwipeablePopupWrapper>
-      </main>
-    </div>
-</div>
+          </main>
+        </div>
+      </div>
 
-<style>{`
+      <style>{`
   .silver-gradient-border {
     position: relative;
   }
@@ -999,6 +994,6 @@ export const PackageStandardPage = () => {
     z-index: 1;
   }
 `}</style>
-</>
-);
+    </>
+  );
 };

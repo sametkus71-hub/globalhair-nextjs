@@ -160,7 +160,7 @@ export const HaartransplantatieLayout = ({ children }: { children: React.ReactNo
                     <div
                       key={pathname}
                       className={`relative flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'} animate-fade-in`}
-                      style={{ animationDuration: '150ms' }}
+                      style={{ animationDuration: '400ms' }}
                     >
                       {children}
                     </div>

@@ -16,6 +16,14 @@ export const GlassTabs = ({ activeTab }: GlassTabsProps) => {
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0 });
 
+  // Optimistic UI state
+  const [optimisticTab, setOptimisticTab] = useState(activeTab);
+
+  // Sync prop with local state (handle back/forward navigation)
+  useEffect(() => {
+    setOptimisticTab(activeTab);
+  }, [activeTab]);
+
   const getTabPath = (tab: string) => {
     const basePath = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
     const tabPaths: Record<string, string> = {
@@ -29,6 +37,7 @@ export const GlassTabs = ({ activeTab }: GlassTabsProps) => {
   };
 
   const handleTabClick = (tab: string) => {
+    setOptimisticTab(tab); // Instant visual update
     router.push(getTabPath(tab) as any);
   };
 
@@ -49,7 +58,7 @@ export const GlassTabs = ({ activeTab }: GlassTabsProps) => {
   }, []);
 
   useEffect(() => {
-    const activeIndex = tabs.findIndex(tab => tab === activeTab);
+    const activeIndex = tabs.findIndex(tab => tab === optimisticTab);
     const activeTabElement = tabRefs.current[activeIndex];
 
     if (activeTabElement) {
@@ -63,7 +72,7 @@ export const GlassTabs = ({ activeTab }: GlassTabsProps) => {
         });
       }
     }
-  }, [activeTab]);
+  }, [optimisticTab]);
 
   return (
     <div
@@ -74,7 +83,7 @@ export const GlassTabs = ({ activeTab }: GlassTabsProps) => {
     >
       <div className="flex items-center gap-6 px-4 relative">
         {tabs.map((tab, index) => {
-          const isActive = activeTab === tab;
+          const isActive = optimisticTab === tab;
           return (
             <button
               key={tab}

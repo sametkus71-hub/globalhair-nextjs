@@ -4,6 +4,7 @@ import { useEffect, useState, useRef, memo, useCallback } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useVideoIntersection } from '@/hooks/useVideoIntersection';
+import { ReviewsSkeleton } from './ReviewsSkeleton';
 import { cn } from '@/lib/utils';
 import { generateRandomGrid, getBeforeAfterIndices, GridItem } from '@/lib/reviewsRandomizer';
 import { useReviewsData } from '@/hooks/useReviewsData';
@@ -13,23 +14,23 @@ import type { Tables } from '@/integrations/supabase/types';
 type Review = Tables<'reviews'>;
 
 // Static image card (for static_image and before_after showing single image)
-const StaticCard = memo(({ 
-  imageUrl, 
+const StaticCard = memo(({
+  imageUrl,
   alt,
-  priority = false 
-}: { 
+  priority = false
+}: {
   imageUrl: string;
   alt: string;
   priority?: boolean;
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
-  
+
   return (
     <div className="w-full h-full relative overflow-hidden">
       {!imageLoaded && (
         <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 animate-pulse" />
       )}
-      <img 
+      <img
         src={imageUrl}
         alt={alt}
         className="w-full h-full object-cover"
@@ -42,30 +43,30 @@ const StaticCard = memo(({
 });
 
 // Before/After card with cycling between two images
-const BeforeAfterCard = memo(({ 
+const BeforeAfterCard = memo(({
   review,
   showAfter,
-  priority = false 
-}: { 
+  priority = false
+}: {
   review: Review;
   showAfter: boolean;
   priority?: boolean;
 }) => {
   const [beforeLoaded, setBeforeLoaded] = useState(false);
   const [afterLoaded, setAfterLoaded] = useState(false);
-  
+
   const beforeUrl = review.before_image_url || '';
   const afterUrl = review.after_image_url || '';
-  
+
   return (
     <div className="w-full h-full relative overflow-hidden">
       {/* Loading placeholder */}
       {(!beforeLoaded || !afterLoaded) && (
         <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 animate-pulse z-0" />
       )}
-      
+
       {/* Before image */}
-      <img 
+      <img
         src={beforeUrl}
         alt={`${review.name} - Before`}
         className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
@@ -74,9 +75,9 @@ const BeforeAfterCard = memo(({
         decoding="async"
         onLoad={() => setBeforeLoaded(true)}
       />
-      
+
       {/* After image */}
-      <img 
+      <img
         src={afterUrl}
         alt={`${review.name} - After`}
         className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
@@ -85,7 +86,7 @@ const BeforeAfterCard = memo(({
         decoding="async"
         onLoad={() => setAfterLoaded(true)}
       />
-      
+
       {/* Before/After label */}
       <div className="absolute bottom-2 left-2 bg-black/60 px-2 py-1 rounded text-xs text-white font-medium pointer-events-none">
         {showAfter ? 'Na' : 'Voor'}
@@ -94,22 +95,22 @@ const BeforeAfterCard = memo(({
   );
 });
 
-const VideoCard = memo(({ 
-  review, 
-  isMuted, 
+const VideoCard = memo(({
+  review,
+  isMuted,
   onToggleMute,
   onMuteButtonClick,
   shouldLoad = false
-}: { 
+}: {
   review: Review;
-  isMuted: boolean; 
+  isMuted: boolean;
   onToggleMute: () => void;
   onMuteButtonClick: () => void;
   shouldLoad?: boolean;
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  
+
   const { isInViewport, elementRef } = useVideoIntersection({
     threshold: 0.3,
     rootMargin: '50px'
@@ -117,9 +118,9 @@ const VideoCard = memo(({
 
   useEffect(() => {
     if (!videoRef.current || !isLoaded) return;
-    
+
     if (isInViewport && shouldLoad) {
-      videoRef.current.play().catch(() => {});
+      videoRef.current.play().catch(() => { });
     } else {
       videoRef.current.pause();
     }
@@ -159,7 +160,7 @@ const VideoCard = memo(({
   }
 
   return (
-    <div 
+    <div
       ref={elementRef}
       className="w-full h-full relative overflow-hidden bg-black cursor-pointer"
       onClick={onToggleMute}
@@ -173,7 +174,7 @@ const VideoCard = memo(({
         preload="metadata"
         className="w-full h-full object-cover"
       />
-      <button 
+      <button
         className="absolute top-2 right-2 bg-black/70 p-2 rounded-full cursor-pointer hover:bg-black/80 transition-colors"
         onClick={(e) => {
           e.stopPropagation();
@@ -195,19 +196,19 @@ export const ReviewsGrid = () => {
   const isMobile = useIsMobile();
   const gridContainerRef = useRef<HTMLDivElement>(null);
   const actualScrollContainerRef = useRef<HTMLElement | null>(null);
-  
+
   // Fetch reviews from database
   const { data: reviewsData, isLoading, error } = useReviewsData();
-  
+
   // Generate randomized grid
   const [gridItems, setGridItems] = useState<GridItem[]>([]);
   const [beforeAfterIndices, setBeforeAfterIndices] = useState<number[]>([]);
-  
+
   // Progressive rendering state
   const initialCount = isMobile ? 12 : 24;
   const batchSize = isMobile ? 8 : 16;
   const [renderedCount, setRenderedCount] = useState(initialCount);
-  
+
   // Animation and interaction states
   const [isGridAnimated, setIsGridAnimated] = useState(false);
   const [cyclePhase, setCyclePhase] = useState(0);
@@ -222,21 +223,21 @@ export const ReviewsGrid = () => {
       setBeforeAfterIndices(getBeforeAfterIndices(items));
     }
   }, [reviewsData]);
-  
+
   // Check if there are more items to load
   const hasMoreItems = renderedCount < gridItems.length;
   const isLoadingMore = useRef(false);
-  
+
   // Horizontal scroll detection for infinite loading
   const handleScroll = useCallback(() => {
     const container = actualScrollContainerRef.current;
     if (!container || !hasMoreItems || isLoadingMore.current) return;
-    
+
     const { scrollLeft, scrollWidth, clientWidth } = container;
     const scrollThreshold = 300; // pixels from end to trigger load
-    
+
     console.log('Scroll detected:', { scrollLeft, scrollWidth, clientWidth, threshold: scrollWidth - scrollThreshold });
-    
+
     if (scrollLeft + clientWidth >= scrollWidth - scrollThreshold) {
       console.log('Loading more items...');
       isLoadingMore.current = true;
@@ -246,21 +247,21 @@ export const ReviewsGrid = () => {
       }, 100);
     }
   }, [hasMoreItems, batchSize, gridItems.length]);
-  
+
   // Attach scroll listener to parent scroll container
   useEffect(() => {
     const gridElement = gridContainerRef.current;
     if (!gridElement) return;
-    
+
     // Find the actual scrolling container (parent with overflow scroll)
     const scrollContainer = gridElement.parentElement;
     if (!scrollContainer) return;
-    
+
     // Store reference for use in handleScroll
     actualScrollContainerRef.current = scrollContainer;
-    
+
     console.log('Attaching scroll listener to:', scrollContainer);
-    
+
     scrollContainer.addEventListener('scroll', handleScroll, { passive: true });
     return () => scrollContainer.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
@@ -269,7 +270,7 @@ export const ReviewsGrid = () => {
   useEffect(() => {
     const itemsToRender = gridItems.slice(0, renderedCount);
     const videoItems = itemsToRender.filter(item => item.type === 'video');
-    
+
     // Only load videos that are within reasonable range
     const maxVideosToLoad = isMobile ? 4 : 10;
     const videosToLoad = videoItems.slice(0, maxVideosToLoad).map(item => item.id);
@@ -302,11 +303,11 @@ export const ReviewsGrid = () => {
   // Before/After cycling effect
   useEffect(() => {
     if (beforeAfterIndices.length === 0) return;
-    
+
     const interval = setInterval(() => {
       setCyclePhase(prev => prev + 1);
     }, 3000);
-    
+
     return () => clearInterval(interval);
   }, [beforeAfterIndices.length]);
 
@@ -330,11 +331,7 @@ export const ReviewsGrid = () => {
 
   // Loading state
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-[370px] md:h-[540px]">
-        <div className="animate-pulse text-white/60">Loading reviews...</div>
-      </div>
-    );
+    return <ReviewsSkeleton />;
   }
 
   // Error state
@@ -352,11 +349,11 @@ export const ReviewsGrid = () => {
   const getShowAfter = (itemIndex: number): boolean => {
     const baPosition = beforeAfterIndices.indexOf(itemIndex);
     if (baPosition === -1) return false;
-    
+
     // Group into pairs, wave effect
     const groupIndex = Math.floor(baPosition / 2);
     const totalGroups = Math.ceil(beforeAfterIndices.length / 2);
-    
+
     // Wave cycles through groups
     return (cyclePhase % totalGroups) === groupIndex;
   };
@@ -378,10 +375,10 @@ export const ReviewsGrid = () => {
       >
         {itemsToRender.map((item, index) => {
           if (!item?.data) return null;
-          
+
           const delay = Math.min(index * 50, 2000);
           const shouldLoadVideo = loadedVideoIds.has(item.id);
-          
+
           return (
             <div
               key={item.id}
@@ -400,7 +397,7 @@ export const ReviewsGrid = () => {
               } as React.CSSProperties}
             >
               {item.type === 'video' && (
-                <VideoCard 
+                <VideoCard
                   review={item.data}
                   isMuted={unmutedVideoId !== item.id}
                   onToggleMute={() => handleVideoToggleMute(item.id)}
@@ -409,14 +406,14 @@ export const ReviewsGrid = () => {
                 />
               )}
               {item.type === 'before-after' && (
-                <BeforeAfterCard 
+                <BeforeAfterCard
                   review={item.data}
                   showAfter={getShowAfter(index)}
                   priority={index < 6}
                 />
               )}
               {item.type === 'static' && (
-                <StaticCard 
+                <StaticCard
                   imageUrl={item.data.static_image_url || ''}
                   alt={item.data.name}
                   priority={index < 6}
@@ -425,7 +422,7 @@ export const ReviewsGrid = () => {
             </div>
           );
         })}
-        
+
         {/* Loading indicator - only show when more items available */}
         {hasMoreItems && (
           <div className="row-span-3 w-8 flex items-center justify-center">
