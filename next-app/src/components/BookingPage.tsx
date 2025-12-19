@@ -14,20 +14,22 @@ import hairtransplantLogo from '@/assets/hairtransplant-logo.png';
 import logoIcon from '@/assets/logo-icon.png';
 import Image from 'next/image';
 
+import { useLockBodyScroll } from '@/hooks/useLockBodyScroll';
+
 export const BookingPage = () => {
   const { language } = useLanguage();
   const router = useRouter();
   const [isExiting, setIsExiting] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
 
+  // Aggressive mobile lock
+  useLockBodyScroll(true);
 
   // Staggered animations for entrance
   const [titleVisible, setTitleVisible] = useState(false);
   const [contentVisible, setContentVisible] = useState(false);
 
   useEffect(() => {
-
-
     // Trigger entrance animations
     const timer1 = setTimeout(() => setTitleVisible(true), 100);
     const timer2 = setTimeout(() => setContentVisible(true), 300);
@@ -61,8 +63,8 @@ export const BookingPage = () => {
       />
 
       <TestModeProvider>
-        {/* Root wrapper - strict height constraint via app-height to avoid keyboard issues */}
-        <div className={`fixed top-0 left-0 w-full h-[var(--app-height)] z-[9999] ${isExiting ? 'reviews-page-exit' : ''}`}>
+        {/* Root wrapper - locked 100vh via booking-page-lock class */}
+        <div className={`fixed top-0 left-0 w-full z-[9999] booking-page-lock ${isExiting ? 'reviews-page-exit' : ''}`}>
 
           {/* 1. Background Layer - FADES IN ONLY, DOES NOT MOVE */}
           <div
