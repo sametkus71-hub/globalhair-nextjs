@@ -26,6 +26,9 @@ const BerkantDuralPage = () => {
   const [touchCurrent, setTouchCurrent] = useState<number | null>(null);
   // const [isDragging, setIsDragging] = useState(false); // Kept dragging state, removing muted
   const [isDragging, setIsDragging] = useState(false);
+  // Check if user came from a click (sound=on) or direct access
+  const startUnmuted = searchParams.get('sound') === 'on';
+  const [isMuted, setIsMuted] = useState(!startUnmuted);
 
   const videoId = searchParams.get('video');
   const video = BERKANT_VIDEOS.find(v => v.id === videoId) || BERKANT_VIDEOS[0];
@@ -179,6 +182,42 @@ const BerkantDuralPage = () => {
           animation: border-shine-rotate 3s linear infinite;
           pointer-events: none;
         }
+
+        .berkant-badge {
+          position: relative;
+          padding: 0.65rem 1rem;
+          border-radius: 9999px;
+          background: linear-gradient(90deg, #132536 0%, #25496B 50%, #132536 100%);
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .berkant-badge::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: 9999px;
+          padding: 1.5px;
+          background: linear-gradient(90deg, #949494 7%, #ACB9C1 16%, #FFFFFF 34%, #ACB9C1 51%, #4B555E 78%, #fff 105%);
+          -webkit-mask: 
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .berkant-badge-text {
+          position: relative;
+          z-index: 1;
+          font-size: 0.8rem;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 0.95);
+          letter-spacing: 0.02em;
+        }
       `}} />
 
       <div
@@ -216,12 +255,13 @@ const BerkantDuralPage = () => {
           >
             {/* Berkant video as modal background */}
             <video
+              key={video.id}
               ref={videoRef}
               src={video.videoUrl}
               poster={video.thumbnail}
               autoPlay
               loop
-              muted={false}
+              muted={isMuted}
               playsInline
               preload="auto"
               className="absolute inset-0 w-full h-full object-cover rounded-[24px]"
@@ -238,10 +278,17 @@ const BerkantDuralPage = () => {
                 zIndex: 1
               }}
             />
-            {/* Close button inside modal */}
+            {/* Top left - Name badge */}
+            <div className={`absolute top-4 left-4 z-20 transition-all duration-500 ease-out ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
+              <div className="berkant-badge">
+                <span className="berkant-badge-text">Berkant Dural</span>
+              </div>
+            </div>
+
+            {/* Top right - Close button */}
             <button
               onClick={handleClose}
-              className="absolute top-4 left-4 z-20 w-10 h-10 flex items-center justify-center transition-all duration-200 hover:opacity-80 rounded-full"
+              className={`absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center transition-all duration-500 ease-out hover:opacity-80 rounded-full ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}
               style={{
                 background: 'linear-gradient(135deg, rgba(98, 145, 186, 0.3), rgba(105, 135, 159, 0.3)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1)) border-box',
                 border: '1.5px solid transparent',
@@ -256,17 +303,35 @@ const BerkantDuralPage = () => {
               </svg>
             </button>
 
-
-
-            {/* Title at top */}
-            <div className={`relative z-10 text-center transition-all duration-500 ease-out pt-8 ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-white leading-[0.85] tracking-wide">
-                BERKANT
-              </h1>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl text-white leading-[0.85] tracking-wide font-medium">
-                DURAL
-              </h1>
-            </div>
+            {/* Mute toggle button */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsMuted(!isMuted);
+              }}
+              className={`absolute top-4 right-16 z-20 w-10 h-10 flex items-center justify-center transition-all duration-500 ease-out hover:opacity-80 rounded-full ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}
+              style={{
+                background: 'linear-gradient(135deg, rgba(98, 145, 186, 0.3), rgba(105, 135, 159, 0.3)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1)) border-box',
+                border: '1.5px solid transparent',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                boxShadow: 'inset 0 0 0 1px rgba(240, 240, 240, 0.1)'
+              }}
+              aria-label={isMuted ? (language === 'nl' ? 'Geluid aan' : 'Unmute') : (language === 'nl' ? 'Geluid uit' : 'Mute')}
+            >
+              {isMuted ? (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M11 5L6 9H2V15H6L11 19V5Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M23 9L17 15" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M17 9L23 15" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              ) : (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M11 5L6 9H2V15H6L11 19V5Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M19.07 4.93C20.9447 6.80527 21.9979 9.34836 21.9979 12C21.9979 14.6516 20.9447 17.1947 19.07 19.07M15.54 8.46C16.4774 9.39763 17.0039 10.6692 17.0039 12C17.0039 13.3308 16.4774 14.6024 15.54 15.54" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              )}
+            </button>
 
             {/* Description and Buttons at bottom */}
             <div className="relative z-10 space-y-6 mt-auto">

@@ -107,35 +107,9 @@ export const BookingPage = () => {
                   className={`transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] ${titleVisible && !isExiting ? 'translate-y-0 opacity-100' : 'translate-y-[100vh] opacity-0'
                     }`}
                 >
-                  {/* Mobile: Icon + Title */}
-                  <div className="lg:hidden flex items-center gap-3 mb-6">
-                    <Image
-                      src={logoIcon}
-                      alt="GlobalHair"
-                      width={32}
-                      height={32}
-                      priority
-                    />
-                    <h1
-                      className="font-inter"
-                      style={{
-                        lineHeight: 1,
-                        fontWeight: 400,
-                        fontSize: '40px',
-                        background: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text',
-                        textShadow: '0px 3.39px 18.55px #FFFFFF40'
-                      }}
-                    >
-                      Boek een<br />afspraak
-                    </h1>
-                  </div>
-
-                  {/* Desktop: Title only (logo is in top left) */}
+                  {/* Title - centered on desktop, left-aligned on mobile */}
                   <h1
-                    className="hidden lg:block font-inter mb-6 text-center"
+                    className="font-inter mb-6 lg:text-center"
                     style={{
                       lineHeight: 1,
                       fontWeight: 400,
@@ -147,7 +121,8 @@ export const BookingPage = () => {
                       textShadow: '0px 3.39px 18.55px #FFFFFF40'
                     }}
                   >
-                    Boek een afspraak
+                    <span className="lg:hidden">Boek een<br />afspraak</span>
+                    <span className="hidden lg:inline">Boek een afspraak</span>
                   </h1>
                   <BookingWizard key={refreshKey} />
 

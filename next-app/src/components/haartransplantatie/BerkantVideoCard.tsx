@@ -33,7 +33,7 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
   }, [videoId]);
 
   const handleClick = () => {
-    router.push(`/${language}/berkantdural?video=${video.id}`);
+    router.push(`/${language}/berkantdural?video=${video.id}&sound=on`);
   };
 
   return (
