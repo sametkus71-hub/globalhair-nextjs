@@ -58,8 +58,7 @@
     width: 100vw !important;
     max-width: 100vw !important;
     overscroll-behavior: none !important;
-    background-color: #000 !important;
-    /* Hides white space if scroll happens */
+    /* background-color: #000 !important;  <-- REMOVED: this was hiding the video */
   }
 
   /* Lock children unless explicitly scrollable */
@@ -2437,6 +2436,20 @@ body {
 
 .ql-snow .ql-picker-label {
   color: hsl(var(--foreground)) !important;
+}
+
+html,
+body {
+  overscroll-behavior-y: none;
+  /* Prevents pull-to-refresh on mobile */
+  background-color: #000;
+  /* Dark fallback for overscroll areas */
+}
+
+body {
+  background: transparent;
+  /* Or keep specific background for body if needed, but #000 is safe base */
+  color: rgb(var(--foreground-rgb)) !important;
 }
 
 .ql-snow .ql-picker-options {
