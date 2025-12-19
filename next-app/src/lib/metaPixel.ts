@@ -17,8 +17,8 @@ const PIXEL_ID = '1605900147237994';
 
 // ---- fbq readiness - trust Meta's queue system ----
 function isFbqAvailable() {
-  return typeof window !== 'undefined' && 
-         typeof window.fbq === 'function';
+  return typeof window !== 'undefined' &&
+    typeof window.fbq === 'function';
 }
 
 function waitForFbq(maxMs = 3000) {
@@ -27,10 +27,10 @@ function waitForFbq(maxMs = 3000) {
     const t0 = Date.now();
     const iv = setInterval(() => {
       if (isFbqAvailable()) {
-        clearInterval(iv); 
+        clearInterval(iv);
         resolve(true);
       } else if (Date.now() - t0 > maxMs) {
-        clearInterval(iv); 
+        clearInterval(iv);
         resolve(false);
       }
     }, 50);
@@ -95,7 +95,7 @@ function enqueueSend(task: () => Promise<void> | void) {
   queue = queue.then(async () => {
     await task();
     await new Promise(r => setTimeout(r, SPACING_MS));
-  }).catch(() => {});
+  }).catch(() => { });
   return queue;
 }
 
@@ -165,7 +165,7 @@ export async function trackSimplePageView(opts?: { dedupeKey?: string }) {
       try {
         window.fbq?.('track', 'PageView');
         return;
-      } catch (_) {}
+      } catch (_) { }
     }
     imageFallback('PageView');
   });
