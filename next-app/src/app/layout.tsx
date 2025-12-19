@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   icons: {
     icon: 'https://GlobalHair.b-cdn.net/globalhair%20favicon4.png',
   },
+  metadataBase: new URL('https://globalhair.institute'),
 };
 
 export default function RootLayout({
