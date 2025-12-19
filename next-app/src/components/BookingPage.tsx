@@ -61,8 +61,8 @@ export const BookingPage = () => {
       />
 
       <TestModeProvider>
-        {/* Root wrapper - strictly for positioning, no movement to avoid double-container issues */}
-        <div className={`fixed inset-0 z-[9999] ${isExiting ? 'reviews-page-exit' : ''}`}>
+        {/* Root wrapper - strict height constraint via app-height to avoid keyboard issues */}
+        <div className={`fixed top-0 left-0 w-full h-[var(--app-height)] z-[9999] ${isExiting ? 'reviews-page-exit' : ''}`}>
 
           {/* 1. Background Layer - FADES IN ONLY, DOES NOT MOVE */}
           <div
@@ -99,8 +99,8 @@ export const BookingPage = () => {
           />
 
           {/* 3. Content Wrapper - Handles the SLIDE UP animation independently */}
-          <div className="relative z-10 h-screen overflow-y-auto overflow-x-hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            <div className="min-h-screen py-6 px-4">
+          <div className="relative z-10 h-full overflow-y-auto overflow-x-hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div className="min-h-full py-6 px-4">
               <DesktopContainer>
                 {/* The distinct content slide from bottom */}
                 <div

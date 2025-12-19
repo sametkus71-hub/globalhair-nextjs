@@ -1,10 +1,11 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
 import { Providers } from './providers';
 import { GlobalVideoBackground } from '@/components/GlobalVideoBackground';
 import { SplashLoader } from '@/components/SplashLoader';
+import { ViewportHeightSetter } from '@/components/ViewportHeightSetter';
 import { CookieConsent } from '@/components/CookieConsent';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -22,6 +23,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: './',
   },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false, // Prevents zoom completely (accessibility trade-off, but requested for 'zoom in breaks experience')
 };
 
 export default function RootLayout({
@@ -66,6 +74,7 @@ export default function RootLayout({
         <link rel="preload" href="https://GlobalHair.b-cdn.net/Bg%20Videos/D%20-%20Basic%20BG%20V0%20(1).webm" as="fetch" type="video/webm" crossOrigin="anonymous" />
         <link rel="preload" href="https://GlobalHair.b-cdn.net/Bg%20Videos/P%20-%20Basic%20BG%20V0%20compressed.webm" as="fetch" type="video/webm" crossOrigin="anonymous" />
 
+        <ViewportHeightSetter />
         <SplashLoader />
         <GlobalVideoBackground />
         <Providers>

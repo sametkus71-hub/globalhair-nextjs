@@ -39,5 +39,5 @@ export function GlobalVideoBackground() {
 
     if (!shouldShowVideo) return null;
 
-    return <VideoBackground className="!fixed !inset-0 !z-0" />;
+    return <VideoBackground className="!fixed !inset-x-0 !top-0 !h-[var(--app-height)] !z-0 object-cover" />;
 }
