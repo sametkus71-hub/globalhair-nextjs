@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { BERKANT_VIDEOS } from '@/data/berkantVideos';
 import { useLanguage } from '@/hooks/useLanguage';
 
@@ -14,11 +14,22 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
   const { language } = useLanguage();
 
   // Fixed: Use deterministic video to prevent layout shifts/flashes
-  const video = useMemo(() => {
+  // State for video selection (defaults to first video for SSR consistency)
+  const [video, setVideo] = useState(BERKANT_VIDEOS[0]);
+
+  useEffect(() => {
+    // If a specific videoId is passed, use it
     if (videoId) {
-      return BERKANT_VIDEOS.find(v => v.id === videoId) || BERKANT_VIDEOS[0];
+      const specificVideo = BERKANT_VIDEOS.find(v => v.id === videoId);
+      if (specificVideo) {
+        setVideo(specificVideo);
+        return;
+      }
     }
-    return BERKANT_VIDEOS[0]; // Always start with the first video for stability
+
+    // Otherwise, pick a random video on the client side
+    const randomIndex = Math.floor(Math.random() * BERKANT_VIDEOS.length);
+    setVideo(BERKANT_VIDEOS[randomIndex]);
   }, [videoId]);
 
   const handleClick = () => {
