@@ -40,8 +40,8 @@ export function GlobalVideoBackground() {
     if (!shouldShowVideo) return null;
 
     return (
-        <div className="fixed inset-0 w-full overflow-hidden z-0" style={{ height: '100vh', maxHeight: '100vh' }}>
-            <VideoBackground className="!fixed !inset-x-0 !top-0 !h-[100vh] !z-0 object-cover" />
+        <div className="fixed inset-0 w-full overflow-hidden z-0" style={{ height: 'var(--initial-height, 100vh)', maxHeight: 'var(--initial-height, 100vh)' }}>
+            <VideoBackground className="!fixed !inset-x-0 !top-0 !h-[var(--initial-height,100vh)] !z-0 object-cover" />
         </div>
     );
 }

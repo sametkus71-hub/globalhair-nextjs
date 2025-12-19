@@ -13,6 +13,10 @@ const applyHeight = (height: number) => {
   document.documentElement.style.setProperty('--safe-area-height', `${height}px`);
 };
 
+const applyInitialHeight = (height: number) => {
+  document.documentElement.style.setProperty('--initial-height', `${height}px`);
+};
+
 export const useViewportHeight = () => {
   const [height, setHeight] = useState(0);
   const [heightBreakpoint, setHeightBreakpoint] = useState<HeightBreakpoint>('large');
@@ -28,10 +32,12 @@ export const useViewportHeight = () => {
       setHeight(freshHeight);
       setHeightBreakpoint(getBreakpoint(freshHeight));
       applyHeight(freshHeight);
+      return freshHeight;
     };
 
-    // Initialize immediately
-    detectHeight();
+    // Initialize immediately and set stable initial height
+    const initialH = detectHeight();
+    applyInitialHeight(initialH);
 
     // Handle orientation changes and resize
     // Note: visualViewport resize event handles keyboard open/close
@@ -48,16 +54,25 @@ export const useViewportHeight = () => {
       // HOWEVER, the user specifically asked for "visualViewport" approach.
       // Let's stick to their requested logic first.
       detectHeight();
+      // We DO NOT update initial-height on resize (keyboard), only app-height updates.
+    };
+
+    // Correction for orientation change - update initial height then
+    const handleOrientation = () => {
+      setTimeout(() => {
+        const h = detectHeight();
+        applyInitialHeight(h);
+      }, 100);
     };
 
     window.visualViewport?.addEventListener('resize', handleResize);
     window.addEventListener('resize', handleResize);
-    window.addEventListener('orientationchange', () => setTimeout(detectHeight, 100));
+    window.addEventListener('orientationchange', handleOrientation);
 
     return () => {
       window.visualViewport?.removeEventListener('resize', handleResize);
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('orientationchange', detectHeight);
+      window.removeEventListener('orientationchange', handleOrientation);
     };
   }, []);
 

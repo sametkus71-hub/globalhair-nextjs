@@ -52,8 +52,8 @@
     left: 0 !important;
     right: 0 !important;
     bottom: 0 !important;
-    height: 100vh !important;
-    max-height: 100vh !important;
+    height: var(--initial-height, 100vh) !important;
+    max-height: var(--initial-height, 100vh) !important;
     overflow: hidden !important;
     width: 100vw !important;
     max-width: 100vw !important;

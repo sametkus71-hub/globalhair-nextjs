@@ -24,16 +24,16 @@ export const useLockBodyScroll = (enable: boolean = true) => {
         document.body.style.overflow = 'hidden';
         document.body.style.position = 'fixed';
         document.body.style.width = '100%';
-        document.body.style.height = '100vh';
-        document.body.style.maxHeight = '100vh';
+        document.body.style.height = 'var(--initial-height, 100vh)';
+        document.body.style.maxHeight = 'var(--initial-height, 100vh)';
         document.body.style.top = '0';
         document.body.style.left = '0';
         document.body.style.right = '0';
         document.body.style.bottom = '0';
 
         document.documentElement.style.overflow = 'hidden';
-        document.documentElement.style.height = '100vh';
-        document.documentElement.style.maxHeight = '100vh';
+        document.documentElement.style.height = 'var(--initial-height, 100vh)';
+        document.documentElement.style.maxHeight = 'var(--initial-height, 100vh)';
 
         // Prevent scroll restoration
         if ('scrollRestoration' in window.history) {
