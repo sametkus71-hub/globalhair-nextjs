@@ -139,11 +139,10 @@ export function CookieConsent() {
               </div>
             </div>
           </div>
-        </div>
-        </div >,
-    document.getElementById('portal-root') || document.body
+        </div>,
+        document.getElementById('portal-root') || document.body
       )
-}
+      }
     </>
   );
 }
