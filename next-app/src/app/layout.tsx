@@ -29,7 +29,8 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
-  userScalable: false, // Prevents zoom completely (accessibility trade-off, but requested for 'zoom in breaks experience')
+  userScalable: false, // Prevents zoom completely
+  interactiveWidget: 'resizes-content', // Forces layout viewport to resize with keyboard
 };
 
 export default function RootLayout({
