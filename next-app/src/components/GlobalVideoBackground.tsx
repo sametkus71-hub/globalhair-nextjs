@@ -32,7 +32,9 @@ export function GlobalVideoBackground() {
         pathname.includes('/hair-transplant') ||
         pathname.includes('/boek') ||
         pathname.includes('/book') ||
-        pathname.includes('/chat')
+        pathname.includes('/chat') ||
+        pathname.includes('/berkantdural') ||
+        pathname.includes('/ozlemaslan')
     );
 
     if (!shouldShowVideo) return null;

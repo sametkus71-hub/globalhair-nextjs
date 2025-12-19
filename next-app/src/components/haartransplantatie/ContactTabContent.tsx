@@ -16,7 +16,7 @@ export const ContactTabContent = () => {
     <div className="h-full w-full flex flex-col lg:gap-6">
       {/* Tabs Section */}
       <div className="w-full flex justify-center px-4 lg:pt-[50px]" style={{ paddingTop: 'clamp(6px, 3vh, 50px)', paddingBottom: 'clamp(4px, 1vh, 20px)' }}>
-        <div 
+        <div
           className="relative flex items-center justify-center gap-1 rounded-full"
           style={{
             background: '#FFFFFF0D',
@@ -29,11 +29,10 @@ export const ContactTabContent = () => {
         >
           <button
             onClick={() => setActiveTab('nl')}
-            className={`relative rounded-full font-light transition-all duration-300 ease-out text-white ${
-              activeTab === 'nl'
+            className={`relative rounded-full font-light transition-all duration-300 ease-out text-white ${activeTab === 'nl'
                 ? 'silver-gradient-border scale-105'
                 : 'bg-transparent hover:opacity-80 scale-100'
-            }`}
+              }`}
             style={{
               padding: 'clamp(0.2rem, 0.5vh, 0.35rem) clamp(1rem, 2.5vw, 1.5rem)',
               fontSize: 'clamp(0.7rem, 1.3vh, 0.8rem)',
@@ -44,11 +43,10 @@ export const ContactTabContent = () => {
           </button>
           <button
             onClick={() => setActiveTab('tr')}
-            className={`relative rounded-full font-light transition-all duration-300 ease-out text-white ${
-              activeTab === 'tr'
+            className={`relative rounded-full font-light transition-all duration-300 ease-out text-white ${activeTab === 'tr'
                 ? 'silver-gradient-border scale-105'
                 : 'bg-transparent hover:opacity-80 scale-100'
-            }`}
+              }`}
             style={{
               padding: 'clamp(0.2rem, 0.5vh, 0.35rem) clamp(1rem, 2.5vw, 1.5rem)',
               fontSize: 'clamp(0.7rem, 1.3vh, 0.8rem)',
@@ -61,7 +59,7 @@ export const ContactTabContent = () => {
       </div>
       {/* Middle Content Area - Flex Grow with Centered Inner Box */}
       <div className="flex-1 lg:flex-initial w-full px-2 flex items-center justify-center mx-auto lg:max-w-[600px]" style={{ minHeight: 0 }}>
-        <div 
+        <div
           className={`w-[80%] lg:w-full rounded-2xl silver-gradient-border ${activeTab === 'nl' ? 'lg:max-w-[900px]' : 'lg:max-w-[400px]'} px-4 lg:py-8`}
           style={{
             paddingTop: 'clamp(8px, 1.5vh, 12px)',
@@ -77,8 +75,8 @@ export const ContactTabContent = () => {
               {/* Barendrecht */}
               <div className="text-center w-full lg:w-[280px]">
                 <div className="flex gap-1 justify-center items-center mb-3 lg:mb-3">
-                  <img src={shieldIcon} alt="Shield" className="w-5 h-5 lg:w-6 lg:h-6" style={{ filter: 'brightness(0) invert(1)' }} />
-                  <img src={v6HairboostIcon} alt="V6 Hairboost®" className="w-7 h-7 lg:w-8 lg:h-8" style={{ filter: 'brightness(0) invert(1)' }} />
+                  <img src={shieldIcon.src} alt="Shield" className="w-5 h-5 lg:w-6 lg:h-6" style={{ filter: 'brightness(0) invert(1)' }} />
+                  <img src={v6HairboostIcon.src} alt="V6 Hairboost®" className="w-7 h-7 lg:w-8 lg:h-8" style={{ filter: 'brightness(0) invert(1)' }} />
                 </div>
                 <h2 className="text-white text-lg mb-1 lg:text-3xl" style={{ fontFamily: 'Inter', fontWeight: 400, lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
                   Barendrecht
@@ -86,7 +84,7 @@ export const ContactTabContent = () => {
                 <p className="text-white mb-2 lg:text-base lg:mb-0" style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(10px, 1.8vh, 12px)', fontWeight: 300 }}>
                   Pesetastraat 72, 2991 XT
                 </p>
-                <span 
+                <span
                   className="inline-block px-3 py-1.5 rounded-full text-white badge-gradient-border"
                   style={{
                     background: 'rgba(255, 255, 255, 0.12)',
@@ -108,7 +106,7 @@ export const ContactTabContent = () => {
               {/* Leiden */}
               <div className="text-center w-full lg:w-[280px]">
                 <div className="flex gap-1 justify-center items-center mb-3 lg:mb-3">
-                  <img src={v6HairboostIcon} alt="V6 Hairboost®" className="w-7 h-7 lg:w-8 lg:h-8" style={{ filter: 'brightness(0) invert(1)' }} />
+                  <img src={v6HairboostIcon.src} alt="V6 Hairboost®" className="w-7 h-7 lg:w-8 lg:h-8" style={{ filter: 'brightness(0) invert(1)' }} />
                 </div>
                 <h2 className="text-white text-lg mb-1 lg:text-3xl" style={{ fontFamily: 'Inter', fontWeight: 400, lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
                   Leiden
@@ -122,7 +120,7 @@ export const ContactTabContent = () => {
             <div className="flex justify-center mx-auto w-full lg:w-[280px]">
               <div className="text-center">
                 <div className="flex gap-1 justify-center items-center mb-3 lg:mb-3">
-                  <img src={shieldIcon} alt="Shield" className="w-5 h-5 lg:w-6 lg:h-6" style={{ filter: 'brightness(0) invert(1)' }} />
+                  <img src={shieldIcon.src} alt="Shield" className="w-5 h-5 lg:w-6 lg:h-6" style={{ filter: 'brightness(0) invert(1)' }} />
                 </div>
                 <h2 className="text-white text-lg mb-1 lg:text-3xl" style={{ fontFamily: 'Inter', fontWeight: 400, lineHeight: '83%', letterSpacing: '-4%', textAlign: 'center' }}>
                   İstanbul
@@ -133,7 +131,7 @@ export const ContactTabContent = () => {
         </div>
       </div>
       {/* Footer Row - Fixed at Bottom */}
-      <footer 
+      <footer
         className="flex flex-col px-2"
         style={{
           padding: 'clamp(8px, 2vh, 16px) 8px',
@@ -142,7 +140,7 @@ export const ContactTabContent = () => {
       >
         {/* Separator Line */}
         <div className="w-full lg:max-w-[450px] lg:mx-auto">
-          <div 
+          <div
             style={{
               width: '100%',
               height: '1px',
@@ -150,7 +148,7 @@ export const ContactTabContent = () => {
             }}
           />
         </div>
-        
+
         {/* Contact Info Row */}
         <div className="w-full lg:max-w-[450px] lg:mx-auto">
           <div className="flex items-center">
@@ -165,17 +163,17 @@ export const ContactTabContent = () => {
             </a>
           </div>
         </div>
-        
+
         {/* Social Icons Row */}
         <div className="flex items-center justify-center gap-6">
-          <button 
+          <button
             onClick={() => router.push('/nl/chat')}
             className="transition-all duration-200 hover:scale-105 cursor-pointer"
             aria-label="Chat"
           >
             <img src={chatIcon} alt="Chat" className="w-6 h-6" />
           </button>
-          <a 
+          <a
             href="https://wa.me/31857500577"
             target="_blank"
             rel="noopener noreferrer"
@@ -184,7 +182,7 @@ export const ContactTabContent = () => {
           >
             <img src={whatsappIcon} alt="WhatsApp" className="w-10 h-10" />
           </a>
-          <a 
+          <a
             href="https://www.instagram.com/globalhair.institute/"
             target="_blank"
             rel="noopener noreferrer"

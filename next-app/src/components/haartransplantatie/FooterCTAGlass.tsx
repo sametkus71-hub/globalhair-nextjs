@@ -8,6 +8,7 @@ import { useBookingModal } from '@/contexts/BookingModalContext';
 import chatIcon from '@/assets/chat-icon.svg';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { AnimatedHeadHero } from '@/components/haartransplantatie/AnimatedHeadHero';
 
 export const FooterCTAGlass = () => {
   const router = useRouter();
@@ -44,104 +45,213 @@ export const FooterCTAGlass = () => {
         }}
       >
         <div className={`flex items-center space-x-2 ${isMobile ? 'justify-between' : 'justify-center'}`}>
-          {/* Book a consult button */}
-          <button
-            onClick={openModal}
-            className={`gold-gradient-border cta-button-glow ${isMobile ? 'flex-1' : ''} flex items-center rounded-full transition-all duration-200`}
-            style={{
-              padding: '0.4rem',
-              width: isMobile ? undefined : '250px',
-              background: 'linear-gradient(90deg, rgba(15, 25, 40, 0.7), rgba(35, 50, 70, 0.8), rgba(50, 65, 85, 0.75), rgba(35, 50, 70, 0.8), rgba(15, 25, 40, 0.7))',
-              backgroundSize: '200% 100%',
-              animation: 'background-gradient-shift 7s ease-in-out infinite',
-              backdropFilter: 'blur(20px)',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 20px rgba(201, 163, 93, 0.35), 0 0 40px rgba(201, 163, 93, 0.15), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1)',
-              justifyContent: 'center',
-              gap: 0,
-              position: 'relative',
-              overflow: 'hidden',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 25px rgba(201, 163, 93, 0.45), 0 0 50px rgba(201, 163, 93, 0.2), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 20px rgba(201, 163, 93, 0.35), 0 0 40px rgba(201, 163, 93, 0.15), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1)';
-            }}
-          >
-            {/* Shine sweep overlay */}
-            <span
-              className="shine-sweep"
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '60%',
-                height: '100%',
-                background: 'linear-gradient(90deg, rgba(255,250,235,0) 0%, rgba(255,250,235,0.3) 50%, rgba(255,250,235,0) 100%)',
-                transform: 'translateX(-100%) skewX(-15deg)',
-                animation: 'shine-sweep 4.5s ease-in-out infinite',
-                pointerEvents: 'none',
-                zIndex: 3,
-              }}
-            />
+          {!isMobile ? (
+            // Desktop Order: AI Hairscan -> Chat -> Book
+            <>
+              {/* AI Hairscan Button */}
+              <AnimatedHeadHero inFooter={true} />
 
-            <span
-              style={{
-                fontFamily: 'Inter, system-ui, sans-serif',
-                fontWeight: 300,
-                letterSpacing: '0.01em',
-                flex: 1,
-                textAlign: 'center',
-                zIndex: 2,
-                color: 'white',
-              }}
-            >
-              {language === 'nl' ? 'Book a consult' : 'Book a consult'}
-            </span>
-
-            <span
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginLeft: 'auto',
-              }}
-            >
-              <div
-                className="silver-gradient-border rounded-full flex items-center justify-center"
+              {/* Chat button */}
+              <button
+                onClick={() => router.push(language === 'nl' ? '/nl/chat' : '/en/chat')}
+                className="silver-gradient-border rounded-full flex items-center justify-center transition-all duration-200"
                 style={{
-                  width: 'clamp(40px, 4.5vh, 46px)',
-                  height: 'clamp(40px, 4.5vh, 46px)',
-                  background: 'rgba(255, 255, 255, 0.10)',
+                  width: 'clamp(48px, 5.5vh, 54px)',
+                  height: 'clamp(48px, 5.5vh, 54px)',
+                  background: 'rgba(255, 255, 255, 0.12)',
+                  backdropFilter: 'blur(20px)',
+                  boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 15px rgba(172, 185, 193, 0.2)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.16)';
+                  e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 20px rgba(172, 185, 193, 0.3)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
+                  e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 15px rgba(172, 185, 193, 0.2)';
                 }}
               >
-                <ArrowUpRight style={{ width: 'clamp(20px, 2.2vh, 22px)', height: 'clamp(20px, 2.2vh, 22px)' }} className="text-white" strokeWidth={2.5} />
-              </div>
-            </span>
-          </button>
+                <Image src={chatIcon} alt="Chat" style={{ width: 'clamp(18px, 2vh, 20px)', height: 'clamp(18px, 2vh, 20px)' }} />
+              </button>
 
-          {/* Chat button */}
-          <button
-            onClick={() => router.push(language === 'nl' ? '/nl/chat' : '/en/chat')}
-            className="silver-gradient-border rounded-full flex items-center justify-center transition-all duration-200"
-            style={{
-              width: 'clamp(48px, 5.5vh, 54px)',
-              height: 'clamp(48px, 5.5vh, 54px)',
-              background: 'rgba(255, 255, 255, 0.12)',
-              backdropFilter: 'blur(20px)',
-              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 15px rgba(172, 185, 193, 0.2)',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.16)';
-              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 20px rgba(172, 185, 193, 0.3)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
-              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 15px rgba(172, 185, 193, 0.2)';
-            }}
-          >
-            <Image src={chatIcon} alt="Chat" style={{ width: 'clamp(18px, 2vh, 20px)', height: 'clamp(18px, 2vh, 20px)' }} />
-          </button>
+              {/* Book a consult button */}
+              <button
+                onClick={openModal}
+                className={`gold-gradient-border cta-button-glow flex items-center rounded-full transition-all duration-200`}
+                style={{
+                  padding: '0.4rem',
+                  width: '250px',
+                  background: 'linear-gradient(90deg, rgba(15, 25, 40, 0.7), rgba(35, 50, 70, 0.8), rgba(50, 65, 85, 0.75), rgba(35, 50, 70, 0.8), rgba(15, 25, 40, 0.7))',
+                  backgroundSize: '200% 100%',
+                  animation: 'background-gradient-shift 7s ease-in-out infinite',
+                  backdropFilter: 'blur(20px)',
+                  boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 20px rgba(201, 163, 93, 0.35), 0 0 40px rgba(201, 163, 93, 0.15), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1)',
+                  justifyContent: 'center',
+                  gap: 0,
+                  position: 'relative',
+                  overflow: 'hidden',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 25px rgba(201, 163, 93, 0.45), 0 0 50px rgba(201, 163, 93, 0.2), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 20px rgba(201, 163, 93, 0.35), 0 0 40px rgba(201, 163, 93, 0.15), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1)';
+                }}
+              >
+                {/* Shine sweep overlay */}
+                <span
+                  className="shine-sweep"
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '60%',
+                    height: '100%',
+                    background: 'linear-gradient(90deg, rgba(255,250,235,0) 0%, rgba(255,250,235,0.3) 50%, rgba(255,250,235,0) 100%)',
+                    transform: 'translateX(-100%) skewX(-15deg)',
+                    animation: 'shine-sweep 4.5s ease-in-out infinite',
+                    pointerEvents: 'none',
+                    zIndex: 3,
+                  }}
+                />
+
+                <span
+                  style={{
+                    fontFamily: 'Inter, system-ui, sans-serif',
+                    fontWeight: 300,
+                    letterSpacing: '0.01em',
+                    flex: 1,
+                    textAlign: 'center',
+                    zIndex: 2,
+                    color: 'white',
+                  }}
+                >
+                  {language === 'nl' ? 'Book a consult' : 'Book a consult'}
+                </span>
+
+                <span
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginLeft: 'auto',
+                  }}
+                >
+                  <div
+                    className="silver-gradient-border rounded-full flex items-center justify-center"
+                    style={{
+                      width: 'clamp(40px, 4.5vh, 46px)',
+                      height: 'clamp(40px, 4.5vh, 46px)',
+                      background: 'rgba(255, 255, 255, 0.10)',
+                    }}
+                  >
+                    <ArrowUpRight style={{ width: 'clamp(20px, 2.2vh, 22px)', height: 'clamp(20px, 2.2vh, 22px)' }} className="text-white" strokeWidth={2.5} />
+                  </div>
+                </span>
+              </button>
+            </>
+          ) : (
+            // Mobile Order: Book -> Chat (Unchanged)
+            <>
+              {/* Book a consult button */}
+              <button
+                onClick={openModal}
+                className={`gold-gradient-border cta-button-glow flex-1 flex items-center rounded-full transition-all duration-200`}
+                style={{
+                  padding: '0.4rem',
+                  background: 'linear-gradient(90deg, rgba(15, 25, 40, 0.7), rgba(35, 50, 70, 0.8), rgba(50, 65, 85, 0.75), rgba(35, 50, 70, 0.8), rgba(15, 25, 40, 0.7))',
+                  backgroundSize: '200% 100%',
+                  animation: 'background-gradient-shift 7s ease-in-out infinite',
+                  backdropFilter: 'blur(20px)',
+                  boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 20px rgba(201, 163, 93, 0.35), 0 0 40px rgba(201, 163, 93, 0.15), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1)',
+                  justifyContent: 'center',
+                  gap: 0,
+                  position: 'relative',
+                  overflow: 'hidden',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 25px rgba(201, 163, 93, 0.45), 0 0 50px rgba(201, 163, 93, 0.2), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 20px rgba(201, 163, 93, 0.35), 0 0 40px rgba(201, 163, 93, 0.15), inset 0 -20px 30px -10px rgba(255, 255, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.1)';
+                }}
+              >
+                {/* Shine sweep overlay */}
+                <span
+                  className="shine-sweep"
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '60%',
+                    height: '100%',
+                    background: 'linear-gradient(90deg, rgba(255,250,235,0) 0%, rgba(255,250,235,0.3) 50%, rgba(255,250,235,0) 100%)',
+                    transform: 'translateX(-100%) skewX(-15deg)',
+                    animation: 'shine-sweep 4.5s ease-in-out infinite',
+                    pointerEvents: 'none',
+                    zIndex: 3,
+                  }}
+                />
+
+                <span
+                  style={{
+                    fontFamily: 'Inter, system-ui, sans-serif',
+                    fontWeight: 300,
+                    letterSpacing: '0.01em',
+                    flex: 1,
+                    textAlign: 'center',
+                    zIndex: 2,
+                    color: 'white',
+                  }}
+                >
+                  {language === 'nl' ? 'Book a consult' : 'Book a consult'}
+                </span>
+
+                <span
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginLeft: 'auto',
+                  }}
+                >
+                  <div
+                    className="silver-gradient-border rounded-full flex items-center justify-center"
+                    style={{
+                      width: 'clamp(40px, 4.5vh, 46px)',
+                      height: 'clamp(40px, 4.5vh, 46px)',
+                      background: 'rgba(255, 255, 255, 0.10)',
+                    }}
+                  >
+                    <ArrowUpRight style={{ width: 'clamp(20px, 2.2vh, 22px)', height: 'clamp(20px, 2.2vh, 22px)' }} className="text-white" strokeWidth={2.5} />
+                  </div>
+                </span>
+              </button>
+
+              {/* Chat button */}
+              <button
+                onClick={() => router.push(language === 'nl' ? '/nl/chat' : '/en/chat')}
+                className="silver-gradient-border rounded-full flex items-center justify-center transition-all duration-200"
+                style={{
+                  width: 'clamp(48px, 5.5vh, 54px)',
+                  height: 'clamp(48px, 5.5vh, 54px)',
+                  background: 'rgba(255, 255, 255, 0.12)',
+                  backdropFilter: 'blur(20px)',
+                  boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 15px rgba(172, 185, 193, 0.2)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.16)';
+                  e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 20px rgba(172, 185, 193, 0.3)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)';
+                  e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 15px rgba(172, 185, 193, 0.2)';
+                }}
+              >
+                <Image src={chatIcon} alt="Chat" style={{ width: 'clamp(18px, 2vh, 20px)', height: 'clamp(18px, 2vh, 20px)' }} />
+              </button>
+            </>
+          )}
         </div>
       </div>
       <style>{`

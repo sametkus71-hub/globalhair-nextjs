@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
-import { ChevronRight, Camera, Volume2, VolumeX } from 'lucide-react';
+import { ChevronRight, Camera } from 'lucide-react';
 import { BERKANT_VIDEOS } from '@/data/berkantVideos';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useTranslation } from '@/lib/translations';
@@ -24,8 +24,8 @@ const BerkantDuralPage = () => {
   const [nextButtonVisible, setNextButtonVisible] = useState(false);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchCurrent, setTouchCurrent] = useState<number | null>(null);
+  // const [isDragging, setIsDragging] = useState(false); // Kept dragging state, removing muted
   const [isDragging, setIsDragging] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
 
   const videoId = searchParams.get('video');
   const video = BERKANT_VIDEOS.find(v => v.id === videoId) || BERKANT_VIDEOS[0];
@@ -221,7 +221,7 @@ const BerkantDuralPage = () => {
               poster={video.thumbnail}
               autoPlay
               loop
-              muted={isMuted}
+              muted={false}
               playsInline
               preload="auto"
               className="absolute inset-0 w-full h-full object-cover rounded-[24px]"
@@ -256,30 +256,7 @@ const BerkantDuralPage = () => {
               </svg>
             </button>
 
-            {/* Mute Toggle Button - Top Right */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                if (videoRef.current) {
-                  videoRef.current.muted = !isMuted;
-                  setIsMuted(!isMuted);
-                }
-              }}
-              className="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center transition-all duration-200 hover:opacity-80 rounded-full"
-              style={{
-                background: 'rgba(255, 255, 255, 0.1)',
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255, 255, 255, 0.2)'
-              }}
-              aria-label={isMuted ? 'Unmute' : 'Mute'}
-            >
-              {isMuted ? (
-                <VolumeX size={18} className="text-white" />
-              ) : (
-                <Volume2 size={18} className="text-white" />
-              )}
-            </button>
+
 
             {/* Title at top */}
             <div className={`relative z-10 text-center transition-all duration-500 ease-out pt-8 ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>

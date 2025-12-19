@@ -7,9 +7,10 @@ import { useToast } from '@/hooks/use-toast';
 
 interface AnimatedHeadHeroProps {
   inHeader?: boolean;
+  inFooter?: boolean;
 }
 
-export const AnimatedHeadHero = ({ inHeader = false }: AnimatedHeadHeroProps) => {
+export const AnimatedHeadHero = ({ inHeader = false, inFooter = false }: AnimatedHeadHeroProps) => {
   const { language } = useLanguage();
   const router = useRouter();
   const { toast } = useToast();
@@ -19,11 +20,11 @@ export const AnimatedHeadHero = ({ inHeader = false }: AnimatedHeadHeroProps) =>
   };
 
   return (
-    <div 
+    <div
       className="relative flex items-start"
       style={{
-        paddingLeft: inHeader ? '0' : 'clamp(0.75rem, 1vw, 1rem)',
-        animation: inHeader ? 'none' : 'fade-up 0.8s ease-out 0.4s both',
+        paddingLeft: (inHeader || inFooter) ? '0' : 'clamp(0.75rem, 1vw, 1rem)',
+        animation: (inHeader || inFooter) ? 'none' : 'fade-up 0.8s ease-out 0.4s both',
       }}
     >
       {/* Primary CTA - Analyze my hair */}
@@ -45,9 +46,9 @@ export const AnimatedHeadHero = ({ inHeader = false }: AnimatedHeadHeroProps) =>
           e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
         }}
       >
-        <span 
+        <span
           className="text-white whitespace-nowrap"
-          style={{ 
+          style={{
             fontFamily: 'Inter, system-ui, sans-serif',
             fontSize: 'clamp(0.875rem, 1.4vh, 1rem)',
             fontWeight: '300',
@@ -56,7 +57,7 @@ export const AnimatedHeadHero = ({ inHeader = false }: AnimatedHeadHeroProps) =>
         >
           AI Hairscan
         </span>
-        <div 
+        <div
           className="silver-gradient-border cta-button-glow flex items-center justify-center rounded-full"
           style={{
             width: 'clamp(35px, 5vh, 45px)',
