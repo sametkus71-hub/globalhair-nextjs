@@ -268,6 +268,7 @@ export const PackageStandardPage = () => {
       // Update content quickly for snappy feel
       setTimeout(() => {
         setActiveTier(tier);
+        setOpenFeatures(new Set()); // Reset all accordions to collapsed state
       }, 50);
 
       setTimeout(() => {

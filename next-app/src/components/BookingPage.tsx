@@ -10,6 +10,9 @@ import { StaffCodePopover } from '@/components/booking/StaffCodePopover';
 import { TestModeProvider } from '@/contexts/TestModeContext';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
 import { trackCustom, isMetaPixelAllowed } from '@/lib/metaPixel';
+import hairtransplantLogo from '@/assets/hairtransplant-logo.png';
+import logoIcon from '@/assets/logo-icon.png';
+import Image from 'next/image';
 
 export const BookingPage = () => {
   const { language } = useLanguage();
@@ -72,7 +75,22 @@ export const BookingPage = () => {
             }}
           />
 
-          {/* 2. Close Button - Fades in */}
+          {/* 2. Logo - Desktop (top left) */}
+          <div
+            className={`hidden lg:block absolute top-6 left-6 transition-opacity duration-700 delay-100 ${titleVisible && !isExiting ? 'opacity-100' : 'opacity-0'
+              }`}
+            style={{ zIndex: 100 }}
+          >
+            <Image
+              src={hairtransplantLogo}
+              alt="GlobalHair Institute"
+              width={180}
+              height={40}
+              priority
+            />
+          </div>
+
+          {/* 3. Close Button - Fades in */}
           <PopupCloseButton
             onClose={handleClose}
             className={`!left-auto !right-4 transition-opacity duration-700 delay-200 ${titleVisible && !isExiting ? 'opacity-100' : 'opacity-0'
@@ -89,8 +107,35 @@ export const BookingPage = () => {
                   className={`transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] ${titleVisible && !isExiting ? 'translate-y-0 opacity-100' : 'translate-y-[100vh] opacity-0'
                     }`}
                 >
+                  {/* Mobile: Icon + Title */}
+                  <div className="lg:hidden flex items-center gap-3 mb-6">
+                    <Image
+                      src={logoIcon}
+                      alt="GlobalHair"
+                      width={32}
+                      height={32}
+                      priority
+                    />
+                    <h1
+                      className="font-inter"
+                      style={{
+                        lineHeight: 1,
+                        fontWeight: 400,
+                        fontSize: '40px',
+                        background: 'linear-gradient(123.33deg, rgba(255, 255, 255, 0.5) -0.64%, #FFFFFF 39.54%, #FFFFFF 79.72%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        textShadow: '0px 3.39px 18.55px #FFFFFF40'
+                      }}
+                    >
+                      Boek een<br />afspraak
+                    </h1>
+                  </div>
+
+                  {/* Desktop: Title only (logo is in top left) */}
                   <h1
-                    className="font-inter mb-6 lg:text-center"
+                    className="hidden lg:block font-inter mb-6 text-center"
                     style={{
                       lineHeight: 1,
                       fontWeight: 400,
@@ -102,8 +147,7 @@ export const BookingPage = () => {
                       textShadow: '0px 3.39px 18.55px #FFFFFF40'
                     }}
                   >
-                    <span className="lg:hidden">Boek een<br />afspraak</span>
-                    <span className="hidden lg:inline">Boek een afspraak</span>
+                    Boek een afspraak
                   </h1>
                   <BookingWizard key={refreshKey} />
 
