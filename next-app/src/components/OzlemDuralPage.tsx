@@ -2,12 +2,13 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
+import { ChevronRight } from 'lucide-react';
 import { OZLEM_VIDEO } from '@/data/ozlemVideos';
 import { useLanguage } from '@/hooks/useLanguage';
 import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
 import { SEOHead } from '@/components/SEOHead';
 
-const OzlemAslanPage = () => {
+const OzlemDuralPage = () => {
   const router = useRouter();
   const { language } = useLanguage();
   const searchParams = useSearchParams();
@@ -23,6 +24,35 @@ const OzlemAslanPage = () => {
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchCurrent, setTouchCurrent] = useState<number | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isUserActive, setIsUserActive] = useState(true);
+  const activityTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Handle user activity for dimming text
+  const handleUserActivity = () => {
+    setIsUserActive(true);
+    if (activityTimerRef.current) clearTimeout(activityTimerRef.current);
+    activityTimerRef.current = setTimeout(() => {
+      setIsUserActive(false);
+    }, 3000);
+  };
+
+  useEffect(() => {
+    // Initial timer
+    handleUserActivity();
+
+    // Activity listeners
+    window.addEventListener('mousemove', handleUserActivity);
+    window.addEventListener('click', handleUserActivity);
+    window.addEventListener('touchstart', handleUserActivity);
+
+    return () => {
+      window.removeEventListener('mousemove', handleUserActivity);
+      window.removeEventListener('click', handleUserActivity);
+      window.removeEventListener('touchstart', handleUserActivity);
+      if (activityTimerRef.current) clearTimeout(activityTimerRef.current);
+    };
+  }, []);
 
   const handleClose = () => {
     setIsExiting(true);
@@ -101,8 +131,8 @@ const OzlemAslanPage = () => {
   return (
     <>
       <SEOHead
-        title="Özlem Aslan - Operational Manager GlobalHair Institute"
-        description="Als Operational Manager van GlobalHair Institute zorgt Özlem Aslan ervoor dat elke cliënt een naadloze en persoonlijke ervaring krijgt."
+        title="Özlem Dural - CPO GlobalHair Institute"
+        description="Als CPO van GlobalHair Institute zorgt Özlem Dural ervoor dat elke cliënt een naadloze en persoonlijke ervaring krijgt."
       />
       <style dangerouslySetInnerHTML={{
         __html: `
@@ -243,14 +273,6 @@ const OzlemAslanPage = () => {
             />
 
             {/* Top left - Name badge */}
-            <div className={`absolute top-4 left-4 z-20 transition-all duration-500 ease-out ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
-              <div className="ozlem-badge">
-                <span className="ozlem-badge-text">
-                  <span style={{ fontFamily: 'Georgia, "Times New Roman", serif', fontWeight: 500, opacity: 0.85 }}>Ö</span>zlem Aslan
-                </span>
-              </div>
-            </div>
-
             {/* Top right - Close button */}
             <button
               onClick={handleClose}
@@ -269,13 +291,13 @@ const OzlemAslanPage = () => {
               </svg>
             </button>
 
-            {/* Mute toggle button */}
+            {/* Mute toggle button - Aligned with Close button */}
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 setIsMuted(!isMuted);
               }}
-              className={`absolute top-4 right-16 z-20 w-10 h-10 flex items-center justify-center transition-all duration-500 ease-out hover:opacity-80 rounded-full ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}
+              className={`absolute top-16 right-4 z-20 w-10 h-10 flex items-center justify-center transition-all duration-500 ease-out hover:opacity-80 rounded-full ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}
               style={{
                 background: 'linear-gradient(135deg, rgba(98, 145, 186, 0.3), rgba(105, 135, 159, 0.3)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1)) border-box',
                 border: '1.5px solid transparent',
@@ -299,50 +321,51 @@ const OzlemAslanPage = () => {
               )}
             </button>
 
-            {/* Description and Buttons at bottom */}
-            <div className="relative z-10 space-y-6 mt-auto">
-              <div className={`max-w-md transition-all duration-500 ease-out ${contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                <p className="text-xs leading-relaxed font-normal text-left text-white/90 font-inter">
-                  {OZLEM_VIDEO.description}
-                </p>
+            {/* Bottom Content Area - Instagram/TikTok Style */}
+            <div
+              className={`absolute bottom-0 left-0 right-0 p-6 z-20 flex flex-col justify-end transition-opacity duration-1000 ease-out ${isUserActive ? 'opacity-100' : 'opacity-20 hover:opacity-100'}`}
+              onMouseEnter={handleUserActivity}
+              onTouchStart={handleUserActivity}
+            >
+              {/* Identity Row */}
+              <div className={`transition-all duration-500 ease-out mb-3 ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-white font-bold text-lg drop-shadow-md">Özlem Dural</h2>
+                  <span className="text-white/80 text-sm bg-black/20 backdrop-blur-sm px-2 py-0.5 rounded-full border border-white/10">
+                    CPO
+                  </span>
+                </div>
               </div>
 
-              {/* Bottom Button */}
-              <div className={`transition-all duration-500 ease-out ${buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                <div className="flex flex-col items-start gap-4">
-                  <button
-                    onClick={handleMethodsClick}
-                    className="animated-border-shine"
-                    style={{
-                      position: 'relative',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      padding: '12px 28px',
-                      background: 'rgba(0, 0, 0, 0.35)',
-                      backdropFilter: 'blur(10px)',
-                      WebkitBackdropFilter: 'blur(10px)',
-                      border: 'none',
-                      borderRadius: '9999px',
-                      color: 'white',
-                      fontSize: '14px',
-                      fontWeight: 400,
-                      cursor: 'pointer',
-                      overflow: 'hidden',
-                      transition: 'transform 0.2s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'scale(1.02)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'scale(1)';
-                    }}
-                  >
-                    <span style={{ position: 'relative', zIndex: 1 }}>
-                      {language === 'nl' ? 'Bekijk methodes' : 'View methods'}
+              {/* Description Row */}
+              <div className={`transition-all duration-500 delay-100 ease-out mb-4 ${contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <div
+                  className="text-sm font-normal text-white/95 font-inter drop-shadow-md cursor-pointer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsExpanded(!isExpanded);
+                  }}
+                >
+                  <p className={isExpanded ? "" : "line-clamp-1"}>
+                    {OZLEM_VIDEO.description}
+                  </p>
+                  {!isExpanded && (
+                    <span className="text-white/60 text-xs font-semibold ml-1 hover:text-white transition-colors">
+                      {language === 'nl' ? '...meer' : '...more'}
                     </span>
-                  </button>
+                  )}
                 </div>
+              </div>
+
+              {/* Actions Row */}
+              <div className={`flex items-center justify-between transition-all duration-500 delay-200 ease-out ${buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <button
+                  onClick={(e) => { e.stopPropagation(); handleMethodsClick(); }}
+                  className="bg-white/10 hover:bg-white/20 active:bg-white/30 backdrop-blur-md border border-white/20 text-white text-sm font-medium px-6 py-2.5 rounded-full transition-all duration-200 flex items-center gap-2 group"
+                >
+                  <span>{language === 'nl' ? 'Bekijk methodes' : 'View methods'}</span>
+                  <ChevronRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
+                </button>
               </div>
             </div>
           </section>
@@ -355,4 +378,4 @@ const OzlemAslanPage = () => {
   );
 };
 
-export default OzlemAslanPage;
+export default OzlemDuralPage;

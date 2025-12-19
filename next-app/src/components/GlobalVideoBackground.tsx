@@ -34,7 +34,7 @@ export function GlobalVideoBackground() {
         pathname.includes('/book') ||
         pathname.includes('/chat') ||
         pathname.includes('/berkantdural') ||
-        pathname.includes('/ozlemaslan')
+        pathname.includes('/ozlemdural')
     );
 
     if (!shouldShowVideo) return null;

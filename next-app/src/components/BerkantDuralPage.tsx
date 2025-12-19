@@ -26,6 +26,36 @@ const BerkantDuralPage = () => {
   const [touchCurrent, setTouchCurrent] = useState<number | null>(null);
   // const [isDragging, setIsDragging] = useState(false); // Kept dragging state, removing muted
   const [isDragging, setIsDragging] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isUserActive, setIsUserActive] = useState(true);
+  const activityTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Handle user activity for dimming text
+  const handleUserActivity = () => {
+    setIsUserActive(true);
+    if (activityTimerRef.current) clearTimeout(activityTimerRef.current);
+    activityTimerRef.current = setTimeout(() => {
+      setIsUserActive(false);
+    }, 3000);
+  };
+
+  useEffect(() => {
+    // Initial timer
+    handleUserActivity();
+
+    // Activity listeners
+    window.addEventListener('mousemove', handleUserActivity);
+    window.addEventListener('click', handleUserActivity);
+    window.addEventListener('touchstart', handleUserActivity);
+
+    return () => {
+      window.removeEventListener('mousemove', handleUserActivity);
+      window.removeEventListener('click', handleUserActivity);
+      window.removeEventListener('touchstart', handleUserActivity);
+      if (activityTimerRef.current) clearTimeout(activityTimerRef.current);
+    };
+  }, []);
+
   // Check if user came from a click (sound=on) or direct access
   const startUnmuted = searchParams.get('sound') === 'on';
   const [isMuted, setIsMuted] = useState(!startUnmuted);
@@ -279,12 +309,6 @@ const BerkantDuralPage = () => {
               }}
             />
             {/* Top left - Name badge */}
-            <div className={`absolute top-4 left-4 z-20 transition-all duration-500 ease-out ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
-              <div className="berkant-badge">
-                <span className="berkant-badge-text">Berkant Dural</span>
-              </div>
-            </div>
-
             {/* Top right - Close button */}
             <button
               onClick={handleClose}
@@ -303,13 +327,13 @@ const BerkantDuralPage = () => {
               </svg>
             </button>
 
-            {/* Mute toggle button */}
+            {/* Mute toggle button - Aligned with Close button */}
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 setIsMuted(!isMuted);
               }}
-              className={`absolute top-4 right-16 z-20 w-10 h-10 flex items-center justify-center transition-all duration-500 ease-out hover:opacity-80 rounded-full ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}
+              className={`absolute top-16 right-4 z-20 w-10 h-10 flex items-center justify-center transition-all duration-500 ease-out hover:opacity-80 rounded-full ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}
               style={{
                 background: 'linear-gradient(135deg, rgba(98, 145, 186, 0.3), rgba(105, 135, 159, 0.3)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1)) border-box',
                 border: '1.5px solid transparent',
@@ -333,67 +357,65 @@ const BerkantDuralPage = () => {
               )}
             </button>
 
-            {/* Description and Buttons at bottom */}
-            <div className="relative z-10 space-y-6 mt-auto">
-              <div className={`max-w-md transition-all duration-500 ease-out ${contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                <p className="text-xs leading-relaxed font-normal text-left text-white/90 font-inter">
-                  CEO Berkant Dural groeide op in een familie waar kaalheid vanzelfsprekend was, en dat werd zijn drijfveer. GlobalHair ontstond uit die persoonlijke zoektocht: een kliniek gebouwd op aandacht, rust en vakmanschap. Met zijn team werkt hij elke dag aan één doel; het herstellen van zelfvertrouwen, met precisie en respect voor het ambacht.
-                </p>
+
+            {/* Bottom Content Area - Instagram/TikTok Style */}
+            <div
+              className={`absolute bottom-0 left-0 right-0 p-6 z-20 flex flex-col justify-end transition-opacity duration-1000 ease-out ${isUserActive ? 'opacity-100' : 'opacity-20 hover:opacity-100'}`}
+              onMouseEnter={handleUserActivity}
+              onTouchStart={handleUserActivity}
+            >
+              {/* Identity Row */}
+              <div className={`transition-all duration-500 ease-out mb-3 ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-white font-bold text-lg drop-shadow-md">Berkant Dural</h2>
+                  <span className="text-white/80 text-sm bg-black/20 backdrop-blur-sm px-2 py-0.5 rounded-full border border-white/10">
+                    CEO
+                  </span>
+                </div>
               </div>
 
-              {/* Bottom Buttons */}
-              <div className={`transition-all duration-500 ease-out ${buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                <div className="flex flex-col items-start gap-4">
-                  <button
-                    onClick={handleMethodsClick}
-                    className="animated-border-shine"
-                    style={{
-                      position: 'relative',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      padding: '12px 28px',
-                      background: 'rgba(0, 0, 0, 0.35)',
-                      backdropFilter: 'blur(10px)',
-                      WebkitBackdropFilter: 'blur(10px)',
-                      border: 'none',
-                      borderRadius: '9999px',
-                      color: 'white',
-                      fontSize: '14px',
-                      fontWeight: 400,
-                      cursor: 'pointer',
-                      overflow: 'hidden',
-                      transition: 'transform 0.2s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'scale(1.02)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'scale(1)';
-                    }}
-                  >
-                    <span style={{ position: 'relative', zIndex: 1 }}>
-                      {language === 'nl' ? 'Bekijk methodes' : 'View methods'}
+              {/* Description Row */}
+              <div className={`transition-all duration-500 delay-100 ease-out mb-4 ${contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <div
+                  className="text-sm font-normal text-white/95 font-inter drop-shadow-md cursor-pointer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsExpanded(!isExpanded);
+                  }}
+                >
+                  <p className={isExpanded ? "" : "line-clamp-1"}>
+                    CEO Berkant Dural groeide op in een familie waar kaalheid vanzelfsprekend was, en dat werd zijn drijfveer. GlobalHair ontstond uit die persoonlijke zoektocht: een kliniek gebouwd op aandacht, rust en vakmanschap. Met zijn team werkt hij elke dag aan één doel; het herstellen van zelfvertrouwen, met precisie en respect voor het ambacht.
+                  </p>
+                  {!isExpanded && (
+                    <span className="text-white/60 text-xs font-semibold ml-1 hover:text-white transition-colors">
+                      {language === 'nl' ? '...meer' : '...more'}
                     </span>
-                  </button>
-
-                  {/* Next Video Control */}
-                  {nextButtonVisible && (
-                    <div
-                      onClick={handleNextVideo}
-                      className="cursor-pointer flex items-center gap-2 text-white/50 hover:text-white/90 transition-all duration-300 group ml-2"
-                      style={{
-                        opacity: nextButtonVisible ? 1 : 0,
-                        transform: nextButtonVisible ? 'translateY(0)' : 'translateY(10px)'
-                      }}
-                    >
-                      <ChevronRight size={14} className="group-hover:translate-x-0.5 transition-transform duration-200" />
-                      <span className="text-xs font-light">
-                        {language === 'nl' ? 'Volgende video' : 'Next video'}
-                      </span>
-                    </div>
                   )}
                 </div>
+              </div>
+
+              {/* Actions Row */}
+              <div className={`flex items-center justify-between transition-all duration-500 delay-200 ease-out ${buttonVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <button
+                  onClick={(e) => { e.stopPropagation(); handleMethodsClick(); }}
+                  className="bg-white/10 hover:bg-white/20 active:bg-white/30 backdrop-blur-md border border-white/20 text-white text-sm font-medium px-6 py-2.5 rounded-full transition-all duration-200 flex items-center gap-2 group"
+                >
+                  <span>{language === 'nl' ? 'Bekijk methodes' : 'View methods'}</span>
+                  <ChevronRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
+                </button>
+
+                {/* Next Video Control */}
+                {nextButtonVisible && (
+                  <div
+                    onClick={(e) => { e.stopPropagation(); handleNextVideo(); }}
+                    className="cursor-pointer flex items-center gap-2 text-white/70 hover:text-white transition-all duration-300 group bg-black/20 backdrop-blur-sm px-3 py-1.5 rounded-full"
+                  >
+                    <span className="text-xs font-medium">
+                      {language === 'nl' ? 'Volgende' : 'Next'}
+                    </span>
+                    <ChevronRight size={14} className="group-hover:translate-x-0.5 transition-transform duration-200" />
+                  </div>
+                )}
               </div>
             </div>
           </section>

@@ -9,7 +9,7 @@ export const OzlemVideoCard = () => {
   const { language } = useLanguage();
 
   const handleClick = () => {
-    router.push(`/${language}/ozlemaslan?sound=on`);
+    router.push(`/${language}/ozlemdural?sound=on`);
   };
 
   return (
@@ -46,7 +46,7 @@ export const OzlemVideoCard = () => {
           <div className="absolute top-4 left-4">
             <div className="ozlem-badge">
               <span className="ozlem-badge-text">
-                <span style={{ fontFamily: 'Georgia, "Times New Roman", serif', fontWeight: 500, opacity: 0.85 }}>Ö</span>zlem Aslan
+                <span style={{ fontFamily: 'Georgia, "Times New Roman", serif', fontWeight: 500, opacity: 0.85 }}>Ö</span>zlem Dural
               </span>
             </div>
           </div>
