@@ -688,10 +688,10 @@ export const PackageStandardPage = () => {
                                         borderRadius: '.4rem',
                                       }}
                                     >
-                                      <img src={chevronRightSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
+                                      <img src={chevronRightSvg.src} alt="" style={{ width: '.8rem', height: '.8rem' }} />
                                       {activeTier === 'Premium' && (
                                         <img
-                                          src={chevronRightSvg}
+                                          src={chevronRightSvg.src}
                                           alt=""
                                           style={{
                                             width: '.8rem',
@@ -702,7 +702,7 @@ export const PackageStandardPage = () => {
                                       )}
                                       {activeTier === 'Elite' && (
                                         <img
-                                          src={chevronRightSvg}
+                                          src={chevronRightSvg.src}
                                           alt=""
                                           style={{
                                             width: '.8rem',
@@ -720,10 +720,10 @@ export const PackageStandardPage = () => {
                                         borderRadius: '.4rem',
                                       }}
                                     >
-                                      <img src={leafSvg} alt="" style={{ width: '.8rem', height: '.8rem' }} />
+                                      <img src={leafSvg.src} alt="" style={{ width: '.8rem', height: '.8rem' }} />
                                       {activeTier === 'Premium' && (
                                         <img
-                                          src={leafSvg}
+                                          src={leafSvg.src}
                                           alt=""
                                           style={{
                                             width: '.8rem',
@@ -734,7 +734,7 @@ export const PackageStandardPage = () => {
                                       {activeTier === 'Elite' && (
                                         <>
                                           <img
-                                            src={leafSvg}
+                                            src={leafSvg.src}
                                             alt=""
                                             style={{
                                               width: '.8rem',
@@ -742,7 +742,7 @@ export const PackageStandardPage = () => {
                                             }}
                                           />
                                           <img
-                                            src={leafSvg}
+                                            src={leafSvg.src}
                                             alt=""
                                             style={{
                                               width: '.8rem',

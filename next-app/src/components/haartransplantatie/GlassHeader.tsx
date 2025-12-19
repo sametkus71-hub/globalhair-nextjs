@@ -33,14 +33,17 @@ export const GlassHeader = ({ hideButton = false }: GlassHeaderProps) => {
             src={hairtransplantLogo}
             alt="GHI Hairtransplant Logo"
             style={{ height: '2.5rem', width: 'auto', cursor: 'pointer' }}
-            onClick={() => router.push((language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant') as any)}
+            onClick={() => {
+              const homeUrl = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
+              window.location.href = homeUrl;
+            }}
           />
         </div>
 
-        {/* Button - right side (desktop only) */}
+        {/* Button - right side (desktop only) - Removed as per request */}
         {!isMobile && !hideButton && (
-          <div className="flex items-center">
-            <AnimatedHeadHero inHeader={true} />
+          <div className="flex items-center hidden">
+            {/* Hidden to preserve structure if needed, or just remove content */}
           </div>
         )}
       </div>

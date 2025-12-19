@@ -32,7 +32,9 @@ export const AnimatedHeadHero = ({ inHeader = false, inFooter = false }: Animate
         onClick={handleAnalyzeClick}
         className="animated-border-shine cursor-pointer group z-10 relative rounded-full flex items-center gap-2 transition-all duration-300"
         style={{
-          padding: 'clamp(0.15rem, 0.3vh, 0.25rem) clamp(0.2rem, 0.3vw, 0.35rem) clamp(0.15rem, 0.3vh, 0.25rem) clamp(1.8rem, 1.4vw, 1.6rem)',
+          padding: inFooter ? '0.4rem' : 'clamp(0.15rem, 0.3vh, 0.25rem) clamp(0.2rem, 0.3vw, 0.35rem) clamp(0.15rem, 0.3vh, 0.25rem) clamp(1.8rem, 1.4vw, 1.6rem)',
+          width: inFooter ? '250px' : undefined,
+          justifyContent: inFooter ? 'center' : undefined,
           background: 'rgba(255, 255, 255, 0.08)',
           backdropFilter: 'blur(10px)',
           boxShadow: '0px 3.29px 3.29px 0px #00000040, 0px 3.29px 7.15px 0px #00000040 inset, 0px -0.82px 3.86px 0px #FFFFFF40 inset',
@@ -50,9 +52,12 @@ export const AnimatedHeadHero = ({ inHeader = false, inFooter = false }: Animate
           className="text-white whitespace-nowrap"
           style={{
             fontFamily: 'Inter, system-ui, sans-serif',
-            fontSize: 'clamp(0.875rem, 1.4vh, 1rem)',
+            fontSize: inFooter ? undefined : 'clamp(0.875rem, 1.4vh, 1rem)',
             fontWeight: '300',
-            paddingRight: '.75rem',
+            letterSpacing: inFooter ? '0.01em' : undefined,
+            paddingRight: inFooter ? '0' : '.75rem',
+            flex: inFooter ? 1 : undefined,
+            textAlign: inFooter ? 'center' : undefined,
           }}
         >
           AI Hairscan
@@ -62,7 +67,7 @@ export const AnimatedHeadHero = ({ inHeader = false, inFooter = false }: Animate
           style={{
             width: 'clamp(35px, 5vh, 45px)',
             height: 'clamp(35px, 5vh, 45px)',
-            marginLeft: 'clamp(0.5rem, 0.7vw, 0.65rem)',
+            marginLeft: inFooter ? 'auto' : 'clamp(0.5rem, 0.7vw, 0.65rem)',
           }}
         >
           <img src="/assets/camera-icon.svg" alt="Camera" style={{ width: 'clamp(19px, 2.4vh, 24px)', height: 'clamp(17px, 2.2vh, 20px)', marginTop: '-2px', marginRight: '-2px' }} />

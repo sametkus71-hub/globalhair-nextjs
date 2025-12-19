@@ -29,7 +29,7 @@ const SupportPage: React.FC = () => {
     const titleTimer = setTimeout(() => setTitleVisible(true), 300);
     const chatButtonTimer = setTimeout(() => setChatButtonVisible(true), 450);
     const otherOptionsTimer = setTimeout(() => setOtherOptionsVisible(true), 600);
-    
+
     return () => {
       clearTimeout(logoTimer);
       clearTimeout(titleTimer);
@@ -69,31 +69,29 @@ const SupportPage: React.FC = () => {
       <div className={`contact-page-fullscreen overflow-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
         {/* Light theme background matching other pages */}
         <div className="min-h-[var(--app-height)] overflow-hidden" style={{ background: '#E4E5E0' }}>
-          
+
           {/* Close button */}
           <PopupCloseButton onClose={handleClose} />
-          
+
           {/* Content Container */}
           <div className="flex flex-col items-center justify-center min-h-[var(--app-height)] px-6 py-20">
-            
+
             {/* Brand Logo Section */}
-            <div className={`mb-8 md:mb-12 transition-all duration-700 ease-out ${
-              logoVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-            }`}>
+            <div className={`mb-8 md:mb-12 transition-all duration-700 ease-out ${logoVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+              }`}>
               <div className="w-40 md:w-48 lg:w-56 mx-auto">
                 <GlobalHairLogo className="w-full h-full [&_.cls-1]:fill-black" />
               </div>
             </div>
 
             {/* Professional Title */}
-            <div className={`text-center mb-12 md:mb-16 transition-all duration-700 ease-out delay-150 ${
-              titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            }`}>
+            <div className={`text-center mb-12 md:mb-16 transition-all duration-700 ease-out delay-150 ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}>
               <h2 className="text-xl md:text-2xl text-gray-600 font-light mb-2">
                 {language === 'nl' ? 'We helpen u graag!' : 'We\'re happy to help you!'}
               </h2>
               <p className="text-sm md:text-base text-gray-500 font-light">
-                {language === 'nl' 
+                {language === 'nl'
                   ? 'Stel uw vraag en ontvang direct antwoord'
                   : 'Ask your question and get an immediate answer'
                 }
@@ -101,14 +99,13 @@ const SupportPage: React.FC = () => {
             </div>
 
             {/* Enhanced Chat Button */}
-            <div className={`mb-12 md:mb-14 transition-all duration-700 ease-out delay-300 ${
-              chatButtonVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95'
-            }`}>
+            <div className={`mb-12 md:mb-14 transition-all duration-700 ease-out delay-300 ${chatButtonVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95'
+              }`}>
               <button
                 onClick={handleChatClick}
                 className="group relative overflow-hidden"
               >
-                <div 
+                <div
                   className="flex items-center gap-4 px-8 py-5 rounded-2xl transition-all duration-300 group-hover:scale-105 group-active:scale-95 group-hover:shadow-xl relative"
                   style={{
                     background: 'rgba(255, 255, 255, 0.85)',
@@ -130,20 +127,19 @@ const SupportPage: React.FC = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Glass shine effect */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transform -translate-x-full group-hover:translate-x-full transition-all duration-700 ease-out pointer-events-none"></div>
               </button>
             </div>
 
             {/* Compact Contact Methods */}
-            <div className={`transition-all duration-700 ease-out delay-500 ${
-              otherOptionsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            }`}>
+            <div className={`transition-all duration-700 ease-out delay-500 ${otherOptionsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}>
               <p className="text-xs text-gray-500 text-center mb-4 font-light tracking-wide uppercase">
                 {language === 'nl' ? 'Andere contactmogelijkheden' : 'Other ways to reach us'}
               </p>
-              
+
               <div className="flex items-center justify-center gap-4">
                 {contactMethods.map((method, index) => {
                   const Icon = method.icon;
@@ -153,7 +149,7 @@ const SupportPage: React.FC = () => {
                       onClick={method.action}
                       className="group flex flex-col items-center gap-2 p-3 hover:bg-white/50 rounded-xl transition-all duration-300 hover:scale-110"
                     >
-                      <div 
+                      <div
                         className="w-10 h-10 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300"
                         style={{
                           background: 'rgba(255, 255, 255, 0.5)',

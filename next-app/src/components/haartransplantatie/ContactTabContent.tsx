@@ -30,8 +30,8 @@ export const ContactTabContent = () => {
           <button
             onClick={() => setActiveTab('nl')}
             className={`relative rounded-full font-light transition-all duration-300 ease-out text-white ${activeTab === 'nl'
-                ? 'silver-gradient-border scale-105'
-                : 'bg-transparent hover:opacity-80 scale-100'
+              ? 'silver-gradient-border scale-105'
+              : 'bg-transparent hover:opacity-80 scale-100'
               }`}
             style={{
               padding: 'clamp(0.2rem, 0.5vh, 0.35rem) clamp(1rem, 2.5vw, 1.5rem)',
@@ -44,8 +44,8 @@ export const ContactTabContent = () => {
           <button
             onClick={() => setActiveTab('tr')}
             className={`relative rounded-full font-light transition-all duration-300 ease-out text-white ${activeTab === 'tr'
-                ? 'silver-gradient-border scale-105'
-                : 'bg-transparent hover:opacity-80 scale-100'
+              ? 'silver-gradient-border scale-105'
+              : 'bg-transparent hover:opacity-80 scale-100'
               }`}
             style={{
               padding: 'clamp(0.2rem, 0.5vh, 0.35rem) clamp(1rem, 2.5vw, 1.5rem)',
@@ -82,7 +82,7 @@ export const ContactTabContent = () => {
                   Barendrecht
                 </h2>
                 <p className="text-white mb-2 lg:text-base lg:mb-0" style={{ fontFamily: 'Inter, sans-serif', fontSize: 'clamp(10px, 1.8vh, 12px)', fontWeight: 300 }}>
-                  Pesetastraat 72, 2991 XT
+                  Pesetastraat 76, 2991 XT
                 </p>
                 <span
                   className="inline-block px-3 py-1.5 rounded-full text-white badge-gradient-border"
@@ -171,16 +171,16 @@ export const ContactTabContent = () => {
             className="transition-all duration-200 hover:scale-105 cursor-pointer"
             aria-label="Chat"
           >
-            <img src={chatIcon} alt="Chat" className="w-6 h-6" />
+            <img src={chatIcon.src} alt="Chat" className="w-6 h-6" />
           </button>
           <a
-            href="https://wa.me/31857500577"
+            href="https://wa.me/31633388757"
             target="_blank"
             rel="noopener noreferrer"
             className="transition-all duration-200 hover:scale-105"
             aria-label="WhatsApp"
           >
-            <img src={whatsappIcon} alt="WhatsApp" className="w-10 h-10" />
+            <img src={whatsappIcon.src} alt="WhatsApp" className="w-10 h-10" />
           </a>
           <a
             href="https://www.instagram.com/globalhair.institute/"
@@ -189,7 +189,7 @@ export const ContactTabContent = () => {
             className="transition-all duration-200 hover:scale-105"
             aria-label="Instagram"
           >
-            <img src={instagramIcon} alt="Instagram" className="w-6 h-6" />
+            <img src={instagramIcon.src} alt="Instagram" className="w-6 h-6" />
           </a>
         </div>
       </footer>
