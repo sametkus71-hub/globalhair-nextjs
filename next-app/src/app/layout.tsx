@@ -62,9 +62,9 @@ export default function RootLayout({
 
         <link rel="preconnect" href="https://GlobalHair.b-cdn.net" />
         <link rel="dns-prefetch" href="https://GlobalHair.b-cdn.net" />
-        {/* Preload critical video assets */}
-        <link rel="preload" as="video" href="https://GlobalHair.b-cdn.net/Bg%20Videos/D%20-%20Basic%20BG%20V0%20(1).webm" type="video/webm" media="(min-width: 769px)" />
-        <link rel="preload" as="video" href="https://GlobalHair.b-cdn.net/Bg%20Videos/P%20-%20Basic%20BG%20V0%20compressed.webm" type="video/webm" media="(max-width: 768px)" />
+        {/* Preload critical video assets - using as="fetch" to avoid warnings */}
+        <link rel="preload" href="https://GlobalHair.b-cdn.net/Bg%20Videos/D%20-%20Basic%20BG%20V0%20(1).webm" as="fetch" type="video/webm" crossOrigin="anonymous" />
+        <link rel="preload" href="https://GlobalHair.b-cdn.net/Bg%20Videos/P%20-%20Basic%20BG%20V0%20compressed.webm" as="fetch" type="video/webm" crossOrigin="anonymous" />
 
         <SplashLoader />
         <GlobalVideoBackground />
@@ -74,6 +74,7 @@ export default function RootLayout({
           </div>
           <CookieConsent />
         </Providers>
+        <div id="portal-root" />
       </body>
     </html>
   );
