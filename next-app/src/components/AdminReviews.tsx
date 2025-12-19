@@ -49,6 +49,7 @@ import { Review } from '@/types/review';
 import { toast } from 'sonner';
 import { Pencil, Trash2, Plus, Search } from 'lucide-react';
 import { ReviewThumbnail } from '@/components/admin/ReviewThumbnail';
+import { MediaInfoBadge } from '@/components/admin/MediaInfoBadge';
 import { format } from 'date-fns';
 import { nl } from 'date-fns/locale';
 
@@ -96,28 +97,28 @@ export default function AdminReviews() {
 
   const filteredReviews = useMemo(() => {
     if (!reviews) return [];
-    
+
     let filtered = reviews;
-    
+
     // Apply type filter
     if (typeFilter !== 'all') {
       filtered = filtered.filter(review => review.review_type === typeFilter);
     }
-    
+
     // Apply search filter
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(review => 
+      filtered = filtered.filter(review =>
         review.name.toLowerCase().includes(query) ||
         review.description.toLowerCase().includes(query)
       );
     }
-    
+
     return filtered;
   }, [reviews, searchQuery, typeFilter]);
 
   const getTypeBadge = (type: string) => {
-    switch(type) {
+    switch (type) {
       case 'video': return 'Video';
       case 'before_after': return 'Before/After foto\'s';
       case 'static_image': return 'Enkele foto';
@@ -133,10 +134,10 @@ export default function AdminReviews() {
     yesterday.setDate(yesterday.getDate() - 1);
     const dayBeforeYesterday = new Date(today);
     dayBeforeYesterday.setDate(dayBeforeYesterday.getDate() - 2);
-    
+
     const reviewDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     const time = format(date, 'HH:mm');
-    
+
     if (reviewDate.getTime() === today.getTime()) {
       return `Vandaag om ${time}`;
     } else if (reviewDate.getTime() === yesterday.getTime()) {
@@ -226,16 +227,16 @@ export default function AdminReviews() {
           <p className="text-sm md:text-base text-muted-foreground mb-2">
             Bekijk en beheer alle reviews
           </p>
-          <a 
-            href="https://globalhair.institute/nl/haartransplantatie/reviews" 
-            target="_blank" 
+          <a
+            href="https://globalhair.institute/nl/haartransplantatie/reviews"
+            target="_blank"
             rel="noopener noreferrer"
             className="text-sm text-blue-900 hover:text-blue-700 underline"
           >
             → Bekijk frontend reviews pagina
           </a>
         </div>
-        <Button 
+        <Button
           onClick={handleAddNew}
           className="bg-blue-900 hover:bg-blue-800 text-white rounded-[1px] gap-2"
         >
@@ -253,7 +254,7 @@ export default function AdminReviews() {
             className="pl-9 rounded-[1px]"
           />
         </div>
-        
+
         <div className="flex flex-wrap items-center gap-4 mb-3">
           <Select value={sortBy} onValueChange={setSortBy}>
             <SelectTrigger className="w-[180px] rounded-[1px]">
@@ -268,33 +269,33 @@ export default function AdminReviews() {
               <SelectItem value="name_desc">Naam (Z-A)</SelectItem>
             </SelectContent>
           </Select>
-          
+
           <div className="h-4 w-px bg-border" />
-          
+
           <RadioGroup value={typeFilter} onValueChange={setTypeFilter} className="flex flex-wrap gap-4">
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="all" id="all" className="border-blue-900 text-blue-900" />
-            <Label htmlFor="all" className="cursor-pointer text-sm">Alle types</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="video" id="video" className="border-blue-900 text-blue-900" />
-            <Label htmlFor="video" className="cursor-pointer text-sm">Video</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="before_after" id="before_after" className="border-blue-900 text-blue-900" />
-            <Label htmlFor="before_after" className="cursor-pointer text-sm">Before/After foto's</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="static_image" id="static_image" className="border-blue-900 text-blue-900" />
-            <Label htmlFor="static_image" className="cursor-pointer text-sm">Enkele foto</Label>
-          </div>
-        </RadioGroup>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="all" id="all" className="border-blue-900 text-blue-900" />
+              <Label htmlFor="all" className="cursor-pointer text-sm">Alle types</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="video" id="video" className="border-blue-900 text-blue-900" />
+              <Label htmlFor="video" className="cursor-pointer text-sm">Video</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="before_after" id="before_after" className="border-blue-900 text-blue-900" />
+              <Label htmlFor="before_after" className="cursor-pointer text-sm">Before/After foto's</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="static_image" id="static_image" className="border-blue-900 text-blue-900" />
+              <Label htmlFor="static_image" className="cursor-pointer text-sm">Enkele foto</Label>
+            </div>
+          </RadioGroup>
         </div>
       </div>
       {(searchQuery || typeFilter !== 'all') && (
         <div className="flex flex-wrap gap-2 mb-3">
           {searchQuery && (
-            <button 
+            <button
               onClick={() => setSearchQuery('')}
               className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors rounded-[1px]"
             >
@@ -303,7 +304,7 @@ export default function AdminReviews() {
             </button>
           )}
           {typeFilter !== 'all' && (
-            <button 
+            <button
               onClick={() => setTypeFilter('all')}
               className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors rounded-[1px]"
             >
@@ -323,7 +324,7 @@ export default function AdminReviews() {
       ) : !reviews || reviews.length === 0 ? (
         <div className="bg-background rounded-[1px] p-12 text-center border border-border">
           <p className="text-muted-foreground mb-4">Geen reviews gevonden</p>
-          <Button 
+          <Button
             onClick={handleAddNew}
             className="bg-blue-900 hover:bg-blue-800 text-white rounded-[1px] gap-2"
           >
@@ -334,7 +335,7 @@ export default function AdminReviews() {
       ) : filteredReviews.length === 0 ? (
         <div className="bg-background rounded-[1px] p-12 text-center border border-border">
           <p className="text-muted-foreground mb-4">Geen reviews gevonden met deze filters</p>
-          <Button 
+          <Button
             variant="outline"
             onClick={() => {
               setSearchQuery('');
@@ -369,10 +370,22 @@ export default function AdminReviews() {
                     </Badge>
                   </TableCell>
                   <TableCell className="py-4">
-                    <ReviewThumbnail 
-                      review={review} 
-                      onClick={() => handleEdit(review)}
-                    />
+                    <div className="flex items-center gap-2">
+                      <ReviewThumbnail
+                        review={review}
+                        onClick={() => handleEdit(review)}
+                      />
+                      <MediaInfoBadge
+                        url={
+                          review.review_type === 'video'
+                            ? review.video_url
+                            : review.review_type === 'before_after'
+                              ? review.before_image_url
+                              : review.static_image_url
+                        }
+                        type={review.review_type === 'video' ? 'video' : 'image'}
+                      />
+                    </div>
                   </TableCell>
                   <TableCell className="font-medium py-4">{review.name}</TableCell>
                   <TableCell className="py-4 text-muted-foreground">{review.behandeling}</TableCell>

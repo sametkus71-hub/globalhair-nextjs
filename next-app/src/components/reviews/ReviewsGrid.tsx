@@ -95,6 +95,35 @@ const BeforeAfterCard = memo(({
   );
 });
 
+// Global video queue manager - limits concurrent video loading
+class VideoLoadQueue {
+  private loadedVideos = new Set<string>();
+  private readonly maxConcurrent = 2; // Maximum 2 videos loading/playing at once
+
+  canLoad(videoId: string): boolean {
+    return this.loadedVideos.has(videoId) || this.loadedVideos.size < this.maxConcurrent;
+  }
+
+  addVideo(videoId: string): boolean {
+    if (this.loadedVideos.size >= this.maxConcurrent && !this.loadedVideos.has(videoId)) {
+      return false; // Queue is full
+    }
+    this.loadedVideos.add(videoId);
+    return true;
+  }
+
+  removeVideo(videoId: string): void {
+    this.loadedVideos.delete(videoId);
+  }
+
+  getLoadedCount(): number {
+    return this.loadedVideos.size;
+  }
+}
+
+// Global singleton instance
+const videoQueue = new VideoLoadQueue();
+
 const VideoCard = memo(({
   review,
   isMuted,
@@ -109,53 +138,39 @@ const VideoCard = memo(({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [hasLoaded, setHasLoaded] = useState(false);
 
-  // Increased margin to load slightly before coming into view
+  // Simple viewport detection
   const { isInViewport, elementRef } = useVideoIntersection({
     threshold: 0,
-    rootMargin: '200px' // Increased lookahead buffer
+    rootMargin: '200px'
   });
 
-  // Handle loading state - effectively "lazy load" the video element
+  // Load video when in viewport
   useEffect(() => {
     if (isInViewport && !hasLoaded) {
       setHasLoaded(true);
+    } else if (!isInViewport && hasLoaded) {
+      setHasLoaded(false);
     }
   }, [isInViewport, hasLoaded]);
 
-  // Handle Play/Pause based on viewport visibility
+  // Auto-play when loaded
   useEffect(() => {
     if (!videoRef.current || !hasLoaded) return;
 
-    if (isInViewport) {
-      // Play when visible
-      const playPromise = videoRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => { });
-      }
-    } else {
-      // Pause when not visible
-      videoRef.current.pause();
+    const playPromise = videoRef.current.play();
+    if (playPromise !== undefined) {
+      playPromise.catch((err) => {
+        console.warn('Auto-play prevented:', err);
+      });
     }
-  }, [isInViewport, hasLoaded]);
+  }, [hasLoaded]);
 
-  // Handle Mute State
+  // Handle mute
   useEffect(() => {
     if (videoRef.current && hasLoaded) {
       videoRef.current.muted = isMuted;
     }
   }, [isMuted, hasLoaded]);
-
-  // Cleanup on unmount
-  useEffect(() => {
-    return () => {
-      if (videoRef.current) {
-        const video = videoRef.current;
-        video.pause();
-        video.removeAttribute('src');
-        video.load();
-      }
-    };
-  }, []);
 
   return (
     <div
@@ -164,19 +179,20 @@ const VideoCard = memo(({
       onClick={onToggleMute}
     >
       {!hasLoaded ? (
-        // Placeholder when not yet loaded/visited
+        // Placeholder when not in viewport
         <div className="w-full h-full flex items-center justify-center bg-gray-900 relative">
-          {/* Show poster image if available for immediate visual feedback */}
           {review.static_image_url ? (
             <img
               src={review.static_image_url}
               className="absolute inset-0 w-full h-full object-cover opacity-50"
               alt="Video thumbnail"
+              loading="lazy"
+              decoding="async"
             />
           ) : (
             <div className="w-full h-full absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900" />
           )}
-          <div className="w-10 h-10 rounded-full border-2 border-white/30 flex items-center justify-center z-10">
+          <div className="w-10 h-10 rounded-full border-2 border-white/30 flex items-center justify-center z-10 scale-90 opacity-80">
             <div className="w-0 h-0 border-t-[6px] border-t-transparent border-l-[10px] border-l-white border-b-[6px] border-b-transparent ml-1" />
           </div>
         </div>
@@ -187,12 +203,17 @@ const VideoCard = memo(({
           muted={isMuted}
           loop
           playsInline
-          // Removing preload="metadata" to rely on src loading
+          preload="auto"
           className="w-full h-full object-cover"
+          style={{
+            transform: 'translateZ(0)',
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
+          }}
         />
       )}
 
-      {/* Mute toggle button - always visible if there's content potential */}
+      {/* Mute toggle button */}
       <button
         className="absolute top-2 right-2 bg-black/60 backdrop-blur-sm p-2 rounded-full cursor-pointer hover:bg-black/80 transition-colors z-20"
         onClick={(e) => {
