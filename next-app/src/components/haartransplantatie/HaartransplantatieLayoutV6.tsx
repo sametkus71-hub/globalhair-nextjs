@@ -13,6 +13,7 @@ import { AnimatedHeadHero } from '@/components/haartransplantatie/AnimatedHeadHe
 import { GlassTabs } from '@/components/haartransplantatie/GlassTabs';
 import { FooterCTAGlass } from '@/components/haartransplantatie/FooterCTAGlass';
 import { TabPreloader } from '@/components/haartransplantatie/TabPreloader';
+import { VideoBackgroundV6 } from '@/components/haartransplantatie/VideoBackgroundV6';
 
 export const HaartransplantatieLayoutV6 = ({ children }: { children: React.ReactNode }) => {
   const { language } = useLanguage();
@@ -74,6 +75,7 @@ export const HaartransplantatieLayoutV6 = ({ children }: { children: React.React
   return (
     <main ref={mainRef} className={`relative min-h-screen w-full bg-transparent ${isOverlayRoute ? '' : 'overflow-hidden'}`}>
       <TabPreloader />
+      <VideoBackgroundV6 />
       <div className="relative w-full min-h-screen">
         {/* Glass Header - 500px width on desktop */}
         {!isOverlayRoute && (
