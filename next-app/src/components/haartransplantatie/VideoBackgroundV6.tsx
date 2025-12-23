@@ -36,8 +36,8 @@ export const VideoBackgroundV6 = ({ className = '' }: VideoBackgroundV6Props) =>
       <div 
         className="absolute inset-0" 
         style={{ 
-          backdropFilter: 'blur(0px) brightness(0.7)',
-          WebkitBackdropFilter: 'blur(0px) brightness(0.7)',
+          backdropFilter: 'blur(4px) brightness(0.7)',
+          WebkitBackdropFilter: 'blur(4px) brightness(0.7)',
         }} 
       />
     </div>
