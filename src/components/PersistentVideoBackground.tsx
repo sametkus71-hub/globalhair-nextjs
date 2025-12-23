@@ -51,11 +51,19 @@ export const PersistentVideoBackground = () => {
 
   if (!mounted || isAdminRoute) return null;
 
-  const videoSrc = isMobile 
+  // Custom video for V6 Hairboost page
+  const isV6Page = pathname.includes('/v6-hairboost');
+  
+  let videoSrc = isMobile 
     ? 'https://GlobalHair.b-cdn.net/Bg%20Videos/P%20-%20Basic%20BG%20V0%20compressed.webm'
     : 'https://GlobalHair.b-cdn.net/Bg%20Videos/D%20-%20Basic%20BG%20V0.mp4';
+    
+  // Override for V6 page (same video for mobile and desktop for now as requested)
+  if (isV6Page) {
+    videoSrc = 'https://GlobalHair.b-cdn.net/Bg%20Videos/V6%20BG%20LOOP%20-%20V2.mp4';
+  }
   
-  const videoType = isMobile ? 'video/webm' : 'video/mp4';
+  const videoType = (isMobile && !isV6Page) ? 'video/webm' : 'video/mp4';
 
   return (
     <div 
@@ -89,9 +97,6 @@ export const PersistentVideoBackground = () => {
       <div 
         className="absolute inset-0"
         style={{
-          background: isChat 
-            ? 'linear-gradient(180deg, rgba(4, 14, 21, 0.80) 0%, rgba(51, 61, 70, 0.85) 100%)'
-            : 'linear-gradient(rgba(10, 37, 64, 0.6) 10%, rgba(17, 53, 86, 0.4) 25%, rgba(24, 24, 27, 0.2) 40%, transparent 70%)',
           backdropFilter: isChat ? 'none' : (isMobile ? 'blur(6px)' : 'blur(1px)'),
         }}
       />
