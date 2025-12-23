@@ -31,12 +31,19 @@ export const GlassHeader = ({ hideButton = false }: GlassHeaderProps) => {
           />
         </div>
         
-        {/* Button - right side (desktop only) */}
-        {!isMobile && !hideButton && (
-          <div className="flex items-center">
+        {/* Right side interactions */}
+        <div className="flex items-center">
+          <span 
+            onClick={() => navigate(language === 'nl' ? '/nl/v6-hairboost' : '/en/v6-hairboost')}
+            className={`text-white text-sm font-medium cursor-pointer hover:opacity-80 transition-opacity ${!isMobile && !hideButton ? 'mr-6' : ''}`}
+          >
+            V6 Hairboost
+          </span>
+          
+          {!isMobile && !hideButton && (
             <AnimatedHeadHero inHeader={true} />
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       <style>{`
