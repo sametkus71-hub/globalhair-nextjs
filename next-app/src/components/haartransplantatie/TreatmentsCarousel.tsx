@@ -125,6 +125,10 @@ export const TreatmentsCarousel = () => {
   const { profile } = useSession();
   const isMobile = useIsMobile();
   const router = useRouter();
+  const pathname = usePathname();
+
+  // Check if we're on the V6 Hairboost page
+  const isV6Page = pathname?.includes('/v6-hairboost');
 
   // Always generate Dutch package paths for consistency
   const getPackageLink = (packageId: string) => {
@@ -147,13 +151,18 @@ export const TreatmentsCarousel = () => {
         }
       }
 
+      // Override Premium package video on V6 page
+      if (isV6Page && pkg.id === 'premium') {
+        bgVideo = 'https://GlobalHair.b-cdn.net/Bg%20Videos/V6%20-%20Restore.mp4';
+      }
+
       return {
         ...pkg,
         bg: bgVideo,
         link: getPackageLink(pkg.id)
       };
     });
-  }, [language, profile.locatie, isMobile]);
+  }, [language, profile.locatie, isMobile, isV6Page]);
 
   const scrollerRef = useRef<HTMLDivElement>(null);
   const isSnappingRef = useRef(false);

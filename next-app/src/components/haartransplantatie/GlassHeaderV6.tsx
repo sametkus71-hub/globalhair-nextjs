@@ -5,13 +5,12 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { AnimatedHeadHero } from './AnimatedHeadHero';
 import Image from 'next/image';
-import hairtransplantLogo from '@/assets/hairtransplant-logo.png';
 
-interface GlassHeaderProps {
+interface GlassHeaderV6Props {
   hideButton?: boolean;
 }
 
-export const GlassHeader = ({ hideButton = false }: GlassHeaderProps) => {
+export const GlassHeaderV6 = ({ hideButton = false }: GlassHeaderV6Props) => {
   const router = useRouter();
   const { language } = useLanguage();
   const isMobile = useIsMobile();
@@ -27,37 +26,30 @@ export const GlassHeader = ({ hideButton = false }: GlassHeaderProps) => {
       }}
     >
       <div className="flex items-center justify-between px-4 py-4">
-        {/* Logo */}
-        <div className="flex items-center">
+        {/* Logo with Hairboost text */}
+        <div className="flex items-center gap-1.5">
           <Image
-            src={hairtransplantLogo}
-            alt="GHI Hairtransplant Logo"
-            priority={true}
-            style={{ height: '2.5rem', width: 'auto', cursor: 'pointer' }}
+            src="/logo-v6-hairboost.png"
+            alt="V6 Hairboost Logo"
+            width={56}
+            height={56}
+            style={{ height: '3.5rem', width: 'auto', cursor: 'pointer' }}
             onClick={() => {
               const homeUrl = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
               window.location.href = homeUrl;
             }}
           />
-        </div>
-
-
-        {/* Right side interactions */}
-        <div className="flex items-center">
-          <span 
-            onClick={() => {
-              const v6Url = language === 'nl' ? '/nl/v6-hairboost' : '/en/v6-hairboost';
-              window.location.href = v6Url;
-            }}
-            className={`text-white text-sm font-medium cursor-pointer hover:opacity-80 transition-opacity ${!isMobile && !hideButton ? 'mr-6' : ''}`}
-          >
-            V6 Hairboost
+          <span className="text-white font-normal tracking-wide" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', fontSize: '1.3rem' }}>
+            Hairboost<sup className="text-xs ml-0.5 -mt-1">®</sup>
           </span>
-          
-          {!isMobile && !hideButton && (
-            <AnimatedHeadHero inHeader={true} />
-          )}
         </div>
+
+        {/* Button - right side (desktop only) */}
+        {!isMobile && !hideButton && (
+          <div className="flex items-center">
+            <AnimatedHeadHero inHeader={true} />
+          </div>
+        )}
       </div>
       <style>{`
         @keyframes fade-down {
