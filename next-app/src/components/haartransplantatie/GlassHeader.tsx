@@ -42,22 +42,12 @@ export const GlassHeader = ({ hideButton = false }: GlassHeaderProps) => {
         </div>
 
 
-        {/* Right side interactions */}
-        <div className="flex items-center">
-          <span 
-            onClick={() => {
-              const v6Url = language === 'nl' ? '/nl/v6-hairboost' : '/en/v6-hairboost';
-              window.location.href = v6Url;
-            }}
-            className={`text-white text-sm font-medium cursor-pointer hover:opacity-80 transition-opacity ${!isMobile && !hideButton ? 'mr-6' : ''}`}
-          >
-            V6 Hairboost
-          </span>
-          
-          {!isMobile && !hideButton && (
-            <AnimatedHeadHero inHeader={true} />
-          )}
-        </div>
+        {/* Button - right side (desktop only) - Removed as per request */}
+        {!isMobile && !hideButton && (
+          <div className="flex items-center hidden">
+            {/* Hidden to preserve structure if needed, or just remove content */}
+          </div>
+        )}
       </div>
       <style>{`
         @keyframes fade-down {
