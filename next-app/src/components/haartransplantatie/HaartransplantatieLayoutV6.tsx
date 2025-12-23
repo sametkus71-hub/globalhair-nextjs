@@ -54,114 +54,141 @@ export const HaartransplantatieLayoutV6 = ({ children }: { children: React.React
 
   const activeTab = getActiveTab();
 
-  // Scroll to top on pathname change
+  // Enable scrolling on mount
   useLayoutEffect(() => {
-    if (mainRef.current) {
-      mainRef.current.scrollTo({ top: 0, behavior: 'instant' });
+    // Disable scroll restoration
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
     }
-  }, [pathname]);
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'instant' });
+
+    // Enable page scrolling
+    document.body.style.overflow = '';
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
 
   return (
-    <main
-      ref={mainRef}
-      className="relative min-h-[var(--app-height)] overflow-y-auto overflow-x-hidden"
-      style={{
-        scrollbarWidth: 'none',
-        msOverflowStyle: 'none',
-        WebkitOverflowScrolling: 'touch',
-      }}
-    >
-      <style>{`
-        main::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
-
-      {/* Header - Hidden on overlay routes */}
-      {!isOverlayRoute && <GlassHeaderV6 />}
-
-      {/* Tabs - Hidden on overlay routes */}
-      {!isOverlayRoute && (
-        <GlassTabs
-          activeTab={activeTab}
-          onTabChange={() => { }}
-        />
-      )}
-
-      {/* Mobile CTA Button - Hidden on overlay routes */}
-      {isMobile && !isOverlayRoute && (
-        <div className="fixed bottom-4 left-0 right-0 z-40 px-4 pointer-events-none">
-          <div className="pointer-events-auto">
-            <AnimatedHeadHero inHeader={false} />
-          </div>
-        </div>
-      )}
-
-      {/* Content Zone */}
-      {!isPackageRoute && (
-        isReviewsRoute && !isMobile ? (
-          // Full width for reviews on desktop
-          <div className="flex-1 flex flex-col w-full">
-            <div
-              className="relative flex-1 overflow-hidden flex flex-col"
-              style={{
-                paddingTop: 'clamp(0rem, 0.3vh, 0.6rem)',
-                paddingBottom: 'clamp(6rem, 12vh, 8rem)'
-              }}
-            >
-              {/* Content from specific page */}
-              <div
-                key={pathname}
-                className="flex-1 flex flex-col animate-fade-in"
-              >
-                {children}
-              </div>
-            </div>
-          </div>
-        ) : (
-          // Standard container for other tabs
+    <main ref={mainRef} className={`relative min-h-screen w-full bg-transparent ${isOverlayRoute ? '' : 'overflow-hidden'}`}>
+      <TabPreloader />
+      <div className="relative w-full min-h-screen">
+        {/* Glass Header - 500px width on desktop */}
+        {!isOverlayRoute && (
           <DesktopContainer>
-            <div className="flex-1 flex flex-col">
-              <div
-                className={`relative flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'} flex flex-col`}
-                style={{
-                  paddingTop: 'clamp(0rem, 0.3vh, 0.6rem)',
-                  paddingBottom: 'clamp(6rem, 12vh, 8rem)'
-                }}
-              >
-                {/* Content from specific page */}
-                <div
-                  key={pathname}
-                  className="flex-1 flex flex-col animate-fade-in"
-                >
-                  {isContactRoute && !isMobile ? (
-                    <WideContentContainer>
-                      {children}
-                    </WideContentContainer>
-                  ) : (
-                    <MediumContentContainer>
-                      {children}
-                    </MediumContentContainer>
-                  )}
-                </div>
-              </div>
+            <div className="hide-when-popup">
+              <GlassHeaderV6 />
             </div>
           </DesktopContainer>
-        )
-      )}
+        )}
 
-      {/* Package Detail Overlay - Rendered directly without container */}
-      {isPackageRoute && (
-        <div
-          key={pathname}
-          className="flex-1 flex flex-col animate-fade-in"
-        >
-          {children}
+        {/* Main Content - Single Screen with height-responsive scaling */}
+        <div className={`relative z-10 flex flex-col h-screen ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'}`} style={{ paddingTop: 'clamp(2rem, 8vh, 120px)' }}>
+          {/* Content Flow Container */}
+          <div className={`relative flex flex-col flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'}`} style={{ paddingTop: 'clamp(1.5rem, 2vh, 2.5rem)' }}>
+
+            {/* Navigation Zone - 500px width on desktop */}
+            <DesktopContainer>
+              {/* Animated Head Hero (Button Only) - Mobile only */}
+              {isMobile && (
+                <div className="flex-shrink-0 pb-[10px]">
+                  <AnimatedHeadHero />
+                </div>
+              )}
+
+              {/* Tabs */}
+              <div className="flex-shrink-0" style={{ padding: '1.0rem 0' }}>
+                <GlassTabs activeTab={activeTab} />
+              </div>
+            </DesktopContainer>
+
+            {/* Content Zone - Full width for reviews on desktop, 1000px for contact, 1250px for other tabs */}
+            {!isOverlayRoute && (
+              isReviewsRoute && !isMobile ? (
+                // Full width for reviews on desktop
+                (<div className="flex-1 flex flex-col w-full">
+                  <div
+                    className="relative flex-1 overflow-hidden flex flex-col"
+                    style={{
+                      paddingTop: 'clamp(0rem, 0.3vh, 0.6rem)',
+                      paddingBottom: 'clamp(6rem, 12vh, 8rem)'
+                    }}
+                  >
+                    {/* Content from specific page - smooth fade transition on content only */}
+
+                    <motion.div
+                      key={pathname}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
+                      className="relative flex-1 overflow-hidden"
+                    >
+                      {children}
+                    </motion.div>
+                  </div>
+                </div>)
+              ) : isContactRoute && !isMobile ? (
+                // 1000px container for contact on desktop
+                (<MediumContentContainer className="flex-1 flex flex-col">
+                  <div
+                    className={`relative flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'} flex flex-col`}
+                    style={{
+                      paddingTop: 'clamp(0rem, 0.3vh, 0.6rem)',
+                      paddingBottom: 'clamp(6rem, 12vh, 8rem)'
+                    }}
+                  >
+                    {/* Content from specific page - smooth fade transition on content only */}
+                    {/* Content from specific page - smooth fade transition on content only */}
+                    <motion.div
+                      key={pathname}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
+                      className={`relative flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'}`}
+                    >
+                      {children}
+                    </motion.div>
+                  </div>
+                </MediumContentContainer>)
+              ) : (
+                // Standard 1250px container for other tabs
+                (<WideContentContainer className="flex-1 flex flex-col">
+                  <div
+                    className={`relative flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'} flex flex-col`}
+                    style={{
+                      paddingTop: 'clamp(0rem, 0.3vh, 0.6rem)',
+                      paddingBottom: isMobile
+                        ? 'clamp(4rem, 10vh, 6rem)' // Original mobile spacing
+                        : 'clamp(6rem, 12vh, 8rem)' // Desktop: more space from footer
+                    }}
+                  >
+                    {/* Content from specific page - smooth fade transition on content only */}
+                    {/* Content from specific page - smooth fade transition on content only */}
+                    <motion.div
+                      key={pathname}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
+                      className={`relative flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'}`}
+                    >
+                      {children}
+                    </motion.div>
+                  </div>
+                </WideContentContainer>)
+              )
+            )}
+          </div>
         </div>
-      )}
 
-      {/* Footer CTA - Hidden on overlay routes */}
-      {!isOverlayRoute && <FooterCTAGlass />}
+        {/* Footer CTA - 500px width on desktop */}
+        <DesktopContainer>
+          <FooterCTAGlass />
+        </DesktopContainer>
+      </div>
+      {/* Package/Booking popup overlay - renders on top when route is active */}
+      {isOverlayRoute && children}
     </main>
   );
 };
