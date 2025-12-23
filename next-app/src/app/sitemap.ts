@@ -16,9 +16,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Specific localized routes (folder names)
     const nlRoutes = [
-        ...commonRoutes,
         '/missie',
         '/boek',
+        '/algemene-voorwaarden',
+        '/privacybeleid',
         // Haartransplantatie structure (Dutch focused)
         '/haartransplantatie',
         '/haartransplantatie/reviews',
@@ -39,6 +40,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ...commonRoutes,
         '/mission',
         '/book',
+        '/algemene-voorwaarden',
+        '/privacybeleid',
         // Assuming haartransplantatie is also accessible in EN or has EN equivalent structure
         // If 'hair-transplant' folder doesn't exist, we fallback to valid folders or omit.
         // Based on filesystem, only 'haartransplantatie' exists.
