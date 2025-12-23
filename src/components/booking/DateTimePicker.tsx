@@ -12,11 +12,11 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface DateTimePickerProps {
   serviceType: ServiceType;
-  location: LocationType;
+  bookingLocation: LocationType;
   onSelect: (date: string, time: string, staffId: string, staffName: string) => void;
 }
 
-export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePickerProps) => {
+export const DateTimePicker = ({ serviceType, bookingLocation, onSelect }: DateTimePickerProps) => {
   const { language } = useLanguage();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
@@ -31,11 +31,11 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
   const monthKey = (d: Date) => format(d, 'yyyy-MM');
 
   // Get service configuration for duration
-  const config = getServiceConfig(serviceType, location);
+  const config = getServiceConfig(serviceType, bookingLocation);
   const durationMinutes = config.durationMinutes;
 
   // Fetch the first available date to initialize the calendar
-  const { data: firstAvailableDate } = useFirstAvailableDate(serviceType, location);
+  const { data: firstAvailableDate } = useFirstAvailableDate(serviceType, bookingLocation);
 
   // Load saved date/time from session storage on mount
   useEffect(() => {
@@ -91,7 +91,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
     isLoading: isLoadingCache,
   } = useAvailabilityCache(
     serviceType,
-    location,
+    bookingLocation,
     currentMonth?.getFullYear() ?? new Date().getFullYear(),
     currentMonth?.getMonth() ?? new Date().getMonth()
   );
@@ -100,7 +100,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
   const { 
     availableSlots, 
     isLoading: isSlotsLoading 
-  } = useAvailabilitySlots(serviceType, location, selectedDate ? format(selectedDate, 'yyyy-MM-dd') : null);
+  } = useAvailabilitySlots(serviceType, bookingLocation, selectedDate ? format(selectedDate, 'yyyy-MM-dd') : null);
 
   // Get staff assignment for selected time
   const {
@@ -109,7 +109,7 @@ export const DateTimePicker = ({ serviceType, location, onSelect }: DateTimePick
     isLoading: isStaffLoading,
   } = useStaffSelection(
     serviceType,
-    location,
+    bookingLocation,
     selectedDate ? format(selectedDate, 'yyyy-MM-dd') : null,
     selectedTime || null
   );

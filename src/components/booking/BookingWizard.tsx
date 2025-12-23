@@ -49,7 +49,7 @@ export const BookingWizard = () => {
   
   // Step 1 data
   const [consultType, setConsultType] = useState<'v6_hairboost' | 'haartransplantatie'>('haartransplantatie');
-  const [location, setLocation] = useState<LocationType>('onsite');
+  const [bookingLocation, setBookingLocation] = useState<LocationType>('onsite');
   const [consultant, setConsultant] = useState<'trichoTeam' | 'ceo'>('trichoTeam');
   const [serviceType, setServiceType] = useState<ServiceType | null>(null);
   const [price, setPrice] = useState<number>(50);
@@ -68,7 +68,7 @@ export const BookingWizard = () => {
     const saved = loadBookingState();
     if (saved) {
       setConsultType(saved.consultType);
-      setLocation(saved.location);
+      setBookingLocation(saved.location);
       setConsultant(saved.consultant);
       setServiceType(saved.serviceType);
       setPrice(saved.price);
@@ -87,20 +87,20 @@ export const BookingWizard = () => {
   useEffect(() => {
     const derivedServiceType = consultant === 'ceo' ? 'ceo_consult' : consultType;
     try {
-      const config = getServiceConfig(derivedServiceType, location);
+      const config = getServiceConfig(derivedServiceType, bookingLocation);
       const finalPrice = getTestPrice(config.priceEuros);
       setPrice(finalPrice);
       setServiceType(derivedServiceType);
     } catch (error) {
       console.error('Failed to calculate price:', error);
     }
-  }, [consultType, location, consultant, isTestMode, getTestPrice]);
+  }, [consultType, bookingLocation, consultant, isTestMode, getTestPrice]);
 
   // Save state to session storage whenever it changes
   useEffect(() => {
     saveBookingState({
       consultType,
-      location,
+      location: bookingLocation,
       consultant,
       serviceType,
       price,
@@ -109,7 +109,7 @@ export const BookingWizard = () => {
       bookingSelection: bookingSelection || undefined,
       customerInfo: customerInfo || undefined,
     });
-  }, [consultType, location, consultant, serviceType, price, currentStep, completedSteps, bookingSelection, customerInfo]);
+  }, [consultType, bookingLocation, consultant, serviceType, price, currentStep, completedSteps, bookingSelection, customerInfo]);
 
   const handleOptionsComplete = () => {
     setCompletedSteps([...completedSteps, 'step-1']);
@@ -125,7 +125,7 @@ export const BookingWizard = () => {
     const refreshPromise = supabase.functions.invoke('verify-slot-availability', {
       body: {
         serviceType,
-        location,
+        location: bookingLocation,
         date,
         time,
         staffId,
@@ -157,7 +157,7 @@ export const BookingWizard = () => {
   const getExtendedBookingSelection = () => {
     if (!bookingSelection || !serviceType) return null;
     
-    const config = getServiceConfig(serviceType, location);
+    const config = getServiceConfig(serviceType, bookingLocation);
     return {
       ...bookingSelection,
       serviceId: config.serviceId,
@@ -240,11 +240,11 @@ export const BookingWizard = () => {
           <AccordionContent className="">
             <OptionsStep
               consultType={consultType}
-              location={location}
+              bookingLocation={bookingLocation}
               consultant={consultant}
               price={price}
               onConsultTypeChange={setConsultType}
-              onLocationChange={setLocation}
+              onLocationChange={setBookingLocation}
               onConsultantChange={setConsultant}
               onNext={handleOptionsComplete}
             />
@@ -312,10 +312,10 @@ export const BookingWizard = () => {
             </div>
           </AccordionTrigger>
           <AccordionContent className="px-4 pb-4">
-            {serviceType && location && (
+            {serviceType && bookingLocation && (
               <DateTimePicker
                 serviceType={serviceType}
-                location={location}
+                bookingLocation={bookingLocation}
                 onSelect={handleDateTimeSelect}
               />
             )}
@@ -379,10 +379,10 @@ export const BookingWizard = () => {
                 initialData={customerInfo || undefined}
               />
               
-              {serviceType && location && (
+              {serviceType && bookingLocation && (
                 <PaymentStep
                   serviceType={serviceType}
-                  location={location}
+                  bookingLocation={bookingLocation}
                   bookingSelection={getExtendedBookingSelection()}
                   customerInfo={customerInfo}
                   price={price}

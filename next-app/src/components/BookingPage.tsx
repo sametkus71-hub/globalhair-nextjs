@@ -10,13 +10,20 @@ import { StaffCodePopover } from '@/components/booking/StaffCodePopover';
 import { TestModeProvider } from '@/contexts/TestModeContext';
 import { DesktopContainer } from '@/components/layout/DesktopContainer';
 import { trackCustom, isMetaPixelAllowed } from '@/lib/metaPixel';
+import hairtransplantLogo from '@/assets/hairtransplant-logo.png';
+import logoIcon from '@/assets/logo-icon.png';
+import Image from 'next/image';
+
+import { useLockBodyScroll } from '@/hooks/useLockBodyScroll';
 
 export const BookingPage = () => {
   const { language } = useLanguage();
-
   const router = useRouter();
   const [isExiting, setIsExiting] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+
+  // Aggressive mobile lock
+  useLockBodyScroll(true);
 
   // Staggered animations for entrance
   const [titleVisible, setTitleVisible] = useState(false);
@@ -56,27 +63,53 @@ export const BookingPage = () => {
       />
 
       <TestModeProvider>
-        <div className={`fixed inset-0 z-50 ${isExiting ? 'reviews-page-exit' : ''}`}>
-          {/* Blur overlay for better text readability */}
+        {/* Root wrapper - locked 100vh via booking-page-lock class */}
+        <div className={`fixed top-0 left-0 w-full z-[9999] booking-page-lock ${isExiting ? 'reviews-page-exit' : ''}`}>
+
+          {/* 1. Background Layer - FADES IN ONLY, DOES NOT MOVE */}
           <div
-            className="absolute inset-0 z-0"
+            className={`absolute inset-0 z-0 transition-opacity duration-700 ease-out ${titleVisible && !isExiting ? 'opacity-100' : 'opacity-0'
+              }`}
             style={{
               backdropFilter: 'blur(10.6px)',
-              background: 'linear-gradient(180deg, rgba(4, 14, 21, 0.4) 0%, rgba(51, 61, 70, 0.2) 100%)'
+              background: 'linear-gradient(180deg, rgba(4, 14, 21, 0.4) 0%, rgba(51, 61, 70, 0.2) 100%)',
+              pointerEvents: 'none' // Click through to whatever is behind if needed, usually block though
             }}
           />
 
+          {/* 2. Logo - Desktop (top left) */}
+          <div
+            className={`hidden lg:block absolute top-6 left-6 transition-opacity duration-700 delay-100 ${titleVisible && !isExiting ? 'opacity-100' : 'opacity-0'
+              }`}
+            style={{ zIndex: 100 }}
+          >
+            <Image
+              src={hairtransplantLogo}
+              alt="GlobalHair Institute"
+              width={180}
+              height={40}
+              priority
+            />
+          </div>
+
+          {/* 3. Close Button - Fades in */}
           <PopupCloseButton
             onClose={handleClose}
-            className="!left-auto !right-4"
+            className={`!left-auto !right-4 transition-opacity duration-700 delay-200 ${titleVisible && !isExiting ? 'opacity-100' : 'opacity-0'
+              }`}
             style={{ zIndex: 100 }}
           />
 
-          <div className="relative z-10 h-screen overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            <div className="min-h-screen py-6 px-4">
+          {/* 3. Content Wrapper - Handles the SLIDE UP animation independently */}
+          <div className="relative z-10 h-full overflow-y-auto overflow-x-hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div className="min-h-full py-6 px-4">
               <DesktopContainer>
-                <div className={`transition-all duration-700 ease-out ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                  }`}>
+                {/* The distinct content slide from bottom */}
+                <div
+                  className={`transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] ${titleVisible && !isExiting ? 'translate-y-0 opacity-100' : 'translate-y-[100vh] opacity-0'
+                    }`}
+                >
+                  {/* Title - centered on desktop, left-aligned on mobile */}
                   <h1
                     className="font-inter mb-6 lg:text-center"
                     style={{
@@ -95,11 +128,7 @@ export const BookingPage = () => {
                   </h1>
                   <BookingWizard key={refreshKey} />
 
-                  {window.location.hostname.includes('lovable') && (
-                    <div className="mt-12 pt-8 border-t border-white/5 flex justify-center">
-                      <StaffCodePopover onCodeVerified={() => setRefreshKey(prev => prev + 1)} />
-                    </div>
-                  )}
+                  <StaffCodePopover onCodeVerified={() => setRefreshKey(prev => prev + 1)} />
                 </div>
               </DesktopContainer>
             </div>

@@ -31,10 +31,17 @@ export function GlobalVideoBackground() {
         pathname.includes('/haartransplantatie') ||
         pathname.includes('/hair-transplant') ||
         pathname.includes('/boek') ||
-        pathname.includes('/book')
+        pathname.includes('/book') ||
+        pathname.includes('/chat') ||
+        pathname.includes('/berkantdural') ||
+        pathname.includes('/ozlemdural')
     );
 
     if (!shouldShowVideo) return null;
 
-    return <VideoBackground className="!fixed !inset-0 !z-0" />;
+    return (
+        <div className="fixed inset-0 w-full overflow-hidden z-0" style={{ height: 'var(--initial-height, 100vh)', maxHeight: 'var(--initial-height, 100vh)' }}>
+            <VideoBackground className="!fixed !inset-x-0 !top-0 !h-[var(--initial-height,100vh)] !z-0 object-cover" />
+        </div>
+    );
 }

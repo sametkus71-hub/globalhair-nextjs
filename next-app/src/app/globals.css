@@ -20,18 +20,58 @@
     --popover-foreground: 222.2 84% 4.9%;
     --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 84% 4.9%;
-    --muted: 210 40% 96%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 84% 4.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
     --radius: 0.5rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+
+    /* Viewport height - browsers use the last one they support */
+    --app-height: 100vh;
+    --app-height: 100svh;
+    --safe-area-height: 100vh;
+    --safe-area-height: 100svh;
+  }
+
+  /* Aggressive Mobile Lock */
+  .booking-page-lock {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    height: var(--initial-height, 100vh) !important;
+    max-height: var(--initial-height, 100vh) !important;
+    overflow: hidden !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    overscroll-behavior: none !important;
+    /* background-color: #000 !important;  <-- REMOVED: this was hiding the video */
+  }
+
+  /* Lock children unless explicitly scrollable */
+  .booking-page-lock * {
+    /* max-height: 100vh;  <-- This might break flex children, be careful. 
+         The user suggested it but it can break deeply nested flex layouts if not managed. 
+         I will skip the wildcard max-height for now to avoid breaking flex-grow logic, 
+         as explicit container locking is usually enough. */
+  }
+
+  .booking-page-lock .scrollable-content {
+    max-height: none !important;
+    /* Allow scrolling */
   }
 
   .dark {
@@ -61,6 +101,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -79,28 +120,29 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
   :root {
     /* Viewport height - browsers use the last one they support */
     --app-height: 100vh;
-    --app-height: 100svh; /* Modern browsers will use this */
+    --app-height: 100svh;
+    /* Modern browsers will use this */
     --safe-area-height: 100vh;
     --safe-area-height: 100svh;
-    
+
     /* App Background for Safari mobile */
     --app-background: #0C1B2A;
-    
+
     /* Brand Colors - Sophisticated hair clinic palette */
     --background: 0 0% 98%;
     --foreground: 210 12% 16%;
-    
+
     /* Primary Brand - Deep Forest Green */
     --primary: 156 45% 25%;
     --primary-foreground: 0 0% 98%;
     --primary-glow: 156 35% 35%;
     --primary-light: 156 25% 45%;
-    
+
     /* Secondary - Warm Gold Accents */
     --secondary: 45 85% 45%;
     --secondary-foreground: 210 12% 16%;
     --secondary-light: 45 75% 55%;
-    
+
     /* Neutral Grays */
     --gray-50: 210 20% 95%;
     --gray-100: 210 15% 90%;
@@ -112,7 +154,7 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
     --gray-700: 210 15% 18%;
     --gray-800: 210 18% 12%;
     --gray-900: 210 22% 8%;
-    
+
     /* UI Colors mapped to brand */
     --card: 0 0% 100%;
     --card-foreground: 210 12% 16%;
@@ -128,30 +170,32 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
     --input: 210 15% 90%;
     --ring: 156 45% 25%;
     --radius: 0.75rem;
-    
+
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
     --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--secondary-light)));
     --gradient-hero: linear-gradient(180deg, hsl(var(--background)), hsl(var(--gray-50)));
-    
+
     /* Shadows */
     --shadow-soft: 0 4px 20px -2px hsl(var(--gray-300) / 0.3);
     --shadow-medium: 0 8px 30px -5px hsl(var(--gray-400) / 0.4);
     --shadow-strong: 0 15px 40px -8px hsl(var(--primary) / 0.2);
-    
-  /* Animations */
-  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  
-  /* Enhanced Video Transition System - Optimized for mobile */
-  --video-crossfade-timing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --video-blend-timing: cubic-bezier(0.23, 1, 0.32, 1);
-  --video-transition-duration: 350ms; /* Much faster for smooth mobile experience */
-  --video-stagger-delay: 50ms; /* Reduced stagger for snappier feel */
-  
-  /* iOS-style entrance animations */
-  --ios-entrance: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Enhanced Video Transition System - Optimized for mobile */
+    --video-crossfade-timing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --video-blend-timing: cubic-bezier(0.23, 1, 0.32, 1);
+    --video-transition-duration: 350ms;
+    /* Much faster for smooth mobile experience */
+    --video-stagger-delay: 50ms;
+    /* Reduced stagger for snappier feel */
+
+    /* iOS-style entrance animations */
+    --ios-entrance: cubic-bezier(0.175, 0.885, 0.32, 1.275);
     --transition-spring: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    
+
     /* Sidebar (for future use) */
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 210 12% 16%;
@@ -229,14 +273,15 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
     @apply border-border;
   }
 
-  body, html {
+  body,
+  html {
     background-color: var(--app-background);
   }
 
   body {
     @apply bg-background text-foreground font-body;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    
+
     /* Prevent zoom on mobile */
     touch-action: manipulation;
     -webkit-touch-callout: none;
@@ -247,25 +292,57 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
     user-select: none;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-weight: 600;
   }
-  
+
   /* Session-based body classes for user profiling */
-  body.s-man { --user-gender: 'man'; }
-  body.s-vrouw { --user-gender: 'vrouw'; }
-  
-  body.s-fijn { --user-hairtype: 'fijn'; }
-  body.s-stijl { --user-hairtype: 'stijl'; }
-  body.s-krul { --user-hairtype: 'krul'; }
-  body.s-kroes { --user-hairtype: 'kroes'; }
-  
-  body.s-zwart { --user-haircolor: 'zwart'; }
-  body.s-bruin { --user-haircolor: 'bruin'; }
-  body.s-blond { --user-haircolor: 'blond'; }
-  body.s-rood { --user-haircolor: 'rood'; }
-  
+  body.s-man {
+    --user-gender: 'man';
+  }
+
+  body.s-vrouw {
+    --user-gender: 'vrouw';
+  }
+
+  body.s-fijn {
+    --user-hairtype: 'fijn';
+  }
+
+  body.s-stijl {
+    --user-hairtype: 'stijl';
+  }
+
+  body.s-krul {
+    --user-hairtype: 'krul';
+  }
+
+  body.s-kroes {
+    --user-hairtype: 'kroes';
+  }
+
+  body.s-zwart {
+    --user-haircolor: 'zwart';
+  }
+
+  body.s-bruin {
+    --user-haircolor: 'bruin';
+  }
+
+  body.s-blond {
+    --user-haircolor: 'blond';
+  }
+
+  body.s-rood {
+    --user-haircolor: 'rood';
+  }
+
   /* Fullscreen utilities for homepage */
   .fullscreen-no-scroll {
     height: var(--app-height) !important;
@@ -297,17 +374,21 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
     overscroll-behavior: none;
     -webkit-overscroll-behavior: none;
   }
-  
+
   /* Prevent zoom on iOS and globally */
-  input, select, textarea {
+  input,
+  select,
+  textarea {
     font-size: 16px;
     touch-action: manipulation;
   }
 
   /* Hide elements when package popup is opening/open */
-  body.popup-open .hide-when-popup { display: none !important; }
+  body.popup-open .hide-when-popup {
+    display: none !important;
+  }
 
-  
+
   /* Prevent double-tap zoom globally */
   * {
     touch-action: manipulation;
@@ -323,7 +404,8 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
   scroll-behavior: smooth;
   overflow-y: auto;
   height: var(--app-height);
-  -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
+  -webkit-overflow-scrolling: touch;
+  /* iOS momentum scrolling */
 }
 
 .content-section {
@@ -345,9 +427,9 @@ All colors MUST be HSL. Fonts: Avenir (Inter fallback) + Merriweather Sans for h
   --blob-color-secondary: hsl(0, 0%, 20%);
   --blob-color-accent: hsl(0, 0%, 30%);
   --texture-filter: hue-rotate(0deg) saturate(0.3) brightness(0.4);
-  
+
   /* Smooth color transitions */
-  transition: 
+  transition:
     --blob-color-primary 2s ease-in-out,
     --blob-color-secondary 2s ease-in-out,
     --blob-color-accent 2s ease-in-out;
@@ -388,6 +470,7 @@ body.s-rood {
 }
 
 @layer components {
+
   /* Enhanced Video Animation System - GPU Accelerated Crossfades */
   .video-crossfade-current {
     @apply transition-all;
@@ -398,7 +481,7 @@ body.s-rood {
     perspective: 1000px;
     will-change: transform, opacity;
   }
-  
+
   .video-crossfade-next {
     @apply transition-all;
     transition-duration: var(--video-transition-duration);
@@ -409,18 +492,18 @@ body.s-rood {
     transition-delay: var(--video-stagger-delay);
     will-change: transform, opacity;
   }
-  
+
   .video-fade-out-phase {
     animation: video-fade-out-smooth var(--video-transition-duration) var(--video-crossfade-timing) forwards;
     will-change: opacity, filter, transform;
   }
-  
+
   .video-fade-in-phase {
     animation: video-fade-in-smooth var(--video-transition-duration) var(--video-blend-timing) forwards;
     animation-delay: var(--video-stagger-delay);
     will-change: opacity, filter, transform;
   }
-  
+
   /* Memory optimization - remove will-change after animations */
   .video-animation-complete {
     will-change: auto;
@@ -430,7 +513,7 @@ body.s-rood {
   .desktop-container {
     @apply w-full lg:max-w-[500px] lg:mx-auto;
   }
-  
+
   .desktop-boxed {
     @apply lg:max-w-[500px] lg:mx-auto;
   }
@@ -444,7 +527,7 @@ body.s-rood {
     @apply hover:shadow-medium hover:scale-105;
     @apply active:scale-95;
   }
-  
+
   .hero-tile.selected {
     @apply border-primary shadow-strong;
     @apply bg-gradient-to-br from-primary/5 to-primary/10;
@@ -477,7 +560,8 @@ body.s-rood {
 
   body {
     overflow-x: hidden;
-    -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
+    -webkit-overflow-scrolling: touch;
+    /* iOS momentum scrolling */
   }
 
   /* Mobile optimizations for Instagram-like behavior */
@@ -487,7 +571,7 @@ body.s-rood {
       -webkit-text-size-adjust: 100%;
       scroll-snap-type: y mandatory;
     }
-    
+
     body {
       -webkit-overflow-scrolling: touch;
       touch-action: pan-y;
@@ -499,9 +583,10 @@ body.s-rood {
     body {
       -webkit-overflow-scrolling: touch;
     }
-    
+
     .snap-section {
-      -webkit-transform: translateZ(0); /* Hardware acceleration */
+      -webkit-transform: translateZ(0);
+      /* Hardware acceleration */
       transform: translateZ(0);
     }
   }
@@ -528,122 +613,122 @@ body.s-rood {
     transform: scale(0.8) !important;
     visibility: hidden !important;
   }
-  
+
   /* Transition animations */
   .page-transition-enter {
     opacity: 0;
     transform: translateY(20px);
   }
-  
+
   .page-transition-enter-active {
     opacity: 1;
     transform: translateY(0);
     transition: opacity 300ms, transform 300ms;
   }
-  
+
   .page-transition-exit {
     opacity: 1;
     transform: translateY(0);
   }
-  
+
   .page-transition-exit-active {
     opacity: 0;
     transform: translateY(-20px);
     transition: opacity 300ms, transform 300ms;
   }
-  
+
   /* Logo transition animations with smooth easing */
   .logo-scale-up-smooth {
     animation: logo-scale-up-smooth 800ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
     transform-origin: 50% 50%;
   }
-  
+
   .logo-fade-out-smooth {
     animation: logo-fade-out-smooth 800ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
-  
+
   .logo-entry-scale-down {
     animation: logo-entry-scale-down 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   }
-  
+
   /* Animated background animations */
   .animate-float-slow {
     animation: float-slow 45s ease-in-out infinite;
   }
-  
+
   .animate-float-medium {
     animation: float-medium 60s ease-in-out infinite reverse;
   }
-  
+
   .animate-float-gentle {
     animation: float-gentle 50s ease-in-out infinite;
   }
-  
+
   .animate-depth-shift {
     animation: depth-shift 80s ease-in-out infinite;
   }
-  
+
   .animate-bg-wave {
     animation: bg-wave 120s ease-in-out infinite;
   }
-  
+
   .animate-hair-wave-subtle {
     animation: hair-wave-subtle 40s ease-in-out infinite;
   }
-  
+
   .animate-hair-sway-gentle {
     animation: hair-sway-gentle 45s ease-in-out infinite;
   }
-  
+
   .animate-hair-flow-soft {
     animation: hair-flow-soft 35s ease-in-out infinite;
   }
-  
+
   .animate-ultra-massive-drift {
     animation: ultra-massive-drift 250s ease-in-out infinite;
   }
-  
+
   .animate-ultra-massive-breathe {
     animation: ultra-massive-breathe 300s ease-in-out infinite;
   }
-  
+
   .animate-ultra-massive-float {
     animation: ultra-massive-float 220s ease-in-out infinite;
   }
-  
+
   .animate-ultra-massive-sway {
     animation: ultra-massive-sway 270s ease-in-out infinite;
   }
-  
+
   /* Directional slide animations for tab transitions */
   .animate-slide-out-left {
     animation: slide-out-left 0.2s ease-out forwards;
   }
-  
+
   .animate-slide-out-right {
     animation: slide-out-right 0.2s ease-out forwards;
   }
-  
+
   .animate-slide-in-from-right {
     animation: slide-in-from-right 0.3s ease-out forwards;
   }
-  
+
   .animate-slide-in-from-left {
     animation: slide-in-from-left 0.3s ease-out forwards;
   }
-  
+
   .animate-ultra-massive-sway {
     animation: ultra-massive-sway 280s ease-in-out infinite;
   }
-  
+
   .animate-ultra-massive-center {
     animation: ultra-massive-center 200s ease-in-out infinite;
   }
-  
+
   .animate-ultra-massive-pulse {
     animation: ultra-massive-pulse 260s ease-in-out infinite;
   }
-  
+
   /* iOS-Native Bottom Sheet Animations */
   .reviews-page-fullscreen,
   .info-page-fullscreen,
@@ -676,12 +761,12 @@ body.s-rood {
     animation: grid-item-enter 0.28s ease-out both;
     animation-delay: var(--delay);
   }
-  
+
   /* Remove will-change after animation completes to save memory */
   .grid-animate .grid-item-entrance {
     animation-fill-mode: both;
   }
-  
+
   /* Slide-in from right animations for sub-pages */
   .info-method-page-fullscreen,
   .info-trajectory-page-fullscreen {
@@ -690,31 +775,31 @@ body.s-rood {
     transform: translateX(100%);
     will-change: transform;
   }
-  
+
   .booking-page-fullscreen {
     @apply fixed inset-0 z-50 bg-black;
     animation: iosBottomSheetEnter 0.4s cubic-bezier(0.2, 0.0, 0, 1.0) forwards;
     transform: translateY(100%) scale(0.97);
     will-change: transform, opacity;
   }
-  
+
   .berkant-page-enter {
     animation: iosBottomSheetEnter 0.4s cubic-bezier(0.2, 0.0, 0, 1.0) forwards;
     transform: translateY(100%) scale(0.97);
     will-change: transform, opacity;
   }
-  
+
   .reviews-page-exit,
   .booking-page-exit {
     animation: iosBottomSheetExit 0.35s cubic-bezier(0.4, 0.0, 1, 1.0) forwards;
   }
-  
+
   /* Slide-out to right animations for sub-pages */
   .info-method-page-exit,
   .info-trajectory-page-exit {
     animation: slideOutToRight 0.3s cubic-bezier(0.4, 0.0, 1, 1.0) forwards;
   }
-  
+
   .review-item-page-fullscreen {
     @apply fixed inset-0 z-50 bg-white;
     animation: reviews-page-slide-up 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
@@ -723,32 +808,74 @@ body.s-rood {
 }
 
 @keyframes float-slow {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(20px, -30px) scale(1.05); }
-  50% { transform: translate(-15px, -20px) scale(0.95); }
-  75% { transform: translate(25px, 15px) scale(1.02); }
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  25% {
+    transform: translate(20px, -30px) scale(1.05);
+  }
+
+  50% {
+    transform: translate(-15px, -20px) scale(0.95);
+  }
+
+  75% {
+    transform: translate(25px, 15px) scale(1.02);
+  }
 }
 
 @keyframes float-medium {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(-25px, 20px) scale(1.03); }
-  66% { transform: translate(30px, -25px) scale(0.97); }
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(-25px, 20px) scale(1.03);
+  }
+
+  66% {
+    transform: translate(30px, -25px) scale(0.97);
+  }
 }
 
 @keyframes float-gentle {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  20% { transform: translate(-20px, 25px) scale(1.01); }
-  40% { transform: translate(15px, -15px) scale(0.99); }
-  60% { transform: translate(-10px, -30px) scale(1.02); }
-  80% { transform: translate(20px, 10px) scale(0.98); }
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  20% {
+    transform: translate(-20px, 25px) scale(1.01);
+  }
+
+  40% {
+    transform: translate(15px, -15px) scale(0.99);
+  }
+
+  60% {
+    transform: translate(-10px, -30px) scale(1.02);
+  }
+
+  80% {
+    transform: translate(20px, 10px) scale(0.98);
+  }
 }
 
 @keyframes bg-wave {
-  0%, 100% { 
+
+  0%,
+  100% {
     transform: translate(0px, 0px) scale(1);
     backgroundPosition: 'center';
   }
-  50% { 
+
+  50% {
     transform: translate(1px, -1px) scale(1.001);
     backgroundPosition: '50.2% 49.8%';
   }
@@ -758,6 +885,7 @@ body.s-rood {
   0% {
     transform: translate(-50%, -50%) scale(1);
   }
+
   100% {
     transform: translate(-50%, -50%) scale(50);
   }
@@ -767,6 +895,7 @@ body.s-rood {
   0% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
     visibility: hidden;
@@ -778,9 +907,11 @@ body.s-rood {
     transform: scale(30);
     opacity: 0;
   }
+
   30% {
     opacity: 0.5;
   }
+
   100% {
     transform: scale(1);
     opacity: 1;
@@ -788,40 +919,53 @@ body.s-rood {
 }
 
 @keyframes hair-wave-subtle {
-  0%, 100% { 
+
+  0%,
+  100% {
     transform: translateX(0px) translateY(0px) rotate(-12deg) scaleX(1) scaleY(1);
   }
-  25% { 
+
+  25% {
     transform: translateX(8px) translateY(-4px) rotate(-10deg) scaleX(1.02) scaleY(0.98);
   }
-  50% { 
+
+  50% {
     transform: translateX(15px) translateY(-8px) rotate(-14deg) scaleX(0.98) scaleY(1.02);
   }
-  75% { 
+
+  75% {
     transform: translateX(6px) translateY(-2px) rotate(-11deg) scaleX(1.01) scaleY(0.99);
   }
 }
 
 @keyframes hair-sway-gentle {
-  0%, 100% { 
+
+  0%,
+  100% {
     transform: translateX(0px) translateY(0px) rotate(18deg) scaleX(1) scaleY(1);
   }
-  33% { 
+
+  33% {
     transform: translateX(-10px) translateY(5px) rotate(20deg) scaleX(1.03) scaleY(0.97);
   }
-  66% { 
+
+  66% {
     transform: translateX(-18px) translateY(8px) rotate(16deg) scaleX(0.97) scaleY(1.03);
   }
 }
 
 @keyframes hair-flow-soft {
-  0%, 100% { 
+
+  0%,
+  100% {
     transform: translateX(0px) translateY(0px) rotate(-25deg) scaleX(1) scaleY(1);
   }
-  40% { 
+
+  40% {
     transform: translateX(12px) translateY(-6px) rotate(-22deg) scaleX(1.04) scaleY(0.96);
   }
-  80% { 
+
+  80% {
     transform: translateX(8px) translateY(-3px) rotate(-24deg) scaleX(1.02) scaleY(0.98);
   }
 }
@@ -831,10 +975,12 @@ body.s-rood {
     transform: translateY(100%) scale(0.97);
     opacity: 0;
   }
+
   60% {
     transform: translateY(-2%) scale(0.99);
     opacity: 0.9;
   }
+
   100% {
     transform: translateY(0%) scale(1);
     opacity: 1;
@@ -846,6 +992,7 @@ body.s-rood {
     transform: translateY(0%) scale(1);
     opacity: 1;
   }
+
   100% {
     transform: translateY(100%) scale(0.97);
     opacity: 0;
@@ -857,10 +1004,12 @@ body.s-rood {
     transform: translateY(100%) scale(0.97);
     opacity: 0;
   }
+
   60% {
     transform: translateY(-2%) scale(0.99);
     opacity: 0.9;
   }
+
   100% {
     transform: translateY(0) scale(1);
     opacity: 1;
@@ -872,6 +1021,7 @@ body.s-rood {
     transform: translateY(0) scale(1);
     opacity: 1;
   }
+
   100% {
     transform: translateY(100%) scale(0.97);
     opacity: 0;
@@ -883,6 +1033,7 @@ body.s-rood {
     transform: translateX(100%);
     opacity: 0.8;
   }
+
   100% {
     transform: translateX(0%);
     opacity: 1;
@@ -894,6 +1045,7 @@ body.s-rood {
     transform: translateX(0%);
     opacity: 1;
   }
+
   100% {
     transform: translateX(100%);
     opacity: 0.8;
@@ -905,6 +1057,7 @@ body.s-rood {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+
   to {
     opacity: 0;
     transform: translateY(100%) scale(0.95);
@@ -912,116 +1065,147 @@ body.s-rood {
 }
 
 @keyframes ultra-massive-drift {
-  0%, 100% { 
+
+  0%,
+  100% {
     transform: translateX(-30px) translateY(-20px) scale(1);
     opacity: 0.008;
   }
-  25% { 
+
+  25% {
     transform: translateX(-150px) translateY(-100px) scale(0.85);
     opacity: 0.003;
   }
-  50% { 
+
+  50% {
     transform: translateX(-80px) translateY(-140px) scale(1.15);
     opacity: 0.012;
   }
-  75% { 
+
+  75% {
     transform: translateX(-180px) translateY(-60px) scale(0.9);
     opacity: 0.005;
   }
 }
 
 @keyframes ultra-massive-breathe {
-  0%, 100% { 
+
+  0%,
+  100% {
     transform: translateX(-40px) translateY(50px) scale(1);
     opacity: 0.006;
   }
-  20% { 
+
+  20% {
     transform: translateX(-200px) translateY(180px) scale(0.7);
     opacity: 0.002;
   }
-  50% { 
+
+  50% {
     transform: translateX(-100px) translateY(120px) scale(1.3);
     opacity: 0.015;
   }
-  80% { 
+
+  80% {
     transform: translateX(-220px) translateY(80px) scale(0.8);
     opacity: 0.004;
   }
 }
 
 @keyframes ultra-massive-float {
-  0%, 100% { 
+
+  0%,
+  100% {
     transform: translateX(20px) translateY(-35px) scale(1);
     opacity: 0.009;
   }
-  33% { 
+
+  33% {
     transform: translateX(160px) translateY(-120px) scale(0.75);
     opacity: 0.004;
   }
-  66% { 
+
+  66% {
     transform: translateX(90px) translateY(-80px) scale(1.25);
     opacity: 0.013;
   }
 }
 
 @keyframes ultra-massive-sway {
-  0%, 100% { 
+
+  0%,
+  100% {
     transform: translateX(35px) translateY(45px) scale(1);
     opacity: 0.007;
   }
-  40% { 
+
+  40% {
     transform: translateX(190px) translateY(160px) scale(0.8);
     opacity: 0.003;
   }
-  80% { 
+
+  80% {
     transform: translateX(110px) translateY(110px) scale(1.2);
     opacity: 0.011;
   }
 }
 
 @keyframes ultra-massive-center {
-  0%, 100% { 
+
+  0%,
+  100% {
     transform: translateX(-50px) translateY(0px) scale(1);
     opacity: 0.01;
   }
-  25% { 
+
+  25% {
     transform: translateX(-250px) translateY(-60px) scale(0.7);
     opacity: 0.003;
   }
-  50% { 
+
+  50% {
     transform: translateX(-150px) translateY(80px) scale(1.4);
     opacity: 0.016;
   }
-  75% { 
+
+  75% {
     transform: translateX(-280px) translateY(20px) scale(0.85);
     opacity: 0.005;
   }
 }
 
 @keyframes ultra-massive-pulse {
-  0%, 100% { 
+
+  0%,
+  100% {
     transform: translateX(60px) translateY(-10px) scale(1);
     opacity: 0.011;
   }
-  30% { 
+
+  30% {
     transform: translateX(240px) translateY(-90px) scale(0.6);
     opacity: 0.002;
   }
-  70% { 
+
+  70% {
     transform: translateX(140px) translateY(70px) scale(1.5);
     opacity: 0.018;
   }
 }
 
 @keyframes blob-float {
-  0%, 100% { 
-    transform: translateY(0px) translateX(0px); 
+
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px);
   }
-  33% { 
-    transform: translateY(-20px) translateX(10px); 
+
+  33% {
+    transform: translateY(-20px) translateX(10px);
   }
-  66% { 
-    transform: translateY(10px) translateX(-15px); 
+
+  66% {
+    transform: translateY(10px) translateX(-15px);
   }
 }
 
@@ -1032,10 +1216,12 @@ body.s-rood {
     transform: translateY(-40px);
     visibility: visible;
   }
+
   60% {
     opacity: 0.8;
     transform: translateY(-5px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -1049,10 +1235,12 @@ body.s-rood {
     transform: translateY(40px);
     visibility: visible;
   }
+
   60% {
     opacity: 0.8;
     transform: translateY(5px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -1066,10 +1254,12 @@ body.s-rood {
     transform: scale(0.8);
     visibility: visible;
   }
+
   60% {
     opacity: 0.8;
     transform: scale(0.95);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
@@ -1084,11 +1274,13 @@ body.s-rood {
     transform: scale(1);
     z-index: 50;
   }
+
   40% {
     opacity: 0.8;
     transform: scale(1.1);
     z-index: 50;
   }
+
   100% {
     opacity: 0;
     transform: scale(1.3);
@@ -1098,10 +1290,13 @@ body.s-rood {
 
 /* Elegant logo loading animation */
 @keyframes logo-loading-breathe {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1);
     opacity: 1;
   }
+
   50% {
     transform: scale(1.05);
     opacity: 0.9;
@@ -1109,35 +1304,42 @@ body.s-rood {
 }
 
 @keyframes blob-float-with-blur {
-  0% { 
+  0% {
     transform: translateY(0px) translateX(0px) scale(1);
     filter: blur(40px);
   }
-  15% { 
+
+  15% {
     transform: translateY(-8px) translateX(5px) scale(1.01);
     filter: blur(25px);
   }
-  30% { 
+
+  30% {
     transform: translateY(-15px) translateX(10px) scale(1.02);
     filter: blur(60px);
   }
-  45% { 
+
+  45% {
     transform: translateY(-5px) translateX(15px) scale(1.01);
     filter: blur(35px);
   }
-  60% { 
+
+  60% {
     transform: translateY(8px) translateX(-12px) scale(0.98);
     filter: blur(80px);
   }
-  75% { 
+
+  75% {
     transform: translateY(-5px) translateX(15px) scale(1.01);
     filter: blur(20px);
   }
-  90% { 
+
+  90% {
     transform: translateY(-2px) translateX(-5px) scale(0.99);
     filter: blur(50px);
   }
-  100% { 
+
+  100% {
     transform: translateY(0px) translateX(0px) scale(1);
     filter: blur(40px);
   }
@@ -1167,10 +1369,21 @@ body.s-rood {
   pointer-events: none !important;
 }
 
-.grid-item-exit-delay-1 { transition-delay: 0.1s !important; }
-.grid-item-exit-delay-2 { transition-delay: 0.2s !important; }
-.grid-item-exit-delay-3 { transition-delay: 0.3s !important; }
-.grid-item-exit-delay-4 { transition-delay: 0.4s !important; }
+.grid-item-exit-delay-1 {
+  transition-delay: 0.1s !important;
+}
+
+.grid-item-exit-delay-2 {
+  transition-delay: 0.2s !important;
+}
+
+.grid-item-exit-delay-3 {
+  transition-delay: 0.3s !important;
+}
+
+.grid-item-exit-delay-4 {
+  transition-delay: 0.4s !important;
+}
 
 /* Page Scale In Animation - More Subtle */
 .page-transition-scale-in {
@@ -1204,13 +1417,25 @@ body.s-rood {
 }
 
 /* Fast delays for app-like feel */
-.page-entry-delay-1 { transition-delay: 0.1s; }
-.page-entry-delay-2 { transition-delay: 0.2s; }
-.page-entry-delay-3 { transition-delay: 0.3s; }
-.page-entry-delay-4 { transition-delay: 0.4s; }
+.page-entry-delay-1 {
+  transition-delay: 0.1s;
+}
+
+.page-entry-delay-2 {
+  transition-delay: 0.2s;
+}
+
+.page-entry-delay-3 {
+  transition-delay: 0.3s;
+}
+
+.page-entry-delay-4 {
+  transition-delay: 0.4s;
+}
 
 /* Instagram-style full page scroll */
-html, body {
+html,
+body {
   height: 100%;
   /* Allow normal scroll for fixed elements to work */
   overflow-x: hidden;
@@ -1242,7 +1467,8 @@ html, body {
 
 /* Special styling for hero section to maintain original layout */
 .instagram-section.content-section {
-  display: block; /* Block layout for complex hero structure */
+  display: block;
+  /* Block layout for complex hero structure */
 }
 
 /* High-end minimalistic gradient animation for booking button */
@@ -1276,31 +1502,44 @@ html, body {
 }
 
 @keyframes subtle-gradient-shift {
-  0%, 100% {
+
+  0%,
+  100% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
 }
 
 @keyframes gentle-pulse {
-  0%, 90%, 100% {
+
+  0%,
+  90%,
+  100% {
     opacity: 0;
   }
-  5%, 15% {
+
+  5%,
+  15% {
     opacity: 1;
   }
 }
 
 @keyframes minimal-shine {
-  0%, 95%, 100% {
+
+  0%,
+  95%,
+  100% {
     transform: translateX(-100%);
     opacity: 0;
   }
+
   2% {
     opacity: 1;
   }
+
   8% {
     transform: translateX(100%);
     opacity: 0;
@@ -1332,6 +1571,7 @@ html, body {
     opacity: 1;
     transform: scale(1) translateY(0);
   }
+
   100% {
     opacity: 0;
     transform: scale(0.95) translateY(10px);
@@ -1343,6 +1583,7 @@ html, body {
     opacity: 0;
     transform: scale(1.05) translateY(-10px);
   }
+
   100% {
     opacity: 1;
     transform: scale(1) translateY(0);
@@ -1354,6 +1595,7 @@ html, body {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -1363,6 +1605,7 @@ html, body {
   0% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
   }
@@ -1380,9 +1623,11 @@ html, body {
   0% {
     opacity: 0;
   }
+
   50% {
     opacity: 0.1;
   }
+
   100% {
     opacity: 0;
   }
@@ -1411,6 +1656,7 @@ html, body {
     transform: translateX(100%);
     opacity: 0.8;
   }
+
   100% {
     transform: translateX(0);
     opacity: 1;
@@ -1422,6 +1668,7 @@ html, body {
     transform: translateX(0);
     opacity: 1;
   }
+
   100% {
     transform: translateX(-100%);
     opacity: 0.8;
@@ -1433,6 +1680,7 @@ html, body {
     transform: translateX(-100%);
     opacity: 0.8;
   }
+
   100% {
     transform: translateX(0);
     opacity: 1;
@@ -1444,6 +1692,7 @@ html, body {
     transform: translateX(0);
     opacity: 1;
   }
+
   100% {
     transform: translateX(100%);
     opacity: 0.8;
@@ -1492,12 +1741,10 @@ html, body {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: linear-gradient(
-    45deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.3) 50%,
-    transparent 70%
-  );
+  background: linear-gradient(45deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.3) 50%,
+      transparent 70%);
   opacity: 0;
   transform: translateX(-100%) rotate(45deg);
   animation: glassShine 5s infinite;
@@ -1510,16 +1757,20 @@ html, body {
     transform: translateX(-100%) rotate(45deg);
     opacity: 0;
   }
+
   10% {
     opacity: 1;
   }
+
   20% {
     transform: translateX(100%) rotate(45deg);
     opacity: 1;
   }
+
   30% {
     opacity: 0;
   }
+
   100% {
     transform: translateX(100%) rotate(45deg);
     opacity: 0;
@@ -1553,21 +1804,22 @@ html, body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.4),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent);
   animation: premiumShine 2.5s ease-in-out infinite;
   pointer-events: none;
 }
 
 @keyframes premiumPulse {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.15);
     background: rgba(255, 255, 255, 0.1);
   }
+
   50% {
     box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.25);
     background: rgba(255, 255, 255, 0.15);
@@ -1579,10 +1831,12 @@ html, body {
     left: -100%;
     opacity: 0;
   }
+
   50% {
     left: 100%;
     opacity: 1;
   }
+
   100% {
     left: 100%;
     opacity: 0;
@@ -1591,12 +1845,15 @@ html, body {
 
 /* Contact page blob animations - dramatic breathing effect with clearly visible movement */
 @keyframes contactBlobBreathing1 {
-  0%, 100% { 
+
+  0%,
+  100% {
     transform: translateX(0px) translateY(0px) scale(0.8);
     opacity: 0.3;
     filter: blur(30px);
   }
-  50% { 
+
+  50% {
     transform: translateX(-80px) translateY(60px) scale(1.6);
     opacity: 0.6;
     filter: blur(15px);
@@ -1604,12 +1861,15 @@ html, body {
 }
 
 @keyframes contactBlobBreathing2 {
-  0%, 100% { 
+
+  0%,
+  100% {
     transform: translateX(0px) translateY(0px) scale(0.7);
     opacity: 0.3;
     filter: blur(25px);
   }
-  50% { 
+
+  50% {
     transform: translateX(100px) translateY(-70px) scale(1.5);
     opacity: 0.5;
     filter: blur(10px);
@@ -1626,73 +1886,80 @@ html, body {
 
 /* Turkey SVG Animations */
 @keyframes turkeyEntrance {
-  0% { 
+  0% {
     opacity: 0;
     transform: scale(0.98);
   }
-  100% { 
+
+  100% {
     opacity: 1;
     transform: scale(1);
   }
 }
 
 @keyframes turkeyDoorSlideIn {
-  0% { 
+  0% {
     transform: translateX(-15px);
   }
-  100% { 
+
+  100% {
     transform: translateX(0);
   }
 }
 
 @keyframes turkeyDoorFadeIn {
-  0% { 
+  0% {
     opacity: 0;
   }
-  100% { 
+
+  100% {
     opacity: 0.5;
   }
 }
 
 @keyframes turkeyMinaretGrowLeft {
-  0% { 
+  0% {
     transform: scaleY(0) translateY(20px);
     opacity: 0;
   }
-  100% { 
+
+  100% {
     transform: scaleY(1) translateY(0);
     opacity: 0.25;
   }
 }
 
 @keyframes turkeyMinaretGrowRight {
-  0% { 
+  0% {
     transform: scaleY(0) translateY(20px);
     opacity: 0;
   }
-  100% { 
+
+  100% {
     transform: scaleY(1) translateY(0);
     opacity: 0.25;
   }
 }
 
 @keyframes turkeyMinaretInnerGrowLeft {
-  0% { 
+  0% {
     transform: scaleY(0) translateY(15px);
     opacity: 0;
   }
-  100% { 
+
+  100% {
     transform: scaleY(1) translateY(0);
     opacity: 0.75;
   }
 }
 
 @keyframes turkeyMinaretInnerGrowRight {
-  0% { 
+  0% {
     transform: scaleY(0) translateY(15px);
     opacity: 0;
   }
-  100% { 
+
+  100% {
     transform: scaleY(1) translateY(0);
     opacity: 0.75;
   }
@@ -1703,7 +1970,7 @@ html, body {
 }
 
 .animate-turkey-door {
-  animation: 
+  animation:
     turkeyDoorSlideIn 0.6s ease-out 1.4s forwards,
     turkeyDoorFadeIn 0.4s ease-out 1.5s forwards;
   opacity: 0;
@@ -1741,56 +2008,66 @@ html, body {
 
 /* Netherlands Windmill Animations */
 @keyframes netherlandsEntrance {
-  0% { 
+  0% {
     opacity: 0;
     transform: scale(0.8) translateY(20px);
   }
-  60% { 
+
+  60% {
     opacity: 0.8;
     transform: scale(1.02) translateY(-5px);
   }
-  100% { 
+
+  100% {
     opacity: 1;
     transform: scale(1) translateY(0);
   }
 }
 
 @keyframes netherlandsBuilding {
-  0% { 
+  0% {
     opacity: 0;
     transform: scale(0.95) translateY(10px);
   }
-  100% { 
+
+  100% {
     opacity: 0.5;
     transform: scale(1) translateY(0);
   }
 }
 
 @keyframes netherlandsHouse {
-  0% { 
+  0% {
     opacity: 0;
     transform: scale(0.92) translateY(8px);
   }
-  100% { 
+
+  100% {
     opacity: 1;
     transform: scale(1) translateY(0);
   }
 }
 
 @keyframes windmillBladesEntrance {
-  0% { 
+  0% {
     opacity: 0;
     transform: scale(0.8);
   }
-  100% { 
+
+  100% {
     opacity: 1;
     transform: scale(1);
   }
 }
 
 @keyframes windmillRotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .animate-netherlands-entrance {
@@ -1808,7 +2085,7 @@ html, body {
 }
 
 .animate-windmill-blades {
-  animation: 
+  animation:
     windmillBladesEntrance 0.8s cubic-bezier(0.2, 0.0, 0, 1.0) 0.8s forwards,
     windmillRotate 4s linear 1.2s infinite;
   opacity: 0;
@@ -1816,64 +2093,69 @@ html, body {
 }
 
 @keyframes grid-item-enter {
-  0% { 
-    opacity: 0; 
-    transform: translateY(14px) scale(0.98); 
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
   }
-  100% { 
-    opacity: 1; 
-    transform: translateY(0) scale(1); 
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
 /* Directional slide animations for tab swipe transitions */
 @keyframes slide-out-left {
-  from { 
-    transform: translateX(0); 
-    opacity: 1; 
+  from {
+    transform: translateX(0);
+    opacity: 1;
   }
-  to { 
-    transform: translateX(-100%); 
-    opacity: 0; 
+
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
   }
 }
 
 @keyframes slide-out-right {
-  from { 
-    transform: translateX(0); 
-    opacity: 1; 
+  from {
+    transform: translateX(0);
+    opacity: 1;
   }
-  to { 
-    transform: translateX(100%); 
-    opacity: 0; 
+
+  to {
+    transform: translateX(100%);
+    opacity: 0;
   }
 }
 
 @keyframes slide-in-from-right {
-  from { 
-    transform: translateX(100%); 
-    opacity: 0; 
+  from {
+    transform: translateX(100%);
+    opacity: 0;
   }
-  to { 
-    transform: translateX(0); 
-    opacity: 1; 
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
   }
 }
 
 @keyframes slide-in-from-left {
-  from { 
-    transform: translateX(-100%); 
-    opacity: 0; 
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
   }
-  to { 
-    transform: translateX(0); 
-    opacity: 1; 
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
   }
 }
 
 /* Treatments Carousel Styles */
-.treatments-tab { 
-  width: 100%; 
+.treatments-tab {
+  width: 100%;
   padding: 16px 0 20px;
   height: 100%;
   display: flex;
@@ -1897,8 +2179,9 @@ html, body {
   flex: 1;
   align-items: center;
 }
-.treat-scroller::-webkit-scrollbar { 
-  display: none; 
+
+.treat-scroller::-webkit-scrollbar {
+  display: none;
 }
 
 .treat-card {
@@ -1910,9 +2193,9 @@ html, body {
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(10px);
-  background: rgba(0,0,0,.15);
+  background: rgba(0, 0, 0, .15);
   transform-origin: center center;
-  transition: transform .28s cubic-bezier(.2,.7,.2,1), opacity .28s;
+  transition: transform .28s cubic-bezier(.2, .7, .2, 1), opacity .28s;
   will-change: transform;
 }
 
@@ -1946,12 +2229,10 @@ html, body {
 .treat-card-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.1) 0%,
-    rgba(0,0,0,0.4) 40%,
-    rgba(0,0,0,0.7) 100%
-  );
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0.1) 0%,
+      rgba(0, 0, 0, 0.4) 40%,
+      rgba(0, 0, 0, 0.7) 100%);
   z-index: 1;
 }
 
@@ -1966,15 +2247,15 @@ html, body {
 }
 
 .treat-pill {
-  position: absolute; 
-  top: 18px; 
+  position: absolute;
+  top: 18px;
   left: 50%;
   transform: translateX(-50%);
-  padding: 7px 24px; 
+  padding: 7px 24px;
   border-radius: 999px;
   background: linear-gradient(98.43deg, rgba(0, 0, 0, 0.5) -0.49%, rgba(102, 102, 102, 0.5) 50.04%, rgba(0, 0, 0, 0.5) 99.6%);
   backdrop-filter: blur(8px);
-  color: #fff; 
+  color: #fff;
   font-weight: 400;
   font-size: clamp(14px, 2.5vw, 16px);
   letter-spacing: 0.3px;
@@ -2032,7 +2313,7 @@ html, body {
   line-height: 120%;
   letter-spacing: -0.04em;
   color: #fff;
-  text-shadow: 0 2px 8px rgba(0,0,0,.5);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, .5);
   transition: opacity 0.3s ease, filter 0.3s ease;
   opacity: 1;
   filter: blur(0);
@@ -2043,39 +2324,43 @@ html, body {
   filter: blur(1.1px);
 }
 
-.treat-link { 
-  color: #fff; 
-  text-decoration: underline; 
+.treat-link {
+  color: #fff;
+  text-decoration: underline;
   font-weight: 300;
   font-size: 12px;
   align-self: flex-start;
   margin-top: 8px;
 }
 
-.treat-dots { 
-  display: flex; 
-  justify-content: center; 
-  gap: 10px; 
+.treat-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
   padding: 16px 0 clamp(1rem, 2vh, 2rem);
   flex-shrink: 0;
 }
-.dot { 
-  width: 8px; 
-  height: 8px; 
-  border-radius: 50%; 
-  background: rgba(255,255,255,.35); 
-  border: none; 
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .35);
+  border: none;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.dot.is-active { 
-  background: rgba(255,255,255,.95); 
-  transform: scale(1.1); 
+
+.dot.is-active {
+  background: rgba(255, 255, 255, .95);
+  transform: scale(1.1);
 }
+
 .dot.is-pending {
-  background: rgba(255,255,255,.7);
+  background: rgba(255, 255, 255, .7);
   transform: scale(1.05);
 }
+
 .dot.is-transitioning {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -2103,7 +2388,7 @@ html, body {
     backdrop-filter: none;
     transition: none;
   }
-  
+
   .treat-card::before {
     backdrop-filter: none;
   }
@@ -2151,6 +2436,20 @@ html, body {
 
 .ql-snow .ql-picker-label {
   color: hsl(var(--foreground)) !important;
+}
+
+html,
+body {
+  overscroll-behavior-y: none;
+  /* Prevents pull-to-refresh on mobile */
+  background-color: #000;
+  /* Dark fallback for overscroll areas */
+}
+
+body {
+  background: transparent;
+  /* Or keep specific background for body if needed, but #000 is safe base */
+  color: rgb(var(--foreground-rgb)) !important;
 }
 
 .ql-snow .ql-picker-options {
@@ -2223,4 +2522,20 @@ html, body {
 
 .prose s {
   text-decoration: line-through;
+}
+
+/* Content fade-out animation for modals */
+.fade-out-content {
+  opacity: 0 !important;
+  transform: translateY(10px) scale(0.98) !important;
+  transition: opacity 0.4s cubic-bezier(0.32, 0.72, 0, 1), transform 0.4s cubic-bezier(0.32, 0.72, 0, 1) !important;
+  pointer-events: none !important;
+}
+
+/* Ensure background videos stay visible and fixed */
+video.background-video,
+.background-video-container {
+  opacity: 1 !important;
+  transform: none !important;
+  pointer-events: none;
 }

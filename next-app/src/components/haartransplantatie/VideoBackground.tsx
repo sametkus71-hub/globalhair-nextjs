@@ -1,23 +1,19 @@
 'use client';
 
-import { useSession } from '@/hooks/useSession';
-import { useIsMobile } from '@/hooks/use-mobile';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 interface VideoBackgroundProps {
   className?: string;
 }
 
 export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
-  const { profile } = useSession(); // Usage kept if needed for future logic, but currently simplified
-  const isMobile = useIsMobile();
-  const [mounted, setMounted] = useState(false);
-
+  // Hydration fix for video autoplay
   useEffect(() => {
-    setMounted(true);
+    const video = document.querySelector('video');
+    if (video) {
+      video.play().catch(() => { });
+    }
   }, []);
-
-  if (!mounted) return null;
 
   return (
     <div className={`fixed inset-0 overflow-hidden ${className}`} style={{ zIndex: 1 }}>
@@ -27,10 +23,21 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
         loop
         muted
         playsInline
+        // @ts-ignore - Fetch Priority is a newer standard
+        fetchPriority="high"
         className="absolute inset-0 w-full h-full object-cover"
         style={{ width: '100vw', height: 'var(--app-height, 100vh)' }}
       >
-        <source src="https://globalhair.b-cdn.net/Bg%20Videos/D%20-%20Basic%20BG%20V0.mp4" type="video/mp4" />
+        {/* Mobile Sources (< 768px) */}
+        <source src="https://GlobalHair.b-cdn.net/Bg%20Videos/P%20-%20Basic%20BG%20V0%20compressed.webm" type="video/webm" media="(max-width: 768px)" />
+        <source src="https://GlobalHair.b-cdn.net/Bg%20Videos/P%20-%20Basic%20BG%20V0.mp4" type="video/mp4" media="(max-width: 768px)" />
+
+        {/* Desktop Sources (>= 769px) */}
+        <source src="https://GlobalHair.b-cdn.net/Bg%20Videos/D%20-%20Basic%20BG%20V0%20(1).webm" type="video/webm" media="(min-width: 769px)" />
+        <source src="https://GlobalHair.b-cdn.net/Bg%20Videos/D%20-%20Basic%20BG%20V0.mp4" type="video/mp4" media="(min-width: 769px)" />
+
+        {/* Fallback for browsers that don't support media on source (rare, but defaults to desktop) */}
+        <source src="https://GlobalHair.b-cdn.net/Bg%20Videos/D%20-%20Basic%20BG%20V0.mp4" type="video/mp4" />
       </video>
 
 

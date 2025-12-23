@@ -78,9 +78,9 @@ export const SERVICES: Record<string, ServiceConfig> = {
  */
 export function getServiceConfig(
   serviceType: 'v6_hairboost' | 'haartransplantatie' | 'ceo_consult',
-  location: 'online' | 'onsite'
+  bookingLocation: 'online' | 'onsite'
 ): ServiceConfig {
-  const key = `${serviceType}_${location}`;
+  const key = `${serviceType}_${bookingLocation}`;
   const config = SERVICES[key];
   
   if (!config) {

@@ -30,7 +30,7 @@ export const AdminSidebarContent = ({ onNavigate, showLogout = false }: AdminSid
     <div className="flex flex-col h-full">
       {/* Logo */}
       <div className="p-6 border-b border-gray-700">
-        <img src={hairtransplantLogo} alt="Logo" className="h-10 object-contain" />
+        <img src={hairtransplantLogo.src} alt="Logo" className="h-10 object-contain" />
       </div>
       {/* User Info */}
       <div className="p-6 border-b border-gray-700">
@@ -40,10 +40,10 @@ export const AdminSidebarContent = ({ onNavigate, showLogout = false }: AdminSid
       {/* Navigation */}
       <nav className="flex-1 p-4 space-y-1">
         {navigationItems.map((item) => {
-          const isActive = item.path === '/admin/reviews' 
+          const isActive = item.path === '/admin/reviews'
             ? pathname.startsWith('/admin/reviews')
             : pathname === item.path;
-          
+
           if (!item.enabled) {
             return (
               <div
@@ -61,11 +61,10 @@ export const AdminSidebarContent = ({ onNavigate, showLogout = false }: AdminSid
               key={item.path}
               href={item.path}
               onClick={onNavigate}
-              className={`flex items-center px-4 py-3 text-sm rounded transition-colors ${
-                isActive
+              className={`flex items-center px-4 py-3 text-sm rounded transition-colors ${isActive
                   ? 'bg-gray-700 text-white border-l-2 border-white'
                   : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-              }`}
+                }`}
             >
               {item.label}
             </Link>

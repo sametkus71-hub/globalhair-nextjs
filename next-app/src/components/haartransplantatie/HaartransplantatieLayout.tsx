@@ -2,6 +2,7 @@
 'use client';
 
 import { usePathname, useSearchParams } from 'next/navigation';
+import { motion } from 'framer-motion';
 import { useLayoutEffect, useRef } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -30,6 +31,8 @@ export const HaartransplantatieLayout = ({ children }: { children: React.ReactNo
 
   // Combined overlay check - any route that should hide header and show as overlay
   const isOverlayRoute = isPackageRoute || isBookingRoute;
+
+  console.log('HTLayout: Render', { pathname, isOverlayRoute, isBookingRoute });
 
   // Check if we're on reviews route (needs full width on desktop)
   const isReviewsRoute = pathname.includes('/reviews');
@@ -70,7 +73,7 @@ export const HaartransplantatieLayout = ({ children }: { children: React.ReactNo
   }, []);
 
   return (
-    <main ref={mainRef} className="relative min-h-screen w-full overflow-hidden bg-transparent">
+    <main ref={mainRef} className={`relative min-h-screen w-full bg-transparent ${isOverlayRoute ? '' : 'overflow-hidden'}`}>
       <TabPreloader />
       <div className="relative w-full min-h-screen">
         {/* Glass Header - 500px width on desktop */}
@@ -103,7 +106,7 @@ export const HaartransplantatieLayout = ({ children }: { children: React.ReactNo
             </DesktopContainer>
 
             {/* Content Zone - Full width for reviews on desktop, 1000px for contact, 1250px for other tabs */}
-            {!isPackageRoute && (
+            {!isOverlayRoute && (
               isReviewsRoute && !isMobile ? (
                 // Full width for reviews on desktop
                 (<div className="flex-1 flex flex-col w-full">
@@ -115,13 +118,16 @@ export const HaartransplantatieLayout = ({ children }: { children: React.ReactNo
                     }}
                   >
                     {/* Content from specific page - smooth fade transition on content only */}
-                    <div
+
+                    <motion.div
                       key={pathname}
-                      className="relative flex-1 overflow-hidden animate-fade-in"
-                      style={{ animationDuration: '150ms' }}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
+                      className="relative flex-1 overflow-hidden"
                     >
                       {children}
-                    </div>
+                    </motion.div>
                   </div>
                 </div>)
               ) : isContactRoute && !isMobile ? (
@@ -135,13 +141,16 @@ export const HaartransplantatieLayout = ({ children }: { children: React.ReactNo
                     }}
                   >
                     {/* Content from specific page - smooth fade transition on content only */}
-                    <div
+                    {/* Content from specific page - smooth fade transition on content only */}
+                    <motion.div
                       key={pathname}
-                      className={`relative flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'} animate-fade-in`}
-                      style={{ animationDuration: '150ms' }}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
+                      className={`relative flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'}`}
                     >
                       {children}
-                    </div>
+                    </motion.div>
                   </div>
                 </MediumContentContainer>)
               ) : (
@@ -157,13 +166,16 @@ export const HaartransplantatieLayout = ({ children }: { children: React.ReactNo
                     }}
                   >
                     {/* Content from specific page - smooth fade transition on content only */}
-                    <div
+                    {/* Content from specific page - smooth fade transition on content only */}
+                    <motion.div
                       key={pathname}
-                      className={`relative flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'} animate-fade-in`}
-                      style={{ animationDuration: '150ms' }}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
+                      className={`relative flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'}`}
                     >
                       {children}
-                    </div>
+                    </motion.div>
                   </div>
                 </WideContentContainer>)
               )
@@ -176,8 +188,8 @@ export const HaartransplantatieLayout = ({ children }: { children: React.ReactNo
           <FooterCTAGlass />
         </DesktopContainer>
       </div>
-      {/* Package popup overlay - renders on top when package route is active */}
-      {isPackageRoute && children}
+      {/* Package/Booking popup overlay - renders on top when route is active */}
+      {isOverlayRoute && children}
     </main>
   );
 };

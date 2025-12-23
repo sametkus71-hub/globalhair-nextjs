@@ -13,12 +13,12 @@ interface AvailabilitySlotsResult {
  */
 export function useAvailabilitySlots(
   serviceType: 'v6_hairboost' | 'haartransplantatie' | 'ceo_consult' | null,
-  location: 'online' | 'onsite' | null,
+  bookingLocation: 'online' | 'onsite' | null,
   date: string | null
 ): AvailabilitySlotsResult {
   // CEO consult is one service in Zoho, map both online/onsite to same data
-  const serviceKey = serviceType && location 
-    ? (serviceType === 'ceo_consult' ? 'ceo_consult_online' : `${serviceType}_${location}`)
+  const serviceKey = serviceType && bookingLocation 
+    ? (serviceType === 'ceo_consult' ? 'ceo_consult_online' : `${serviceType}_${bookingLocation}`)
     : null;
 
   const { data, isLoading, error } = useQuery({

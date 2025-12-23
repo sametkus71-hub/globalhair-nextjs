@@ -5,6 +5,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { usePopupTransition } from '@/hooks/usePopupTransition';
 import { useSession } from '@/hooks/useSession';
 import { useBookIconAnimation } from '@/hooks/useBookIconAnimation';
+import { useBookingModal } from '@/contexts/BookingModalContext';
 import ShinyText from '@/components/ui/ShinyText';
 import { HomeIcon } from '@/components/icons/HomeIcon';
 import { GridIcon } from '@/components/icons/GridIcon';
@@ -24,21 +25,22 @@ export const BottomNavigation = () => {
   const { language } = useLanguage();
   const { activeRoute } = useSession();
   const { isGlowing, animationPhase } = useBookIconAnimation();
-  
+  const { openModal } = useBookingModal();
+
   const pathname = usePathname();
   const { startPopupTransition, directNavigate, isOnPopupPage } = usePopupTransition();
 
   // Check if we're on a main service page
   const isOnMainPage = () => {
-    return pathname.includes('/haartransplantatie') || 
-           pathname.includes('/hair-transplant') ||
-           pathname.includes('/v6-hairboost');
+    return pathname.includes('/haartransplantatie') ||
+      pathname.includes('/hair-transplant') ||
+      pathname.includes('/v6-hairboost');
   };
 
   // Check if we're on the main haartransplantatie page (not popup pages)
   const isOnMainHaartransplantatiePage = () => {
-    return pathname === '/nl/haartransplantatie' || 
-           pathname === '/en/hair-transplant';
+    return pathname === '/nl/haartransplantatie' ||
+      pathname === '/en/hair-transplant';
   };
 
   // Get opacity class based on current page and active state
@@ -47,12 +49,12 @@ export const BottomNavigation = () => {
     if (isBookAnimating && itemId !== 'book') {
       return 'opacity-60';
     }
-    
+
     // If on main haartransplantatie page, all items get full opacity when not animating
     if (isOnMainHaartransplantatiePage()) {
       return 'opacity-100';
     }
-    
+
     // If on popup pages, only active item gets full opacity, others dimmed
     return isActive ? 'opacity-100' : 'opacity-50';
   };
@@ -84,7 +86,7 @@ export const BottomNavigation = () => {
 
   const handlePopupNavigation = (targetPath: string) => {
     const isCurrentlyOnPopup = isOnPopupPage();
-    
+
     if (isCurrentlyOnPopup) {
       // Use fluid cross-fade transition for popup-to-popup navigation
       startPopupTransition(targetPath, false);
@@ -100,9 +102,7 @@ export const BottomNavigation = () => {
   };
 
   const handleBookingNavigation = () => {
-    // Store current page before navigating to booking
-    sessionStorage.setItem('previousPage', pathname);
-    handlePopupNavigation(language === 'nl' ? '/nl/boek' : '/en/book');
+    openModal();
   };
 
   const isActive = (path: string) => {
@@ -149,25 +149,25 @@ export const BottomNavigation = () => {
 
   const navItems: NavItem[] = [
     homeButtonConfig,
-    { 
+    {
       iconComponent: HaarscanIcon,
       onClick: handleHaarscanNavigation,
       id: 'haarscan',
       labelKey: 'haarscan'
     },
-    { 
+    {
       iconComponent: BookIcon,
       onClick: handleBookingNavigation,
       id: 'book',
       labelKey: 'book'
     },
-    { 
+    {
       iconComponent: ReviewIcon,
       onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/reviews' : '/en/reviews'),
       id: 'reviews',
       labelKey: 'reviews'
     },
-    { 
+    {
       iconComponent: ContactIcon,
       onClick: () => handlePopupNavigation(language === 'nl' ? '/nl/contact' : '/en/contact'),
       id: 'contact',
@@ -188,16 +188,16 @@ export const BottomNavigation = () => {
 
   return (
     <div className="fixed bottom-0 left-0 w-full z-[10000] h-16">
-      <div 
+      <div
         className="bg-black h-full flex items-center justify-center px-2 pb-1"
-        style={{ 
+        style={{
           paddingBottom: 'calc(env(safe-area-inset-bottom) + 0.25rem)'
         }}
       >
         <div className="flex items-center justify-around w-full">
           {navItems.map((item, index) => {
             const active = isActive(item.id);
-            
+
             return (
               <div key={index} className="flex-1 flex justify-center">
                 <button
@@ -205,15 +205,14 @@ export const BottomNavigation = () => {
                   className="flex flex-col items-center justify-center transition-all duration-200 py-1 px-2 w-full"
                 >
                   <div className="w-7 h-7 flex items-center justify-center transition-opacity duration-200 overflow-hidden">
-                    <item.iconComponent 
+                    <item.iconComponent
                       {...(item.id === 'book' ? { isGlowing, animationPhase } : {})}
-                      className={`brightness-0 invert transition-opacity duration-200 ${getOpacityClass(item.id, active, isGlowing)} ${
-                        item.id === 'home' ? 'w-6 h-6' :
-                        item.id === 'haarscan' ? 'w-7 h-7' :
-                        item.id === 'book' ? 'w-6 h-6 scale-[2.25]' :
-                        item.id === 'reviews' ? 'w-7 h-7' :
-                        'w-7 h-7'
-                      }`} 
+                      className={`brightness-0 invert transition-opacity duration-200 ${getOpacityClass(item.id, active, isGlowing)} ${item.id === 'home' ? 'w-6 h-6' :
+                          item.id === 'haarscan' ? 'w-7 h-7' :
+                            item.id === 'book' ? 'w-6 h-6 scale-[2.25]' :
+                              item.id === 'reviews' ? 'w-7 h-7' :
+                                'w-7 h-7'
+                        }`}
                     />
                   </div>
                   {item.id === 'book' ? (
@@ -224,7 +223,7 @@ export const BottomNavigation = () => {
                       className={`transition-opacity duration-200 ${getOpacityClass(item.id, active, isGlowing)}`}
                     />
                   ) : (
-                    <span 
+                    <span
                       className={`transition-opacity duration-200 ${getOpacityClass(item.id, active, isGlowing)}`}
                       style={{
                         color: 'rgba(189, 189, 189, 1)',

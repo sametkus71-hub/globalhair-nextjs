@@ -2,11 +2,13 @@
 import type { Metadata } from 'next';
 import { HaartransplantatieLayout } from '@/components/haartransplantatie/HaartransplantatieLayout';
 import TreatmentsPage from '@/components/TreatmentsPage';
-// import { ClientHomePage } from '@/components/ClientHomePage'; // Preserved for future use
+import { ClientHomePage } from '@/components/ClientHomePage'; // Preserved for future use
 
 export const metadata: Metadata = {
-    title: 'GlobalHair Institute - Premium Haartransplantatie Nederland',
-    description: 'Ontdek premium haartransplantatie bij GlobalHair Institute. FUE Saffier methode, GHI Stemcell Repair™ en V6 Hairboost® technologie. Kliniek in Nederland.',
+    title: {
+        absolute: 'GlobalHair Institute - Specialist in élk haartype & haarprobleem'
+    },
+    description: 'Bereik het beste resultaat met onze unieke GHI Stemcell repair™ en V6 Hairboost®. Wij zijn gespecialiseerd in oplossingen voor elk haartype en elk haarprobleem.',
     openGraph: {
         title: 'GlobalHair Institute - Premium Haartransplantatie',
         description: 'Premium FUE haartransplantatie met GHI Stemcell Repair™ voor 20-35% meer dichtheid.',
@@ -14,7 +16,8 @@ export const metadata: Metadata = {
     },
 };
 
-export default function LangPage({ params }: { params: { lang: string } }) {
+export default async function LangPage({ params }: { params: Promise<{ lang: string }> }) {
+    const { lang } = await params;
     return (
         <HaartransplantatieLayout>
             <TreatmentsPage />

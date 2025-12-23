@@ -82,18 +82,18 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
           {/* Barendrecht */}
           <article className="loc" style={{ textAlign: 'center' }}>
             <div className="loc-icons" style={{ display: 'flex', gap: '3px', justifyContent: 'center', alignItems: 'center', marginBottom: '8px' }}>
-              <img src={shieldIcon} alt="Shield" style={{ width: '12px', height: '12px', opacity: 0.95 }} />
-              <img src={v6HairboostIcon} alt="V6 Hairboost®" style={{ width: '18px', height: '18px' }} />
+              <img src={shieldIcon.src} alt="Shield" style={{ width: '12px', height: '12px', opacity: 0.95 }} />
+              <img src={v6HairboostIcon.src} alt="V6 Hairboost®" style={{ width: '18px', height: '18px' }} />
             </div>
             <h2 className="city" style={{ margin: 0, fontWeight: 400, fontSize: '13px', color: 'rgba(255,255,255,0.95)' }}>Barendrecht</h2>
-            <p className="addr" style={{ margin: '0.05rem 0px -0.2rem', fontSize: '7.5px', color: 'rgba(255,255,255,0.95)' }}>Pesetastraat 72, 2991 XT</p>
+            <p className="addr" style={{ margin: '0.05rem 0px -0.2rem', fontSize: '7.5px', color: 'rgba(255,255,255,0.95)' }}>Pesetastraat 76, 2991 XT</p>
             <span className="badge silver-grey-gradient-border" style={{ display: 'inline-block', padding: '3px 6px', borderRadius: '999px', background: 'rgba(255,255,255,0.15)', fontSize: '6.5px', color: 'rgba(255,255,255,0.9)', marginTop: '-1px' }}>Hoofdvestiging</span>
           </article>
 
           {/* Leiden */}
           <article className="loc" style={{ textAlign: 'center' }}>
             <div className="loc-icons" style={{ display: 'flex', gap: '3px', justifyContent: 'center', alignItems: 'center', marginBottom: '8px' }}>
-              <img src={v6HairboostIcon} alt="V6 Hairboost®" style={{ width: '18px', height: '18px' }} />
+              <img src={v6HairboostIcon.src} alt="V6 Hairboost®" style={{ width: '18px', height: '18px' }} />
             </div>
             <h2 className="city" style={{ margin: 0, fontWeight: 400, fontSize: '13px', color: 'rgba(255,255,255,0.95)' }}>Leiden</h2>
             <p className="addr" style={{ margin: '0.05rem 0px -0.2rem', fontSize: '7.5px', color: 'rgba(255,255,255,0.95)' }}>Fruitweg 22, 2321 GK</p>
@@ -114,7 +114,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
           {/* Istanbul */}
           <article className="loc" style={{ textAlign: 'center', marginTop: '1rem' }}>
             <div className="loc-icons" style={{ display: 'flex', gap: '3px', justifyContent: 'center', alignItems: 'center', marginBottom: '8px' }}>
-              <img src={shieldIcon} alt="Shield" style={{ width: '12px', height: '12px', opacity: 0.95 }} />
+              <img src={shieldIcon.src} alt="Shield" style={{ width: '12px', height: '12px', opacity: 0.95 }} />
             </div>
             <h2 className="city" style={{ margin: 0, fontWeight: 400, fontSize: '13px', color: 'rgba(255,255,255,0.95)' }}>İstanbul</h2>
           </article>
@@ -145,20 +145,20 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
           width: 'calc(100% + 20px)',
         }}
       >
-        <button 
-          className="cta-ico silver-grey-gradient-border" 
+        <button
+          className="cta-ico silver-grey-gradient-border"
           aria-label="Chat"
-          style={{ 
-            width: '28px', 
-            height: '28px', 
-            borderRadius: '50%', 
-            background: 'rgba(255, 255, 255, 0.12)', 
+          style={{
+            width: '28px',
+            height: '28px',
+            borderRadius: '50%',
+            background: 'rgba(255, 255, 255, 0.12)',
             backdropFilter: 'blur(20px)',
             boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center', 
-            cursor: 'pointer', 
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
             padding: 0,
             transition: 'all 0.2s ease'
           }}
@@ -171,24 +171,24 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
             e.currentTarget.style.transform = 'scale(1)';
           }}
         >
-          <img src={chatIcon} alt="Chat" style={{ width: '14px', height: '14px' }} />
+          <img src={chatIcon.src} alt="Chat" style={{ width: '14px', height: '14px' }} />
         </button>
-        <a 
-          className="cta-ico silver-grey-gradient-border" 
+        <a
+          className="cta-ico silver-grey-gradient-border"
           aria-label="WhatsApp"
-          href="https://wa.me/31696969696" 
-          target="_blank" 
-          rel="noopener" 
-          style={{ 
-            width: '28px', 
-            height: '28px', 
-            borderRadius: '50%', 
-            background: 'rgba(255, 255, 255, 0.12)', 
+          href="https://wa.me/31633388757"
+          target="_blank"
+          rel="noopener"
+          style={{
+            width: '28px',
+            height: '28px',
+            borderRadius: '50%',
+            background: 'rgba(255, 255, 255, 0.12)',
             backdropFilter: 'blur(20px)',
             boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center', 
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
             textDecoration: 'none',
             transition: 'all 0.2s ease'
           }}
@@ -201,24 +201,24 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
             e.currentTarget.style.transform = 'scale(1)';
           }}
         >
-          <img src={whatsappIcon} alt="WhatsApp" style={{ width: '14px', height: '14px' }} />
+          <img src={whatsappIcon.src} alt="WhatsApp" style={{ width: '14px', height: '14px' }} />
         </a>
-        <a 
-          className="cta-ico silver-grey-gradient-border" 
+        <a
+          className="cta-ico silver-grey-gradient-border"
           aria-label="Instagram"
-          href="https://instagram.com/yourhandle" 
-          target="_blank" 
-          rel="noopener" 
-          style={{ 
-            width: '28px', 
-            height: '28px', 
-            borderRadius: '50%', 
-            background: 'rgba(255, 255, 255, 0.12)', 
+          href="https://instagram.com/yourhandle"
+          target="_blank"
+          rel="noopener"
+          style={{
+            width: '28px',
+            height: '28px',
+            borderRadius: '50%',
+            background: 'rgba(255, 255, 255, 0.12)',
             backdropFilter: 'blur(20px)',
             boxShadow: '0 8px 30px rgba(0, 0, 0, 0.40)',
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center', 
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
             textDecoration: 'none',
             transition: 'all 0.2s ease'
           }}
@@ -231,7 +231,7 @@ export const ContactCardGlass = ({ className = '' }: ContactCardGlassProps) => {
             e.currentTarget.style.transform = 'scale(1)';
           }}
         >
-          <img src={instagramIcon} alt="Instagram" style={{ width: '14px', height: '14px' }} />
+          <img src={instagramIcon.src} alt="Instagram" style={{ width: '14px', height: '14px' }} />
         </a>
       </footer>
 

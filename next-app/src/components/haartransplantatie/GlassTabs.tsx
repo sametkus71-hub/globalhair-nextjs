@@ -13,8 +13,20 @@ const tabs = ['Treatments', 'Reviews', 'How?', 'Mission', 'Contact'];
 export const GlassTabs = ({ activeTab }: GlassTabsProps) => {
   const router = useRouter();
   const { language } = useLanguage();
+  const pathname = usePathname();
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0 });
+
+  // Check if we are on the booking page to fade out tabs
+  const isBookingPage = pathname?.includes('/boek') || pathname?.includes('/book');
+
+  // Optimistic UI state
+  const [optimisticTab, setOptimisticTab] = useState(activeTab);
+
+  // Sync prop with local state (handle back/forward navigation)
+  useEffect(() => {
+    setOptimisticTab(activeTab);
+  }, [activeTab]);
 
   const getTabPath = (tab: string) => {
     const basePath = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
@@ -29,6 +41,7 @@ export const GlassTabs = ({ activeTab }: GlassTabsProps) => {
   };
 
   const handleTabClick = (tab: string) => {
+    setOptimisticTab(tab); // Instant visual update
     router.push(getTabPath(tab) as any);
   };
 
@@ -49,7 +62,7 @@ export const GlassTabs = ({ activeTab }: GlassTabsProps) => {
   }, []);
 
   useEffect(() => {
-    const activeIndex = tabs.findIndex(tab => tab === activeTab);
+    const activeIndex = tabs.findIndex(tab => tab === optimisticTab);
     const activeTabElement = tabRefs.current[activeIndex];
 
     if (activeTabElement) {
@@ -63,18 +76,19 @@ export const GlassTabs = ({ activeTab }: GlassTabsProps) => {
         });
       }
     }
-  }, [activeTab]);
+  }, [optimisticTab]);
 
   return (
     <div
-      className="relative"
+      className={`relative transition-all duration-500 ease-out ${isBookingPage ? 'opacity-0 -translate-y-4 pointer-events-none' : 'opacity-100 translate-y-0'
+        }`}
       style={{
-        animation: 'fade-in 0.6s ease-out 0.6s both',
+        animation: !isBookingPage ? 'fade-in 0.6s ease-out 0.6s both' : 'none',
       }}
     >
       <div className="flex items-center gap-6 px-4 relative">
         {tabs.map((tab, index) => {
-          const isActive = activeTab === tab;
+          const isActive = optimisticTab === tab;
           return (
             <button
               key={tab}

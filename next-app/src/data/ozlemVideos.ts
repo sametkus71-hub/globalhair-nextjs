@@ -1,4 +1,4 @@
-// Özlem Aslan - Operational Manager video
+// Özlem Dural - CPO video
 
 export interface OzlemVideoItem {
   id: string;
@@ -11,9 +11,9 @@ export interface OzlemVideoItem {
 
 export const OZLEM_VIDEO: OzlemVideoItem = {
   id: 'ozlem-1',
-  title: 'Özlem Aslan - Operational Manager',
+  title: 'Özlem Dural - CPO',
   videoUrl: 'https://GlobalHair.b-cdn.net/Berkant%20videos/Ozlemvideo.webm',
   thumbnail: 'https://GlobalHair.b-cdn.net/Berkant%20videos/Ozlemvideo.webm#t=1',
   duration: 60,
-  description: 'Als Operational Manager van GlobalHair Institute zorgt Özlem Aslan ervoor dat elke cliënt een naadloze en persoonlijke ervaring krijgt. Met haar oog voor detail en passie voor klanttevredenheid, coördineert zij alle operationele processen om de hoogste standaarden te waarborgen.'
+  description: 'Als CPO van GlobalHair Institute zorgt Özlem Dural ervoor dat elke cliënt een naadloze en persoonlijke ervaring krijgt. Met haar oog voor detail en passie voor klanttevredenheid, coördineert zij alle operationele processen om de hoogste standaarden te waarborgen.'
 };

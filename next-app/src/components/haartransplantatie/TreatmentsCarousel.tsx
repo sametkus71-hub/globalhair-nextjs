@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useSession } from "@/hooks/useSession";
@@ -64,6 +64,7 @@ const BASE = [
 // Isolated video component to handle autoplay reliability independently
 const CarouselVideo = ({ src, shouldPlay }: { src: string; shouldPlay: boolean }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     const video = videoRef.current;
@@ -83,13 +84,18 @@ const CarouselVideo = ({ src, shouldPlay }: { src: string; shouldPlay: boolean }
         video.play().catch(() => { });
       }
 
+      // Force play check on pathname change (e.g. returning from modal)
+      if (video.paused) {
+        video.play().catch(() => { });
+      }
+
       return () => {
         video.removeEventListener('canplay', handleCanPlay);
       };
     } else {
       video.pause();
     }
-  }, [shouldPlay]);
+  }, [shouldPlay, pathname]);
 
   return (
     <video

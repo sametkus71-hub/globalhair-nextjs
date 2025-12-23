@@ -12,7 +12,7 @@ import { Label } from '@/components/ui/label';
 
 interface PaymentStepProps {
   serviceType: ServiceType;
-  location: LocationType;
+  bookingLocation: LocationType;
   bookingSelection: {
     date: string;
     time: string;
@@ -27,13 +27,13 @@ interface PaymentStepProps {
   onSlotUnavailable?: () => void;
 }
 
-export const PaymentStep = ({ serviceType, location, bookingSelection, customerInfo, price, refreshPromise, onSlotUnavailable }: PaymentStepProps) => {
+export const PaymentStep = ({ serviceType, bookingLocation, bookingSelection, customerInfo, price, refreshPromise, onSlotUnavailable }: PaymentStepProps) => {
   const { language } = useLanguage();
   const { isTestMode } = useTestMode();
   const [isProcessing, setIsProcessing] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
 
-  const config = getServiceConfig(serviceType, location);
+  const config = getServiceConfig(serviceType, bookingLocation);
   const isFormComplete = customerInfo && customerInfo.firstName && customerInfo.lastName && customerInfo.email && customerInfo.phone && 
                          customerInfo.postcode && customerInfo.city && customerInfo.country;
   const canPay = isFormComplete && bookingSelection && acceptTerms;
@@ -89,7 +89,7 @@ export const PaymentStep = ({ serviceType, location, bookingSelection, customerI
       }
 
       // Step 2: Quick DB check to verify slot is still in cache
-      const serviceKey = `${serviceType}_${location}`;
+      const serviceKey = `${serviceType}_${bookingLocation}`;
       console.log('Performing quick DB check for slot availability...');
       
       const { data: slotData, error: checkError } = await supabase

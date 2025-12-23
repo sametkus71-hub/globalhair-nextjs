@@ -4,19 +4,19 @@ import { format } from 'date-fns';
 
 export const useFirstAvailableDate = (
   serviceType: 'v6_hairboost' | 'haartransplantatie' | 'ceo_consult' | null,
-  location: 'online' | 'onsite' | null
+  bookingLocation: 'online' | 'onsite' | null
 ) => {
   return useQuery({
-    queryKey: ['first-available-date', serviceType, location],
+    queryKey: ['first-available-date', serviceType, bookingLocation],
     queryFn: async () => {
-      if (!serviceType || !location) {
+      if (!serviceType || !bookingLocation) {
         return null;
       }
 
       // Normalize serviceKey - ceo_consult always uses 'online' key regardless of location
       const serviceKey = serviceType === 'ceo_consult' 
         ? 'ceo_consult_online' 
-        : `${serviceType}_${location}`;
+        : `${serviceType}_${bookingLocation}`;
       
       const today = format(new Date(), 'yyyy-MM-dd');
 

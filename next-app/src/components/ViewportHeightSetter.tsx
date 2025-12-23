@@ -9,4 +9,3 @@ export const ViewportHeightSetter = () => {
 };
 
 export default ViewportHeightSetter;
-

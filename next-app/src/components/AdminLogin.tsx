@@ -68,9 +68,9 @@ export default function AdminLogin() {
       <div className="w-full lg:w-[30%] p-8 flex flex-col justify-center">
         {/* Logo */}
         <div className="flex justify-center mb-12">
-          <img 
-            src={hairtransplantLogo} 
-            alt="GHI Hairtransplant Logo" 
+          <img
+            src={hairtransplantLogo.src}
+            alt="GHI Hairtransplant Logo"
             className="h-20 object-contain"
           />
         </div>

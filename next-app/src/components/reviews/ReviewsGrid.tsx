@@ -4,6 +4,7 @@ import { useEffect, useState, useRef, memo, useCallback } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useVideoIntersection } from '@/hooks/useVideoIntersection';
+import { ReviewsSkeleton } from './ReviewsSkeleton';
 import { cn } from '@/lib/utils';
 import { generateRandomGrid, getBeforeAfterIndices, GridItem } from '@/lib/reviewsRandomizer';
 import { useReviewsData } from '@/hooks/useReviewsData';
@@ -13,23 +14,23 @@ import type { Tables } from '@/integrations/supabase/types';
 type Review = Tables<'reviews'>;
 
 // Static image card (for static_image and before_after showing single image)
-const StaticCard = memo(({ 
-  imageUrl, 
+const StaticCard = memo(({
+  imageUrl,
   alt,
-  priority = false 
-}: { 
+  priority = false
+}: {
   imageUrl: string;
   alt: string;
   priority?: boolean;
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
-  
+
   return (
     <div className="w-full h-full relative overflow-hidden">
       {!imageLoaded && (
         <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 animate-pulse" />
       )}
-      <img 
+      <img
         src={imageUrl}
         alt={alt}
         className="w-full h-full object-cover"
@@ -42,30 +43,30 @@ const StaticCard = memo(({
 });
 
 // Before/After card with cycling between two images
-const BeforeAfterCard = memo(({ 
+const BeforeAfterCard = memo(({
   review,
   showAfter,
-  priority = false 
-}: { 
+  priority = false
+}: {
   review: Review;
   showAfter: boolean;
   priority?: boolean;
 }) => {
   const [beforeLoaded, setBeforeLoaded] = useState(false);
   const [afterLoaded, setAfterLoaded] = useState(false);
-  
+
   const beforeUrl = review.before_image_url || '';
   const afterUrl = review.after_image_url || '';
-  
+
   return (
     <div className="w-full h-full relative overflow-hidden">
       {/* Loading placeholder */}
       {(!beforeLoaded || !afterLoaded) && (
         <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 animate-pulse z-0" />
       )}
-      
+
       {/* Before image */}
-      <img 
+      <img
         src={beforeUrl}
         alt={`${review.name} - Before`}
         className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
@@ -74,9 +75,9 @@ const BeforeAfterCard = memo(({
         decoding="async"
         onLoad={() => setBeforeLoaded(true)}
       />
-      
+
       {/* After image */}
-      <img 
+      <img
         src={afterUrl}
         alt={`${review.name} - After`}
         className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
@@ -85,7 +86,7 @@ const BeforeAfterCard = memo(({
         decoding="async"
         onLoad={() => setAfterLoaded(true)}
       />
-      
+
       {/* Before/After label */}
       <div className="absolute bottom-2 left-2 bg-black/60 px-2 py-1 rounded text-xs text-white font-medium pointer-events-none">
         {showAfter ? 'Na' : 'Voor'}
@@ -94,87 +95,127 @@ const BeforeAfterCard = memo(({
   );
 });
 
-const VideoCard = memo(({ 
-  review, 
-  isMuted, 
-  onToggleMute,
-  onMuteButtonClick,
-  shouldLoad = false
-}: { 
-  review: Review;
-  isMuted: boolean; 
-  onToggleMute: () => void;
-  onMuteButtonClick: () => void;
-  shouldLoad?: boolean;
-}) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  
-  const { isInViewport, elementRef } = useVideoIntersection({
-    threshold: 0.3,
-    rootMargin: '50px'
-  });
+// Global video queue manager - limits concurrent video loading
+class VideoLoadQueue {
+  private loadedVideos = new Set<string>();
+  private readonly maxConcurrent = 2; // Maximum 2 videos loading/playing at once
 
-  useEffect(() => {
-    if (!videoRef.current || !isLoaded) return;
-    
-    if (isInViewport && shouldLoad) {
-      videoRef.current.play().catch(() => {});
-    } else {
-      videoRef.current.pause();
-    }
-  }, [isInViewport, shouldLoad, isLoaded]);
-
-  useEffect(() => {
-    if (videoRef.current && isLoaded) {
-      videoRef.current.muted = isMuted;
-    }
-  }, [isMuted, isLoaded]);
-
-  useEffect(() => {
-    if (shouldLoad && !isLoaded) {
-      setIsLoaded(true);
-    }
-  }, [shouldLoad, isLoaded]);
-
-  useEffect(() => {
-    return () => {
-      if (videoRef.current) {
-        const video = videoRef.current;
-        video.pause();
-        video.removeAttribute('src');
-        video.load();
-        video.src = '';
-      }
-      setIsLoaded(false);
-    };
-  }, []);
-
-  if (!shouldLoad || !isLoaded) {
-    return (
-      <div className="w-full h-full bg-black flex items-center justify-center">
-        <VolumeX className="w-8 h-8 text-white/50" />
-      </div>
-    );
+  canLoad(videoId: string): boolean {
+    return this.loadedVideos.has(videoId) || this.loadedVideos.size < this.maxConcurrent;
   }
 
+  addVideo(videoId: string): boolean {
+    if (this.loadedVideos.size >= this.maxConcurrent && !this.loadedVideos.has(videoId)) {
+      return false; // Queue is full
+    }
+    this.loadedVideos.add(videoId);
+    return true;
+  }
+
+  removeVideo(videoId: string): void {
+    this.loadedVideos.delete(videoId);
+  }
+
+  getLoadedCount(): number {
+    return this.loadedVideos.size;
+  }
+}
+
+// Global singleton instance
+const videoQueue = new VideoLoadQueue();
+
+const VideoCard = memo(({
+  review,
+  isMuted,
+  onToggleMute,
+  onMuteButtonClick,
+}: {
+  review: Review;
+  isMuted: boolean;
+  onToggleMute: () => void;
+  onMuteButtonClick: () => void;
+}) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [hasLoaded, setHasLoaded] = useState(false);
+
+  // Simple viewport detection
+  const { isInViewport, elementRef } = useVideoIntersection({
+    threshold: 0,
+    rootMargin: '200px'
+  });
+
+  // Load video when in viewport
+  useEffect(() => {
+    if (isInViewport && !hasLoaded) {
+      setHasLoaded(true);
+    } else if (!isInViewport && hasLoaded) {
+      setHasLoaded(false);
+    }
+  }, [isInViewport, hasLoaded]);
+
+  // Auto-play when loaded
+  useEffect(() => {
+    if (!videoRef.current || !hasLoaded) return;
+
+    const playPromise = videoRef.current.play();
+    if (playPromise !== undefined) {
+      playPromise.catch((err) => {
+        console.warn('Auto-play prevented:', err);
+      });
+    }
+  }, [hasLoaded]);
+
+  // Handle mute
+  useEffect(() => {
+    if (videoRef.current && hasLoaded) {
+      videoRef.current.muted = isMuted;
+    }
+  }, [isMuted, hasLoaded]);
+
   return (
-    <div 
+    <div
       ref={elementRef}
-      className="w-full h-full relative overflow-hidden bg-black cursor-pointer"
+      className="w-full h-full relative overflow-hidden bg-black cursor-pointer group"
       onClick={onToggleMute}
     >
-      <video
-        ref={videoRef}
-        src={review.video_url || ''}
-        muted={isMuted}
-        loop
-        playsInline
-        preload="metadata"
-        className="w-full h-full object-cover"
-      />
-      <button 
-        className="absolute top-2 right-2 bg-black/70 p-2 rounded-full cursor-pointer hover:bg-black/80 transition-colors"
+      {!hasLoaded ? (
+        // Placeholder when not in viewport
+        <div className="w-full h-full flex items-center justify-center bg-gray-900 relative">
+          {review.static_image_url ? (
+            <img
+              src={review.static_image_url}
+              className="absolute inset-0 w-full h-full object-cover opacity-50"
+              alt="Video thumbnail"
+              loading="lazy"
+              decoding="async"
+            />
+          ) : (
+            <div className="w-full h-full absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900" />
+          )}
+          <div className="w-10 h-10 rounded-full border-2 border-white/30 flex items-center justify-center z-10 scale-90 opacity-80">
+            <div className="w-0 h-0 border-t-[6px] border-t-transparent border-l-[10px] border-l-white border-b-[6px] border-b-transparent ml-1" />
+          </div>
+        </div>
+      ) : (
+        <video
+          ref={videoRef}
+          src={review.video_url || ''}
+          muted={isMuted}
+          loop
+          playsInline
+          preload="auto"
+          className="w-full h-full object-cover"
+          style={{
+            transform: 'translateZ(0)',
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
+          }}
+        />
+      )}
+
+      {/* Mute toggle button */}
+      <button
+        className="absolute top-2 right-2 bg-black/60 backdrop-blur-sm p-2 rounded-full cursor-pointer hover:bg-black/80 transition-colors z-20"
         onClick={(e) => {
           e.stopPropagation();
           onMuteButtonClick();
@@ -195,24 +236,23 @@ export const ReviewsGrid = () => {
   const isMobile = useIsMobile();
   const gridContainerRef = useRef<HTMLDivElement>(null);
   const actualScrollContainerRef = useRef<HTMLElement | null>(null);
-  
+
   // Fetch reviews from database
   const { data: reviewsData, isLoading, error } = useReviewsData();
-  
+
   // Generate randomized grid
   const [gridItems, setGridItems] = useState<GridItem[]>([]);
   const [beforeAfterIndices, setBeforeAfterIndices] = useState<number[]>([]);
-  
+
   // Progressive rendering state
   const initialCount = isMobile ? 12 : 24;
   const batchSize = isMobile ? 8 : 16;
   const [renderedCount, setRenderedCount] = useState(initialCount);
-  
+
   // Animation and interaction states
-  const [isGridAnimated, setIsGridAnimated] = useState(false);
   const [cyclePhase, setCyclePhase] = useState(0);
   const [unmutedVideoId, setUnmutedVideoId] = useState<string | null>(null);
-  const [loadedVideoIds, setLoadedVideoIds] = useState<Set<string>>(new Set());
+  // Removed global loadedVideoIds - deferring to IntersectionObserver in VideoCard
 
   // Generate grid when reviews change
   useEffect(() => {
@@ -222,23 +262,23 @@ export const ReviewsGrid = () => {
       setBeforeAfterIndices(getBeforeAfterIndices(items));
     }
   }, [reviewsData]);
-  
+
   // Check if there are more items to load
   const hasMoreItems = renderedCount < gridItems.length;
   const isLoadingMore = useRef(false);
-  
+
   // Horizontal scroll detection for infinite loading
   const handleScroll = useCallback(() => {
     const container = actualScrollContainerRef.current;
     if (!container || !hasMoreItems || isLoadingMore.current) return;
-    
+
     const { scrollLeft, scrollWidth, clientWidth } = container;
     const scrollThreshold = 300; // pixels from end to trigger load
-    
-    console.log('Scroll detected:', { scrollLeft, scrollWidth, clientWidth, threshold: scrollWidth - scrollThreshold });
-    
+
+    // console.log('Scroll detected:', { scrollLeft, scrollWidth, clientWidth, threshold: scrollWidth - scrollThreshold });
+
     if (scrollLeft + clientWidth >= scrollWidth - scrollThreshold) {
-      console.log('Loading more items...');
+      // console.log('Loading more items...');
       isLoadingMore.current = true;
       setTimeout(() => {
         setRenderedCount(prev => Math.min(prev + batchSize, gridItems.length));
@@ -246,35 +286,24 @@ export const ReviewsGrid = () => {
       }, 100);
     }
   }, [hasMoreItems, batchSize, gridItems.length]);
-  
+
   // Attach scroll listener to parent scroll container
   useEffect(() => {
     const gridElement = gridContainerRef.current;
     if (!gridElement) return;
-    
+
     // Find the actual scrolling container (parent with overflow scroll)
     const scrollContainer = gridElement.parentElement;
     if (!scrollContainer) return;
-    
+
     // Store reference for use in handleScroll
     actualScrollContainerRef.current = scrollContainer;
-    
-    console.log('Attaching scroll listener to:', scrollContainer);
-    
+
+    // console.log('Attaching scroll listener to:', scrollContainer);
+
     scrollContainer.addEventListener('scroll', handleScroll, { passive: true });
     return () => scrollContainer.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
-
-  // Load videos progressively based on rendered items
-  useEffect(() => {
-    const itemsToRender = gridItems.slice(0, renderedCount);
-    const videoItems = itemsToRender.filter(item => item.type === 'video');
-    
-    // Only load videos that are within reasonable range
-    const maxVideosToLoad = isMobile ? 4 : 10;
-    const videosToLoad = videoItems.slice(0, maxVideosToLoad).map(item => item.id);
-    setLoadedVideoIds(new Set(videosToLoad));
-  }, [isMobile, renderedCount, gridItems]);
 
   const handleVideoToggleMute = (videoId: string) => {
     setUnmutedVideoId(prevId => prevId === videoId ? null : videoId);
@@ -283,14 +312,6 @@ export const ReviewsGrid = () => {
   const handleMuteButtonClick = (videoId: string) => {
     setUnmutedVideoId(prevId => prevId === videoId ? null : videoId);
   };
-
-  // Trigger grid animation
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsGridAnimated(true);
-    }, 100);
-    return () => clearTimeout(timer);
-  }, []);
 
   // Reset rendered count when grid items change
   useEffect(() => {
@@ -302,11 +323,11 @@ export const ReviewsGrid = () => {
   // Before/After cycling effect
   useEffect(() => {
     if (beforeAfterIndices.length === 0) return;
-    
+
     const interval = setInterval(() => {
       setCyclePhase(prev => prev + 1);
     }, 3000);
-    
+
     return () => clearInterval(interval);
   }, [beforeAfterIndices.length]);
 
@@ -323,18 +344,12 @@ export const ReviewsGrid = () => {
         });
       }
       setUnmutedVideoId(null);
-      setLoadedVideoIds(new Set());
-      setIsGridAnimated(false);
     };
   }, []);
 
   // Loading state
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-[370px] md:h-[540px]">
-        <div className="animate-pulse text-white/60">Loading reviews...</div>
-      </div>
-    );
+    return <ReviewsSkeleton />;
   }
 
   // Error state
@@ -352,11 +367,11 @@ export const ReviewsGrid = () => {
   const getShowAfter = (itemIndex: number): boolean => {
     const baPosition = beforeAfterIndices.indexOf(itemIndex);
     if (baPosition === -1) return false;
-    
+
     // Group into pairs, wave effect
     const groupIndex = Math.floor(baPosition / 2);
     const totalGroups = Math.ceil(beforeAfterIndices.length / 2);
-    
+
     // Wave cycles through groups
     return (cyclePhase % totalGroups) === groupIndex;
   };
@@ -365,8 +380,7 @@ export const ReviewsGrid = () => {
     <div ref={gridContainerRef} className="relative w-full">
       <div
         className={cn(
-          "grid grid-rows-3",
-          isGridAnimated && "grid-animate"
+          "grid grid-rows-3"
         )}
         style={{
           height: isMobile ? '370px' : '540px',
@@ -378,21 +392,17 @@ export const ReviewsGrid = () => {
       >
         {itemsToRender.map((item, index) => {
           if (!item?.data) return null;
-          
-          const delay = Math.min(index * 50, 2000);
-          const shouldLoadVideo = loadedVideoIds.has(item.id);
-          
+
           return (
             <div
               key={item.id}
               className={cn(
-                "grid-item-entrance cursor-default silver-grey-gradient-border",
+                "cursor-default border border-white/30 bg-black/40",
                 item.width === 2 && "col-span-2",
                 item.height === 2 && "row-span-2"
               )}
               style={{
-                '--delay': `${delay}ms`,
-                contain: 'content',
+                contain: 'paint layout',
                 borderRadius: '12px',
                 overflow: 'hidden',
                 ...(item.width === 2 && { gridColumn: 'span 2' }),
@@ -400,23 +410,22 @@ export const ReviewsGrid = () => {
               } as React.CSSProperties}
             >
               {item.type === 'video' && (
-                <VideoCard 
+                <VideoCard
                   review={item.data}
                   isMuted={unmutedVideoId !== item.id}
                   onToggleMute={() => handleVideoToggleMute(item.id)}
                   onMuteButtonClick={() => handleMuteButtonClick(item.id)}
-                  shouldLoad={shouldLoadVideo}
                 />
               )}
               {item.type === 'before-after' && (
-                <BeforeAfterCard 
+                <BeforeAfterCard
                   review={item.data}
                   showAfter={getShowAfter(index)}
                   priority={index < 6}
                 />
               )}
               {item.type === 'static' && (
-                <StaticCard 
+                <StaticCard
                   imageUrl={item.data.static_image_url || ''}
                   alt={item.data.name}
                   priority={index < 6}
@@ -425,7 +434,7 @@ export const ReviewsGrid = () => {
             </div>
           );
         })}
-        
+
         {/* Loading indicator - only show when more items available */}
         {hasMoreItems && (
           <div className="row-span-3 w-8 flex items-center justify-center">
@@ -434,34 +443,8 @@ export const ReviewsGrid = () => {
         )}
       </div>
 
+      {/* CSS Removed: .silver-grey-gradient-border is gone for performance */}
       <style>{`
-        .silver-grey-gradient-border {
-          position: relative;
-          will-change: transform;
-        }
-
-        .silver-grey-gradient-border::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          padding: 1px;
-          border-radius: inherit;
-          background: linear-gradient(80deg, #949494 7%, #838e94 16%, #b5b5b5 34%, #ACB9C1 51%, #4e5964 78%, #727272 105%);
-          -webkit-mask: 
-            linear-gradient(#fff 0 0) content-box,
-            linear-gradient(#fff 0 0);
-          -webkit-mask-composite: xor;
-          mask-composite: exclude;
-          pointer-events: none;
-          z-index: 3;
-          will-change: opacity;
-        }
-
-        .silver-grey-gradient-border > * {
-          position: relative;
-          z-index: 1;
-        }
-
         .row-span-2 {
           grid-row: span 2;
         }
