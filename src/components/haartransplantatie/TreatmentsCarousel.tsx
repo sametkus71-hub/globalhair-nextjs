@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useSession } from "@/hooks/useSession";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -71,12 +71,19 @@ export const TreatmentsCarousel = () => {
     return `/nl/haartransplantatie/nl/${tier}`;
   };
 
+  const location = useLocation();
+  const isV6Page = location.pathname.includes('/v6-hairboost');
+
   const items = useMemo(() => {
     // Order: Standard, Premium (middle/default), Elite
     return BASE.map(pkg => {
       // Use compressed WebM videos for mobile, keep MP4 for desktop
       let bgVideo = pkg.bg;
-      if (isMobile) {
+      
+      // Override for V6 Premium package - applies to both mobile and desktop
+      if (isV6Page && pkg.id === 'premium') {
+        bgVideo = 'https://GlobalHair.b-cdn.net/Bg%20Videos/V6%20-%20Restore.mp4';
+      } else if (isMobile) {
         if (pkg.id === 'standard') {
           bgVideo = 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Standard%20V0.webm';
         } else if (pkg.id === 'premium') {
@@ -92,7 +99,7 @@ export const TreatmentsCarousel = () => {
         link: getPackageLink(pkg.id)
       };
     });
-  }, [language, profile.locatie, isMobile]);
+  }, [language, profile.locatie, isMobile, isV6Page]);
 
   const scrollerRef = useRef<HTMLDivElement>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
