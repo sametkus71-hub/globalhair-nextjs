@@ -25,6 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '/haartransplantatie/contact',
         '/haartransplantatie/mission',
         '/haartransplantatie/how',
+        '/v6-hairboost',
         // Package Tiers (NL)
         '/haartransplantatie/nl/standard',
         '/haartransplantatie/nl/premium',
