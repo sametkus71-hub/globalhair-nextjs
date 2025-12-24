@@ -1,6 +1,6 @@
 'use client';
 
-import { useSession } from '@/hooks/useSession';
+import { useSession, Package } from '@/hooks/useSession';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useViewportHeight } from '@/hooks/useViewportHeight';
 import { calculatePrice, formatPrice } from '@/lib/pricing';
@@ -11,11 +11,18 @@ import { StrengthMeter } from './StrengthMeter';
 import { Separator } from '@/components/ui/separator';
 import { ShinyButton } from '@/components/ui/shiny-button';
 
-export const NewPackageContent = () => {
+interface NewPackageContentProps {
+  packageOverride?: string;
+}
+
+export const NewPackageContent = ({ packageOverride }: NewPackageContentProps) => {
   const { language } = useLanguage();
   const { profile } = useSession();
   const { heightBreakpoint } = useViewportHeight();
-  const totalPrice = calculatePrice(profile);
+  
+  const effectivePackage = (packageOverride || profile.selectedPackage) as Package;
+  const effectiveProfile = { ...profile, selectedPackage: effectivePackage };
+  const totalPrice = calculatePrice(effectiveProfile);
 
   // Dynamic spacing based on viewport height
   const getContainerSpacing = () => {
@@ -74,7 +81,7 @@ export const NewPackageContent = () => {
     }
   };
 
-  const currentPackage = packageContent[profile.selectedPackage as keyof typeof packageContent];
+  const currentPackage = packageContent[effectivePackage as keyof typeof packageContent];
   const content = currentPackage[language as keyof typeof currentPackage];
 
   return (
@@ -111,7 +118,7 @@ export const NewPackageContent = () => {
 
       {/* Strength Meter */}
       <div className="px-2">
-        <StrengthMeter package={profile.selectedPackage} />
+        <StrengthMeter package={effectivePackage} />
       </div>
     </div>
   );
