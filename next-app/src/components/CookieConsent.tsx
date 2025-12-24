@@ -26,10 +26,24 @@ export function CookieConsent() {
     setMounted(true);
     // Check if banner should be shown
     const shouldShow = shouldShowBanner();
+
     if (shouldShow) {
-      setShowBanner(true);
-      // Animate in after a short delay
-      setTimeout(() => setIsVisible(true), 100);
+      // Check if splash has been seen or if we need to wait
+      const hasSeenSplash = sessionStorage.getItem('hasSeenSplash');
+
+      if (hasSeenSplash) {
+        setShowBanner(true);
+        setTimeout(() => setIsVisible(true), 100);
+      } else {
+        // Wait for splash to complete
+        const handleSplashComplete = () => {
+          setShowBanner(true);
+          setTimeout(() => setIsVisible(true), 100);
+        };
+
+        window.addEventListener('splashComplete', handleSplashComplete);
+        return () => window.removeEventListener('splashComplete', handleSplashComplete);
+      }
     }
   }, []);
 
