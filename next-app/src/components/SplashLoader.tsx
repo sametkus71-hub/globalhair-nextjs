@@ -35,6 +35,9 @@ export const SplashLoader = () => {
         // Mark as seen
         sessionStorage.setItem('hasSeenSplash', 'true');
 
+        // Dispatch splash complete event
+        window.dispatchEvent(new CustomEvent('splashComplete'));
+
         // Allow exit animation to play out
         setTimeout(() => {
             setStage('complete');
