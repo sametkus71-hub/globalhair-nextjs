@@ -29,7 +29,14 @@ export const GlassTabs = ({ activeTab }: GlassTabsProps) => {
   }, [activeTab]);
 
   const getTabPath = (tab: string) => {
-    const basePath = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
+    // Detect if we're on a V6 Hairboost page
+    const isV6Page = pathname?.includes('/v6-hairboost');
+    
+    // Use appropriate base path based on current section
+    const basePath = isV6Page 
+      ? (language === 'nl' ? '/nl/v6-hairboost' : '/en/v6-hairboost')
+      : (language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant');
+    
     const tabPaths: Record<string, string> = {
       'Treatments': basePath,
       'Reviews': `${basePath}/reviews`,

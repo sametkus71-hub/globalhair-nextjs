@@ -35,6 +35,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '/haartransplantatie/tr/standard',
         '/haartransplantatie/tr/premium',
         '/haartransplantatie/tr/elite',
+        // V6 Hairboost structure
+        '/v6-hairboost',
+        '/v6-hairboost/reviews',
+        '/v6-hairboost/how',
+        '/v6-hairboost/mission',
+        '/v6-hairboost/contact',
+        // Recharge Pages
+        '/recharge',
+        '/recharge/recharge',
+        '/recharge/rescue',
+        '/recharge/reborn',
     ];
 
     const enRoutes = [
@@ -58,6 +69,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '/haartransplantatie/tr/standard',
         '/haartransplantatie/tr/premium',
         '/haartransplantatie/tr/elite',
+        // V6 Hairboost structure
+        '/v6-hairboost',
+        '/v6-hairboost/reviews',
+        '/v6-hairboost/how',
+        '/v6-hairboost/mission',
+        '/v6-hairboost/contact',
+        // Recharge Pages
+        '/recharge',
+        '/recharge/recharge',
+        '/recharge/rescue',
+        '/recharge/reborn',
     ];
 
     const entries: MetadataRoute.Sitemap = [];
