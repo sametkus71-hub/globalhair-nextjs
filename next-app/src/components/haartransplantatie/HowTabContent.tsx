@@ -381,7 +381,7 @@ export const HowTabContent = () => {
         <button
           onClick={() => {
             if (typeof document !== 'undefined') document.body.classList.add('popup-open');
-            router.push('/nl/haartransplantatie/nl/premium');
+            router.push(`/${language}/recharge`);
           }}
           className="text-white hover:text-white/80 transition-colors cursor-pointer"
           style={{

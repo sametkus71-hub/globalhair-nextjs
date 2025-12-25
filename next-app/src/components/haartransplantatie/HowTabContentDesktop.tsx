@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useLanguage } from '@/hooks/useLanguage';
 
@@ -11,6 +11,11 @@ export const HowTabContentDesktop = () => {
   const router = useRouter();
   const { language } = useLanguage();
   const [activePhase, setActivePhase] = useState<Phase>('Treatment');
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Detect iOS/Safari for proper video format
   const isIOSorSafari = useMemo(() => {
@@ -191,12 +196,12 @@ export const HowTabContentDesktop = () => {
         })}
       </div>
       {/* Bottom Right Link - Rendered via Portal to escape stacking context */}
-      {createPortal(
+      {mounted && createPortal(
         <div className="fixed bottom-8 right-8 z-50">
           <button
             onClick={() => {
               if (typeof document !== 'undefined') document.body.classList.add('popup-open');
-              router.push('/nl/haartransplantatie/nl/premium');
+              router.push(`/${language}/recharge`);
             }}
             className="text-white hover:text-white/80 transition-colors cursor-pointer"
             style={{
