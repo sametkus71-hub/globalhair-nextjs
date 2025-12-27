@@ -7,7 +7,7 @@ import { GlobalVideoBackground } from '@/components/GlobalVideoBackground';
 import { SplashLoader } from '@/components/SplashLoader';
 import { ViewportHeightSetter } from '@/components/ViewportHeightSetter';
 import { CookieConsent } from '@/components/CookieConsent';
-import { DevBadge } from '@/components/DevBadge';
+
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -85,7 +85,7 @@ export default function RootLayout({
           </div>
           <CookieConsent />
         </Providers>
-        <DevBadge />
+
         <div id="portal-root" />
       </body>
     </html>

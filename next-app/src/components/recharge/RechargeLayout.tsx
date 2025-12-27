@@ -35,9 +35,9 @@ export const RechargeLayout = ({ children }: { children: React.ReactNode }) => {
     : 'recharge';
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
+    <div id="recharge-layout-backdrop" className="fixed inset-0 z-50 flex flex-col items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
       {/* Background Video - Now covering full page behind overlay */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
+      <div id="recharge-bg-video-container" className="absolute inset-0 z-0 overflow-hidden">
           <video
             key={activeTabId} 
             autoPlay
@@ -62,6 +62,7 @@ export const RechargeLayout = ({ children }: { children: React.ReactNode }) => {
       </div>
 
       <div 
+        id="recharge-glass-card"
         className="silver-gradient-border relative z-10 w-full max-w-[400px] h-[800px] max-h-[90vh] rounded-[32px] overflow-hidden flex flex-col"
         style={{
           background: '#0000001A', 
@@ -75,6 +76,7 @@ export const RechargeLayout = ({ children }: { children: React.ReactNode }) => {
       >
         {/* Close Button */}
         <button
+          id="recharge-close-button"
           onClick={() => router.back()}
           className="absolute top-6 left-6 z-20 text-white/70 hover:text-white transition-colors"
         >
@@ -82,24 +84,52 @@ export const RechargeLayout = ({ children }: { children: React.ReactNode }) => {
         </button>
 
         {/* Tab Navigation */}
-        <div className="relative mt-20 px-6 flex justify-center z-10 w-full">
-          <div className="flex w-full bg-white/5 rounded-full p-1 backdrop-blur-md border border-white/10">
+        <div id="recharge-tab-nav" className="relative mt-20 px-6 flex justify-center z-10 w-full">
+          <div 
+            className="flex w-full bg-white/5 rounded-full p-[3px] backdrop-blur-xl border border-white/10"
+            style={{ boxShadow: 'inset 0 1px 5px rgba(0,0,0,0.2)' }}
+          >
             {tabs.map((tab) => {
               const isActive = activeTabId === tab.id;
               return (
                 <button
                   key={tab.id}
+                  id={`recharge-tab-btn-${tab.id}`}
                   onClick={() => handleTabClick(tab.id)}
-                  className={`flex-1 py-3 rounded-full text-[13px] font-light transition-all duration-300 ${
-                    isActive
-                      ? 'bg-white/10 text-white shadow-[0_0_15px_rgba(255,255,255,0.1)] border border-white/20'
-                      : 'text-white/50 hover:text-white/80'
+                  className={`relative flex-1 py-2.5 rounded-full text-[14px] font-medium transition-all duration-500 ${
+                    isActive ? 'text-white' : 'text-white/40 hover:text-white/60'
                   }`}
                   style={{
                     fontFamily: 'Inter, sans-serif',
                   }}
                 >
-                  {tab.label}
+                  {isActive && (
+                    <>
+                      {/* Active Tab Background Glass & Shine */}
+                      <div 
+                        className="absolute inset-0 rounded-full z-0 overflow-hidden"
+                        style={{
+                          background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 100%)',
+                          boxShadow: 'inset 0 1px 0.5px rgba(255,255,255,0.4), 0 2px 10px rgba(0,0,0,0.3)',
+                          backdropFilter: 'blur(8px)',
+                        }}
+                      />
+                      {/* Silver Metallic Border */}
+                      <div 
+                        className="absolute inset-0 rounded-full z-10 pointer-events-none"
+                        style={{
+                          padding: '1.2px',
+                          background: 'linear-gradient(135deg, #949494 0%, #ACB9C1 20%, #FFFFFF 45%, #FFFFFF 55%, #ACB9C1 80%, #949494 100%)',
+                          mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                          WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                          maskComposite: 'exclude',
+                          WebkitMaskComposite: 'xor',
+                          opacity: 0.9
+                        }}
+                      />
+                    </>
+                  )}
+                  <span className="relative z-20">{tab.label}</span>
                 </button>
               );
             })}
@@ -113,9 +143,10 @@ export const RechargeLayout = ({ children }: { children: React.ReactNode }) => {
       </div>
 
       {/* Footer Actions (Outside Card, Persistent) */}
-      <div className="relative z-10 w-full max-w-[400px] mt-4 flex gap-3">
+      <div id="recharge-footer-actions" className="relative z-10 w-full max-w-[400px] mt-4 flex gap-3">
         {/* Book a consult button - reused from FooterCTAGlass */}
         <button
+          id="recharge-btn-book"
           onClick={() => router.push(language === 'nl' ? '/nl/boek' : '/en/book')} // Or openModal if available
           className={`flex-1 gold-gradient-border cta-button-glow flex items-center rounded-full transition-all duration-200`}
           style={{
@@ -191,6 +222,7 @@ export const RechargeLayout = ({ children }: { children: React.ReactNode }) => {
 
         {/* Chat Button - reused from FooterCTAGlass */}
         <button
+          id="recharge-btn-chat"
           onClick={() => router.push(language === 'nl' ? '/nl/chat' : '/en/chat')}
           className="silver-gradient-border rounded-full flex items-center justify-center transition-all duration-200"
           style={{
