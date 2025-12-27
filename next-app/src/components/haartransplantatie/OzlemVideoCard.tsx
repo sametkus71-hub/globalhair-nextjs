@@ -13,13 +13,15 @@ export const OzlemVideoCard = () => {
   };
 
   return (
-    <div className="w-full lg:w-[350px] h-full flex items-center justify-center mx-auto lg:mx-0 p-4 sm:p-6 lg:pl-1">
+    <div id="ozlem-card-wrapper" className="w-full lg:w-[350px] h-full flex items-center justify-center mx-auto lg:mx-0 p-4 sm:p-6 lg:pl-1">
       <article
+        id="ozlem-card-article"
         className="ozlem-card"
         onClick={handleClick}
       >
         {/* Video background */}
         <video
+          id="ozlem-video-bg"
           src={OZLEM_VIDEO.videoUrl}
           autoPlay
           muted
@@ -41,7 +43,7 @@ export const OzlemVideoCard = () => {
         <div className="ozlem-card-overlay" />
 
         {/* Content on top */}
-        <div className="ozlem-card-content">
+        <div id="ozlem-content-container" className="ozlem-card-content">
           {/* Top left - Name badge */}
           <div className="absolute top-4 left-4">
             <div className="ozlem-badge">
@@ -75,7 +77,7 @@ export const OzlemVideoCard = () => {
           </div>
 
           {/* Bottom left - List with bold header */}
-          <div className="absolute bottom-4 left-4 flex flex-col gap-1.5">
+          <div id="ozlem-details" className="absolute bottom-4 left-4 flex flex-col gap-1.5">
             <p className="text-sm font-semibold text-white/95 tracking-wide">CPO - GlobalHair Institute</p>
             <div className="flex flex-col gap-0.5 pl-0.5">
               <p className="text-[11px] font-light text-white/80 tracking-wide">• 15 years in the hair industry</p>

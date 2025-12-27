@@ -148,6 +148,7 @@ export const HowTabContent = () => {
 
   return (
     <div 
+      id="how-tab-content-container"
       ref={containerRef}
       className="h-full w-full overflow-hidden flex flex-col items-center"
     >
@@ -158,6 +159,7 @@ export const HowTabContent = () => {
       }}>
         {/* Phase Selector */}
         <div 
+          id="how-tab-phase-selector"
           className="relative flex items-center justify-center gap-1 rounded-full"
           style={{
             background: '#FFFFFF0D',
@@ -171,6 +173,7 @@ export const HowTabContent = () => {
           {phases.map((phase) => (
             <button
               key={phase}
+              id={`how-tab-phase-btn-${phase}`}
               onClick={(e) => {
                 e.stopPropagation();
                 changePhase(phase);
@@ -197,6 +200,7 @@ export const HowTabContent = () => {
 
         {/* Video */}
         <div 
+          id="how-tab-video"
           className="relative rounded-lg overflow-hidden mx-auto" 
           style={{ 
             aspectRatio: '3/4',
@@ -234,14 +238,14 @@ export const HowTabContent = () => {
         </div>
 
         {/* Journey Timeline Container */}
-        <div className="w-full relative" style={{ 
+        <div id="how-tab-timeline" className="w-full relative" style={{ 
           marginTop: isIOSorSafari
             ? (heightBreakpoint === 'small' ? 'clamp(-5px, -0.5vh, -3px)' : 'clamp(-8px, -1vh, -5px)')
             : (heightBreakpoint === 'small' ? 'clamp(6px, 1vh, 8px)' : 'clamp(8px, 1.5vh, 12px)'),
           marginBottom: heightBreakpoint === 'small' ? 'clamp(3px, 0.5vh, 4px)' : 'clamp(4px, 0.75vh, 6px)',
         }}>
           {/* Text - Separate viewport wrapper (above the line) */}
-          <div className="w-full overflow-hidden relative" style={{ marginBottom: '8px', minHeight: isIOSorSafari ? 'clamp(35px, 7vh, 50px)' : 'clamp(40px, 8vh, 60px)' }}>
+          <div id="how-tab-timeline-text" className="w-full overflow-hidden relative" style={{ marginBottom: '8px', minHeight: isIOSorSafari ? 'clamp(35px, 7vh, 50px)' : 'clamp(40px, 8vh, 60px)' }}>
             <div 
               className="relative transition-transform" 
               style={{ 
@@ -379,6 +383,7 @@ export const HowTabContent = () => {
 
         {/* Link */}
         <button
+          id="how-tab-link-methods"
           onClick={() => {
             if (typeof document !== 'undefined') document.body.classList.add('popup-open');
             router.push(`/${language}/recharge`);

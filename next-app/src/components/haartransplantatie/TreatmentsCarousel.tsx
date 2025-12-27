@@ -356,8 +356,9 @@ export const TreatmentsCarousel = () => {
   };
 
   return (
-    <section className="treatments-tab" aria-label="Treatments">
+    <section id="treatments-carousel-section" className="treatments-tab" aria-label="Treatments">
       <div
+        id="treatments-carousel-scroller"
         ref={scrollerRef}
         className="treat-scroller"
         tabIndex={0}
@@ -372,6 +373,7 @@ export const TreatmentsCarousel = () => {
           return (
             <article
               key={`${it.id}-${i}`}
+              id={`treatments-card-${it.id}`}
               className="treat-card"
               onClick={() => handleCardClick(i)}
               onMouseEnter={() => { }}
@@ -384,9 +386,9 @@ export const TreatmentsCarousel = () => {
                 <div className="treat-card-bg" style={{ backgroundImage: `url('${it.bg}')` }} />
               )}
               <div className="treat-card-overlay" />
-              <div className="treat-card-content">
-                <div className={`treat-pill treat-pill-${it.id}`}>{it.title}</div>
-                <ul className="treat-features-list">
+              <div id={`treatments-card-content-${it.id}`} className="treat-card-content">
+                <div id={`treatments-card-title-${it.id}`} className={`treat-pill treat-pill-${it.id}`}>{it.title}</div>
+                <ul id={`treatments-features-list-${it.id}`} className="treat-features-list">
                   {PACKAGE_FEATURES[it.id as keyof typeof PACKAGE_FEATURES].features.map((feature, idx) => {
                     const activeIndices = PACKAGE_FEATURES[it.id as keyof typeof PACKAGE_FEATURES].activeIndices;
                     const isActive = activeIndices.includes(idx);
@@ -401,6 +403,7 @@ export const TreatmentsCarousel = () => {
                   })}
                 </ul>
                 <button
+                  id={`treatments-read-more-${it.id}`}
                   className="treat-link"
                   onClick={(e) => {
                     e.stopPropagation();
@@ -416,7 +419,7 @@ export const TreatmentsCarousel = () => {
         })}
       </div>
       {isMobile && (
-        <div className="treat-dots" role="tablist" aria-label="Pagination">
+        <div id="treatments-carousel-dots" className="treat-dots" role="tablist" aria-label="Pagination">
           {items.map((item, index) => (
             <button
               key={item.id}

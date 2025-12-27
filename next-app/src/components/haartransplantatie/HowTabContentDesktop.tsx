@@ -62,10 +62,11 @@ export const HowTabContentDesktop = () => {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-start pt-20 px-8 overflow-visible">
+    <div id="how-desktop-container" className="min-h-screen w-full flex flex-col items-center justify-start pt-20 px-8 overflow-visible">
       {/* Video Section - First */}
-      <div className="w-full max-w-md mb-12 -mt-[100px]">
+      <div id="how-desktop-video-wrapper" className="w-full max-w-md mb-12 -mt-[100px]">
         <video
+          id="how-desktop-video"
           key={isIOSorSafari ? 'mp4' : 'webm'}
           src={isIOSorSafari 
             ? "https://GlobalHair.b-cdn.net/Male%201K%20HT%20WEB.mp4"
@@ -79,10 +80,11 @@ export const HowTabContentDesktop = () => {
         />
       </div>
       {/* Timeline with Labels - Spread across */}
-      <div className="w-full mb-8 relative overflow-visible">
-        <div className="relative w-full h-12 flex items-center">
+      <div id="how-desktop-timeline-wrapper" className="w-full mb-8 relative overflow-visible">
+        <div id="how-desktop-timeline-track" className="relative w-full h-12 flex items-center">
           {/* Single gradient line with shine effect */}
           <div 
+            id="how-desktop-timeline-line"
             className="absolute w-full h-px transition-all duration-500" 
             style={{ 
               left: '0%',
@@ -106,6 +108,7 @@ export const HowTabContentDesktop = () => {
             return (
               <button
                 key={phase}
+                id={`how-desktop-phase-btn-${phase}`}
                 className="absolute flex flex-col items-center cursor-pointer group"
                 style={{ 
                   left: `${position}%`,
@@ -148,7 +151,7 @@ export const HowTabContentDesktop = () => {
         </div>
       </div>
       {/* Three Description Boxes - All visible */}
-      <div className="w-full grid grid-cols-3 gap-6 mb-12 overflow-visible">
+      <div id="how-desktop-descriptions-grid" className="w-full grid grid-cols-3 gap-6 mb-12 overflow-visible">
         {phases.map((phase, index) => {
           const isActive = activePhase === phase;
           const content = getPhaseContent(phase);
@@ -156,6 +159,7 @@ export const HowTabContentDesktop = () => {
           return (
             <button
               key={phase}
+              id={`how-desktop-desc-box-${phase}`}
               onClick={() => setActivePhase(phase)}
               className={`relative transition-all duration-200 ease-out ${!isActive && 'cursor-pointer group'}`}
               style={{
@@ -197,8 +201,9 @@ export const HowTabContentDesktop = () => {
       </div>
       {/* Bottom Right Link - Rendered via Portal to escape stacking context */}
       {mounted && createPortal(
-        <div className="fixed bottom-8 right-8 z-50">
+        <div id="how-desktop-link-container" className="fixed bottom-8 right-8 z-50">
           <button
+            id="how-desktop-link-btn"
             onClick={() => {
               if (typeof document !== 'undefined') document.body.classList.add('popup-open');
               router.push(`/${language}/recharge`);

@@ -73,35 +73,35 @@ export const HaartransplantatieLayoutV6 = ({ children }: { children: React.React
   }, []);
 
   return (
-    <main ref={mainRef} className={`relative min-h-screen w-full bg-transparent ${isOverlayRoute ? '' : 'overflow-hidden'}`}>
-      <TabPreloader />
-      <VideoBackgroundV6 />
-      <div className="relative w-full min-h-screen">
+    <main id="ht-layout-v6-main" ref={mainRef} className={`relative min-h-screen w-full bg-transparent ${isOverlayRoute ? '' : 'overflow-hidden'}`}>
+      <div id="ht-layout-v6-preloader"><TabPreloader /></div>
+      <div id="ht-layout-v6-video-bg"><VideoBackgroundV6 /></div>
+      <div id="ht-layout-v6-container" className="relative w-full min-h-screen">
         {/* Glass Header - 500px width on desktop */}
         {!isOverlayRoute && (
           <DesktopContainer>
-            <div className="hide-when-popup">
+            <div id="ht-layout-v6-header" className="hide-when-popup">
               <GlassHeaderV6 />
             </div>
           </DesktopContainer>
         )}
 
         {/* Main Content - Single Screen with height-responsive scaling */}
-        <div className={`relative z-10 flex flex-col h-screen ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'}`} style={{ paddingTop: 'clamp(2rem, 8vh, 120px)' }}>
+        <div id="ht-layout-v6-content-wrapper" className={`relative z-10 flex flex-col h-screen ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'}`} style={{ paddingTop: 'clamp(2rem, 8vh, 120px)' }}>
           {/* Content Flow Container */}
-          <div className={`relative flex flex-col flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'}`} style={{ paddingTop: 'clamp(1.5rem, 2vh, 2.5rem)' }}>
+          <div id="ht-layout-v6-flow-container" className={`relative flex flex-col flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'}`} style={{ paddingTop: 'clamp(1.5rem, 2vh, 2.5rem)' }}>
 
             {/* Navigation Zone - 500px width on desktop */}
             <DesktopContainer>
               {/* Animated Head Hero (Button Only) - Mobile only */}
               {isMobile && (
-                <div className="flex-shrink-0 pb-[10px]">
+                <div id="ht-layout-v6-mobile-hero" className="flex-shrink-0 pb-[10px]">
                   <AnimatedHeadHero />
                 </div>
               )}
 
               {/* Tabs */}
-              <div className="flex-shrink-0" style={{ padding: '1.0rem 0' }}>
+              <div id="ht-layout-v6-tabs" className="flex-shrink-0" style={{ padding: '1.0rem 0' }}>
                 <GlassTabs activeTab={activeTab} />
               </div>
             </DesktopContainer>
@@ -110,7 +110,7 @@ export const HaartransplantatieLayoutV6 = ({ children }: { children: React.React
             {!isOverlayRoute && (
               isReviewsRoute && !isMobile ? (
                 // Full width for reviews on desktop
-                (<div className="flex-1 flex flex-col w-full">
+                (<div id="ht-layout-v6-reviews-container" className="flex-1 flex flex-col w-full">
                   <div
                     className="relative flex-1 overflow-hidden flex flex-col"
                     style={{
@@ -121,6 +121,7 @@ export const HaartransplantatieLayoutV6 = ({ children }: { children: React.React
                     {/* Content from specific page - smooth fade transition on content only */}
 
                     <motion.div
+                      id="ht-layout-v6-reviews-motion"
                       key={pathname}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -135,6 +136,7 @@ export const HaartransplantatieLayoutV6 = ({ children }: { children: React.React
                 // 1000px container for contact on desktop
                 (<MediumContentContainer className="flex-1 flex flex-col">
                   <div
+                    id="ht-layout-v6-contact-container"
                     className={`relative flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'} flex flex-col`}
                     style={{
                       paddingTop: 'clamp(0rem, 0.3vh, 0.6rem)',
@@ -144,6 +146,7 @@ export const HaartransplantatieLayoutV6 = ({ children }: { children: React.React
                     {/* Content from specific page - smooth fade transition on content only */}
                     {/* Content from specific page - smooth fade transition on content only */}
                     <motion.div
+                      id="ht-layout-v6-contact-motion"
                       key={pathname}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -158,6 +161,7 @@ export const HaartransplantatieLayoutV6 = ({ children }: { children: React.React
                 // Standard 1250px container for other tabs
                 (<WideContentContainer className="flex-1 flex flex-col">
                   <div
+                    id="ht-layout-v6-wide-container"
                     className={`relative flex-1 ${isHowRoute && !isMobile ? 'overflow-visible' : 'overflow-hidden'} flex flex-col`}
                     style={{
                       paddingTop: 'clamp(0rem, 0.3vh, 0.6rem)',
@@ -169,6 +173,7 @@ export const HaartransplantatieLayoutV6 = ({ children }: { children: React.React
                     {/* Content from specific page - smooth fade transition on content only */}
                     {/* Content from specific page - smooth fade transition on content only */}
                     <motion.div
+                      id="ht-layout-v6-wide-motion"
                       key={pathname}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -186,11 +191,13 @@ export const HaartransplantatieLayoutV6 = ({ children }: { children: React.React
 
         {/* Footer CTA - 500px width on desktop */}
         <DesktopContainer>
-          <FooterCTAGlass />
+          <div id="ht-layout-v6-footer">
+            <FooterCTAGlass />
+          </div>
         </DesktopContainer>
       </div>
       {/* Package/Booking popup overlay - renders on top when route is active */}
-      {isOverlayRoute && children}
+      {isOverlayRoute && <div id="ht-layout-v6-overlay">{children}</div>}
     </main>
   );
 };

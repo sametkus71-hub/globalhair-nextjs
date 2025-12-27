@@ -37,13 +37,15 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
   };
 
   return (
-    <div className="w-full lg:w-[350px] h-full flex items-center justify-center mx-auto lg:mx-0 p-4 sm:p-6 lg:pr-1">
+    <div id="berkant-card-wrapper" className="w-full lg:w-[350px] h-full flex items-center justify-center mx-auto lg:mx-0 p-4 sm:p-6 lg:pr-1">
       <article
+        id="berkant-card-article"
         className="berkant-card"
         onClick={handleClick}
       >
         {/* Video background */}
         <video
+          id="berkant-video-bg"
           src={video.videoUrl}
           autoPlay
           muted
@@ -65,7 +67,7 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
         <div className="berkant-card-overlay" />
 
         {/* Content on top */}
-        <div className="berkant-card-content">
+        <div id="berkant-content-container" className="berkant-card-content">
           {/* Top left - Name badge */}
           <div className="absolute top-4 left-4">
             <div className="berkant-badge">
@@ -97,7 +99,7 @@ export const BerkantVideoCard = ({ videoId }: BerkantVideoCardProps) => {
           </div>
 
           {/* Bottom left - List with bold header */}
-          <div className="absolute bottom-4 left-4 flex flex-col gap-1.5">
+          <div id="berkant-details" className="absolute bottom-4 left-4 flex flex-col gap-1.5">
             <p className="text-sm font-semibold text-white/95 tracking-wide">CEO - GlobalHair Institute</p>
             <div className="flex flex-col gap-0.5 pl-0.5">
               <p className="text-[11px] font-light text-white/80 tracking-wide">• Developed 6+ methods</p>
