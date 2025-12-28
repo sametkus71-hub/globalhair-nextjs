@@ -72,7 +72,36 @@ export default function RootLayout({
         <link rel="preconnect" href="https://GlobalHair.b-cdn.net" />
         <link rel="dns-prefetch" href="https://GlobalHair.b-cdn.net" />
 
+        {/* Instant Splash Screen Script & Style */}
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            #instant-splash {
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background-color: #0C1B2A;
+              z-index: 9999;
+              transition: opacity 0.5s ease-out;
+            }
+            body.splash-seen #instant-splash {
+              display: none;
+            }
+          `
+        }} />
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            try {
+              if (sessionStorage.getItem('hasSeenSplash')) {
+                document.body.classList.add('splash-seen');
+              }
+            } catch(e) {}
+          `
+        }} />
+
         <ViewportHeightSetter />
+        <div id="instant-splash"></div>
         <SplashLoader />
         <GlobalVideoBackground />
         <Providers>

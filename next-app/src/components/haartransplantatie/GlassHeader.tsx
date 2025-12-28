@@ -32,6 +32,7 @@ export const GlassHeader = ({ hideButton = false }: GlassHeaderProps) => {
           <Image
             src={hairtransplantLogo}
             alt="GHI Hairtransplant Logo"
+            priority={true}
             style={{ height: '2.5rem', width: 'auto', cursor: 'pointer' }}
             onClick={() => {
               const homeUrl = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';

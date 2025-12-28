@@ -10,6 +10,9 @@ export const SplashLoader = () => {
     const lottieRef = useRef<LottieRefCurrentProps>(null);
 
     useEffect(() => {
+        // Cleanup the instant splash screen from layout.tsx
+        const instantSplash = document.getElementById('instant-splash');
+
         // Check if we've already shown the splash in this session
         // Use try-catch to handle incognito mode or restricted storage access
         try {
@@ -17,10 +20,19 @@ export const SplashLoader = () => {
 
             if (hasSeenSplash) {
                 setStage('complete');
+                if (instantSplash) instantSplash.style.display = 'none';
                 return;
             }
         } catch (error) {
             console.warn('Storage access restricted', error);
+        }
+
+        // Slight delay to ensure Lottie is ready before fading out static splash
+        if (instantSplash) {
+            setTimeout(() => {
+                instantSplash.style.opacity = '0';
+                setTimeout(() => instantSplash.remove(), 500);
+            }, 100);
         }
 
         setStage('loading');
