@@ -1,0 +1,380 @@
+
+> vite_react_shadcn_ts@0.0.0 type-check
+> tsc --noEmit
+
+src/components/admin/AdminSidebarContent.tsx(62,15): error TS2322: Type 'string' is not assignable to type 'RouteImpl<string> | UrlObject'.
+src/components/chat/LinkifiedText.tsx(12,26): error TS2503: Cannot find namespace 'JSX'.
+src/components/ChatPage.tsx(1146,19): error TS2322: Type 'StaticImageData' is not assignable to type 'string | Blob'.
+src/components/ConsultationModal.tsx(19,3): error TS2339: Property 'open' does not exist on type '{ children?: ReactNode; }'.
+src/components/ConsultationModal.tsx(20,3): error TS2339: Property 'onOpenChange' does not exist on type '{ children?: ReactNode; }'.
+src/components/contact/AnimatedNetherlandsSvg.tsx(10,3): error TS2339: Property 'isVisible' does not exist on type '{ children?: ReactNode; }'.
+src/components/contact/AnimatedTurkeySvg.tsx(10,3): error TS2339: Property 'isVisible' does not exist on type '{ children?: ReactNode; }'.
+src/components/ContactPage.tsx(44,19): error TS2345: Argument of type 'string' is not assignable to parameter of type 'RouteImpl<string>'.
+src/components/ContactPage.tsx(343,36): error TS2322: Type '{ isVisible: boolean; }' is not assignable to type 'IntrinsicAttributes & { children?: ReactNode; }'.
+  Property 'isVisible' does not exist on type 'IntrinsicAttributes & { children?: ReactNode; }'.
+src/components/ContactPage.tsx(346,41): error TS2322: Type '{ isVisible: boolean; }' is not assignable to type 'IntrinsicAttributes & { children?: ReactNode; }'.
+  Property 'isVisible' does not exist on type 'IntrinsicAttributes & { children?: ReactNode; }'.
+src/components/ContactPage.tsx(401,37): error TS2322: Type '{ className: string; }' is not assignable to type 'IntrinsicAttributes & { children?: ReactNode; }'.
+  Property 'className' does not exist on type 'IntrinsicAttributes & { children?: ReactNode; }'.
+src/components/ContactPage.tsx(404,41): error TS2322: Type '{ className: string; }' is not assignable to type 'IntrinsicAttributes & { children?: ReactNode; }'.
+  Property 'className' does not exist on type 'IntrinsicAttributes & { children?: ReactNode; }'.
+src/components/ContactPage.tsx(407,42): error TS2322: Type '{ className: string; }' is not assignable to type 'IntrinsicAttributes & { children?: ReactNode; }'.
+  Property 'className' does not exist on type 'IntrinsicAttributes & { children?: ReactNode; }'.
+src/components/DashboardPage.tsx(113,46): error TS2345: Argument of type '"/nl/haartransplantatie" | "/en/hair-transplant"' is not assignable to parameter of type 'RouteImpl<"/nl/haartransplantatie" | "/en/hair-transplant">'.
+  Type '"/en/hair-transplant"' is not assignable to type 'RouteImpl<"/nl/haartransplantatie" | "/en/hair-transplant">'.
+src/components/DashboardPage.tsx(129,46): error TS2345: Argument of type '"/nl/form" | "/en/form"' is not assignable to parameter of type 'RouteImpl<"/nl/form" | "/en/form">'.
+  Type '"/nl/form"' is not assignable to type 'RouteImpl<"/nl/form" | "/en/form">'.
+src/components/FloatingActionPortal.tsx(19,27): error TS2554: Expected 1 arguments, but got 0.
+src/components/FloatingActionPortal.tsx(43,36): error TS2554: Expected 1 arguments, but got 0.
+src/components/FloatingActionPortal.tsx(344,9): error TS2322: Type '{ open: boolean; onOpenChange: Dispatch<SetStateAction<boolean>>; }' is not assignable to type 'IntrinsicAttributes & { children?: ReactNode; }'.
+  Property 'open' does not exist on type 'IntrinsicAttributes & { children?: ReactNode; }'.
+src/components/FloatingActionZone.tsx(30,34): error TS2345: Argument of type '"/nl/info" | "/en/info"' is not assignable to parameter of type 'RouteImpl<"/nl/info" | "/en/info">'.
+  Type '"/nl/info"' is not assignable to type 'RouteImpl<"/nl/info" | "/en/info">'.
+src/components/FloatingActionZone.tsx(37,34): error TS2345: Argument of type '"/nl/support" | "/en/support"' is not assignable to parameter of type 'RouteImpl<"/nl/support" | "/en/support">'.
+  Type '"/nl/support"' is not assignable to type 'RouteImpl<"/nl/support" | "/en/support">'.
+src/components/haartransplantatie/BottomNavigation.tsx(220,23): error TS2322: Type '{ text: string; disabled: boolean; speed: number; className: string; }' is not assignable to type 'IntrinsicAttributes & { children?: ReactNode; }'.
+  Property 'text' does not exist on type 'IntrinsicAttributes & { children?: ReactNode; }'.
+src/components/haartransplantatie/StaticReviewGlass.tsx(79,17): error TS2322: Type 'StaticImageData' is not assignable to type 'string | Blob'.
+src/components/haartransplantatie/TrajectCardGlass.tsx(39,17): error TS2345: Argument of type '"/nl/haartransplantatie/nl/standard" | "/en/hair-transplant/en/standard"' is not assignable to parameter of type 'RouteImpl<"/nl/haartransplantatie/nl/standard" | "/en/hair-transplant/en/standard">'.
+  Type '"/en/hair-transplant/en/standard"' is not assignable to type 'RouteImpl<"/nl/haartransplantatie/nl/standard" | "/en/hair-transplant/en/standard">'. Did you mean '"/nl/haartransplantatie/nl/standard"'?
+src/components/haartransplantatie/TreatmentSelectionSection.tsx(227,25): error TS2345: Argument of type '"/nl/info/traject" | "/en/info/trajectory"' is not assignable to parameter of type 'RouteImpl<"/nl/info/traject" | "/en/info/trajectory">'.
+  Type '"/nl/info/traject"' is not assignable to type 'RouteImpl<"/nl/info/traject" | "/en/info/trajectory">'.
+src/components/haartransplantatie/TreatmentSelectionSection.tsx(248,25): error TS2345: Argument of type '"/nl/support" | "/en/support"' is not assignable to parameter of type 'RouteImpl<"/nl/support" | "/en/support">'.
+  Type '"/nl/support"' is not assignable to type 'RouteImpl<"/nl/support" | "/en/support">'.
+src/components/haartransplantatie/VideoBackgroundV6.tsx(14,13): error TS2339: Property 'play' does not exist on type 'Element'.
+src/components/HaartransplantatieLayoutPage.tsx(4,11): error TS2741: Property 'children' is missing in type '{}' but required in type '{ children: ReactNode; }'.
+src/components/homepage/VideoGrid.tsx(34,19): error TS2345: Argument of type '"/nl/haartransplantatie" | "/en/hair-transplant"' is not assignable to parameter of type 'RouteImpl<"/nl/haartransplantatie" | "/en/hair-transplant">'.
+  Type '"/en/hair-transplant"' is not assignable to type 'RouteImpl<"/nl/haartransplantatie" | "/en/hair-transplant">'.
+src/components/homepage/VideoGrid.tsx(45,19): error TS2345: Argument of type 'string' is not assignable to parameter of type 'RouteImpl<string>'.
+src/components/icons/CustomInstagramIcon.tsx(10,3): error TS2339: Property 'className' does not exist on type '{ children?: ReactNode; }'.
+src/components/icons/CustomMailIcon.tsx(10,3): error TS2339: Property 'className' does not exist on type '{ children?: ReactNode; }'.
+src/components/icons/CustomWhatsAppIcon.tsx(10,3): error TS2339: Property 'className' does not exist on type '{ children?: ReactNode; }'.
+src/components/icons/ReviewIcon.tsx(11,7): error TS2322: Type 'StaticImageData' is not assignable to type 'string | Blob'.
+src/components/InfoMethodPage.tsx(27,19): error TS2345: Argument of type '"/nl/info" | "/en/info"' is not assignable to parameter of type 'RouteImpl<"/nl/info" | "/en/info">'.
+  Type '"/nl/info"' is not assignable to type 'RouteImpl<"/nl/info" | "/en/info">'.
+src/components/InfoMethodPage.tsx(34,17): error TS2345: Argument of type '"/nl/info/traject" | "/en/info/trajectory"' is not assignable to parameter of type 'RouteImpl<"/nl/info/traject" | "/en/info/trajectory">'.
+  Type '"/nl/info/traject"' is not assignable to type 'RouteImpl<"/nl/info/traject" | "/en/info/trajectory">'.
+src/components/InfoPage.tsx(29,19): error TS2345: Argument of type '"/nl/haartransplantatie" | "/en/hair-transplant"' is not assignable to parameter of type 'RouteImpl<"/nl/haartransplantatie" | "/en/hair-transplant">'.
+  Type '"/en/hair-transplant"' is not assignable to type 'RouteImpl<"/nl/haartransplantatie" | "/en/hair-transplant">'.
+src/components/InfoPage.tsx(39,17): error TS2345: Argument of type '"/nl/info/methode" | "/en/info/method"' is not assignable to parameter of type 'RouteImpl<"/nl/info/methode" | "/en/info/method">'.
+  Type '"/nl/info/methode"' is not assignable to type 'RouteImpl<"/nl/info/methode" | "/en/info/method">'.
+src/components/InfoPage.tsx(44,17): error TS2345: Argument of type '"/nl/info/traject" | "/en/info/trajectory"' is not assignable to parameter of type 'RouteImpl<"/nl/info/traject" | "/en/info/trajectory">'.
+  Type '"/nl/info/traject"' is not assignable to type 'RouteImpl<"/nl/info/traject" | "/en/info/trajectory">'.
+src/components/InfoTrajectoryPage.tsx(43,17): error TS2345: Argument of type '"/nl/info/methode" | "/en/info/method"' is not assignable to parameter of type 'RouteImpl<"/nl/info/methode" | "/en/info/method">'.
+  Type '"/nl/info/methode"' is not assignable to type 'RouteImpl<"/nl/info/methode" | "/en/info/method">'.
+src/components/InfoTrajectoryPage.tsx(192,23): error TS2322: Type 'AutoplayType' is not assignable to type 'CreatePluginType<LoosePluginType, {}>'.
+  Type 'AutoplayType' is not assignable to type '{ name: string; options: Partial<{ active: boolean; breakpoints: { [key: string]: Omit<Partial<...>, "breakpoints">; }; }>; init: (embla: EmblaCarouselType, OptionsHandler: OptionsHandlerType) => void; destroy: () => void; }'.
+    Types of property 'init' are incompatible.
+      Type '(embla: import("/Users/cenikk/Desktop/Design-workflow/Websites/Globalhair/globalhair-nextjs/node_modules/embla-carousel/esm/components/EmblaCarousel").EmblaCarouselType, OptionsHandler: import("/Users/cenikk/Desktop/Design-workflow/Websites/Globalhair/globalhair-nextjs/node_modules/embla-carousel/esm/components/Opti...' is not assignable to type '(embla: import("/Users/cenikk/Desktop/Design-workflow/Websites/Globalhair/globalhair-nextjs/next-app/node_modules/embla-carousel-react/node_modules/embla-carousel/esm/components/EmblaCarousel").EmblaCarouselType, OptionsHandler: import("/Users/cenikk/Desktop/Design-workflow/Websites/Globalhair/globalhair-nextjs/next...'.
+        Types of parameters 'embla' and 'embla' are incompatible.
+          Type 'import("/Users/cenikk/Desktop/Design-workflow/Websites/Globalhair/globalhair-nextjs/next-app/node_modules/embla-carousel-react/node_modules/embla-carousel/esm/components/EmblaCarousel").EmblaCarouselType' is not assignable to type 'import("/Users/cenikk/Desktop/Design-workflow/Websites/Globalhair/globalhair-nextjs/node_modules/embla-carousel/esm/components/EmblaCarousel").EmblaCarouselType'.
+            The types of 'internalEngine().eventHandler.init' are incompatible between these types.
+              Type '(emblaApi: import("/Users/cenikk/Desktop/Design-workflow/Websites/Globalhair/globalhair-nextjs/next-app/node_modules/embla-carousel-react/node_modules/embla-carousel/esm/components/EmblaCarousel").EmblaCarouselType) => void' is not assignable to type '(emblaApi: import("/Users/cenikk/Desktop/Design-workflow/Websites/Globalhair/globalhair-nextjs/node_modules/embla-carousel/esm/components/EmblaCarousel").EmblaCarouselType) => void'.
+                Types of parameters 'emblaApi' and 'emblaApi' are incompatible.
+                  Type 'import("/Users/cenikk/Desktop/Design-workflow/Websites/Globalhair/globalhair-nextjs/node_modules/embla-carousel/esm/components/EmblaCarousel").EmblaCarouselType' is not assignable to type 'import("/Users/cenikk/Desktop/Design-workflow/Websites/Globalhair/globalhair-nextjs/next-app/node_modules/embla-carousel-react/node_modules/embla-carousel/esm/components/EmblaCarousel").EmblaCarouselType'.
+                    The types of 'internalEngine().eventHandler.on' are incompatible between these types.
+                      Type '(evt: import("/Users/cenikk/Desktop/Design-workflow/Websites/Globalhair/globalhair-nextjs/node_modules/embla-carousel/esm/components/EventHandler").EmblaEventType, cb: CallbackType) => import("/Users/cenikk/Desktop/Design-workflow/Websites/Globalhair/globalhair-nextjs/node_modules/embla-carousel/esm/components/Event...' is not assignable to type '(evt: import("/Users/cenikk/Desktop/Design-workflow/Websites/Globalhair/globalhair-nextjs/next-app/node_modules/embla-carousel-react/node_modules/embla-carousel/esm/components/EventHandler").EmblaEventType, cb: CallbackType) => import("/Users/cenikk/Desktop/Design-workflow/Websites/Globalhair/globalhair-nextjs/next-...'.
+                        Types of parameters 'cb' and 'cb' are incompatible.
+                          Types of parameters 'evt' and 'evt' are incompatible.
+                            Type 'import("/Users/cenikk/Desktop/Design-workflow/Websites/Globalhair/globalhair-nextjs/node_modules/embla-carousel/esm/components/EventHandler").EmblaEventType' is not assignable to type 'import("/Users/cenikk/Desktop/Design-workflow/Websites/Globalhair/globalhair-nextjs/next-app/node_modules/embla-carousel-react/node_modules/embla-carousel/esm/components/EventHandler").EmblaEventType'.
+                              Type '"autoplay:play"' is not assignable to type 'EmblaEventType'.
+src/components/MetaHead.tsx(17,11): error TS2339: Property 'pathname' does not exist on type 'String'.
+src/components/mission/MissionCardGlass.tsx(182,13): error TS2322: Type 'StaticImageData' is not assignable to type 'string | Blob'.
+src/components/MissionPage.tsx(33,32): error TS2339: Property 'get' does not exist on type '[string, string]'.
+src/components/MissionPage.tsx(47,43): error TS2345: Argument of type '[string, string]' is not assignable to parameter of type 'string | Record<string, string> | string[][] | URLSearchParams'.
+  Type '[string, string]' is not assignable to type 'string[][]'.
+    Type 'string' is not assignable to type 'string[]'.
+src/components/MissionPage.tsx(49,5): error TS2349: This expression is not callable.
+  Type '[string, string]' has no call signatures.
+src/components/MissionPage.tsx(66,17): error TS2345: Argument of type '"/nl/info/methode" | "/en/info/method"' is not assignable to parameter of type 'RouteImpl<"/nl/info/methode" | "/en/info/method">'.
+  Type '"/nl/info/methode"' is not assignable to type 'RouteImpl<"/nl/info/methode" | "/en/info/method">'.
+src/components/PasswordProtection.tsx(63,21): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+src/components/PasswordProtection.tsx(122,15): error TS2322: Type 'StaticImageData' is not assignable to type 'string | Blob'.
+src/components/PopupCloseButton.tsx(142,19): error TS2345: Argument of type '"/nl/haartransplantatie" | "/en/hair-transplant"' is not assignable to parameter of type 'RouteImpl<"/nl/haartransplantatie" | "/en/hair-transplant">'.
+  Type '"/en/hair-transplant"' is not assignable to type 'RouteImpl<"/nl/haartransplantatie" | "/en/hair-transplant">'.
+src/components/recharge/RechargeContent.tsx(52,7): error TS2322: Type '{ hidden: { opacity: number; y: number; }; visible: { opacity: number; y: number; transition: { duration: number; ease: string; when: string; staggerChildren: number; }; }; }' is not assignable to type 'Variants'.
+  Property 'visible' is incompatible with index signature.
+    Type '{ opacity: number; y: number; transition: { duration: number; ease: string; when: string; staggerChildren: number; }; }' is not assignable to type 'Variant'.
+      Type '{ opacity: number; y: number; transition: { duration: number; ease: string; when: string; staggerChildren: number; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ opacity: number; y: number; transition: { duration: number; ease: string; when: string; staggerChildren: number; }; }' is not assignable to type '{ transition?: Transition<any>; transitionEnd?: ResolvedValues; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ duration: number; ease: string; when: string; staggerChildren: number; }' is not assignable to type 'Transition<any>'.
+              Type '{ duration: number; ease: string; when: string; staggerChildren: number; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ duration: number; ease: string; when: string; staggerChildren: number; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'string' is not assignable to type 'Easing | Easing[]'.
+src/components/recharge/RechargeContent.tsx(58,47): error TS2322: Type '{ hidden: { opacity: number; y: number; }; visible: { opacity: number; y: number; transition: { duration: number; ease: string; }; }; }' is not assignable to type 'Variants'.
+  Property 'visible' is incompatible with index signature.
+    Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'Variant'.
+      Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type '{ transition?: Transition<any>; transitionEnd?: ResolvedValues; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ duration: number; ease: string; }' is not assignable to type 'Transition<any>'.
+              Type '{ duration: number; ease: string; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ duration: number; ease: string; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'string' is not assignable to type 'Easing | Easing[]'.
+src/components/recharge/RechargeContent.tsx(141,17): error TS2322: Type '{ hidden: { pathLength: number; opacity: number; }; visible: { pathLength: number; opacity: number; transition: { duration: number; ease: string; delay: number; }; }; }' is not assignable to type 'Variants'.
+  Property 'visible' is incompatible with index signature.
+    Type '{ pathLength: number; opacity: number; transition: { duration: number; ease: string; delay: number; }; }' is not assignable to type 'Variant'.
+      Type '{ pathLength: number; opacity: number; transition: { duration: number; ease: string; delay: number; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ pathLength: number; opacity: number; transition: { duration: number; ease: string; delay: number; }; }' is not assignable to type '{ transition?: Transition<any>; transitionEnd?: ResolvedValues; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ duration: number; ease: string; delay: number; }' is not assignable to type 'Transition<any>'.
+              Type '{ duration: number; ease: string; delay: number; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ duration: number; ease: string; delay: number; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'string' is not assignable to type 'Easing | Easing[]'.
+src/components/recharge/RechargeContent.tsx(151,37): error TS2322: Type '{ hidden: { scale: number; opacity: number; }; visible: { scale: number; opacity: number; transition: { type: string; stiffness: number; damping: number; }; }; }' is not assignable to type 'Variants'.
+  Property 'visible' is incompatible with index signature.
+    Type '{ scale: number; opacity: number; transition: { type: string; stiffness: number; damping: number; }; }' is not assignable to type 'Variant'.
+      Type '{ scale: number; opacity: number; transition: { type: string; stiffness: number; damping: number; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ scale: number; opacity: number; transition: { type: string; stiffness: number; damping: number; }; }' is not assignable to type '{ transition?: Transition<any>; transitionEnd?: ResolvedValues; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ type: string; stiffness: number; damping: number; }' is not assignable to type 'Transition<any>'.
+              Type '{ type: string; stiffness: number; damping: number; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ type: string; stiffness: number; damping: number; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'type' are incompatible.
+                    Type 'string' is not assignable to type 'AnimationGeneratorType'.
+src/components/recharge/RechargeContent.tsx(166,18): error TS2322: Type '{ hidden: { pathLength: number; opacity: number; }; visible: { pathLength: number; opacity: number; transition: { duration: number; ease: string; delay: number; }; }; }' is not assignable to type 'Variants'.
+  Property 'visible' is incompatible with index signature.
+    Type '{ pathLength: number; opacity: number; transition: { duration: number; ease: string; delay: number; }; }' is not assignable to type 'Variant'.
+      Type '{ pathLength: number; opacity: number; transition: { duration: number; ease: string; delay: number; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ pathLength: number; opacity: number; transition: { duration: number; ease: string; delay: number; }; }' is not assignable to type '{ transition?: Transition<any>; transitionEnd?: ResolvedValues; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ duration: number; ease: string; delay: number; }' is not assignable to type 'Transition<any>'.
+              Type '{ duration: number; ease: string; delay: number; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ duration: number; ease: string; delay: number; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'string' is not assignable to type 'Easing | Easing[]'.
+src/components/recharge/RechargeContent.tsx(176,37): error TS2322: Type '{ hidden: { scale: number; opacity: number; }; visible: { scale: number; opacity: number; transition: { type: string; stiffness: number; damping: number; }; }; }' is not assignable to type 'Variants'.
+  Property 'visible' is incompatible with index signature.
+    Type '{ scale: number; opacity: number; transition: { type: string; stiffness: number; damping: number; }; }' is not assignable to type 'Variant'.
+      Type '{ scale: number; opacity: number; transition: { type: string; stiffness: number; damping: number; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ scale: number; opacity: number; transition: { type: string; stiffness: number; damping: number; }; }' is not assignable to type '{ transition?: Transition<any>; transitionEnd?: ResolvedValues; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ type: string; stiffness: number; damping: number; }' is not assignable to type 'Transition<any>'.
+              Type '{ type: string; stiffness: number; damping: number; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ type: string; stiffness: number; damping: number; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'type' are incompatible.
+                    Type 'string' is not assignable to type 'AnimationGeneratorType'.
+src/components/recharge/RechargeContent.tsx(191,17): error TS2322: Type '{ hidden: { pathLength: number; opacity: number; }; visible: { pathLength: number; opacity: number; transition: { duration: number; ease: string; delay: number; }; }; }' is not assignable to type 'Variants'.
+  Property 'visible' is incompatible with index signature.
+    Type '{ pathLength: number; opacity: number; transition: { duration: number; ease: string; delay: number; }; }' is not assignable to type 'Variant'.
+      Type '{ pathLength: number; opacity: number; transition: { duration: number; ease: string; delay: number; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ pathLength: number; opacity: number; transition: { duration: number; ease: string; delay: number; }; }' is not assignable to type '{ transition?: Transition<any>; transitionEnd?: ResolvedValues; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ duration: number; ease: string; delay: number; }' is not assignable to type 'Transition<any>'.
+              Type '{ duration: number; ease: string; delay: number; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ duration: number; ease: string; delay: number; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'string' is not assignable to type 'Easing | Easing[]'.
+src/components/recharge/RechargeContent.tsx(201,37): error TS2322: Type '{ hidden: { scale: number; opacity: number; }; visible: { scale: number; opacity: number; transition: { type: string; stiffness: number; damping: number; }; }; }' is not assignable to type 'Variants'.
+  Property 'visible' is incompatible with index signature.
+    Type '{ scale: number; opacity: number; transition: { type: string; stiffness: number; damping: number; }; }' is not assignable to type 'Variant'.
+      Type '{ scale: number; opacity: number; transition: { type: string; stiffness: number; damping: number; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ scale: number; opacity: number; transition: { type: string; stiffness: number; damping: number; }; }' is not assignable to type '{ transition?: Transition<any>; transitionEnd?: ResolvedValues; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ type: string; stiffness: number; damping: number; }' is not assignable to type 'Transition<any>'.
+              Type '{ type: string; stiffness: number; damping: number; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ type: string; stiffness: number; damping: number; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'type' are incompatible.
+                    Type 'string' is not assignable to type 'AnimationGeneratorType'.
+src/components/recharge/RechargeContent.tsx(206,58): error TS2322: Type '{ hidden: { scale: number; opacity: number; }; visible: { scale: number; opacity: number; transition: { type: string; stiffness: number; damping: number; }; }; }' is not assignable to type 'Variants'.
+  Property 'visible' is incompatible with index signature.
+    Type '{ scale: number; opacity: number; transition: { type: string; stiffness: number; damping: number; }; }' is not assignable to type 'Variant'.
+      Type '{ scale: number; opacity: number; transition: { type: string; stiffness: number; damping: number; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ scale: number; opacity: number; transition: { type: string; stiffness: number; damping: number; }; }' is not assignable to type '{ transition?: Transition<any>; transitionEnd?: ResolvedValues; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ type: string; stiffness: number; damping: number; }' is not assignable to type 'Transition<any>'.
+              Type '{ type: string; stiffness: number; damping: number; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ type: string; stiffness: number; damping: number; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'type' are incompatible.
+                    Type 'string' is not assignable to type 'AnimationGeneratorType'.
+src/components/recharge/RechargeContent.tsx(223,48): error TS2322: Type '{ hidden: { opacity: number; y: number; }; visible: { opacity: number; y: number; transition: { duration: number; ease: string; }; }; }' is not assignable to type 'Variants'.
+  Property 'visible' is incompatible with index signature.
+    Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'Variant'.
+      Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type '{ transition?: Transition<any>; transitionEnd?: ResolvedValues; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ duration: number; ease: string; }' is not assignable to type 'Transition<any>'.
+              Type '{ duration: number; ease: string; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ duration: number; ease: string; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'string' is not assignable to type 'Easing | Easing[]'.
+src/components/recharge/RechargeContent.tsx(261,43): error TS2322: Type '{ hidden: { opacity: number; y: number; }; visible: { opacity: number; y: number; transition: { duration: number; ease: string; }; }; }' is not assignable to type 'Variants'.
+  Property 'visible' is incompatible with index signature.
+    Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'Variant'.
+      Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type '{ transition?: Transition<any>; transitionEnd?: ResolvedValues; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ duration: number; ease: string; }' is not assignable to type 'Transition<any>'.
+              Type '{ duration: number; ease: string; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ duration: number; ease: string; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'string' is not assignable to type 'Easing | Easing[]'.
+src/components/recharge/RechargeContent.tsx(304,19): error TS2322: Type '{ hidden: { opacity: number; y: number; }; visible: { opacity: number; y: number; transition: { duration: number; ease: string; }; }; }' is not assignable to type 'Variants'.
+  Property 'visible' is incompatible with index signature.
+    Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'Variant'.
+      Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type '{ transition?: Transition<any>; transitionEnd?: ResolvedValues; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ duration: number; ease: string; }' is not assignable to type 'Transition<any>'.
+              Type '{ duration: number; ease: string; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ duration: number; ease: string; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'string' is not assignable to type 'Easing | Easing[]'.
+src/components/ReviewItemPage.tsx(26,35): error TS2353: Object literal may only specify known properties, and 'replace' does not exist in type 'NavigateOptions'.
+src/components/SEORoutes.tsx(7,36): error TS2307: Cannot find module '@/pages/HomePage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(8,56): error TS2307: Cannot find module '@/pages/HaartransplantatieLayoutPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(9,42): error TS2307: Cannot find module '@/pages/TreatmentsPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(10,57): error TS2307: Cannot find module '@/pages/HaartransplantatieReviewsPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(11,42): error TS2307: Cannot find module '@/pages/HowItWorksPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(12,57): error TS2307: Cannot find module '@/pages/HaartransplantatieMissionPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(13,57): error TS2307: Cannot find module '@/pages/HaartransplantatieContactPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(14,44): error TS2307: Cannot find module '@/pages/BerkantDuralPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(16,53): error TS2307: Cannot find module '@/pages/HaartransplantatieOldPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(17,43): error TS2307: Cannot find module '@/pages/HaaranalysePage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(18,48): error TS2307: Cannot find module '@/pages/TreatmentOptionsPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(19,36): error TS2307: Cannot find module '@/pages/InfoPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(20,42): error TS2307: Cannot find module '@/pages/InfoMethodPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(21,46): error TS2307: Cannot find module '@/pages/InfoTrajectoryPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(22,39): error TS2307: Cannot find module '@/pages/MissionPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(23,39): error TS2307: Cannot find module '@/pages/SupportPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(24,43): error TS2307: Cannot find module '@/pages/SupportChatPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(25,36): error TS2307: Cannot find module '@/pages/ChatPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(26,43): error TS2307: Cannot find module '@/pages/V6HairboostPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(27,47): error TS2307: Cannot find module '@/pages/PackageStandardPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(28,43): error TS2307: Cannot find module '@/pages/ComingSoon1Page' or its corresponding type declarations.
+src/components/SEORoutes.tsx(29,43): error TS2307: Cannot find module '@/pages/ComingSoon2Page' or its corresponding type declarations.
+src/components/SEORoutes.tsx(30,41): error TS2307: Cannot find module '@/pages/DashboardPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(31,36): error TS2307: Cannot find module '@/pages/FormPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(32,39): error TS2307: Cannot find module '@/pages/ReviewsPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(33,42): error TS2307: Cannot find module '@/pages/ReviewItemPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(34,39): error TS2307: Cannot find module '@/pages/ContactPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(35,39): error TS2307: Cannot find module '@/pages/BookingPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(36,46): error TS2307: Cannot find module '@/pages/BookingSuccessPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(37,45): error TS2307: Cannot find module '@/pages/PrivacyPolicyPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(38,51): error TS2307: Cannot find module '@/pages/AlgemeneVoorwaardenPage' or its corresponding type declarations.
+src/components/SEORoutes.tsx(39,38): error TS2307: Cannot find module '@/pages/AdminLogin' or its corresponding type declarations.
+src/components/SEORoutes.tsx(40,42): error TS2307: Cannot find module '@/pages/AdminDashboard' or its corresponding type declarations.
+src/components/SEORoutes.tsx(41,40): error TS2307: Cannot find module '@/pages/AdminReviews' or its corresponding type declarations.
+src/components/SEORoutes.tsx(42,43): error TS2307: Cannot find module '@/pages/AdminReviewEdit' or its corresponding type declarations.
+src/components/SEORoutes.tsx(43,36): error TS2307: Cannot find module '@/pages/NotFound' or its corresponding type declarations.
+src/components/SEORoutes.tsx(58,8): error TS2304: Cannot find name 'Routes'.
+src/components/SEORoutes.tsx(60,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(61,12): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(62,11): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(65,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(66,12): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(67,11): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(68,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(69,12): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(70,12): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(71,12): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(72,12): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(73,12): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(74,12): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(75,12): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(76,11): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(77,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(78,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(79,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(80,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(81,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(82,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(83,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(84,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(85,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(86,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(87,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(88,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(89,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(90,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(91,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(92,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(93,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(94,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(95,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(96,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(97,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(98,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(99,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(100,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(101,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(104,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(105,12): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(106,11): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(107,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(108,12): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(109,12): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(110,12): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(111,12): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(112,11): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(113,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(114,12): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(115,12): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(116,12): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(117,12): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(118,12): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(119,12): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(120,12): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(121,11): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(122,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(123,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(124,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(125,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(126,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(127,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(128,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(129,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(130,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(131,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(132,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(133,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(134,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(135,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(136,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(137,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(138,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(139,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(140,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(141,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(142,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(143,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(144,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(145,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(146,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(149,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(150,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(151,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(152,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(155,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(156,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(159,10): error TS2304: Cannot find name 'Route'.
+src/components/SEORoutes.tsx(160,9): error TS2304: Cannot find name 'Routes'.
+src/components/SupportChatPage.tsx(61,21): error TS2345: Argument of type '"/nl/support" | "/en/support"' is not assignable to parameter of type 'RouteImpl<"/nl/support" | "/en/support">'.
+  Type '"/nl/support"' is not assignable to type 'RouteImpl<"/nl/support" | "/en/support">'.
+src/components/SupportCloseBar.tsx(106,17): error TS2345: Argument of type '"/nl/support" | "/en/support"' is not assignable to parameter of type 'RouteImpl<"/nl/support" | "/en/support">'.
+  Type '"/nl/support"' is not assignable to type 'RouteImpl<"/nl/support" | "/en/support">'.
+src/components/SupportPage.tsx(42,17): error TS2345: Argument of type '"/nl/support/chat" | "/en/support/chat"' is not assignable to parameter of type 'RouteImpl<"/nl/support/chat" | "/en/support/chat">'.
+  Type '"/nl/support/chat"' is not assignable to type 'RouteImpl<"/nl/support/chat" | "/en/support/chat">'.
+src/components/ui/ShinyText.tsx(13,3): error TS2339: Property 'text' does not exist on type '{ children?: ReactNode; }'.
+src/components/ui/ShinyText.tsx(14,3): error TS2339: Property 'disabled' does not exist on type '{ children?: ReactNode; }'.
+src/components/ui/ShinyText.tsx(15,3): error TS2339: Property 'speed' does not exist on type '{ children?: ReactNode; }'.
+src/components/ui/ShinyText.tsx(16,3): error TS2339: Property 'className' does not exist on type '{ children?: ReactNode; }'.
+src/hooks/useLanguage.ts(36,39): error TS2353: Object literal may only specify known properties, and 'replace' does not exist in type 'NavigateOptions'.
+src/hooks/useLanguage.ts(67,17): error TS2345: Argument of type 'string' is not assignable to parameter of type 'RouteImpl<string>'.
+src/hooks/usePageTransition.ts(66,19): error TS2345: Argument of type 'string' is not assignable to parameter of type 'RouteImpl<string>'.
+src/hooks/usePopupTransition.ts(75,21): error TS2345: Argument of type 'string' is not assignable to parameter of type 'RouteImpl<string>'.
+src/hooks/usePopupTransition.ts(89,19): error TS2345: Argument of type 'string' is not assignable to parameter of type 'RouteImpl<string>'.
+src/hooks/usePopupTransition.ts(91,24): error TS2552: Cannot find name 'navigate'. Did you mean 'navigator'?
+src/hooks/usePopupTransition.ts(94,17): error TS2345: Argument of type 'string' is not assignable to parameter of type 'RouteImpl<string>'.
+src/hooks/usePopupTransition.ts(95,7): error TS2552: Cannot find name 'navigate'. Did you mean 'navigator'?
+src/hooks/useSlideTransition.ts(51,19): error TS2345: Argument of type 'string' is not assignable to parameter of type 'RouteImpl<string>'.
+src/hooks/useSlideTransition.ts(63,7): error TS2552: Cannot find name 'navigate'. Did you mean 'navigator'?
+src/hooks/useSmoothColorTransition.ts(54,24): error TS2554: Expected 1 arguments, but got 0.
+src/hooks/useSmoothColorTransition.ts(56,30): error TS2554: Expected 1 arguments, but got 0.
+src/lib/analytics.ts(36,45): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+src/lib/metaPixel.ts(11,5): error TS2687: All declarations of 'fbq' must have identical modifiers.
+tailwind.config.ts(299,5): error TS1117: An object literal cannot have multiple properties with the same name.

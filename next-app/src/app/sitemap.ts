@@ -42,10 +42,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '/v6-hairboost/mission',
         '/v6-hairboost/contact',
         // Recharge Pages
-        '/recharge',
-        '/recharge/recharge',
-        '/recharge/rescue',
-        '/recharge/reborn',
+        '/v6-hairboost/methods/recharge',
+        '/v6-hairboost/methods/rescue',
+        '/v6-hairboost/methods/reborn',
     ];
 
     const enRoutes = [
@@ -76,10 +75,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '/v6-hairboost/mission',
         '/v6-hairboost/contact',
         // Recharge Pages
-        '/recharge',
-        '/recharge/recharge',
-        '/recharge/rescue',
-        '/recharge/reborn',
+        '/v6-hairboost/methods/recharge',
+        '/v6-hairboost/methods/rescue',
+        '/v6-hairboost/methods/reborn',
     ];
 
     const entries: MetadataRoute.Sitemap = [];
