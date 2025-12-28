@@ -4,9 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "build:dev": "vite build --mode development",
+    "dev": "npm run dev --prefix next-app",
+    "dev:vite": "vite",
+    "build": "npm run build --prefix next-app",
+    "build:vite": "vite build",
+    "start": "npm run start --prefix next-app",
+    "build:vite:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview"
   },
