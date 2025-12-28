@@ -71,9 +71,6 @@ export default function RootLayout({
 
         <link rel="preconnect" href="https://GlobalHair.b-cdn.net" />
         <link rel="dns-prefetch" href="https://GlobalHair.b-cdn.net" />
-        {/* Preload critical video assets - using as="fetch" to avoid warnings */}
-        <link rel="preload" href="https://GlobalHair.b-cdn.net/Bg%20Videos/D%20-%20Basic%20BG%20V0%20(1).webm" as="fetch" type="video/webm" crossOrigin="anonymous" />
-        <link rel="preload" href="https://GlobalHair.b-cdn.net/Bg%20Videos/P%20-%20Basic%20BG%20V0%20compressed.webm" as="fetch" type="video/webm" crossOrigin="anonymous" />
 
         <ViewportHeightSetter />
         <SplashLoader />

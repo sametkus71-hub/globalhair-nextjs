@@ -25,6 +25,7 @@ export const VideoBackground = ({ className = '' }: VideoBackgroundProps) => {
         playsInline
         // @ts-ignore - Fetch Priority is a newer standard
         fetchPriority="high"
+        poster="https://GlobalHair.b-cdn.net/Bg%20Videos/poster-frame.jpg"
         className="absolute inset-0 w-full h-full object-cover"
         style={{ width: '100vw', height: 'var(--app-height, 100vh)' }}
       >
