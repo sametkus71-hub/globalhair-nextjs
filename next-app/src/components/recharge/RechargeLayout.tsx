@@ -16,13 +16,13 @@ export const RechargeLayout = ({ children }: { children: React.ReactNode }) => {
   ];
 
   // Base path depends on language
-  const basePath = language === 'nl' ? '/nl/recharge' : '/en/recharge';
+  const basePath = language === 'nl' ? '/nl/v6-hairboost/methods' : '/en/v6-hairboost/methods';
 
   const handleTabClick = (tabId: string) => {
-    // If it's the default 'recharge' tab, we can go to root layout path or explicitly to /recharge
-    // The requirement says: /recharge (active styling), /recharge/rescue, /recharge/reborn
+    // New structure: /v6-hairboost/methods/[method]
+    // Default is explicitly /v6-hairboost/methods/recharge or just /v6-hairboost/methods
     if (tabId === 'recharge') {
-      router.push(basePath as any);
+      router.push(`${basePath}/recharge` as any);
     } else {
       router.push(`${basePath}/${tabId}` as any);
     }
@@ -77,7 +77,7 @@ export const RechargeLayout = ({ children }: { children: React.ReactNode }) => {
         {/* Close Button */}
         <button
           id="recharge-close-button"
-          onClick={() => router.back()}
+          onClick={() => router.push(`/${language}/v6-hairboost/how` as any)}
           className="absolute top-6 left-6 z-20 text-white/70 hover:text-white transition-colors"
         >
           <X size={24} />

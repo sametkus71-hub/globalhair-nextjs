@@ -386,7 +386,7 @@ export const HowTabContent = () => {
           id="how-tab-link-methods"
           onClick={() => {
             if (typeof document !== 'undefined') document.body.classList.add('popup-open');
-            router.push(`/${language}/recharge`);
+            router.push(`/${language}/v6-hairboost/methods/recharge`);
           }}
           className="text-white hover:text-white/80 transition-colors cursor-pointer"
           style={{
