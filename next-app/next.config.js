@@ -6,6 +6,9 @@ const nextConfig = {
     // your project has TypeScript type errors.
     ignoreBuildErrors: process.env.NODE_ENV === 'production',
   },
+  experimental: {
+    optimizeCss: true,
+  },
 };
 
 module.exports = nextConfig;

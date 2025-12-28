@@ -70,7 +70,13 @@ export const AnimatedHeadHero = ({ inHeader = false, inFooter = false }: Animate
             marginLeft: inFooter ? 'auto' : 'clamp(0.5rem, 0.7vw, 0.65rem)',
           }}
         >
-          <img src="/assets/camera-icon.svg" alt="Camera" style={{ width: 'clamp(19px, 2.4vh, 24px)', height: 'clamp(17px, 2.2vh, 20px)', marginTop: '-2px', marginRight: '-2px' }} />
+          <img
+            src="/assets/camera-icon.svg"
+            alt="Camera"
+            width={24}
+            height={20}
+            style={{ width: 'clamp(19px, 2.4vh, 24px)', height: 'clamp(17px, 2.2vh, 20px)', marginTop: '-2px', marginRight: '-2px' }}
+          />
         </div>
       </button>
 
