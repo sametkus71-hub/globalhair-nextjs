@@ -11,11 +11,16 @@ export const SplashLoader = () => {
 
     useEffect(() => {
         // Check if we've already shown the splash in this session
-        const hasSeenSplash = sessionStorage.getItem('hasSeenSplash');
+        // Use try-catch to handle incognito mode or restricted storage access
+        try {
+            const hasSeenSplash = sessionStorage.getItem('hasSeenSplash');
 
-        if (hasSeenSplash) {
-            setStage('complete');
-            return;
+            if (hasSeenSplash) {
+                setStage('complete');
+                return;
+            }
+        } catch (error) {
+            console.warn('Storage access restricted', error);
         }
 
         setStage('loading');
