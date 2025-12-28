@@ -16,6 +16,175 @@ import { PopupCloseButton, usePopupClose, SwipeablePopupWrapper } from '@/compon
 
 type FeatureKey = 'fue' | 'comfort' | 'fullcomfort' | 'support' | 'precision' | 'stemcellrepair' | 'v6prime' | 'v6recovery' | 'followup' | 'followup2' | 'biotine' | 'shampoo' | 'washes' | 'indicators';
 
+// Move static data outside to prevent re-creation and ensure stability
+const PACKAGE_DATA = {
+  Standard: {
+    price: '€7.250',
+    features: [
+      {
+        key: 'indicators' as FeatureKey,
+        title: 'Package Indicators',
+        description: 'Natuurlijk herstel, zichtbaar resultaat',
+        exclusive: false
+      },
+      {
+        key: 'fue' as FeatureKey,
+        title: 'FUE Saffier / DHI',
+        description: 'FUE Saffier is de standaard in haartransplantatie: met ultradunne saffieren mesjes voor nauwkeurige plaatsing, minimale littekens en sneller herstel. DHI maakt directe implantatie mogelijk zonder scheren, met maximale controle over richting en dichtheid.',
+        exclusive: false
+      },
+      {
+        key: 'comfort' as FeatureKey,
+        title: 'Comfort Verdoving',
+        description: 'Een naaldloze verdoving die zonder prikken wordt aangebracht. Je voelt nog iets, maar veel minder intens. Voor een rustige, comfortabele ervaring zonder scherpe pijn.',
+        exclusive: false
+      },
+      {
+        key: 'followup' as FeatureKey,
+        title: '1 Personal Follow-Up',
+        description: 'Een persoonlijke check-up in onze kliniek in Barendrecht, uitgevoerd door een tricholoog (haarspecialist). Hier wordt je groei, herstel en hoofdhuidconditie gecontroleerd voor een optimale voortgang van het resultaat.',
+        exclusive: false
+      },
+      {
+        key: 'support' as FeatureKey,
+        title: '1 Year GHI Support',
+        description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon. Onze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen. Altijd bereikbaar, altijd persoonlijk.',
+        exclusive: false
+      },
+      {
+        key: 'precision' as FeatureKey,
+        title: 'GHI Precision Method™',
+        description: 'Een exclusief chirurgisch protocol ontwikkeld en gecertificeerd door Berkant Dural. Het is de methode waarmee al onze artsen & trichologen persoonlijk worden opgeleid om dezelfde hoge standaard en precisie te waarborgen. Een unieke werkwijze die ambacht, detail en rust combineert in perfecte omstandigheden zodat elk resultaat een meesterwerk in haartransplantatie wordt.',
+        exclusive: false
+      }
+    ]
+  },
+  Premium: {
+    price: '€12.950',
+    features: [
+      {
+        key: 'indicators' as FeatureKey,
+        title: 'Package Indicators',
+        description: 'Recovery x2 sneller\nMeer dichtheid & langdurige groei',
+        exclusive: false
+      },
+      {
+        key: 'fue' as FeatureKey,
+        title: 'FUE Saffier / DHI',
+        description: 'FUE Saffier is de standaard in haartransplantatie: met ultradunne saffieren mesjes voor nauwkeurige plaatsing, minimale littekens en sneller herstel. DHI maakt directe implantatie mogelijk zonder scheren, met maximale controle over richting en dichtheid.',
+        exclusive: false
+      },
+      {
+        key: 'stemcellrepair' as FeatureKey,
+        title: 'GHI Stemcell Repair™',
+        description: 'Een stamceltherapie, exclusief ontwikkeld en uitgevoerd door GlobalHair Institute. We oogsten lichaamseigen stamcellen om beschadigde haarzakjes te herstellen en het transplantatiegebied te versterken, wat resulteert in 20-35% meer dichtheid en langdurige stabiliteit.',
+        exclusive: true
+      },
+      {
+        key: 'comfort' as FeatureKey,
+        title: 'Comfort Verdoving',
+        description: 'Een naaldloze verdoving die zonder prikken wordt aangebracht. Je voelt nog iets, maar veel minder intens. Voor een rustige, comfortabele ervaring zonder scherpe pijn.',
+        exclusive: false
+      },
+      {
+        key: 'followup' as FeatureKey,
+        title: '1 Personal Follow-Up',
+        description: 'Een persoonlijke check-up in onze kliniek in Barendrecht, uitgevoerd door een tricholoog (haarspecialist). Hier wordt je groei, herstel en hoofdhuidconditie gecontroleerd voor een optimale voortgang van het resultaat.',
+        exclusive: false
+      },
+      {
+        key: 'support' as FeatureKey,
+        title: '1 Year GHI Support',
+        description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon. Onze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen. Altijd bereikbaar, altijd persoonlijk.',
+        exclusive: false
+      },
+      {
+        key: 'precision' as FeatureKey,
+        title: 'GHI Precision Method™',
+        description: 'Een exclusief chirurgisch protocol ontwikkeld en gecertificeerd door Berkant Dural. Het is de methode waarmee al onze artsen & trichologen persoonlijk worden opgeleid om dezelfde hoge standaard en precisie te waarborgen. Een unieke werkwijze die ambacht, detail en rust combineert in perfecte omstandigheden zodat elk resultaat een meesterwerk in haartransplantatie wordt.',
+        exclusive: false
+      }
+    ]
+  },
+  Elite: {
+    price: '€21.950',
+    features: [
+      {
+        key: 'indicators' as FeatureKey,
+        title: 'Package Indicators',
+        description: 'Recovery x2 sneller\nMaximale dichtheid, volume & groei',
+        exclusive: false
+      },
+      {
+        key: 'fue' as FeatureKey,
+        title: 'FUE Saffier / DHI',
+        description: 'FUE Saffier is de standaard in haartransplantatie: met ultradunne saffieren mesjes voor nauwkeurige plaatsing, minimale littekens en sneller herstel. DHI maakt directe implantatie mogelijk zonder scheren, met maximale controle over richting en dichtheid.',
+        exclusive: false
+      },
+      {
+        key: 'stemcellrepair' as FeatureKey,
+        title: 'GHI Stemcell Repair™',
+        description: 'Een stamceltherapie, exclusief ontwikkeld en uitgevoerd door GlobalHair Institute. We oogsten lichaamseigen stamcellen om beschadigde haarzakjes te herstellen en het transplantatiegebied te versterken, wat resulteert in 20-35% meer dichtheid en langdurige stabiliteit.',
+        exclusive: false
+      },
+      {
+        key: 'fullcomfort' as FeatureKey,
+        title: 'Full Comfort Anesthesia',
+        description: 'Een korte, gecontroleerde narcose die zorgt dat de ingreep volledig pijnloos en ontspannen verloopt. Ideaal voor wie het hoogste niveau van comfort en rust wil tijdens de behandeling.',
+        exclusive: true
+      },
+      {
+        key: 'v6prime' as FeatureKey,
+        title: 'V6 Hairboost® - Prime',
+        description: 'Twee voor-behandelingen die het donorgebied versterken en de haarwortels activeren. Hierdoor kan er meer veilig geoogst worden en blijft het donorgebied vol, gezond en vrijwel onzichtbaar behandeld.',
+        exclusive: true
+      },
+      {
+        key: 'v6recovery' as FeatureKey,
+        title: 'V6 Hairboost® - Recovery',
+        description: 'Acht na-behandelingen die het herstel tot twee keer sneller maken. Dankzij onze exclusieve vitaminekuur stimuleert dit het groeiproces, waardoor je na 6 maanden al het resultaat ziet dat normaal pas na 12 maanden optreedt.',
+        exclusive: true
+      },
+      {
+        key: 'biotine' as FeatureKey,
+        title: '1 Year Biotine Cure',
+        description: 'Een kuur van 12 potjes met onze eigen formule, rijk aan biotine en essentiële voedingsstoffen. Ontwikkeld om de haargroei van binnenuit te versterken en het resultaat van de behandeling langdurig te ondersteunen.',
+        exclusive: true
+      },
+      {
+        key: 'shampoo' as FeatureKey,
+        title: '1 Year Shampoo Care',
+        description: 'Een set van 6 flessen shampoo uit onze eigen formule, speciaal ontwikkeld om de hoofdhuid te kalmeren en de haargroei te stimuleren. Zorgt voor gezonde, sterke haren en ondersteunt het herstel na de behandeling.',
+        exclusive: true
+      },
+      {
+        key: 'washes' as FeatureKey,
+        title: '2 Washes',
+        description: 'Twee professionele wassingen op locatie, kort na de behandeling. Uitgevoerd door onze specialisten om de hoofdhuid te reinigen en complicaties te minimaliseren voor een veilig en optimaal herstel.',
+        exclusive: true
+      },
+      {
+        key: 'followup2' as FeatureKey,
+        title: '2 Personal Follow-Ups',
+        description: 'Twee persoonlijke check-ups in onze kliniek in Barendrecht, uitgevoerd door een tricholoog. We volgen je herstel en haargroei nauwgezet op, voor maximale controle en het beste eindresultaat.',
+        exclusive: true
+      },
+      {
+        key: 'support' as FeatureKey,
+        title: '1 Year GHI Support',
+        description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon. Onze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen. Altijd bereikbaar, altijd persoonlijk.',
+        exclusive: false
+      },
+      {
+        key: 'precision' as FeatureKey,
+        title: 'GHI Precision Method™',
+        description: 'Een exclusief chirurgisch protocol ontwikkeld en gecertificeerd door Berkant Dural. Het is de methode waarmee al onze artsen & trichologen persoonlijk worden opgeleid om dezelfde hoge standaard en precisie te waarborgen. Een unieke werkwijze die ambacht, detail en rust combineert in perfecte omstandigheden zodat elk resultaat een meesterwerk in haartransplantatie wordt.',
+        exclusive: false
+      }
+    ]
+  }
+};
+
 export const PackageStandardPage = () => {
   const { language } = useLanguage();
   const router = useRouter();
@@ -269,178 +438,11 @@ export const PackageStandardPage = () => {
     });
   };
 
-  const packageData = {
-    Standard: {
-      price: '€7.250',
-      features: [
-        {
-          key: 'indicators' as FeatureKey,
-          title: 'Package Indicators',
-          description: 'Natuurlijk herstel, zichtbaar resultaat',
-          exclusive: false
-        },
-        {
-          key: 'fue' as FeatureKey,
-          title: 'FUE Saffier / DHI',
-          description: 'FUE Saffier is de standaard in haartransplantatie: met ultradunne saffieren mesjes voor nauwkeurige plaatsing, minimale littekens en sneller herstel. DHI maakt directe implantatie mogelijk zonder scheren, met maximale controle over richting en dichtheid.',
-          exclusive: false
-        },
-        {
-          key: 'comfort' as FeatureKey,
-          title: 'Comfort Verdoving',
-          description: 'Een naaldloze verdoving die zonder prikken wordt aangebracht. Je voelt nog iets, maar veel minder intens. Voor een rustige, comfortabele ervaring zonder scherpe pijn.',
-          exclusive: false
-        },
-        {
-          key: 'followup' as FeatureKey,
-          title: '1 Personal Follow-Up',
-          description: 'Een persoonlijke check-up in onze kliniek in Barendrecht, uitgevoerd door een tricholoog (haarspecialist). Hier wordt je groei, herstel en hoofdhuidconditie gecontroleerd voor een optimale voortgang van het resultaat.',
-          exclusive: false
-        },
-        {
-          key: 'support' as FeatureKey,
-          title: '1 Year GHI Support',
-          description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon. Onze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen. Altijd bereikbaar, altijd persoonlijk.',
-          exclusive: false
-        },
-        {
-          key: 'precision' as FeatureKey,
-          title: 'GHI Precision Method™',
-          description: 'Een exclusief chirurgisch protocol ontwikkeld en gecertificeerd door Berkant Dural. Het is de methode waarmee al onze artsen & trichologen persoonlijk worden opgeleid om dezelfde hoge standaard en precisie te waarborgen. Een unieke werkwijze die ambacht, detail en rust combineert in perfecte omstandigheden zodat elk resultaat een meesterwerk in haartransplantatie wordt.',
-          exclusive: false
-        }
-      ]
-    },
-    Premium: {
-      price: '€12.950',
-      features: [
-        {
-          key: 'indicators' as FeatureKey,
-          title: 'Package Indicators',
-          description: 'Recovery x2 sneller\nMeer dichtheid & langdurige groei',
-          exclusive: false
-        },
-        {
-          key: 'fue' as FeatureKey,
-          title: 'FUE Saffier / DHI',
-          description: 'FUE Saffier is de standaard in haartransplantatie: met ultradunne saffieren mesjes voor nauwkeurige plaatsing, minimale littekens en sneller herstel. DHI maakt directe implantatie mogelijk zonder scheren, met maximale controle over richting en dichtheid.',
-          exclusive: false
-        },
-        {
-          key: 'stemcellrepair' as FeatureKey,
-          title: 'GHI Stemcell Repair™',
-          description: 'Een stamceltherapie, exclusief ontwikkeld en uitgevoerd door GlobalHair Institute. We oogsten lichaamseigen stamcellen om beschadigde haarzakjes te herstellen en het transplantatiegebied te versterken, wat resulteert in 20-35% meer dichtheid en langdurige stabiliteit.',
-          exclusive: true
-        },
-        {
-          key: 'comfort' as FeatureKey,
-          title: 'Comfort Verdoving',
-          description: 'Een naaldloze verdoving die zonder prikken wordt aangebracht. Je voelt nog iets, maar veel minder intens. Voor een rustige, comfortabele ervaring zonder scherpe pijn.',
-          exclusive: false
-        },
-        {
-          key: 'followup' as FeatureKey,
-          title: '1 Personal Follow-Up',
-          description: 'Een persoonlijke check-up in onze kliniek in Barendrecht, uitgevoerd door een tricholoog (haarspecialist). Hier wordt je groei, herstel en hoofdhuidconditie gecontroleerd voor een optimale voortgang van het resultaat.',
-          exclusive: false
-        },
-        {
-          key: 'support' as FeatureKey,
-          title: '1 Year GHI Support',
-          description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon. Onze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen. Altijd bereikbaar, altijd persoonlijk.',
-          exclusive: false
-        },
-        {
-          key: 'precision' as FeatureKey,
-          title: 'GHI Precision Method™',
-          description: 'Een exclusief chirurgisch protocol ontwikkeld en gecertificeerd door Berkant Dural. Het is de methode waarmee al onze artsen & trichologen persoonlijk worden opgeleid om dezelfde hoge standaard en precisie te waarborgen. Een unieke werkwijze die ambacht, detail en rust combineert in perfecte omstandigheden zodat elk resultaat een meesterwerk in haartransplantatie wordt.',
-          exclusive: false
-        }
-      ]
-    },
-    Elite: {
-      price: '€21.950',
-      features: [
-        {
-          key: 'indicators' as FeatureKey,
-          title: 'Package Indicators',
-          description: 'Recovery x2 sneller\nMaximale dichtheid, volume & groei',
-          exclusive: false
-        },
-        {
-          key: 'fue' as FeatureKey,
-          title: 'FUE Saffier / DHI',
-          description: 'FUE Saffier is de standaard in haartransplantatie: met ultradunne saffieren mesjes voor nauwkeurige plaatsing, minimale littekens en sneller herstel. DHI maakt directe implantatie mogelijk zonder scheren, met maximale controle over richting en dichtheid.',
-          exclusive: false
-        },
-        {
-          key: 'stemcellrepair' as FeatureKey,
-          title: 'GHI Stemcell Repair™',
-          description: 'Een stamceltherapie, exclusief ontwikkeld en uitgevoerd door GlobalHair Institute. We oogsten lichaamseigen stamcellen om beschadigde haarzakjes te herstellen en het transplantatiegebied te versterken, wat resulteert in 20-35% meer dichtheid en langdurige stabiliteit.',
-          exclusive: false
-        },
-        {
-          key: 'fullcomfort' as FeatureKey,
-          title: 'Full Comfort Anesthesia',
-          description: 'Een korte, gecontroleerde narcose die zorgt dat de ingreep volledig pijnloos en ontspannen verloopt. Ideaal voor wie het hoogste niveau van comfort en rust wil tijdens de behandeling.',
-          exclusive: true
-        },
-        {
-          key: 'v6prime' as FeatureKey,
-          title: 'V6 Hairboost® - Prime',
-          description: 'Twee voor-behandelingen die het donorgebied versterken en de haarwortels activeren. Hierdoor kan er meer veilig geoogst worden en blijft het donorgebied vol, gezond en vrijwel onzichtbaar behandeld.',
-          exclusive: true
-        },
-        {
-          key: 'v6recovery' as FeatureKey,
-          title: 'V6 Hairboost® - Recovery',
-          description: 'Acht na-behandelingen die het herstel tot twee keer sneller maken. Dankzij onze exclusieve vitaminekuur stimuleert dit het groeiproces, waardoor je na 6 maanden al het resultaat ziet dat normaal pas na 12 maanden optreedt.',
-          exclusive: true
-        },
-        {
-          key: 'biotine' as FeatureKey,
-          title: '1 Year Biotine Cure',
-          description: 'Een kuur van 12 potjes met onze eigen formule, rijk aan biotine en essentiële voedingsstoffen. Ontwikkeld om de haargroei van binnenuit te versterken en het resultaat van de behandeling langdurig te ondersteunen.',
-          exclusive: true
-        },
-        {
-          key: 'shampoo' as FeatureKey,
-          title: '1 Year Shampoo Care',
-          description: 'Een set van 6 flessen shampoo uit onze eigen formule, speciaal ontwikkeld om de hoofdhuid te kalmeren en de haargroei te stimuleren. Zorgt voor gezonde, sterke haren en ondersteunt het herstel na de behandeling.',
-          exclusive: true
-        },
-        {
-          key: 'washes' as FeatureKey,
-          title: '2 Washes',
-          description: 'Twee professionele wassingen op locatie, kort na de behandeling. Uitgevoerd door onze specialisten om de hoofdhuid te reinigen en complicaties te minimaliseren voor een veilig en optimaal herstel.',
-          exclusive: true
-        },
-        {
-          key: 'followup2' as FeatureKey,
-          title: '2 Personal Follow-Ups',
-          description: 'Twee persoonlijke check-ups in onze kliniek in Barendrecht, uitgevoerd door een tricholoog. We volgen je herstel en haargroei nauwgezet op, voor maximale controle en het beste eindresultaat.',
-          exclusive: true
-        },
-        {
-          key: 'support' as FeatureKey,
-          title: '1 Year GHI Support',
-          description: 'Een jaar lang persoonlijke begeleiding via WhatsApp of telefoon. Onze specialisten staan klaar om jouw vragen te beantwoorden en je groei van dichtbij te volgen. Altijd bereikbaar, altijd persoonlijk.',
-          exclusive: false
-        },
-        {
-          key: 'precision' as FeatureKey,
-          title: 'GHI Precision Method™',
-          description: 'Een exclusief chirurgisch protocol ontwikkeld en gecertificeerd door Berkant Dural. Het is de methode waarmee al onze artsen & trichologen persoonlijk worden opgeleid om dezelfde hoge standaard en precisie te waarborgen. Een unieke werkwijze die ambacht, detail en rust combineert in perfecte omstandigheden zodat elk resultaat een meesterwerk in haartransplantatie wordt.',
-          exclusive: false
-        }
-      ]
-    }
-  };
-
-  const currentPackage = packageData[activeTier];
+  const currentPackage = PACKAGE_DATA[activeTier];
   const features = currentPackage.features;
 
-  const getCurrentPrice = () => {
+  // Memoize price calculation to ensure stable references and correct reactivity
+  const currentPrice = useMemo(() => {
     if (activeCountry === 'tr') {
       switch (activeTier) {
         case 'Standard':
@@ -448,11 +450,11 @@ export const PackageStandardPage = () => {
         case 'Premium':
           return '€8.950';
         default:
-          return currentPackage.price;
+          return PACKAGE_DATA[activeTier].price;
       }
     }
-    return currentPackage.price;
-  };
+    return PACKAGE_DATA[activeTier].price;
+  }, [activeCountry, activeTier]);
 
   const handleClose = () => {
     setIsExiting(true);
@@ -461,8 +463,6 @@ export const PackageStandardPage = () => {
 
   // Dynamic page key based on tier
   const pageKey = `package-${activeTier.toLowerCase()}`;
-
-
 
   return (
     <>
@@ -779,8 +779,12 @@ export const PackageStandardPage = () => {
 
                   {/* Price pill */}
                   <div className="flex justify-end mt-1 mb-1">
-                    <div className="px-3 py-1 rounded-full text-white text-[13px] backdrop-blur-md transition-all duration-300 animate-scale-in" style={{ background: '#FFFFFF1A', fontWeight: 300 }}>
-                      {getCurrentPrice()}
+                    <div
+                      key={currentPrice}
+                      className="px-3 py-1 rounded-full text-white text-[13px] backdrop-blur-md transition-all duration-300 animate-scale-in"
+                      style={{ background: '#FFFFFF1A', fontWeight: 300 }}
+                    >
+                      {currentPrice}
                     </div>
                   </div>
                 </div>
