@@ -29,7 +29,11 @@ export const PackageStandardPage = () => {
   );
   const [isExiting, setIsExiting] = useState(false);
   const [openFeatures, setOpenFeatures] = useState<Set<FeatureKey>>(new Set());
-  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // Track latest request to handle race conditions
+  const latestTierRef = useRef(activeTier);
+  const latestCountryRef = useRef(activeCountry);
+
   const [showEliteTooltip, setShowEliteTooltip] = useState(false);
   const { handlePopupClose } = usePopupClose();
 
@@ -130,6 +134,7 @@ export const PackageStandardPage = () => {
     if (urlTier) {
       const normalizedTier = (urlTier.charAt(0).toUpperCase() + urlTier.slice(1)) as 'Standard' | 'Premium' | 'Elite';
       setActiveTier(normalizedTier);
+      latestTierRef.current = normalizedTier;
     }
   }, [urlTier]);
 
@@ -171,113 +176,85 @@ export const PackageStandardPage = () => {
     });
   };
 
-  // Reset to Premium if switching to Turkey while Elite is selected
+  // Helper to handle safe video transitions
+  const updateBackgroundVideo = async (targetCountry: string, targetTier: 'Standard' | 'Premium' | 'Elite') => {
+    try {
+      // Load new video in background
+      const newVideoSrc = getVideoSource(targetTier);
+      const newVideo = await loadVideoInBackground(newVideoSrc);
+
+      // RACE CONDITION CHECK:
+      // Only apply this video if the user hasn't clicked something else in the meantime
+      if (latestTierRef.current !== targetTier || latestCountryRef.current !== targetCountry) {
+        // User moved on; discard this video and clean up
+        newVideo.remove();
+        return;
+      }
+
+      // Get current video
+      const currentVideo = videoContainerRef.current?.querySelector('video[style*="opacity: 1"]') as HTMLVideoElement;
+
+      // Prepare for crossfade
+      newVideo.style.zIndex = '0';
+
+      // Start crossfade after short delay
+      requestAnimationFrame(() => {
+        newVideo.style.transition = 'opacity 350ms ease-in-out';
+        newVideo.style.opacity = '1';
+
+        if (currentVideo) {
+          currentVideo.style.transition = 'opacity 350ms ease-in-out';
+          currentVideo.style.opacity = '0';
+
+          setTimeout(() => {
+            currentVideo.remove();
+          }, 350);
+        }
+      });
+
+    } catch (error) {
+      console.error('Video load failed:', error);
+      // We do NOT stop the UI here because the UI already updated!
+    }
+  };
+
   const handleCountryChange = async (country: 'nl' | 'tr') => {
     // Prevent switching to Turkey if Elite is selected
     if (country === 'tr' && activeTier === 'Elite') {
       return;
     }
 
-    if (isTransitioning) return;
-
-    setIsTransitioning(true);
-
+    // Determine new tier (downgrade Elite to Premium if moving to TR)
     const newTier = country === 'tr' && activeTier === 'Elite' ? 'Premium' : activeTier;
+
+    // Update refs and state IMMEDIATELY
+    latestCountryRef.current = country;
+    latestTierRef.current = newTier;
+    setActiveCountry(country);
+    if (newTier !== activeTier) setActiveTier(newTier);
+
     const basePath = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
 
     // Update URL without navigation
     window.history.replaceState(null, '', `${basePath}/${country}/${newTier.toLowerCase()}`);
 
-    // Get current video
-    const currentVideo = videoContainerRef.current?.querySelector('video[style*="opacity: 1"]') as HTMLVideoElement;
-
-    try {
-      // Load new video in background
-      const newVideoSrc = getVideoSource(newTier);
-      const newVideo = await loadVideoInBackground(newVideoSrc);
-
-      // Prepare for crossfade
-      newVideo.style.zIndex = '0';
-
-      // Start crossfade after short delay
-      setTimeout(() => {
-        newVideo.style.transition = 'opacity 350ms ease-in-out';
-        newVideo.style.opacity = '1';
-
-        if (currentVideo) {
-          currentVideo.style.transition = 'opacity 350ms ease-in-out';
-          currentVideo.style.opacity = '0';
-
-          setTimeout(() => {
-            currentVideo.remove();
-          }, 350);
-        }
-      }, 50);
-
-      // Update content quickly for snappy feel
-      setTimeout(() => {
-        setActiveCountry(country);
-        setActiveTier(newTier);
-      }, 50);
-
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 400);
-    } catch (error) {
-      console.error('Video load failed:', error);
-      setIsTransitioning(false);
-    }
+    // Fire-and-forget video load
+    updateBackgroundVideo(country, newTier);
   };
 
   const handleTierChange = async (tier: 'Standard' | 'Premium' | 'Elite') => {
-    if (isTransitioning) return;
-
-    setIsTransitioning(true);
+    // Update refs and state IMMEDIATELY
+    latestTierRef.current = tier;
+    setActiveTier(tier);
+    setOpenFeatures(new Set()); // Reset all accordions to collapsed state
 
     const basePath = language === 'nl' ? '/nl/haartransplantatie' : '/en/hair-transplant';
 
     // Update URL without navigation
     window.history.replaceState(null, '', `${basePath}/${activeCountry}/${tier.toLowerCase()}`);
 
-    // Get current video
-    const currentVideo = videoContainerRef.current?.querySelector('video[style*="opacity: 1"]') as HTMLVideoElement;
-
-    try {
-      // Load new video in background
-      const newVideoSrc = getVideoSource(tier);
-      const newVideo = await loadVideoInBackground(newVideoSrc);
-
-      // Prepare for crossfade
-      newVideo.style.zIndex = '0';
-
-      // Start crossfade after short delay
-      setTimeout(() => {
-        newVideo.style.transition = 'opacity 350ms ease-in-out';
-        newVideo.style.opacity = '1';
-
-        if (currentVideo) {
-          currentVideo.style.transition = 'opacity 350ms ease-in-out';
-          currentVideo.style.opacity = '0';
-
-          setTimeout(() => {
-            currentVideo.remove();
-          }, 350);
-        }
-      }, 50);
-
-      // Update content quickly for snappy feel
-      setTimeout(() => {
-        setActiveTier(tier);
-        setOpenFeatures(new Set()); // Reset all accordions to collapsed state
-      }, 50);
-
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 400);
-    } catch (error) {
-      console.error('Video load failed:', error);
-      setIsTransitioning(false);
-    }
+    // Fire-and-forget video load
+    updateBackgroundVideo(activeCountry, tier);
   };
 
   const toggleFeature = (key: FeatureKey) => {
