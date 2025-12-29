@@ -9,7 +9,8 @@ import { useRouter, useParams } from 'next/navigation';
 export const RechargeContent = ({ method = 'recharge' }: { method?: 'recharge' | 'rescue' | 'reborn' }) => {
   const router = useRouter();
   const params = useParams();
-  const lang = params?.lang || 'en';
+  const rawLang = params?.lang;
+  const lang = Array.isArray(rawLang) ? rawLang[0] : rawLang || 'en';
   const [hoveredCurve, setHoveredCurve] = React.useState<string | null>(null);
 
   const handleMethodNav = (m: string) => {
@@ -522,23 +523,13 @@ export const RechargeContent = ({ method = 'recharge' }: { method?: 'recharge' |
         {/* Treatment Column */}
         <div id="recharge-pricing-treatment" className="flex flex-col pl-4 items-start pb-4">
            <div className="flex gap-3 mb-2">
-             <svg 
-               width="28" 
-               height="28" 
-               viewBox="0 0 24 24" 
-               fill="none" 
-               stroke="currentColor" 
-               strokeWidth="1.8" 
-               strokeLinecap="round" 
-               strokeLinejoin="round" 
-               className="text-white/80"
-             >
-               <path d="M7 11v8a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-8" />
-               <path d="M10 11V7a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v4" />
-               <path d="M12 5V3" />
-               <path d="M10 3h4" />
-               <line x1="7" y1="11" x2="17" y2="11" />
-             </svg>
+              <img 
+                src="/assets/shampoo-icon-v3.png" 
+                alt="Shampoo" 
+                width="10" 
+                height="10" 
+                className="object-contain opacity-80 brightness-0 invert"
+              />
              <Pill className="text-white/80" size={28} strokeWidth={1.8} />
            </div>
            

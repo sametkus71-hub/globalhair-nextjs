@@ -114,6 +114,23 @@ export const RechargeLayout = ({ children }: { children: React.ReactNode }) => {
                           backdropFilter: 'blur(8px)',
                         }}
                       />
+                      {/* Blue Glow Effects */}
+                      <div 
+                        className="absolute top-0 left-1/2 -translate-x-1/2 w-[50%] h-[3px] z-10"
+                        style={{
+                          background: '#7990A5',
+                          filter: 'blur(5px)',
+                          opacity: 0.7
+                        }}
+                      />
+                      <div 
+                        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[50%] h-[3px] z-10"
+                        style={{
+                          background: '#7990A5',
+                          filter: 'blur(5px)',
+                          opacity: 0.7
+                        }}
+                      />
                       {/* Silver Metallic Border */}
                       <div 
                         className="absolute inset-0 rounded-full z-10 pointer-events-none"
@@ -137,7 +154,7 @@ export const RechargeLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
 
         {/* Content Area */}
-        <div className="flex-1 overflow-hidden relative">
+        <div className="flex-1 overflow-y-auto relative no-scrollbar">
           {children}
         </div>
       </div>
