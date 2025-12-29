@@ -122,7 +122,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
                 top: '10px',
                 right: '10px',
                 background: 'rgba(255, 255, 255, 0.08)',
-                backdropFilter: 'blur(20px)',
+                backdropFilter: 'blur(8px)',
                 borderRadius: '9999px',
                 padding: '2px 8px',
                 color: 'white',
@@ -179,7 +179,7 @@ export const MissionCardGlass = ({ className = '' }: MissionCardGlassProps) => {
         >
           <img
             className="profile-photo"
-            src={berkantProfile}
+            src={berkantProfile.src}
             alt="Berkant Dural"
             style={{
               width: '100%',

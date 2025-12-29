@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { Droplet, User, Pill, ArrowUpRight } from 'lucide-react';
+import { Droplet, User, Pill } from 'lucide-react';
 import { motion, Variants, AnimatePresence } from 'framer-motion';
 import { useRouter, useParams } from 'next/navigation';
 
@@ -61,7 +61,7 @@ export const RechargeContent = ({ method = 'recharge' }: { method?: 'recharge' |
   return (
     <motion.div 
       id="recharge-content-container" 
-      className="flex flex-col h-full w-full px-6 pt-4 pb-6 text-white relative z-10"
+      className="flex flex-col h-full w-full px-6 pt-4 pb-6 text-white relative z-10 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -334,10 +334,10 @@ export const RechargeContent = ({ method = 'recharge' }: { method?: 'recharge' |
       </motion.div>
 
       {/* Strength Meter */}
-      <motion.div id="recharge-strength-meter" variants={itemVariants} className="relative h-6 w-full mb-3 flex-shrink-0">
+      <motion.div id="recharge-strength-meter" variants={itemVariants} className="relative h-8 w-full mb-3 flex-shrink-0">
         <div className="flex gap-1.5 h-full" style={{ paddingRight: '12px' }}>
-          {[...Array(20)].map((_, i) => {
-            const isActive = i < (method === 'recharge' ? 12 : 20);
+          {[...Array(15)].map((_, i) => {
+            const isActive = i < (method === 'recharge' ? 10 : 15);
             const isFirst = i === 0;
             return (
               <motion.div 
@@ -358,7 +358,7 @@ export const RechargeContent = ({ method = 'recharge' }: { method?: 'recharge' |
                 }}
                 className={`h-full flex-shrink-0 ${isFirst ? 'w-5' : 'flex-1 min-w-0'}`}
                 style={isFirst ? {
-                  clipPath: 'polygon(0% 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%)',
+                  clipPath: 'polygon(0% 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%)',
                   marginRight: '-4px', // Reduced gap for the first transition
                   border: '0.5px solid rgba(255,255,255,0.1)',
                   borderRadius: '2px 0 0 2px'
@@ -523,13 +523,24 @@ export const RechargeContent = ({ method = 'recharge' }: { method?: 'recharge' |
         {/* Treatment Column */}
         <div id="recharge-pricing-treatment" className="flex flex-col pl-4 items-start pb-4">
            <div className="flex gap-3 mb-2">
-              <img 
-                src="/assets/shampoo-icon-v3.png" 
-                alt="Shampoo" 
-                width="10" 
-                height="10" 
-                className="object-contain opacity-80 brightness-0 invert"
-              />
+              <svg
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-white/80"
+              >
+                <rect x="7" y="10" width="10" height="12" rx="3" />
+                <path d="M12 10V7" />
+                <path d="M9 7h6" />
+                <path d="M12 7c0-1.5 1-2 2.5-2" />
+                <path d="M12 14v4" />
+                <path d="M10 16h4" />
+              </svg>
              <Pill className="text-white/80" size={28} strokeWidth={1.8} />
            </div>
            
