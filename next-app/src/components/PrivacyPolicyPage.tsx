@@ -23,7 +23,7 @@ const PrivacyPolicyPage = () => {
         handleClose();
       }
     };
-    
+
     document.addEventListener('keydown', handleEsc);
     return () => document.removeEventListener('keydown', handleEsc);
   }, []);
@@ -78,7 +78,7 @@ const PrivacyPolicyPage = () => {
       },
       {
         heading: 'Vragen en feedback',
-        content: 'We controleren regelmatig of we aan dit privacybeleid voldoen. Als u vragen heeft over dit privacybeleid, kunt u contact met ons opnemen:\n\nGlobalHair\nPesetastraat 76\n2321GK Leiden\n+31 (0) 85 75 00 577\ncontact@globalhair.nl'
+        content: 'We controleren regelmatig of we aan dit privacybeleid voldoen. Als u vragen heeft over dit privacybeleid, kunt u contact met ons opnemen:\n\nGlobalHair kliniek Nederland\nPesetastraat 76\n2991 XT Barendrecht\n085 750 0577\n\nGlobalHair kliniek Turkije\nKaynarca mh. Erol Kaya cd.\nNo:204 34890\nPendik, Istanbul Turkije\n085 750 0577\n\nV6 Hairboost kliniek\nFruitweg 22\n2321 GK Leiden\n085 750 0577\n\ncontact@globalhair.nl'
       }
     ]
   };
@@ -99,15 +99,14 @@ const PrivacyPolicyPage = () => {
 
   return (
     <>
-      <SEOHead 
+      <SEOHead
         title={content.title}
         description={language === 'nl' ? 'Privacybeleid van GlobalHair Institute.' : 'Privacy Policy of GlobalHair Institute.'}
       />
-      
-      <div 
-        className={`fixed inset-0 z-50 overflow-y-auto bg-white transition-opacity duration-300 font-['Inter'] ${
-          isExiting ? 'opacity-0' : 'opacity-100'
-        }`}
+
+      <div
+        className={`fixed inset-0 z-50 overflow-y-auto bg-white transition-opacity duration-300 font-['Inter'] ${isExiting ? 'opacity-0' : 'opacity-100'
+          }`}
       >
         <button
           onClick={handleClose}
@@ -115,12 +114,12 @@ const PrivacyPolicyPage = () => {
           aria-label={language === 'nl' ? 'Sluiten' : 'Close'}
         >
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
         </button>
-        
+
         <div className="min-h-screen py-20 px-6 md:px-8">
-          <div 
+          <div
             className="max-w-[800px] mx-auto"
             style={{
               animation: isExiting ? 'none' : 'fade-in 0.3s ease-out'
@@ -137,7 +136,7 @@ const PrivacyPolicyPage = () => {
             >
               {language === 'nl' ? 'Cookie-instellingen beheren' : 'Manage Cookie Preferences'}
             </button>
-            
+
             {content.intro && (
               <p className="text-xs leading-relaxed text-gray-600 font-light mb-8 whitespace-pre-line">
                 {content.intro}
