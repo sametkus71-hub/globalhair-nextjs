@@ -120,6 +120,60 @@ const CarouselVideo = ({ src, shouldPlay }: { src: string; shouldPlay: boolean }
   );
 };
 
+// V6 Specific Config
+const V6_FEATURES = {
+  recharge: {
+    features: [
+      "FUE Saffier / DHI",
+      "Comfort verdoving",
+      "Physical follow up",
+      "1 Year GHI Support",
+      "GHI Precision Method™"
+    ],
+    activeIndices: [0] 
+  },
+  rescue: {
+    features: [
+      "FUE Saffier / DHI",
+      "GHI Stemcell Repair™",
+      "Comfort verdoving",
+      "V6 Hairboost ® - Prime",
+      "V6 Hairboost ® - Recovery"
+    ],
+    activeIndices: [0, 1]
+  },
+  reborn: {
+    features: [
+      "GHI Stemcell Repair™",
+      "Full Comfort Anesthesia",
+      "V6 Hairboost ® - Prime",
+      "V6 Hairboost ® - Recovery"
+    ],
+    activeIndices: [0, 1, 2]
+  }
+};
+
+const V6_BASE = [
+  {
+    id: "recharge",
+    title: "Recharge",
+    bg: "https://GlobalHair.b-cdn.net/Bg%20Videos/V6%20-%20Restore.mp4",
+    type: "video"
+  },
+  {
+    id: "rescue",
+    title: "Rescue",
+    bg: "https://GlobalHair.b-cdn.net/Bg%20Videos/v6%20-%20Rescue.mp4",
+    type: "video"
+  },
+  {
+    id: "reborn",
+    title: "Reborn",
+    bg: "https://GlobalHair.b-cdn.net/Bg%20Videos/V6%20-%20Reborn.mp4",
+    type: "video"
+  },
+];
+
 export const TreatmentsCarousel = () => {
   const { language } = useLanguage();
   const { profile } = useSession();
@@ -130,14 +184,27 @@ export const TreatmentsCarousel = () => {
   // Check if we're on the V6 Hairboost page
   const isV6Page = pathname?.includes('/v6-hairboost');
 
-  // Always generate Dutch package paths for consistency
+  // Generate link based on context
   const getPackageLink = (packageId: string) => {
-    const tier = packageId.toLowerCase(); // 'standard', 'premium', or 'elite'
+    if (isV6Page) {
+      // V6 Links: /v6-hairboost/[method]
+      return `/${language}/v6-hairboost/${packageId}?from=treatments`;
+    }
+    // Standard Links
+    const tier = packageId.toLowerCase(); 
     return `/nl/haartransplantatie/nl/${tier}`;
   };
 
   const items = useMemo(() => {
-    // Order: Standard, Premium (middle/default), Elite
+    if (isV6Page) {
+      // Return V6 items
+      return V6_BASE.map(pkg => ({
+        ...pkg,
+        link: getPackageLink(pkg.id)
+      }));
+    }
+
+    // Return Standard items
     return BASE.map(pkg => {
       // Use compressed WebM videos for mobile, keep MP4 for desktop
       let bgVideo = pkg.bg;
@@ -149,11 +216,6 @@ export const TreatmentsCarousel = () => {
         } else if (pkg.id === 'elite') {
           bgVideo = 'https://GlobalHair.b-cdn.net/pakketten%20bg%20vid/D%20-%20Elite%20V0%20(1).webm';
         }
-      }
-
-      // Override Premium package video on V6 page
-      if (isV6Page && pkg.id === 'premium') {
-        bgVideo = 'https://GlobalHair.b-cdn.net/Bg%20Videos/V6%20-%20Restore.mp4';
       }
 
       return {
@@ -389,18 +451,25 @@ export const TreatmentsCarousel = () => {
               <div id={`treatments-card-content-${it.id}`} className="treat-card-content">
                 <div id={`treatments-card-title-${it.id}`} className={`treat-pill treat-pill-${it.id}`}>{it.title}</div>
                 <ul id={`treatments-features-list-${it.id}`} className="treat-features-list">
-                  {PACKAGE_FEATURES[it.id as keyof typeof PACKAGE_FEATURES].features.map((feature, idx) => {
-                    const activeIndices = PACKAGE_FEATURES[it.id as keyof typeof PACKAGE_FEATURES].activeIndices;
-                    const isActive = activeIndices.includes(idx);
-                    return (
-                      <li
-                        key={idx}
-                        className={`treat-feature-item ${!isActive ? 'treat-feature-faded' : ''}`}
-                      >
-                        {feature}
-                      </li>
-                    );
-                  })}
+                  {(() => {
+                    // Select correct feature set
+                    const featureSet: any = isV6Page ? V6_FEATURES : PACKAGE_FEATURES;
+                    const featuresData = featureSet[it.id];
+                    
+                    if (!featuresData) return null;
+
+                    return featuresData.features.map((feature: string, idx: number) => {
+                      const isActive = featuresData.activeIndices.includes(idx);
+                      return (
+                        <li
+                          key={idx}
+                          className={`treat-feature-item ${!isActive ? 'treat-feature-faded' : ''}`}
+                        >
+                          {feature}
+                        </li>
+                      );
+                    });
+                  })()}
                 </ul>
                 <button
                   id={`treatments-read-more-${it.id}`}

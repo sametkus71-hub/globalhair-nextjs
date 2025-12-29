@@ -67,10 +67,16 @@ export const HaartransplantatieLayoutV6 = ({ children }: { children: React.React
     // Enable page scrolling
     document.body.style.overflow = '';
 
+    // Fix: Ensure popup-open class is removed when not on a popup route
+    // This fixes the missing logo issue when navigating back from method pages
+    if (!isOverlayRoute && !pathname.includes('/recharge') && !pathname.includes('/rescue') && !pathname.includes('/reborn')) {
+      document.body.classList.remove('popup-open');
+    }
+
     return () => {
       document.body.style.overflow = '';
     };
-  }, []);
+  }, [pathname, isOverlayRoute]);
 
   return (
     <main id="ht-layout-v6-main" ref={mainRef} className={`relative min-h-screen w-full bg-transparent ${isOverlayRoute ? '' : 'overflow-hidden'}`}>
@@ -81,7 +87,7 @@ export const HaartransplantatieLayoutV6 = ({ children }: { children: React.React
         {!isOverlayRoute && (
           <DesktopContainer>
             <div id="ht-layout-v6-header" className="hide-when-popup">
-              <GlassHeaderV6 />
+              <GlassHeaderV6 key={pathname} />
             </div>
           </DesktopContainer>
         )}

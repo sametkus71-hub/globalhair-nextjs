@@ -206,7 +206,7 @@ export const HowTabContentDesktop = () => {
             id="how-desktop-link-btn"
             onClick={() => {
               if (typeof document !== 'undefined') document.body.classList.add('popup-open');
-              router.push(`/${language}/v6-hairboost/methods/recharge`);
+              router.push(`/${language}/v6-hairboost/recharge`);
             }}
             className="text-white hover:text-white/80 transition-colors cursor-pointer"
             style={{

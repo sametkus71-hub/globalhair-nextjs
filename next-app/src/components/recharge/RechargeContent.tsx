@@ -14,7 +14,7 @@ export const RechargeContent = ({ method = 'recharge' }: { method?: 'recharge' |
   const [hoveredCurve, setHoveredCurve] = React.useState<string | null>(null);
 
   const handleMethodNav = (m: string) => {
-    router.push(`/${lang}/v6-hairboost/methods/${m}` as any);
+    router.push(`/${lang}/v6-hairboost/${m}` as any);
   };
 
   const containerVariants: Variants = {
@@ -176,14 +176,14 @@ export const RechargeContent = ({ method = 'recharge' }: { method?: 'recharge' |
               {['recharge', 'rescue', 'reborn'].map((m) => (
                 <motion.path
                   key={m}
-                  initial={{ opacity: 0, d: "M0,192 C100,160 200,130 328,110 L 328,250 L 0,250 Z" }}
+                  initial={{ opacity: 0, d: "M0,192 C100,160 220,120 328,85 C328,85 328,85 328,85 L 328,250 L 0,250 Z" }}
                   animate={{ 
                     opacity: method === m ? 1 : 0,
                     d: method === 'reborn'
-                      ? "M0,192 C40,90 140,50 328,35 L 328,250 L 0,250 Z"
+                      ? "M0,192 C30,80 120,30 328,25 C328,25 328,25 328,25 L 328,250 L 0,250 Z"
                       : method === 'rescue' 
-                      ? "M0,192 C60,130 160,85 328,85 L 328,250 L 0,250 Z" 
-                      : "M0,192 C100,160 200,130 328,110 L 328,250 L 0,250 Z"
+                      ? "M0,192 C40,120 130,85 190,85 C260,85 328,85 328,85 L 328,250 L 0,250 Z" 
+                      : "M0,192 C109,156 219,121 328,85 C328,85 328,85 328,85 L 328,250 L 0,250 Z"
                   }}
                   transition={{ 
                     opacity: { duration: 0.8, ease: "easeInOut" },
@@ -200,46 +200,9 @@ export const RechargeContent = ({ method = 'recharge' }: { method?: 'recharge' |
                 />
               ))}
 
-              {/* Curve 3: Bottom Faint (Baseline) */}
-              <motion.path
-                d="M0,192 C100,160 200,130 328,110"
-                fill="none"
-                stroke="#FCD34D"
-                strokeWidth="2"
-                strokeOpacity={method === 'recharge' || hoveredCurve === 'recharge' ? 0.4 : 0.3}
-                animate={{ strokeOpacity: method === 'recharge' || hoveredCurve === 'recharge' ? 0.4 : 0.3 }}
-                transition={{ duration: 0.8 }}
-                variants={graphPathVariants}
-                onClick={() => handleMethodNav('recharge')}
-                onMouseEnter={() => setHoveredCurve('recharge')}
-                onMouseLeave={() => setHoveredCurve(null)}
-                style={{ cursor: 'pointer', pointerEvents: 'auto' }}
-              />
-              {/* Dots for Baseline - High Fidelity */}
-              <motion.g 
-                onClick={() => handleMethodNav('recharge')}
-                onMouseEnter={() => setHoveredCurve('recharge')}
-                onMouseLeave={() => setHoveredCurve(null)}
-                style={{ cursor: 'pointer', pointerEvents: 'auto' }}
-                transition={{ staggerChildren: 0.1, delayChildren: 1.2 }}
-                animate={{ opacity: method === 'recharge' || hoveredCurve === 'recharge' ? 1 : 0.45 }}
-              >
-                {[
-                  { cx: 41, cy: 178 },
-                  { cx: 123, cy: 154 },
-                  { cx: 205, cy: 134 },
-                  { cx: 287, cy: 117 }
-                ].map((dot, i) => (
-                  <motion.g key={i} variants={dotVariants}>
-                    <circle cx={dot.cx} cy={dot.cy} r="6" fill="#FCD34D" fillOpacity="0.2" filter="url(#goldGlow)" />
-                    <circle cx={dot.cx} cy={dot.cy} r="2.5" fill="#FFFFFF" />
-                  </motion.g>
-                ))}
-              </motion.g>
-
               {/* Curve 1: Blue (Top - Potential) */}
               <motion.path
-                 d="M0,192 C40,90 140,50 328,35"
+                 d="M0,192 C30,80 120,30 328,25"
                  fill="none"
                  stroke="url(#blueLineGradient)"
                  strokeWidth="2"
@@ -262,11 +225,11 @@ export const RechargeContent = ({ method = 'recharge' }: { method?: 'recharge' |
                 animate={{ opacity: method === 'reborn' || hoveredCurve === 'reborn' ? 1 : 0.4 }}
               >
                 {[
-                  { cx: 45, cy: 125 },
-                  { cx: 90, cy: 90 },
-                  { cx: 130, cy: 72 },
-                  { cx: 170, cy: 58 },
-                  { cx: 258, cy: 42 }
+                  { cx: 38, cy: 115 },
+                  { cx: 81, cy: 78 },
+                  { cx: 130, cy: 54 },
+                  { cx: 190, cy: 38 },
+                  { cx: 263, cy: 28 }
                 ].map((dot, i) => (
                   <motion.g key={i} variants={dotVariants}>
                     <circle cx={dot.cx} cy={dot.cy} r="8" fill="#93C5FD" fillOpacity="0.25" filter="url(#blueGlow)" />
@@ -275,9 +238,9 @@ export const RechargeContent = ({ method = 'recharge' }: { method?: 'recharge' |
                 ))}
               </motion.g>
 
-              {/* Curve 2: Gold (Middle - Active Path) */}
+              {/* Curve 2: Orange (Middle - Rescue) */}
               <motion.path
-                d="M0,192 C60,130 160,85 328,85"
+                d="M0,192 C40,120 130,85 190,85 L 328,85"
                 fill="none"
                 stroke="#FF9100"
                 strokeWidth="2"
@@ -301,15 +264,51 @@ export const RechargeContent = ({ method = 'recharge' }: { method?: 'recharge' |
                 animate={{ opacity: method === 'rescue' || hoveredCurve === 'rescue' ? 1 : 0.4 }}
               >
                 {[
-                  { cx: 48, cy: 153 },
-                  { cx: 100, cy: 124 },
-                  { cx: 150, cy: 106 },
-                  { cx: 200, cy: 95 },
-                  { cx: 255, cy: 87 }
+                  { cx: 30, cy: 152 },
+                  { cx: 55, cy: 130 },
+                  { cx: 90, cy: 110 },
+                  { cx: 130, cy: 94 },
+                  { cx: 175, cy: 85 }
                 ].map((dot, i) => (
                   <motion.g key={i} variants={dotVariants}>
                     <circle cx={dot.cx} cy={dot.cy} r="8" fill="#FF9100" fillOpacity="0.25" filter="url(#orangeGlow)" />
                     <circle cx={dot.cx} cy={dot.cy} r="3.5" fill="#FFFFFF" />
+                  </motion.g>
+                ))}
+              </motion.g>
+
+              {/* Curve 3: Gold (Bottom - Recharge) */}
+              <motion.path
+                d="M0,192 L328,85"
+                fill="none"
+                stroke="#FCD34D"
+                strokeWidth="2"
+                strokeOpacity={method === 'recharge' || hoveredCurve === 'recharge' ? 0.4 : 0.3}
+                animate={{ strokeOpacity: method === 'recharge' || hoveredCurve === 'recharge' ? 0.4 : 0.3 }}
+                transition={{ duration: 0.8 }}
+                variants={graphPathVariants}
+                onClick={() => handleMethodNav('recharge')}
+                onMouseEnter={() => setHoveredCurve('recharge')}
+                onMouseLeave={() => setHoveredCurve(null)}
+                style={{ cursor: 'pointer', pointerEvents: 'auto' }}
+              />
+              <motion.g 
+                onClick={() => handleMethodNav('recharge')}
+                onMouseEnter={() => setHoveredCurve('recharge')}
+                onMouseLeave={() => setHoveredCurve(null)}
+                style={{ cursor: 'pointer', pointerEvents: 'auto' }}
+                transition={{ staggerChildren: 0.1, delayChildren: 1.2 }}
+                animate={{ opacity: method === 'recharge' || hoveredCurve === 'recharge' ? 1 : 0.45 }}
+              >
+                {[
+                  { cx: 48, cy: 176 },
+                  { cx: 90, cy: 162 },
+                  { cx: 145, cy: 144 },
+                  { cx: 200, cy: 126 }
+                ].map((dot, i) => (
+                  <motion.g key={i} variants={dotVariants}>
+                    <circle cx={dot.cx} cy={dot.cy} r="6" fill="#FCD34D" fillOpacity="0.2" filter="url(#goldGlow)" />
+                    <circle cx={dot.cx} cy={dot.cy} r="2.5" fill="#FFFFFF" />
                   </motion.g>
                 ))}
               </motion.g>
@@ -359,7 +358,7 @@ export const RechargeContent = ({ method = 'recharge' }: { method?: 'recharge' |
                 className={`h-full flex-shrink-0 ${isFirst ? 'w-5' : 'flex-1 min-w-0'}`}
                 style={isFirst ? {
                   clipPath: 'polygon(0% 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%)',
-                  marginRight: '-4px', // Reduced gap for the first transition
+                  marginRight: '-5px', // Reduced gap for the first transition
                   border: '0.5px solid rgba(255,255,255,0.1)',
                   borderRadius: '2px 0 0 2px'
                 } : {

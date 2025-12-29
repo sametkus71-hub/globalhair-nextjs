@@ -1,8 +1,10 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation';
-import { X, ArrowUpRight, MessageCircle } from 'lucide-react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { X, ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
+import Image from 'next/image';
+import chatIcon from '@/assets/chat-icon.svg';
 
 export const RechargeLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
@@ -16,15 +18,32 @@ export const RechargeLayout = ({ children }: { children: React.ReactNode }) => {
   ];
 
   // Base path depends on language
-  const basePath = language === 'nl' ? '/nl/v6-hairboost/methods' : '/en/v6-hairboost/methods';
+  const basePath = language === 'nl' ? '/nl/v6-hairboost' : '/en/v6-hairboost';
 
-  const handleTabClick = (tabId: string) => {
-    // New structure: /v6-hairboost/methods/[method]
-    // Default is explicitly /v6-hairboost/methods/recharge or just /v6-hairboost/methods
-    if (tabId === 'recharge') {
-      router.push(`${basePath}/recharge` as any);
+  const searchParams = useSearchParams();
+  const fromSource = searchParams.get('from');
+
+  const handleClose = () => {
+    if (fromSource === 'treatments') {
+      router.push(`/${language}/v6-hairboost` as any);
+    } else if (fromSource === 'how') {
+      router.push(`/${language}/v6-hairboost/how` as any);
     } else {
-      router.push(`${basePath}/${tabId}` as any);
+      // Default fallback: Treatments page
+      router.push(`/${language}/v6-hairboost` as any);
+    }
+  }
+
+  // Preserve 'from' parameter when switching tabs within the layout
+  const handleTabClick = (tabId: string) => {
+    // New structure: /v6-hairboost/[method]
+    // Default is explicitly /v6-hairboost/recharge or just /v6-hairboost
+    const query = fromSource ? `?from=${fromSource}` : '';
+    
+    if (tabId === 'recharge') {
+      router.push(`${basePath}/recharge${query}` as any);
+    } else {
+      router.push(`${basePath}/${tabId}${query}` as any);
     }
   };
 
@@ -38,32 +57,35 @@ export const RechargeLayout = ({ children }: { children: React.ReactNode }) => {
     <div id="recharge-layout-backdrop" className="fixed inset-0 z-50 flex flex-col items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
       {/* Background Video - Now covering full page behind overlay */}
       <div id="recharge-bg-video-container" className="absolute inset-0 z-0 overflow-hidden">
+        {/* Render all 3 videos, control opacity for smooth transition */}
+        {[
+          { id: 'recharge', src: 'https://GlobalHair.b-cdn.net/Bg%20Videos/V6%20-%20Restore.mp4' },
+          { id: 'rescue', src: 'https://GlobalHair.b-cdn.net/Bg%20Videos/v6%20-%20Rescue.mp4' },
+          { id: 'reborn', src: 'https://GlobalHair.b-cdn.net/Bg%20Videos/V6%20-%20Reborn.mp4' }
+        ].map((video) => (
           <video
-            key={activeTabId} 
+            key={video.id}
             autoPlay
             loop
             muted
             playsInline
-            className="w-full h-full object-cover animate-in fade-in duration-700 opacity-100"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
+              activeTabId === video.id ? 'opacity-100' : 'opacity-0'
+            }`}
+             style={{ 
+              zIndex: activeTabId === video.id ? 1 : 0 
+            }}
           >
-            <source
-              src={
-                activeTabId === 'rescue'
-                  ? 'https://GlobalHair.b-cdn.net/Bg%20Videos/v6%20-%20Rescue.mp4'
-                  : activeTabId === 'reborn'
-                  ? 'https://GlobalHair.b-cdn.net/Bg%20Videos/V6%20-%20Reborn.mp4'
-                  : 'https://GlobalHair.b-cdn.net/Bg%20Videos/V6%20-%20Restore.mp4' 
-              }
-              type="video/mp4"
-            />
+            <source src={video.src} type="video/mp4" />
           </video>
+        ))}
           {/* Dark overlay for readability */}
-          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-black/40 z-10" />
       </div>
 
       <div 
         id="recharge-glass-card"
-        className="silver-gradient-border relative z-10 w-full max-w-[400px] h-[800px] max-h-[90vh] rounded-[32px] overflow-hidden flex flex-col"
+        className="silver-gradient-border relative z-10 w-full max-w-[400px] h-[800px] max-h-[90vh] rounded-[24px] overflow-hidden flex flex-col"
         style={{
           background: '#0000001A', 
           backdropFilter: 'blur(12.5px)',
@@ -77,7 +99,7 @@ export const RechargeLayout = ({ children }: { children: React.ReactNode }) => {
         {/* Close Button */}
         <button
           id="recharge-close-button"
-          onClick={() => router.push(`/${language}/v6-hairboost/how` as any)}
+          onClick={handleClose}
           className="absolute top-6 left-6 z-20 text-white/70 hover:text-white transition-colors"
         >
           <X size={24} />
@@ -259,7 +281,7 @@ export const RechargeLayout = ({ children }: { children: React.ReactNode }) => {
             e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.40), 0 0 15px rgba(172, 185, 193, 0.2)';
           }}
         >
-          <MessageCircle size={24} className="text-white" />
+          <Image src={chatIcon} alt="Chat" style={{ width: 'clamp(18px, 2vh, 20px)', height: 'clamp(18px, 2vh, 20px)' }} />
         </button>
       </div>
 

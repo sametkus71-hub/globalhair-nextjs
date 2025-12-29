@@ -2305,6 +2305,23 @@ body {
   background: rgba(88, 28, 135, 0.15);
 }
 
+/* V6 Hairboost Pills - Gradient Borders matching Graph Lines */
+
+/* Recharge: Gold Shine (matches stroke="#FCD34D") */
+.treat-pill-recharge::before {
+  background: linear-gradient(90deg, #FCD34D 0%, #FFFFFF 50%, #FCD34D 100%);
+}
+
+/* Rescue: Orange Shine (matches stroke="#FF9100") */
+.treat-pill-rescue::before {
+  background: linear-gradient(90deg, #FF9100 0%, #FFFFFF 50%, #FF9100 100%);
+}
+
+/* Reborn: Blue Gradient Shine (matches url(#blueLineGradient)) */
+.treat-pill-reborn::before {
+  background: linear-gradient(90deg, #9DC4EA 0%, #FFFFFF 50%, #9DC4EA 100%);
+}
+
 .treat-features-list {
   list-style: none;
   padding: 0;
