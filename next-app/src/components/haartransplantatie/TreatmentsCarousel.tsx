@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter, usePathname } from 'next/navigation';
-import { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useSession } from "@/hooks/useSession";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -62,7 +62,7 @@ const BASE = [
 ];
 
 // Isolated video component to handle autoplay reliability independently
-const CarouselVideo = ({ src, shouldPlay }: { src: string; shouldPlay: boolean }) => {
+const CarouselVideo = React.memo(({ src, shouldPlay }: { src: string; shouldPlay: boolean }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const pathname = usePathname();
 
@@ -105,6 +105,7 @@ const CarouselVideo = ({ src, shouldPlay }: { src: string; shouldPlay: boolean }
       loop
       muted
       playsInline
+      preload="metadata"
       className="treat-card-bg"
       style={{
         position: 'absolute',
@@ -118,7 +119,9 @@ const CarouselVideo = ({ src, shouldPlay }: { src: string; shouldPlay: boolean }
       <source src={src} type="video/mp4" />
     </video>
   );
-};
+});
+
+CarouselVideo.displayName = 'CarouselVideo';
 
 // V6 Specific Config
 const V6_FEATURES = {
@@ -447,7 +450,7 @@ export const TreatmentsCarousel = () => {
               ) : (
                 <div className="treat-card-bg" style={{ backgroundImage: `url('${it.bg}')` }} />
               )}
-              <div className="treat-card-overlay" />
+              {!isV6Page && <div className="treat-card-overlay" />}
               <div id={`treatments-card-content-${it.id}`} className="treat-card-content">
                 <div id={`treatments-card-title-${it.id}`} className={`treat-pill treat-pill-${it.id}`}>{it.title}</div>
                 <ul id={`treatments-features-list-${it.id}`} className="treat-features-list">

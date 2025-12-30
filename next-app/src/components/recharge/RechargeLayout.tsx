@@ -5,11 +5,13 @@ import { X, ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 import Image from 'next/image';
 import chatIcon from '@/assets/chat-icon.svg';
+import { useBookingModal } from '@/contexts/BookingModalContext';
 
 export const RechargeLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const router = useRouter();
   const { language } = useLanguage();
+  const { openModal } = useBookingModal();
 
   const tabs = [
     { id: 'recharge', label: 'Recharge' },
@@ -62,23 +64,36 @@ export const RechargeLayout = ({ children }: { children: React.ReactNode }) => {
           { id: 'recharge', src: 'https://GlobalHair.b-cdn.net/Bg%20Videos/V6%20-%20Restore.mp4' },
           { id: 'rescue', src: 'https://GlobalHair.b-cdn.net/Bg%20Videos/v6%20-%20Rescue.mp4' },
           { id: 'reborn', src: 'https://GlobalHair.b-cdn.net/Bg%20Videos/V6%20-%20Reborn.mp4' }
-        ].map((video) => (
-          <video
-            key={video.id}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
-              activeTabId === video.id ? 'opacity-100' : 'opacity-0'
-            }`}
-             style={{ 
-              zIndex: activeTabId === video.id ? 1 : 0 
-            }}
-          >
-            <source src={video.src} type="video/mp4" />
-          </video>
-        ))}
+        ].map((video) => {
+          const isActive = activeTabId === video.id;
+          return (
+            <video
+              key={video.id}
+              autoPlay={isActive}
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
+                isActive ? 'opacity-100' : 'opacity-0'
+              }`}
+               style={{ 
+                zIndex: isActive ? 1 : 0 
+              }}
+              ref={(el) => {
+                if (el) {
+                  if (isActive) {
+                    el.play().catch(() => {});
+                  } else {
+                    el.pause();
+                  }
+                }
+              }}
+            >
+              <source src={video.src} type="video/mp4" />
+            </video>
+          );
+        })}
           {/* Dark overlay for readability */}
           <div className="absolute inset-0 bg-black/40 z-10" />
       </div>
@@ -100,15 +115,15 @@ export const RechargeLayout = ({ children }: { children: React.ReactNode }) => {
         <button
           id="recharge-close-button"
           onClick={handleClose}
-          className="absolute top-6 left-6 z-20 text-white/70 hover:text-white transition-colors"
+          className="absolute top-4 left-6 z-20 text-white/70 hover:text-white transition-colors"
         >
           <X size={24} />
         </button>
 
         {/* Tab Navigation */}
-        <div id="recharge-tab-nav" className="relative mt-20 px-6 flex justify-center z-10 w-full">
+        <div id="recharge-tab-nav" className="relative mt-12 px-4 flex justify-center z-10 w-full">
           <div 
-            className="flex w-full bg-white/5 rounded-full p-[3px] backdrop-blur-xl border border-white/10"
+            className="flex w-full rounded-full p-[2px] backdrop-blur-xl border border-white/10"
             style={{ boxShadow: 'inset 0 1px 5px rgba(0,0,0,0.2)' }}
           >
             {tabs.map((tab) => {
@@ -118,8 +133,8 @@ export const RechargeLayout = ({ children }: { children: React.ReactNode }) => {
                   key={tab.id}
                   id={`recharge-tab-btn-${tab.id}`}
                   onClick={() => handleTabClick(tab.id)}
-                  className={`relative flex-1 py-2.5 rounded-full text-[14px] font-medium transition-all duration-500 ${
-                    isActive ? 'text-white' : 'text-white/40 hover:text-white/60'
+                  className={`relative flex-1 py-2.5 rounded-full text-[13px] font-normal transition-all duration-500 ${
+                    isActive ? 'text-white active-tab-glow' : 'text-white/40 hover:text-white/60'
                   }`}
                   style={{
                     fontFamily: 'Inter, sans-serif',
@@ -136,28 +151,12 @@ export const RechargeLayout = ({ children }: { children: React.ReactNode }) => {
                           backdropFilter: 'blur(8px)',
                         }}
                       />
-                      {/* Blue Glow Effects */}
-                      <div 
-                        className="absolute top-0 left-1/2 -translate-x-1/2 w-[50%] h-[3px] z-10"
-                        style={{
-                          background: '#7990A5',
-                          filter: 'blur(5px)',
-                          opacity: 0.7
-                        }}
-                      />
-                      <div 
-                        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[50%] h-[3px] z-10"
-                        style={{
-                          background: '#7990A5',
-                          filter: 'blur(5px)',
-                          opacity: 0.7
-                        }}
-                      />
+                      
                       {/* Silver Metallic Border */}
                       <div 
                         className="absolute inset-0 rounded-full z-10 pointer-events-none"
                         style={{
-                          padding: '1.2px',
+                          padding: '1.5px',
                           background: 'linear-gradient(135deg, #949494 0%, #ACB9C1 20%, #FFFFFF 45%, #FFFFFF 55%, #ACB9C1 80%, #949494 100%)',
                           mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
                           WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
@@ -186,7 +185,7 @@ export const RechargeLayout = ({ children }: { children: React.ReactNode }) => {
         {/* Book a consult button - reused from FooterCTAGlass */}
         <button
           id="recharge-btn-book"
-          onClick={() => router.push(language === 'nl' ? '/nl/boek' : '/en/book')} // Or openModal if available
+          onClick={openModal} 
           className={`flex-1 gold-gradient-border cta-button-glow flex items-center rounded-full transition-all duration-200`}
           style={{
             padding: '0.4rem',
@@ -286,6 +285,33 @@ export const RechargeLayout = ({ children }: { children: React.ReactNode }) => {
       </div>
 
       <style jsx global>{`
+        .active-tab-glow {
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .active-tab-glow::before,
+        .active-tab-glow::after {
+          content: "";
+          filter: blur(8px);
+          pointer-events: none;
+          z-index: 15;
+          will-change: opacity;
+          background: linear-gradient(90deg, #fff0 0%, #bed5ea 50%, #fff0 100%);
+          width: 70%;
+          height: 16px;
+          position: absolute;
+          left: 50%;
+          transform: translate(-50%);
+        }
+        
+        .active-tab-glow::before {
+          top: -3px;
+        }
+        
+        .active-tab-glow::after {
+          bottom: 0; 
+        }
 
         @keyframes background-gradient-shift {
           0%, 100% {
