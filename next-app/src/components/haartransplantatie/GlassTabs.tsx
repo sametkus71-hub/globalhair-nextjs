@@ -8,7 +8,7 @@ interface GlassTabsProps {
   activeTab: string;
 }
 
-const tabs = ['Treatments', 'Reviews', 'How?', 'Mission', 'Contact'];
+const tabs = ['Treatments', 'Reviews', 'Pricing', 'Mission', 'Contact'];
 
 export const GlassTabs = ({ activeTab }: GlassTabsProps) => {
   const router = useRouter();
@@ -33,7 +33,7 @@ export const GlassTabs = ({ activeTab }: GlassTabsProps) => {
     const tabPaths: Record<string, string> = {
       'Treatments': basePath,
       'Reviews': `${basePath}/reviews`,
-      'How?': `${basePath}/how`,
+      'Pricing': `${basePath}/tr/standard`, // Hardcoded /tr/ as requested
       'Mission': `${basePath}/mission`,
       'Contact': `${basePath}/contact`,
     };
@@ -50,7 +50,7 @@ export const GlassTabs = ({ activeTab }: GlassTabsProps) => {
     const componentMap: Record<string, () => Promise<any>> = {
       'Treatments': () => import('@/components/TreatmentsPage'),
       'Reviews': () => import('@/components/HaartransplantatieReviewsPage'),
-      'How?': () => import('@/components/HowItWorksPage'),
+      // Pricing links to a popup route, so no specific page component to prefetch mapped here directly
       'Mission': () => import('@/components/HaartransplantatieMissionPage'),
       'Contact': () => import('@/components/HaartransplantatieContactPage'),
     };

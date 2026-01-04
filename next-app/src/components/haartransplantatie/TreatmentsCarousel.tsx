@@ -399,7 +399,7 @@ export const TreatmentsCarousel = () => {
                     router.push(it.link as any);
                   }}
                 >
-                  Read more
+                  See pricing
                 </button>
               </div>
             </article>

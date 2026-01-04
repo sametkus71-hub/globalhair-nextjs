@@ -200,15 +200,15 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         </div>
 
         {/* Standard Column */}
-        <div 
-          className="col col--standard cursor-pointer" 
+        <div
+          className="col col--standard cursor-pointer"
           onClick={() => handlePackageClick('standard')}
           style={{ cursor: 'pointer' }}
         >
           {/* Chip row */}
           <div
             className="chiprow flex justify-center"
-            style={{ 
+            style={{
               gap: '.2rem',
               marginBottom: 'clamp(0.75rem, 1.5vh, 1.25rem)',
             }}
@@ -238,9 +238,9 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           {/* Title */}
           <p
             className="pkg-title text-white text-center"
-            style={{ 
-              fontFamily: 'Inter, system-ui, sans-serif', 
-              fontWeight: 300, 
+            style={{
+              fontFamily: 'Inter, system-ui, sans-serif',
+              fontWeight: 300,
               fontSize: 'clamp(8px, 1vh, 10px)',
               marginBottom: 'clamp(0.5rem, 1vh, 0.75rem)',
             }}
@@ -261,15 +261,15 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         />
 
         {/* Premium Column */}
-        <div 
-          className="col col--premium cursor-pointer" 
+        <div
+          className="col col--premium cursor-pointer"
           onClick={() => handlePackageClick('premium')}
           style={{ cursor: 'pointer' }}
         >
           {/* Chip row */}
           <div
             className="chiprow flex justify-center"
-            style={{ 
+            style={{
               gap: '.2rem',
               marginBottom: 'clamp(0.75rem, 1.5vh, 1.25rem)',
             }}
@@ -300,9 +300,9 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           {/* Title */}
           <p
             className="pkg-title text-white text-center"
-            style={{ 
-              fontFamily: 'Inter, system-ui, sans-serif', 
-              fontWeight: 300, 
+            style={{
+              fontFamily: 'Inter, system-ui, sans-serif',
+              fontWeight: 300,
               fontSize: 'clamp(8px, 1vh, 10px)',
               marginBottom: 'clamp(0.5rem, 1vh, 0.75rem)',
             }}
@@ -313,11 +313,11 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           {/* Lines */}
           <p
             className="text-center"
-            style={{ 
-              fontFamily: 'Inter, system-ui, sans-serif', 
-              fontWeight: 300, 
-              fontSize: 'clamp(8px, 1vh, 10px)', 
-              color: 'rgba(255, 255, 255, 0.85)' 
+            style={{
+              fontFamily: 'Inter, system-ui, sans-serif',
+              fontWeight: 300,
+              fontSize: 'clamp(8px, 1vh, 10px)',
+              color: 'rgba(255, 255, 255, 0.85)'
             }}
           >
             V6 Hairboost®
@@ -336,15 +336,15 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
         />
 
         {/* Elite Column */}
-        <div 
-          className="col col--elite cursor-pointer" 
+        <div
+          className="col col--elite cursor-pointer"
           onClick={() => handlePackageClick('elite')}
           style={{ cursor: 'pointer' }}
         >
           {/* Chip row */}
           <div
             className="chiprow flex justify-center"
-            style={{ 
+            style={{
               gap: '.2rem',
               marginBottom: 'clamp(0.75rem, 1.5vh, 1.25rem)',
             }}
@@ -375,9 +375,9 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           {/* Title */}
           <p
             className="pkg-title text-white text-center"
-            style={{ 
-              fontFamily: 'Inter, system-ui, sans-serif', 
-              fontWeight: 300, 
+            style={{
+              fontFamily: 'Inter, system-ui, sans-serif',
+              fontWeight: 300,
               fontSize: 'clamp(8px, 1vh, 10px)',
               marginBottom: 'clamp(0.5rem, 1vh, 0.75rem)',
             }}
@@ -388,21 +388,21 @@ export const PackageCardGlass = ({ className }: PackageCardGlassProps) => {
           {/* Lines */}
           <div className="text-center space-y-1">
             <p
-              style={{ 
-                fontFamily: 'Inter, system-ui, sans-serif', 
-                fontWeight: 300, 
-                fontSize: 'clamp(8px, 1vh, 10px)', 
-                color: 'rgba(255, 255, 255, 0.85)' 
+              style={{
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontWeight: 300,
+                fontSize: 'clamp(8px, 1vh, 10px)',
+                color: 'rgba(255, 255, 255, 0.85)'
               }}
             >
               V6 Hairboost®
             </p>
             <p
-              style={{ 
-                fontFamily: 'Inter, system-ui, sans-serif', 
-                fontWeight: 300, 
-                fontSize: 'clamp(8px, 1vh, 10px)', 
-                color: 'rgba(255, 255, 255, 0.85)' 
+              style={{
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontWeight: 300,
+                fontSize: 'clamp(8px, 1vh, 10px)',
+                color: 'rgba(255, 255, 255, 0.85)'
               }}
             >
               GHI Stemcell repair™
