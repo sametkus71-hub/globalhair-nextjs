@@ -47,7 +47,8 @@ export const HaartransplantatieLayout = ({ children }: { children: React.ReactNo
   const getActiveTab = () => {
     const path = pathname;
     if (path.includes('/reviews')) return 'Reviews';
-    if (path.includes('/how')) return 'How?';
+    // Match standard, premium, or elite in URL to highlight Pricing tab
+    if (path.includes('/standard') || path.includes('/premium') || path.includes('/elite')) return 'Pricing';
     if (path.includes('/mission')) return 'Mission';
     if (path.includes('/contact')) return 'Contact';
     return 'Treatments';

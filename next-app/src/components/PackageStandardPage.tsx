@@ -192,7 +192,9 @@ export const PackageStandardPage = () => {
   const isMobile = useIsMobile();
 
   // Always default to Nederland (nl) when popup opens
-  const [activeCountry, setActiveCountry] = useState<'nl' | 'tr'>('nl');
+  const [activeCountry, setActiveCountry] = useState<'nl' | 'tr'>(
+    urlCountry === 'tr' ? 'tr' : 'nl'
+  );
   const [activeTier, setActiveTier] = useState<'Standard' | 'Premium' | 'Elite'>(
     urlTier ? (urlTier.charAt(0).toUpperCase() + urlTier.slice(1)) as 'Standard' | 'Premium' | 'Elite' : 'Standard'
   );
@@ -781,8 +783,19 @@ export const PackageStandardPage = () => {
                   <div className="flex justify-end mt-1 mb-1">
                     <div
                       key={currentPrice}
-                      className="px-3 py-1 rounded-full text-white text-[13px] backdrop-blur-md transition-all duration-300 animate-scale-in"
-                      style={{ background: '#FFFFFF1A', fontWeight: 300 }}
+                      className="px-3 py-1.5 rounded-full text-[13px] transition-all duration-300 animate-scale-in"
+                      style={{
+                        // Rich Deep Gold: Darker, more realistic metallic tones (Old Gold / Bronze)
+                        background: 'linear-gradient(135deg, #8B6508 0%, #D4AF37 40%, #8B6508 100%)', // Dark Goldenrod -> Metallic Gold -> Dark Goldenrod
+                        backgroundSize: '200% auto',
+                        color: 'white',
+                        fontWeight: 600,
+                        boxShadow: '0 4px 15px rgba(139, 101, 8, 0.4), inset 0 0 0 1px rgba(255,255,255,0.1)',
+                        backdropFilter: 'blur(10px)',
+                        WebkitBackdropFilter: 'blur(10px)',
+                        letterSpacing: '0.01em',
+                        textShadow: '0 1px 2px rgba(0,0,0,0.5)' // Softer, more subtle shadow for readability
+                      }}
                     >
                       {currentPrice}
                     </div>
