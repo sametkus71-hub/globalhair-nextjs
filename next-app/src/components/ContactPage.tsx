@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
-import { SEOHead } from '@/components/SEOHead';
+
 import { useLanguage } from '@/hooks/useLanguage';
 import { useSession } from '@/hooks/useSession';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -138,24 +138,20 @@ const ContactPage: React.FC = () => {
 
   return (
     <>
-      <SEOHead 
-        title={language === 'nl' ? 'Contact' : 'Contact'} 
-        description={language === 'nl' ? 'Neem contact op met GlobalHair Institute. Vind onze locaties in Nederland en Turkije.' : 'Contact GlobalHair Institute. Find our locations in the Netherlands and Turkey.'} 
-      />
       {/* Fixed Background - Outside page container */}
       <AnimatedContactBackground />
       <div className={`info-page-fullscreen overflow-y-auto overflow-x-hidden ${isExiting ? 'reviews-page-exit' : ''}`}>
         <div className="min-h-[var(--app-height)] relative">
           {/* Close Button */}
           <PopupCloseButton onClose={handleClose} />
-          
+
           {/* Scrollable Content */}
           <div className="pt-16 md:pt-20 pb-20 md:pb-32 px-6 relative z-10">
             <div className="max-w-2xl mx-auto min-h-[calc(var(--app-height)-8rem)] flex flex-col">
-              
+
               {/* Title Section */}
               <div className={`text-center mb-8 md:mb-16 transition-all duration-500 ease-out ${titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                <h1 className="md:text-4xl lg:text-5xl xl:text-6xl font-lato text-[#ACD1C6] mb-3 md:mb-4 leading-[0.9] tracking-tight font-normal text-4xl" style={{textShadow: '0 2px 6px rgba(0, 0, 0, 0.2)'}}>
+                <h1 className="md:text-4xl lg:text-5xl xl:text-6xl font-lato text-[#ACD1C6] mb-3 md:mb-4 leading-[0.9] tracking-tight font-normal text-4xl" style={{ textShadow: '0 2px 6px rgba(0, 0, 0, 0.2)' }}>
                   WHERE TO<br />FIND US
                 </h1>
               </div>
@@ -299,7 +295,7 @@ const ContactPage: React.FC = () => {
 
               {/* Country Toggle Buttons */}
               <div className={`flex justify-center mb-8 md:mb-12 transition-all duration-500 ease-out ${toggleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                <div 
+                <div
                   className="inline-flex p-1 rounded-lg"
                   style={{
                     background: 'rgba(255, 255, 255, 0.1)',
@@ -309,11 +305,10 @@ const ContactPage: React.FC = () => {
                 >
                   <button
                     onClick={() => setSelectedCountry('nederland')}
-                    className={`px-6 py-2 ${selectedCountry === 'nederland' ? 'rounded-sm' : 'rounded-lg'} font-lato text-sm font-medium transition-all duration-300 ease-out ${
-                      selectedCountry === 'nederland'
-                        ? 'text-white'
-                        : 'text-white/80 hover:text-white'
-                    }`}
+                    className={`px-6 py-2 ${selectedCountry === 'nederland' ? 'rounded-sm' : 'rounded-lg'} font-lato text-sm font-medium transition-all duration-300 ease-out ${selectedCountry === 'nederland'
+                      ? 'text-white'
+                      : 'text-white/80 hover:text-white'
+                      }`}
                     style={selectedCountry === 'nederland' ? {
                       backdropFilter: 'blur(40px)',
                       background: 'rgba(255, 255, 255, 0.3)'
@@ -323,11 +318,10 @@ const ContactPage: React.FC = () => {
                   </button>
                   <button
                     onClick={() => setSelectedCountry('turkije')}
-                    className={`px-6 py-2 ${selectedCountry === 'turkije' ? 'rounded-sm' : 'rounded-lg'} font-lato text-sm font-medium transition-all duration-300 ease-out ${
-                      selectedCountry === 'turkije'
-                        ? 'text-white'
-                        : 'text-white/80 hover:text-white'
-                    }`}
+                    className={`px-6 py-2 ${selectedCountry === 'turkije' ? 'rounded-sm' : 'rounded-lg'} font-lato text-sm font-medium transition-all duration-300 ease-out ${selectedCountry === 'turkije'
+                      ? 'text-white'
+                      : 'text-white/80 hover:text-white'
+                      }`}
                     style={selectedCountry === 'turkije' ? {
                       backdropFilter: 'blur(40px)',
                       background: 'rgba(255, 255, 255, 0.3)'
@@ -353,7 +347,7 @@ const ContactPage: React.FC = () => {
                     <AccordionItem key={`${selectedCountry}-${index}`} value={`item-${selectedCountry}-${index}`} className="border-b border-[#ACD1C6]/30 last:border-b-0">
                       <AccordionTrigger className="py-3 md:py-5 px-0 hover:no-underline group">
                         <div className="flex items-center justify-between w-full">
-                          <span className="text-left text-base md:text-lg font-lato font-normal text-[#ACD1C6] group-hover:text-[#ACD1C6]/80" style={{textShadow: '0 1px 4px rgba(0, 0, 0, 0.25)'}}>
+                          <span className="text-left text-base md:text-lg font-lato font-normal text-[#ACD1C6] group-hover:text-[#ACD1C6]/80" style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.25)' }}>
                             {location.name}
                           </span>
                           <Plus className="w-4 md:w-5 h-4 md:h-5 text-[#ACD1C6] transition-transform duration-200 shrink-0 group-data-[state=open]:rotate-45" />
@@ -362,7 +356,7 @@ const ContactPage: React.FC = () => {
                       <AccordionContent className="px-0 pb-3 md:pb-5">
                         <div className="space-y-3">
                           <div>
-                            <a 
+                            <a
                               href={`https://maps.google.com/?q=${encodeURIComponent(location.address.replace(/\n/g, ' '))}`}
                               target="_blank"
                               rel="noopener noreferrer"
@@ -372,7 +366,7 @@ const ContactPage: React.FC = () => {
                             </a>
                           </div>
                           <div>
-                            <a 
+                            <a
                               href={`tel:${location.phone.replace(/\s/g, '')}`}
                               className="text-sm md:text-base text-[#ACD1C6]/70 font-lato leading-relaxed hover:text-[#ACD1C6] transition-colors duration-200 border-b border-dotted border-[#ACD1C6]/30 hover:border-[#ACD1C6]/60 cursor-pointer inline-block"
                             >

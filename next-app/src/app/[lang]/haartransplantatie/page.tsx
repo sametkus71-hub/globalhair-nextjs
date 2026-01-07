@@ -1,10 +1,14 @@
-import type { Metadata } from 'next';
+import { getPageBySlug, generatePageMetadata } from '@/lib/seo';
 import TreatmentsPage from '@/components/TreatmentsPage';
 
-export const metadata: Metadata = {
-    title: 'GlobalHair Institute - Specialist in élk haartype & haarprobleem',
-    description: 'Bereik het beste resultaat met onze unieke GHI Stemcell repair™ en V6 Hairboost®. Wij zijn gespecialiseerd in oplossingen voor elk haartype en elk haarprobleem.',
-};
+export const dynamic = 'force-dynamic';
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+    const { lang } = await params;
+    const slug = `${lang}/haartransplantatie`;
+    const pageData = await getPageBySlug(slug);
+    return generatePageMetadata(pageData);
+}
 
 export default function Page() {
     return <TreatmentsPage />;

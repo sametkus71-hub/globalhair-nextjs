@@ -1,10 +1,14 @@
 import HaartransplantatieReviewsPage from "@/components/HaartransplantatieReviewsPage";
-import type { Metadata } from 'next';
+import { getPageBySlug, generatePageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-    title: 'Haartransplantatie Reviews & Ervaringen | GlobalHair Institute',
-    description: 'Bekijk echte ervaringen en reviews van klanten die een haartransplantatie bij GlobalHair Institute hebben gehad.',
-};
+export const dynamic = 'force-dynamic';
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+    const { lang } = await params;
+    const slug = `${lang}/haartransplantatie/reviews`;
+    const pageData = await getPageBySlug(slug);
+    return generatePageMetadata(pageData);
+}
 
 export default function Page() {
     return <HaartransplantatieReviewsPage />;

@@ -1,11 +1,15 @@
 import { HaartransplantatieLayoutV6 } from '@/components/haartransplantatie/HaartransplantatieLayoutV6';
 import HaartransplantatieReviewsPage from '@/components/HaartransplantatieReviewsPage';
-import type { Metadata } from 'next';
+import { getPageBySlug, generatePageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'V6 Hairboost® Reviews & Ervaringen | GlobalHair Institute',
-  description: 'Bekijk echte ervaringen en reviews van klanten die V6 Hairboost® behandeling bij GlobalHair Institute hebben gehad.',
-};
+export const dynamic = 'force-dynamic';
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  const slug = `${lang}/v6-hairboost/reviews`;
+  const pageData = await getPageBySlug(slug);
+  return generatePageMetadata(pageData);
+}
 
 export default function Page() {
   return (

@@ -1,10 +1,18 @@
 import ContactPage from "@/components/ContactPage";
-import { Metadata } from 'next';
+import { getPageBySlug, generatePageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-    title: 'Contact | GlobalHair Institute',
-    description: 'Neem contact op met GlobalHair Institute voor al uw vragen over haartransplantaties en haarverbetering.',
+type Props = {
+    params: { lang: string };
 };
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+    const { lang } = await params;
+    const slug = `${lang}/contact`;
+    const page = await getPageBySlug(slug);
+
+    const meta = await generatePageMetadata(page);
+    return meta;
+}
 
 export default function Page() {
     return <ContactPage />;

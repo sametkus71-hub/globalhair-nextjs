@@ -12,6 +12,7 @@ interface AdminSidebarContentProps {
 
 const navigationItems = [
   { label: 'Dashboard', path: '/admin', enabled: true },
+  { label: 'Pages', path: '/admin/pages', enabled: true },
   { label: 'Reviews', path: '/admin/reviews', enabled: true },
   { label: 'Bookings', path: '/admin/bookings', enabled: false },
   { label: 'Availability', path: '/admin/availability', enabled: false },
@@ -59,11 +60,11 @@ export const AdminSidebarContent = ({ onNavigate, showLogout = false }: AdminSid
           return (
             <Link
               key={item.path}
-              href={item.path}
+              href={item.path as any}
               onClick={onNavigate}
               className={`flex items-center px-4 py-3 text-sm rounded transition-colors ${isActive
-                  ? 'bg-gray-700 text-white border-l-2 border-white'
-                  : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                ? 'bg-gray-700 text-white border-l-2 border-white'
+                : 'text-gray-300 hover:bg-gray-700 hover:text-white'
                 }`}
             >
               {item.label}

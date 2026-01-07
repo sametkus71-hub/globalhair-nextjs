@@ -1,10 +1,14 @@
 import HaartransplantatieMissionPage from "@/components/HaartransplantatieMissionPage";
-import { Metadata } from 'next';
+import { getPageBySlug, generatePageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-    title: 'Missie Haartransplantatie | GlobalHair Institute',
-    description: 'Onze missie is het leveren van de hoogste kwaliteit haartransplantaties.',
-};
+export const dynamic = 'force-dynamic';
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+    const { lang } = await params;
+    const slug = `${lang}/haartransplantatie/mission`;
+    const pageData = await getPageBySlug(slug);
+    return generatePageMetadata(pageData);
+}
 
 export default function Page() {
     return <HaartransplantatieMissionPage />;

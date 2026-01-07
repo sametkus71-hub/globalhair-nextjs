@@ -1,11 +1,15 @@
 import { HaartransplantatieLayoutV6 } from '@/components/haartransplantatie/HaartransplantatieLayoutV6';
 import HaartransplantatieContactPage from '@/components/HaartransplantatieContactPage';
-import type { Metadata } from 'next';
+import { getPageBySlug, generatePageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Contact V6 Hairboost® | GlobalHair Institute',
-  description: 'Neem contact op met GlobalHair Institute voor meer informatie over V6 Hairboost® behandeling.',
-};
+export const dynamic = 'force-dynamic';
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  const slug = `${lang}/v6-hairboost/contact`;
+  const pageData = await getPageBySlug(slug);
+  return generatePageMetadata(pageData);
+}
 
 export default function Page() {
   return (

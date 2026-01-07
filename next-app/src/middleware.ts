@@ -15,6 +15,7 @@ export function middleware(request: NextRequest) {
         if (
             pathname.startsWith('/_next') ||
             pathname.startsWith('/api') ||
+            pathname.startsWith('/admin') || // Exclude admin routes
             pathname.includes('.') || // Files like favicon.ico, sitemap.xml
             pathname === '/robots.txt' ||
             pathname === '/sitemap.xml'

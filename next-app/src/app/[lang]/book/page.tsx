@@ -1,10 +1,14 @@
 import { BookingPage } from "@/components/BookingPage";
-import { Metadata } from 'next';
+import { getPageBySlug, generatePageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-    title: 'Book an Appointment - Personal Hair Consultation',
-    description: 'Book a no-obligation hair consultation at GlobalHair Institute. Get personal advice from our hair specialists about hair transplantation, V6 Hairboost® and more.',
-};
+export const dynamic = 'force-dynamic';
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+    const { lang } = await params;
+    const slug = `${lang}/book`;
+    const pageData = await getPageBySlug(slug);
+    return generatePageMetadata(pageData);
+}
 
 export default function Page() {
     return <BookingPage />;

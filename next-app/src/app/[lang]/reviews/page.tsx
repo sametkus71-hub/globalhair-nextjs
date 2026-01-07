@@ -1,10 +1,14 @@
 import { ReviewsPage } from "@/components/ReviewsPage";
-import type { Metadata } from 'next';
+import { getPageBySlug, generatePageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-    title: 'Ervaringen & Reviews | GlobalHair Institute',
-    description: 'Bekijk de ervaringen van onze klanten met haartransplantatie bij GlobalHair Institute.',
-};
+export const dynamic = 'force-dynamic';
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+    const { lang } = await params;
+    const slug = `${lang}/reviews`;
+    const pageData = await getPageBySlug(slug);
+    return generatePageMetadata(pageData);
+}
 
 export default function Page() {
     return <ReviewsPage />;

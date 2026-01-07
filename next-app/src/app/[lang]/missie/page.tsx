@@ -1,10 +1,14 @@
 import MissionPage from "@/components/MissionPage";
-import { Metadata } from 'next';
+import { getPageBySlug, generatePageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-    title: 'Onze Missie & Visie | GlobalHair Institute',
-    description: 'Ontdek waar GlobalHair Institute voor staat: Kwaliteit, innovatie en persoonlijk resultaat.',
-};
+export const dynamic = 'force-dynamic';
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+    const { lang } = await params;
+    const slug = `${lang}/missie`;
+    const pageData = await getPageBySlug(slug);
+    return generatePageMetadata(pageData);
+}
 
 export default function Page() {
     return <MissionPage />;
