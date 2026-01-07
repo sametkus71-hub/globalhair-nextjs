@@ -27,6 +27,7 @@ export type PageData = {
     status: string;
     is_in_sitemap: boolean;
     content: any;
+    component_key: string | null;
     // Social Fields
     og_title: string | null;
     og_description: string | null;
@@ -63,7 +64,7 @@ export async function getPageBySlug(slug: string): Promise<PageData | null> {
             return null;
         }
 
-        return data as PageData | null;
+        return data as unknown as PageData | null;
     } catch (e) {
         console.error(`Exception fetching page ${slug}:`, e);
         return null;

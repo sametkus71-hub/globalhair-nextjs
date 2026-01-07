@@ -16,7 +16,7 @@ function deduceCategory(slug: string) {
     if (slug.includes('haartransplantatie')) return 'Haartransplantatie';
     if (slug.includes('v6-hairboost')) return 'V6 Hairboost';
     if (slug.includes('review')) return 'Algemeen';
-    return 'Other';
+    return 'Uncategorized';
 }
 
 function findPages(dir: string, fileList: string[] = []) {
@@ -47,20 +47,40 @@ export async function POST(request: Request) {
         const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || FALLBACK_URL;
         const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-        // Use service key if available, otherwise anon key, otherwise fallback
         const supabaseKey = supabaseServiceKey || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || FALLBACK_KEY;
 
         if (!supabaseKey) {
             throw new Error("Supabase Key is required");
         }
 
-        const supabase = createClient(supabaseUrl, supabaseKey);
+        // Options to pass user session if available (for RLS)
+        const options: any = {
+            auth: {
+                autoRefreshToken: false,
+                persistSession: false,
+            }
+        };
+
+        // If we don't have the Service Role Key, try to use the User's Token
+        if (!supabaseServiceKey) {
+            const authHeader = request.headers.get('Authorization');
+            if (authHeader) {
+                options.global = {
+                    headers: {
+                        Authorization: authHeader,
+                    },
+                };
+            }
+        }
+
+        const supabase = createClient(supabaseUrl, supabaseKey, options);
 
         // 2. Scan Filesystem
         const appDir = path.join(process.cwd(), 'src', 'app');
         const allPageFiles = findPages(appDir);
 
         const pagesToUpsert: any[] = [];
+        const processedSlugs = new Set<string>(); // Keep track to prevent duplicates in the batch
 
         // 3. Process each file
         allPageFiles.forEach(absolutePath => {
@@ -80,30 +100,108 @@ export async function POST(request: Request) {
                 const finalSlug = generateMockSlug(lang);
                 if (finalSlug.includes('admin') || finalSlug.includes('api')) return;
 
+                // Deduplicate check
+                const uniqueKey = `${lang}:${finalSlug.toLowerCase()}`;
+                if (processedSlugs.has(uniqueKey)) return;
+                processedSlugs.add(uniqueKey);
+
+                // Derive component_key from the directory structure (stable)
+                // e.g. "src/app/[lang]/v6-hairboost" -> "v6-hairboost"
+                const componentKey = dirPath.replace('[lang]/', '').replace('[lang]', '').replace(/^\//, '');
+
                 pagesToUpsert.push({
-                    slug: finalSlug,
+                    slug: finalSlug, // Default slug (can be changed in DB later)
+                    component_key: componentKey, // Stable link to code
                     language: lang,
                     category: deduceCategory(finalSlug),
                     status: 'published',
-                    // seo_title: null, // Let DB default or preserve existing
                     updated_at: new Date().toISOString()
                 });
             });
         });
 
-        // 4. Upsert Logic (Manual "ON CONFLICT DO NOTHING" simulation or real upsert)
-        // We want to add MISSING pages, not overwrite existing ones (to keep custom titles).
-        // Best approach: Fetch all, filter new, insert new.
+        // 4. Smart Upsert Logic
+        // We want to:
+        // A. Assign keys to existing pages if they match the default slug (Legacy migration)
+        // B. Insert new pages that don't exist at all.
+        // C. NOT overwrite custom slugs or titles of existing pages.
 
-        const { data: existingPages } = await supabase.from('pages').select('slug');
-        const existingSlugSet = new Set((existingPages || []).map((p: any) => p.slug));
+        const { data: existingPages } = await supabase.from('pages').select('id, slug, component_key, language');
 
-        const newPages = pagesToUpsert.filter(p => !existingSlugSet.has(p.slug));
+        // Map existing pages for quick lookup (Normalize to lowercase to prevent duplicates)
+        const slugMap = new Map();
+        existingPages?.forEach((p: any) => slugMap.set(`${p.language}:${p.slug.toLowerCase()}`, p));
 
-        if (newPages.length > 0) {
-            // Using upsert with ignoreDuplicates to prevent unique constraint errors
-            // We only want to add missing pages, NOT update existing ones blindly
-            const { error } = await supabase.from('pages').upsert(newPages, {
+        const keyMap = new Map();
+        existingPages?.forEach((p: any) => {
+            if (p.component_key) keyMap.set(`${p.language}:${p.component_key}`, p);
+        });
+
+        const updates = [];
+        const inserts = [];
+
+        for (const page of pagesToUpsert) {
+            const pageSlugLower = page.slug.toLowerCase();
+            const langKey = `${page.language}:${page.component_key}`;
+            const slugKey = `${page.language}:${pageSlugLower}`;
+
+            // Case 1: Page exists by Key (Perfect match)
+            if (keyMap.has(langKey)) {
+                continue;
+            }
+
+            // Case 2: Page exists by Exact Slug Match but has NO Key (Legacy migration)
+            if (slugMap.has(slugKey)) {
+                const existing = slugMap.get(slugKey);
+
+                // Only update if missing key
+                if (!existing.component_key) {
+                    updates.push({
+                        id: existing.id,
+                        slug: existing.slug, // Keep original slug casing
+                        component_key: page.component_key,
+                        updated_at: new Date().toISOString()
+                    });
+                }
+                continue;
+            }
+
+            // Case 2b: Fuzzy Match (e.g. DB has 'chat', generated is 'nl/chat')
+            // Try stripping the language prefix
+            const shortSlug = pageSlugLower.replace(`${page.language}/`, '');
+            const shortSlugKey = `${page.language}:${shortSlug}`;
+
+            if (slugMap.has(shortSlugKey)) {
+                const existing = slugMap.get(shortSlugKey);
+                if (!existing.component_key) {
+                    updates.push({
+                        id: existing.id,
+                        slug: existing.slug,
+                        component_key: page.component_key,
+                        updated_at: new Date().toISOString()
+                    });
+                }
+                continue;
+            }
+
+            // Case 3: Totally new -> Insert
+            inserts.push(page);
+        }
+
+        if (updates.length > 0) {
+            console.log("Attempting to UPDATE keys for:", updates.map(u => u.slug));
+            // Upserting by ID is safe
+            const { error } = await supabase.from('pages').upsert(updates);
+            if (error) {
+                console.error("Error updating legacy keys:", error);
+                throw error;
+            }
+        }
+
+        if (inserts.length > 0) {
+            console.log("Attempting to INSERT new pages:", inserts.map(p => p.slug));
+            // Insert new pages using safe upsert to ignore conflicts if any slipped through
+            const { error } = await supabase.from('pages').upsert(inserts, {
                 onConflict: 'slug',
                 ignoreDuplicates: true
             });
@@ -112,13 +210,20 @@ export async function POST(request: Request) {
 
         return NextResponse.json({
             success: true,
-            message: `Synced ${newPages.length} new pages.`,
+            message: `Synced: ${inserts.length} new (${inserts.map(i => i.slug).join(', ')}), ${updates.length} updated (${updates.map(u => u.component_key).join(', ')}).`,
             totalScanned: pagesToUpsert.length,
-            newPages: newPages.map(p => p.slug)
+            newPages: inserts.map(p => p.slug)
         });
 
     } catch (error: any) {
         console.error('Sync Error:', error);
+        try {
+            const fs = require('fs');
+            const path = require('path');
+            fs.writeFileSync(path.join(process.cwd(), 'sync-error.log'), `Error: ${error.message}\nStack: ${error.stack}\n`);
+        } catch (e) {
+            // ignore logging error
+        }
         return NextResponse.json({ success: false, error: error.message }, { status: 500 });
     }
 }
