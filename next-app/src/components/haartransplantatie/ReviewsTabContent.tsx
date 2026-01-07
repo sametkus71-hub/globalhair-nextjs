@@ -22,6 +22,26 @@ export const ReviewsTabContent = () => {
     checkScrollPosition();
   }, []);
 
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      // Only hijack scroll on desktop (checking min-width 768px matches the CSS logic)
+      if (window.innerWidth >= 768 && e.deltaY !== 0) {
+        e.preventDefault();
+        container.scrollLeft += e.deltaY;
+      }
+    };
+
+    // Passive: false is required to use preventDefault
+    container.addEventListener('wheel', handleWheel, { passive: false });
+
+    return () => {
+      container.removeEventListener('wheel', handleWheel);
+    };
+  }, []);
+
   const scrollLeft = () => {
     scrollContainerRef.current?.scrollBy({
       left: -400,

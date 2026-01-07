@@ -19,7 +19,7 @@ export const GlassHeaderV6 = ({ hideButton = false }: GlassHeaderV6Props) => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 animate-fade-in transition-all duration-500 ease-out ${isBookingPage ? 'opacity-0 -translate-y-4 pointer-events-none' : 'opacity-100 translate-y-0'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${isBookingPage ? 'opacity-0 -translate-y-4 pointer-events-none' : 'opacity-100 translate-y-0'
         }`}
       style={{
         animation: !isBookingPage ? 'fade-down 0.6s ease-out' : 'none',

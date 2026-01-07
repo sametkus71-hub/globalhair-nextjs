@@ -15,13 +15,31 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Settings, Save } from 'lucide-react';
+import { Settings, Save, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
 
 export function GlobalSettingsDialog() {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [saving, setSaving] = useState(false);
+    const [syncing, setSyncing] = useState(false);
+
+    const handleSync = async () => {
+        setSyncing(true);
+        try {
+            const response = await fetch('/api/admin/sync-pages', { method: 'POST' });
+            const result = await response.json();
+
+            if (!result.success) throw new Error(result.error);
+
+            toast.success(result.message);
+        } catch (error: any) {
+            console.error('Sync failed:', error);
+            toast.error('Sync failed: ' + error.message);
+        } finally {
+            setSyncing(false);
+        }
+    };
 
     // Form State
     const [settingsId, setSettingsId] = useState<string | null>(null);
@@ -148,6 +166,34 @@ export function GlobalSettingsDialog() {
                             <p className="text-[10px] text-gray-400">
                                 This image is used as the absolute fallback for social sharing.
                             </p>
+                        </div>
+
+                        {/* Maintenance Section */}
+                        <div className="pt-4 mt-2 border-t border-gray-100">
+                            <h4 className="text-sm font-medium text-gray-900 mb-3 flex items-center gap-2">
+                                <span className="text-gray-500">🛠️</span>
+                                Maintenance
+                            </h4>
+                            <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                                <div className="flex items-center justify-between">
+                                    <div className="space-y-1">
+                                        <p className="text-sm font-medium text-gray-700">Sync with File System</p>
+                                        <p className="text-[10px] text-gray-500 max-w-[250px]">
+                                            Scans your project folders and adds any missing page files to the database automatically.
+                                        </p>
+                                    </div>
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={handleSync}
+                                        disabled={syncing || loading}
+                                        className="h-8 bg-white hover:bg-gray-100 text-gray-700 border-gray-300"
+                                    >
+                                        <RefreshCw className={`w-3.5 h-3.5 mr-2 ${syncing ? 'animate-spin' : ''}`} />
+                                        {syncing ? 'Scanning...' : 'Sync Now'}
+                                    </Button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 )}

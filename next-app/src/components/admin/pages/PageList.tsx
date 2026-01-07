@@ -97,6 +97,26 @@ export const PageList = () => {
     // State
     const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
 
+    const [syncing, setSyncing] = useState(false);
+
+    const handleSync = async () => {
+        setSyncing(true);
+        try {
+            const response = await fetch('/api/admin/sync-pages', { method: 'POST' });
+            const result = await response.json();
+
+            if (!result.success) throw new Error(result.error);
+
+            toast.success(result.message);
+            fetchPages();
+        } catch (error: any) {
+            console.error('Sync failed:', error);
+            toast.error('Sync failed: ' + error.message);
+        } finally {
+            setSyncing(false);
+        }
+    };
+
     useEffect(() => {
         fetchPages();
     }, []);
@@ -441,6 +461,15 @@ export const PageList = () => {
                         <p className="text-sm text-gray-500 mt-1">Manage your website structure and content.</p>
                     </div>
                     <div className="flex items-center gap-3">
+                        <Button
+                            variant="outline"
+                            onClick={handleSync}
+                            disabled={syncing || loading}
+                            className="bg-white hover:bg-gray-50 text-gray-700 border-gray-300 h-10 px-4"
+                        >
+                            <RefreshCw className={`mr-2 h-4 w-4 ${syncing ? 'animate-spin' : ''}`} />
+                            Sync Pages
+                        </Button>
                         <GlobalSettingsDialog />
                         <Button
                             onClick={() => router.push('/admin/pages/new')}
